@@ -12,7 +12,9 @@
     "nuxt": "3.0.0-rc.3"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.1.9",
     "@tauri-apps/api": "^1.0.0-rc.5",
+    "pinia": "^2.0.14",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#5726952177b88d1d10063cdf8e7506bac84772cf"
   }
 }
