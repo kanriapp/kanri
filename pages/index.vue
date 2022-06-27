@@ -1,11 +1,12 @@
 <template>
     <div>
-        <h1 class="text-red-500">Base app with nuxt 3, tauri store and tailwind</h1>
+        <h1 class="text-red-500">Kanri v0.1.0-alpha</h1>
+
     </div>
 </template>
 
 <script setup>
-import { useTauriStore } from '@/stores/tauriStore'
+import { useTauriStore } from "@/stores/tauriStore"
 const store = useTauriStore().store
 
 await store.set('some-key', { value: 5 });
