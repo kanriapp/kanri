@@ -29,8 +29,8 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
-      "longDescription": "",
+      "identifier": "com.trobonox.kanri",
+      "longDescription": "Kanban board application made for offline usage",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
@@ -56,10 +56,11 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 800,
         "resizable": true,
         "title": "Kanri",
-        "width": 800
+        "width": 1400,
+        "center": true
       }
     ]
   }
