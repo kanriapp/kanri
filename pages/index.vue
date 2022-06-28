@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <h1 class="text-red-500">Kanri v0.1.0-alpha</h1>
-
+    <div class="mt-8">
+        <h1 class="font-bold text-4xl">Welcome back to Kanri!</h1>
+        <h2 class="ml-1 text-dim-3">Your boards are ready and waiting for you.</h2>
     </div>
 </template>
 
