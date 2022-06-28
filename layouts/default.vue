@@ -2,6 +2,7 @@
   <div class="default-layout min-h-screen mx-auto" :style="cssVars">
 
     <div class="flex flex-row">
+        <Sidebar />
         <slot />
     </div>
   </div>
