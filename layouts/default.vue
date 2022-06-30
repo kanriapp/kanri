@@ -18,8 +18,6 @@ const cssVars = ref({})
 
 onMounted(async () => {
     await updateColors()
-    const activeTheme = await store.get("activeTheme")
-    console.log(activeTheme)
 })
 
 const updateColors = async () => {
