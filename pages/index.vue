@@ -1,7 +1,7 @@
 <template>
     <div class="mt-8">
         <h1 class="font-bold text-4xl">Welcome back to Kanri!</h1>
-        <h2 class="ml-1 text-dim-3">Your boards are ready and waiting for you.</h2>
+        <h2 class="ml-1 text-dim-3" v-if="boards.length !== 0">Your boards are ready and waiting for you.</h2>
 
         <main id="boards">
             <div v-if="boards.length === 0" class="flex flex-col items-left justify-center p-2">
