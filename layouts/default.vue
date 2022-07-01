@@ -5,6 +5,7 @@
         <Sidebar />
         <slot />
     </div>
+    <span class="absolute bottom-4 right-4 text-dim-4 tracking-tight">Kanri v.0.1.0-alpha by Trobonox</span>
   </div>
 </template>
 
