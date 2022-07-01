@@ -48,8 +48,8 @@
       </p>
       <h3 class="mt-4 mb-2 text-xl font-bold">Credits:</h3>
       <p>
-        Application made by Trobonox (trobo.tech), licensed under the MIT
-        License. Icons used are from Heroicons (also licensed unter the MIT License).
+        Application made by Trobonox (trobo.tech), licensed under the Apache 2.0
+        License. Icons used are from Heroicons (licensed unter the MIT License).
       </p>
     </template>
   </Modal>
