@@ -1,5 +1,10 @@
 <template>
     <nav class="flex flex-col items-center justify-between h-screen px-4 pb-6 pt-4 mr-8 bg-elevation-1">
+        <HelpModal
+            v-show="modalVisible"
+            ref="modal"
+            @closeModal="modalVisible = false"
+        />
         <section id="items-top" class="flex flex-col items-center gap-4">
             <!-- temporary logo placeholder -->
             <div id="logo" class="flex flex-row p-2 mb-2 bg-elevation-2 rounded-md">
@@ -23,6 +28,13 @@
             </button>
         </section>
         <section id="icons-bottom" class="flex flex-col items-center gap-4">
+            <button @click="modalVisible = true">
+                <div class="p-2 bg-elevation-2 bg-elevation-3-hover cursor-pointer rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+            </button>
             <nuxt-link to="/settings">
                 <div class="p-2 bg-elevation-2 bg-elevation-3-hover cursor-pointer rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -34,3 +46,7 @@
         </section>
     </nav>
 </template>
+
+<script setup>
+const modalVisible = ref(false)
+</script>
