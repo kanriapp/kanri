@@ -4731,6 +4731,11 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
+smooth-dnd@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/smooth-dnd/-/smooth-dnd-0.12.1.tgz#cdb44c972355659e32770368b29b6a80e0ed96f1"
+  integrity sha512-Dndj/MOG7VP83mvzfGCLGzV2HuK1lWachMtWl/Iuk6zV7noDycIBnflwaPuDzoaapEl3Pc4+ybJArkkx9sxPZg==
+
 source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
@@ -5012,7 +5017,7 @@ tar@^6.1.11:
   version "0.1.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/17cf4d781c82a6c6578c472068c11136c0652d50"
   dependencies:
-    "@tauri-apps/api" "1.0.1"
+    "@tauri-apps/api" "1.0.0-rc.5"
     tslib "2.4.0"
 
 terser@^5.0.0:
@@ -5343,6 +5348,13 @@ vue-router@^4.0.16:
   integrity sha512-JcO7cb8QJLBWE+DfxGUL3xUDOae/8nhM1KVdnudadTAORbuxIC/xAydC5Zr/VLHUDQi1ppuTF5/rjBGzgzrJNA==
   dependencies:
     "@vue/devtools-api" "^6.0.0"
+
+vue3-smooth-dnd@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/vue3-smooth-dnd/-/vue3-smooth-dnd-0.0.2.tgz#779c885754466b55930de8bfd0a13adc889782d7"
+  integrity sha512-5OlpoZ1fmpA1CcjvRwJ9P3MEPZ0nnnYuIf/9zMGKF8i7jTE6fQX3oeY0jDHNtOjuCmvTSbc0AYq18M9QIF32Ew==
+  dependencies:
+    smooth-dnd "^0.12.1"
 
 vue@^3.2.37:
   version "3.2.37"
