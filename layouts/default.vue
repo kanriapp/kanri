@@ -2,10 +2,9 @@
   <div class="default-layout min-h-screen mx-auto" :style="cssVars">
 
     <div class="flex flex-row">
-        <Sidebar />
+        <Sidebar class="sticky top-0" />
         <slot />
     </div>
-    <span class="absolute bottom-4 right-4 text-dim-4 tracking-tight">Kanri v.0.1.0-alpha by Trobonox</span>
   </div>
 </template>
 

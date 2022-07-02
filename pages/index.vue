@@ -1,10 +1,10 @@
 <template>
     <div class="mt-8">
         <h1 class="font-bold text-4xl">Welcome back to Kanri!</h1>
-        <h2 class="ml-1 text-dim-3" v-if="boardLength() !== 0">Your boards are ready and waiting for you.</h2>
+        <h2 class="ml-1 text-dim-3" v-if="boards.length !== 0">Your boards are ready and waiting for you.</h2>
 
         <main id="boards">
-            <div v-if="boardLength() === 0" class="flex flex-col items-left justify-center p-2 mt-5 bg-elevation-1 rounded-md">
+            <div v-if="boards.length === 0" class="flex flex-col items-left justify-center p-2 mt-5 bg-elevation-1 rounded-md">
                 <h3 class="font-bold text-xl">So empty here!</h3>
                 <span>Create a board to get started with tracking your tasks better.</span>
                 <svg width="422" height="422" viewBox="0 0 422 422" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-12 h-12">
@@ -12,34 +12,23 @@
                 </svg>
             </div>
 
-            <div v-else class="mt-5 flex flex-row gap-6 flex-wrap">
+            <div v-else class="mt-5 mb-8 flex flex-row gap-6 flex-wrap">
                 <nuxt-link
                     v-for="(board, index) in boards"
+                    id="board-preview" class="flex flex-col bg-elevation-1 bg-elevation-2-hover rounded-md group"
                     :key="index"
                     :to="'/kanban/' + index"
-                    class="bg-elevation-1 bg-elevation-2-hover rounded-md p-4 text-lg"
-                    >{{ board.title }}</nuxt-link
                 >
-                <button
-                    class="bg-elevation-1 bg-elevation-2-hover rounded-md px-4 py-2 text-lg"
-                    @click="createNewBoard()"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="text-accent h-8 w-8"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                        />
-                    </svg>
-                    <span hidden>Add Board</span>
-                </button>
+                    <img class="w-56 rounded-t-md filter group-hover:contrast-50" src="https://images.unsplash.com/photo-1656751609190-e0168efca2da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="pog">
+                    <div class="flex flex-row justify-between py-2 px-1">
+                        <span class="text-lg font-semibold px-1"> {{ board.title }} </span>
+                        <button @click.prevent="console.log('pog')" class="bg-elevation-3-hover rounded-md px-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </nuxt-link>
             </div>
         </main>
     </div>
@@ -48,20 +37,19 @@
 <script setup>
 import { useTauriStore } from "@/stores/tauriStore"
 import { generateUniqueID } from "~/utils/idGenerator.js";
+import emitter from "~/utils/emitter.js"
 
 const store = useTauriStore().store
 const boards = ref([])
 
 onMounted(async () => {
+    emitter.on("createBoard", () => {
+        createNewBoard()
+    })
+
     boards.value = await store.get("boards") || []
     console.log(boards.value)
 })
-
-const boardLength = () => {
-    nextTick(() => {
-        return boards.length
-    })
-}
 
 const createNewBoard = () => {
     // TODO: make a nicer onboarding process with a modal (instead of creating a full placeholder board)

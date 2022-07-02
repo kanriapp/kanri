@@ -3365,6 +3365,11 @@ minizlib@^2.1.1:
     minipass "^3.0.0"
     yallist "^4.0.0"
 
+mitt@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.0.tgz#69ef9bd5c80ff6f57473e8d89326d01c414be0bd"
+  integrity sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==
+
 mkdirp@^0.5.1, mkdirp@^0.5.5:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.6.tgz#7def03d2432dcae4ba1d611445c48396062255f6"
@@ -5017,7 +5022,7 @@ tar@^6.1.11:
   version "0.1.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/17cf4d781c82a6c6578c472068c11136c0652d50"
   dependencies:
-    "@tauri-apps/api" "1.0.1"
+    "@tauri-apps/api" "1.0.0-rc.5"
     tslib "2.4.0"
 
 terser@^5.0.0:
