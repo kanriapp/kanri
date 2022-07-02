@@ -63,7 +63,7 @@ const boardLength = () => {
 }
 
 const createNewBoard = () => {
-    console.log(1)
+    // TODO: make a nicer onboarding process with a modal (instead of creating a full placeholder board)
 
     const board = {
         id: generateUniqueID(),
@@ -91,13 +91,7 @@ const createNewBoard = () => {
         ],
     };
 
-    store.set("boards", [...boards.value, board]).then(() => {
-        console.log("pog")
-    });
-
-    store.get("boards").then((new_boards) => {
-        boards.value = new_boards
-        console.log("poggies")
-    })
+    boards.value = [...boards.value, board]
+    store.set("boards", [...old_boards, board])
 }
 </script>
