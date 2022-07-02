@@ -22,11 +22,20 @@
                     <img class="w-56 rounded-t-md filter group-hover:contrast-50" src="https://images.unsplash.com/photo-1656751609190-e0168efca2da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="pog">
                     <div class="flex flex-row justify-between py-2 px-1">
                         <span class="text-lg font-semibold px-1"> {{ board.title }} </span>
-                        <button @click.prevent="console.log('pog')" class="bg-elevation-3-hover rounded-md px-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                            </svg>
-                        </button>
+                        <VDropdown :distance="2" placement="bottom-end">
+                            <button @click.prevent class="bg-elevation-3-hover rounded-md px-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                </svg>
+                            </button>
+
+                            <template #popper class="bg-elevation-1">
+                                <div class="flex flex-col">
+                                    <button class="hover:bg-gray-200 px-4 py-1.5" @click="boardAction(index)">Rename</button>
+                                    <button class="hover:bg-gray-200 px-4 py-1.5" @click="boardAction(index)">Delete</button>
+                                </div>
+                            </template>
+                        </VDropdown>
                     </div>
                 </nuxt-link>
             </div>
@@ -50,6 +59,10 @@ onMounted(async () => {
     boards.value = await store.get("boards") || []
     console.log(boards.value)
 })
+
+const boardAction = (board) => {
+    console.log(board)
+}
 
 const createNewBoard = () => {
     // TODO: make a nicer onboarding process with a modal (instead of creating a full placeholder board)

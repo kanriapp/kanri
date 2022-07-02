@@ -14,6 +14,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.1.9",
     "@tauri-apps/api": "^1.0.1",
+    "floating-vue": "^2.0.0-beta.17",
     "mitt": "^3.0.0",
     "pinia": "^2.0.14",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#17cf4d781c82a6c6578c472068c11136c0652d50",

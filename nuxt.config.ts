@@ -4,5 +4,5 @@ import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
     ssr: false,
     modules: ['@nuxtjs/tailwindcss'],
-    buildModules: ['@pinia/nuxt'],
+    buildModules: ['@pinia/nuxt', 'floating-vue/nuxt'],
 })
