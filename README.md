@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# Kanri
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+Spiritual successor to Kanban Electron, shares some code with it.
 
 ## Setup
 
