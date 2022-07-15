@@ -1,6 +1,7 @@
 # Kanri
 
 Spiritual successor to Kanban Electron, shares some code with it.
+Ideas and todos are on Twos.
 
 ## Setup
 
