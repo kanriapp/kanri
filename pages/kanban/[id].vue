@@ -9,17 +9,14 @@
             group-name="columns"
             :orientation="'horizontal'"
             class="flex-row gap-4"
-            :get-child-payload="getChildPayload"
         >
-            <Draggable>
-                <div class="flex flex-row">
-                    <div class="p-4 bg-elevation-1">Box 1</div>
-                </div>
-            </Draggable>
-            <Draggable>
-                <div class="flex flex-row">
-                    <div class="p-4 bg-elevation-1">Box 2</div>
-                </div>
+            <Draggable v-for="column in board.lists" :key="column.id">
+                <KanbanColumn
+                    :ref="'kanbancol' + column.id"
+                    :id="column.id"
+                    :title="column.title"
+                    :list="column.cards"
+                />
             </Draggable>
         </Container>
 
@@ -34,10 +31,10 @@ import { Container, Draggable } from "vue3-smooth-dnd"
 const store = useTauriStore().store
 const route = useRoute()
 const boards = await store.get("boards")
-const board = boards[route.params.id]
+const board = boards[0]
 
 const onDrop = () => {
-    console.log("pog")
+    console.log(board)
 }
 </script>
 
