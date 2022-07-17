@@ -4,21 +4,14 @@
             @setCardDescription="setCardDescription" @closeModal="closeModal" />
 
         <div class="flex flex-row items-start justify-between gap-4">
-            <h1 v-if="!titleEditing" @click="
-        titleEditing = true;
-    $nextTick(() => $refs.titleInput.focus());
-            " class="text-no-overflow ml-1 text-lg font-bold">
+            <h1 v-if="!titleEditing" @click="titleEditing = true; $nextTick(() => $refs.titleInput.focus());"
+                class="text-no-overflow ml-1 text-lg font-bold">
                 {{ titleNew }}
             </h1>
             <input ref="titleInput" v-if="titleEditing" type="text" v-model="titleNew"
                 class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 text-lg outline-none"
-                @blur="
-            titleEditing = false;
-        updateStorage();
-                " @keypress.enter="
-    titleEditing = false;
-updateStorage();
-        " />
+                @blur="titleEditing = false; updateStorage();"
+                @keypress.enter="titleEditing = false; updateStorage();" />
             <svg class="text-dim-4 text-accent-hover mt-2 h-4 w-4 flex-shrink-0 flex-grow-0 cursor-pointer"
                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                 @click="$emit('removeColumn', id)">
@@ -56,9 +49,7 @@ updateStorage();
                 <button id="submitButton" class="text-buttons bg-accent rounded-md px-2 py-1" @click="addCard($event)">
                     Add Card
                 </button>
-                <button @click="
-          cardAddMode = !cardAddMode;
-      newCardName = '';
+                <button @click="cardAddMode = !cardAddMode; newCardName = '';
                 " class="bg-elevation-3-hover rounded-md px-2 py-1">
                     Cancel
                 </button>
@@ -67,10 +58,7 @@ updateStorage();
 
         <div v-if="!cardAddMode"
             class="text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row gap-1 rounded-md py-1 font-medium"
-            @click="
-          cardAddMode = !cardAddMode;
-      $nextTick(() => $refs.newCardInput.focus());
-            ">
+            @click="cardAddMode = !cardAddMode; $nextTick(() => $refs.newCardInput.focus());">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

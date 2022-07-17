@@ -1,22 +1,13 @@
 <template>
     <div class="flex flex-col">
         <h1 class="my-4 text-2xl font-bold">
-             {{ $route.params.id }} -
-             {{ board.title }}
+            {{ $route.params.id }} -
+            {{ board.title }}
         </h1>
-        <Container
-            @drop="onDrop"
-            group-name="columns"
-            :orientation="'horizontal'"
-            class="flex-row gap-4"
-        >
+        <Container @drop="onDrop" group-name="columns" :orientation="'horizontal'" class="flex-row gap-4">
             <Draggable v-for="column in board.lists" :key="column.id">
-                <KanbanColumn
-                    :ref="'kanbancol' + column.id"
-                    :id="column.id"
-                    :title="column.title"
-                    :list="column.cards"
-                />
+                <KanbanColumn :ref="'kanbancol' + column.id" :id="column.id" :title="column.title"
+                    :list="column.cards" />
             </Draggable>
         </Container>
 
@@ -31,7 +22,7 @@ import { Container, Draggable } from "vue3-smooth-dnd"
 const store = useTauriStore().store
 const route = useRoute()
 const boards = await store.get("boards")
-const board = boards[0]
+const board = boards[route.params.id]
 
 const onDrop = () => {
     console.log(board)
@@ -40,6 +31,6 @@ const onDrop = () => {
 
 <style scoped>
 .smooth-dnd-container.horizontal {
-  display: flex;
+    display: flex;
 }
 </style>
