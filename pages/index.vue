@@ -125,7 +125,7 @@ const createNewBoard = () => {
 };
 
 const deleteBoard = (index) => {
-    boards.value.splice(index, 1);
-    store.set("boards", boards.value);
-};
-</script>
+    boards.value.splice(index, 1);
+    store.set("boards", boards.value);
+};
+</script>
