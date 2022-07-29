@@ -67,7 +67,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useTauriStore } from "@/stores/tauriStore";
 
 import { generateUniqueID } from "~/utils/idGenerator.js";
@@ -87,7 +87,7 @@ onMounted(async () => {
     console.log(boards.value);
 });
 
-const boardAction = (board) => {
+const boardAction = (board: number) => {
     console.log(board);
 };
 
@@ -124,7 +124,7 @@ const createNewBoard = () => {
     store.set("boards", boards.value);
 };
 
-const deleteBoard = (index) => {
+const deleteBoard = (index: number) => {
     boards.value.splice(index, 1);
     store.set("boards", boards.value);
 };
