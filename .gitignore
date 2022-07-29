@@ -5,3 +5,4 @@ node_modules
 .cache
 .output
 .env
+.vscode
