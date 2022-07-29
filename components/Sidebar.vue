@@ -1,6 +1,6 @@
 <template>
     <nav class="flex flex-col items-center justify-between h-screen px-4 pb-6 pt-4 mr-8 bg-elevation-1">
-        <HelpModal
+        <ModalHelp
             v-show="modalVisible"
             ref="modal"
             @closeModal="modalVisible = false"

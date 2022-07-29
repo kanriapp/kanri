@@ -15,7 +15,7 @@
                     >Create a board to get started with tracking your tasks
                     better.</span
                 >
-                <ArrowIcon />
+                <IconArrow />
             </div>
 
             <div v-else class="flex flex-row flex-wrap mt-5 mb-8 gap-6">
@@ -38,22 +38,9 @@
                         <VDropdown :distance="2" placement="bottom-end">
                             <button
                                 @click.prevent
-                                class="px-1 bg-elevation-3-hover rounded-md"
+                                class="py-0.5 px-1 bg-elevation-3-hover rounded-md"
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="w-6 h-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                                    />
-                                </svg>
+                                <DotsHorizontalIcon class="h-6 w-6" />
                             </button>
 
                             <template #popper class="bg-elevation-1">
@@ -82,8 +69,11 @@
 
 <script setup>
 import { useTauriStore } from "@/stores/tauriStore";
+
 import { generateUniqueID } from "~/utils/idGenerator.js";
 import emitter from "~/utils/emitter.js";
+
+import { DotsHorizontalIcon } from "@heroicons/vue/solid";
 
 const store = useTauriStore().store;
 const boards = ref([]);
@@ -134,7 +124,8 @@ const createNewBoard = () => {
     store.set("boards", boards.value);
 };
 
-const deleteBoard = (index) => {
+const deleteBoard = (index) => {
     boards.value.splice(index, 1);
+    store.set("boards", boards.value);
 };
 </script>

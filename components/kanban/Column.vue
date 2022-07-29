@@ -1,6 +1,6 @@
 <template>
     <div class="bg-elevation-1 flex w-64 flex-col rounded-md p-2 shadow-lg">
-        <KanbanModal v-show="modalVisible" ref="modal" @setCardTitle="setCardTitle"
+        <ModalKanban v-show="modalVisible" ref="modal" @setCardTitle="setCardTitle"
             @setCardDescription="setCardDescription" @closeModal="closeModal" />
 
         <div class="flex flex-row items-start justify-between gap-4">
@@ -70,11 +70,9 @@
 
 <script>
 import { Container, Draggable } from "vue3-smooth-dnd";
-import KanbanModal from "~/components/KanbanModal.vue";
 
 export default {
-    name: "KanbanColumn",
-    components: { Container, Draggable, KanbanModal },
+    components: { Container, Draggable},
     props: {
         id: {
             type: String,
