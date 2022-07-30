@@ -1,7 +1,7 @@
 <template>
     <div class="bg-elevation-1 flex w-64 flex-col rounded-md p-2 shadow-lg">
         <ModalKanban v-show="modalVisible" ref="modal" @setCardTitle="setCardTitle"
-            @setCardDescription="setCardDescription" @closeModal="modalVisible = false" />
+            @setCardDescription="setCardDescription" @closeModal="modalVisible = false"/>
 
         <div id="board-title" class="flex flex-row items-start justify-between gap-4">
             <h1 v-if="!titleEditing" @click="titleEditing = true; $nextTick(() => $refs.titleInput.focus());"
@@ -74,7 +74,6 @@
 <script setup lang="ts">
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { XIcon } from "@heroicons/vue/solid"
-import emitter from "@/utils/emitter";
 import { applyDrag } from "@/utils/drag-n-drop"
 
 const props = defineProps<{
@@ -83,7 +82,7 @@ const props = defineProps<{
     cardsList: Array<Object>
 }>()
 
-const emit = defineEmits(["updateStorage"])
+const emit = defineEmits(["updateStorage", "removeColumn"])
 
 const cards = ref(props.cardsList)
 const newCardName = ref("")
@@ -116,11 +115,12 @@ const addCard = (event) => {
 
     newCardName.value = "";
     cardAddMode.value = false;
-    //updateStorage();
+    updateStorage();
 }
 
 const removeCard = (index: number) => {
     cards.value.splice(index, 1);
+    updateStorage();
 }
 
 const setCardTitle = (cardIndex: number, title: string) => {
@@ -206,12 +206,6 @@ const updateStorage = () => {
 
     methods: {
 
-
-        removeCard(index) {
-            this.$delete(this.cards, index);
-            this.updateStorage();
-        },
-
         setCardTitle(cardIndex, title) {
             this.cards[cardIndex].name = title;
             this.updateStorage();
@@ -245,16 +239,6 @@ const updateStorage = () => {
             this.modalVisible = false;
             this.draggingEnabled = true;
             this.$emit("modalClose");
-        },
-
-        updateStorage() {
-            const column = {
-                id: this.id,
-                title: this.titleNew,
-                cards: this.cards,
-            };
-
-            this.$emit("updateStorage", column);
         },
     },
 };
