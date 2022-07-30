@@ -5,7 +5,7 @@ export declare interface Board {
 }
 
 export declare interface Column {
-    id?: string,
+    id: string,
     cards: Array<any>
 }
 
