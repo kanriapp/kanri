@@ -13,7 +13,8 @@
     </transition>
 </template>
 
-<script>
+<script setup lang="ts">
+/*
 export default {
     props: ["title", "titleEditingAllowed"],
     data() {
@@ -22,6 +23,7 @@ export default {
             titleEditing: false,
         };
     },
+    TODO: TRANSFER KANBAN LOGIC FROM HERE!!
     methods: {
         setTitleRemote() {
             this.$emit("setTitle", this.modalTitle);
@@ -39,6 +41,16 @@ export default {
         },
     },
 };
+*/
+withDefaults(defineProps<{
+    title?: string
+    clickOutsideToClose?: boolean,
+    blurBackground?: boolean
+}>(), {
+    title: "Card Title",
+    clickOutsideToClose: true,
+    blurBackground: true
+})
 </script>
 
 <style>
