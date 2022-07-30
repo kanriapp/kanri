@@ -7,17 +7,17 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^5.3.0",
-    "@tauri-apps/cli": "^1.0.4",
+    "@nuxtjs/tailwindcss": "^5.3.1",
+    "@tauri-apps/cli": "^1.0.5",
     "nuxt": "3.0.0-rc.4"
   },
   "dependencies": {
     "@heroicons/vue": "^1.0.6",
-    "@pinia/nuxt": "^0.1.9",
+    "@pinia/nuxt": "^0.3.1",
     "@tauri-apps/api": "^1.0.2",
     "floating-vue": "^2.0.0-beta.17",
     "mitt": "^3.0.0",
-    "pinia": "^2.0.16",
+    "pinia": "^2.0.17",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#17cf4d781c82a6c6578c472068c11136c0652d50",
     "vue3-smooth-dnd": "^0.0.2"
   }
