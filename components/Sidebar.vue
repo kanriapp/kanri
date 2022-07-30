@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex flex-col items-center justify-between h-screen px-4 pb-6 pt-4 mr-8 bg-elevation-1">
+    <nav class="flex flex-col items-center justify-between h-screen px-4 pb-6 pt-4 mr-8 bg-elevation-1 sticky left-0 top-0">
         <ModalHelp
             v-show="modalVisible"
             ref="modal"
