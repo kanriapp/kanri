@@ -35,7 +35,7 @@ const store = useTauriStore().store
 const route = useRoute()
 
 const boards = ref([])
-const board = ref({id: "123", title: "Loading...", columns: []})
+const board = ref({id: "123", title: "", columns: []})
 
 onMounted(async () => {
     boards.value = await store.get("boards");
