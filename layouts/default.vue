@@ -1,6 +1,5 @@
 <template>
     <div class="default-layout min-h-screen min-w-full max-w-max mx-auto" :style="cssVars">
-
         <div class="flex flex-row">
             <Sidebar class="sticky top-0" />
             <slot />
@@ -11,20 +10,25 @@
 <script setup>
 import { useTauriStore } from "@/stores/tauriStore"
 import { dark } from "@/utils/themes.js"
+import emitter from "@/utils/emitter.js"
 
 const store = useTauriStore().store
-const savedColors = await store.get("colors")
-const cssVars = ref({})
+const savedColors = ref({})
 
 onMounted(async () => {
-    await updateColors()
+    savedColors.value = await store.get("colors");
+    emitter.on("updateColors", async () => {
+        nextTick(async () => {
+            savedColors.value = await store.get("colors");
+        });
+    });
 })
 
-const updateColors = async () => {
+const cssVars = computed(() => {
     if (!savedColors) {
         store.set("activeTheme", "dark")
 
-        cssVars.value = {
+        return {
             "--bg-primary": dark.bgPrimary,
             "--elevation-1": dark.elevation1,
             "--elevation-2": dark.elevation2,
@@ -40,28 +44,30 @@ const updateColors = async () => {
         }
     }
     else {
-        cssVars.value = {
-            "--bg-primary": savedColors.bgPrimary,
-            "--elevation-1": savedColors.elevation1,
-            "--elevation-2": savedColors.elevation2,
-            "--elevation-3": savedColors.elevation3,
-            "--accent": savedColors.accent,
-            "--accent-darker": savedColors.accentDarker,
-            "--text": savedColors.text,
-            "--text-dim-1": savedColors.textD1,
-            "--text-dim-2": savedColors.textD2,
-            "--text-dim-3": savedColors.textD3,
-            "--text-dim-4": savedColors.textD4,
-            "--text-buttons": savedColors.textButtons,
+        return {
+            "--bg-primary": savedColors.value.bgPrimary,
+            "--elevation-1": savedColors.value.elevation1,
+            "--elevation-2": savedColors.value.elevation2,
+            "--elevation-3": savedColors.value.elevation3,
+            "--accent": savedColors.value.accent,
+            "--accent-darker": savedColors.value.accentDarker,
+            "--text": savedColors.value.text,
+            "--text-dim-1": savedColors.value.textD1,
+            "--text-dim-2": savedColors.value.textD2,
+            "--text-dim-3": savedColors.value.textD3,
+            "--text-dim-4": savedColors.value.textD4,
+            "--text-buttons": savedColors.value.textButtons,
         }
     }
-}
+})
 </script>
 
 <style>
     .default-layout {
         background-color: var(--bg-primary);
         color: var(--text);
+        transition: color .5s cubic-bezier(.17,.67,.83,.67);
+        transition: background-color .5s cubic-bezier(.17,.67,.83,.67);
     }
 
     .bg-elevation-1 {

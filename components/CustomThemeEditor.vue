@@ -134,11 +134,11 @@
 // @ts-nocheck
 import { dark } from "@/utils/themes.js";
 import { lightenColor } from "@/utils/colorUtils.js";
+import emitter from "@/utils/emitter.js"
 
 import { useTauriStore } from "@/stores/tauriStore"
 
 const store = useTauriStore().store;
-const router = useRouter();
 
 const customTheme = ref({});
 
@@ -167,7 +167,7 @@ const setCustomTheme = () => {
     }
 
     store.set("colors", theme);
-    router.go(0);
+    emitter.emit("updateColors");
 }
 </script>
 

@@ -86,11 +86,11 @@
 <script setup lang="ts">
 import { useTauriStore } from "@/stores/tauriStore"
 import { light, dark, catppuccin } from "@/utils/themes.js";
+import emitter from "@/utils/emitter.js"
 
 import { ColorSwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/outline"
 
 const store = useTauriStore().store;
-const router = useRouter();
 
 const activeTheme = ref("");
 const themeEditorDisplayed = ref(false);
@@ -113,7 +113,7 @@ const setTheme = (themeName: string) => {
 
     store.set("activeTheme", themeName);
     store.set("colors", themes[themeName]);
-    router.go(0);
+    emitter.emit("updateColors");
 }
 
 const themeIconClass = (theme: string) => {
