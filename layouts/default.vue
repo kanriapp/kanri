@@ -21,6 +21,7 @@ onMounted(async () => {
         nextTick(async () => {
             savedColors.value = await store.get("colors");
         });
+        savedColors.value = await store.get("colors");
     });
 })
 
