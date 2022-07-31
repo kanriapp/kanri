@@ -1,8 +1,9 @@
 <template>
     <transition name="modal-fade">
         <div
-            @click.self="$emit('closeModal')"
-            class="modal inset-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800 bg-opacity-40 bg-clip-padding backdrop-blur-xl backdrop-filter"
+            @click.self="clickOutsideToClose ? $emit('closeModal') : (() => {})"
+            class="modal inset-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800 bg-opacity-40 bg-clip-padding backdrop-filter"
+            :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
         >
             <div
                 class="bg-elevation-1 min-h-content min-w-content rounded-md py-4 pl-8 pr-6 shadow-lg"
@@ -49,7 +50,7 @@ withDefaults(defineProps<{
 }>(), {
     title: "Card Title",
     clickOutsideToClose: true,
-    blurBackground: true
+    blurBackground: false
 })
 </script>
 
