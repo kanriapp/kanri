@@ -20,7 +20,9 @@
 
         <Container group-name="cards" :get-child-payload="getChildPayload"
             class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm" @drop="onDrop"
-            :drag-handle-selector="dragHandleSelector">
+            :drag-handle-selector="dragHandleSelector"
+            orientation="vertical"
+        >
             <Draggable v-for="(el, index) in cards" :key="index"
                 class="bg-elevation-2 mb-3 cursor-grab rounded-sm px-3 pt-3 pb-5">
                 <div class="flex cursor-pointer flex-row justify-between" @click.self="openModal" :id="index">
