@@ -50,7 +50,7 @@ withDefaults(defineProps<{
 }>(), {
     title: "Card Title",
     clickOutsideToClose: true,
-    blurBackground: false
+    blurBackground: true
 })
 </script>
 
