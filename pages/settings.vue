@@ -85,7 +85,8 @@
 </template>
 
 <script setup lang="ts">
-import { ask, message } from '@tauri-apps/api/dialog';
+import { ask, message, save } from "@tauri-apps/api/dialog";
+import { writeTextFile } from "@tauri-apps/api/fs"
 
 import { useTauriStore } from "@/stores/tauriStore"
 import { light, dark, catppuccin } from "@/utils/themes.js";
@@ -137,7 +138,28 @@ const deleteAllData = async () => {
     else return;
 }
 
-const exportJSON = () => {
-    // to be implemented using tauri fs api
+const exportJSON = async () => {
+    const filePath = await save({
+        title: "Select file to export data to",
+        defaultPath: "./kanri_data_export.json",
+        filters: [{
+            name: 'JSON File',
+            extensions: ['json']
+        }]
+    });
+
+    const savedBoards = await store.get("boards");
+    const activeTheme = await store.get("activeTheme");
+    const colors = await store.get("colors");
+
+    const fileContents = JSON.stringify({
+        "boards": savedBoards,
+        "activeTheme": activeTheme,
+        "colors": colors
+    }, null, 2);
+
+    await writeTextFile(filePath, fileContents);
+
+    // TODO: allow importing from JSON
 }
 </script>
