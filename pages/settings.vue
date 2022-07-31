@@ -85,6 +85,8 @@
 </template>
 
 <script setup lang="ts">
+import { ask, message } from '@tauri-apps/api/dialog';
+
 import { useTauriStore } from "@/stores/tauriStore"
 import { light, dark, catppuccin } from "@/utils/themes.js";
 import emitter from "@/utils/emitter.js"
@@ -122,12 +124,17 @@ const themeIconClass = (theme: string) => {
     else return "";
 }
 
-const deleteAllData = () => {
-    store.delete("boards");
-    store.delete("colors");
-    store.set("activeTheme", "dark");
+const deleteAllData = async () => {
+    const yes = await ask('This action will irreversibly delete all of your boards, custom themes and revert all settings to default. Are you sure?', { title: 'Kanri', type: 'warning' });
 
-    // TODO: add toast library + toast or make custom component
+    if (yes) {
+        store.delete("boards");
+        store.delete("colors");
+        store.set("activeTheme", "dark");
+
+        await message('Successfully deleted data.', { title: 'Kanri', type: 'info' });
+    }
+    else return;
 }
 
 const exportJSON = () => {
