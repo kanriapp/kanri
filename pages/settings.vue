@@ -44,6 +44,7 @@
                 </h3>
                 <CustomThemeEditor />
             </div>
+            <button @click="$router.go(0)" class="mt-2 text-dim-3">If the colors do not update, please click <span class="underline">here</span>.</button>
         </section>
         <section id="miscellaneous-settings">
         <h2 class="mt-8 mb-2 text-2xl font-bold">Miscellaneous</h2>
