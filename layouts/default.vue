@@ -26,7 +26,7 @@ onMounted(async () => {
 })
 
 const cssVars = computed(() => {
-    if (!savedColors) {
+    if (savedColors === {}) {
         store.set("activeTheme", "dark")
 
         return {
