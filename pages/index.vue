@@ -70,10 +70,12 @@
 <script setup lang="ts">
 import { useTauriStore } from "@/stores/tauriStore";
 
-import { generateUniqueID } from "~/utils/idGenerator.js";
-import emitter from "~/utils/emitter.js";
+import { generateUniqueID } from "@/utils/idGenerator.js";
+import emitter from "@/utils/emitter.js";
 
 import { DotsHorizontalIcon } from "@heroicons/vue/solid";
+
+import type { Board } from "@/types/kanban-types"
 
 const store = useTauriStore().store;
 const boards = ref([]);
@@ -94,10 +96,10 @@ const boardAction = (board: number) => {
 const createNewBoard = () => {
     // TODO: make a nicer onboarding process with a modal (instead of creating a full placeholder board)
 
-    const board = {
+    const board: Board = {
         id: generateUniqueID(),
         title: "New Board",
-        lists: [
+        columns: [
             {
                 id: generateUniqueID(),
                 title: "New Column 1",
