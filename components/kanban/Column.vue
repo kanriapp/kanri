@@ -22,6 +22,7 @@
             class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm" @drop="onDrop"
             :drag-handle-selector="dragHandleSelector"
             orientation="vertical"
+            drag-class="cursor-grabbing"
         >
             <Draggable v-for="(el, index) in cards" :key="index"
                 class="bg-elevation-2 mb-3 cursor-grab rounded-sm px-3 pt-3 pb-5">
