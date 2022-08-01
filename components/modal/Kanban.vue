@@ -5,7 +5,28 @@
         @closeModal="$emit('closeModal')"
     >
         <template v-slot:content>
-            <div class="div flex flex-col">
+            <div class="div flex flex-col w-[36rem] min-h-[40rem]">
+                <div class="flex flex-row justify-between items-start gap-12">
+                    <h1
+                        @click="titleEditing = true; nextTick(() => $refs.titleInput.focus());"
+                        v-if="!titleEditing"
+                        :v-model="title"
+                        class="pointer-events-auto pr-5 text-2xl font-bold text-no-overflow"
+                    >
+                        {{ title }}
+                    </h1>
+                    <input
+                        @blur="updateTitle"
+                        @keypress.enter="updateTitle"
+                        v-if="titleEditing"
+                        ref="titleInput"
+                        type="text"
+                        v-model="title"
+                        class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
+                    />
+
+                    <XIcon class="h-6 w-6 cursor-pointer text-accent-hover flex-shrink-0" @click="$emit('closeModal')" />
+                </div>
                 <span class="text-md text-dim-3 mb-6">
                     Edit all the things about your card!
                 </span>
@@ -31,9 +52,24 @@
 </template>
 
 <script setup lang="ts">
+import emitter from "@/utils/emitter.js"
+
+import { XIcon } from "@heroicons/vue/solid";
+
+const emit = defineEmits(["closeModal", "setCardDescription", "setCardTitle"])
+
 const cardID = ref(0)
 const title = ref("")
 const description = ref("")
+
+const titleEditing = ref(false)
+
+onMounted(() => {
+    emitter.on("openKanbanModal", (params) => {
+        // @ts-ignore
+        initModal(params.index, params.el.name, params.el.description || "")
+    })
+})
 
 const initModal = (cardIdParam: number, titleParam: string, descriptionParam?: string) => {
     cardID.value = cardIdParam;
@@ -42,11 +78,11 @@ const initModal = (cardIdParam: number, titleParam: string, descriptionParam?: s
 }
 
 const updateDescription = () => {
-    this.$emit("setCardDescription", cardID.value, description.value);
+    emit("setCardDescription", cardID.value, description.value);
 }
 
-const setCardTitle = (titleParam: string) => {
-    title.value = titleParam;
-    this.$emit("setCardTitle", cardID.value, title.value);
+const updateTitle = () => {
+    titleEditing.value = false;
+    emit("setCardTitle", cardID.value, title.value);
 }
 </script>

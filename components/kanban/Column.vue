@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-elevation-1 flex w-64 flex-col rounded-md p-2 shadow-lg">
+    <div class="bg-elevation-1 flex w-64 flex-col rounded-md p-2 shadow-lg" ref="baseDiv">
         <ModalKanban v-show="modalVisible" ref="modal" @setCardTitle="setCardTitle"
             @setCardDescription="setCardDescription" @closeModal="modalVisible = false"/>
 
@@ -26,8 +26,8 @@
         >
             <Draggable v-for="(el, index) in cards" :key="index"
                 class="bg-elevation-2 mb-3 cursor-grab rounded-sm px-3 pt-3 pb-5">
-                <div class="flex cursor-pointer flex-row justify-between" @click.self="openModal" :id="index">
-                    <p class="text-no-overflow mr-2" @click="openModalFromChild">
+                <div class="flex cursor-pointer flex-row justify-between" @click.self="(event) => openModal(event, index, el)">
+                    <p class="text-no-overflow mr-2" @click="(event) => openModal(event, index, el)">
                         {{ el.name }}
                     </p>
                     <div class="cursor-pointer" @click="removeCard(index)">
@@ -78,6 +78,7 @@
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { XIcon } from "@heroicons/vue/solid"
 import { applyDrag } from "@/utils/drag-n-drop"
+import emitter from "~~/utils/emitter";
 
 const props = defineProps<{
     id: string,
@@ -86,6 +87,9 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(["updateStorage", "removeColumn"])
+
+const modal = ref(null)
+const baseDiv = ref(null)
 
 const cards = ref(props.cardsList)
 const newCardName = ref("")
@@ -126,24 +130,27 @@ const removeCard = (index: number) => {
     updateStorage();
 }
 
-const setCardTitle = (cardIndex: number, title: string) => {
-    //cards.value[cardIndex]["title"] = title;
-}
-
-const setCardDescription = () => {
+const setCardTitle = (cardIndex: number, name: string) => {
+    // @ts-ignore
+    cards.value[cardIndex].name = name;
 
 }
 
-const openModal = () => {
-
+const setCardDescription = (cardIndex: number, description: string) => {
+    // @ts-ignore
+    cards.value[cardIndex].description = description;
 }
 
-const openModalFromChild = () => {
-
+const openModal = (_, index, el) => {
+    draggingEnabled.value = false;
+    emitter.emit("openKanbanModal", {index, el});
+    modalVisible.value = true;
 }
 
 const closeModal = () => {
-
+    modalVisible.value = false;
+    draggingEnabled.value = true;
+    // TODO: also disable dragging for columns (emit event to top page, see KE)
 }
 
 const updateStorage = () => {
@@ -157,33 +164,10 @@ const updateStorage = () => {
 }
 
 
-/*export default {
-    components: { Container, Draggable},
-    props: {
-        id: {
-            type: String,
-            required: true,
-        },
-        title: {
-            type: String,
-            required: true,
-        },
-        list: {
-            type: Array,
-            required: true,
-        },
-    },
-    data() {
-        return {
-            cards: [...this.list],
-            newCardName: "",
-            cardAddMode: false,
-            titleNew: this.title,
-            titleEditing: false,
-            modalVisible: false,
-            draggingEnabled: true,
-        };
-    },
+/*
+logic to still be implemented:
+
+
     mounted() {
         this._keyListener = function (e) {
             if (e.key === "Escape") {
@@ -200,43 +184,7 @@ const updateStorage = () => {
         document.removeEventListener("keydown", this._keyListener);
     },
 
-    computed: {
-        dragHandleSelector() {
-            if (!this.draggingEnabled) return "joe";
-            else return "";
-        },
-    },
 
-    methods: {
-
-        setCardTitle(cardIndex, title) {
-            this.cards[cardIndex].name = title;
-            this.updateStorage();
-        },
-
-        setCardDescription(cardIndex, description) {
-            this.cards[cardIndex].description = description;
-            this.updateStorage();
-        },
-
-        openModal(event) {
-            const cardIndex = parseInt(event.srcElement.attributes.id.nodeValue);
-            const cardTitle = this.cards[cardIndex].name;
-            const cardDescription = this.cards[cardIndex].description;
-
-            //this.$refs.modal.initModal(cardIndex, cardTitle, cardDescription);
-            console.log(this.$refs)
-            this.modalVisible = true;
-            this.draggingEnabled = false;
-            this.$emit("modalOpen");
-        },
-
-        openModalFromChild(event) {
-            const eventNew = {
-                srcElement: event.srcElement.parentElement,
-            };
-            this.openModal(eventNew);
-        },
 
         closeModal() {
             this.modalVisible = false;
