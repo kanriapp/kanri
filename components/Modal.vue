@@ -15,40 +15,12 @@
 </template>
 
 <script setup lang="ts">
-/*
-export default {
-    props: ["title", "titleEditingAllowed"],
-    data() {
-        return {
-            modalTitle: "",
-            titleEditing: false,
-        };
-    },
-    TODO: TRANSFER KANBAN LOGIC FROM HERE!!
-    methods: {
-        setTitleRemote() {
-            this.$emit("setTitle", this.modalTitle);
-            this.titleEditing = false;
-        },
-
-        setTitle(title) {
-            this.modalTitle = title;
-        },
-
-        enableTitleEditing() {
-            if (!this.titleEditingAllowed) return;
-            this.titleEditing = true;
-            this.$nextTick(() => this.$refs.titleInput.focus());
-        },
-    },
-};
-*/
 withDefaults(defineProps<{
     title?: string
     clickOutsideToClose?: boolean,
     blurBackground?: boolean
 }>(), {
-    title: "Card Title",
+    title: "",
     clickOutsideToClose: true,
     blurBackground: true
 })
