@@ -1,7 +1,7 @@
 <template>
     <div class="bg-elevation-1 flex w-64 flex-col rounded-md p-2 shadow-lg" ref="baseDiv">
         <ModalKanban v-show="modalVisible" ref="modal" @setCardTitle="setCardTitle"
-            @setCardDescription="setCardDescription" @closeModal="modalVisible = false"/>
+            @setCardDescription="setCardDescription" @closeModal="closeModal"/>
 
         <div id="board-title" class="flex flex-row items-start justify-between gap-4">
             <h1 v-if="!titleEditing" @click="titleEditing = true; $nextTick(() => $refs.titleInput.focus());"
@@ -133,7 +133,6 @@ const removeCard = (index: number) => {
 const setCardTitle = (cardIndex: number, name: string) => {
     // @ts-ignore
     cards.value[cardIndex].name = name;
-
 }
 
 const setCardDescription = (cardIndex: number, description: string) => {
@@ -144,12 +143,14 @@ const setCardDescription = (cardIndex: number, description: string) => {
 const openModal = (_, index, el) => {
     draggingEnabled.value = false;
     emitter.emit("openKanbanModal", {index, el});
+    emitter.emit("zIndexDown");
     modalVisible.value = true;
 }
 
 const closeModal = () => {
     modalVisible.value = false;
     draggingEnabled.value = true;
+    emitter.emit("zIndexBack");
     // TODO: also disable dragging for columns (emit event to top page, see KE)
 }
 

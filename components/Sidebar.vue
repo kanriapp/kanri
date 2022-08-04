@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex flex-col items-center justify-between h-screen px-4 pb-6 pt-4 mr-8 bg-elevation-1 sticky left-0 top-0 z-50">
+    <nav class="flex flex-col items-center justify-between h-screen px-4 pb-6 pt-4 mr-8 bg-elevation-1 sticky left-0 top-0" :class="zIndexDown ? '' : 'z-50'">
         <ModalHelp
             v-show="modalVisible"
             ref="modal"
@@ -44,4 +44,15 @@ import emitter from "~/utils/emitter.js"
 import { CogIcon, HomeIcon, PlusIcon, QuestionMarkCircleIcon } from "@heroicons/vue/outline"
 
 const modalVisible = ref(false)
+const zIndexDown = ref(false)
+
+onMounted(() => {
+    emitter.on("zIndexDown", () => {
+        zIndexDown.value = true;
+    });
+
+    emitter.on("zIndexBack", () => {
+        zIndexDown.value = false;
+    });
+})
 </script>
