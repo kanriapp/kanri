@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-elevation-1 flex w-64 flex-col rounded-md p-2 shadow-lg" ref="baseDiv">
+    <div class="bg-elevation-1 flex w-64 flex-col rounded-md p-2 shadow-lg max-h-column" ref="baseDiv">
         <ModalKanban v-show="modalVisible" ref="modal" @setCardTitle="setCardTitle"
             @setCardDescription="setCardDescription" @closeModal="closeModal"/>
 
@@ -78,7 +78,7 @@
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { XIcon } from "@heroicons/vue/solid"
 import { applyDrag } from "@/utils/drag-n-drop"
-import emitter from "~~/utils/emitter";
+import emitter from "@/utils/emitter";
 
 const props = defineProps<{
     id: string,
@@ -86,7 +86,7 @@ const props = defineProps<{
     cardsList: Array<Object>
 }>()
 
-const emit = defineEmits(["updateStorage", "removeColumn"])
+const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging"])
 
 const modal = ref(null)
 const baseDiv = ref(null)
@@ -100,7 +100,7 @@ const modalVisible = ref(false)
 const draggingEnabled = ref(true)
 
 const dragHandleSelector = computed(() => {
-    return draggingEnabled ? "" : "dragging_disabled"
+    return draggingEnabled.value ? "" : "dragging_disabled"
 })
 
 const onDrop = (dropResult) => {
@@ -142,6 +142,7 @@ const setCardDescription = (cardIndex: number, description: string) => {
 
 const openModal = (_, index, el) => {
     draggingEnabled.value = false;
+    emit("disableDragging");
     emitter.emit("openKanbanModal", {index, el});
     emitter.emit("zIndexDown");
     modalVisible.value = true;
@@ -184,15 +185,12 @@ logic to still be implemented:
     beforeDestroy() {
         document.removeEventListener("keydown", this._keyListener);
     },
-
-
-
-        closeModal() {
-            this.modalVisible = false;
-            this.draggingEnabled = true;
-            this.$emit("modalClose");
-        },
-    },
 };
 */
 </script>
+
+<style scoped>
+.max-h-column {
+    max-height: 75vh;
+}
+</style>

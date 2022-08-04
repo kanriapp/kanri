@@ -4,10 +4,12 @@
             {{ board.title }}
         </h1>
         <div class="flex flex-row gap-4">
-            <Container @drop="onDrop" group-name="columns" :orientation="'horizontal'" class="flex-row gap-4">
+            <Container @drop="onDrop" group-name="columns" :orientation="'horizontal'"
+                :non-drag-area-selector="'nodrag'" drag-handle-selector=".dragging-handle"
+                class="flex-row gap-4">
                 <Draggable v-for="column in board.columns" :key="column.id">
-                    <KanbanColumn :ref="'kanbancol' + column.id" :id="column.id" :title="column.title"
-                        :cardsList="column.cards" @updateStorage="updateColumnProperties" @removeColumn="removeColumn" />
+                    <KanbanColumn :ref="'kanbancol' + column.id" :id="column.id" :title="column.title" :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+                        :cardsList="column.cards" @updateStorage="updateColumnProperties" @removeColumn="removeColumn" @disableDragging="draggingEnabled = false" />
                 </Draggable>
             </Container>
             <div
@@ -36,6 +38,7 @@ const route = useRoute()
 
 const boards = ref([])
 const board = ref({id: "123", title: "", columns: []})
+const draggingEnabled = ref(true)
 
 onMounted(async () => {
     boards.value = await store.get("boards");
