@@ -1,5 +1,5 @@
 <template>
-    <div class="default-layout min-h-screen min-w-full max-w-max mx-auto" :style="cssVars">
+    <div class="default-layout w-full pr-8" :style="cssVars">
         <div class="flex flex-row">
             <Sidebar class="sticky top-0" />
             <slot />
