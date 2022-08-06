@@ -8,12 +8,12 @@
 </template>
 
 <script setup>
-import { useTauriStore } from "@/stores/tauriStore"
-import { dark } from "@/utils/themes.js"
-import emitter from "@/utils/emitter.js"
+import { useTauriStore } from "@/stores/tauriStore";
+import { dark } from "@/utils/themes.js";
+import emitter from "@/utils/emitter.js";
 
-const store = useTauriStore().store
-const savedColors = ref({})
+const store = useTauriStore().store;
+const savedColors = ref({});
 
 onMounted(async () => {
     savedColors.value = await store.get("colors");
@@ -23,11 +23,11 @@ onMounted(async () => {
         });
         savedColors.value = await store.get("colors");
     });
-})
+});
 
 const cssVars = computed(() => {
     if (!savedColors.value) {
-        store.set("activeTheme", "dark")
+        store.set("activeTheme", "dark");
 
         return {
             "--bg-primary": dark.bgPrimary,
@@ -42,9 +42,8 @@ const cssVars = computed(() => {
             "--text-dim-3": dark.textD3,
             "--text-dim-4": dark.textD4,
             "--text-buttons": dark.textButtons,
-        }
-    }
-    else {
+        };
+    } else {
         return {
             "--bg-primary": savedColors.value.bgPrimary,
             "--elevation-1": savedColors.value.elevation1,
@@ -58,90 +57,90 @@ const cssVars = computed(() => {
             "--text-dim-3": savedColors.value.textD3,
             "--text-dim-4": savedColors.value.textD4,
             "--text-buttons": savedColors.value.textButtons,
-        }
+        };
     }
-})
+});
 </script>
 
 <style>
-    .default-layout {
-        background-color: var(--bg-primary);
-        color: var(--text);
-        transition: color .5s cubic-bezier(.17,.67,.83,.67);
-        transition: background-color .5s cubic-bezier(.17,.67,.83,.67);
-    }
+.default-layout {
+    background-color: var(--bg-primary);
+    color: var(--text);
+    transition: color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    transition: background-color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
 
-    .bg-elevation-1 {
-        background-color: var(--elevation-1);
-    }
+.bg-elevation-1 {
+    background-color: var(--elevation-1);
+}
 
-    .bg-elevation-2 {
-        background-color: var(--elevation-2);
-    }
+.bg-elevation-2 {
+    background-color: var(--elevation-2);
+}
 
-    .bg-elevation-2-hover:hover {
-        background-color: var(--elevation-2);
-    }
+.bg-elevation-2-hover:hover {
+    background-color: var(--elevation-2);
+}
 
-    .bg-elevation-3-hover:hover {
-        background-color: var(--elevation-3);
-    }
+.bg-elevation-3-hover:hover {
+    background-color: var(--elevation-3);
+}
 
-    .bg-accent {
-        background-color: var(--accent);
-    }
+.bg-accent {
+    background-color: var(--accent);
+}
 
-    .bg-accent:hover {
-        background-color: var(--accent-darker);
-    }
+.bg-accent:hover {
+    background-color: var(--accent-darker);
+}
 
-    .border-accent {
-        border-color: var(--accent);
-    }
+.border-accent {
+    border-color: var(--accent);
+}
 
-    .border-accent-focus:focus {
-        border-color: var(--accent);
-    }
+.border-accent-focus:focus {
+    border-color: var(--accent);
+}
 
-    .text-accent {
-        color: var(--accent);
-    }
+.text-accent {
+    color: var(--accent);
+}
 
-    .text-accent-hover:hover {
-        color: var(--accent);
-    }
+.text-accent-hover:hover {
+    color: var(--accent);
+}
 
-    .text-accent-darker-hover:hover {
-        color: var(--accent-darker);
-    }
+.text-accent-darker-hover:hover {
+    color: var(--accent-darker);
+}
 
-    .text-normal {
-        color: var(--text);
-    }
+.text-normal {
+    color: var(--text);
+}
 
-    .text-dim-1 {
-        color: var(--text-dim-1);
-    }
+.text-dim-1 {
+    color: var(--text-dim-1);
+}
 
-    .text-dim-2 {
-        color: var(--text-dim-2);
-    }
+.text-dim-2 {
+    color: var(--text-dim-2);
+}
 
-    .text-dim-3 {
-        color: var(--text-dim-3);
-    }
+.text-dim-3 {
+    color: var(--text-dim-3);
+}
 
-    .text-dim-4 {
-        color: var(--text-dim-4);
-    }
+.text-dim-4 {
+    color: var(--text-dim-4);
+}
 
-    .text-buttons {
-        color: var(--text-buttons);
-    }
+.text-buttons {
+    color: var(--text-buttons);
+}
 
-    .text-no-overflow {
-        overflow-wrap: break-word;
-        white-space: normal;
-        overflow: hidden;
-    }
+.text-no-overflow {
+    overflow-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+}
 </style>

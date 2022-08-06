@@ -11,7 +11,7 @@ export const light = {
     textD3: "#64748b",
     textD4: "#94a3b8",
     textButtons: "#f1f5f9",
-}
+};
 
 export const dark = {
     bgPrimary: "#070c10",
@@ -26,7 +26,7 @@ export const dark = {
     textD3: "#a1a1aa",
     textD4: "#71717a",
     textButtons: "#f1f5f9",
-}
+};
 
 export const catppuccin = {
     bgPrimary: "#1e1e2e",
@@ -41,10 +41,10 @@ export const catppuccin = {
     textD3: "#a1a1aa",
     textD4: "#71717a",
     textButtons: "#1a1826",
-}
+};
 
 export default {
     light,
     dark,
-    catppuccin
-}
+    catppuccin,
+};

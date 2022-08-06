@@ -1,142 +1,111 @@
 <template>
-  <div class="flex w-[48rem] flex-col gap-4">
-    <div id="color-row" class="flex flex-row items-center justify-between">
-      <label for="color-picker">Accent color</label>
-      <div class="flex flex-row gap-4">
-        <input
-          type="text"
-          v-model="customTheme.accent"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
-        />
-        <input
-          ref="colorInput"
-          type="color"
-          v-model="customTheme.accent"
-        />
-      </div>
-    </div>
+    <div class="flex w-[48rem] flex-col gap-4">
+        <div id="color-row" class="flex flex-row items-center justify-between">
+            <label for="color-picker">Accent color</label>
+            <div class="flex flex-row gap-4">
+                <input
+                    type="text"
+                    v-model="customTheme.accent"
+                    class="bg-elevation-1 w-24 rounded-md px-2"
+                    readonly="readonly"
+                />
+                <input ref="colorInput" type="color" v-model="customTheme.accent" />
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">Primary text color</label>
-      <div class="flex flex-row gap-4">
-        <input
-          type="text"
-          v-model="customTheme.text"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
-        />
-        <input
-          ref="colorInput"
-          type="color"
-          v-model="customTheme.text"
-        />
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">Primary text color</label>
+            <div class="flex flex-row gap-4">
+                <input
+                    type="text"
+                    v-model="customTheme.text"
+                    class="bg-elevation-1 w-24 rounded-md px-2"
+                    readonly="readonly"
+                />
+                <input ref="colorInput" type="color" v-model="customTheme.text" />
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">Button text</label>
-      <div class="flex flex-row gap-4">
-        <input
-          type="text"
-          v-model="customTheme.textButtons"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
-        />
-        <input
-          ref="colorInput"
-          type="color"
-          v-model="customTheme.textButtons"
-        />
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">Button text</label>
+            <div class="flex flex-row gap-4">
+                <input
+                    type="text"
+                    v-model="customTheme.textButtons"
+                    class="bg-elevation-1 w-24 rounded-md px-2"
+                    readonly="readonly"
+                />
+                <input ref="colorInput" type="color" v-model="customTheme.textButtons" />
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">Primary background color</label>
-      <div class="flex flex-row gap-4">
-        <input
-          type="text"
-          v-model="customTheme.bgPrimary"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
-        />
-        <input
-          ref="colorInput"
-          type="color"
-          v-model="customTheme.bgPrimary"
-        />
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">Primary background color</label>
+            <div class="flex flex-row gap-4">
+                <input
+                    type="text"
+                    v-model="customTheme.bgPrimary"
+                    class="bg-elevation-1 w-24 rounded-md px-2"
+                    readonly="readonly"
+                />
+                <input ref="colorInput" type="color" v-model="customTheme.bgPrimary" />
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">1st level of elevation</label>
-      <div class="flex flex-row gap-4">
-        <input
-          type="text"
-          v-model="customTheme.elevation1"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
-        />
-        <input
-          ref="colorInput"
-          type="color"
-          v-model="customTheme.elevation1"
-        />
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">1st level of elevation</label>
+            <div class="flex flex-row gap-4">
+                <input
+                    type="text"
+                    v-model="customTheme.elevation1"
+                    class="bg-elevation-1 w-24 rounded-md px-2"
+                    readonly="readonly"
+                />
+                <input ref="colorInput" type="color" v-model="customTheme.elevation1" />
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">2nd level of elevation</label>
-      <div class="flex flex-row gap-4">
-        <input
-          type="text"
-          v-model="customTheme.elevation2"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
-        />
-        <input
-          ref="colorInput"
-          type="color"
-          v-model="customTheme.elevation2"
-        />
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">2nd level of elevation</label>
+            <div class="flex flex-row gap-4">
+                <input
+                    type="text"
+                    v-model="customTheme.elevation2"
+                    class="bg-elevation-1 w-24 rounded-md px-2"
+                    readonly="readonly"
+                />
+                <input ref="colorInput" type="color" v-model="customTheme.elevation2" />
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">3rd level of elevation</label>
-      <div class="flex flex-row gap-4">
-        <input
-          type="text"
-          v-model="customTheme.elevation3"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
-        />
-        <input
-          ref="colorInput"
-          type="color"
-          v-model="customTheme.elevation3"
-        />
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">3rd level of elevation</label>
+            <div class="flex flex-row gap-4">
+                <input
+                    type="text"
+                    v-model="customTheme.elevation3"
+                    class="bg-elevation-1 w-24 rounded-md px-2"
+                    readonly="readonly"
+                />
+                <input ref="colorInput" type="color" v-model="customTheme.elevation3" />
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-end">
-      <button
-        class="text-buttons bg-accent rounded-md px-6 py-1"
-        @click="setCustomTheme"
-      >
-        Save
-      </button>
+        <div class="flex flex-row items-center justify-end">
+            <button class="text-buttons bg-accent rounded-md px-6 py-1" @click="setCustomTheme">
+                Save
+            </button>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
 // @ts-nocheck
 import { dark } from "@/utils/themes.js";
 import { lightenColor } from "@/utils/colorUtils.js";
-import emitter from "@/utils/emitter.js"
+import emitter from "@/utils/emitter.js";
 
-import { useTauriStore } from "@/stores/tauriStore"
+import { useTauriStore } from "@/stores/tauriStore";
 
 const store = useTauriStore().store;
 
@@ -145,7 +114,7 @@ const customTheme = ref({});
 onMounted(async () => {
     const savedPalette = await store.get("colors");
     customTheme.value = savedPalette || dark;
-})
+});
 
 const setCustomTheme = () => {
     store.set("activeTheme", "custom");
@@ -164,11 +133,11 @@ const setCustomTheme = () => {
         textD3: lightenColor(customTheme.value.text, -70),
         textD4: lightenColor(customTheme.value.text, -90),
         textButtons: customTheme.value.textButtons,
-    }
+    };
 
     store.set("colors", theme);
     emitter.emit("updateColors");
-}
+};
 </script>
 
 <style scoped>

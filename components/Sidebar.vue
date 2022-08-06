@@ -1,16 +1,15 @@
 <template>
-    <nav class="flex flex-col items-center justify-between h-screen px-4 pb-6 pt-4 mr-8 bg-elevation-1 sticky left-0 top-0" :class="zIndexDown ? '' : 'z-50'">
-        <ModalHelp
-            v-show="modalVisible"
-            ref="modal"
-            @closeModal="modalVisible = false"
-        />
+    <nav
+        class="flex flex-col items-center justify-between h-screen px-4 pb-6 pt-4 mr-8 bg-elevation-1 sticky left-0 top-0"
+        :class="zIndexDown ? '' : 'z-50'"
+    >
+        <ModalHelp v-show="modalVisible" ref="modal" @closeModal="modalVisible = false" />
         <section id="items-top" class="flex flex-col items-center gap-4">
             <!-- temporary logo placeholder -->
             <div id="logo" class="flex flex-row p-2 mb-2 bg-elevation-2 rounded-md">
-                <div class=" h-9 w-4 mr-1 bg-violet-600 rounded-sm"></div>
+                <div class="h-9 w-4 mr-1 bg-violet-600 rounded-sm"></div>
                 <div class="flex flex-col gap-1">
-                    <div class=" h-4 w-4 bg-teal-500 rounded-sm"></div>
+                    <div class="h-4 w-4 bg-teal-500 rounded-sm"></div>
                     <div class="h-4 w-4 bg-blue-500 rounded-sm"></div>
                 </div>
             </div>
@@ -19,7 +18,10 @@
                     <HomeIcon class="h-6 w-6" />
                 </div>
             </nuxt-link>
-            <button class="rounded-md bg-accent text-buttons p-2" @click="emitter.emit('createBoard')">
+            <button
+                class="rounded-md bg-accent text-buttons p-2"
+                @click="emitter.emit('createBoard')"
+            >
                 <PlusIcon class="h-6 w-6" />
             </button>
         </section>
@@ -39,12 +41,12 @@
 </template>
 
 <script setup>
-import emitter from "~/utils/emitter.js"
+import emitter from "~/utils/emitter.js";
 
-import { CogIcon, HomeIcon, PlusIcon, QuestionMarkCircleIcon } from "@heroicons/vue/outline"
+import { CogIcon, HomeIcon, PlusIcon, QuestionMarkCircleIcon } from "@heroicons/vue/outline";
 
-const modalVisible = ref(false)
-const zIndexDown = ref(false)
+const modalVisible = ref(false);
+const zIndexDown = ref(false);
 
 onMounted(() => {
     emitter.on("zIndexDown", () => {
@@ -54,5 +56,5 @@ onMounted(() => {
     emitter.on("zIndexBack", () => {
         zIndexDown.value = false;
     });
-})
+});
 </script>

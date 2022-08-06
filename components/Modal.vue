@@ -1,7 +1,7 @@
 <template>
     <transition name="modal-fade">
         <div
-            @click.self="clickOutsideToClose ? $emit('closeModal') : (() => {})"
+            @click.self="clickOutsideToClose ? $emit('closeModal') : () => {}"
             class="modal inset-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800 bg-opacity-40 bg-clip-padding backdrop-filter"
             :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
         >
@@ -15,15 +15,18 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
-    title?: string
-    clickOutsideToClose?: boolean,
-    blurBackground?: boolean
-}>(), {
-    title: "",
-    clickOutsideToClose: true,
-    blurBackground: true
-})
+withDefaults(
+    defineProps<{
+        title?: string;
+        clickOutsideToClose?: boolean;
+        blurBackground?: boolean;
+    }>(),
+    {
+        title: "",
+        clickOutsideToClose: true,
+        blurBackground: true,
+    }
+);
 </script>
 
 <style>
