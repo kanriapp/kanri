@@ -11,10 +11,7 @@
                 class="flex flex-col justify-center p-2 mt-5 items-left bg-elevation-1 rounded-md"
             >
                 <h3 class="text-xl font-bold">So empty here!</h3>
-                <span
-                    >Create a board to get started with tracking your tasks
-                    better.</span
-                >
+                <span>Create a board to get started with tracking your tasks better.</span>
                 <IconArrow />
             </div>
 
@@ -27,7 +24,7 @@
                     :to="'/kanban/' + index"
                 >
                     <img
-                        class="w-56 rounded-t-md filter group-hover:brightness-75"
+                        class="w-56 aspect-video rounded-t-md filter group-hover:brightness-75"
                         src="https://images.unsplash.com/photo-1656751609190-e0168efca2da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                         alt="pog"
                     />
@@ -75,7 +72,7 @@ import emitter from "@/utils/emitter.js";
 
 import { DotsHorizontalIcon } from "@heroicons/vue/solid";
 
-import type { Board } from "@/types/kanban-types"
+import type { Board } from "@/types/kanban-types";
 
 const store = useTauriStore().store;
 const boards = ref([]);
