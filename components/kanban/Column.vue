@@ -52,33 +52,23 @@
             drag-class="cursor-grabbing"
         >
             <Draggable
-                v-for="(el, index) in cards"
+                v-for="(card, index) in cards"
                 :key="index"
                 class="bg-elevation-2 mb-3 cursor-grab rounded-sm px-3 pt-3 pb-5"
             >
                 <div
                     class="flex cursor-pointer flex-row justify-between"
-                    @click.self="(event) => openModal(event, index, el)"
+                    @click.self="(event) => openModal(event, index, card)"
                 >
                     <p
                         class="text-no-overflow mr-2"
-                        @click="(event) => openModal(event, index, el)"
+                        @click="(event) => openModal(event, index, card)"
                     >
-                        {{ el.name }}
+                        {{ card.name }}
                     </p>
+
                     <div class="cursor-pointer" @click="removeCard(index)">
-                        <svg
-                            class="text-dim-4 text-accent-hover h-4 w-4"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                            ></path>
-                        </svg>
+                        <XIcon class="h-4 w-4 text-dim-4 text-accent-hover" />
                     </div>
                 </div>
             </Draggable>
@@ -124,21 +114,7 @@
                 $nextTick(() => $refs.newCardInput.focus());
             "
         >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-            </svg>
-
+            <PlusIcon class="h-6 w-6 p-0.5" />
             <h2>Add Card</h2>
         </div>
     </div>
@@ -146,7 +122,7 @@
 
 <script setup lang="ts">
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { XIcon } from "@heroicons/vue/solid";
+import { XIcon, PlusIcon } from "@heroicons/vue/solid";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 
@@ -165,6 +141,22 @@ const titleNew = ref(props.title);
 const titleEditing = ref(false);
 const modalVisible = ref(false);
 const draggingEnabled = ref(true);
+
+onMounted(() => {
+    document.addEventListener("keydown", keyDownListener);
+});
+
+onBeforeUnmount(() => {
+    document.removeEventListener("keydown", keyDownListener);
+});
+
+const keyDownListener = (e) => {
+    if (e.key === "Escape") {
+        cardAddMode.value = false;
+        newCardName.value = "";
+        titleEditing.value = false;
+    }
+};
 
 const dragHandleSelector = computed(() => {
     return draggingEnabled.value ? "" : "dragging_disabled";
