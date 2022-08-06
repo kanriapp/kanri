@@ -1,32 +1,29 @@
 <template>
-    <div class="flex flex-col">
+    <div class="flex flex-col overflow-y-hidden max-h-screen" id="kanban-cols-container">
         <h1 class="my-4 text-4xl font-bold">
             {{ board.title }}
         </h1>
 
-        <div class="flex flex-row gap-4">
-            <Container
-                @drop="onDrop"
-                group-name="columns"
-                :orientation="'horizontal'"
-                :non-drag-area-selector="'nodrag'"
-                drag-handle-selector=".dragging-handle"
-                class="flex-row gap-4"
-            >
-                <Draggable v-for="column in board.columns" :key="column.id">
-                    <KanbanColumn
-                        :ref="'kanbancol' + column.id"
-                        :id="column.id"
-                        :title="column.title"
-                        :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-                        :cardsList="column.cards"
-                        @updateStorage="updateColumnProperties"
-                        @removeColumn="removeColumn"
-                        @disableDragging="draggingEnabled = false"
-                    />
-                </Draggable>
-            </Container>
-
+        <Container
+            @drop="onDrop"
+            group-name="columns"
+            :orientation="'horizontal'"
+            :non-drag-area-selector="'nodrag'"
+            drag-handle-selector=".dragging-handle"
+            class="flex-row gap-4"
+        >
+            <Draggable v-for="column in board.columns" :key="column.id">
+                <KanbanColumn
+                    :ref="'kanbancol' + column.id"
+                    :id="column.id"
+                    :title="column.title"
+                    :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+                    :cardsList="column.cards"
+                    @updateStorage="updateColumnProperties"
+                    @removeColumn="removeColumn"
+                    @disableDragging="draggingEnabled = false"
+                />
+            </Draggable>
             <div
                 class="nodrag bg-elevation-1 bg-elevation-2-hover flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
                 @click="addColumn()"
@@ -34,7 +31,7 @@
                 <PlusIcon class="w-6 h-6" />
                 <span hidden>Add Board</span>
             </div>
-        </div>
+        </Container>
     </div>
 </template>
 
@@ -47,6 +44,7 @@ import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";
 
 import type { Board, Column } from "@/types/kanban-types";
+import emitter from "~~/utils/emitter";
 
 const store = useTauriStore().store;
 const route = useRoute();
@@ -58,7 +56,49 @@ const draggingEnabled = ref(true);
 onMounted(async () => {
     boards.value = await store.get("boards");
     board.value = boards.value[parseInt(route.params.id[0])];
+
+    document.addEventListener("keydown", keyDownListener);
 });
+
+onBeforeUnmount(() => {
+    document.removeEventListener("keydown", keyDownListener);
+});
+
+const keyDownListener = (e) => {
+    const lastColumnID = board.value.columns.length !== 0 ? board.value.columns.length : -1;
+
+    // Ctrl + B for new board
+    if (e.key === "b" && (e.ctrlKey || e.metaKey)) {
+        addColumn();
+        scrollView();
+        return;
+    }
+
+    if (lastColumnID === -1) return; // Guard clause to prevent impossible actions
+
+    // ctrl + d for deleting the last board
+    if (e.key === "d" && (e.ctrlKey || e.metaKey)) {
+        removeColumn(lastColumnID);
+        return;
+    }
+
+    // ctrl + t for enabling title editing for the last column
+    if (e.key === "t" && (e.ctrlKey || e.metaKey)) {
+        emitter.emit("enableColumnTitleEditing", lastColumnID);
+        return;
+    }
+
+    // ctrl + n for new card in the last column
+    if (e.key === "n" && (e.ctrlKey || e.metaKey)) {
+        emitter.emit("enableColumnCardAddMode", lastColumnID);
+        return;
+    }
+};
+
+const scrollView = () => {
+    var elem = document.getElementById("kanban-cols-container");
+    elem.scrollLeft = elem.scrollWidth;
+};
 
 const onDrop = (dropResult: object) => {
     board.value.columns = applyDrag(board.value.columns, dropResult);
@@ -73,7 +113,7 @@ const addColumn = () => {
     const column = {
         id: generateUniqueID(),
         title: "New Column",
-        cards: [{ name: "Test Card" }],
+        cards: [],
     };
 
     board.value.columns.push(column);
@@ -121,5 +161,9 @@ const updateStorage = () => {
 .smooth-dnd-container.horizontal {
     display: flex;
     z-index: 1;
+}
+
+#kanban-cols-container {
+    height: 100vh;
 }
 </style>
