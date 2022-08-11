@@ -32,7 +32,7 @@
                 @click="addColumn()"
             >
                 <PlusIcon class="w-6 h-6" />
-                <span hidden>Add Board</span>
+                <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
             </div>
         </Container>
     </div>
