@@ -23,11 +23,7 @@
                     :key="index"
                     :to="'/kanban/' + index"
                 >
-                    <img
-                        class="w-56 aspect-video rounded-t-md filter group-hover:brightness-75"
-                        src="https://images.unsplash.com/photo-1656751609190-e0168efca2da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                        alt="pog"
-                    />
+                    <KanbanBoardPreview :board="board" class="filter hover:brightness-125" />
                     <div class="flex flex-row justify-between px-1 py-2">
                         <span class="px-1 text-lg font-semibold">
                             {{ board.title }}
