@@ -31,7 +31,7 @@
                 class="nodrag bg-elevation-1 bg-elevation-2-hover flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
                 @click="addColumn()"
             >
-                <PlusIcon class="w-6 h-6" />
+                <PlusIcon class="w-6 h-6 text-accent" />
                 <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
             </div>
         </Container>
@@ -61,10 +61,13 @@ onMounted(async () => {
     board.value = boards.value[parseInt(route.params.id[0])];
 
     document.addEventListener("keydown", keyDownListener);
+
+    emitter.emit("openKanbanPage");
 });
 
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
+    emitter.emit("closeKanbanPage");
 });
 
 const keyDownListener = (e) => {

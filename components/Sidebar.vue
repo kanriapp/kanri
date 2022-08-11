@@ -19,6 +19,7 @@
                 </div>
             </nuxt-link>
             <button
+                v-if="showAddButton"
                 class="rounded-md bg-accent text-buttons p-2"
                 @click="emitter.emit('createBoard')"
             >
@@ -47,6 +48,7 @@ import { CogIcon, HomeIcon, PlusIcon, QuestionMarkCircleIcon } from "@heroicons/
 
 const modalVisible = ref(false);
 const zIndexDown = ref(false);
+const showAddButton = ref(true);
 
 onMounted(() => {
     emitter.on("zIndexDown", () => {
@@ -55,6 +57,14 @@ onMounted(() => {
 
     emitter.on("zIndexBack", () => {
         zIndexDown.value = false;
+    });
+
+    emitter.on("openKanbanPage", () => {
+        showAddButton.value = false;
+    });
+
+    emitter.on("closeKanbanPage", () => {
+        showAddButton.value = true;
     });
 });
 </script>
