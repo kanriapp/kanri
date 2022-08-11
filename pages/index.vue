@@ -61,6 +61,8 @@
 </template>
 
 <script setup lang="ts">
+import { ask } from "@tauri-apps/api/dialog";
+
 import { useTauriStore } from "@/stores/tauriStore";
 
 import { generateUniqueID } from "@/utils/idGenerator.js";
@@ -122,7 +124,14 @@ const createNewBoard = () => {
     store.set("boards", boards.value);
 };
 
-const deleteBoard = (index: number) => {
+const deleteBoard = async (index: number) => {
+    const yes = await ask(
+        `Are you sure you want to delete the board "${boards.value[index].title}"?`,
+        { title: "Kanri", type: "warning" }
+    );
+
+    if (!yes) return;
+
     boards.value.splice(index, 1);
     store.set("boards", boards.value);
 };
