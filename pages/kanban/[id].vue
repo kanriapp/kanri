@@ -1,5 +1,8 @@
 <template>
-    <div class="flex flex-col overflow-y-hidden max-h-screen" id="kanban-cols-container">
+    <div
+        class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal"
+        id="kanban-cols-container"
+    >
         <h1 class="my-4 text-4xl font-bold">
             {{ board.title }}
         </h1>
