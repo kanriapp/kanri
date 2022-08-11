@@ -22,8 +22,6 @@ import type { Board } from "@/types/kanban-types";
 const props = defineProps<{
     board: Board;
 }>();
-
-const colNumber = props.board.columns.length >= 5 ? 5 : props.board.columns.length;
 </script>
 
 <style></style>
