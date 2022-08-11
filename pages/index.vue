@@ -7,7 +7,7 @@
 
         <main id="boards">
             <div
-                v-if="boards.length === 0"
+                v-if="boards.length === 0 && loading === false"
                 class="flex flex-col justify-center p-2 mt-5 items-left bg-elevation-1 rounded-md"
             >
                 <h3 class="text-xl font-bold">So empty here!</h3>
@@ -77,6 +77,8 @@ import type { Board } from "@/types/kanban-types";
 const store = useTauriStore().store;
 const boards = ref([]);
 
+const loading = ref(true);
+
 onMounted(async () => {
     emitter.on("createBoard", () => {
         createNewBoard();
@@ -84,6 +86,7 @@ onMounted(async () => {
 
     boards.value = (await store.get("boards")) || [];
     console.log(boards.value);
+    loading.value = false;
 });
 
 const boardAction = (board: number) => {
