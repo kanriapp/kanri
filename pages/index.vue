@@ -23,7 +23,7 @@
                     :key="index"
                     :to="'/kanban/' + index"
                 >
-                    <KanbanBoardPreview :board="board" class="filter hover:brightness-125" />
+                    <KanbanBoardPreview :board="board" class="filter group-hover:brightness-125" />
                     <div class="flex flex-row justify-between px-1 py-2">
                         <span class="px-1 text-lg font-semibold">
                             {{ board.title }}
