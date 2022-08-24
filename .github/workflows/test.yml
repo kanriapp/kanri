@@ -1,4 +1,4 @@
-name: "test-on-pr"
+name: "test"
 on: [push, pull_request]
 
 jobs:
