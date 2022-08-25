@@ -4,7 +4,7 @@
     "beforeBuildCommand": "yarn generate",
     "beforeDevCommand": "yarn dev",
     "devPath": "http://localhost:3000",
-    "distDir": "../output/public"
+    "distDir": "../.output/public"
   },
   "package": {
     "productName": "kanri",
