@@ -56,6 +56,10 @@ const boards = ref([]);
 const board = ref({ id: "123", title: "", columns: [] });
 const draggingEnabled = ref(true);
 
+const columnCardAddMode = ref(false);
+const columnTitleEditing = ref(false);
+const columnEditIndex = ref(0);
+
 onMounted(async () => {
     boards.value = await store.get("boards");
     board.value = boards.value[parseInt(route.params.id[0])];
@@ -63,6 +67,13 @@ onMounted(async () => {
     document.addEventListener("keydown", keyDownListener);
 
     emitter.emit("openKanbanPage");
+
+    columnEditIndex.value = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
+
+    emitter.on("columnActionDone", () => {
+        columnCardAddMode.value = false;
+        columnTitleEditing.value = false;
+    });
 });
 
 onBeforeUnmount(() => {
@@ -71,32 +82,62 @@ onBeforeUnmount(() => {
 });
 
 const keyDownListener = (e) => {
-    const lastColumnID = board.value.columns.length !== 0 ? board.value.columns.length : -1;
+    if (!(e.ctrlKey || e.metaKey)) return; // All shortcuts need control as a required key
+
+    emitter.emit("resetColumnInputs");
 
     // Ctrl + B for new board
-    if (e.key === "b" && (e.ctrlKey || e.metaKey)) {
+    if (e.key === "b") {
         addColumn();
         scrollView();
         return;
     }
 
-    if (lastColumnID === -1) return; // Guard clause to prevent impossible actions
+    if (e.keyCode === 37) {
+        // Arrow key left to decrease
+        if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
+            columnEditIndex.value = board.value.columns.length - 1;
+        } else {
+            columnEditIndex.value--;
+        }
+    }
+
+    if (e.keyCode === 39) {
+        // Arrow key right to increase
+        if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
+            columnEditIndex.value = 0;
+        } else {
+            columnEditIndex.value++;
+        }
+    }
+
+    let columnID =
+        board.value.columns.length !== 0 && board.value.columns[columnEditIndex.value]
+            ? board.value.columns[columnEditIndex.value].id
+            : "-1";
+
+    if (columnID === "-1") return; // Guard clause to prevent impossible actions
 
     // ctrl + d for deleting the last board
-    if (e.key === "d" && (e.ctrlKey || e.metaKey)) {
+    if (e.key === "d") {
+        const lastColumnID = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
+        if (lastColumnID === -1) return;
+
         removeColumn(lastColumnID);
         return;
     }
 
     // ctrl + t for enabling title editing for the last column
-    if (e.key === "t" && (e.ctrlKey || e.metaKey)) {
-        emitter.emit("enableColumnTitleEditing", lastColumnID);
+    if (e.key === "t" || columnTitleEditing.value === true) {
+        columnTitleEditing.value = true;
+        emitter.emit("enableColumnTitleEditing", columnID);
         return;
     }
 
     // ctrl + n for new card in the last column
-    if (e.key === "n" && (e.ctrlKey || e.metaKey)) {
-        emitter.emit("enableColumnCardAddMode", lastColumnID);
+    if (e.key === "n" || columnCardAddMode.value === true) {
+        columnCardAddMode.value = true;
+        emitter.emit("enableColumnCardAddMode", columnID);
         return;
     }
 };
