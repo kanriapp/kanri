@@ -29,6 +29,10 @@
                         <b class="font-bold">Ctrl/Command + N</b> - Create new
                         card inside last column in board view
                     </li>
+                    <li>
+                        <b class="font-bold">Ctrl/Command + Arrow Keys Left and right </b>
+                        - Switch columns for title editing and card adding
+                    </li>
                 </ul>
                 <h3 class="mt-4 mb-2 text-xl font-bold">Support resouces:</h3>
                 <p>
