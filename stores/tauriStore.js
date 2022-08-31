@@ -3,6 +3,6 @@ import { Store } from "tauri-plugin-store-api";
 
 export const useTauriStore = defineStore("tauriStore", {
     state: () => {
-        return { store: new Store(".settings.dat") };
+        return { store: new Store(".kanri.dat") };
     },
 });

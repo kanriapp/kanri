@@ -33,6 +33,7 @@
                 @keypress.enter="
                     titleEditing = false;
                     updateStorage();
+                    emitter.emit('columnActionDone');
                 "
             />
 
@@ -82,15 +83,23 @@
                 placeholder="Enter a card title..."
                 v-model="newCardName"
                 class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
-                @blur="addCard($event)"
-                @keypress.enter="addCard($event)"
+                @blur="
+                    addCard($event);
+                "
+                @keypress.enter="
+                    addCard($event);
+                    emitter.emit('columnActionDone');
+                "
                 v-resizable
             />
             <div class="flex w-full flex-row justify-start gap-2">
                 <button
                     id="submitButton"
                     class="text-buttons bg-accent rounded-md px-2 py-1"
-                    @click="addCard($event)"
+                    @click="
+                        addCard($event);
+                        emitter.emit('columnActionDone');
+                    "
                 >
                     Add Card
                 </button>
@@ -98,6 +107,7 @@
                     @click="
                         cardAddMode = !cardAddMode;
                         newCardName = '';
+                        emitter.emit('columnActionDone');
                     "
                     class="bg-elevation-3-hover rounded-md px-2 py-1"
                 >
@@ -134,6 +144,9 @@ const props = defineProps<{
 
 const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging"]);
 
+const titleInput = ref(null);
+const newCardInput = ref(null);
+
 const cards = ref(props.cardsList);
 const newCardName = ref("");
 const cardAddMode = ref(false);
@@ -144,6 +157,26 @@ const draggingEnabled = ref(true);
 
 onMounted(() => {
     document.addEventListener("keydown", keyDownListener);
+
+    emitter.on("enableColumnTitleEditing", (columnID) => {
+        if (columnID === props.id) {
+            titleEditing.value = true;
+            nextTick(() => titleInput.value.focus());
+        }
+    });
+
+    emitter.on("enableColumnCardAddMode", (columnID) => {
+        if (columnID === props.id) {
+            cardAddMode.value = true;
+            nextTick(() => newCardInput.value.focus());
+        }
+    });
+
+    emitter.on("resetColumnInputs", (columnID) => {
+        cardAddMode.value = false;
+        newCardName.value = "";
+        titleEditing.value = false;
+    });
 });
 
 onBeforeUnmount(() => {
@@ -155,6 +188,8 @@ const keyDownListener = (e) => {
         cardAddMode.value = false;
         newCardName.value = "";
         titleEditing.value = false;
+
+        emitter.emit("columnActionDone");
     }
 };
 

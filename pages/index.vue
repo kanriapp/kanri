@@ -83,7 +83,7 @@ onMounted(async () => {
     });
 
     boards.value = (await store.get("boards")) || [];
-    console.log(boards.value);
+    console.log("Loaded boards:", boards.value);
     loading.value = false;
 });
 
