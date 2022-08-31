@@ -3,9 +3,27 @@
         class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal"
         id="kanban-cols-container"
     >
-        <h1 class="my-4 text-4xl font-bold">
+        <h1 class="my-4 text-4xl font-bold" v-if="!boardTitleEditing" 
+            @click="boardTitleEditing = true; $nextTick(() => $refs.boardTitleInput.focus());"
+        >
             {{ board.title }}
         </h1>
+
+        <input
+            ref="boardTitleInput"
+            v-if="boardTitleEditing"
+            type="text"
+            v-model="board.title"
+            class="my-4 bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+            @blur="
+                boardTitleEditing = false;
+                updateStorage();
+            "
+            @keypress.enter="
+                boardTitleEditing = false;
+                updateStorage();
+            "
+        />
 
         <Container
             @drop="onDrop"
@@ -55,6 +73,8 @@ const route = useRoute();
 const boards = ref([]);
 const board = ref({ id: "123", title: "", columns: [] });
 const draggingEnabled = ref(true);
+
+const boardTitleEditing = ref(false);
 
 const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
