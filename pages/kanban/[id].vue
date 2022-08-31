@@ -47,7 +47,7 @@ import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";
 
 import type { Board, Column } from "@/types/kanban-types";
-import emitter from "~~/utils/emitter";
+import emitter from "~/utils/emitter";
 
 const store = useTauriStore().store;
 const route = useRoute();
