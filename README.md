@@ -5,9 +5,9 @@
   <br> <br>
   <img src="https://github.com/trobonox/kanri/actions/workflows/release.yml/badge.svg?branch=release" alt="GitHub Build Status" />
   <br>
-  <img src="https://wakatime.com/badge/user/be365b36-3fc6-4949-a760-a882bf44aad7/project/e222a792-8ba1-4987-97bd-baec10aa63fb.svg" alt="Wakatime Project Hours" />
+  <img src="https://img.shields.io/github/directory-file-count/trobonox/kanri" alt="Repo files" />
   <br>
-  <img src="https://img.shields.io/github/license/trobonox/kanri?style=flat)](https://opensource.org/licenses/Apache-2.0" alt="License Badge" />
+  <img src="https://img.shields.io/github/license/trobonox/kanri" alt="License Badge" />
   <img src="https://img.shields.io/github/v/release/trobonox/kanri" alt="Release Version Badge" />
   
 </p>
