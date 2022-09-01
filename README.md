@@ -16,6 +16,7 @@ A fully offline cross-platform Kanban Board desktop, with a focus on simplicity 
 - [ ] Add tests to prevent any critical bugs
 - [ ] Add custom scrollbars for all pages
 - [ ] Custom backgrounds in board view
+- [ ] Widgets panel on main page
 - [ ] Showcase website
 
 Open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
