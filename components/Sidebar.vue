@@ -11,8 +11,8 @@
             </div>
             <nuxt-link to="/">
                 <div class="p-2 bg-elevation-2-hover rounded-md">
-                    <HomeIcon v-if="showAddButton" class="h-6 w-6" />
-                    <ArrowUturnLeftIcon v-else class="h-6 w-6" />
+                    <HomeIcon v-if="showAddButton" class="h-6 w-6 stroke-2" />
+                    <ArrowUturnLeftIcon v-else class="h-6 w-6 stroke-2" />
                 </div>
             </nuxt-link>
             <button
@@ -21,16 +21,16 @@
                 @click="emitter.emit('createBoard')"
                 v-tooltip.left-start="'Create a new board'"
             >
-                <PlusCircleIcon class="h-6 w-6 text-accent" />
+                <PlusCircleIcon class="h-6 w-6 text-accent stroke-2" />
             </button>
         </section>
         <section id="icons-bottom" class="flex flex-col items-center gap-2">
             <button @click="modalVisible = true" class="p-2 bg-elevation-2-hover rounded-md">
-                <QuestionMarkCircleIcon class="h-6 w-6" />
+                <QuestionMarkCircleIcon class="h-6 w-6 stroke-2" />
             </button>
             <nuxt-link to="/settings">
                 <div class="p-2 bg-elevation-2-hover rounded-md">
-                    <Cog6ToothIcon class="h-6 w-6" />
+                    <Cog6ToothIcon class="h-6 w-6 stroke-2" />
                 </div>
             </nuxt-link>
         </section>
