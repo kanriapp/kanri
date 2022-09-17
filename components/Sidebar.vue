@@ -6,8 +6,8 @@
         <ModalHelp v-show="modalVisible" ref="modal" @closeModal="modalVisible = false" />
         <section id="items-top" class="flex flex-col items-center gap-2">
             <!-- temporary logo placeholder -->
-            <div id="logo" class="flex flex-row p-1 rounded-md">
-                <IconKanri class=" w-10 h-10" />
+            <div id="logo" class="flex flex-row rounded-md">
+                <IconKanri class="w-12 h-12" />
             </div>
             <nuxt-link to="/">
                 <div class="p-2 bg-elevation-2-hover rounded-md">
