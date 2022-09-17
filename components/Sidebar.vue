@@ -11,7 +11,8 @@
             </div>
             <nuxt-link to="/">
                 <div class="p-2 bg-elevation-2-hover rounded-md">
-                    <HomeIcon class="h-6 w-6" />
+                    <HomeIcon v-if="showAddButton" class="h-6 w-6" />
+                    <ArrowUturnLeftIcon v-else class="h-6 w-6" />
                 </div>
             </nuxt-link>
             <button
@@ -19,7 +20,7 @@
                 class="p-2 bg-elevation-2-hover rounded-md"
                 @click="emitter.emit('createBoard')"
             >
-                <PlusIcon class="h-6 w-6 text-accent" />
+                <PlusCircleIcon class="h-6 w-6 text-accent" />
             </button>
         </section>
         <section id="icons-bottom" class="flex flex-col items-center gap-4">
@@ -38,7 +39,7 @@
 <script setup>
 import emitter from "~/utils/emitter.js";
 
-import { Cog6ToothIcon, HomeIcon, PlusIcon, QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
+import { Cog6ToothIcon, HomeIcon, PlusCircleIcon, QuestionMarkCircleIcon, ArrowUturnLeftIcon } from "@heroicons/vue/24/outline";
 
 const modalVisible = ref(false);
 const zIndexDown = ref(false);
