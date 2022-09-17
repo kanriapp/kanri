@@ -19,6 +19,7 @@
                 v-if="showAddButton"
                 class="p-2 bg-elevation-2-hover rounded-md"
                 @click="emitter.emit('createBoard')"
+                v-tooltip.left-start="'Create a new board'"
             >
                 <PlusCircleIcon class="h-6 w-6 text-accent" />
             </button>
