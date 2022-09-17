@@ -34,7 +34,7 @@
                     class="bg-elevation-1 bg-elevation-2-hover flex w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
                     @click="setTheme('custom')"
                 >
-                    <ColorSwatchIcon class="h-8 w-8" :class="themeIconClass('custom')" />
+                    <SwatchIcon class="h-8 w-8" :class="themeIconClass('custom')" />
                     <label for="custom-mode-icon" class="cursor-pointer">Custom</label>
                 </div>
             </div>
@@ -96,7 +96,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { light, dark, catppuccin } from "@/utils/themes.js";
 import emitter from "@/utils/emitter.js";
 
-import { ColorSwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/outline";
+import { SwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
 

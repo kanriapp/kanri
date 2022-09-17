@@ -3,7 +3,7 @@
         class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal"
         id="kanban-cols-container"
     >
-        <h1 class="my-4 text-4xl font-bold" v-if="!boardTitleEditing" 
+        <h1 class="my-4 text-4xl font-bold" v-if="!boardTitleEditing"
             @click="boardTitleEditing = true; $nextTick(() => $refs.boardTitleInput.focus());"
         >
             {{ board.title }}
@@ -59,7 +59,7 @@
 <script setup lang="ts">
 import { useTauriStore } from "@/stores/tauriStore";
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { PlusIcon } from "@heroicons/vue/solid";
+import { PlusIcon } from "@heroicons/vue/24/solid";
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";

@@ -28,7 +28,7 @@
             </button>
             <nuxt-link to="/settings">
                 <div class="p-2 bg-elevation-2-hover rounded-md">
-                    <CogIcon class="h-6 w-6" />
+                    <Cog6ToothIcon class="h-6 w-6" />
                 </div>
             </nuxt-link>
         </section>
@@ -38,7 +38,7 @@
 <script setup>
 import emitter from "~/utils/emitter.js";
 
-import { CogIcon, HomeIcon, PlusIcon, QuestionMarkCircleIcon } from "@heroicons/vue/outline";
+import { Cog6ToothIcon, HomeIcon, PlusIcon, QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
 
 const modalVisible = ref(false);
 const zIndexDown = ref(false);

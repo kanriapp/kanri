@@ -37,7 +37,7 @@
                 "
             />
 
-            <XIcon
+            <XMarkIcon
                 class="mt-2 h-4 w-4 text-dim-4 flex-shrink-0 flex-grow-0 text-accent-hover cursor-pointer"
                 @click="$emit('removeColumn', id)"
             />
@@ -69,7 +69,7 @@
                     </p>
 
                     <div class="cursor-pointer" @click="removeCard(index)">
-                        <XIcon class="h-4 w-4 text-dim-4 text-accent-hover" />
+                        <XMarkIcon class="h-4 w-4 text-dim-4 text-accent-hover" />
                     </div>
                 </div>
             </Draggable>
@@ -132,7 +132,7 @@
 
 <script setup lang="ts">
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { XIcon, PlusIcon } from "@heroicons/vue/solid";
+import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 

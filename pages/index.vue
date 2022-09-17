@@ -33,7 +33,7 @@
                                 @click.prevent
                                 class="py-0.5 px-1 bg-elevation-3-hover rounded-md"
                             >
-                                <DotsHorizontalIcon class="h-6 w-6" />
+                                <EllipsisHorizontalIcon class="h-6 w-6" />
                             </button>
 
                             <template #popper class="bg-elevation-1">
@@ -68,7 +68,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator.js";
 import emitter from "@/utils/emitter.js";
 
-import { DotsHorizontalIcon } from "@heroicons/vue/solid";
+import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 
 import type { Board } from "@/types/kanban-types";
 
