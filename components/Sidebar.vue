@@ -4,7 +4,7 @@
         :class="zIndexDown ? '' : 'z-50'"
     >
         <ModalHelp v-show="modalVisible" ref="modal" @closeModal="modalVisible = false" />
-        <section id="items-top" class="flex flex-col items-center gap-4">
+        <section id="items-top" class="flex flex-col items-center gap-2">
             <!-- temporary logo placeholder -->
             <div id="logo" class="flex flex-row p-1 rounded-md">
                 <IconKanri class=" w-10 h-10" />
@@ -24,7 +24,7 @@
                 <PlusCircleIcon class="h-6 w-6 text-accent" />
             </button>
         </section>
-        <section id="icons-bottom" class="flex flex-col items-center gap-4">
+        <section id="icons-bottom" class="flex flex-col items-center gap-2">
             <button @click="modalVisible = true" class="p-2 bg-elevation-2-hover rounded-md">
                 <QuestionMarkCircleIcon class="h-6 w-6" />
             </button>
