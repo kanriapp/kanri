@@ -21,5 +21,9 @@
     "pinia": "^2.0.22",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#17cf4d781c82a6c6578c472068c11136c0652d50",
     "vue3-smooth-dnd": "^0.0.2"
-  }
+  },
+  "resolutions": {
+    "terser": "^5.15.0",
+    "undici": "^5.8.2"
+ }
 }
