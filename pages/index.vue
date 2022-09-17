@@ -83,12 +83,11 @@ onMounted(async () => {
     });
 
     boards.value = (await store.get("boards")) || [];
-    console.log("Loaded boards:", boards.value);
     loading.value = false;
 });
 
 const boardAction = (board: number) => {
-    console.log(board);
+    console.log("Placeholder action for board: ", board);
 };
 
 const createNewBoard = () => {
