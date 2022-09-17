@@ -68,7 +68,7 @@
                     </button>
                 </div>
 
-                <div class="flex w-[48rem] flex-row items-start justify-between">
+                <div class="flex w-[48rem] flex-row items-start justify-between mb-8">
                     <div>
                         <h3 class="text-lg">Delete all data (themes and boards)</h3>
                         <span class="text-dim-2"
