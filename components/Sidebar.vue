@@ -4,15 +4,15 @@
         :class="zIndexDown ? '' : 'z-50'"
     >
         <ModalHelp v-show="modalVisible" ref="modal" @closeModal="modalVisible = false" />
-        <section id="items-top" class="flex flex-col items-center gap-2">
+        <section id="items-top" class="flex flex-col items-center gap-4">
             <!-- temporary logo placeholder -->
             <div id="logo" class="flex flex-row rounded-md">
                 <IconKanri class="w-12 h-12" />
             </div>
             <nuxt-link to="/">
                 <div class="p-2 bg-elevation-2-hover rounded-md">
-                    <HomeIcon v-if="showAddButton" class="h-6 w-6 stroke-2" />
-                    <ArrowUturnLeftIcon v-else class="h-6 w-6 stroke-2" />
+                    <HomeIcon v-if="showAddButton" class="h-7 w-7" />
+                    <ArrowUturnLeftIcon v-else class="h-7 w-7" />
                 </div>
             </nuxt-link>
             <button
@@ -21,16 +21,16 @@
                 @click="emitter.emit('createBoard')"
                 v-tooltip.left-start="'Create a new board'"
             >
-                <PlusCircleIcon class="h-6 w-6 text-accent stroke-2" />
+                <PlusCircleIcon class="h-7 w-7 text-accent" />
             </button>
         </section>
-        <section id="icons-bottom" class="flex flex-col items-center gap-2">
+        <section id="icons-bottom" class="flex flex-col items-center gap-4">
             <button @click="modalVisible = true" class="p-2 bg-elevation-2-hover rounded-md">
-                <QuestionMarkCircleIcon class="h-6 w-6 stroke-2" />
+                <QuestionMarkCircleIcon class="h-7 w-7" />
             </button>
             <nuxt-link to="/settings">
                 <div class="p-2 bg-elevation-2-hover rounded-md">
-                    <Cog6ToothIcon class="h-6 w-6 stroke-2" />
+                    <Cog6ToothIcon class="h-7 w-7" />
                 </div>
             </nuxt-link>
         </section>
