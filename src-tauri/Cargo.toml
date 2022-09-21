@@ -1,11 +1,11 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
-default-run = "app"
+name = "kanri"
+version = "0.1.1"
+description = "Offline kanban board application"
+authors = ["trobonox"]
+license = "Apache-2.0"
+repository = "https://github.com/trobonox/tauri"
+default-run = "kanri"
 edition = "2021"
 rust-version = "1.57"
 
