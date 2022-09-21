@@ -4,7 +4,7 @@
             <main class="max-w-[48rem] min-h-[36rem]">
                 <div class="flex flex-row justify-between items-start">
                     <h1 class="pointer-events-auto pr-5 text-2xl font-bold">Help & Resources</h1>
-                    <XIcon class="h-6 w-6 cursor-pointer text-accent-hover" @click="$emit('closeModal')" />
+                    <XMarkIcon class="h-6 w-6 cursor-pointer text-accent-hover" @click="$emit('closeModal')" />
                 </div>
                 <h2 class="text-md text-dim-3 mb-6">
                     Here are some useful resources to assist you.
@@ -67,7 +67,7 @@
 <script setup>
 import Modal from "~/components/Modal.vue";
 
-import { XIcon } from "@heroicons/vue/solid";
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 </script>
 
 <style scoped>

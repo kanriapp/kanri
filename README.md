@@ -16,18 +16,19 @@ A fully offline cross-platform Kanban Board desktop, with a focus on simplicity 
 - [ ] Add tests to prevent any critical bugs
 - [ ] Add custom scrollbars for all pages
 - [ ] Custom backgrounds in board view
+- [X] New logo and minor redesign
+- [ ] Widgets panel on main page
 - [ ] Showcase website
 
 Open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
 
 ## 🚀 Showcase
 
-![image](https://user-images.githubusercontent.com/57040351/187766715-29ba479d-185d-4db5-b2ba-45b17675848c.png)
+![Home Page Screenshot](https://user-images.githubusercontent.com/57040351/190853236-41c1b643-0d5d-4db9-8617-f3c07c5ea1f1.png)
 
-![image](https://user-images.githubusercontent.com/57040351/187767394-fbc6c13a-f179-4d1a-a2f8-d85d31373d71.png)
+![Board View Screenshot](https://user-images.githubusercontent.com/57040351/190853249-d3c36f6b-8b5f-4b5c-bfac-f823857f109c.png)
 
-![image](https://user-images.githubusercontent.com/57040351/187768053-ccfe97e3-6898-470b-9507-2d10d0035347.png)
-
+![Settings Screenshot](https://user-images.githubusercontent.com/57040351/190853264-29520615-568b-4063-92d6-0089834a1f7c.png)
 
 ## 🛠 Build Setup
 
