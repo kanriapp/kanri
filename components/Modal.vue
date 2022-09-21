@@ -17,10 +17,12 @@
 <script setup lang="ts">
 withDefaults(
     defineProps<{
+        title?: string;
         clickOutsideToClose?: boolean;
         blurBackground?: boolean;
     }>(),
     {
+        title: "",
         clickOutsideToClose: true,
         blurBackground: true,
     }

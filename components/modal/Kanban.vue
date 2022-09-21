@@ -25,7 +25,7 @@
                         class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
                     />
 
-                    <XMarkIcon class="h-6 w-6 cursor-pointer text-accent-hover flex-shrink-0" @click="$emit('closeModal')" />
+                    <XIcon class="h-6 w-6 cursor-pointer text-accent-hover flex-shrink-0" @click="$emit('closeModal')" />
                 </div>
                 <span class="text-md text-dim-3 mb-6">
                     Edit all the things about your card!
@@ -54,7 +54,7 @@
 <script setup lang="ts">
 import emitter from "@/utils/emitter.js"
 
-import { XMarkIcon } from "@heroicons/vue/24/solid";
+import { XIcon } from "@heroicons/vue/solid";
 
 const emit = defineEmits(["closeModal", "setCardDescription", "setCardTitle"])
 
