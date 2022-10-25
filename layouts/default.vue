@@ -95,6 +95,10 @@ const cssVars = computed(() => {
     background-color: var(--accent-darker);
 }
 
+.border-elevation-3 {
+    border-color: var(--elevation-3);
+}
+
 .border-accent {
     border-color: var(--accent);
 }
@@ -128,6 +132,10 @@ const cssVars = computed(() => {
 }
 
 .text-dim-3 {
+    color: var(--text-dim-3);
+}
+
+.text-dim-3-placeholder::placeholder {
     color: var(--text-dim-3);
 }
 
