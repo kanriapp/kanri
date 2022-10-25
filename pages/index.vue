@@ -78,8 +78,8 @@ const boards = ref([]);
 const loading = ref(true);
 
 onMounted(async () => {
-    emitter.on("createBoard", () => {
-        createNewBoard();
+    emitter.on("createBoard", (title: string) => {
+        createNewBoard(title);
     });
 
     boards.value = (await store.get("boards")) || [];
@@ -90,12 +90,10 @@ const boardAction = (board: number) => {
     console.log("Placeholder action for board: ", board);
 };
 
-const createNewBoard = () => {
-    // TODO: make a nicer onboarding process with a modal (instead of creating a full placeholder board)
-
+const createNewBoard = (title: string) => {
     const board: Board = {
         id: generateUniqueID(),
-        title: "New Board",
+        title: title,
         columns: [
             {
                 id: generateUniqueID(),

@@ -3,9 +3,10 @@
         class="flex flex-col items-center justify-between h-screen px-2 pb-6 pt-4 mr-8 bg-elevation-1 sticky left-0 top-0"
         :class="zIndexDown ? '' : 'z-50'"
     >
-        <ModalHelp v-show="modalVisible" ref="modal" @closeModal="modalVisible = false" />
+        <ModalNewBoard v-show="newBoardModalVisible" @closeModal="newBoardModalVisible = false" />
+        <ModalHelp v-show="helpModalVisible" @closeModal="helpModalVisible = false" />
+
         <section id="items-top" class="flex flex-col items-center gap-4">
-            <!-- temporary logo placeholder -->
             <div id="logo" class="flex flex-row rounded-md">
                 <IconKanri class="w-12 h-12" />
             </div>
@@ -18,14 +19,15 @@
             <button
                 v-if="showAddButton"
                 class="p-2 bg-elevation-2-hover rounded-md"
-                @click="emitter.emit('createBoard')"
+                @click="newBoardModalVisible = true"
                 v-tooltip.left-start="'Create a new board'"
             >
                 <PlusCircleIcon class="h-7 w-7 text-accent" />
             </button>
         </section>
+
         <section id="icons-bottom" class="flex flex-col items-center gap-4">
-            <button @click="modalVisible = true" class="p-2 bg-elevation-2-hover rounded-md">
+            <button @click="helpModalVisible = true" class="p-2 bg-elevation-2-hover rounded-md">
                 <QuestionMarkCircleIcon class="h-7 w-7" />
             </button>
             <nuxt-link to="/settings">
@@ -42,7 +44,9 @@ import emitter from "~/utils/emitter.js";
 
 import { Cog6ToothIcon, HomeIcon, PlusCircleIcon, QuestionMarkCircleIcon, ArrowUturnLeftIcon } from "@heroicons/vue/24/outline";
 
-const modalVisible = ref(false);
+const helpModalVisible = ref(false);
+const newBoardModalVisible = ref(false);
+
 const zIndexDown = ref(false);
 const showAddButton = ref(true);
 
