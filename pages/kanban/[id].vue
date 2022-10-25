@@ -102,7 +102,6 @@ onBeforeUnmount(() => {
 });
 
 const keyDownListener = (e) => {
-    console.log(e);
     if (!(e.ctrlKey || e.metaKey) || (e.key == "Control" && e.location == 1) || (e.key == "Meta")) return; // All shortcuts need control as a required key
 
     emitter.emit("resetColumnInputs");
