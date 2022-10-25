@@ -1,29 +1,29 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview"
-  },
-  "devDependencies": {
-    "@nuxtjs/tailwindcss": "^5.3.1",
-    "@tauri-apps/cli": "^1.1.1",
-    "nuxt": "3.0.0-rc.11",
-    "postcss-custom-properties": "^12.1.9"
-  },
-  "dependencies": {
-    "@heroicons/vue": "^2.0.0",
-    "@pinia/nuxt": "^0.4.2",
-    "@tauri-apps/api": "^1.1.0",
-    "floating-vue": "^2.0.0-beta.20",
-    "mitt": "^3.0.0",
-    "pinia": "^2.0.22",
-    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#17cf4d781c82a6c6578c472068c11136c0652d50",
-    "vue3-smooth-dnd": "^0.0.2"
-  },
-  "resolutions": {
-    "terser": "^5.15.0",
-    "undici": "^5.8.2"
- }
+    "private": true,
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview"
+    },
+    "devDependencies": {
+        "@nuxtjs/tailwindcss": "^6.1.1",
+        "@tauri-apps/cli": "^1.1.1",
+        "nuxt": "3.0.0-rc.11",
+        "postcss-custom-properties": "^12.1.9"
+    },
+    "dependencies": {
+        "@heroicons/vue": "^2.0.12",
+        "@pinia/nuxt": "^0.4.3",
+        "@tauri-apps/api": "^1.1.0",
+        "floating-vue": "^2.0.0-beta.20",
+        "mitt": "^3.0.0",
+        "pinia": "^2.0.23",
+        "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#9bd993aa67766596638bbfd91e79a1bf8f632014",
+        "vue3-smooth-dnd": "^0.0.2"
+    },
+    "resolutions": {
+        "terser": "^5.15.0",
+        "undici": "^5.8.2"
+    }
 }
