@@ -23,5 +23,3 @@ const props = defineProps<{
     board: Board;
 }>();
 </script>
-
-<style></style>
