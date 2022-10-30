@@ -56,6 +56,8 @@ import emitter from "@/utils/emitter.js"
 
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 
+import { Card } from "~~/types/kanban-types";
+
 const emit = defineEmits(["closeModal", "setCardDescription", "setCardTitle"])
 
 const cardID = ref(0)
@@ -65,8 +67,7 @@ const description = ref("")
 const titleEditing = ref(false)
 
 onMounted(() => {
-    emitter.on("openKanbanModal", (params) => {
-        // @ts-ignore
+    emitter.on("openKanbanModal", (params: { index: number, el: Card}) => {
         initModal(params.index, params.el.name, params.el.description || "")
     })
 })

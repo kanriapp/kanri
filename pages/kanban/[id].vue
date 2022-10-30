@@ -14,7 +14,7 @@
             v-if="boardTitleEditing"
             type="text"
             v-model="board.title"
-            class="my-4 bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+            class="my-4 mr-2 w-full px-2 text-4xl bg-elevation-2 border-accent border-2 border-dotted outline-none text-no-overflow rounded-sm"
             @blur="
                 boardTitleEditing = false;
                 updateStorage();
@@ -46,7 +46,7 @@
                 />
             </Draggable>
             <div
-                class="nodrag bg-elevation-1 bg-elevation-2-hover flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
+                class="nodrag flex flex-row items-center gap-2 h-min p-2 bg-elevation-1 bg-elevation-2-hover cursor-pointer rounded-md"
                 @click="addColumn()"
             >
                 <PlusIcon class="w-6 h-6 text-accent" />
@@ -66,6 +66,7 @@ import { generateUniqueID } from "@/utils/idGenerator";
 
 import type { Board, Column } from "@/types/kanban-types";
 import emitter from "~/utils/emitter";
+import { Ref } from "vue";
 
 const store = useTauriStore().store;
 const route = useRoute();
@@ -82,7 +83,7 @@ const columnEditIndex = ref(0);
 
 onMounted(async () => {
     boards.value = await store.get("boards");
-    board.value = boards.value[parseInt(route.params.id[0])];
+    board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
 
     document.addEventListener("keydown", keyDownListener);
 
@@ -102,7 +103,12 @@ onBeforeUnmount(() => {
 });
 
 const keyDownListener = (e) => {
-    if (!(e.ctrlKey || e.metaKey) || (e.key == "Control" && e.location == 1) || (e.key == "Meta")) return; // All shortcuts need control as a required key
+    const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
+    const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
+    const metaIsOnlyKeyPressed: boolean = e.key == "Meta"
+
+    // All shortcuts need control as a required key, but we don't want only control to trigger something
+    if (!controlOrMetaPressed || controlIsOnlyKeyPressed || metaIsOnlyKeyPressed) return;
 
     emitter.emit("resetColumnInputs");
 
@@ -113,8 +119,8 @@ const keyDownListener = (e) => {
         return;
     }
 
+    // Arrow key left to decrease
     if (e.keyCode === 37) {
-        // Arrow key left to decrease
         if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
             columnEditIndex.value = board.value.columns.length - 1;
         } else {
@@ -122,8 +128,8 @@ const keyDownListener = (e) => {
         }
     }
 
+    // Arrow key right to increase
     if (e.keyCode === 39) {
-        // Arrow key right to increase
         if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
             columnEditIndex.value = 0;
         } else {
@@ -197,30 +203,27 @@ const removeColumn = (columnID) => {
     updateStorage();
 };
 
-const updateColumnProperties = (columnRef: Column) => {
+const updateColumnProperties = (columnObj: Column) => {
     let boardSaved: Board = board.value;
     const column = boardSaved.columns.filter((obj: Column) => {
-        return obj.id === columnRef.id;
+        return obj.id === columnObj.id;
     })[0];
 
     const columnIndex = boardSaved.columns.indexOf(column);
-    boardSaved.columns[columnIndex] = columnRef;
+    boardSaved.columns[columnIndex] = columnObj;
 
     board.value = boardSaved;
     updateStorage();
 };
 
 const updateStorage = () => {
-    // @ts-ignore
-    const currentBoard = boards.value.filter((obj) => {
-        // @ts-ignore
-        return obj.id === board.id;
+    const currentBoard = boards.value.filter((obj: Board) => {
+        return obj.id === board.value.id;
     })[0];
 
-    // @ts-ignore
     const currentBoardIndex = boards.value.indexOf(currentBoard);
     boards.value[currentBoardIndex] = board.value; // Override old board with new one
-    store.set("boards", boards.value); // Override all svaed boards with new altered array which includes modified current board
+    store.set("boards", boards.value); // Override all saved boards with new altered array which includes modified current board
 };
 </script>
 

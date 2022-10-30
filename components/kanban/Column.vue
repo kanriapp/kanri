@@ -132,14 +132,19 @@
 
 <script setup lang="ts">
 import { Container, Draggable } from "vue3-smooth-dnd";
+
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
+
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
+
+import { Card } from "~~/types/kanban-types";
+import type { Ref } from "vue"
 
 const props = defineProps<{
     id: string;
     title: string;
-    cardsList: Array<Object>;
+    cardsList: Array<Card>;
 }>();
 
 const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging"]);
@@ -147,7 +152,7 @@ const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging"]);
 const titleInput = ref(null);
 const newCardInput = ref(null);
 
-const cards = ref(props.cardsList);
+const cards = ref<Card[]>(props.cardsList);
 const newCardName = ref("");
 const cardAddMode = ref(false);
 const titleNew = ref(props.title);
@@ -225,16 +230,14 @@ const removeCard = (index: number) => {
 };
 
 const setCardTitle = (cardIndex: number, name: string) => {
-    // @ts-ignore
     cards.value[cardIndex].name = name;
 };
 
 const setCardDescription = (cardIndex: number, description: string) => {
-    // @ts-ignore
     cards.value[cardIndex].description = description;
 };
 
-const openModal = (_, index, el) => {
+const openModal = (_, index: number, el: Card) => {
     draggingEnabled.value = false;
     emit("disableDragging");
     emitter.emit("openKanbanModal", { index, el });
@@ -246,40 +249,17 @@ const closeModal = () => {
     modalVisible.value = false;
     draggingEnabled.value = true;
     emitter.emit("zIndexBack");
-    // TODO: also disable dragging for columns (emit event to top page, see KE)
 };
 
 const updateStorage = () => {
     const column = {
         id: props.id,
-        title: titleNew,
-        cards: cards,
+        title: titleNew.value,
+        cards: cards.value,
     };
 
     emit("updateStorage", column);
 };
-
-/*
-logic to still be implemented:
-
-
-    mounted() {
-        this._keyListener = function (e) {
-            if (e.key === "Escape") {
-                this.cardAddMode = false;
-                this.newCardName = "";
-                this.titleEditing = false;
-            }
-        };
-
-        document.addEventListener("keydown", this._keyListener.bind(this));
-    },
-
-    beforeDestroy() {
-        document.removeEventListener("keydown", this._keyListener);
-    },
-};
-*/
 </script>
 
 <style scoped>
