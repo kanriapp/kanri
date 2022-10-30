@@ -1,6 +1,6 @@
 <template>
     <div class="overflow-auto">
-        <div class="default-layout overflow-auto" :style="cssVars">
+        <div class="default-layout overflow-auto custom-scrollbar" :style="cssVars">
             <Sidebar class="fixed w-8 left-0" />
             <div class="min-h-screen pl-[4rem]">
                 <slot />
@@ -165,24 +165,20 @@ const cssVars = computed(() => {
     transition-duration: 0.4s;
     transition-property: height, opacity, transform;
     transition-timing-function: cubic-bezier(.13,.69,.77,.86);
-    overflow: hidden;
 }
 
 .page-enter-from {
     opacity: 0;
-    transform: translateX(2em);
-    overflow: hidden;
+    transform: translateY(2em);
 }
 
 .page-enter-to {
     opacity: 100%;
-    transform: translateX(0);
-    overflow: hidden;
+    transform: translateY(0);
 }
 
 .page-leave-active {
     opacity: 0;
-    transform: translateX(-2em);
-    overflow: hidden;
+    transform: translateY(-2em);
 }
 </style>
