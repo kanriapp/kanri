@@ -36,7 +36,7 @@ const newBoardName = ref("");
 onUpdated(() => {
     nextTick(() => {
         boardNameInput.value.focus();
-    })
+    });
 });
 
 const createNewBoard = () => {
