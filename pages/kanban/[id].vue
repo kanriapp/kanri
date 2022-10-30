@@ -73,7 +73,6 @@ import { generateUniqueID } from "@/utils/idGenerator";
 
 import type { Board, Column } from "@/types/kanban-types";
 import emitter from "~/utils/emitter";
-import { Ref } from "vue";
 
 const store = useTauriStore().store;
 const route = useRoute();
