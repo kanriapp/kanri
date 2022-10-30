@@ -11,7 +11,7 @@
                 </div>
                 <section id="inputs" class="flex flex-col mt-4">
                     <label for="boardName" class="text-lg text-medium text-dim-1 mb-2">Board Name</label>
-                    <input type="text" id="boardName" placeholder="New Board" v-model="newBoardName" class="max-w-[20rem] h-10 p-2 placeholder:text-dim-3-placeholder bg-elevation-2 rounded-md border border-elevation-3 border-accent-focus focus:border-2 focus:outline-none focus:border-dotted transition-colors duration-300" />
+                    <input type="text" ref="boardNameInput" id="boardName" placeholder="New Board" v-model="newBoardName" class="max-w-[20rem] h-10 p-2 placeholder:text-dim-3-placeholder bg-elevation-2 rounded-md border border-elevation-3 border-accent-focus focus:border-2 focus:outline-none focus:border-dotted transition-colors duration-300" />
                 </section>
                 <section id="buttons" class="flex flex-row items-center justify-end gap-8 w-full mt-8">
                     <button class="text-accent-hover" @click="closeModal()">Cancel</button>
@@ -29,7 +29,15 @@ import { XMarkIcon } from '@heroicons/vue/24/outline';
 
 const emit = defineEmits(["closeModal"]);
 
+const boardNameInput = ref(null);
+
 const newBoardName = ref("");
+
+onUpdated(() => {
+    nextTick(() => {
+        boardNameInput.value.focus();
+    })
+});
 
 const createNewBoard = () => {
     emitter.emit('createBoard', newBoardName.value);
