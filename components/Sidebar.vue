@@ -1,6 +1,6 @@
 <template>
     <nav
-        class="flex flex-col items-center justify-between h-screen px-2 pb-6 pt-4 mr-8 bg-elevation-1 sticky left-0 top-0"
+        class="flex flex-col items-center justify-between h-screen px-8 pb-6 pt-4 mr-8 bg-elevation-1 overflow-hidden shadow-md"
         :class="zIndexDown ? '' : 'z-50'"
     >
         <ModalNewBoard v-show="newBoardModalVisible" @closeModal="newBoardModalVisible = false" />

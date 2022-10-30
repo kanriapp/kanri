@@ -147,7 +147,7 @@ const props = defineProps<{
     cardsList: Array<Card>;
 }>();
 
-const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging"]);
+const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging", "enableDragging"]);
 
 const titleInput = ref(null);
 const newCardInput = ref(null);
@@ -248,6 +248,7 @@ const openModal = (_, index: number, el: Card) => {
 const closeModal = () => {
     modalVisible.value = false;
     draggingEnabled.value = true;
+    emit("enableDragging");
     emitter.emit("zIndexBack");
 };
 

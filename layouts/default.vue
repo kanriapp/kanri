@@ -1,8 +1,10 @@
 <template>
-    <div class="default-layout pr-8" :style="cssVars">
-        <div class="flex flex-row">
-            <Sidebar class="sticky top-0" />
-            <slot />
+    <div class="overflow-auto">
+        <div class="default-layout overflow-auto" :style="cssVars">
+            <Sidebar class="fixed w-8 left-0" />
+            <div class="min-h-screen pl-[4rem]">
+                <slot />
+            </div>
         </div>
     </div>
 </template>
@@ -168,16 +170,19 @@ const cssVars = computed(() => {
 
 .page-enter-from {
     opacity: 0;
-    transform: translate(2em, 0);
+    transform: translateX(2em);
+    overflow: hidden;
 }
 
 .page-enter-to {
     opacity: 100%;
-    transform: translate(0, 0);
+    transform: translateX(0);
+    overflow: hidden;
 }
 
 .page-leave-active {
     opacity: 0;
-    transform: translate(-2em, 0);
+    transform: translateX(-2em);
+    overflow: hidden;
 }
 </style>

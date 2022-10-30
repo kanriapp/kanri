@@ -1,58 +1,65 @@
 <template>
     <div
-        class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal"
+        class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal pt-5"
         id="kanban-cols-container"
     >
-        <h1 class="my-4 text-4xl font-bold" v-if="!boardTitleEditing"
-            @click="boardTitleEditing = true; $nextTick(() => $refs.boardTitleInput.focus());"
-        >
-            {{ board.title }}
-        </h1>
-
-        <input
-            ref="boardTitleInput"
-            v-if="boardTitleEditing"
-            type="text"
-            v-model="board.title"
-            class="w-min h-12 my-4 mr-2 px-2 text-4xl bg-elevation-2 border-accent border-2 border-dotted outline-none text-no-overflow rounded-sm"
-            @blur="
-                boardTitleEditing = false;
-                updateStorage();
-            "
-            @keypress.enter="
-                boardTitleEditing = false;
-                updateStorage();
-            "
-        />
-
-        <Container
-            @drop="onDrop"
-            group-name="columns"
-            :orientation="'horizontal'"
-            :non-drag-area-selector="'nodrag'"
-            drag-handle-selector=".dragging-handle"
-            class="flex-row gap-4"
-        >
-            <Draggable v-for="column in board.columns" :key="column.id">
-                <KanbanColumn
-                    :ref="'kanbancol' + column.id"
-                    :id="column.id"
-                    :title="column.title"
-                    :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-                    :cardsList="column.cards"
-                    @updateStorage="updateColumnProperties"
-                    @removeColumn="removeColumn"
-                    @disableDragging="draggingEnabled = false"
+        <div class="pl-8">
+            <div class="absolute top-6">
+                <h1 class="mb-4 text-4xl font-bold" v-if="!boardTitleEditing"
+                    @click="boardTitleEditing = true; $nextTick(() => $refs.boardTitleInput.focus());"
+                >
+                    {{ board.title }}
+                </h1>
+                <input
+                    ref="boardTitleInput"
+                    v-if="boardTitleEditing"
+                    type="text"
+                    v-model="board.title"
+                    class="w-min h-12 mb-4 mr-2 px-2 text-4xl bg-elevation-2 border-accent border-2 border-dotted outline-none text-no-overflow rounded-sm"
+                    @blur="
+                        boardTitleEditing = false;
+                        updateStorage();
+                    "
+                    @keypress.enter="
+                        boardTitleEditing = false;
+                        updateStorage();
+                    "
                 />
-            </Draggable>
-            <div
-                class="nodrag flex flex-row items-center gap-2 h-min p-2 bg-elevation-1 bg-elevation-2-hover cursor-pointer rounded-md"
-                @click="addColumn()"
-            >
-                <PlusIcon class="w-6 h-6 text-accent" />
-                <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
             </div>
-        </Container>
+            <div class="pt-16">
+                <Container
+                    @drop="onDrop"
+                    group-name="columns"
+                    :orientation="'horizontal'"
+                    :non-drag-area-selector="'nodrag'"
+                    drag-handle-selector=".dragging-handle"
+                    class="flex-row gap-4"
+                >
+                    <Draggable v-for="column in board.columns" :key="column.id">
+                        <KanbanColumn
+                            :ref="'kanbancol' + column.id"
+                            :id="column.id"
+                            :title="column.title"
+                            :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+                            :cardsList="column.cards"
+                            @updateStorage="updateColumnProperties"
+                            @removeColumn="removeColumn"
+                            @disableDragging="draggingEnabled = false"
+                            @enableDragging="draggingEnabled = true"
+                        />
+                    </Draggable>
+                    <div class="pr-8">
+                        <div
+                            class="nodrag flex flex-row items-center gap-2 h-min p-2 bg-elevation-1 bg-elevation-2-hover cursor-pointer rounded-md mr-8"
+                            @click="addColumn()"
+                        >
+                            <PlusIcon class="w-6 h-6 text-accent" />
+                            <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
+                        </div>
+                    </div>
+                </Container>
+            </div>
+        </div>
     </div>
 </template>
 

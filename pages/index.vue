@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-8">
+    <div class="pt-8 pl-8">
         <h1 class="text-4xl font-bold">Welcome back to Kanri!</h1>
         <h2 class="ml-1 text-dim-3" v-if="boards.length !== 0">
             Your boards are ready and waiting for you.
