@@ -25,7 +25,7 @@
                 >
                     <KanbanBoardPreview :board="board" class="filter" />
                     <div class="flex flex-row justify-between px-1 py-2">
-                        <span class="px-1 text-lg font-semibold max-w-[200px]">
+                        <span class="px-1 text-lg font-semibold w-fit max-w-[180px] text-no-overflow">
                             {{ board.title }}
                         </span>
 
