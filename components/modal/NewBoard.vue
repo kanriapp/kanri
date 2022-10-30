@@ -32,7 +32,6 @@ const emit = defineEmits(["closeModal"]);
 const newBoardName = ref("");
 
 const createNewBoard = () => {
-    console.log(newBoardName.value);
     emitter.emit('createBoard', newBoardName.value);
     newBoardName.value = "";
     emit("closeModal");
