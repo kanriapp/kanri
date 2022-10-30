@@ -14,7 +14,7 @@
             v-if="boardTitleEditing"
             type="text"
             v-model="board.title"
-            class="my-4 mr-2 w-full px-2 text-4xl bg-elevation-2 border-accent border-2 border-dotted outline-none text-no-overflow rounded-sm"
+            class="w-min h-12 my-4 mr-2 px-2 text-4xl bg-elevation-2 border-accent border-2 border-dotted outline-none text-no-overflow rounded-sm"
             @blur="
                 boardTitleEditing = false;
                 updateStorage();
