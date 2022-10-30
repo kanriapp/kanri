@@ -5,7 +5,7 @@
         <div
             v-for="column in board.columns"
             :key="column.id"
-            class="w-10 h-min flex flex-col gap-0.5 bg-accent rounded-sm p-1 flex-shrink-0"
+            class="w-10 h-min flex flex-col gap-0.5 bg-accent-no-hover rounded-sm p-1 flex-shrink-0"
         >
             <div
                 v-for="card in column.cards"

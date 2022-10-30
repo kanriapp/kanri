@@ -95,6 +95,10 @@ const cssVars = computed(() => {
     background-color: var(--accent-darker);
 }
 
+.bg-accent-no-hover {
+    background-color: var(--accent);
+}
+
 .border-elevation-3 {
     border-color: var(--elevation-3);
 }
@@ -151,5 +155,28 @@ const cssVars = computed(() => {
     overflow-wrap: break-word;
     white-space: normal;
     overflow: hidden;
+}
+
+.page-enter-active,
+.page-leave-active {
+    transition-duration: 0.4s;
+    transition-property: height, opacity, transform;
+    transition-timing-function: cubic-bezier(.13,.69,.77,.86);
+    overflow: hidden;
+}
+
+.page-enter-from {
+    opacity: 0;
+    transform: translate(2em, 0);
+}
+
+.page-enter-to {
+    opacity: 100%;
+    transform: translate(0, 0);
+}
+
+.page-leave-active {
+    opacity: 0;
+    transform: translate(-2em, 0);
 }
 </style>
