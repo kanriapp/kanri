@@ -19,11 +19,11 @@
                 <nuxt-link
                     v-for="(board, index) in boards"
                     id="board-preview"
-                    class="flex flex-col bg-elevation-1 bg-elevation-2-hover rounded-md group"
+                    class="flex flex-col bg-elevation-1 rounded-md hover:-translate-y-1 transition-transform"
                     :key="index"
                     :to="'/kanban/' + index"
                 >
-                    <KanbanBoardPreview :board="board" class="filter group-hover:brightness-125" />
+                    <KanbanBoardPreview :board="board" class="filter" />
                     <div class="flex flex-row justify-between px-1 py-2">
                         <span class="px-1 text-lg font-semibold max-w-[200px]">
                             {{ board.title }}
