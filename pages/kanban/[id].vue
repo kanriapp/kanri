@@ -1,58 +1,65 @@
 <template>
     <div
-        class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal"
+        class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal pt-5"
         id="kanban-cols-container"
     >
-        <h1 class="my-4 text-4xl font-bold" v-if="!boardTitleEditing"
-            @click="boardTitleEditing = true; $nextTick(() => $refs.boardTitleInput.focus());"
-        >
-            {{ board.title }}
-        </h1>
-
-        <input
-            ref="boardTitleInput"
-            v-if="boardTitleEditing"
-            type="text"
-            v-model="board.title"
-            class="my-4 bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
-            @blur="
-                boardTitleEditing = false;
-                updateStorage();
-            "
-            @keypress.enter="
-                boardTitleEditing = false;
-                updateStorage();
-            "
-        />
-
-        <Container
-            @drop="onDrop"
-            group-name="columns"
-            :orientation="'horizontal'"
-            :non-drag-area-selector="'nodrag'"
-            drag-handle-selector=".dragging-handle"
-            class="flex-row gap-4"
-        >
-            <Draggable v-for="column in board.columns" :key="column.id">
-                <KanbanColumn
-                    :ref="'kanbancol' + column.id"
-                    :id="column.id"
-                    :title="column.title"
-                    :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-                    :cardsList="column.cards"
-                    @updateStorage="updateColumnProperties"
-                    @removeColumn="removeColumn"
-                    @disableDragging="draggingEnabled = false"
+        <div class="pl-8">
+            <div class="absolute top-6">
+                <h1 class="mb-4 text-4xl font-bold" v-if="!boardTitleEditing"
+                    @click="boardTitleEditing = true; $nextTick(() => $refs.boardTitleInput.focus());"
+                >
+                    {{ board.title }}
+                </h1>
+                <input
+                    ref="boardTitleInput"
+                    v-if="boardTitleEditing"
+                    type="text"
+                    v-model="board.title"
+                    class="w-min h-12 mb-4 mr-2 px-2 text-4xl bg-elevation-2 border-accent border-2 border-dotted outline-none text-no-overflow rounded-sm"
+                    @blur="
+                        boardTitleEditing = false;
+                        updateStorage();
+                    "
+                    @keypress.enter="
+                        boardTitleEditing = false;
+                        updateStorage();
+                    "
                 />
-            </Draggable>
-            <div
-                class="nodrag bg-elevation-1 bg-elevation-2-hover flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
-                @click="addColumn()"
-            >
-                <PlusIcon class="w-6 h-6 text-accent" />
-                <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
             </div>
-        </Container>
+            <div class="pt-16">
+                <Container
+                    @drop="onDrop"
+                    group-name="columns"
+                    :orientation="'horizontal'"
+                    :non-drag-area-selector="'nodrag'"
+                    drag-handle-selector=".dragging-handle"
+                    class="flex-row gap-4"
+                >
+                    <Draggable v-for="column in board.columns" :key="column.id">
+                        <KanbanColumn
+                            :ref="'kanbancol' + column.id"
+                            :id="column.id"
+                            :title="column.title"
+                            :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+                            :cardsList="column.cards"
+                            @updateStorage="updateColumnProperties"
+                            @removeColumn="removeColumn"
+                            @disableDragging="draggingEnabled = false"
+                            @enableDragging="draggingEnabled = true"
+                        />
+                    </Draggable>
+                    <div class="pr-8">
+                        <div
+                            class="nodrag flex flex-row items-center gap-2 h-min p-2 bg-elevation-1 bg-elevation-2-hover cursor-pointer rounded-md mr-8"
+                            @click="addColumn()"
+                        >
+                            <PlusIcon class="w-6 h-6 text-accent" />
+                            <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
+                        </div>
+                    </div>
+                </Container>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -82,7 +89,7 @@ const columnEditIndex = ref(0);
 
 onMounted(async () => {
     boards.value = await store.get("boards");
-    board.value = boards.value[parseInt(route.params.id[0])];
+    board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
 
     document.addEventListener("keydown", keyDownListener);
 
@@ -102,7 +109,17 @@ onBeforeUnmount(() => {
 });
 
 const keyDownListener = (e) => {
-    if (!(e.ctrlKey || e.metaKey)) return; // All shortcuts need control as a required key
+    const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
+    const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
+    const metaIsOnlyKeyPressed: boolean = e.key == "Meta"
+
+    // All shortcuts need control as a required key, but we don't want only control to trigger something
+    if (!controlOrMetaPressed || controlIsOnlyKeyPressed || metaIsOnlyKeyPressed) return;
+
+    console.log(e.key);
+
+    // We do not want to override shortcuts for copying and pasting
+    if (e.key === "a" || e.key === "c" || e.key === "v" || e.key === "x") return;
 
     emitter.emit("resetColumnInputs");
 
@@ -113,8 +130,8 @@ const keyDownListener = (e) => {
         return;
     }
 
+    // Arrow key left to decrease
     if (e.keyCode === 37) {
-        // Arrow key left to decrease
         if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
             columnEditIndex.value = board.value.columns.length - 1;
         } else {
@@ -122,8 +139,8 @@ const keyDownListener = (e) => {
         }
     }
 
+    // Arrow key right to increase
     if (e.keyCode === 39) {
-        // Arrow key right to increase
         if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
             columnEditIndex.value = 0;
         } else {
@@ -197,30 +214,27 @@ const removeColumn = (columnID) => {
     updateStorage();
 };
 
-const updateColumnProperties = (columnRef: Column) => {
+const updateColumnProperties = (columnObj: Column) => {
     let boardSaved: Board = board.value;
     const column = boardSaved.columns.filter((obj: Column) => {
-        return obj.id === columnRef.id;
+        return obj.id === columnObj.id;
     })[0];
 
     const columnIndex = boardSaved.columns.indexOf(column);
-    boardSaved.columns[columnIndex] = columnRef;
+    boardSaved.columns[columnIndex] = columnObj;
 
     board.value = boardSaved;
     updateStorage();
 };
 
 const updateStorage = () => {
-    // @ts-ignore
-    const currentBoard = boards.value.filter((obj) => {
-        // @ts-ignore
-        return obj.id === board.id;
+    const currentBoard = boards.value.filter((obj: Board) => {
+        return obj.id === board.value.id;
     })[0];
 
-    // @ts-ignore
     const currentBoardIndex = boards.value.indexOf(currentBoard);
     boards.value[currentBoardIndex] = board.value; // Override old board with new one
-    store.set("boards", boards.value); // Override all svaed boards with new altered array which includes modified current board
+    store.set("boards", boards.value); // Override all saved boards with new altered array which includes modified current board
 };
 </script>
 

@@ -1,3 +1,4 @@
 body {
     overscroll-behavior: none;
+    scroll-behavior: smooth;
 }

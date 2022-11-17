@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-8">
+    <div class="pt-8 pl-8">
         <h1 class="text-4xl font-bold">Welcome back to Kanri!</h1>
         <h2 class="ml-1 text-dim-3" v-if="boards.length !== 0">
             Your boards are ready and waiting for you.
@@ -19,15 +19,16 @@
                 <nuxt-link
                     v-for="(board, index) in boards"
                     id="board-preview"
-                    class="flex flex-col bg-elevation-1 bg-elevation-2-hover rounded-md group"
+                    class="flex flex-col bg-elevation-1 rounded-md hover:-translate-y-1 transition-transform"
                     :key="index"
                     :to="'/kanban/' + index"
                 >
-                    <KanbanBoardPreview :board="board" class="filter group-hover:brightness-125" />
+                    <KanbanBoardPreview :board="board" class="filter" />
                     <div class="flex flex-row justify-between px-1 py-2">
-                        <span class="px-1 text-lg font-semibold">
+                        <span class="px-1 text-lg font-semibold w-fit max-w-[180px] text-no-overflow">
                             {{ board.title }}
                         </span>
+
                         <VDropdown :distance="2" placement="bottom-end">
                             <button
                                 @click.prevent
@@ -78,8 +79,8 @@ const boards = ref([]);
 const loading = ref(true);
 
 onMounted(async () => {
-    emitter.on("createBoard", () => {
-        createNewBoard();
+    emitter.on("createBoard", (title: string) => {
+        createNewBoard(title);
     });
 
     boards.value = (await store.get("boards")) || [];
@@ -90,12 +91,10 @@ const boardAction = (board: number) => {
     console.log("Placeholder action for board: ", board);
 };
 
-const createNewBoard = () => {
-    // TODO: make a nicer onboarding process with a modal (instead of creating a full placeholder board)
-
+const createNewBoard = (title: string) => {
     const board: Board = {
         id: generateUniqueID(),
-        title: "New Board",
+        title: title,
         columns: [
             {
                 id: generateUniqueID(),

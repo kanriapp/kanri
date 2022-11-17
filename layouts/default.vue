@@ -1,8 +1,10 @@
 <template>
-    <div class="default-layout pr-8" :style="cssVars">
-        <div class="flex flex-row">
-            <Sidebar class="sticky top-0" />
-            <slot />
+    <div class="overflow-auto">
+        <div class="default-layout overflow-auto custom-scrollbar" :style="cssVars">
+            <Sidebar class="fixed w-8 left-0" />
+            <div class="min-h-screen pl-[4rem]">
+                <slot />
+            </div>
         </div>
     </div>
 </template>
@@ -95,6 +97,14 @@ const cssVars = computed(() => {
     background-color: var(--accent-darker);
 }
 
+.bg-accent-no-hover {
+    background-color: var(--accent);
+}
+
+.border-elevation-3 {
+    border-color: var(--elevation-3);
+}
+
 .border-accent {
     border-color: var(--accent);
 }
@@ -131,6 +141,10 @@ const cssVars = computed(() => {
     color: var(--text-dim-3);
 }
 
+.text-dim-3-placeholder::placeholder {
+    color: var(--text-dim-3);
+}
+
 .text-dim-4 {
     color: var(--text-dim-4);
 }
@@ -143,5 +157,28 @@ const cssVars = computed(() => {
     overflow-wrap: break-word;
     white-space: normal;
     overflow: hidden;
+    hyphens: auto;
+}
+
+.page-enter-active,
+.page-leave-active {
+    transition-duration: 0.4s;
+    transition-property: height, opacity, transform;
+    transition-timing-function: cubic-bezier(.13,.69,.77,.86);
+}
+
+.page-enter-from {
+    opacity: 0;
+    transform: translateY(2em);
+}
+
+.page-enter-to {
+    opacity: 100%;
+    transform: translateY(0);
+}
+
+.page-leave-active {
+    opacity: 0;
+    transform: translateY(-2em);
 }
 </style>

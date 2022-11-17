@@ -1,5 +1,5 @@
 <template>
-    <main id="settings" class="ml-4 mt-8">
+    <main id="settings" class="pl-8 pt-8 overflow-auto">
         <h1 class="text-4xl font-bold">Settings</h1>
         <span class="text-dim-3"> Change the behaviour of the application here. </span>
 
