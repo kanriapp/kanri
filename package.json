@@ -24,6 +24,7 @@
     },
     "resolutions": {
         "terser": "^5.15.0",
-        "undici": "^5.8.2"
+        "undici": "^5.8.2",
+        "loader-utils": "^2.0.4"
     }
 }
