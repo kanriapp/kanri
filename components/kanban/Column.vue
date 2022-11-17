@@ -188,7 +188,7 @@ onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
 });
 
-const keyDownListener = (e) => {
+const keyDownListener = (e: { key: string; }) => {
     if (e.key === "Escape") {
         cardAddMode.value = false;
         newCardName.value = "";
@@ -202,7 +202,7 @@ const dragHandleSelector = computed(() => {
     return draggingEnabled.value ? "" : "dragging_disabled";
 });
 
-const onDrop = (dropResult) => {
+const onDrop = (dropResult: any) => {
     cards.value = applyDrag(cards.value, dropResult);
     updateStorage();
 };
@@ -211,7 +211,7 @@ const getChildPayload = (index: number) => {
     return cards.value[index];
 };
 
-const addCard = (event) => {
+const addCard = (event: { relatedTarget: { id: string; }; }) => {
     if (
         (event.relatedTarget && event.relatedTarget.id === "submitButton") ||
         event instanceof KeyboardEvent
@@ -231,13 +231,15 @@ const removeCard = (index: number) => {
 
 const setCardTitle = (cardIndex: number, name: string) => {
     cards.value[cardIndex].name = name;
+    updateStorage();
 };
 
 const setCardDescription = (cardIndex: number, description: string) => {
     cards.value[cardIndex].description = description;
+    updateStorage();
 };
 
-const openModal = (_, index: number, el: Card) => {
+const openModal = (_: any, index: number, el: Card) => {
     draggingEnabled.value = false;
     emit("disableDragging");
     emitter.emit("openKanbanModal", { index, el });
