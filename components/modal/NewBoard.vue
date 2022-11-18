@@ -23,18 +23,20 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "~/utils/emitter.js";
+import emitter from "~/utils/emitter";
 
 import { XMarkIcon } from '@heroicons/vue/24/outline';
+import { Ref } from "vue";
 
 const emit = defineEmits(["closeModal"]);
 
-const boardNameInput = ref(null);
+const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
 
 const newBoardName = ref("");
 
 onUpdated(() => {
     nextTick(() => {
+        if (boardNameInput.value == null) return; 
         boardNameInput.value.focus();
     });
 });

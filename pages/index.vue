@@ -67,14 +67,15 @@ import { ask } from "@tauri-apps/api/dialog";
 import { useTauriStore } from "@/stores/tauriStore";
 
 import { generateUniqueID } from "@/utils/idGenerator.js";
-import emitter from "@/utils/emitter.js";
+import emitter from "@/utils/emitter";
 
 import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 
 import type { Board } from "@/types/kanban-types";
+import { Ref } from "vue";
 
 const store = useTauriStore().store;
-const boards = ref([]);
+const boards: Ref<Array<Board>> = ref([]);
 
 const loading = ref(true);
 

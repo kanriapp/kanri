@@ -11,10 +11,7 @@
         <div id="board-title" class="flex flex-row items-start justify-between gap-4">
             <h1
                 v-if="!titleEditing"
-                @click="
-                    titleEditing = true;
-                    $nextTick(() => $refs.titleInput.focus());
-                "
+                @click="enableTitleEditing()"
                 class="text-no-overflow ml-1 text-lg font-bold"
             >
                 {{ titleNew }}
@@ -119,10 +116,7 @@
         <div
             v-if="!cardAddMode"
             class="text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row gap-1 rounded-md py-1 font-medium"
-            @click="
-                cardAddMode = !cardAddMode;
-                $nextTick(() => $refs.newCardInput.focus());
-            "
+            @click="enableCardAddMode()"
         >
             <PlusIcon class="h-6 w-6 p-0.5" />
             <h2>Add Card</h2>
@@ -131,6 +125,7 @@
 </template>
 
 <script setup lang="ts">
+//@ts-ignore, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
@@ -138,7 +133,7 @@ import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 
-import { Card } from "~~/types/kanban-types";
+import { Card } from "~/types/kanban-types";
 import type { Ref } from "vue"
 
 const props = defineProps<{
@@ -149,8 +144,8 @@ const props = defineProps<{
 
 const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging", "enableDragging"]);
 
-const titleInput = ref(null);
-const newCardInput = ref(null);
+const titleInput: Ref<HTMLInputElement | null> = ref(null);
+const newCardInput: Ref<HTMLInputElement | null> = ref(null);
 
 const cards = ref<Card[]>(props.cardsList);
 const newCardName = ref("");
@@ -160,20 +155,35 @@ const titleEditing = ref(false);
 const modalVisible = ref(false);
 const draggingEnabled = ref(true);
 
+const enableTitleEditing = () => {
+    titleEditing.value = true;
+    nextTick(() => {
+        if (titleInput.value == null) return;
+        titleInput.value.focus();
+    });
+}
+
+const enableCardAddMode = () => {
+    cardAddMode.value = true;
+
+    nextTick(() => {
+        if (newCardInput.value == null) return;
+        newCardInput.value.focus()
+    });
+}
+
 onMounted(() => {
     document.addEventListener("keydown", keyDownListener);
 
     emitter.on("enableColumnTitleEditing", (columnID) => {
         if (columnID === props.id) {
-            titleEditing.value = true;
-            nextTick(() => titleInput.value.focus());
+            enableTitleEditing();
         }
     });
 
     emitter.on("enableColumnCardAddMode", (columnID) => {
         if (columnID === props.id) {
-            cardAddMode.value = true;
-            nextTick(() => newCardInput.value.focus());
+            enableCardAddMode();
         }
     });
 
@@ -211,8 +221,9 @@ const getChildPayload = (index: number) => {
     return cards.value[index];
 };
 
-const addCard = (event: { relatedTarget: { id: string; }; }) => {
+const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
     if (
+        //@ts-ignore
         (event.relatedTarget && event.relatedTarget.id === "submitButton") ||
         event instanceof KeyboardEvent
     ) {

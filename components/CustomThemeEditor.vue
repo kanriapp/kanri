@@ -103,7 +103,7 @@
 // @ts-nocheck
 import { dark } from "@/utils/themes.js";
 import { lightenColor } from "@/utils/colorUtils.js";
-import emitter from "@/utils/emitter.js";
+import emitter from "@/utils/emitter";
 
 import { useTauriStore } from "@/stores/tauriStore";
 
@@ -143,6 +143,7 @@ const setCustomTheme = () => {
 <style scoped>
 input[type="color"] {
     -webkit-appearance: none;
+    appearance: none;
     border-radius: 8px;
     cursor: pointer;
 }
