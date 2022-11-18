@@ -1,8 +1,8 @@
 export const light = {
-    bgPrimary: "#f1f5f9",
-    elevation1: "#e2e8f0",
-    elevation2: "#cbd5e1",
-    elevation3: "#94a3b8",
+    bgPrimary: "#d6d6d6",
+    elevation1: "#e8e8e8",
+    elevation2: "#ededed",
+    elevation3: "#ffffff",
     accent: "#1d4ed8",
     accentDarker: "#1e40af",
     text: "#1e293b",
