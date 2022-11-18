@@ -188,9 +188,11 @@ onMounted(() => {
     });
 
     emitter.on("resetColumnInputs", (columnID) => {
-        cardAddMode.value = false;
-        newCardName.value = "";
-        titleEditing.value = false;
+        if (columnID == props.id) {
+            cardAddMode.value = false;
+            newCardName.value = "";
+            titleEditing.value = false;
+        }
     });
 });
 
