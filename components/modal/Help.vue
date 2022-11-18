@@ -10,7 +10,7 @@
                     Here are some useful resources to assist you.
                 </h2>
                 <h3 class="mb-2 text-xl font-bold">
-                    Keyboard shortcuts (to be implemented)
+                    Keyboard shortcuts
                 </h3>
                 <ul class="ml-2 flex flex-col gap-2">
                     <li>
