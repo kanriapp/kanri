@@ -8,7 +8,7 @@
         <main id="boards">
             <div
                 v-if="boards.length === 0 && loading === false"
-                class="flex flex-col justify-center p-2 mt-5 items-left bg-elevation-1 rounded-md"
+                class="flex flex-col justify-center p-2 mt-5 items-left bg-elevation-1 rounded-md w-fit"
             >
                 <h3 class="text-xl font-bold">So empty here!</h3>
                 <span>Create a board to get started with tracking your tasks better.</span>
