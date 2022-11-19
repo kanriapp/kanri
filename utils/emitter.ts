@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import { Card } from '~/types/kanban-types';
+import { Board, Card } from '~/types/kanban-types';
 
 type Events = {
     createBoard: string;
@@ -10,6 +10,8 @@ type Events = {
 
     openKanbanModal: {index: number, el: Card};
     openKanbanPage: void;
+    openBoardRenameModal: {index: number, board: Board};
+
     closeKanbanPage: void;
     resetColumnInputs: string;
     columnActionDone: void;

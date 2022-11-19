@@ -1,5 +1,7 @@
 <template>
     <div class="pt-8 pl-8">
+        <ModalRenameBoard v-show="renameBoardModalVisible" @closeModal="renameBoardModalVisible = false" @renameBoard="renameBoard" />
+
         <h1 class="text-4xl font-bold">Welcome back to Kanri!</h1>
         <h2 class="ml-1 text-dim-3" v-if="boards.length !== 0">
             Your boards are ready and waiting for you.
@@ -41,7 +43,7 @@
                                 <div class="flex flex-col">
                                     <button
                                         class="hover:bg-gray-200 px-4 py-1.5"
-                                        @click="boardAction(index)"
+                                        @click="renameBoardModal(index)"
                                     >
                                         Rename
                                     </button>
@@ -78,6 +80,7 @@ const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
 
 const loading = ref(true);
+const renameBoardModalVisible = ref(false);
 
 onMounted(async () => {
     emitter.on("createBoard", (title: string) => {
@@ -87,10 +90,6 @@ onMounted(async () => {
     boards.value = (await store.get("boards")) || [];
     loading.value = false;
 });
-
-const boardAction = (board: number) => {
-    console.log("Placeholder action for board: ", board);
-};
 
 const createNewBoard = (title: string) => {
     const board: Board = {
@@ -122,6 +121,24 @@ const createNewBoard = (title: string) => {
     boards.value = [...boards.value, board];
     store.set("boards", boards.value);
 };
+
+const renameBoardModal = (index: number) => {
+    const selectedBoard = boards.value[index];
+    if (selectedBoard == null) {
+        return console.error("Could not find board with index: ", index);
+    }
+
+    emitter.emit("openBoardRenameModal", {index: index, board: selectedBoard});
+    renameBoardModalVisible.value = true;
+};
+
+const renameBoard = (index: number, name: string) => {
+    if (boards.value[index] == null) {
+        return console.error("Could not find board with index: ", index);
+    }
+
+    boards.value[index].title = name;
+}
 
 const deleteBoard = async (index: number) => {
     const yes = await ask(
