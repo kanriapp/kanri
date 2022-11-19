@@ -94,13 +94,16 @@ import { writeTextFile } from "@tauri-apps/api/fs";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { light, dark, catppuccin } from "@/utils/themes.js";
-import emitter from "@/utils/emitter.js";
+import emitter from "@/utils/emitter";
 
 import { SwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/outline";
 
+import { Ref } from "vue";
+import { ThemeIdentifiers } from "~/types/kanban-types";
+
 const store = useTauriStore().store;
 
-const activeTheme = ref("");
+const activeTheme: Ref<string | null> = ref("");
 const themeEditorDisplayed = ref(false);
 
 onMounted(async () => {
@@ -108,7 +111,7 @@ onMounted(async () => {
     if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
 });
 
-const setTheme = (themeName: string) => {
+const setTheme = (themeName: ThemeIdentifiers) => {
     activeTheme.value = themeName;
     themeEditorDisplayed.value = false;
 
@@ -170,6 +173,7 @@ const exportJSON = async () => {
         2
     );
 
+    if (filePath == null) return;
     await writeTextFile(filePath, fileContents);
 
     // TODO: allow importing from JSON

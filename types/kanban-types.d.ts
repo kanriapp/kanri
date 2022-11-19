@@ -15,8 +15,11 @@ export declare interface Card {
     description?: string
 }
 
+export declare type ThemeIdentifiers = "dark" | "light" | "catppuccin" | "custom";
+
 export default {
     Board,
     Column,
-    Card
+    Card,
+    ThemeIdentifiers
 }

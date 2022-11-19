@@ -8,21 +8,22 @@
   },
   "package": {
     "productName": "kanri",
-    "version": "0.1.2"
+    "version": "0.1.3"
   },
   "tauri": {
     "allowlist": {
       "fs": {
-        "all": true,
+        "writeFile": true,
         "scope": ["$HOME/*", "$APP/*"]
       },
       "dialog": {
-        "all": true
+        "ask": true,
+        "save": true
       }
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "Productivity",
       "copyright": "",
       "deb": {
         "depends": []
@@ -35,7 +36,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.trobonox.kanri",
+      "identifier": "tech.trobonox.kanri",
       "longDescription": "Kanban board application made for offline usage",
       "macOS": {
         "entitlements": null,

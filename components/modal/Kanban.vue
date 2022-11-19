@@ -8,7 +8,7 @@
             <div class="div flex flex-col w-[36rem] min-h-[40rem]">
                 <div class="flex flex-row justify-between items-start gap-12">
                     <h1
-                        @click="titleEditing = true; nextTick(() => $refs.titleInput.focus());"
+                        @click="enableTitleEditing()"
                         v-if="!titleEditing"
                         :v-model="title"
                         class="pointer-events-auto pr-5 text-2xl font-bold text-no-overflow"
@@ -52,11 +52,10 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter.js"
+import emitter from "@/utils/emitter"
 
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-
-import { Card } from "~~/types/kanban-types";
+import { Ref } from "vue";
 
 const emit = defineEmits(["closeModal", "setCardDescription", "setCardTitle"])
 
@@ -65,9 +64,18 @@ const title = ref("")
 const description = ref("")
 
 const titleEditing = ref(false)
+const titleInput: Ref<HTMLInputElement | null> = ref(null);
+
+const enableTitleEditing = () => {
+    titleEditing.value = true;
+    nextTick(() => {
+        if (titleInput.value == null) return;
+        titleInput.value.focus();
+    });
+}
 
 onMounted(() => {
-    emitter.on("openKanbanModal", (params: { index: number, el: Card}) => {
+    emitter.on("openKanbanModal", (params) => {
         initModal(params.index, params.el.name, params.el.description || "")
     })
 })

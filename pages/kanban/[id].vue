@@ -6,7 +6,7 @@
         <div class="pl-8">
             <div class="absolute top-6">
                 <h1 class="mb-4 text-4xl font-bold" v-if="!boardTitleEditing"
-                    @click="boardTitleEditing = true; $nextTick(() => $refs.boardTitleInput.focus());"
+                    @click="enableBoardTitleEditing()"
                 >
                     {{ board.title }}
                 </h1>
@@ -64,31 +64,43 @@
 </template>
 
 <script setup lang="ts">
-import { useTauriStore } from "@/stores/tauriStore";
+//@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
+import { useTauriStore } from "@/stores/tauriStore";
 import { PlusIcon } from "@heroicons/vue/24/solid";
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";
+import emitter from "@/utils/emitter";
 
-import type { Board, Column } from "@/types/kanban-types";
-import emitter from "~/utils/emitter";
+import type { Board, Column } from "~/types/kanban-types";
+import { Ref } from "vue";
 
 const store = useTauriStore().store;
 const route = useRoute();
 
-const boards = ref([]);
-const board = ref({ id: "123", title: "", columns: [] });
+const boards: Ref<Array<Board>> = ref([]);
+const board: Ref<Board> = ref({ id: "123", title: "", columns: [] });
 const draggingEnabled = ref(true);
 
 const boardTitleEditing = ref(false);
+const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 
 const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
 
+const enableBoardTitleEditing = () => {
+    boardTitleEditing.value = true;
+
+    nextTick(() => {
+        if (boardTitleInput.value == null) return;
+        boardTitleInput.value.focus();
+    });
+}
+
 onMounted(async () => {
-    boards.value = await store.get("boards");
+    boards.value = await store.get("boards") || [];
     board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
 
     document.addEventListener("keydown", keyDownListener);
@@ -108,7 +120,7 @@ onBeforeUnmount(() => {
     emitter.emit("closeKanbanPage");
 });
 
-const keyDownListener = (e) => {
+const keyDownListener = (e: KeyboardEvent) => {
     const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
     const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
     const metaIsOnlyKeyPressed: boolean = e.key == "Meta"
@@ -121,7 +133,8 @@ const keyDownListener = (e) => {
     // We do not want to override shortcuts for copying and pasting
     if (e.key === "a" || e.key === "c" || e.key === "v" || e.key === "x") return;
 
-    emitter.emit("resetColumnInputs");
+    //@ts-ignore
+    emitter.emit("resetColumnInputs"); //TODO: needs investigation on why this throws type error
 
     // Ctrl + B for new board
     if (e.key === "b") {
@@ -155,10 +168,12 @@ const keyDownListener = (e) => {
 
     if (columnID === "-1") return; // Guard clause to prevent impossible actions
 
-    // ctrl + d for deleting the last board
+    // ctrl + d for deleting the last column
     if (e.key === "d") {
-        const lastColumnID = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
-        if (lastColumnID === -1) return;
+        const lastColumnIndex = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
+        if (lastColumnIndex === -1) return;
+
+        const lastColumnID = board.value.columns[lastColumnIndex].id;
 
         removeColumn(lastColumnID);
         return;
@@ -181,6 +196,8 @@ const keyDownListener = (e) => {
 
 const scrollView = () => {
     var elem = document.getElementById("kanban-cols-container");
+    if (elem == null) return;
+
     elem.scrollLeft = elem.scrollWidth;
 };
 
@@ -204,8 +221,8 @@ const addColumn = () => {
     updateStorage();
 };
 
-const removeColumn = (columnID) => {
-    const column = board.value.columns.filter((obj) => {
+const removeColumn = (columnID: string) => {
+    const column = board.value.columns.filter((obj: Column) => {
         return obj.id === columnID;
     })[0];
 
