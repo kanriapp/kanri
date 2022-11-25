@@ -31,6 +31,7 @@ Open for any contributions or feature requests, though always keep in mind that 
 ![Settings Screenshot](https://user-images.githubusercontent.com/57040351/190853264-29520615-568b-4063-92d6-0089834a1f7c.png)
 
 ## 🛠 Build Setup
+Prerequisites: Node.js (LTS recommended) & NPM; [Tauri Development Environment](https://tauri.app/v1/guides/getting-started/prerequisites/)
 
 ```bash
 # Install dependencies
