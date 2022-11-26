@@ -15,7 +15,7 @@
                 </section>
                 <section id="buttons" class="flex flex-row items-center justify-end gap-8 w-full mt-8">
                     <button class="text-accent-hover" @click="closeModal()">Cancel</button>
-                    <button class="bg-accent px-4 py-2 rounded-md" @click="renameBoard()">Create Board</button>
+                    <button class="bg-accent px-4 py-2 rounded-md" @click="renameBoard()">Rename</button>
                 </section>
             </main>
         </template>
