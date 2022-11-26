@@ -1,6 +1,6 @@
 [package]
 name = "kanri"
-version = "0.1.3"
+version = "0.1.4"
 description = "Offline kanban board application"
 authors = ["trobonox"]
 license = "Apache-2.0"
