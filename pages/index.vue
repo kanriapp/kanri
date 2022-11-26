@@ -138,6 +138,7 @@ const renameBoard = (index: number, name: string) => {
     }
 
     boards.value[index].title = name;
+    store.set("boards", boards.value);
 }
 
 const deleteBoard = async (index: number) => {
