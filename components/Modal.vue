@@ -25,6 +25,22 @@ withDefaults(
         blurBackground: true,
     }
 );
+
+const emit = defineEmits(['closeModal']);
+
+onMounted(() => {
+    document.addEventListener("keydown", keyDownListener);
+});
+
+onBeforeUnmount(() => {
+    document.removeEventListener("keydown", keyDownListener);
+});
+
+const keyDownListener = (e: { key: string; }) => {
+    if (e.key === "Escape") {
+        emit("closeModal");
+    }
+};
 </script>
 
 <style>
