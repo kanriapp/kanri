@@ -52,9 +52,10 @@ onUpdated(() => {
 });
 
 const renameBoard = () => {
+    if (newBoardName.value == null || !(/\S/.test(newBoardName.value))) return;
+
     emit("renameBoard", boardIndex.value, newBoardName.value);
-    newBoardName.value = "";
-    emit("closeModal");
+    closeModal();
 }
 
 const closeModal = () => {
