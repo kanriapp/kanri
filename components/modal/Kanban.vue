@@ -11,7 +11,7 @@
                         @click="enableTitleEditing()"
                         v-if="!titleEditing"
                         :v-model="title"
-                        class="pointer-events-auto pr-5 text-2xl font-bold text-no-overflow"
+                        class="pointer-events-auto pr-5 text-2xl font-bold text-no-overflow min-w-[64px]"
                     >
                         {{ title }}
                     </h1>
@@ -91,6 +91,8 @@ const updateDescription = () => {
 }
 
 const updateTitle = () => {
+    if (title.value == null || !(/\S/.test(title.value))) return;
+
     titleEditing.value = false;
     emit("setCardTitle", cardID.value, title.value);
 }

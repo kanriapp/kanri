@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "kanri",
-    "version": "0.1.3"
+    "version": "0.1.4"
   },
   "tauri": {
     "allowlist": {
@@ -19,6 +19,13 @@
       "dialog": {
         "ask": true,
         "save": true
+      },
+      "shell": {
+        "all": false,
+        "execute": false,
+        "open": "https://github.com/trobonox/kanri|https://discord.gg/AVqHrvxB9C",
+        "scope": [],
+        "sidecar": false
       }
     },
     "bundle": {

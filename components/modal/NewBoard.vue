@@ -42,9 +42,10 @@ onUpdated(() => {
 });
 
 const createNewBoard = () => {
+    if (newBoardName.value == null || !(/\S/.test(newBoardName.value))) return;
+    
     emitter.emit('createBoard', newBoardName.value);
-    newBoardName.value = "";
-    emit("closeModal");
+    closeModal();
 }
 
 const closeModal = () => {

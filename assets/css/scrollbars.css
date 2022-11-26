@@ -21,17 +21,17 @@
 
 .custom-scrollbar-horizontal::-webkit-scrollbar {
     width: 6px;
-    height: 8px;
-    opacity: 60%;
+    height: 16px;
 }
 
 .custom-scrollbar-horizontal::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--elevation-1);
+    border-radius: 8px;
 }
 
 .custom-scrollbar-horizontal::-webkit-scrollbar-thumb {
     background: var(--elevation-2);
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .custom-scrollbar-horizontal::-webkit-scrollbar-thumb:hover {
