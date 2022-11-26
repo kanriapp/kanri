@@ -23,13 +23,9 @@
                 type="text"
                 v-model="titleNew"
                 class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 text-lg outline-none"
-                @blur="
-                    titleEditing = false;
-                    updateStorage();
-                "
+                @blur="updateColumnTitle"
                 @keypress.enter="
-                    titleEditing = false;
-                    updateStorage();
+                    updateColumnTitle();
                     emitter.emit('columnActionDone');
                 "
             />
@@ -59,7 +55,7 @@
                     @click.self="(event) => openModal(event, index, card)"
                 >
                     <p
-                        class="text-no-overflow mr-2"
+                        class="text-no-overflow mr-2 min-w-[24px]"
                         @click="(event) => openModal(event, index, card)"
                     >
                         {{ card.name }}
@@ -223,7 +219,16 @@ const getChildPayload = (index: number) => {
     return cards.value[index];
 };
 
+const updateColumnTitle = () => {
+    if (titleNew.value == null || !(/\S/.test(titleNew.value))) return;
+
+    titleEditing.value = false;
+    updateStorage();
+}
+
 const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
+    if (newCardName.value == null || !(/\S/.test(newCardName.value))) return;
+
     if (
         //@ts-ignore
         (event.relatedTarget && event.relatedTarget.id === "submitButton") ||
