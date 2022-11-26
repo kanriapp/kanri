@@ -128,8 +128,6 @@ const keyDownListener = (e: KeyboardEvent) => {
     // All shortcuts need control as a required key, but we don't want only control to trigger something
     if (!controlOrMetaPressed || controlIsOnlyKeyPressed || metaIsOnlyKeyPressed) return;
 
-    console.log(e.key);
-
     // We do not want to override shortcuts for copying and pasting
     if (e.key === "a" || e.key === "c" || e.key === "v" || e.key === "x") return;
 
