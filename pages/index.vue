@@ -98,22 +98,27 @@ const createNewBoard = (title: string) => {
         columns: [
             {
                 id: generateUniqueID(),
-                title: "New Column 1",
+                title: "Todo",
                 cards: [
                     {
-                        name: "Example Card 1",
+                        name: "Eat something tasty",
                         description: "",
                     },
                     {
-                        name: "Example Card 2",
-                        description: "",
+                        name: "Do some important task",
+                        description: "This is an extended description for an example task",
                     },
                 ],
             },
             {
                 id: generateUniqueID(),
-                title: "New Column 2",
-                cards: [{ name: "Example Card 3", description: "" }],
+                title: "Doing",
+                cards: [{ name: "Doing something cool", description: "" }],
+            },
+            {
+                id: generateUniqueID(),
+                title: "Done",
+                cards: [],
             },
         ],
     };
