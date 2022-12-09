@@ -4,6 +4,7 @@
 [![Repo size](https://img.shields.io/github/repo-size/trobonox/kanri)](https://github.com/trobonox/kanri)
 [![Repo license](https://img.shields.io/github/license/trobonox/kanri)](https://github.com/trobonox/kanri/blob/main/LICENSE)
 [![Discord server](https://img.shields.io/discord/965559337726656552)](https://discord.gg/AVqHrvxB9C)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftrobonox%2Fkanri.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftrobonox%2Fkanri?ref=badge_shield)
 
 A fully offline cross-platform Kanban Board desktop, with a focus on simplicity and user experience. Successor to Kanban Electron, rewritten using Tauri and Nuxt.js v3 with TypeScript.
 
@@ -53,3 +54,7 @@ yarn tauri build
 
 _Copyright (c) 2022 Trobonox_. Licensed under the Apache 2.0 License.
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftrobonox%2Fkanri.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftrobonox%2Fkanri?ref=badge_large)
