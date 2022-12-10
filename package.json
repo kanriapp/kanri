@@ -8,17 +8,17 @@
     },
     "devDependencies": {
         "@nuxtjs/tailwindcss": "^6.1.3",
-        "@tauri-apps/cli": "^1.2.1",
+        "@tauri-apps/cli": "^1.2.2",
         "nuxt": "3.0.0",
         "postcss-custom-properties": "^12.1.9"
     },
     "dependencies": {
-        "@heroicons/vue": "^2.0.12",
-        "@pinia/nuxt": "^0.4.4",
+        "@heroicons/vue": "^2.0.13",
+        "@pinia/nuxt": "^0.4.6",
         "@tauri-apps/api": "^1.2.0",
         "floating-vue": "^2.0.0-beta.20",
         "mitt": "^3.0.0",
-        "pinia": "^2.0.24",
+        "pinia": "^2.0.28",
         "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#9bd993aa67766596638bbfd91e79a1bf8f632014",
         "vue3-smooth-dnd": "^0.0.2"
     },

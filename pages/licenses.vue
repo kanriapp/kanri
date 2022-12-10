@@ -86,7 +86,7 @@
     
           <h3>
     
-              <a href="https://www.npmjs.com/package/@heroicons/vue">@heroicons/vue (2.0.12)</a>
+              <a href="https://www.npmjs.com/package/@heroicons/vue">@heroicons/vue (2.0.13)</a>
     
           </h3>
     
@@ -386,7 +386,7 @@
     
           <h3>
     
-              <a href="https://www.npmjs.com/package/pinia">pinia (2.0.24)</a>
+              <a href="https://www.npmjs.com/package/pinia">pinia (2.0.28)</a>
     
           </h3>
     
@@ -461,7 +461,7 @@
     
           <h3>
     
-              <a href="https://www.npmjs.com/package/@pinia/nuxt">@pinia/nuxt (0.4.4)</a>
+              <a href="https://www.npmjs.com/package/@pinia/nuxt">@pinia/nuxt (0.4.6)</a>
     
           </h3>
     
@@ -1094,7 +1094,7 @@
     
           <h3>
     
-              <a href="https://www.npmjs.com/package/@tauri-apps/cli">@tauri-apps/cli (1.2.1)</a>
+              <a href="https://www.npmjs.com/package/@tauri-apps/cli">@tauri-apps/cli (1.2.2)</a>
     
           </h3>
     
