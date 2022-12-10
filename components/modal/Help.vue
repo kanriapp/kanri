@@ -59,6 +59,8 @@
                     the Apache 2.0 License. Icons used are from Heroicons
                     (licensed unter the MIT License).
                 </p>
+                <p class="pt-2">Copyright (c) 2022 Trobonox</p>
+                <a href="/licenses" class="text-accent text-accent-darker-hover">Third-party license notices</a>
             </main>
         </template>
     </Modal>
