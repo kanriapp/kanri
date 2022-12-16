@@ -30,6 +30,7 @@
             ref="boardNameInput"
             v-model="newBoardName"
             type="text"
+            maxlength="500"
             placeholder="Board Name"
             class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-[20rem] rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
           >

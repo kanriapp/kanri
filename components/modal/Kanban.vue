@@ -20,6 +20,7 @@
             ref="titleInput"
             v-model="title"
             type="text"
+            maxlength="1000"
             class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
             @blur="updateTitle"
             @keypress.enter="updateTitle"

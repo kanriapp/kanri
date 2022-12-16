@@ -25,6 +25,7 @@
         ref="titleInput"
         v-model="titleNew"
         type="text"
+        maxlength="1000"
         class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 text-lg outline-none"
         @blur="updateColumnTitle"
         @keypress.enter="

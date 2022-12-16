@@ -17,6 +17,7 @@
           ref="boardTitleInput"
           v-model="board.title"
           type="text"
+          maxlength="500"
           class="bg-elevation-2 border-accent text-no-overflow mb-4 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
           @blur="
             boardTitleEditing = false;
