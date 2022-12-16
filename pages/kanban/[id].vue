@@ -1,66 +1,71 @@
 <template>
-    <div
-        class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal pt-5"
-        id="kanban-cols-container"
-    >
-        <div class="pl-8">
-            <div class="absolute top-6">
-                <h1 class="mb-4 text-4xl font-bold" v-if="!boardTitleEditing"
-                    @click="enableBoardTitleEditing()"
-                >
-                    {{ board.title }}
-                </h1>
-                <input
-                    ref="boardTitleInput"
-                    v-if="boardTitleEditing"
-                    type="text"
-                    v-model="board.title"
-                    class="w-min h-12 mb-4 mr-2 px-2 text-4xl bg-elevation-2 border-accent border-2 border-dotted outline-none text-no-overflow rounded-sm"
-                    @blur="
-                        boardTitleEditing = false;
-                        updateStorage();
-                    "
-                    @keypress.enter="
-                        boardTitleEditing = false;
-                        updateStorage();
-                    "
-                />
+  <div
+    id="kanban-cols-container"
+    class="custom-scrollbar-horizontal flex max-h-screen flex-col overflow-y-hidden pt-5"
+  >
+    <div class="pl-8">
+      <div class="absolute top-6">
+        <h1
+          v-if="!boardTitleEditing"
+          class="mb-4 text-4xl font-bold"
+          @click="enableBoardTitleEditing()"
+        >
+          {{ board.title }}
+        </h1>
+        <input
+          v-if="boardTitleEditing"
+          ref="boardTitleInput"
+          v-model="board.title"
+          type="text"
+          class="bg-elevation-2 border-accent text-no-overflow mb-4 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+          @blur="
+            boardTitleEditing = false;
+            updateStorage();
+          "
+          @keypress.enter="
+            boardTitleEditing = false;
+            updateStorage();
+          "
+        >
+      </div>
+      <div class="pt-16">
+        <Container
+          group-name="columns"
+          :orientation="'horizontal'"
+          :non-drag-area-selector="'nodrag'"
+          drag-handle-selector=".dragging-handle"
+          class="flex-row gap-4"
+          @drop="onDrop"
+        >
+          <Draggable
+            v-for="column in board.columns"
+            :key="column.id"
+          >
+            <KanbanColumn
+              :id="column.id"
+              :ref="'kanbancol' + column.id"
+              :title="column.title"
+              :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+              :cards-list="column.cards"
+              @updateStorage="updateColumnProperties"
+              @removeColumn="removeColumn"
+              @disableDragging="draggingEnabled = false"
+              @enableDragging="draggingEnabled = true"
+            />
+          </Draggable>
+          <div class="pr-8">
+            <div
+              class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
+              @click="addColumn()"
+            >
+              <PlusIcon class="text-accent h-6 w-6" />
+              <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
             </div>
-            <div class="pt-16">
-                <Container
-                    @drop="onDrop"
-                    group-name="columns"
-                    :orientation="'horizontal'"
-                    :non-drag-area-selector="'nodrag'"
-                    drag-handle-selector=".dragging-handle"
-                    class="flex-row gap-4"
-                >
-                    <Draggable v-for="column in board.columns" :key="column.id">
-                        <KanbanColumn
-                            :ref="'kanbancol' + column.id"
-                            :id="column.id"
-                            :title="column.title"
-                            :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-                            :cardsList="column.cards"
-                            @updateStorage="updateColumnProperties"
-                            @removeColumn="removeColumn"
-                            @disableDragging="draggingEnabled = false"
-                            @enableDragging="draggingEnabled = true"
-                        />
-                    </Draggable>
-                    <div class="pr-8">
-                        <div
-                            class="nodrag flex flex-row items-center gap-2 h-min p-2 bg-elevation-1 bg-elevation-2-hover cursor-pointer rounded-md mr-8"
-                            @click="addColumn()"
-                        >
-                            <PlusIcon class="w-6 h-6 text-accent" />
-                            <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
-                        </div>
-                    </div>
-                </Container>
-            </div>
-        </div>
+          </div>
+        </Container>
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -131,8 +136,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     // We do not want to override shortcuts for copying and pasting
     if (e.key === "a" || e.key === "c" || e.key === "v" || e.key === "x") return;
 
-    //@ts-ignore
-    emitter.emit("resetColumnInputs"); //TODO: needs investigation on why this throws type error
+    emitter.emit("resetColumnInputs", "");
 
     // Ctrl + B for new board
     if (e.key === "b") {
@@ -159,7 +163,7 @@ const keyDownListener = (e: KeyboardEvent) => {
         }
     }
 
-    let columnID =
+    const columnID =
         board.value.columns.length !== 0 && board.value.columns[columnEditIndex.value]
             ? board.value.columns[columnEditIndex.value].id
             : "-1";
@@ -193,7 +197,7 @@ const keyDownListener = (e: KeyboardEvent) => {
 };
 
 const scrollView = () => {
-    var elem = document.getElementById("kanban-cols-container");
+    const elem = document.getElementById("kanban-cols-container");
     if (elem == null) return;
 
     elem.scrollLeft = elem.scrollWidth;
@@ -202,10 +206,6 @@ const scrollView = () => {
 const onDrop = (dropResult: object) => {
     board.value.columns = applyDrag(board.value.columns, dropResult);
     updateStorage();
-};
-
-const getChildPayload = (index: number) => {
-    return board.value.columns[index];
 };
 
 const addColumn = () => {
@@ -230,7 +230,7 @@ const removeColumn = (columnID: string) => {
 };
 
 const updateColumnProperties = (columnObj: Column) => {
-    let boardSaved: Board = board.value;
+    const boardSaved: Board = board.value;
     const column = boardSaved.columns.filter((obj: Column) => {
         return obj.id === columnObj.id;
     })[0];

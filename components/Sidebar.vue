@@ -1,42 +1,66 @@
 <template>
-    <nav
-        class="flex flex-col items-center justify-between h-screen px-8 pb-6 pt-4 mr-8 bg-elevation-1 overflow-hidden shadow-md"
-        :class="zIndexDown ? '' : 'z-50'"
+  <nav
+    class="bg-elevation-1 mr-8 flex h-screen flex-col items-center justify-between overflow-hidden px-8 pb-6 pt-4 shadow-md"
+    :class="zIndexDown ? '' : 'z-50'"
+  >
+    <ModalNewBoard
+      v-show="newBoardModalVisible"
+      @closeModal="newBoardModalVisible = false"
+    />
+    <ModalHelp
+      v-show="helpModalVisible"
+      @closeModal="helpModalVisible = false"
+    />
+
+    <section
+      id="items-top"
+      class="flex flex-col items-center gap-4"
     >
-        <ModalNewBoard v-show="newBoardModalVisible" @closeModal="newBoardModalVisible = false" />
-        <ModalHelp v-show="helpModalVisible" @closeModal="helpModalVisible = false" />
+      <div
+        id="logo"
+        class="flex flex-row rounded-md"
+      >
+        <IconKanri class="h-12 w-12" />
+      </div>
+      <nuxt-link to="/">
+        <div class="bg-elevation-2-hover rounded-md p-2">
+          <HomeIcon
+            v-if="showAddButton"
+            class="h-7 w-7"
+          />
+          <ArrowUturnLeftIcon
+            v-else
+            class="h-7 w-7"
+          />
+        </div>
+      </nuxt-link>
+      <button
+        v-if="showAddButton"
+        v-tooltip.left-start="'Create a new board'"
+        class="bg-elevation-2-hover rounded-md p-2"
+        @click="newBoardModalVisible = true"
+      >
+        <PlusCircleIcon class="text-accent h-7 w-7" />
+      </button>
+    </section>
 
-        <section id="items-top" class="flex flex-col items-center gap-4">
-            <div id="logo" class="flex flex-row rounded-md">
-                <IconKanri class="w-12 h-12" />
-            </div>
-            <nuxt-link to="/">
-                <div class="p-2 bg-elevation-2-hover rounded-md">
-                    <HomeIcon v-if="showAddButton" class="h-7 w-7" />
-                    <ArrowUturnLeftIcon v-else class="h-7 w-7" />
-                </div>
-            </nuxt-link>
-            <button
-                v-if="showAddButton"
-                class="p-2 bg-elevation-2-hover rounded-md"
-                @click="newBoardModalVisible = true"
-                v-tooltip.left-start="'Create a new board'"
-            >
-                <PlusCircleIcon class="h-7 w-7 text-accent" />
-            </button>
-        </section>
-
-        <section id="icons-bottom" class="flex flex-col items-center gap-4">
-            <button @click="helpModalVisible = true" class="p-2 bg-elevation-2-hover rounded-md">
-                <QuestionMarkCircleIcon class="h-7 w-7" />
-            </button>
-            <nuxt-link to="/settings">
-                <div class="p-2 bg-elevation-2-hover rounded-md">
-                    <Cog6ToothIcon class="h-7 w-7" />
-                </div>
-            </nuxt-link>
-        </section>
-    </nav>
+    <section
+      id="icons-bottom"
+      class="flex flex-col items-center gap-4"
+    >
+      <button
+        class="bg-elevation-2-hover rounded-md p-2"
+        @click="helpModalVisible = true"
+      >
+        <QuestionMarkCircleIcon class="h-7 w-7" />
+      </button>
+      <nuxt-link to="/settings">
+        <div class="bg-elevation-2-hover rounded-md p-2">
+          <Cog6ToothIcon class="h-7 w-7" />
+        </div>
+      </nuxt-link>
+    </section>
+  </nav>
 </template>
 
 <script setup>

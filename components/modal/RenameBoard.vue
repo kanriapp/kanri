@@ -1,25 +1,59 @@
 <template>
-    <Modal
-        :blurBackground="false"
-        @closeModal="closeModal()"
-    >
-        <template v-slot:content>
-            <main class="max-w-[48rem] min-w-[32rem]" @keypress.enter="renameBoard()">
-                <div class="flex flex-row justify-between items-start">
-                    <h1 class="pointer-events-auto pr-5 text-2xl font-bold">Rename Board</h1>
-                    <XMarkIcon class="h-6 w-6 cursor-pointer text-accent-hover" @click="closeModal()" />
-                </div>
-                <section id="inputs" class="flex flex-col mt-4">
-                    <label for="boardName" class="text-lg text-medium text-dim-1 mb-2">Board Name</label>
-                    <input type="text" ref="boardNameInput" id="boardName" placeholder="Board Name" v-model="newBoardName" class="max-w-[20rem] h-10 p-2 placeholder:text-dim-3-placeholder bg-elevation-2 rounded-md border border-elevation-3 border-accent-focus focus:border-2 focus:outline-none focus:border-dotted transition-colors duration-300" />
-                </section>
-                <section id="buttons" class="flex flex-row items-center justify-end gap-8 w-full mt-8">
-                    <button class="text-accent-hover" @click="closeModal()">Cancel</button>
-                    <button class="bg-accent px-4 py-2 rounded-md" @click="renameBoard()">Rename</button>
-                </section>
-            </main>
-        </template>
-    </Modal>
+  <Modal
+    :blur-background="false"
+    @closeModal="closeModal()"
+  >
+    <template #content>
+      <main
+        class="min-w-[32rem] max-w-[48rem]"
+        @keypress.enter="renameBoard()"
+      >
+        <div class="flex flex-row items-start justify-between">
+          <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
+            Rename Board
+          </h1>
+          <XMarkIcon
+            class="text-accent-hover h-6 w-6 cursor-pointer"
+            @click="closeModal()"
+          />
+        </div>
+        <section
+          id="inputs"
+          class="mt-4 flex flex-col"
+        >
+          <label
+            for="boardName"
+            class="text-medium text-dim-1 mb-2 text-lg"
+          >Board Name</label>
+          <input
+            id="boardName"
+            ref="boardNameInput"
+            v-model="newBoardName"
+            type="text"
+            placeholder="Board Name"
+            class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-[20rem] rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
+          >
+        </section>
+        <section
+          id="buttons"
+          class="mt-8 flex w-full flex-row items-center justify-end gap-8"
+        >
+          <button
+            class="text-accent-hover"
+            @click="closeModal()"
+          >
+            Cancel
+          </button>
+          <button
+            class="bg-accent rounded-md px-4 py-2"
+            @click="renameBoard()"
+          >
+            Rename
+          </button>
+        </section>
+      </main>
+    </template>
+  </Modal>
 </template>
 
 <script setup lang="ts">
