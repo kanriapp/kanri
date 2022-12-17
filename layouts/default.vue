@@ -1,12 +1,15 @@
 <template>
-    <div class="overflow-auto">
-        <div class="default-layout overflow-auto custom-scrollbar" :style="cssVars">
-            <Sidebar class="fixed w-8 left-0" />
-            <div class="min-h-screen pl-[4rem]">
-                <slot />
-            </div>
-        </div>
+  <div class="overflow-auto">
+    <div
+      class="default-layout custom-scrollbar overflow-auto"
+      :style="cssVars"
+    >
+      <Sidebar class="fixed left-0 w-8" />
+      <div class="min-h-screen pl-[4rem]">
+        <slot />
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup>

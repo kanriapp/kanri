@@ -7,7 +7,7 @@
 
 A fully offline cross-platform Kanban Board desktop, with a focus on simplicity and user experience. Successor to Kanban Electron, rewritten using Tauri and Nuxt.js v3 with TypeScript.
 
-> **Note**: This is a fairly early and untested version, it is advised to make regular JSON exports and not save any business-critical data in this software yet.
+> **Note**: This is a fairly early and untested version, it is advised to make regular JSON exports and not save any business-critical data in this software yet. Any testers that provide feedback are greatly appreciated.
 
 ## 🚀 Showcase
 
@@ -23,6 +23,7 @@ A fully offline cross-platform Kanban Board desktop, with a focus on simplicity 
 - [ ] Cloud sync capabilities using a custom backend or Supabase
 - [ ] More card properties like a due date or sub-tasks
 - [ ] JSON imports (from previously made exports)
+- [ ] More reusable components (input & dialog)
 - [ ] Add tests to prevent any critical bugs
 - [ ] Add custom scrollbars for all pages
 - [ ] Custom backgrounds in board view

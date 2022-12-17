@@ -1,54 +1,60 @@
 <template>
-    <Modal
-        :title="title"
-        ref="barebonesModal"
-        @closeModal="$emit('closeModal')"
-    >
-        <template v-slot:content>
-            <div class="div flex flex-col w-[36rem] min-h-[40rem]">
-                <div class="flex flex-row justify-between items-start gap-12">
-                    <h1
-                        @click="enableTitleEditing()"
-                        v-if="!titleEditing"
-                        :v-model="title"
-                        class="pointer-events-auto pr-5 text-2xl font-bold text-no-overflow min-w-[64px]"
-                    >
-                        {{ title }}
-                    </h1>
-                    <input
-                        @blur="updateTitle"
-                        @keypress.enter="updateTitle"
-                        v-if="titleEditing"
-                        ref="titleInput"
-                        type="text"
-                        v-model="title"
-                        class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
-                    />
+  <Modal
+    ref="barebonesModal"
+    :title="title"
+    @closeModal="$emit('closeModal')"
+  >
+    <template #content>
+      <div class="div flex min-h-[40rem] w-[36rem] flex-col">
+        <div class="flex flex-row items-start justify-between gap-12">
+          <h1
+            v-if="!titleEditing"
+            :v-model="title"
+            class="text-no-overflow pointer-events-auto min-w-[64px] pr-5 text-2xl font-bold"
+            @click="enableTitleEditing()"
+          >
+            {{ title }}
+          </h1>
+          <input
+            v-if="titleEditing"
+            ref="titleInput"
+            v-model="title"
+            type="text"
+            maxlength="1000"
+            class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
+            @blur="updateTitle"
+            @keypress.enter="updateTitle"
+          >
 
-                    <XMarkIcon class="h-6 w-6 cursor-pointer text-accent-hover flex-shrink-0" @click="$emit('closeModal')" />
-                </div>
-                <span class="text-md text-dim-3 mb-6">
-                    Edit all the things about your card!
-                </span>
+          <XMarkIcon
+            class="text-accent-hover h-6 w-6 shrink-0 cursor-pointer"
+            @click="$emit('closeModal')"
+          />
+        </div>
+        <span class="text-md text-dim-3 mb-6">
+          Edit all the things about your card!
+        </span>
 
-                <label for="cardDescription" class="text-lg font-semibold">
-                    Card Description
-                </label>
-                <textarea
-                    @blur="updateDescription"
-                    @keypress.enter="updateDescription"
-                    v-model="description"
-                    name="cardDescription"
-                    id="cardDescription"
-                    cols="6"
-                    rows="70"
-                    placeholder="Enter a detailed description of your card here..."
-                    class="bg-elevation-2 border-accent-focus pointer-events-auto mt-2 h-40 w-11/12 resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
-                >
-                </textarea>
-            </div>
-        </template>
-    </Modal>
+        <label
+          for="cardDescription"
+          class="text-lg font-semibold"
+        >
+          Card Description
+        </label>
+        <textarea
+          id="cardDescription"
+          v-model="description"
+          name="cardDescription"
+          cols="6"
+          rows="70"
+          placeholder="Enter a detailed description of your card here..."
+          class="bg-elevation-2 border-accent-focus pointer-events-auto mt-2 h-40 w-11/12 resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
+          @blur="updateDescription"
+          @keypress.enter="updateDescription"
+        />
+      </div>
+    </template>
+  </Modal>
 </template>
 
 <script setup lang="ts">

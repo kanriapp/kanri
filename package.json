@@ -4,11 +4,15 @@
         "build": "nuxt build",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
-        "preview": "nuxt preview"
+        "preview": "nuxt preview",
+        "lint": "eslint . --fix"
     },
     "devDependencies": {
+        "@nuxt/eslint-config": "^0.1.1",
         "@nuxtjs/tailwindcss": "^6.1.3",
         "@tauri-apps/cli": "^1.2.2",
+        "eslint": "^8.29.0",
+        "eslint-plugin-tailwindcss": "^3.7.1",
         "nuxt": "3.0.0",
         "postcss-custom-properties": "^12.1.9"
     },
