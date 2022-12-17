@@ -131,8 +131,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     // We do not want to override shortcuts for copying and pasting
     if (e.key === "a" || e.key === "c" || e.key === "v" || e.key === "x") return;
 
-    //@ts-ignore
-    emitter.emit("resetColumnInputs"); //TODO: needs investigation on why this throws type error
+    emitter.emit("resetColumnInputs");
 
     // Ctrl + B for new board
     if (e.key === "b") {

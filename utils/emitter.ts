@@ -13,7 +13,7 @@ type Events = {
     openBoardRenameModal: {index: number, board: Board};
 
     closeKanbanPage: void;
-    resetColumnInputs: string;
+    resetColumnInputs: void;
     columnActionDone: void;
 
     zIndexBack: void;
