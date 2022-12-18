@@ -14,7 +14,10 @@
     "allowlist": {
       "fs": {
         "writeFile": true,
-        "scope": ["$HOME/*", "$APP/*"]
+        "scope": [
+          "$HOME/*",
+          "$APP/*"
+        ]
       },
       "dialog": {
         "ask": true,
@@ -31,7 +34,7 @@
     "bundle": {
       "active": true,
       "category": "Productivity",
-      "copyright": "",
+      "copyright": "© 2022 Trobonox (hello@trobo.tech)",
       "deb": {
         "depends": []
       },
