@@ -1,69 +1,81 @@
 <template>
-  <div
-    id="kanban-cols-container"
-    class="custom-scrollbar-horizontal flex max-h-screen flex-col overflow-y-hidden pt-5"
-  >
-    <div class="pl-8">
-      <div class="absolute top-6">
-        <h1
-          v-if="!boardTitleEditing"
-          class="mb-4 text-4xl font-bold"
-          @click="enableBoardTitleEditing()"
-        >
-          {{ board.title }}
-        </h1>
-        <input
-          v-if="boardTitleEditing"
-          ref="boardTitleInput"
-          v-model="board.title"
-          type="text"
-          maxlength="500"
-          class="bg-elevation-2 border-accent text-no-overflow mb-4 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
-          @blur="
-            boardTitleEditing = false;
-            updateStorage();
-          "
-          @keypress.enter="
-            boardTitleEditing = false;
-            updateStorage();
-          "
-        >
-      </div>
-      <div class="pt-16">
-        <Container
-          group-name="columns"
-          :orientation="'horizontal'"
-          :non-drag-area-selector="'nodrag'"
-          drag-handle-selector=".dragging-handle"
-          class="flex-row gap-4"
-          @drop="onDrop"
-        >
-          <Draggable
-            v-for="column in board.columns"
-            :key="column.id"
-          >
-            <KanbanColumn
-              :id="column.id"
-              :ref="'kanbancol' + column.id"
-              :title="column.title"
-              :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-              :cards-list="column.cards"
-              @updateStorage="updateColumnProperties"
-              @removeColumn="removeColumn"
-              @disableDragging="draggingEnabled = false"
-              @enableDragging="draggingEnabled = true"
-            />
-          </Draggable>
-          <div class="pr-8">
-            <div
-              class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
-              @click="addColumn()"
+  <div>
+    <div
+      id="kanban-cols-container"
+      class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
+      :style="cssVars"
+    >
+      <div class="bg-blur-overlay h-full w-full pt-5">
+        <div class="z-50 pl-8">
+          <div class="relative">
+            <h1
+              v-if="!boardTitleEditing"
+              class="mb-2 rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
+              @click="enableBoardTitleEditing()"
             >
-              <PlusIcon class="text-accent h-6 w-6" />
-              <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
-            </div>
+              {{ board.title }}
+            </h1>
+            <input
+              v-if="boardTitleEditing"
+              ref="boardTitleInput"
+              v-model="board.title"
+              type="text"
+              maxlength="500"
+              class="bg-elevation-2 border-accent text-no-overflow mb-4 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+              @blur="
+                boardTitleEditing = false;
+                updateStorage();
+              "
+              @keypress.enter="
+                boardTitleEditing = false;
+                updateStorage();
+              "
+            >
+            <button
+              class="bg-elevation-1 bg-elevation-2-hover rounded-md px-4 py-1"
+              @click="getCustomBg"
+            >
+              Custom
+              Background
+            </button>
           </div>
-        </Container>
+          <div class="pt-4">
+            <Container
+              group-name="columns"
+              :orientation="'horizontal'"
+              :non-drag-area-selector="'nodrag'"
+              drag-handle-selector=".dragging-handle"
+              class="flex-row gap-4"
+              @drop="onDrop"
+            >
+              <Draggable
+                v-for="column in board.columns"
+                :key="column.id"
+              >
+                <KanbanColumn
+                  :id="column.id"
+                  :ref="'kanbancol' + column.id"
+                  :title="column.title"
+                  :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+                  :cards-list="column.cards"
+                  @updateStorage="updateColumnProperties"
+                  @removeColumn="removeColumn"
+                  @disableDragging="draggingEnabled = false"
+                  @enableDragging="draggingEnabled = true"
+                />
+              </Draggable>
+              <div class="pr-8">
+                <div
+                  class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
+                  @click="addColumn()"
+                >
+                  <PlusIcon class="text-accent h-6 w-6" />
+                  <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
+                </div>
+              </div>
+            </Container>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -74,6 +86,9 @@
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useTauriStore } from "@/stores/tauriStore";
 import { PlusIcon } from "@heroicons/vue/24/solid";
+
+import { open } from '@tauri-apps/api/dialog';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";
@@ -96,6 +111,30 @@ const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
 
+const bgCustom = ref("");
+
+const cssVars = computed(() => {
+    return {
+        "--bg-custom-image": `url("${bgCustom.value}")`,
+    }
+})
+
+const getCustomBg = async () => {
+    const selected = await open({
+        multiple: false,
+        filters: [{
+            name: 'Image',
+            extensions: ['png', 'jpeg', 'jpg']
+        }]
+    });
+    if (selected == null) return;
+
+    const resourcePath = convertFileSrc(selected as string);
+    bgCustom.value = resourcePath;
+    board.value.background = bgCustom.value;
+    updateStorage();
+}
+
 const enableBoardTitleEditing = () => {
     boardTitleEditing.value = true;
 
@@ -108,6 +147,8 @@ const enableBoardTitleEditing = () => {
 onMounted(async () => {
     boards.value = await store.get("boards") || [];
     board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
+
+    if (board.value.background) bgCustom.value = board.value.background;
 
     document.addEventListener("keydown", keyDownListener);
 
@@ -244,6 +285,8 @@ const updateColumnProperties = (columnObj: Column) => {
 };
 
 const updateStorage = () => {
+    console.log(board.value);
+
     const currentBoard = boards.value.filter((obj: Board) => {
         return obj.id === board.value.id;
     })[0];
@@ -263,4 +306,22 @@ const updateStorage = () => {
 #kanban-cols-container {
     height: 100vh;
 }
+
+.bg-custom {
+    z-index: 1;
+    background-image: var(--bg-custom-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-blur-overlay {
+    z-index: 2;
+    backdrop-filter: blur(10px);
+}
+
+.bg-brightness-overlay {
+    z-index: 2;
+    backdrop-filter: brightness(100%);
+}
+
 </style>

@@ -16,12 +16,14 @@
         "writeFile": true,
         "scope": [
           "$HOME/*",
-          "$APP/*"
+          "$APP/*",
+          "$RESOURCE/*"
         ]
       },
       "dialog": {
         "ask": true,
-        "save": true
+        "save": true,
+        "open": true
       },
       "shell": {
         "all": false,
@@ -29,6 +31,10 @@
         "open": "https://github.com/trobonox/kanri|https://discord.gg/AVqHrvxB9C",
         "scope": [],
         "sidecar": false
+      },
+      "protocol": { 
+        "asset": true,
+        "assetScope": ["*", "$HOME/*", "$APP/*"]
       }
     },
     "bundle": {

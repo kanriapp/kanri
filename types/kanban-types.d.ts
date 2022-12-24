@@ -1,7 +1,8 @@
 export declare interface Board {
     id: string,
     title: string,
-    columns: Array<any>
+    columns: Array<any>,
+    background?: string
 }
 
 export declare interface Column {
