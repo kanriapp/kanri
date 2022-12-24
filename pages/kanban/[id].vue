@@ -96,6 +96,8 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { PlusIcon } from "@heroicons/vue/24/solid";
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 
+import { convertFileSrc } from '@tauri-apps/api/tauri';
+
 import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";
 import emitter from "@/utils/emitter";
@@ -130,8 +132,8 @@ const cssVars = computed(() => {
 })
 
 const setBackgroundImage = (img: string) => {
-    bgCustom.value = img;
-    board.value.background = bgCustom.value;
+    bgCustom.value = convertFileSrc(img);
+    board.value.background = img;
     updateStorage();
 }
 
@@ -148,7 +150,7 @@ onMounted(async () => {
     boards.value = await store.get("boards") || [];
     board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
 
-    if (board.value.background) bgCustom.value = board.value.background;
+    if (board.value.background) bgCustom.value = convertFileSrc(board.value.background);
     nextTick(() => bgImageLoaded.value = true);
 
     document.addEventListener("keydown", keyDownListener);

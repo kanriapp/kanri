@@ -75,7 +75,7 @@ const getCustomBg = async () => {
 
     const resourcePath = convertFileSrc(selected as string);
     customBg.value = resourcePath;
-    emit("setBackground", resourcePath);
+    emit("setBackground", selected);
 }
 </script>
 
