@@ -17,7 +17,7 @@
         class="text-no-overflow ml-1 text-lg font-bold"
         @click="enableTitleEditing()"
       >
-        {{ titleNew }}
+        {{ boardTitle }}
       </h1>
 
       <input
@@ -161,6 +161,8 @@ const titleEditing = ref(false);
 const modalVisible = ref(false);
 const draggingEnabled = ref(true);
 
+const boardTitle = ref(props.title);
+
 const enableTitleEditing = () => {
     titleEditing.value = true;
     nextTick(() => {
@@ -230,6 +232,9 @@ const getChildPayload = (index: number) => {
 const updateColumnTitle = () => {
     if (titleNew.value == null || !(/\S/.test(titleNew.value))) return;
 
+    boardTitle.value = titleNew.value;
+    titleNew.value = "";
+
     titleEditing.value = false;
     updateStorage();
 }
@@ -283,7 +288,7 @@ const closeModal = () => {
 const updateStorage = () => {
     const column = {
         id: props.id,
-        title: titleNew.value,
+        title: boardTitle.value,
         cards: cards.value,
     };
 
