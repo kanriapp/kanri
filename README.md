@@ -19,6 +19,8 @@ A fully offline cross-platform Kanban Board desktop, with a focus on simplicity 
 
 ## 📋 Roadmap (planned features)
 
+See a full progress log in the Projects tab.
+
 - [ ] UI improvements like a bar for quick actions in the board view
 - [ ] Cloud sync capabilities using a custom backend or Supabase
 - [ ] More card properties like a due date or sub-tasks
