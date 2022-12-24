@@ -1,7 +1,7 @@
 <template>
   <transition name="modal-fade">
     <div
-      class="modal inset-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
+      class="modal inset-0 z-huge flex h-screen w-screen flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
       :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
       @click.self="clickOutsideToClose ? $emit('closeModal') : () => {}"
     >
@@ -64,5 +64,9 @@ const keyDownListener = (e: { key: string; }) => {
     right: 0;
     bottom: 0;
     left: 0;
+}
+
+.z-huge {
+    z-index: 10000000;
 }
 </style>
