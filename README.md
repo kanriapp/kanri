@@ -9,6 +9,14 @@ A fully offline cross-platform Kanban Board desktop, with a focus on simplicity 
 
 > **Note**: This is a fairly early and untested version, it is advised to make regular JSON exports and not save any business-critical data in this software yet. Any testers that provide feedback are greatly appreciated.
 
+**Features**:
+- Familiar Kanban board layout with clean design
+- Fully offline with local data saves in a JSON file
+- Theming system with 3 presets and custom theming ability
+- Keyboard shortcuts for easy Kanban board navigation
+- Start page with board preview tiles
+- Full data exports as a JSON file
+
 ## 🚀 Showcase
 
 ![Home Page Screenshot](https://user-images.githubusercontent.com/57040351/190853236-41c1b643-0d5d-4db9-8617-f3c07c5ea1f1.png)
