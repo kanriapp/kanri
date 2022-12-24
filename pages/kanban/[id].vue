@@ -1,5 +1,13 @@
 <template>
   <div>
+    <ModalCustomBackground
+      v-show="showCustomBgModal"
+      v-if="bgImageLoaded"
+      :background="bgCustom"
+      @closeModal="showCustomBgModal = false"
+      @setBackground="setBackgroundImage"
+    />
+
     <div
       id="kanban-cols-container"
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
@@ -32,11 +40,11 @@
               "
             >
             <button
-              class="bg-elevation-1 bg-elevation-2-hover rounded-md px-4 py-1"
-              @click="getCustomBg"
+              class="bg-elevation-1 bg-elevation-2-hover flex flex-row gap-1 rounded-md px-4 py-1"
+              @click="showCustomBgModal = true"
             >
-              Custom
-              Background
+              <PhotoIcon class="h-6 w-6" />
+              <span>Change Background</span>
             </button>
           </div>
           <div class="pt-4">
@@ -86,9 +94,7 @@
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useTauriStore } from "@/stores/tauriStore";
 import { PlusIcon } from "@heroicons/vue/24/solid";
-
-import { open } from '@tauri-apps/api/dialog';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { PhotoIcon } from "@heroicons/vue/24/outline";
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";
@@ -112,6 +118,8 @@ const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
 
 const bgCustom = ref("");
+const showCustomBgModal = ref(false);
+const bgImageLoaded = ref(false);
 
 const cssVars = computed(() => {
     return {
@@ -119,18 +127,8 @@ const cssVars = computed(() => {
     }
 })
 
-const getCustomBg = async () => {
-    const selected = await open({
-        multiple: false,
-        filters: [{
-            name: 'Image',
-            extensions: ['png', 'jpeg', 'jpg']
-        }]
-    });
-    if (selected == null) return;
-
-    const resourcePath = convertFileSrc(selected as string);
-    bgCustom.value = resourcePath;
+const setBackgroundImage = (img: string) => {
+    bgCustom.value = img;
     board.value.background = bgCustom.value;
     updateStorage();
 }
@@ -149,6 +147,7 @@ onMounted(async () => {
     board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
 
     if (board.value.background) bgCustom.value = board.value.background;
+    nextTick(() => bgImageLoaded.value = true);
 
     document.addEventListener("keydown", keyDownListener);
 
