@@ -63,7 +63,7 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import emitter from "~/utils/emitter";
 
 import { Cog6ToothIcon, HomeIcon, PlusCircleIcon, QuestionMarkCircleIcon, ArrowUturnLeftIcon } from "@heroicons/vue/24/outline";
@@ -75,6 +75,8 @@ const zIndexDown = ref(false);
 const showAddButton = ref(true);
 
 onMounted(() => {
+    document.addEventListener("keydown", keyDownListener);
+
     emitter.on("zIndexDown", () => {
         zIndexDown.value = true;
     });
@@ -91,4 +93,15 @@ onMounted(() => {
         showAddButton.value = true;
     });
 });
+
+onBeforeUnmount(() => {
+    document.removeEventListener("keydown", keyDownListener);
+});
+
+const keyDownListener = (e: KeyboardEvent) => {
+    if (e.key === "F1") {
+        helpModalVisible.value = true;
+        return;
+    }
+}
 </script>
