@@ -173,10 +173,8 @@ const keyDownListener = (e: KeyboardEvent) => {
 
     // ctrl + d for deleting the last column
     if (e.key === "d") {
-        const lastColumnIndex = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
-        if (lastColumnIndex === -1) return;
-
-        const lastColumnID = board.value.columns[lastColumnIndex].id;
+        columnEditIndex.value = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
+        const lastColumnID = board.value.columns[columnEditIndex.value].id;
 
         removeColumn(lastColumnID);
         return;
@@ -217,6 +215,7 @@ const addColumn = () => {
     };
 
     board.value.columns.push(column);
+    columnEditIndex.value++;
     updateStorage();
 };
 
@@ -227,6 +226,7 @@ const removeColumn = (columnID: string) => {
 
     const columnIndex = board.value.columns.indexOf(column);
     board.value.columns.splice(columnIndex, 1);
+    columnEditIndex.value--;
     updateStorage();
 };
 
