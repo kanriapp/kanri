@@ -120,10 +120,12 @@ const columnEditIndex = ref(0);
 const bgCustom = ref("");
 const showCustomBgModal = ref(false);
 const bgImageLoaded = ref(false);
+const bgBlur = ref("10px");
 
 const cssVars = computed(() => {
     return {
         "--bg-custom-image": `url("${bgCustom.value}")`,
+        "--blur-intensity": bgBlur.value
     }
 })
 
@@ -315,7 +317,7 @@ const updateStorage = () => {
 
 .bg-blur-overlay {
     z-index: 2;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(var(--blur-intensity));
 }
 
 .bg-brightness-overlay {

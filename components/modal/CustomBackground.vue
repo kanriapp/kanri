@@ -38,6 +38,7 @@
             >
               Add background image
             </button>
+            <!-- TODO: Add options for bg opacity and blur -->
           </div>
         </div>
       </main>
