@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     extends: ["@nuxt/eslint-config", "plugin:tailwindcss/recommended"],
-    ignorePatterns: ["src-tauri/**/*"],
+    ignorePatterns: ["src-tauri/**/*", "dist/**/*"],
     rules: {
         "vue/multi-word-component-names": "off",
         "vue/v-on-event-hyphenation": "off",
