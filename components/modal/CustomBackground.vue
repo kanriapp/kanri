@@ -1,5 +1,8 @@
 <template>
-  <Modal @closeModal="$emit('closeModal')">
+  <Modal
+    :click-outside-to-close="false"
+    @closeModal="$emit('closeModal')"
+  >
     <template #content>
       <main class="min-h-[36rem] min-w-[32rem] max-w-[48rem]">
         <div class="flex flex-row items-start justify-between">
@@ -12,8 +15,8 @@
           />
         </div>
         <div class="mt-4 flex flex-col gap-4">
-          <div>
-            <h2 class="mb-1">
+          <section id="bg-selection">
+            <h2 class="mb-2 text-lg font-semibold">
               Background image:
             </h2>
             <div
@@ -39,7 +42,58 @@
               Add background image
             </button>
             <!-- TODO: Add options for bg opacity and blur -->
-          </div>
+          </section>
+          <section
+            v-if="background.length > 0"
+            id="bg-blur"
+            class="w-full"
+          >
+            <h2 class="mb-2 text-lg font-semibold">
+              Background blur:
+            </h2>
+            <div class="slider">
+              <input
+                v-model="bgBlur"
+                class="w-full"
+                type="range"
+                min="0"
+                max="20"
+                oninput="rangeValue.innerText = this.value"
+              >
+              <p id="rangeValue">
+                {{ bgBlurString }}
+              </p>
+            </div>
+          </section>
+          <section
+            v-if="background.length > 0"
+            id="bg-brightness"
+            class="w-full"
+          >
+            <h2 class="mb-2 text-lg font-semibold">
+              Background brightness:
+            </h2>
+            <div class="slider">
+              <input
+                v-model="bgBrightness"
+                class="w-full"
+                type="range"
+                min="0"
+                max="100"
+                oninput="rangeValue.innerText = this.value"
+              >
+              <p id="rangeValue">
+                {{ bgBrightnessString }}
+              </p>
+            </div>
+          </section>
+          <button
+            v-if="background.length > 0"
+            class="bg-accent mt-8 w-full rounded-md px-2 py-1"
+            @click="saveSettings(); $emit('closeModal')"
+          >
+            Save Background Settings
+          </button>
         </div>
       </main>
     </template>
@@ -55,13 +109,31 @@ import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { ref } from "vue";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emit = defineEmits(["closeModal", "setBackground"]);
+const emit = defineEmits(["closeModal", "setBackground", "setBlur", "setBrightness"]);
 
 const props = defineProps<{
     background: string;
+    bgBlurProp: string;
+    bgBrightnessProp: string;
 }>();
 
 const customBg = ref(props.background);
+
+const bgBlur = ref(props.bgBlurProp.replace(/[^0-9]/g, ''));
+const bgBrightness = ref(props.bgBrightnessProp.replace(/[^0-9]/g, ''));
+
+const bgBlurString = computed(() => {
+    return `${bgBlur.value}`
+})
+
+const bgBrightnessString = computed(() => {
+    return `${bgBrightness.value}`
+})
+
+const saveSettings = () => {
+    emit("setBlur", `${bgBlur.value}px`);
+    emit("setBrightness", `${bgBrightness.value}%`);
+}
 
 const getCustomBg = async () => {
     const selected = await open({

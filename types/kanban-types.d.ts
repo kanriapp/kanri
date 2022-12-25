@@ -1,13 +1,20 @@
 export declare interface Board {
     id: string,
     title: string,
-    columns: Array<any>,
-    background?: string
+    columns: Array<Column>,
+    background?: BackgroundSettings
+}
+
+export declare interface BackgroundSettings {
+    src: string,
+    blur: string,
+    brightness: string
 }
 
 export declare interface Column {
     id: string,
-    cards: Array<any>
+    title: string,
+    cards: Array<Card>
 }
 
 export declare interface Card {

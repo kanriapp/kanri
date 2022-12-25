@@ -4,8 +4,12 @@
       v-show="showCustomBgModal"
       v-if="bgImageLoaded"
       :background="bgCustom"
+      :bg-blur-prop="bgBlur"
+      :bg-brightness-prop="bgBrightness"
       @closeModal="showCustomBgModal = false"
       @setBackground="setBackgroundImage"
+      @setBlur="setBlur"
+      @setBrightness="setBrightness"
     />
 
     <div
@@ -13,7 +17,7 @@
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
       :style="cssVars"
     >
-      <div class="bg-blur-overlay h-full w-full pt-5">
+      <div class="bg-effect-overlay h-full w-full pt-5">
         <div class="z-50 pl-8">
           <div class="relative">
             <h1
@@ -120,20 +124,38 @@ const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
 
 const bgCustom = ref("");
+const bgCustomNoResolution = ref("");
 const showCustomBgModal = ref(false);
 const bgImageLoaded = ref(false);
-const bgBlur = ref("10px");
+const bgBlur = ref("8px");
+const bgBrightness = ref("100%");
 
 const cssVars = computed(() => {
     return {
         "--bg-custom-image": `url("${bgCustom.value}")`,
-        "--blur-intensity": bgBlur.value
+        "--blur-intensity": bgBlur.value,
+        "--bg-brightness": bgBrightness.value
     }
 })
 
 const setBackgroundImage = (img: string) => {
+    bgCustomNoResolution.value = img;
     bgCustom.value = convertFileSrc(img);
-    board.value.background = img;
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
+const setBlur = (blurAmount: string) => {
+    console.log(blurAmount);
+    bgBlur.value = blurAmount;
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
+const setBrightness = (brightnessAmount: string) => {
+    console.log(brightnessAmount);
+    bgBrightness.value = brightnessAmount;
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
     updateStorage();
 }
 
@@ -150,7 +172,14 @@ onMounted(async () => {
     boards.value = await store.get("boards") || [];
     board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
 
-    if (board.value.background) bgCustom.value = convertFileSrc(board.value.background);
+    if (board.value.background) {
+        console.log(board.value.background);
+        bgCustomNoResolution.value = board.value.background.src;
+        bgCustom.value = convertFileSrc(board.value.background.src);
+
+        bgBlur.value = board.value.background.blur;
+        bgBrightness.value = board.value.background.brightness;
+    }
     nextTick(() => bgImageLoaded.value = true);
 
     document.addEventListener("keydown", keyDownListener);
@@ -317,14 +346,8 @@ const updateStorage = () => {
     background-size: cover;
 }
 
-.bg-blur-overlay {
+.bg-effect-overlay {
     z-index: 2;
-    backdrop-filter: blur(var(--blur-intensity));
+    backdrop-filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
 }
-
-.bg-brightness-overlay {
-    z-index: 2;
-    backdrop-filter: brightness(100%);
-}
-
 </style>
