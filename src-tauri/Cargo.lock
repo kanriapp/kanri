@@ -184,9 +184,9 @@ dependencies = [
 
 [[package]]
 name = "cargo_toml"
-version = "0.13.0"
+version = "0.13.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aa0e3586af56b3bfa51fca452bd56e8dbbbd5d8d81cbf0b7e4e35b695b537eb8"
+checksum = "497049e9477329f8f6a559972ee42e117487d01d1e8c2cc9f836ea6fa23a9e1a"
 dependencies = [
  "serde",
  "toml",
@@ -1581,9 +1581,9 @@ checksum = "478c572c3d73181ff3c2539045f6eb99e5491218eae919370993b890cdbdd98e"
 
 [[package]]
 name = "pest"
-version = "2.5.1"
+version = "2.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc8bed3549e0f9b0a2a78bf7c0018237a2cdf085eecbbc048e52612438e4e9d0"
+checksum = "0f6e86fb9e7026527a0d46bc308b841d73170ef8f443e1807f6ef88526a816d4"
 dependencies = [
  "thiserror",
  "ucd-trie",
