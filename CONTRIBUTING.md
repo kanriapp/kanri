@@ -2,6 +2,8 @@
 Kanri is written in TypeScript, Vue, and Rust; and is licensed under the Apache 2.0 license.
 
 ## A few rules
+By contributing to Kanri, you confirm that the work you are submitting is yours and it will be licensed under the Apache 2.0 license of the project. 
+
 To ensure uniformity in Kanri's repository, every contributor must follow these set of rules:
 * Commits must use the commit convention. (e.g. `feat: add x feature`
 * Have ESLint and Volar installed on your IDE for code formatting.
