@@ -13,6 +13,7 @@ To ensure uniformity in Kanri's repository, every contributor must follow these 
 * Find help wanted tickets that are up for grabs in GitHub. Comment to let everyone know you’re working on it and let a core contributor assign the issue to you. If there’s no ticket for what you want to work on, you are free to continue with your changes.
 * If in some case you need to use another dependency, create a new issue requesting for the package to be reviewed.
 * Your code should follow general Vue conventions, except for some exclusions, most notably camelCasing and events
+* After writing your code, make sure to lint your code with `yarn lint`.
 * When your changes are checked in to your fork, make sure to test your code extensively. Your commits should also follow the commit conventions.
 * Submit your pull request for a code review and wait for a Kanri core contributor to review it. When in doubt, ask for help in the Kanri Discord server.
 * Last but not least, make sure to have fun with the code!
@@ -35,6 +36,9 @@ yarn install
 
 # Start debug tauri build
 yarn tauri dev
+
+# Lint and cleanup code
+yarn lint
 
 # Build tauri for production
 yarn tauri build
