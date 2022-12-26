@@ -41,7 +41,6 @@
             >
               Add background image
             </button>
-            <!-- TODO: Add options for bg opacity and blur -->
           </section>
           <section
             v-if="background.length > 0"
@@ -87,13 +86,22 @@
               </p>
             </div>
           </section>
-          <button
-            v-if="background.length > 0"
-            class="bg-accent mt-8 w-full rounded-md px-2 py-1"
-            @click="saveSettings(); $emit('closeModal')"
-          >
-            Save Background Settings
-          </button>
+          <div class="flex flex-col gap-2">
+            <button
+              v-if="background.length > 0"
+              class="bg-accent mt-8 w-full rounded-md px-2 py-1"
+              @click="saveSettings(); $emit('closeModal')"
+            >
+              Save Background Settings
+            </button>
+            <button
+              v-if="background.length > 0"
+              class="bg-elevation-2-hover w-full rounded-md px-2 py-1"
+              @click="resetSettings()"
+            >
+              Reset Background Image
+            </button>
+          </div>
         </div>
       </main>
     </template>
@@ -109,7 +117,7 @@ import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { ref } from "vue";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emit = defineEmits(["closeModal", "setBackground", "setBlur", "setBrightness"]);
+const emit = defineEmits(["closeModal", "setBackground", "resetBackground", "setBlur", "setBrightness"]);
 
 const props = defineProps<{
     background: string;
@@ -133,6 +141,10 @@ const bgBrightnessString = computed(() => {
 const saveSettings = () => {
     emit("setBlur", `${bgBlur.value}px`);
     emit("setBrightness", `${bgBrightness.value}%`);
+}
+
+const resetSettings = () => {
+    emit("resetBackground");
 }
 
 const getCustomBg = async () => {

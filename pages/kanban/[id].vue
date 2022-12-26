@@ -8,6 +8,7 @@
       :bg-brightness-prop="bgBrightness"
       @closeModal="showCustomBgModal = false"
       @setBackground="setBackgroundImage"
+      @resetBackground="resetBackground"
       @setBlur="setBlur"
       @setBrightness="setBrightness"
     />
@@ -142,6 +143,15 @@ const setBackgroundImage = (img: string) => {
     bgCustomNoResolution.value = img;
     bgCustom.value = convertFileSrc(img);
     board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
+const resetBackground = () => {
+    bgCustom.value = "";
+    bgBlur.value = "8px";
+    bgBrightness.value = "100%";
+
+    delete board.value.background;
     updateStorage();
 }
 
