@@ -148,6 +148,7 @@ const customTheme = ref({});
 onMounted(async () => {
     const savedPalette = await store.get("savedCustomTheme") || await store.get("colors");
     await store.set("colors", savedPalette);
+    await store.set("activeTheme", "custom");
     emitter.emit("updateColors");
     customTheme.value = savedPalette || dark;
 });
