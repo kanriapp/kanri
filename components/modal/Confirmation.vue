@@ -16,7 +16,9 @@
             @click="closeModal()"
           />
         </div>
-        <p class="mt-2 ml-0.5 text-lg">{{ modalDescription }}</p>
+        <p class="mt-2 ml-0.5 text-lg">
+          {{ modalDescription }}
+        </p>
         <section
           id="buttons"
           class="mt-8 flex w-full flex-row items-center justify-end gap-8"

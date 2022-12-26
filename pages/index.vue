@@ -98,8 +98,6 @@
 </template>
 
 <script setup lang="ts">
-import { ask } from "@tauri-apps/api/dialog";
-
 import { useTauriStore } from "@/stores/tauriStore";
 
 import { generateUniqueID } from "@/utils/idGenerator.js";
