@@ -1,71 +1,103 @@
 <template>
-    <div class="pt-8 pl-8">
-        <ModalRenameBoard v-show="renameBoardModalVisible" @closeModal="renameBoardModalVisible = false" @renameBoard="renameBoard" />
+  <div class="pt-8 pl-8">
+    <ModalRenameBoard
+      v-show="renameBoardModalVisible"
+      @closeModal="renameBoardModalVisible = false"
+      @renameBoard="renameBoard"
+    />
 
-        <h1 class="text-4xl font-bold">Welcome back to Kanri!</h1>
-        <h2 class="ml-1 text-dim-3" v-if="boards.length !== 0">
-            Your boards are ready and waiting for you.
-        </h2>
+    <ModalConfirmation
+      v-show="deleteBoardModalVisible"
+      title="Delete Board?"
+      description="Are you sure you want to delete the board? This action is irreverisble."
+      confirm-button-text="Delete"
+      close-button-text="Cancel"
+      @closeModal="deleteBoardModalVisible = false"
+      @confirmAction="deleteBoard"
+    />
 
-        <main id="boards">
-            <div
-                v-if="boards.length === 0 && loading === false"
-                class="flex flex-col justify-center p-2 mt-5 items-left bg-elevation-1 rounded-md w-fit"
+    <h1 class="text-4xl font-bold">
+      Welcome back to Kanri!
+    </h1>
+    <h2
+      v-if="boards.length !== 0"
+      class="text-dim-3 ml-1"
+    >
+      Your boards are ready and waiting for you.
+    </h2>
+
+    <main id="boards">
+      <div
+        v-if="boards.length === 0 && loading === false"
+        class="items-left bg-elevation-1 mt-5 flex w-fit flex-col justify-center rounded-md p-2"
+      >
+        <h3 class="text-xl font-bold">
+          So empty here!
+        </h3>
+        <span>Create a board to get started with tracking your tasks better.</span>
+        <IconArrow />
+      </div>
+
+      <div
+        v-else
+        class="mt-5 mb-8 flex flex-row flex-wrap gap-6"
+      >
+        <nuxt-link
+          v-for="(board, index) in boards"
+          id="board-preview"
+          :key="index"
+          class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
+          :to="'/kanban/' + index"
+        >
+          <KanbanBoardPreview
+            :board="board"
+            class=""
+          />
+          <div class="flex flex-row justify-between px-1 py-2">
+            <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
+              {{ board.title }}
+            </span>
+
+            <VDropdown
+              :distance="2"
+              placement="bottom-end"
             >
-                <h3 class="text-xl font-bold">So empty here!</h3>
-                <span>Create a board to get started with tracking your tasks better.</span>
-                <IconArrow />
-            </div>
+              <button
+                class="bg-elevation-3-hover rounded-md py-0.5 px-1"
+                @click.prevent
+              >
+                <EllipsisHorizontalIcon class="h-6 w-6" />
+              </button>
 
-            <div v-else class="flex flex-row flex-wrap mt-5 mb-8 gap-6">
-                <nuxt-link
-                    v-for="(board, index) in boards"
-                    id="board-preview"
-                    class="flex flex-col bg-elevation-1 rounded-md hover:-translate-y-1 transition-transform"
-                    :key="index"
-                    :to="'/kanban/' + index"
-                >
-                    <KanbanBoardPreview :board="board" class="filter" />
-                    <div class="flex flex-row justify-between px-1 py-2">
-                        <span class="px-1 text-lg font-semibold w-fit max-w-[180px] text-no-overflow">
-                            {{ board.title }}
-                        </span>
-
-                        <VDropdown :distance="2" placement="bottom-end">
-                            <button
-                                @click.prevent
-                                class="py-0.5 px-1 bg-elevation-3-hover rounded-md"
-                            >
-                                <EllipsisHorizontalIcon class="h-6 w-6" />
-                            </button>
-
-                            <template #popper class="bg-elevation-1">
-                                <div class="flex flex-col">
-                                    <button
-                                        class="hover:bg-gray-200 px-4 py-1.5"
-                                        @click="renameBoardModal(index)"
-                                    >
-                                        Rename
-                                    </button>
-                                    <button
-                                        class="hover:bg-gray-200 px-4 py-1.5"
-                                        @click="deleteBoard(index)"
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            </template>
-                        </VDropdown>
-                    </div>
-                </nuxt-link>
-            </div>
-        </main>
-    </div>
+              <template
+                #popper
+              >
+                <div class="flex flex-col">
+                  <button
+                    v-close-popper
+                    class="px-4 py-1.5 hover:bg-gray-200"
+                    @click="renameBoardModal(index)"
+                  >
+                    Rename
+                  </button>
+                  <button
+                    v-close-popper
+                    class="px-4 py-1.5 hover:bg-gray-200"
+                    @click="deleteBoardModal(index)"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </template>
+            </VDropdown>
+          </div>
+        </nuxt-link>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ask } from "@tauri-apps/api/dialog";
-
 import { useTauriStore } from "@/stores/tauriStore";
 
 import { generateUniqueID } from "@/utils/idGenerator.js";
@@ -81,6 +113,7 @@ const boards: Ref<Array<Board>> = ref([]);
 
 const loading = ref(true);
 const renameBoardModalVisible = ref(false);
+const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
     emitter.on("createBoard", (title: string) => {
@@ -146,15 +179,21 @@ const renameBoard = (index: number, name: string) => {
     store.set("boards", boards.value);
 }
 
-const deleteBoard = async (index: number) => {
-    const yes = await ask(
-        `Are you sure you want to delete the board "${boards.value[index].title}"?`,
-        { title: "Kanri", type: "warning" }
-    );
+const deleteBoardModal = (index: number) => {
+    const selectedBoard = boards.value[index];
+    if (selectedBoard == null) {
+        return console.error("Could not find board with index: ", index);
+    }
 
-    if (!yes) return;
+    emitter.emit("openBoardDeleteModal", { index: index, description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.` });
+    deleteBoardModalVisible.value = true;
+}
+
+const deleteBoard = async (index: number) => {
+    if (index === -1) return;
 
     boards.value.splice(index, 1);
     store.set("boards", boards.value);
+
 };
 </script>

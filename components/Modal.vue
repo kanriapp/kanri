@@ -1,17 +1,20 @@
 <template>
-    <transition name="modal-fade">
-        <div
-            @click.self="clickOutsideToClose ? $emit('closeModal') : () => {}"
-            class="modal inset-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800 bg-opacity-40 bg-clip-padding backdrop-filter"
-            :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
-        >
-            <div
-                class="bg-elevation-1 min-h-content min-w-content rounded-md py-4 pl-8 pr-6 shadow-lg"
-            >
-                <slot name="content" class="p-4"></slot>
-            </div>
-        </div>
-    </transition>
+  <transition name="modal-fade">
+    <div
+      class="modal z-huge inset-0 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
+      :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
+      @click.self="clickOutsideToClose ? $emit('closeModal') : () => {}"
+    >
+      <div
+        class="bg-elevation-1 min-h-content min-w-content rounded-md py-4 pl-8 pr-6 shadow-lg"
+      >
+        <slot
+          name="content"
+          class="p-4"
+        />
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -61,5 +64,9 @@ const keyDownListener = (e: { key: string; }) => {
     right: 0;
     bottom: 0;
     left: 0;
+}
+
+.z-huge {
+    z-index: 10000000;
 }
 </style>

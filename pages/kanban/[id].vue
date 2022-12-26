@@ -1,66 +1,97 @@
 <template>
+  <div>
+    <ModalCustomBackground
+      v-show="showCustomBgModal"
+      v-if="bgImageLoaded"
+      :background="bgCustom"
+      :bg-blur-prop="bgBlur"
+      :bg-brightness-prop="bgBrightness"
+      @closeModal="showCustomBgModal = false"
+      @setBackground="setBackgroundImage"
+      @resetBackground="resetBackground"
+      @setBlur="setBlur"
+      @setBrightness="setBrightness"
+    />
+
     <div
-        class="flex flex-col overflow-y-hidden max-h-screen custom-scrollbar-horizontal pt-5"
-        id="kanban-cols-container"
+      id="kanban-cols-container"
+      class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
+      :style="cssVars"
     >
-        <div class="pl-8">
-            <div class="absolute top-6">
-                <h1 class="mb-4 text-4xl font-bold" v-if="!boardTitleEditing"
-                    @click="enableBoardTitleEditing()"
-                >
-                    {{ board.title }}
-                </h1>
-                <input
-                    ref="boardTitleInput"
-                    v-if="boardTitleEditing"
-                    type="text"
-                    v-model="board.title"
-                    class="w-min h-12 mb-4 mr-2 px-2 text-4xl bg-elevation-2 border-accent border-2 border-dotted outline-none text-no-overflow rounded-sm"
-                    @blur="
-                        boardTitleEditing = false;
-                        updateStorage();
-                    "
-                    @keypress.enter="
-                        boardTitleEditing = false;
-                        updateStorage();
-                    "
+      <div class="bg-effect-overlay h-full w-full pt-5">
+        <div class="z-50 pl-8">
+          <div class="relative">
+            <h1
+              v-if="!boardTitleEditing"
+              class="mb-2 rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
+              @click="enableBoardTitleEditing()"
+            >
+              {{ board.title }}
+            </h1>
+            <input
+              v-if="boardTitleEditing"
+              ref="boardTitleInput"
+              v-model="board.title"
+              type="text"
+              maxlength="500"
+              class="bg-elevation-2 border-accent text-no-overflow mb-4 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+              @blur="
+                boardTitleEditing = false;
+                updateStorage();
+              "
+              @keypress.enter="
+                boardTitleEditing = false;
+                updateStorage();
+              "
+            >
+            <button
+              class="bg-elevation-1 bg-elevation-2-hover flex flex-row gap-1 rounded-md px-4 py-1"
+              @click="showCustomBgModal = true"
+            >
+              <PhotoIcon class="h-6 w-6" />
+              <span>Change Background</span>
+            </button>
+          </div>
+          <div class="pt-4">
+            <Container
+              group-name="columns"
+              :orientation="'horizontal'"
+              :non-drag-area-selector="'nodrag'"
+              drag-handle-selector=".dragging-handle"
+              class="flex-row gap-4"
+              @drop="onDrop"
+            >
+              <Draggable
+                v-for="column in board.columns"
+                :key="column.id"
+              >
+                <KanbanColumn
+                  :id="column.id"
+                  :ref="'kanbancol' + column.id"
+                  :title="column.title"
+                  :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+                  :cards-list="column.cards"
+                  @updateStorage="updateColumnProperties"
+                  @removeColumn="removeColumn"
+                  @disableDragging="draggingEnabled = false"
+                  @enableDragging="draggingEnabled = true"
                 />
-            </div>
-            <div class="pt-16">
-                <Container
-                    @drop="onDrop"
-                    group-name="columns"
-                    :orientation="'horizontal'"
-                    :non-drag-area-selector="'nodrag'"
-                    drag-handle-selector=".dragging-handle"
-                    class="flex-row gap-4"
+              </Draggable>
+              <div class="pr-8">
+                <div
+                  class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
+                  @click="addColumn()"
                 >
-                    <Draggable v-for="column in board.columns" :key="column.id">
-                        <KanbanColumn
-                            :ref="'kanbancol' + column.id"
-                            :id="column.id"
-                            :title="column.title"
-                            :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-                            :cardsList="column.cards"
-                            @updateStorage="updateColumnProperties"
-                            @removeColumn="removeColumn"
-                            @disableDragging="draggingEnabled = false"
-                            @enableDragging="draggingEnabled = true"
-                        />
-                    </Draggable>
-                    <div class="pr-8">
-                        <div
-                            class="nodrag flex flex-row items-center gap-2 h-min p-2 bg-elevation-1 bg-elevation-2-hover cursor-pointer rounded-md mr-8"
-                            @click="addColumn()"
-                        >
-                            <PlusIcon class="w-6 h-6 text-accent" />
-                            <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
-                        </div>
-                    </div>
-                </Container>
-            </div>
+                  <PlusIcon class="text-accent h-6 w-6" />
+                  <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
+                </div>
+              </div>
+            </Container>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -68,6 +99,9 @@
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useTauriStore } from "@/stores/tauriStore";
 import { PlusIcon } from "@heroicons/vue/24/solid";
+import { PhotoIcon } from "@heroicons/vue/24/outline";
+
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";
@@ -90,6 +124,51 @@ const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
 
+const bgCustom = ref("");
+const bgCustomNoResolution = ref("");
+const showCustomBgModal = ref(false);
+const bgImageLoaded = ref(false);
+const bgBlur = ref("8px");
+const bgBrightness = ref("100%");
+
+const cssVars = computed(() => {
+    return {
+        "--bg-custom-image": `url("${bgCustom.value}")`,
+        "--blur-intensity": bgBlur.value,
+        "--bg-brightness": bgBrightness.value
+    }
+})
+
+const setBackgroundImage = (img: string) => {
+    bgCustomNoResolution.value = img;
+    bgCustom.value = convertFileSrc(img);
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
+const resetBackground = () => {
+    bgCustom.value = "";
+    bgBlur.value = "8px";
+    bgBrightness.value = "100%";
+
+    delete board.value.background;
+    updateStorage();
+}
+
+const setBlur = (blurAmount: string) => {
+    console.log(blurAmount);
+    bgBlur.value = blurAmount;
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
+const setBrightness = (brightnessAmount: string) => {
+    console.log(brightnessAmount);
+    bgBrightness.value = brightnessAmount;
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
 const enableBoardTitleEditing = () => {
     boardTitleEditing.value = true;
 
@@ -102,6 +181,16 @@ const enableBoardTitleEditing = () => {
 onMounted(async () => {
     boards.value = await store.get("boards") || [];
     board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
+
+    if (board.value.background) {
+        console.log(board.value.background);
+        bgCustomNoResolution.value = board.value.background.src;
+        bgCustom.value = convertFileSrc(board.value.background.src);
+
+        bgBlur.value = board.value.background.blur;
+        bgBrightness.value = board.value.background.brightness;
+    }
+    nextTick(() => bgImageLoaded.value = true);
 
     document.addEventListener("keydown", keyDownListener);
 
@@ -131,8 +220,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     // We do not want to override shortcuts for copying and pasting
     if (e.key === "a" || e.key === "c" || e.key === "v" || e.key === "x") return;
 
-    //@ts-ignore
-    emitter.emit("resetColumnInputs"); //TODO: needs investigation on why this throws type error
+    emitter.emit("resetColumnInputs");
 
     // Ctrl + B for new board
     if (e.key === "b") {
@@ -159,7 +247,7 @@ const keyDownListener = (e: KeyboardEvent) => {
         }
     }
 
-    let columnID =
+    const columnID =
         board.value.columns.length !== 0 && board.value.columns[columnEditIndex.value]
             ? board.value.columns[columnEditIndex.value].id
             : "-1";
@@ -168,10 +256,8 @@ const keyDownListener = (e: KeyboardEvent) => {
 
     // ctrl + d for deleting the last column
     if (e.key === "d") {
-        const lastColumnIndex = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
-        if (lastColumnIndex === -1) return;
-
-        const lastColumnID = board.value.columns[lastColumnIndex].id;
+        columnEditIndex.value = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
+        const lastColumnID = board.value.columns[columnEditIndex.value].id;
 
         removeColumn(lastColumnID);
         return;
@@ -193,7 +279,7 @@ const keyDownListener = (e: KeyboardEvent) => {
 };
 
 const scrollView = () => {
-    var elem = document.getElementById("kanban-cols-container");
+    const elem = document.getElementById("kanban-cols-container");
     if (elem == null) return;
 
     elem.scrollLeft = elem.scrollWidth;
@@ -204,10 +290,6 @@ const onDrop = (dropResult: object) => {
     updateStorage();
 };
 
-const getChildPayload = (index: number) => {
-    return board.value.columns[index];
-};
-
 const addColumn = () => {
     const column = {
         id: generateUniqueID(),
@@ -216,6 +298,7 @@ const addColumn = () => {
     };
 
     board.value.columns.push(column);
+    columnEditIndex.value++;
     updateStorage();
 };
 
@@ -226,11 +309,12 @@ const removeColumn = (columnID: string) => {
 
     const columnIndex = board.value.columns.indexOf(column);
     board.value.columns.splice(columnIndex, 1);
+    columnEditIndex.value--;
     updateStorage();
 };
 
 const updateColumnProperties = (columnObj: Column) => {
-    let boardSaved: Board = board.value;
+    const boardSaved: Board = board.value;
     const column = boardSaved.columns.filter((obj: Column) => {
         return obj.id === columnObj.id;
     })[0];
@@ -243,6 +327,8 @@ const updateColumnProperties = (columnObj: Column) => {
 };
 
 const updateStorage = () => {
+    console.log(board.value);
+
     const currentBoard = boards.value.filter((obj: Board) => {
         return obj.id === board.value.id;
     })[0];
@@ -261,5 +347,17 @@ const updateStorage = () => {
 
 #kanban-cols-container {
     height: 100vh;
+}
+
+.bg-custom {
+    z-index: 1;
+    background-image: var(--bg-custom-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-effect-overlay {
+    z-index: 2;
+    backdrop-filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
 }
 </style>

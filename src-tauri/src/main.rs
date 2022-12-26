@@ -8,6 +8,7 @@ use tauri_plugin_store::PluginBuilder;
 fn main() {
   tauri::Builder::default()
     .plugin(PluginBuilder::default().build())
+    .plugin(tauri_plugin_persisted_scope::init())
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
