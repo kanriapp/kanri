@@ -186,6 +186,7 @@ const deleteAllData = async () => {
     if (yes) {
         store.delete("boards");
         store.delete("colors");
+        store.delete("savedCustomTheme");
         store.set("activeTheme", "dark");
 
         await message("Successfully deleted data.", { title: "Kanri", type: "info" });

@@ -146,7 +146,9 @@ const store = useTauriStore().store;
 const customTheme = ref({});
 
 onMounted(async () => {
-    const savedPalette = await store.get("colors");
+    const savedPalette = await store.get("savedCustomTheme") || await store.get("colors");
+    await store.set("colors", savedPalette);
+    emitter.emit("updateColors");
     customTheme.value = savedPalette || dark;
 });
 
@@ -170,6 +172,7 @@ const setCustomTheme = () => {
     };
 
     store.set("colors", theme);
+    store.set("savedCustomTheme", theme);
     emitter.emit("updateColors");
 };
 </script>
