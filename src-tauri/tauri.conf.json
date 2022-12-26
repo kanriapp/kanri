@@ -22,9 +22,9 @@
                 ]
             },
             "dialog": {
-                "ask": true,
                 "save": true,
-                "open": true
+                "open": true,
+                "message": true
             },
             "shell": {
                 "all": false,

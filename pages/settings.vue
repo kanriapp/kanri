@@ -3,6 +3,16 @@
     id="settings"
     class="overflow-auto pl-8 pt-8"
   >
+    <ModalConfirmation
+      v-show="deleteBoardModalVisible"
+      title="Delete ALL Data?"
+      description="This action will irreversibly delete all of your boards, custom themes and revert all settings to default. Are you sure?"
+      confirm-button-text="Delete Data"
+      close-button-text="Cancel"
+      @closeModal="deleteBoardModalVisible = false"
+      @confirmAction="deleteAllData"
+    />
+
     <h1 class="text-4xl font-bold">
       Settings
     </h1>
@@ -123,7 +133,7 @@
           </div>
           <button
             class="text-buttons bg-accent rounded-md px-4 py-2"
-            @click="deleteAllData()"
+            @click="deleteBoardModalVisible = true"
           >
             Delete
           </button>
@@ -134,7 +144,7 @@
 </template>
 
 <script setup lang="ts">
-import { ask, message, save } from "@tauri-apps/api/dialog";
+import { message, save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 
 import { useTauriStore } from "@/stores/tauriStore";
@@ -146,10 +156,14 @@ import { SwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/outline";
 import { Ref } from "vue";
 import { ThemeIdentifiers } from "~/types/kanban-types";
 
+const router = useRouter();
+
 const store = useTauriStore().store;
 
 const activeTheme: Ref<string | null> = ref("");
 const themeEditorDisplayed = ref(false);
+
+const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
     activeTheme.value = await store.get("activeTheme");
@@ -178,19 +192,17 @@ const themeIconClass = (theme: string) => {
 };
 
 const deleteAllData = async () => {
-    const yes = await ask(
-        "This action will irreversibly delete all of your boards, custom themes and revert all settings to default. Are you sure?",
-        { title: "Kanri", type: "warning" }
-    );
+    store.delete("boards");
+    store.delete("colors");
+    store.delete("savedCustomTheme");
+    store.set("activeTheme", "dark");
 
-    if (yes) {
-        store.delete("boards");
-        store.delete("colors");
-        store.delete("savedCustomTheme");
-        store.set("activeTheme", "dark");
+    activeTheme.value = "dark";
+    themeEditorDisplayed.value = false;
 
-        await message("Successfully deleted data.", { title: "Kanri", type: "info" });
-    } else return;
+    router.go(0);
+
+    await message("Successfully deleted data.", { title: "Kanri", type: "info" });
 };
 
 const exportJSON = async () => {
