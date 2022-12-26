@@ -10,7 +10,8 @@ type Events = {
 
     openKanbanModal: {index: number, el: Card};
     openKanbanPage: void;
-    openBoardRenameModal: {index: number, board: Board};
+    openBoardDeleteModal: { index: number, description: string };
+    openBoardRenameModal: { index: number, board: Board };
 
     closeKanbanPage: void;
     resetColumnInputs: void;

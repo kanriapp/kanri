@@ -6,6 +6,16 @@
       @renameBoard="renameBoard"
     />
 
+    <ModalConfirmation
+      v-show="deleteBoardModalVisible"
+      title="Delete Board?"
+      description="Are you sure you want to delete the board? This action is irreverisble."
+      confirm-button-text="Delete"
+      close-button-text="Cancel"
+      @closeModal="deleteBoardModalVisible = false"
+      @confirmAction="deleteBoard"
+    />
+
     <h1 class="text-4xl font-bold">
       Welcome back to Kanri!
     </h1>
@@ -73,7 +83,7 @@
                   <button
                     v-close-popper
                     class="px-4 py-1.5 hover:bg-gray-200"
-                    @click="deleteBoard(index)"
+                    @click="deleteBoardModal(index)"
                   >
                     Delete
                   </button>
@@ -105,6 +115,7 @@ const boards: Ref<Array<Board>> = ref([]);
 
 const loading = ref(true);
 const renameBoardModalVisible = ref(false);
+const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
     emitter.on("createBoard", (title: string) => {
@@ -170,15 +181,21 @@ const renameBoard = (index: number, name: string) => {
     store.set("boards", boards.value);
 }
 
-const deleteBoard = async (index: number) => {
-    const yes = await ask(
-        `Are you sure you want to delete the board "${boards.value[index].title}"?`,
-        { title: "Kanri", type: "warning" }
-    );
+const deleteBoardModal = (index: number) => {
+    const selectedBoard = boards.value[index];
+    if (selectedBoard == null) {
+        return console.error("Could not find board with index: ", index);
+    }
 
-    if (!yes) return;
+    emitter.emit("openBoardDeleteModal", { index: index, description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.` });
+    deleteBoardModalVisible.value = true;
+}
+
+const deleteBoard = async (index: number) => {
+    if (index === -1) return;
 
     boards.value.splice(index, 1);
     store.set("boards", boards.value);
+
 };
 </script>
