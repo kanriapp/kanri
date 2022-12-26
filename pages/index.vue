@@ -64,12 +64,14 @@
               >
                 <div class="flex flex-col">
                   <button
+                    v-close-popper
                     class="px-4 py-1.5 hover:bg-gray-200"
                     @click="renameBoardModal(index)"
                   >
                     Rename
                   </button>
                   <button
+                    v-close-popper
                     class="px-4 py-1.5 hover:bg-gray-200"
                     @click="deleteBoard(index)"
                   >
