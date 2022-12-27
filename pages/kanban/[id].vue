@@ -156,14 +156,12 @@ const resetBackground = () => {
 }
 
 const setBlur = (blurAmount: string) => {
-    console.log(blurAmount);
     bgBlur.value = blurAmount;
     board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
     updateStorage();
 }
 
 const setBrightness = (brightnessAmount: string) => {
-    console.log(brightnessAmount);
     bgBrightness.value = brightnessAmount;
     board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
     updateStorage();
@@ -183,7 +181,6 @@ onMounted(async () => {
     board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
 
     if (board.value.background) {
-        console.log(board.value.background);
         bgCustomNoResolution.value = board.value.background.src;
         bgCustom.value = convertFileSrc(board.value.background.src);
 
@@ -327,8 +324,6 @@ const updateColumnProperties = (columnObj: Column) => {
 };
 
 const updateStorage = () => {
-    console.log(board.value);
-
     const currentBoard = boards.value.filter((obj: Board) => {
         return obj.id === board.value.id;
     })[0];
