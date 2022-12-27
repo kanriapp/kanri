@@ -52,7 +52,7 @@
       <Draggable
         v-for="(card, index) in cards"
         :key="index"
-        class="bg-elevation-2 mb-3 cursor-grab rounded-sm px-3 pt-3 pb-5"
+        class="bg-elevation-2 mb-3 cursor-grab rounded-sm px-3 pt-3 pb-5 min-h-[30px]"
       >
         <div
           class="flex cursor-pointer flex-row justify-between"
