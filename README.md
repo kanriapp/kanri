@@ -12,7 +12,7 @@ A fully offline cross-platform Kanban Board desktop, with a focus on simplicity 
 **Features**:
 - Familiar Kanban board layout with clean design
 - Fully offline with local data saves in a JSON file
-- Theming system with 3 presets and custom theming ability
+- Theming system with 3 presets and custom theming ability (color scheme & custom background images)
 - Keyboard shortcuts for easy Kanban board navigation
 - Start page with board preview tiles
 - Full data exports as a JSON file
