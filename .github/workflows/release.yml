@@ -7,6 +7,7 @@ on:
 
 jobs:
   publish-kanri-common:
+    if: ${{ false }}  # disable for now
     strategy:
       fail-fast: false
       matrix:
@@ -44,6 +45,10 @@ jobs:
         prerelease: false
   
   publish-kanri-arm:
+    strategy:
+      matrix:
+        arch: [arm64, armv7]
+
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -52,9 +57,7 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: yarn install
-      - name: Build for arm64
-        run: yarn run init:arm64 && yarn run build:arm64
-      - name: Build for armv7
-        run: yarn run init:armv7 && yarn run build:armv7
+      - name: Build for ${{ matrix.arch }}
+        run: yarn run init:${{matrix.arch}} && yarn run build:${{matrix.arch}}
       - run: ls -la src-tauri/target/release/bundle/deb
       
