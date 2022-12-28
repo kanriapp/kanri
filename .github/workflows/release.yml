@@ -7,7 +7,8 @@ on:
 
 jobs:
   publish-kanri-common:
-    if: ${{ false }}  # disable for now
+    outputs:
+      upload_url: ${{ steps.release.outputs.releaseUploadUrl }}
     strategy:
       fail-fast: false
       matrix:
@@ -35,6 +36,7 @@ jobs:
       run: yarn generate
     
     - uses: tauri-apps/tauri-action@v0
+      id: release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -45,6 +47,7 @@ jobs:
         prerelease: false
   
   publish-kanri-arm:
+    needs: publish-kanri-common
     strategy:
       matrix:
         arch: [arm64, armv7]
@@ -59,5 +62,11 @@ jobs:
         run: yarn install
       - name: Build for ${{ matrix.arch }}
         run: yarn run init:${{matrix.arch}} && yarn run build:${{matrix.arch}}
-      - run: ls -la src-tauri/target/release/bundle/deb
       
+      - name: Upload Multiple Release Assets
+        uses: NBTX/upload-release-assets@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.publish-kanri-common.outputs.upload_url }}
+          targets: ./src-tauri/target/*/release/bundle/deb/*.deb
