@@ -32,7 +32,7 @@ jobs:
     - name: Install app dependencies
       run: yarn install
     - name: Build app
-      run: yarn build
+      run: yarn generate
     
     - uses: tauri-apps/tauri-action@v0
       env:

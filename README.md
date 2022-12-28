@@ -56,6 +56,8 @@ yarn install
 yarn tauri dev
 
 # Build tauri for production
+
+yarn generate
 yarn tauri build
 
 ```
