@@ -6,7 +6,10 @@
     "author": "trobonox <hello@trobo.tech>",
     "license": "Apache-2.0",
     "scripts": {
-        "build": "nuxt build",
+        "init:armv7": "docker build . -t rust_cross_compile/armv7 -f Dockerfile.armv7",
+        "init:arm64": "docker build . -t rust_cross_compile/arm64 -f Dockerfile.arm64",
+        "build:armv7": "nuxt generate && docker run -t -v `pwd`:/app rust_cross_compile/armv7",
+        "build:arm64": "nuxt generate && docker run -t -v `pwd`:/app rust_cross_compile/arm64",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
