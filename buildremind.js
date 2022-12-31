@@ -7,7 +7,7 @@ if (fs.existsSync(dir)) {
     console.log("\x1b[32m", "Found frontend directory, starting Tauri app build.");
 } else {
     console.log("\x1b[44m", 'Frontend build not found, running "yarn generate", please wait...');
-    console.log("\x1b[0m");
+    console.log("\x1b[0m", "If you encounter any errors, please manually run yarn generate beforehand.");
     execSync("yarn generate");
     console.log("\x1b[32m", "Finished building frontend.");
 }
