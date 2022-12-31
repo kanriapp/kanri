@@ -13,7 +13,8 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "lint": "eslint . --fix"
+        "lint": "eslint . --fix",
+        "prebuild": "node buildremind.js"
     },
     "devDependencies": {
         "@nuxt/eslint-config": "^0.1.1",
