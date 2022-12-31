@@ -43,5 +43,6 @@ yarn tauri dev
 yarn lint
 
 # Build tauri for production
+yarn generate
 yarn tauri build
 ```
