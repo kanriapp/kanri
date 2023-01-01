@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [macos-latest, macos-latest, ubuntu-latest, windows-latest]
         include:
           - platform: ubuntu-latest
             rust_target: x86_64-unknown-linux-gnu
@@ -38,6 +38,10 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+      
+      - name: ensure correct arch for Rust (macos)
+        if: matrix.platform == 'macos-latest' && matrix.rust_target == 'aarch64-apple-darwin'
+        run: rustup target add aarch64-apple-darwin && rustup toolchain install stable-aarch64-apple-darwin
 
       - name: install dependencies (ubuntu x86_64)
         if: matrix.platform == 'ubuntu-latest'
