@@ -1,16 +1,20 @@
 {
     "name": "kanri",
     "private": true,
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Offline-first Kanban board desktop app",
     "author": "trobonox <hello@trobo.tech>",
     "license": "Apache-2.0",
     "scripts": {
-        "build": "nuxt build",
+        "init:armv7": "docker build . -t rust_cross_compile/armv7 -f Dockerfile.armv7",
+        "init:arm64": "docker build . -t rust_cross_compile/arm64 -f Dockerfile.arm64",
+        "build:armv7": "nuxt generate && docker run -t -v `pwd`:/app rust_cross_compile/armv7",
+        "build:arm64": "nuxt generate && docker run -t -v `pwd`:/app rust_cross_compile/arm64",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "lint": "eslint . --fix"
+        "lint": "eslint . --fix",
+        "prebuild": "node buildremind.js"
     },
     "devDependencies": {
         "@nuxt/eslint-config": "^0.1.1",
@@ -34,6 +38,7 @@
     "resolutions": {
         "terser": "^5.15.0",
         "undici": "^5.8.2",
-        "loader-utils": "^2.0.4"
+        "loader-utils": "^2.0.4",
+        "json5": "^2.2.2"
     }
 }

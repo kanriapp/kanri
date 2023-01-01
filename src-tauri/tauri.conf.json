@@ -1,14 +1,13 @@
 {
     "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
     "build": {
-        "beforeBuildCommand": "yarn generate",
         "beforeDevCommand": "yarn dev",
         "devPath": "http://localhost:3000",
         "distDir": "../.output/public"
     },
     "package": {
         "productName": "kanri",
-        "version": "0.2.1"
+        "version": "0.2.2"
     },
     "tauri": {
         "allowlist": {
