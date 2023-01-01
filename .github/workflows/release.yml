@@ -16,13 +16,13 @@ jobs:
       matrix:
         platform: [macos-latest, ubuntu-latest, windows-latest]
         include:
-          - os: ubuntu-latest
+          - platform: ubuntu-latest
             rust_target: x86_64-unknown-linux-gnu
-          - os: macos-latest
+          - platform: macos-latest
             rust_target: x86_64-apple-darwin
-          - os: macos-latest
+          - platform: macos-latest
             rust_target: aarch64-apple-darwin
-          - os: windows-latest
+          - platform: windows-latest
             rust_target: x86_64-pc-windows-msvc
 
     runs-on: ${{ matrix.platform }}
