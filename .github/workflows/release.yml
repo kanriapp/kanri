@@ -79,6 +79,8 @@ jobs:
   publish:
     needs: build-binaries
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.release.outputs.releaseUploadUrl }}
     steps:
       - uses: actions/checkout@v2
       # Download the previously uploaded artifacts
@@ -90,9 +92,11 @@ jobs:
       # And create a release with the artifacts attached
       - name: 'create release'
         uses: softprops/action-gh-release@master
+        id: release
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         with:
+          name: "Kanri vx.x.x"
           draft: true
           files: ./artifacts/**/*
           
@@ -118,5 +122,5 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            upload_url: ${{ needs.publish-kanri-common.outputs.upload_url }}
+            upload_url: ${{ needs.publish.outputs.upload_url }}
             targets: ./src-tauri/target/*/release/bundle/deb/*.deb
