@@ -47,6 +47,9 @@ jobs:
           
       - name: Build Frontend
         run: yarn && yarn generate
+        
+      - name: Output info
+        run: echo ${{ matrix.platform}} ${{ matrix.rust_target }}
 
       - uses: JonasKruckenberg/tauri-build@v1
         id: tauri_build
