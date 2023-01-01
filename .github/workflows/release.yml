@@ -80,7 +80,7 @@ jobs:
     needs: build-binaries
     runs-on: ubuntu-latest
     outputs:
-      upload_url: ${{ steps.release.outputs.releaseUploadUrl }}
+      upload_url: ${{ steps.release.outputs.upload_url }}
     steps:
       - uses: actions/checkout@v2
       # Download the previously uploaded artifacts
