@@ -1,5 +1,5 @@
 # Contributing to Kanri
-Kanri is written in TypeScript, Vue, and Rust; and is licensed under the Apache 2.0 license.
+Kanri is written in TypeScript, Vue (Nuxt.js v3), and Rust; and is licensed under the Apache 2.0 license.
 
 ## A few rules
 By contributing to Kanri, you confirm that the work you are submitting is yours and it will be licensed under the Apache 2.0 license of the project. 
@@ -9,6 +9,8 @@ To ensure uniformity in Kanri's repository, every contributor must follow these 
 * Have ESLint and Volar installed on your IDE for code formatting.
 * Follow the general Vue conventions (except for kebab-casing and events)
 * Use camelCasing on any function/method/property in code you've contributed.
+
+Please also take a look at the [Code of Conduct](https://github.com/trobonox/kanri/blob/main/CODE_OF_CONDUCT.md).
 
 ## Here’s the process for contributing to Kanri
 * Fork the Kanri repository, and clone it locally on your development machine.
