@@ -165,6 +165,7 @@ const boardTitle = ref(props.title);
 
 const enableTitleEditing = () => {
     titleEditing.value = true;
+    titleNew.value = boardTitle.value;
     nextTick(() => {
         if (titleInput.value == null) return;
         titleInput.value.focus();
@@ -230,7 +231,11 @@ const getChildPayload = (index: number) => {
 };
 
 const updateColumnTitle = () => {
-    if (titleNew.value == null || !(/\S/.test(titleNew.value))) return;
+    if (titleNew.value == null || !(/\S/.test(titleNew.value))) {
+        titleNew.value = "";
+        titleEditing.value = false;
+        return;
+    }
 
     boardTitle.value = titleNew.value;
     titleNew.value = "";
