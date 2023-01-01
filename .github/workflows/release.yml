@@ -29,6 +29,13 @@ jobs:
           - platform: windows-latest
             rust_target: x86_64-pc-windows-msvc
             arch: noarm
+        exclude:
+          - platform: windows-latest
+            rust_target: x86_64-pc-windows-msvc
+            arch: arm
+          - platform: ubuntu-latest
+            rust_target: x86_64-unknown-linux-gnu
+            arch: arm
 
     runs-on: ${{ matrix.platform }}
     steps:
