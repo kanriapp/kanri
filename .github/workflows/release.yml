@@ -1,72 +1,102 @@
-name: "Release"
+name: 'Release App'
+
 on:
-  workflow_dispatch:
   push:
     branches:
       - release
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  publish-kanri-common:
-    outputs:
-      upload_url: ${{ steps.release.outputs.releaseUploadUrl }}
+  build-binaries:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-20.04, windows-latest]
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            rust_target: x86_64-unknown-linux-gnu
+          - os: macos-latest
+            rust_target: x86_64-apple-darwin
+          - os: macos-latest
+            rust_target: aarch64-apple-darwin
+          - os: windows-latest
+            rust_target: x86_64-pc-windows-msvc
 
     runs-on: ${{ matrix.platform }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-    
-    - name: Install dependencies (ubuntu only)
-      if: matrix.platform == 'ubuntu-20.04'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
-    
-    - name: Install app dependencies
-      run: yarn install
-    - name: Build app
-      run: yarn generate
-    
-    - uses: tauri-apps/tauri-action@v0
-      id: release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-        releaseName: "App v__VERSION__"
-        releaseBody: "See the assets to download this version and install."
-        releaseDraft: true
-        prerelease: false
-  
-  publish-kanri-arm:
-    needs: publish-kanri-common
-    strategy:
-      matrix:
-        arch: [arm64, armv7]
+      - uses: actions/checkout@v2
 
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: setup node
+        uses: actions/setup-node@v1
         with:
           node-version: 16
-      - name: Install dependencies
-        run: yarn install
-      - name: Build for ${{ matrix.arch }}
-        run: yarn run init:${{matrix.arch}} && yarn run build:${{matrix.arch}}
-      
-      - name: Upload Multiple Release Assets
-        uses: NBTX/upload-release-assets@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
         with:
-          upload_url: ${{ needs.publish-kanri-common.outputs.upload_url }}
-          targets: ./src-tauri/target/*/release/bundle/deb/*.deb
+          toolchain: stable
+
+      - name: install dependencies (ubuntu x86_64)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+
+      - uses: JonasKruckenberg/tauri-build@v1
+        id: tauri_build
+        with:
+          target: ${{ matrix.rust_target }}
+
+      # The `artifacts` output can now be used by a different action to upload the artifacts
+      - uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: "${{ join(fromJSON(steps.tauri_build.outputs.artifacts), '\n') }}"
+
+  publish:
+    needs: build-binaries
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Download the previously uploaded artifacts
+      - uses: actions/download-artifact@v3
+        id: download
+        with:
+          name: artifacts
+          path: artifacts
+      # And create a release with the artifacts attached
+      - name: 'create release'
+        uses: softprops/action-gh-release@master
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        with:
+          draft: true
+          files: ./artifacts/**/*
+          
+  publish-kanri-arm:
+      needs: publish
+      strategy:
+        matrix:
+          arch: [arm64, armv7]
+
+      runs-on: ubuntu-20.04
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - name: Install dependencies
+          run: yarn install
+        - name: Build for ${{ matrix.arch }}
+          run: yarn run init:${{matrix.arch}} && yarn run build:${{matrix.arch}}
+
+        - name: Upload Multiple Release Assets
+          uses: NBTX/upload-release-assets@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ needs.publish-kanri-common.outputs.upload_url }}
+            targets: ./src-tauri/target/*/release/bundle/deb/*.deb
