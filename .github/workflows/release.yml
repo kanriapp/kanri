@@ -14,47 +14,39 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
-        arch: [arm, noarm]
-        include:
-          - platform: ubuntu-latest
+        platform:
+          - os: ubuntu-latest
             rust_target: x86_64-unknown-linux-gnu
-            arch: noarm
-          - platform: macos-latest
+          - os: macos-latest
             rust_target: x86_64-apple-darwin
-            arch: noarm
-          - platform: macos-latest
+          - os: macos-latest
             rust_target: aarch64-apple-darwin
-            arch: arm
-          - platform: windows-latest
+          - os: windows-latest
             rust_target: x86_64-pc-windows-msvc
-            arch: noarm
-        exclude:
-          - platform: windows-latest
-            arch: arm
-          - platform: ubuntu-latest
-            arch: arm
 
-    runs-on: ${{ matrix.platform }}
+
+    runs-on: ${{ matrix.platform.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      
+      - name: Output info
+        run: echo ${{ matrix.platform.os }} ${{ matrix.platform.rust_target }}
 
       - name: setup node
         uses: actions/setup-node@v1
         with:
           node-version: 16
 
-      - name: install Rust stable
+      - name: 'Setup Rust'
         uses: actions-rs/toolchain@v1
         with:
+          default: true
+          override: true
+          profile: minimal
           toolchain: stable
+          target: ${{ matrix.platform.rust_target }}
           
-      - name: Output info
-        run: echo ${{ matrix.platform}} ${{ matrix.rust_target }} ${{ matrix.arch }}
-      
-      - name: ensure correct arch for Rust (macos)
-        if: matrix.platform == 'macos-latest' && matrix.rust_target == 'aarch64-apple-darwin' && matrix.arch == 'arm'
-        run: rustup target add aarch64-apple-darwin && rustup toolchain install stable-aarch64-apple-darwin
+      - uses: Swatinem/rust-cache@v2
 
       - name: install dependencies (ubuntu x86_64)
         if: matrix.platform == 'ubuntu-latest'
@@ -65,7 +57,7 @@ jobs:
       - name: Build Frontend
         run: yarn && yarn generate
 
-      - uses: JonasKruckenberg/tauri-build@v1
+      - uses: JonasKruckenberg/tauri-build@v1.2.2
         id: tauri_build
         with:
           target: ${{ matrix.rust_target }}
@@ -82,7 +74,7 @@ jobs:
     outputs:
       upload_url: ${{ steps.release.outputs.upload_url }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # Download the previously uploaded artifacts
       - uses: actions/download-artifact@v3
         id: download

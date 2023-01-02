@@ -1,11 +1,10 @@
 <template>
   <Modal
     ref="barebonesModal"
-    :title="title"
     @closeModal="$emit('closeModal')"
   >
     <template #content>
-      <div class="div flex min-h-[40rem] w-[36rem] flex-col">
+      <div class="flex min-h-[40rem] w-[36rem] flex-col">
         <div class="flex flex-row items-start justify-between gap-12">
           <h1
             v-if="!titleEditing"
