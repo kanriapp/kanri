@@ -17,6 +17,8 @@ jobs:
         platform:
           - os: ubuntu-latest
             rust_target: x86_64-unknown-linux-gnu
+          - os: ubuntu-latest
+            rust_target: aarch64-unknown-linux-gnu
           - os: macos-latest
             rust_target: x86_64-apple-darwin
           - os: macos-latest
@@ -49,11 +51,43 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: install dependencies (ubuntu x86_64)
-        if: matrix.platform.os == 'ubuntu-latest'
+        if: matrix.platform.os == 'ubuntu-latest' && matrix.platform.rust_target == 'x86_64-unknown-linux-gnu'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
           
+      - name: install dependencies (ubuntu aarch64)
+        if: matrix.platform.os == 'ubuntu-latest' && matrix.platform.rust_target == 'aarch64-unknown-linux-gnu'
+        run: |
+          dpkg --add-architecture arm64
+          apt update && apt upgrade -y
+          apt install -y --no-install-recommends \
+                   g++-aarch64-linux-gnu \
+                   libc6-dev-arm64-cross \
+                   libssl-dev:arm64 \
+                   libwebkit2gtk-4.0-dev:arm64 \
+                   build-essential \
+                   curl:arm64 \
+                   wget:arm64 \
+                   libgtk-3-dev:arm64 \
+                   patchelf:arm64 \
+                   librsvg2-dev:arm64 \
+                   pkg-config
+                   
+      - name: Set env vars for aarch64 cross compilation
+        if: matrix.platform.os == 'ubuntu-latest' && matrix.platform.rust_target == 'aarch64-unknown-linux-gnu'
+        run: | 
+          env CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc
+          env CC_aarch64-unknown-linux-gnu=aarch64-linux-gnu-gcc
+          env CXX_aarch64-unknown-linux-gnu=aarch64-linux-gnu-g++
+          env PKG_CONFIG_PATH=/usr/lib/aarch64-linux-gnu/pkgconfig
+          env PKG_CONFIG_ALLOW_CROSS=1
+          
+      - name: Sets env var for params for arm linux compilation
+        if: matrix.platform.os == 'ubuntu-latest' && matrix.platform.rust_target != 'x86_64-unknown-linux-gnu'
+        run: |
+          echo "TAURI_PARAMS='-b deb'" >> $GITHUB_ENV
+        
       - name: Build Frontend
         run: yarn && yarn generate
 
@@ -61,6 +95,7 @@ jobs:
         id: tauri_build
         with:
           target: ${{ matrix.platform.rust_target }}
+          args: ${{ env.TAURI_PARAMS }}
 
       # The `artifacts` output can now be used by a different action to upload the artifacts
       - uses: actions/upload-artifact@v3
@@ -92,27 +127,4 @@ jobs:
           draft: true
           files: ./artifacts/**/*
           
-  publish-kanri-arm:
-      needs: publish
-      strategy:
-        matrix:
-          arch: [arm64, armv7]
-
-      runs-on: ubuntu-20.04
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
-          with:
-            node-version: 16
-        - name: Install dependencies
-          run: yarn install
-        - name: Build for ${{ matrix.arch }}
-          run: yarn run init:${{matrix.arch}} && yarn run build:${{matrix.arch}}
-
-        - name: Upload Multiple Release Assets
-          uses: NBTX/upload-release-assets@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ needs.publish.outputs.upload_url }}
-            targets: ./src-tauri/target/*/release/bundle/deb/*.deb
+  
