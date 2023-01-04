@@ -17,28 +17,28 @@
         "prebuild": "node buildremind.js"
     },
     "devDependencies": {
-        "@nuxt/eslint-config": "^0.1.1",
-        "@nuxtjs/tailwindcss": "^6.2.0",
-        "@tauri-apps/cli": "^1.2.2",
-        "eslint": "^8.30.0",
-        "eslint-plugin-tailwindcss": "^3.7.1",
+        "@nuxt/eslint-config": "0.1.1",
+        "@nuxtjs/tailwindcss": "6.2.0",
+        "@tauri-apps/cli": "1.2.2",
+        "eslint": "8.31.0",
+        "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "3.0.0",
-        "postcss-custom-properties": "^12.1.11"
+        "postcss-custom-properties": "12.1.11"
     },
     "dependencies": {
-        "@heroicons/vue": "^2.0.13",
-        "@pinia/nuxt": "^0.4.6",
-        "@tauri-apps/api": "^1.2.0",
-        "floating-vue": "^2.0.0-beta.20",
-        "mitt": "^3.0.0",
-        "pinia": "^2.0.28",
+        "@heroicons/vue": "2.0.13",
+        "@pinia/nuxt": "0.4.6",
+        "@tauri-apps/api": "1.2.0",
+        "floating-vue": "2.0.0-beta.20",
+        "mitt": "3.0.0",
+        "pinia": "2.0.28",
         "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#9bd993aa67766596638bbfd91e79a1bf8f632014",
-        "vue3-smooth-dnd": "^0.0.2"
+        "vue3-smooth-dnd": "0.0.2"
     },
     "resolutions": {
-        "terser": "^5.15.0",
-        "undici": "^5.8.2",
-        "loader-utils": "^2.0.4",
-        "json5": "^2.2.2"
+        "terser": "5.16.1",
+        "undici": "5.14.0",
+        "loader-utils": "2.0.4",
+        "json5": "2.2.3"
     }
 }
