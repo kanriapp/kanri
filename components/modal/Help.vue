@@ -67,7 +67,8 @@
           (licensed unter the MIT License).
         </p>
         <p class="pt-2">
-          Copyright (c) 2022 Trobonox
+          Copyright (c) 2022-2023 Trobonox (hello@trobo.tech)
+          Kanri v0.2.2
         </p>
         <a
           href="/licenses"
