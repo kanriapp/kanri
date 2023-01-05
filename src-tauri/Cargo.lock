@@ -1198,6 +1198,7 @@ dependencies = [
 name = "kanri"
 version = "0.2.2"
 dependencies = [
+ "ignore",
  "serde",
  "serde_json",
  "tauri",
