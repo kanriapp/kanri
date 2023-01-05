@@ -164,6 +164,9 @@ const draggingEnabled = ref(true);
 const boardTitle = ref(props.title);
 
 const enableTitleEditing = () => {
+    draggingEnabled.value = false;
+    emit("disableDragging");
+
     titleEditing.value = true;
     titleNew.value = boardTitle.value;
     nextTick(() => {
@@ -231,6 +234,9 @@ const getChildPayload = (index: number) => {
 };
 
 const updateColumnTitle = () => {
+    draggingEnabled.value = true;
+    emit("enableDragging");
+
     if (titleNew.value == null || !(/\S/.test(titleNew.value))) {
         titleNew.value = "";
         titleEditing.value = false;
@@ -278,6 +284,7 @@ const setCardDescription = (cardIndex: number, description: string) => {
 const openModal = (_: any, index: number, el: Card) => {
     draggingEnabled.value = false;
     emit("disableDragging");
+
     emitter.emit("openKanbanModal", { index, el });
     emitter.emit("zIndexDown");
     modalVisible.value = true;
@@ -285,8 +292,10 @@ const openModal = (_: any, index: number, el: Card) => {
 
 const closeModal = () => {
     modalVisible.value = false;
+
     draggingEnabled.value = true;
     emit("enableDragging");
+
     emitter.emit("zIndexBack");
 };
 

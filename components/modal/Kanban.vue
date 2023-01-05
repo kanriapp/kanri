@@ -48,6 +48,7 @@
           rows="70"
           placeholder="Enter a detailed description of your card here..."
           class="bg-elevation-2 border-accent-focus pointer-events-auto mt-2 h-40 w-11/12 resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
+          @focusin="emitter.emit('modalPreventClickOutsideClose')"
           @blur="updateDescription"
           @keypress.enter="updateDescription"
         />
@@ -72,6 +73,8 @@ const titleEditing = ref(false)
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
 
 const enableTitleEditing = () => {
+    emitter.emit("modalPreventClickOutsideClose");
+
     titleEditing.value = true;
     nextTick(() => {
         if (titleInput.value == null) return;
@@ -93,9 +96,12 @@ const initModal = (cardIdParam: number, titleParam: string, descriptionParam?: s
 
 const updateDescription = () => {
     emit("setCardDescription", cardID.value, description.value);
+    emitter.emit("modalEnableClickOutsideClose");
 }
 
 const updateTitle = () => {
+    emitter.emit("modalEnableClickOutsideClose");
+
     if (title.value == null || !(/\S/.test(title.value))) return;
 
     titleEditing.value = false;
