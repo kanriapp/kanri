@@ -27,6 +27,10 @@ ignore = "=0.4.18"
 git = "https://github.com/tauri-apps/tauri-plugin-store"
 branch = "dev"
 
+[dependencies.tauri-plugin-autostart]
+git = "https://github.com/tauri-apps/tauri-plugin-autostart"
+branch = "dev"
+
 [features]
 # by default Tauri runs in production mode
 # when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL

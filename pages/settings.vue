@@ -110,10 +110,28 @@
         <div class="flex w-[48rem] flex-row items-start justify-between">
           <div>
             <h3 class="text-lg">
+              Autostart on startup
+            </h3>
+            <span class="text-dim-2">
+              Automatically starts Kanri at startup.
+            </span>
+          </div>
+          <input
+            v-model="autostartCheckbox"
+            type="checkbox"
+            class=" h-4 w-4 rounded-md"
+            @click="toggleAutostart()"
+          >
+        </div>
+
+        <div class="flex w-[48rem] flex-row items-start justify-between">
+          <div>
+            <h3 class="text-lg">
               Export data to JSON
             </h3>
             <span class="text-dim-2">
-              Backup all of your data (boards and themes) to a local JSON file.</span>
+              Backup all of your data (boards and themes) to a local JSON file.
+            </span>
           </div>
           <button
             class="text-buttons bg-accent rounded-md px-4 py-2"
@@ -129,7 +147,8 @@
               Delete all data (themes and boards)
             </h3>
             <span class="text-dim-2"><span class="text-red-500">Caution!</span> This will unreversibly
-              delete all of your data!</span>
+              delete all of your data!
+            </span>
           </div>
           <button
             class="text-buttons bg-accent rounded-md px-4 py-2"
@@ -146,6 +165,7 @@
 <script setup lang="ts">
 import { message, save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
+import { enable, disable, isEnabled } from 'tauri-plugin-autostart-api';
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { light, dark, catppuccin } from "@/utils/themes.js";
@@ -163,11 +183,27 @@ const store = useTauriStore().store;
 const activeTheme: Ref<string | null> = ref("");
 const themeEditorDisplayed = ref(false);
 
+const autostartCheckbox = ref(false);
+
 const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
     activeTheme.value = await store.get("activeTheme");
     if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
+
+    const autostartStatus = await isEnabled();
+    switch (autostartStatus) {
+    case true:
+        autostartCheckbox.value = true;
+        break;
+
+    case false:
+        break;
+
+    default:
+        console.error("Error when fetching autostart status:", autostartStatus);
+        break;
+    }
 });
 
 const setTheme = (themeName: ThemeIdentifiers) => {
@@ -204,6 +240,15 @@ const deleteAllData = async () => {
 
     await message("Successfully deleted data.", { title: "Kanri", type: "info" });
 };
+
+const toggleAutostart = async () => {
+    if (autostartCheckbox.value == false) {
+        await enable();
+    }
+    else {
+        await disable();
+    }
+}
 
 const exportJSON = async () => {
     const filePath = await save({
