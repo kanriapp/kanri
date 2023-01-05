@@ -3,7 +3,7 @@
     <div
       class="modal z-huge inset-0 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
       :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
-      @click.self="clickOutsideToClose ? $emit('closeModal') : () => {}"
+      @click.self="clickOutsideClose ? $emit('closeModal') : () => {}"
     >
       <div
         class="bg-elevation-1 min-h-content min-w-content rounded-md py-4 pl-8 pr-6 shadow-lg"
@@ -18,7 +18,9 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(
+import emitter from '@/utils/emitter';
+
+const props = withDefaults(
     defineProps<{
         clickOutsideToClose?: boolean;
         blurBackground?: boolean;
@@ -29,10 +31,20 @@ withDefaults(
     }
 );
 
+const clickOutsideClose = ref(props.clickOutsideToClose);
+
 const emit = defineEmits(['closeModal']);
 
 onMounted(() => {
     document.addEventListener("keydown", keyDownListener);
+
+    emitter.on("modalPreventClickOutsideClose", () => {
+        clickOutsideClose.value = false;
+    });
+
+    emitter.on("modalEnableClickOutsideClose", () => {
+        clickOutsideClose.value = true;
+    })
 });
 
 onBeforeUnmount(() => {
