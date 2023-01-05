@@ -21,7 +21,7 @@ tauri = { version = "1.2.3", features = ["dialog-message", "dialog-open", "dialo
 tauri-plugin-persisted-scope = { version = "0.1", features = [
     "protocol-asset",
 ] }
-ignore = "=0.4.18"
+ignore = "=0.4.19"
 
 [dependencies.tauri-plugin-store]
 git = "https://github.com/tauri-apps/tauri-plugin-store"
