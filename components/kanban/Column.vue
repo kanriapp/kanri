@@ -111,6 +111,8 @@
           @click="
             cardAddMode = !cardAddMode;
             newCardName = '';
+            draggingEnabled = true;
+            emit('enableDragging');
             emitter.emit('columnActionDone');
           "
         >
@@ -176,6 +178,9 @@ const enableTitleEditing = () => {
 }
 
 const enableCardAddMode = () => {
+    draggingEnabled.value = false;
+    emit("disableDragging");
+
     cardAddMode.value = true;
 
     nextTick(() => {
@@ -251,6 +256,9 @@ const updateColumnTitle = () => {
 }
 
 const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
+    draggingEnabled.value = true;
+    emit("enableDragging");
+
     if (newCardName.value == null || !(/\S/.test(newCardName.value))) return;
 
     if (
