@@ -18,7 +18,7 @@
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
       :style="cssVars"
     >
-      <div class="bg-effect-overlay h-full w-full pt-5">
+      <div class="bg-effect-overlay h-full w-max pt-5">
         <div class="z-50 pl-8">
           <div class="relative">
             <h1
