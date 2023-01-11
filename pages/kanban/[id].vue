@@ -12,46 +12,45 @@
       @setBlur="setBlur"
       @setBrightness="setBrightness"
     />
-
+    <div class="absolute top-8 z-50 ml-8">
+      <h1
+        v-if="!boardTitleEditing"
+        class="mb-2 rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
+        @click="enableBoardTitleEditing()"
+      >
+        {{ board.title }}
+      </h1>
+      <input
+        v-if="boardTitleEditing"
+        ref="boardTitleInput"
+        v-model="board.title"
+        type="text"
+        maxlength="500"
+        class="bg-elevation-2 border-accent text-no-overflow mb-2 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+        @blur="
+          boardTitleEditing = false;
+          updateStorage();
+        "
+        @keypress.enter="
+          boardTitleEditing = false;
+          updateStorage();
+        "
+      >
+      <button
+        class="bg-elevation-1 bg-elevation-2-hover flex flex-row gap-1 rounded-md px-4 py-1"
+        @click="showCustomBgModal = true"
+      >
+        <PhotoIcon class="h-6 w-6" />
+        <span>Change Background</span>
+      </button>
+    </div>
     <div
       id="kanban-cols-container"
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
       :style="cssVars"
     >
-      <div class="bg-effect-overlay h-full w-max pt-5">
+      <div class="bg-effect-overlay h-full w-max pt-[7.5rem]">
         <div class="z-50 pl-8">
-          <div class="relative">
-            <h1
-              v-if="!boardTitleEditing"
-              class="mb-2 rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
-              @click="enableBoardTitleEditing()"
-            >
-              {{ board.title }}
-            </h1>
-            <input
-              v-if="boardTitleEditing"
-              ref="boardTitleInput"
-              v-model="board.title"
-              type="text"
-              maxlength="500"
-              class="bg-elevation-2 border-accent text-no-overflow mb-4 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
-              @blur="
-                boardTitleEditing = false;
-                updateStorage();
-              "
-              @keypress.enter="
-                boardTitleEditing = false;
-                updateStorage();
-              "
-            >
-            <button
-              class="bg-elevation-1 bg-elevation-2-hover flex flex-row gap-1 rounded-md px-4 py-1"
-              @click="showCustomBgModal = true"
-            >
-              <PhotoIcon class="h-6 w-6" />
-              <span>Change Background</span>
-            </button>
-          </div>
           <div class="pt-4">
             <Container
               group-name="columns"
