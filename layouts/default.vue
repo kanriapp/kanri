@@ -88,6 +88,10 @@ const cssVars = computed(() => {
     background-color: var(--elevation-2);
 }
 
+.bg-elevation-3 {
+    background-color: var(--elevation-3);
+}
+
 .bg-elevation-3-hover:hover {
     background-color: var(--elevation-3);
 }
