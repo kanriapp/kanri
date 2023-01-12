@@ -73,7 +73,7 @@
               >
                 <KanbanColumn
                   :id="column.id"
-                  :ref="(el) => pogChamp(el, column.id)"
+                  :ref="(el) => saveColumnRef(el, column.id)"
                   :title="column.title"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :cards-list="column.cards"
@@ -149,7 +149,7 @@ const cssVars = computed(() => {
     }
 })
 
-const pogChamp = (ref: any, columnId: String) => {
+const saveColumnRef = (ref: any, columnId: String) => {
     colRefs[columnId.toString()] = ref;
 }
 
