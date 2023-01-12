@@ -262,8 +262,6 @@ const updateColumnTitle = () => {
 const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
     enableDragging();
 
-    if (newCardName.value == null || !(/\S/.test(newCardName.value))) return;
-
     if (
         //@ts-ignore
         (event.relatedTarget && event.relatedTarget.id === "submitButton") ||
