@@ -12,6 +12,13 @@
       @setBlur="setBlur"
       @setBrightness="setBrightness"
     />
+    <ModalKanban
+      v-show="kanbanModalVisible"
+      ref="kanbanModal"
+      @setCardTitle="setCardTitle"
+      @setCardDescription="setCardDescription"
+      @closeModal="closeKanbanModal"
+    />
     <div class="absolute top-8 z-50 ml-8">
       <h1
         v-if="!boardTitleEditing"
@@ -66,7 +73,7 @@
               >
                 <KanbanColumn
                   :id="column.id"
-                  :ref="'kanbancol' + column.id"
+                  :ref="(el) => pogChamp(el, column.id)"
                   :title="column.title"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :cards-list="column.cards"
@@ -108,6 +115,7 @@ import emitter from "@/utils/emitter";
 
 import type { Board, Column } from "~/types/kanban-types";
 import { Ref } from "vue";
+import { default as KanbanColumn} from "@/components/kanban/Column.vue";
 
 const store = useTauriStore().store;
 const route = useRoute();
@@ -130,6 +138,9 @@ const bgImageLoaded = ref(false);
 const bgBlur = ref("8px");
 const bgBrightness = ref("100%");
 
+const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
+const kanbanModalVisible = ref(false);
+
 const cssVars = computed(() => {
     return {
         "--bg-custom-image": `url("${bgCustom.value}")`,
@@ -137,6 +148,23 @@ const cssVars = computed(() => {
         "--bg-brightness": bgBrightness.value
     }
 })
+
+const pogChamp = (ref: any, columnId: String) => {
+    colRefs[columnId.toString()] = ref;
+}
+
+const setCardTitle = (columnId: string, cardId: number, title: string) => {
+    colRefs[columnId].setCardTitle(cardId, title);
+}
+
+const setCardDescription = (columnId: string, cardId: number, description: string) => {
+    console.log("yeetus", columnId, cardId, description);
+    colRefs[columnId].setCardDescription(cardId, description);
+}
+
+const closeKanbanModal = () => {
+    kanbanModalVisible.value = false;
+}
 
 const setBackgroundImage = (img: string) => {
     bgCustomNoResolution.value = img;
@@ -198,6 +226,10 @@ onMounted(async () => {
         columnCardAddMode.value = false;
         columnTitleEditing.value = false;
     });
+
+    emitter.on("openKanbanModal", () => {
+        kanbanModalVisible.value = true;
+    })
 });
 
 onBeforeUnmount(() => {

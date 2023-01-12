@@ -1,13 +1,5 @@
 <template>
   <div class="bg-elevation-1 max-h-column flex w-64 flex-col rounded-md p-2 shadow-lg">
-    <ModalKanban
-      v-show="modalVisible"
-      ref="modal"
-      @setCardTitle="setCardTitle"
-      @setCardDescription="setCardDescription"
-      @closeModal="closeModal"
-    />
-
     <div
       id="board-title"
       class="flex flex-row items-start justify-between gap-4"
@@ -44,7 +36,7 @@
       group-name="cards"
       :get-child-payload="getChildPayload"
       class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm"
-      :drag-handle-selector="dragHandleSelector"
+      drag-handle-selector=".kanbancard-drag"
       orientation="vertical"
       drag-class="cursor-grabbing"
       @drop="onDrop"
@@ -53,6 +45,7 @@
         v-for="(card, index) in cards"
         :key="index"
         class="bg-elevation-2 mb-3 min-h-[30px] cursor-grab rounded-sm px-3 pt-3 pb-5"
+        :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
       >
         <div
           class="flex cursor-pointer flex-row justify-between"
@@ -60,9 +53,15 @@
         >
           <p
             class="text-no-overflow mr-2 min-w-[24px]"
-            @click="(event) => openModal(event, index, card)"
           >
-            {{ card.name }}
+            <KanbanCard
+              :card="card"
+              :card-index="index"
+              @updateCardName="setCardTitle"
+              @disableDragging="disableDragging"
+              @enableDragging="enableDragging"
+              @openKanbanModal="(event) => openModal(event, index, card)"
+            />
           </p>
 
           <div
@@ -158,36 +157,13 @@ const newCardInput: Ref<HTMLInputElement | null> = ref(null);
 const cards = ref<Card[]>(props.cardsList);
 const newCardName = ref("");
 const cardAddMode = ref(false);
+
 const titleNew = ref(props.title);
 const titleEditing = ref(false);
-const modalVisible = ref(false);
+
 const draggingEnabled = ref(true);
 
 const boardTitle = ref(props.title);
-
-const enableTitleEditing = () => {
-    draggingEnabled.value = false;
-    emit("disableDragging");
-
-    titleEditing.value = true;
-    titleNew.value = boardTitle.value;
-    nextTick(() => {
-        if (titleInput.value == null) return;
-        titleInput.value.focus();
-    });
-}
-
-const enableCardAddMode = () => {
-    draggingEnabled.value = false;
-    emit("disableDragging");
-
-    cardAddMode.value = true;
-
-    nextTick(() => {
-        if (newCardInput.value == null) return;
-        newCardInput.value.focus()
-    });
-}
 
 onMounted(() => {
     document.addEventListener("keydown", keyDownListener);
@@ -225,10 +201,6 @@ const keyDownListener = (e: { key: string; }) => {
     }
 };
 
-const dragHandleSelector = computed(() => {
-    return draggingEnabled.value ? "" : "dragging_disabled";
-});
-
 const onDrop = (dropResult: any) => {
     cards.value = applyDrag(cards.value, dropResult);
     updateStorage();
@@ -238,9 +210,41 @@ const getChildPayload = (index: number) => {
     return cards.value[index];
 };
 
-const updateColumnTitle = () => {
+const enableDragging = () => {
     draggingEnabled.value = true;
     emit("enableDragging");
+}
+
+const disableDragging = () => {
+    console.log("disableDragging");
+    draggingEnabled.value = false;
+    emit("disableDragging");
+}
+
+const enableTitleEditing = () => {
+    disableDragging();
+
+    titleEditing.value = true;
+    titleNew.value = boardTitle.value;
+    nextTick(() => {
+        if (titleInput.value == null) return;
+        titleInput.value.focus();
+    });
+}
+
+const enableCardAddMode = () => {
+    disableDragging();
+
+    cardAddMode.value = true;
+
+    nextTick(() => {
+        if (newCardInput.value == null) return;
+        newCardInput.value.focus()
+    });
+}
+
+const updateColumnTitle = () => {
+    disableDragging();
 
     if (titleNew.value == null || !(/\S/.test(titleNew.value))) {
         titleNew.value = "";
@@ -256,8 +260,7 @@ const updateColumnTitle = () => {
 }
 
 const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
-    draggingEnabled.value = true;
-    emit("enableDragging");
+    enableDragging();
 
     if (newCardName.value == null || !(/\S/.test(newCardName.value))) return;
 
@@ -290,21 +293,16 @@ const setCardDescription = (cardIndex: number, description: string) => {
 };
 
 const openModal = (_: any, index: number, el: Card) => {
-    draggingEnabled.value = false;
-    emit("disableDragging");
-
-    emitter.emit("openKanbanModal", { index, el });
+    disableDragging();
+    const columnId = props.id;
+    emitter.emit("openKanbanModal", { columnId, index, el });
     emitter.emit("zIndexDown");
-    modalVisible.value = true;
+    // TODO
+    console.log("TODO: fix disabledragging in id.vue");
 };
 
 const closeModal = () => {
-    modalVisible.value = false;
-
-    draggingEnabled.value = true;
-    emit("enableDragging");
-
-    emitter.emit("zIndexBack");
+    enableDragging();
 };
 
 const updateStorage = () => {
@@ -316,6 +314,8 @@ const updateStorage = () => {
 
     emit("updateStorage", column);
 };
+
+defineExpose({ setCardTitle, setCardDescription });
 </script>
 
 <style scoped>

@@ -63,13 +63,14 @@ import emitter from "@/utils/emitter"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { Ref } from "vue";
 
-const emit = defineEmits(["closeModal", "setCardDescription", "setCardTitle"])
+const emit = defineEmits(["closeModal", "setCardDescription", "setCardTitle"]);
 
-const cardID = ref(0)
-const title = ref("")
-const description = ref("")
+const columnId = ref("");
+const cardID = ref(0);
+const title = ref("");
+const description = ref("");
 
-const titleEditing = ref(false)
+const titleEditing = ref(false);
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
 
 const enableTitleEditing = () => {
@@ -84,18 +85,19 @@ const enableTitleEditing = () => {
 
 onMounted(() => {
     emitter.on("openKanbanModal", (params) => {
-        initModal(params.index, params.el.name, params.el.description || "")
+        initModal(params.columnId, params.index, params.el.name, params.el.description || "");
     })
 })
 
-const initModal = (cardIdParam: number, titleParam: string, descriptionParam?: string) => {
+const initModal = (columnIdParam: string, cardIdParam: number, titleParam: string, descriptionParam?: string) => {
+    columnId.value = columnIdParam;
     cardID.value = cardIdParam;
     title.value = titleParam;
     description.value = descriptionParam || "";
 }
 
 const updateDescription = () => {
-    emit("setCardDescription", cardID.value, description.value);
+    emit("setCardDescription", columnId.value, cardID.value, description.value);
     emitter.emit("modalEnableClickOutsideClose");
 }
 
@@ -105,6 +107,6 @@ const updateTitle = () => {
     if (title.value == null || !(/\S/.test(title.value))) return;
 
     titleEditing.value = false;
-    emit("setCardTitle", cardID.value, title.value);
+    emit("setCardTitle", columnId.value, cardID.value, title.value);
 }
 </script>

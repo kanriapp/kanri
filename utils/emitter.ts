@@ -8,7 +8,7 @@ type Events = {
     enableColumnCardAddMode: string;
     enableColumnTitleEditing: string;
 
-    openKanbanModal: { index: number, el: Card };
+    openKanbanModal: { columnId: string, index: number, el: Card };
     openKanbanPage: void;
     openBoardDeleteModal: { index: number, description: string };
     openBoardRenameModal: { index: number, board: Board };
