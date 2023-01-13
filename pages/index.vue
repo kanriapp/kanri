@@ -244,7 +244,9 @@ const renameBoard = (index: number, name: string) => {
     store.set("boards", boards.value);
 }
 
-const deleteBoardModal = (index: number) => {
+const deleteBoardModal = (index: number | undefined) => {
+    if (index == undefined) return console.error("Undefined board to delete, this should not happen!");
+
     const selectedBoard = boards.value[index];
     if (selectedBoard == null) {
         return console.error("Could not find board with index: ", index);
@@ -254,10 +256,10 @@ const deleteBoardModal = (index: number) => {
     deleteBoardModalVisible.value = true;
 }
 
-const deleteBoard = async (index: number) => {
-    if (index === -1) return;
+const deleteBoard = async (boardIndex: number | undefined) => {
+    if (boardIndex === -1 || boardIndex == undefined) return;
 
-    boards.value.splice(index, 1);
+    boards.value.splice(boardIndex, 1);
     store.set("boards", boards.value);
 };
 
