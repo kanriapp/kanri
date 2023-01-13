@@ -33,7 +33,9 @@ const props = withDefaults(
 
 const clickOutsideClose = ref(props.clickOutsideToClose);
 
-const emit = defineEmits(['closeModal']);
+const emit = defineEmits<{
+    (e: "closeModal"): void
+}>();
 
 onMounted(() => {
     document.addEventListener("keydown", keyDownListener);

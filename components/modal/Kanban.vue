@@ -63,7 +63,11 @@ import emitter from "@/utils/emitter"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { Ref } from "vue";
 
-const emit = defineEmits(["closeModal", "setCardDescription", "setCardTitle"]);
+const emit = defineEmits<{
+    (e: "closeModal"): void,
+    (e: "setCardDescription", columnId: string, cardIndex: number, description: string): void,
+    (e: "setCardTitle", columnId: string, cardIndex: number, title: string): void,
+}>();
 
 const columnId = ref("");
 const cardID = ref(0);

@@ -140,7 +140,7 @@ import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 
-import { Card } from "~/types/kanban-types";
+import { Card, Column } from "~/types/kanban-types";
 import type { Ref } from "vue"
 
 const props = defineProps<{
@@ -149,7 +149,13 @@ const props = defineProps<{
     cardsList: Array<Card>;
 }>();
 
-const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging", "enableDragging"]);
+const emit = defineEmits<{
+  (e: "updateStorage", column: Column): void,
+  (e: "removeColumn", columnId: string): void,
+  (e: "enableDragging"): void,
+  (e: "disableDragging"): void,
+  (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
+}>();
 
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
 const newCardInput: Ref<HTMLInputElement | null> = ref(null);

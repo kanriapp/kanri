@@ -51,7 +51,10 @@ const props = defineProps<{
     confirmButtonText?: string;
 }>();
 
-const emit = defineEmits(["closeModal", "confirmAction"]);
+const emit = defineEmits<{
+    (e: "closeModal"): void,
+    (e: "confirmAction", boardIndex?: number): void
+}>();
 
 const boardIndex = ref(-1);
 const modalDescription = ref(props.description || "");

@@ -28,8 +28,12 @@ const props =defineProps<{
     cardIndex: number;
 }>();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emit = defineEmits(["openKanbanModal", "updateCardName", "disableDragging", "enableDragging"]);
+const emit = defineEmits<{
+    (e: "openKanbanModal"): void,
+    (e: "updateCardName", cardIndex: number, cardName: string): void,
+    (e: "enableDragging"): void,
+    (e: "disableDragging"): void,
+}>();
 
 const name = ref(props.card.name);
 const cardNameEditMode = ref(false);

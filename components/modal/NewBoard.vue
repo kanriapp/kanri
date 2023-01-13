@@ -63,7 +63,9 @@ import emitter from "~/utils/emitter";
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import { Ref } from "vue";
 
-const emit = defineEmits(["closeModal"]);
+const emit = defineEmits<{
+    (e: "closeModal"): void
+}>();
 
 const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
 
@@ -71,14 +73,14 @@ const newBoardName = ref("");
 
 onUpdated(() => {
     nextTick(() => {
-        if (boardNameInput.value == null) return; 
+        if (boardNameInput.value == null) return;
         boardNameInput.value.focus();
     });
 });
 
 const createNewBoard = () => {
     if (newBoardName.value == null || !(/\S/.test(newBoardName.value))) return;
-    
+
     emitter.emit('createBoard', newBoardName.value);
     closeModal();
 }

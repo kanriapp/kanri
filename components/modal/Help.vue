@@ -79,13 +79,14 @@
   </Modal>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Modal from "~/components/Modal.vue";
 
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emit = defineEmits(["closeModal"])
+defineEmits<{
+  (e: "closeModal"): void
+}> ();
 </script>
 
 <style scoped>
