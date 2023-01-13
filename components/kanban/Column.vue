@@ -84,6 +84,7 @@
         v-model="newCardName"
         v-resizable
         type="text"
+        maxlength="5000"
         placeholder="Enter a card title..."
         class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
         @blur="

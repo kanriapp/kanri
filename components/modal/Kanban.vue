@@ -46,6 +46,7 @@
           name="cardDescription"
           cols="6"
           rows="70"
+          maxlength="25000"
           placeholder="Enter a detailed description of your card here..."
           class="bg-elevation-2 border-accent-focus pointer-events-auto mt-2 h-40 w-11/12 resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
           @focusin="emitter.emit('modalPreventClickOutsideClose')"
