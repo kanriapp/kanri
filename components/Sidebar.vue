@@ -85,10 +85,6 @@ onMounted(() => {
         zIndexDown.value = false;
     });
 
-    emitter.on("openKanbanModal", () => {
-        zIndexDown.value = true;
-    });
-
     emitter.on("openKanbanPage", () => {
         showAddButton.value = false;
     });
