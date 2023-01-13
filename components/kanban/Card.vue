@@ -40,9 +40,9 @@ const cardNameEditMode = ref(false);
 
 const cardNameInput: Ref<HTMLInputElement | null> = ref(null);
 
-watch(props.card, (_, newData) => {
-    name.value = newData.name;
-})
+watch(props, (_, newData) => {
+    name.value = newData.card.name;
+});
 
 const enableCardEditMode = () => {
     emit("disableDragging");
