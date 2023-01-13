@@ -56,7 +56,7 @@
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
       :style="cssVars"
     >
-      <div class="bg-effect-overlay h-full w-max pt-[7.5rem]">
+      <div class="bg-effect-overlay h-full w-max min-w-full pt-[7.5rem]">
         <div class="z-50 pl-8">
           <div class="pt-4">
             <Container
