@@ -49,7 +49,7 @@
       >
         <div
           class="flex cursor-pointer flex-row justify-between"
-          @click.self="(event) => openModal(event, index, card)"
+          @click.self="(event) => openKanbanModal(event, index, card)"
         >
           <p
             class="text-no-overflow mr-2 min-w-[24px]"
@@ -60,7 +60,7 @@
               @updateCardName="setCardTitle"
               @disableDragging="disableDragging"
               @enableDragging="enableDragging"
-              @openKanbanModal="(event) => openModal(event, index, card)"
+              @openKanbanModal="(event) => openKanbanModal(event, index, card)"
             />
           </p>
 
@@ -223,7 +223,6 @@ const enableDragging = () => {
 }
 
 const disableDragging = () => {
-    console.log("disableDragging");
     draggingEnabled.value = false;
     emit("disableDragging");
 }
@@ -297,13 +296,11 @@ const setCardDescription = (cardIndex: number, description: string) => {
     updateStorage();
 };
 
-const openModal = (_: any, index: number, el: Card) => {
+const openKanbanModal = (_: any, index: number, el: Card) => {
     disableDragging();
-    const columnId = props.id;
-    emitter.emit("openKanbanModal", { columnId, index, el });
     emitter.emit("zIndexDown");
-    // TODO
-    console.log("TODO: fix disabledragging in id.vue");
+
+    emit("openKanbanModal", props.id, index, el);
 };
 
 const closeModal = () => {
@@ -320,7 +317,7 @@ const updateStorage = () => {
     emit("updateStorage", column);
 };
 
-defineExpose({ setCardTitle, setCardDescription });
+defineExpose({ setCardTitle, setCardDescription, closeModal, enableDragging });
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
   <Modal
     ref="barebonesModal"
-    @closeModal="$emit('closeModal')"
+    @closeModal="$emit('closeModal', columnId)"
   >
     <template #content>
       <div class="flex min-h-[40rem] w-[36rem] flex-col">
@@ -65,7 +65,7 @@ import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { Ref } from "vue";
 
 const emit = defineEmits<{
-    (e: "closeModal"): void,
+    (e: "closeModal", columnId: string): void,
     (e: "setCardDescription", columnId: string, cardIndex: number, description: string): void,
     (e: "setCardTitle", columnId: string, cardIndex: number, title: string): void,
 }>();
@@ -88,12 +88,6 @@ const enableTitleEditing = () => {
     });
 }
 
-onMounted(() => {
-    emitter.on("openKanbanModal", (params) => {
-        initModal(params.columnId, params.index, params.el.name, params.el.description || "");
-    })
-})
-
 const initModal = (columnIdParam: string, cardIdParam: number, titleParam: string, descriptionParam?: string) => {
     columnId.value = columnIdParam;
     cardID.value = cardIdParam;
@@ -114,4 +108,6 @@ const updateTitle = () => {
     titleEditing.value = false;
     emit("setCardTitle", columnId.value, cardID.value, title.value);
 }
+
+defineExpose({ initModal });
 </script>

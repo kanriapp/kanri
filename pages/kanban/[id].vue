@@ -81,6 +81,7 @@
                   @removeColumn="removeColumn"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
+                  @openKanbanModal="openKanbanModal"
                 />
               </Draggable>
               <div class="pr-8">
@@ -113,9 +114,10 @@ import { applyDrag } from "@/utils/drag-n-drop";
 import { generateUniqueID } from "@/utils/idGenerator";
 import emitter from "@/utils/emitter";
 
-import type { Board, Column } from "~/types/kanban-types";
+import type { Board, Card, Column } from "@/types/kanban-types";
 import { Ref } from "vue";
-import { default as KanbanColumn} from "@/components/kanban/Column.vue";
+import { default as KanbanColumn } from "@/components/kanban/Column.vue";
+import { default as KanbanModal } from "@/components/modal/Kanban.vue";
 
 const store = useTauriStore().store;
 const route = useRoute();
@@ -140,6 +142,7 @@ const bgBrightness = ref("100%");
 
 const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
 const kanbanModalVisible = ref(false);
+const kanbanModal = ref<InstanceType<typeof KanbanModal> | null>(null);
 
 const cssVars = computed(() => {
     return {
@@ -158,12 +161,21 @@ const setCardTitle = (columnId: string, cardId: number, title: string) => {
 }
 
 const setCardDescription = (columnId: string, cardId: number, description: string) => {
-    console.log("yeetus", columnId, cardId, description);
     colRefs[columnId].setCardDescription(cardId, description);
 }
 
-const closeKanbanModal = () => {
+const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
+    kanbanModalVisible.value = true;
+    draggingEnabled.value = false;
+
+    if (kanbanModal.value == null) return;
+    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description);
+}
+
+const closeKanbanModal = (columnId: string) => {
     kanbanModalVisible.value = false;
+    draggingEnabled.value = true;
+    colRefs[columnId].enableDragging();
 }
 
 const setBackgroundImage = (img: string) => {
@@ -226,10 +238,6 @@ onMounted(async () => {
         columnCardAddMode.value = false;
         columnTitleEditing.value = false;
     });
-
-    emitter.on("openKanbanModal", () => {
-        kanbanModalVisible.value = true;
-    })
 });
 
 onBeforeUnmount(() => {
@@ -338,6 +346,7 @@ const removeColumn = (columnID: string) => {
     const columnIndex = board.value.columns.indexOf(column);
     board.value.columns.splice(columnIndex, 1);
     columnEditIndex.value--;
+    delete colRefs[columnID];
     updateStorage();
 };
 
