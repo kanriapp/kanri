@@ -269,8 +269,7 @@ const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
     enableDragging();
 
     if (
-        //@ts-ignore
-        (event.relatedTarget && event.relatedTarget.id === "submitButton") ||
+        (event instanceof (MouseEvent || FocusEvent) && event.relatedTarget && (event.relatedTarget as any).id === "submitButton") ||
         event instanceof KeyboardEvent
     ) {
         cards.value[cards.value.length] = { name: newCardName.value };
