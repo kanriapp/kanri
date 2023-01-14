@@ -19,8 +19,7 @@
 <script setup lang="ts">
 import type { Board } from "@/types/kanban-types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = defineProps<{
+defineProps<{
     board: Board;
 }>();
 </script>
