@@ -9,7 +9,7 @@
     >
       <div
         v-for="card in column.cards"
-        :key="card"
+        :key="card.id"
         class="bg-elevation-2 mb-1 rounded-sm p-2"
       />
     </div>
