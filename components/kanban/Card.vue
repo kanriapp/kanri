@@ -4,7 +4,9 @@
     @single-click="$emit('openKanbanModal')"
     @double-click="enableCardEditMode"
   >
-    <p>{{ name }}</p>
+    <p ref="cardNameText">
+      {{ name }}
+    </p>
   </ClickCounter>
   <textarea
     v-else
@@ -13,7 +15,7 @@
     v-resizable
     type="text"
     maxlength="1000"
-    class="bg-elevation-3 h-full w-full rounded-sm focus:outline-none"
+    class="bg-elevation-3 h-full w-full resize-none rounded-sm focus:outline-none"
     @blur="updateCardName"
     @keypress.enter="updateCardName"
   />
@@ -38,7 +40,8 @@ const emit = defineEmits<{
 const name = ref(props.card.name);
 const cardNameEditMode = ref(false);
 
-const cardNameInput: Ref<HTMLInputElement | null> = ref(null);
+const cardNameInput: Ref<HTMLTextAreaElement | null> = ref(null);
+const cardNameText: Ref<HTMLParagraphElement | null> = ref(null);
 
 watch(props, (_, newData) => {
     name.value = newData.card.name;
@@ -48,10 +51,19 @@ const enableCardEditMode = () => {
     emit("disableDragging");
 
     cardNameEditMode.value = true;
+
+    console.log(cardNameText.value);
+    
+    if (cardNameText.value == null) return; 
+
+    const textAreaHeight = `height: ${cardNameText.value.scrollHeight}px`;
+    
     nextTick(() => {
         if (cardNameInput.value == null) return;
+        cardNameInput.value.setAttribute("style", textAreaHeight);
         cardNameInput.value.focus();
     });
+
 }
 
 const updateCardName = () => {

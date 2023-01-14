@@ -52,7 +52,7 @@
           @click.self="(event) => openKanbanModal(event, index, card)"
         >
           <p
-            class="text-no-overflow mr-2 min-w-[24px]"
+            class="text-no-overflow mr-2 w-full min-w-[24px]"
           >
             <KanbanCard
               :card="card"
