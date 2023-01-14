@@ -133,16 +133,15 @@
 </template>
 
 <script setup lang="ts">
+import emitter from "@/utils/emitter";
+import { applyDrag } from "@/utils/drag-n-drop";
+import { Card, Column } from "@/types/kanban-types";
+
+import type { Ref } from "vue"
 //@ts-ignore, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
-
-import { applyDrag } from "@/utils/drag-n-drop";
-import emitter from "@/utils/emitter";
-
-import { Card, Column } from "@/types/kanban-types";
-import type { Ref } from "vue"
 
 const props = defineProps<{
     id: string;

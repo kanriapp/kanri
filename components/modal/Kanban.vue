@@ -60,9 +60,8 @@
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter"
-
-import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { Ref } from "vue";
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 
 const emit = defineEmits<{
     (e: "closeModal", columnId: string): void,

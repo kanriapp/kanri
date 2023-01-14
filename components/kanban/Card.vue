@@ -22,8 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from "vue";
 import { Card } from "@/types/kanban-types";
+import { Ref } from "vue";
 
 const props =defineProps<{
     card: Card;

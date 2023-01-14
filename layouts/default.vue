@@ -13,9 +13,9 @@
 </template>
 
 <script setup>
+import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
 import { dark } from "@/utils/themes.js";
-import emitter from "@/utils/emitter";
 
 const store = useTauriStore().store;
 const savedColors = ref({});

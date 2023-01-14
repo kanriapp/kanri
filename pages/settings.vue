@@ -163,18 +163,17 @@
 </template>
 
 <script setup lang="ts">
+import emitter from "@/utils/emitter";
+import { useTauriStore } from "@/stores/tauriStore";
+import { light, dark, catppuccin } from "@/utils/themes.js";
+import { ThemeIdentifiers } from "@/types/kanban-types";
+
 import { message, save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { enable, disable, isEnabled } from 'tauri-plugin-autostart-api';
 
-import { useTauriStore } from "@/stores/tauriStore";
-import { light, dark, catppuccin } from "@/utils/themes.js";
-import emitter from "@/utils/emitter";
-
-import { SwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/outline";
-
 import { Ref } from "vue";
-import { ThemeIdentifiers } from "@/types/kanban-types";
+import { SwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/outline";
 
 const router = useRouter();
 

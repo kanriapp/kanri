@@ -102,22 +102,22 @@
 </template>
 
 <script setup lang="ts">
-//@ts-ignore
-import { Container, Draggable } from "vue3-smooth-dnd";
+import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
-import { PlusIcon } from "@heroicons/vue/24/solid";
-import { PhotoIcon } from "@heroicons/vue/24/outline";
+import { applyDrag } from "@/utils/drag-n-drop";
+import { generateUniqueID } from "@/utils/idGenerator";
+import type { Board, Card, Column } from "@/types/kanban-types";
 
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 
-import { applyDrag } from "@/utils/drag-n-drop";
-import { generateUniqueID } from "@/utils/idGenerator";
-import emitter from "@/utils/emitter";
-
-import type { Board, Card, Column } from "@/types/kanban-types";
-import { Ref } from "vue";
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
 import { default as KanbanModal } from "@/components/modal/Kanban.vue";
+import { Ref } from "vue";
+
+//@ts-ignore
+import { Container, Draggable } from "vue3-smooth-dnd";
+import { PlusIcon } from "@heroicons/vue/24/solid";
+import { PhotoIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
 const route = useRoute();
