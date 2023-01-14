@@ -141,7 +141,7 @@ import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 
-import { Card, Column } from "~/types/kanban-types";
+import { Card, Column } from "@/types/kanban-types";
 import type { Ref } from "vue"
 
 const props = defineProps<{

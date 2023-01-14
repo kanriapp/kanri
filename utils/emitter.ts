@@ -1,5 +1,5 @@
 import mitt from 'mitt';
-import { Board, Card } from '~/types/kanban-types';
+import { Board } from '@/types/kanban-types';
 
 type Events = {
     createBoard: string;

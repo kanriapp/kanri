@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "~/utils/emitter";
+import emitter from "@/utils/emitter";
 
 import { Cog6ToothIcon, HomeIcon, PlusCircleIcon, QuestionMarkCircleIcon, ArrowUturnLeftIcon } from "@heroicons/vue/24/outline";
 

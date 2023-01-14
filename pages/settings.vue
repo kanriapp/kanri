@@ -174,7 +174,7 @@ import emitter from "@/utils/emitter";
 import { SwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/outline";
 
 import { Ref } from "vue";
-import { ThemeIdentifiers } from "~/types/kanban-types";
+import { ThemeIdentifiers } from "@/types/kanban-types";
 
 const router = useRouter();
 
