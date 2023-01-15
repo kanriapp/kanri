@@ -862,13 +862,6 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
   integrity sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==
 
-"@tauri-apps/api@1.0.0-rc.4":
-  version "1.0.0-rc.4"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.0.0-rc.4.tgz#454ef7b15237f3d5752bbfc09c8997a00b1e8a9b"
-  integrity sha512-1HaUsx8+TzFHDoQ+Mmd6RWaMsPyZlurQHgACDt+il5e/ui6pDkumVXaS92SnY5XOcS4gBC0BkgjVfkWgcm/Oww==
-  dependencies:
-    type-fest "2.12.2"
-
 "@tauri-apps/api@1.2.0", "@tauri-apps/api@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.2.0.tgz#1f196b3e012971227f41b98214c846430a4eb477"
@@ -5475,16 +5468,14 @@ tar@^6.1.11:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-"tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#031efac82d592774c986e94c6258a3dc11f54d81":
+"tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#11d7669b5df3f50dff771b9b144d2025f4e79de7":
   version "0.0.0"
-  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/031efac82d592774c986e94c6258a3dc11f54d81"
+  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/11d7669b5df3f50dff771b9b144d2025f4e79de7"
   dependencies:
-    "@tauri-apps/api" "1.0.0-rc.4"
-    tslib "^2.1.0"
+    "@tauri-apps/api" "^1.2.0"
 
 "tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#c71665bf5dcf48ae70a88d622eb38b2548b60a5d":
   version "0.0.0"
-  uid c71665bf5dcf48ae70a88d622eb38b2548b60a5d
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/c71665bf5dcf48ae70a88d622eb38b2548b60a5d"
   dependencies:
     "@tauri-apps/api" "^1.2.0"
@@ -5572,11 +5563,6 @@ type-check@^0.4.0, type-check@~0.4.0:
   dependencies:
     prelude-ls "^1.2.1"
 
-type-fest@2.12.2, type-fest@^2.11.2:
-  version "2.12.2"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.12.2.tgz#80a53614e6b9b475eb9077472fb7498dc7aa51d0"
-  integrity sha512-qt6ylCGpLjZ7AaODxbpyBZSs9fCI9SkL3Z9q2oxMBQhs/uyY+VD8jHA8ULCGmWQJlBgqvO3EJeAngOHD8zQCrQ==
-
 type-fest@^0.20.2:
   version "0.20.2"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.20.2.tgz#1bf207f4b28f91583666cb5fbd327887301cd5f4"
@@ -5586,6 +5572,11 @@ type-fest@^0.21.3:
   version "0.21.3"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
+
+type-fest@^2.11.2:
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.12.2.tgz#80a53614e6b9b475eb9077472fb7498dc7aa51d0"
+  integrity sha512-qt6ylCGpLjZ7AaODxbpyBZSs9fCI9SkL3Z9q2oxMBQhs/uyY+VD8jHA8ULCGmWQJlBgqvO3EJeAngOHD8zQCrQ==
 
 type-fest@^3.0.0:
   version "3.2.0"
