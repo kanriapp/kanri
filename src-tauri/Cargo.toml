@@ -21,7 +21,7 @@ tauri = { version = "1.2.3", features = ["dialog-message", "dialog-open", "dialo
 tauri-plugin-persisted-scope = { version = "0.1", features = [
     "protocol-asset",
 ] }
-ignore = "=0.4.18"
+ignore = "=0.4.20"
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 
