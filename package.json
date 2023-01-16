@@ -32,8 +32,8 @@
         "floating-vue": "2.0.0-beta.20",
         "mitt": "3.0.0",
         "pinia": "2.0.29",
-        "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#c71665bf5dcf48ae70a88d622eb38b2548b60a5d",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#11d7669b5df3f50dff771b9b144d2025f4e79de7",
+        "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#c71665bf5dcf48ae70a88d622eb38b2548b60a5d",
         "vue3-smooth-dnd": "0.0.2"
     },
     "resolutions": {
