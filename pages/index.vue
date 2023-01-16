@@ -32,14 +32,14 @@
       id="filters"
       class="mt-2"
     >
-      <div class="bg-elevation-1 bg-elevation-2-hover hide-popper-arrow w-fit rounded-md px-4 py-2 hover:cursor-pointer">
+      <div class="bg-elevation-1 bg-elevation-2-hover hide-popper-arrow w-fit rounded-md hover:cursor-pointer">
         <VDropdown
           :distance="12"
           placement="bottom-start"
         >
-          <button class="flex flex-row items-center gap-2">
+          <button class="flex flex-row items-center gap-2 px-4 py-2">
             <FunnelIcon class="h-6 w-6" />
-            <p>Filters</p>
+            <p>{{ sortingOptionText }}</p>
             <ChevronDownIcon class="h-4 w-4" />
           </button>
 
@@ -162,6 +162,8 @@ const loading = ref(true);
 const renameBoardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 
+const sortingOptionText = ref("Sort by creation date");
+
 onMounted(async () => {
     emitter.on("createBoard", (title: string) => {
         createNewBoard(title);
@@ -169,6 +171,8 @@ onMounted(async () => {
 
     boards.value = (await store.get("boards")) || [];
     loading.value = false;
+
+    console.log(boards.value);
 
     const sortingOption = await store.get("boardSortingOption");
     if (sortingOption == null) {
@@ -181,6 +185,7 @@ onMounted(async () => {
         break;
 
     case "edited":
+        sortBoardsByEditDate();
         break;
 
     default:
@@ -267,15 +272,25 @@ const sortBoardsAlphabetically = () => {
         return a.title.localeCompare(b.title);
     });
     store.set("boardSortingOption", "alphabetically");
+    sortingOptionText.value = "Alphabetical sort";
 }
 
 const sortBoardsByCreationDate = async () => {
     boards.value = (await store.get("boards")) || [];
     store.set("boardSortingOption", "default");
+    sortingOptionText.value = "Sort by creation date";
 }
 
 const sortBoardsByEditDate = () => {
     // TODO: implement with newly added property which gets set on each updateStorage func
+    boards.value.sort((a, b) => {
+        if (!a.lastEdited || !b.lastEdited) {
+            return -1;
+        }
+
+        return new Date(b.lastEdited).getTime() - new Date(a.lastEdited).getTime();
+    });
     store.set("boardSortingOption", "edited");
+    sortingOptionText.value = "Sort by edit date";
 }
 </script>
