@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-auto">
     <div
-      class="default-layout custom-scrollbar overflow-auto"
+      class="default-layout custom-scrollbar-hidden overflow-auto"
       :style="cssVars"
     >
       <Sidebar class="fixed left-0 w-8" />
@@ -169,23 +169,16 @@ const cssVars = computed(() => {
 
 .page-enter-active,
 .page-leave-active {
-    transition-duration: 0.4s;
     transition-property: height, opacity, transform;
-    transition-timing-function: cubic-bezier(.13,.69,.77,.86);
+    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+    overflow: hidden;
+}
+
+.page-enter-active {
+    @apply transition-all duration-700 ease-in-out overflow-hidden;
 }
 
 .page-enter-from {
-    opacity: 0;
-    transform: translateY(2em);
-}
-
-.page-enter-to {
-    opacity: 100%;
-    transform: translateY(0);
-}
-
-.page-leave-active {
-    opacity: 0;
-    transform: translateY(-2em);
+    @apply translate-y-20 opacity-0 overflow-hidden;
 }
 </style>
