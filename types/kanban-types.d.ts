@@ -2,7 +2,8 @@ export declare interface Board {
     id: string,
     title: string,
     columns: Array<Column>,
-    background?: BackgroundSettings
+    background?: BackgroundSettings,
+    lastEdited?: Date
 }
 
 export declare interface BackgroundSettings {

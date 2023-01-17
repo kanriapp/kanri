@@ -1,3 +1,8 @@
+.custom-scrollbar-hidden::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
     width: 12px;
     height: 16px;

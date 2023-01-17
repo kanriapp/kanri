@@ -109,14 +109,11 @@
 </template>
 
 <script setup lang="ts">
-import { XMarkIcon } from "@heroicons/vue/24/solid";
-
 import { open } from '@tauri-apps/api/dialog';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
-
 import { ref } from "vue";
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits(["closeModal", "setBackground", "resetBackground", "setBlur", "setBrightness"]);
 
 const props = defineProps<{

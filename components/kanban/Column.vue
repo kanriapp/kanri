@@ -1,13 +1,5 @@
 <template>
   <div class="bg-elevation-1 max-h-column flex w-64 flex-col rounded-md p-2 shadow-lg">
-    <ModalKanban
-      v-show="modalVisible"
-      ref="modal"
-      @setCardTitle="setCardTitle"
-      @setCardDescription="setCardDescription"
-      @closeModal="closeModal"
-    />
-
     <div
       id="board-title"
       class="flex flex-row items-start justify-between gap-4"
@@ -44,7 +36,7 @@
       group-name="cards"
       :get-child-payload="getChildPayload"
       class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm"
-      :drag-handle-selector="dragHandleSelector"
+      drag-handle-selector=".kanbancard-drag"
       orientation="vertical"
       drag-class="cursor-grabbing"
       @drop="onDrop"
@@ -53,16 +45,23 @@
         v-for="(card, index) in cards"
         :key="index"
         class="bg-elevation-2 mb-3 min-h-[30px] cursor-grab rounded-sm px-3 pt-3 pb-5"
+        :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
       >
         <div
           class="flex cursor-pointer flex-row justify-between"
-          @click.self="(event) => openModal(event, index, card)"
+          @click.self="(event) => openKanbanModal(event, index, card)"
         >
           <p
-            class="text-no-overflow mr-2 min-w-[24px]"
-            @click="(event) => openModal(event, index, card)"
+            class="text-no-overflow mr-2 w-full min-w-[24px]"
           >
-            {{ card.name }}
+            <KanbanCard
+              :card="card"
+              :card-index="index"
+              @updateCardName="setCardTitle"
+              @disableDragging="disableDragging"
+              @enableDragging="enableDragging"
+              @openKanbanModal="(event) => openKanbanModal(event, index, card)"
+            />
           </p>
 
           <div
@@ -85,6 +84,7 @@
         v-model="newCardName"
         v-resizable
         type="text"
+        maxlength="5000"
         placeholder="Enter a card title..."
         class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
         @blur="
@@ -111,6 +111,8 @@
           @click="
             cardAddMode = !cardAddMode;
             newCardName = '';
+            draggingEnabled = true;
+            emit('enableDragging');
             emitter.emit('columnActionDone');
           "
         >
@@ -131,16 +133,15 @@
 </template>
 
 <script setup lang="ts">
+import emitter from "@/utils/emitter";
+import { applyDrag } from "@/utils/drag-n-drop";
+import { Card, Column } from "@/types/kanban-types";
+
+import type { Ref } from "vue"
 //@ts-ignore, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
-
-import { applyDrag } from "@/utils/drag-n-drop";
-import emitter from "@/utils/emitter";
-
-import { Card } from "~/types/kanban-types";
-import type { Ref } from "vue"
 
 const props = defineProps<{
     id: string;
@@ -148,7 +149,13 @@ const props = defineProps<{
     cardsList: Array<Card>;
 }>();
 
-const emit = defineEmits(["updateStorage", "removeColumn", "disableDragging", "enableDragging"]);
+const emit = defineEmits<{
+  (e: "updateStorage", column: Column): void,
+  (e: "removeColumn", columnId: string): void,
+  (e: "enableDragging"): void,
+  (e: "disableDragging"): void,
+  (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
+}>();
 
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
 const newCardInput: Ref<HTMLInputElement | null> = ref(null);
@@ -156,30 +163,13 @@ const newCardInput: Ref<HTMLInputElement | null> = ref(null);
 const cards = ref<Card[]>(props.cardsList);
 const newCardName = ref("");
 const cardAddMode = ref(false);
+
 const titleNew = ref(props.title);
 const titleEditing = ref(false);
-const modalVisible = ref(false);
+
 const draggingEnabled = ref(true);
 
 const boardTitle = ref(props.title);
-
-const enableTitleEditing = () => {
-    titleEditing.value = true;
-    titleNew.value = boardTitle.value;
-    nextTick(() => {
-        if (titleInput.value == null) return;
-        titleInput.value.focus();
-    });
-}
-
-const enableCardAddMode = () => {
-    cardAddMode.value = true;
-
-    nextTick(() => {
-        if (newCardInput.value == null) return;
-        newCardInput.value.focus()
-    });
-}
 
 onMounted(() => {
     document.addEventListener("keydown", keyDownListener);
@@ -217,10 +207,6 @@ const keyDownListener = (e: { key: string; }) => {
     }
 };
 
-const dragHandleSelector = computed(() => {
-    return draggingEnabled.value ? "" : "dragging_disabled";
-});
-
 const onDrop = (dropResult: any) => {
     cards.value = applyDrag(cards.value, dropResult);
     updateStorage();
@@ -230,7 +216,41 @@ const getChildPayload = (index: number) => {
     return cards.value[index];
 };
 
+const enableDragging = () => {
+    draggingEnabled.value = true;
+    emit("enableDragging");
+}
+
+const disableDragging = () => {
+    draggingEnabled.value = false;
+    emit("disableDragging");
+}
+
+const enableTitleEditing = () => {
+    disableDragging();
+
+    titleEditing.value = true;
+    titleNew.value = boardTitle.value;
+    nextTick(() => {
+        if (titleInput.value == null) return;
+        titleInput.value.focus();
+    });
+}
+
+const enableCardAddMode = () => {
+    disableDragging();
+
+    cardAddMode.value = true;
+
+    nextTick(() => {
+        if (newCardInput.value == null) return;
+        newCardInput.value.focus()
+    });
+}
+
 const updateColumnTitle = () => {
+    disableDragging();
+
     if (titleNew.value == null || !(/\S/.test(titleNew.value))) {
         titleNew.value = "";
         titleEditing.value = false;
@@ -245,7 +265,7 @@ const updateColumnTitle = () => {
 }
 
 const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
-    if (newCardName.value == null || !(/\S/.test(newCardName.value))) return;
+    enableDragging();
 
     if (
         //@ts-ignore
@@ -275,19 +295,15 @@ const setCardDescription = (cardIndex: number, description: string) => {
     updateStorage();
 };
 
-const openModal = (_: any, index: number, el: Card) => {
-    draggingEnabled.value = false;
-    emit("disableDragging");
-    emitter.emit("openKanbanModal", { index, el });
+const openKanbanModal = (_: any, index: number, el: Card) => {
+    disableDragging();
     emitter.emit("zIndexDown");
-    modalVisible.value = true;
+
+    emit("openKanbanModal", props.id, index, el);
 };
 
 const closeModal = () => {
-    modalVisible.value = false;
-    draggingEnabled.value = true;
-    emit("enableDragging");
-    emitter.emit("zIndexBack");
+    enableDragging();
 };
 
 const updateStorage = () => {
@@ -299,6 +315,8 @@ const updateStorage = () => {
 
     emit("updateStorage", column);
 };
+
+defineExpose({ setCardTitle, setCardDescription, closeModal, enableDragging });
 </script>
 
 <style scoped>

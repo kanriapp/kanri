@@ -58,14 +58,15 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "~/utils/emitter";
-
+import emitter from "@/utils/emitter";
+import { Board } from "@/types/kanban-types";
+import { Ref } from "vue";
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 
-import { Ref } from "vue";
-import { Board } from "~/types/kanban-types";
-
-const emit = defineEmits(["closeModal", "renameBoard"]);
+const emit = defineEmits<{
+    (e: "closeModal"): void,
+    (e: "renameBoard", boardIndex: number, newBoardName: string): void
+}>();
 
 const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
 
@@ -81,7 +82,7 @@ onMounted(() => {
 
 onUpdated(() => {
     nextTick(() => {
-        if (boardNameInput.value == null) return; 
+        if (boardNameInput.value == null) return;
         boardNameInput.value.focus();
     });
 });

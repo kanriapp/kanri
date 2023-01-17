@@ -1,7 +1,7 @@
 <template>
   <Modal
     ref="barebonesModal"
-    @closeModal="$emit('closeModal')"
+    @closeModal="$emit('closeModal', columnId)"
   >
     <template #content>
       <div class="flex min-h-[40rem] w-[36rem] flex-col">
@@ -46,8 +46,10 @@
           name="cardDescription"
           cols="6"
           rows="70"
+          maxlength="25000"
           placeholder="Enter a detailed description of your card here..."
           class="bg-elevation-2 border-accent-focus pointer-events-auto mt-2 h-40 w-11/12 resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
+          @focusin="emitter.emit('modalPreventClickOutsideClose')"
           @blur="updateDescription"
           @keypress.enter="updateDescription"
         />
@@ -58,20 +60,26 @@
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter"
-
-import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { Ref } from "vue";
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 
-const emit = defineEmits(["closeModal", "setCardDescription", "setCardTitle"])
+const emit = defineEmits<{
+    (e: "closeModal", columnId: string): void,
+    (e: "setCardDescription", columnId: string, cardIndex: number, description: string): void,
+    (e: "setCardTitle", columnId: string, cardIndex: number, title: string): void,
+}>();
 
-const cardID = ref(0)
-const title = ref("")
-const description = ref("")
+const columnId = ref("");
+const cardID = ref(0);
+const title = ref("");
+const description = ref("");
 
-const titleEditing = ref(false)
+const titleEditing = ref(false);
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
 
 const enableTitleEditing = () => {
+    emitter.emit("modalPreventClickOutsideClose");
+
     titleEditing.value = true;
     nextTick(() => {
         if (titleInput.value == null) return;
@@ -79,26 +87,26 @@ const enableTitleEditing = () => {
     });
 }
 
-onMounted(() => {
-    emitter.on("openKanbanModal", (params) => {
-        initModal(params.index, params.el.name, params.el.description || "")
-    })
-})
-
-const initModal = (cardIdParam: number, titleParam: string, descriptionParam?: string) => {
+const initModal = (columnIdParam: string, cardIdParam: number, titleParam: string, descriptionParam?: string) => {
+    columnId.value = columnIdParam;
     cardID.value = cardIdParam;
     title.value = titleParam;
     description.value = descriptionParam || "";
 }
 
 const updateDescription = () => {
-    emit("setCardDescription", cardID.value, description.value);
+    emit("setCardDescription", columnId.value, cardID.value, description.value);
+    emitter.emit("modalEnableClickOutsideClose");
 }
 
 const updateTitle = () => {
+    emitter.emit("modalEnableClickOutsideClose");
+
     if (title.value == null || !(/\S/.test(title.value))) return;
 
     titleEditing.value = false;
-    emit("setCardTitle", cardID.value, title.value);
+    emit("setCardTitle", columnId.value, cardID.value, title.value);
 }
+
+defineExpose({ initModal });
 </script>

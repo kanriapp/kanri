@@ -67,7 +67,8 @@
           (licensed unter the MIT License).
         </p>
         <p class="pt-2">
-          Copyright (c) 2022 Trobonox
+          Copyright (c) 2022-2023 Trobonox (hello@trobo.tech) <br>
+          Kanri v0.3.0
         </p>
         <a
           href="/licenses"
@@ -78,13 +79,13 @@
   </Modal>
 </template>
 
-<script setup>
-import Modal from "~/components/Modal.vue";
-
+<script setup lang="ts">
+import Modal from "@/components/Modal.vue";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emit = defineEmits(["closeModal"])
+defineEmits<{
+  (e: "closeModal"): void
+}> ();
 </script>
 
 <style scoped>

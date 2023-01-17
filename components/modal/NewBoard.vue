@@ -31,7 +31,7 @@
             v-model="newBoardName"
             type="text"
             placeholder="New Board"
-            maxlength="1000"
+            maxlength="500"
             class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-[20rem] rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
           >
         </section>
@@ -58,12 +58,13 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "~/utils/emitter";
-
-import { XMarkIcon } from '@heroicons/vue/24/outline';
+import emitter from "@/utils/emitter";
 import { Ref } from "vue";
+import { XMarkIcon } from '@heroicons/vue/24/outline';
 
-const emit = defineEmits(["closeModal"]);
+const emit = defineEmits<{
+    (e: "closeModal"): void
+}>();
 
 const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
 
@@ -71,14 +72,14 @@ const newBoardName = ref("");
 
 onUpdated(() => {
     nextTick(() => {
-        if (boardNameInput.value == null) return; 
+        if (boardNameInput.value == null) return;
         boardNameInput.value.focus();
     });
 });
 
 const createNewBoard = () => {
     if (newBoardName.value == null || !(/\S/.test(newBoardName.value))) return;
-    
+
     emitter.emit('createBoard', newBoardName.value);
     closeModal();
 }

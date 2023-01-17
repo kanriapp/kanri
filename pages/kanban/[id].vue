@@ -12,46 +12,52 @@
       @setBlur="setBlur"
       @setBrightness="setBrightness"
     />
-
+    <ModalKanban
+      v-show="kanbanModalVisible"
+      ref="kanbanModal"
+      @setCardTitle="setCardTitle"
+      @setCardDescription="setCardDescription"
+      @closeModal="closeKanbanModal"
+    />
+    <div class="absolute top-8 z-50 ml-8">
+      <h1
+        v-if="!boardTitleEditing"
+        class="mb-2 rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
+        @click="enableBoardTitleEditing()"
+      >
+        {{ board.title }}
+      </h1>
+      <input
+        v-if="boardTitleEditing"
+        ref="boardTitleInput"
+        v-model="board.title"
+        type="text"
+        maxlength="500"
+        class="bg-elevation-2 border-accent text-no-overflow mb-2 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+        @blur="
+          boardTitleEditing = false;
+          updateStorage();
+        "
+        @keypress.enter="
+          boardTitleEditing = false;
+          updateStorage();
+        "
+      >
+      <button
+        class="bg-elevation-1 bg-elevation-2-hover flex flex-row gap-1 rounded-md px-4 py-1"
+        @click="showCustomBgModal = true"
+      >
+        <PhotoIcon class="h-6 w-6" />
+        <span>Change Background</span>
+      </button>
+    </div>
     <div
       id="kanban-cols-container"
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
       :style="cssVars"
     >
-      <div class="bg-effect-overlay h-full w-full pt-5">
+      <div class="bg-effect-overlay h-full w-max min-w-full pt-[7.5rem]">
         <div class="z-50 pl-8">
-          <div class="relative">
-            <h1
-              v-if="!boardTitleEditing"
-              class="mb-2 rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
-              @click="enableBoardTitleEditing()"
-            >
-              {{ board.title }}
-            </h1>
-            <input
-              v-if="boardTitleEditing"
-              ref="boardTitleInput"
-              v-model="board.title"
-              type="text"
-              maxlength="500"
-              class="bg-elevation-2 border-accent text-no-overflow mb-4 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
-              @blur="
-                boardTitleEditing = false;
-                updateStorage();
-              "
-              @keypress.enter="
-                boardTitleEditing = false;
-                updateStorage();
-              "
-            >
-            <button
-              class="bg-elevation-1 bg-elevation-2-hover flex flex-row gap-1 rounded-md px-4 py-1"
-              @click="showCustomBgModal = true"
-            >
-              <PhotoIcon class="h-6 w-6" />
-              <span>Change Background</span>
-            </button>
-          </div>
           <div class="pt-4">
             <Container
               group-name="columns"
@@ -67,7 +73,7 @@
               >
                 <KanbanColumn
                   :id="column.id"
-                  :ref="'kanbancol' + column.id"
+                  :ref="(el) => saveColumnRef(el, column.id)"
                   :title="column.title"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :cards-list="column.cards"
@@ -75,6 +81,7 @@
                   @removeColumn="removeColumn"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
+                  @openKanbanModal="openKanbanModal"
                 />
               </Draggable>
               <div class="pr-8">
@@ -95,20 +102,22 @@
 </template>
 
 <script setup lang="ts">
-//@ts-ignore
-import { Container, Draggable } from "vue3-smooth-dnd";
+import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
-import { PlusIcon } from "@heroicons/vue/24/solid";
-import { PhotoIcon } from "@heroicons/vue/24/outline";
+import { applyDrag } from "@/utils/drag-n-drop";
+import { generateUniqueID } from "@/utils/idGenerator";
+import type { Board, Card, Column } from "@/types/kanban-types";
 
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 
-import { applyDrag } from "@/utils/drag-n-drop";
-import { generateUniqueID } from "@/utils/idGenerator";
-import emitter from "@/utils/emitter";
-
-import type { Board, Column } from "~/types/kanban-types";
+import { default as KanbanColumn } from "@/components/kanban/Column.vue";
+import { default as KanbanModal } from "@/components/modal/Kanban.vue";
 import { Ref } from "vue";
+
+//@ts-ignore
+import { Container, Draggable } from "vue3-smooth-dnd";
+import { PlusIcon } from "@heroicons/vue/24/solid";
+import { PhotoIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
 const route = useRoute();
@@ -131,6 +140,10 @@ const bgImageLoaded = ref(false);
 const bgBlur = ref("8px");
 const bgBrightness = ref("100%");
 
+const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
+const kanbanModalVisible = ref(false);
+const kanbanModal = ref<InstanceType<typeof KanbanModal> | null>(null);
+
 const cssVars = computed(() => {
     return {
         "--bg-custom-image": `url("${bgCustom.value}")`,
@@ -138,6 +151,32 @@ const cssVars = computed(() => {
         "--bg-brightness": bgBrightness.value
     }
 })
+
+const saveColumnRef = (ref: any, columnId: String) => {
+    colRefs[columnId.toString()] = ref;
+}
+
+const setCardTitle = (columnId: string, cardId: number, title: string) => {
+    colRefs[columnId].setCardTitle(cardId, title);
+}
+
+const setCardDescription = (columnId: string, cardId: number, description: string) => {
+    colRefs[columnId].setCardDescription(cardId, description);
+}
+
+const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
+    kanbanModalVisible.value = true;
+    draggingEnabled.value = false;
+
+    if (kanbanModal.value == null) return;
+    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description);
+}
+
+const closeKanbanModal = (columnId: string) => {
+    kanbanModalVisible.value = false;
+    draggingEnabled.value = true;
+    colRefs[columnId].enableDragging();
+}
 
 const setBackgroundImage = (img: string) => {
     bgCustomNoResolution.value = img;
@@ -307,6 +346,7 @@ const removeColumn = (columnID: string) => {
     const columnIndex = board.value.columns.indexOf(column);
     board.value.columns.splice(columnIndex, 1);
     columnEditIndex.value--;
+    delete colRefs[columnID];
     updateStorage();
 };
 
@@ -329,6 +369,7 @@ const updateStorage = () => {
     })[0];
 
     const currentBoardIndex = boards.value.indexOf(currentBoard);
+    board.value.lastEdited = new Date();
     boards.value[currentBoardIndex] = board.value; // Override old board with new one
     store.set("boards", boards.value); // Override all saved boards with new altered array which includes modified current board
 };

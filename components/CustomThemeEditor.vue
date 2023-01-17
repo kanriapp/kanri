@@ -135,10 +135,9 @@
 
 <script setup lang="ts">
 // @ts-nocheck
+import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes.js";
 import { lightenColor } from "@/utils/colorUtils.js";
-import emitter from "@/utils/emitter";
-
 import { useTauriStore } from "@/stores/tauriStore";
 
 const store = useTauriStore().store;

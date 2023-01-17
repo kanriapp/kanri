@@ -9,7 +9,7 @@
     >
       <div
         v-for="card in column.cards"
-        :key="card"
+        :key="card.id"
         class="bg-elevation-2 mb-1 rounded-sm p-2"
       />
     </div>
@@ -19,8 +19,7 @@
 <script setup lang="ts">
 import type { Board } from "@/types/kanban-types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = defineProps<{
+defineProps<{
     board: Board;
 }>();
 </script>
