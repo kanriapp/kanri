@@ -38,7 +38,7 @@
     },
     "resolutions": {
         "terser": "5.16.1",
-        "undici": "5.15.0",
+        "undici": "5.15.1",
         "loader-utils": "2.0.4",
         "json5": "2.2.3"
     }
