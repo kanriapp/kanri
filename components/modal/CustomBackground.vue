@@ -36,7 +36,7 @@
             </div>
             <button
               v-else
-              class="bg-elevation-2 bg-elevation-3-hover aspect-[16/10] w-56 rounded-md"
+              class="bg-elevation-2 bg-elevation-3-hover transition-button aspect-[16/10] w-56 rounded-md"
               @click="getCustomBg"
             >
               Add background image
@@ -89,14 +89,14 @@
           <div class="flex flex-col gap-2">
             <button
               v-if="background.length > 0"
-              class="bg-accent mt-8 w-full rounded-md px-2 py-1"
+              class="bg-accent transition-button mt-8 w-full rounded-md px-2 py-1"
               @click="saveSettings(); $emit('closeModal')"
             >
               Save Background Settings
             </button>
             <button
               v-if="background.length > 0"
-              class="bg-elevation-2-hover w-full rounded-md px-2 py-1"
+              class="bg-elevation-2-hover transition-button w-full rounded-md px-2 py-1"
               @click="resetSettings()"
             >
               Reset Background Image

@@ -124,7 +124,7 @@
 
     <div class="flex flex-row items-center justify-end">
       <button
-        class="text-buttons bg-accent rounded-md px-6 py-1"
+        class="text-buttons transition-button bg-accent rounded-md px-6 py-1"
         @click="setCustomTheme"
       >
         Save

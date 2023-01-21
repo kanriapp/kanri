@@ -44,7 +44,7 @@
         "
       >
       <button
-        class="bg-elevation-1 bg-elevation-2-hover flex flex-row gap-1 rounded-md px-4 py-1"
+        class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
         @click="showCustomBgModal = true"
       >
         <PhotoIcon class="h-6 w-6" />

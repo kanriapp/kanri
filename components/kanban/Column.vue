@@ -98,7 +98,7 @@
       <div class="flex w-full flex-row justify-start gap-2">
         <button
           id="submitButton"
-          class="text-buttons bg-accent rounded-md px-2 py-1"
+          class="text-buttons transition-button bg-accent rounded-md px-2 py-1"
           @click="
             addCard($event);
             emitter.emit('columnActionDone');
@@ -107,7 +107,7 @@
           Add Card
         </button>
         <button
-          class="bg-elevation-3-hover rounded-md px-2 py-1"
+          class="bg-elevation-3-hover transition-button rounded-md px-2 py-1"
           @click="
             cardAddMode = !cardAddMode;
             newCardName = '';

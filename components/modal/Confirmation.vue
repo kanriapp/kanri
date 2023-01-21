@@ -24,13 +24,13 @@
           class="mt-8 flex w-full flex-row items-center justify-end gap-8"
         >
           <button
-            class="text-accent-hover"
+            class="text-accent-hover transition-button"
             @click="closeModal()"
           >
             {{ closeButtonText || "No" }}
           </button>
           <button
-            class="bg-accent rounded-md px-4 py-2"
+            class="bg-accent transition-button rounded-md px-4 py-2"
             @click="$emit('confirmAction', boardIndex); closeModal()"
           >
             {{ confirmButtonText || "Yes" }}
