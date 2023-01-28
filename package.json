@@ -20,7 +20,7 @@
         "@nuxt/eslint-config": "0.1.1",
         "@nuxtjs/tailwindcss": "6.3.0",
         "@tauri-apps/cli": "1.2.3",
-        "eslint": "8.32.0",
+        "eslint": "8.33.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "3.1.1",
         "postcss-custom-properties": "13.1.1"
