@@ -74,7 +74,7 @@
                 <KanbanColumn
                   :id="column.id"
                   :ref="(el) => saveColumnRef(el, column.id)"
-                  :index="index"
+                  :col-index="index"
                   :title="column.title"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :cards-list="column.cards"

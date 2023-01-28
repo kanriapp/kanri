@@ -141,7 +141,7 @@ import { Container, Draggable } from "vue3-smooth-dnd";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps<{
-    index: number,
+    colIndex: number,
     id: string;
     title: string;
     cardsList: Array<Card>;
@@ -226,7 +226,7 @@ const disableDragging = () => {
 }
 
 const enableTitleEditing = () => {
-    emit("setColumnEditIndex", props.index, "title-edit");
+    emit("setColumnEditIndex", props.colIndex, "title-edit");
     disableDragging();
 
     titleEditing.value = true;
@@ -238,7 +238,7 @@ const enableTitleEditing = () => {
 }
 
 const enableCardAddMode = () => {
-    emit("setColumnEditIndex", props.index, "card-add");
+    emit("setColumnEditIndex", props.colIndex, "card-add");
     emitter.emit("resetColumnInputs");
     disableDragging();
 
