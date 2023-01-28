@@ -87,27 +87,24 @@
         maxlength="5000"
         placeholder="Enter a card title..."
         class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
-        @blur="
-          addCard($event);
-        "
         @keypress.enter="
-          addCard($event);
+          addCard();
           emitter.emit('columnActionDone');
         "
       />
       <div class="flex w-full flex-row justify-start gap-2">
         <button
           id="submitButton"
-          class="text-buttons bg-accent rounded-md px-2 py-1"
+          class="text-buttons transition-button bg-accent rounded-md px-2 py-1"
           @click="
-            addCard($event);
+            addCard();
             emitter.emit('columnActionDone');
           "
         >
           Add Card
         </button>
         <button
-          class="bg-elevation-3-hover rounded-md px-2 py-1"
+          class="bg-elevation-3-hover transition-button rounded-md px-2 py-1"
           @click="
             cardAddMode = !cardAddMode;
             newCardName = '';
@@ -144,6 +141,7 @@ import { Container, Draggable } from "vue3-smooth-dnd";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps<{
+    colIndex: number,
     id: string;
     title: string;
     cardsList: Array<Card>;
@@ -155,6 +153,7 @@ const emit = defineEmits<{
   (e: "enableDragging"): void,
   (e: "disableDragging"): void,
   (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
+  (e: "setColumnEditIndex", columnId: number, eventType: string): void,
 }>();
 
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
@@ -227,6 +226,7 @@ const disableDragging = () => {
 }
 
 const enableTitleEditing = () => {
+    emit("setColumnEditIndex", props.colIndex, "title-edit");
     disableDragging();
 
     titleEditing.value = true;
@@ -238,6 +238,8 @@ const enableTitleEditing = () => {
 }
 
 const enableCardAddMode = () => {
+    emit("setColumnEditIndex", props.colIndex, "card-add");
+    emitter.emit("resetColumnInputs");
     disableDragging();
 
     cardAddMode.value = true;
@@ -264,16 +266,12 @@ const updateColumnTitle = () => {
     updateStorage();
 }
 
-const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
+const addCard = () => {
     enableDragging();
 
-    if (
-        //@ts-ignore
-        (event.relatedTarget && event.relatedTarget.id === "submitButton") ||
-        event instanceof KeyboardEvent
-    ) {
-        cards.value[cards.value.length] = { name: newCardName.value };
-    }
+    if (newCardName.value == null || !(/\S/.test(newCardName.value))) return;
+
+    cards.value[cards.value.length] = { name: newCardName.value };
 
     newCardName.value = "";
     cardAddMode.value = false;

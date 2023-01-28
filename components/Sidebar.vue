@@ -37,7 +37,7 @@
       <button
         v-if="showAddButton"
         v-tooltip.left-start="'Create a new board'"
-        class="bg-elevation-2-hover rounded-md p-2"
+        class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="newBoardModalVisible = true"
       >
         <PlusCircleIcon class="text-accent h-7 w-7" />
@@ -49,13 +49,13 @@
       class="flex flex-col items-center gap-4"
     >
       <button
-        class="bg-elevation-2-hover rounded-md p-2"
+        class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="helpModalVisible = true"
       >
         <QuestionMarkCircleIcon class="h-7 w-7" />
       </button>
       <nuxt-link to="/settings">
-        <div class="bg-elevation-2-hover rounded-md p-2">
+        <div class="bg-elevation-2-hover transition-button rounded-md p-2">
           <Cog6ToothIcon class="h-7 w-7" />
         </div>
       </nuxt-link>

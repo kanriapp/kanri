@@ -167,6 +167,10 @@ const cssVars = computed(() => {
     hyphens: auto;
 }
 
+.transition-button {
+    @apply transition-colors duration-300
+}
+
 .page-enter-active,
 .page-leave-active {
     transition-property: height, opacity, transform;

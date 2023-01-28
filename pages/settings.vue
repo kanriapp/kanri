@@ -94,7 +94,7 @@
       </div>
 
       <button
-        class="text-dim-3 mt-2"
+        class="text-dim-3 transition-button mt-2"
         @click="$router.go(0)"
       >
         If the colors do not update, please click <span class="underline">here</span>.
@@ -134,7 +134,7 @@
             </span>
           </div>
           <button
-            class="text-buttons bg-accent rounded-md px-4 py-2"
+            class="text-buttons bg-accent transition-button rounded-md px-4 py-2"
             @click="exportJSON()"
           >
             Export
@@ -151,7 +151,7 @@
             </span>
           </div>
           <button
-            class="text-buttons bg-accent rounded-md px-4 py-2"
+            class="text-buttons bg-accent transition-button rounded-md px-4 py-2"
             @click="deleteBoardModalVisible = true"
           >
             Delete

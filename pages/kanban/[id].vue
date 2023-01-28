@@ -44,7 +44,7 @@
         "
       >
       <button
-        class="bg-elevation-1 bg-elevation-2-hover flex flex-row gap-1 rounded-md px-4 py-1"
+        class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
         @click="showCustomBgModal = true"
       >
         <PhotoIcon class="h-6 w-6" />
@@ -68,12 +68,13 @@
               @drop="onDrop"
             >
               <Draggable
-                v-for="column in board.columns"
+                v-for="(column, index) in board.columns"
                 :key="column.id"
               >
                 <KanbanColumn
                   :id="column.id"
                   :ref="(el) => saveColumnRef(el, column.id)"
+                  :col-index="index"
                   :title="column.title"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :cards-list="column.cards"
@@ -82,6 +83,7 @@
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
                   @openKanbanModal="openKanbanModal"
+                  @setColumnEditIndex="setColumnEditIndex"
                 />
               </Draggable>
               <div class="pr-8">
@@ -245,6 +247,32 @@ onBeforeUnmount(() => {
     emitter.emit("closeKanbanPage");
 });
 
+enum shortcutKeys {
+  "ArrowLeft",
+  "ArrowRight",
+  "b",
+  "d",
+  "n",
+  "t"
+}
+
+const setColumnEditIndex = (columnIndex: number, eventType: string) => {
+    columnEditIndex.value = columnIndex;
+    
+    switch(eventType) {
+    case "card-add":
+        columnCardAddMode.value = true;
+        break;
+
+    case "title-edit":
+        columnTitleEditing.value = true;
+        break;
+
+    default:
+        break;
+    }
+}
+
 const keyDownListener = (e: KeyboardEvent) => {
     const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
     const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
@@ -253,8 +281,8 @@ const keyDownListener = (e: KeyboardEvent) => {
     // All shortcuts need control as a required key, but we don't want only control to trigger something
     if (!controlOrMetaPressed || controlIsOnlyKeyPressed || metaIsOnlyKeyPressed) return;
 
-    // We do not want to override shortcuts for copying and pasting
-    if (e.key === "a" || e.key === "c" || e.key === "v" || e.key === "x") return;
+    // We do not want to override any shortcuts except the ones we mapped in the app
+    if (!Object.keys(shortcutKeys).includes(e.key)) return;
 
     emitter.emit("resetColumnInputs");
 
@@ -266,7 +294,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // Arrow key left to decrease
-    if (e.keyCode === 37) {
+    if (e.key === "ArrowLeft") {
         if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
             columnEditIndex.value = board.value.columns.length - 1;
         } else {
@@ -275,7 +303,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // Arrow key right to increase
-    if (e.keyCode === 39) {
+    if (e.key === "ArrowRight") {
         if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
             columnEditIndex.value = 0;
         } else {

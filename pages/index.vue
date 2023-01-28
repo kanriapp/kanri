@@ -32,7 +32,7 @@
       id="filters"
       class="mt-2"
     >
-      <div class="bg-elevation-1 bg-elevation-2-hover hide-popper-arrow w-fit rounded-md hover:cursor-pointer">
+      <div class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow w-fit rounded-md hover:cursor-pointer">
         <VDropdown
           :distance="12"
           placement="bottom-start"
@@ -109,7 +109,7 @@
               placement="bottom-end"
             >
               <button
-                class="bg-elevation-3-hover rounded-md py-0.5 px-1"
+                class="bg-elevation-3-hover transition-button rounded-md py-0.5 px-1"
                 @click.prevent
               >
                 <EllipsisHorizontalIcon class="h-6 w-6" />
