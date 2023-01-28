@@ -235,6 +235,7 @@ const enableTitleEditing = () => {
 }
 
 const enableCardAddMode = () => {
+    emitter.emit("resetColumnInputs");
     disableDragging();
 
     cardAddMode.value = true;
