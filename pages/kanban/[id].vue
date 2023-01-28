@@ -266,7 +266,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // Arrow key left to decrease
-    if (e.keyCode === 37) {
+    if (e.key === "ArrowLeft") {
         if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
             columnEditIndex.value = board.value.columns.length - 1;
         } else {
@@ -275,7 +275,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // Arrow key right to increase
-    if (e.keyCode === 39) {
+    if (e.key === "ArrowRight") {
         if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
             columnEditIndex.value = 0;
         } else {
