@@ -87,11 +87,8 @@
         maxlength="5000"
         placeholder="Enter a card title..."
         class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
-        @blur="
-          addCard($event);
-        "
         @keypress.enter="
-          addCard($event);
+          addCard();
           emitter.emit('columnActionDone');
         "
       />
@@ -100,7 +97,7 @@
           id="submitButton"
           class="text-buttons transition-button bg-accent rounded-md px-2 py-1"
           @click="
-            addCard($event);
+            addCard();
             emitter.emit('columnActionDone');
           "
         >
@@ -264,16 +261,12 @@ const updateColumnTitle = () => {
     updateStorage();
 }
 
-const addCard = (event: MouseEvent | FocusEvent | KeyboardEvent) => {
+const addCard = () => {
     enableDragging();
 
-    if (
-        //@ts-ignore
-        (event.relatedTarget && event.relatedTarget.id === "submitButton") ||
-        event instanceof KeyboardEvent
-    ) {
-        cards.value[cards.value.length] = { name: newCardName.value };
-    }
+    if (newCardName.value == null || !(/\S/.test(newCardName.value))) return;
+
+    cards.value[cards.value.length] = { name: newCardName.value };
 
     newCardName.value = "";
     cardAddMode.value = false;
