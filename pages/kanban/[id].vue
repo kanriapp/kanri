@@ -68,12 +68,13 @@
               @drop="onDrop"
             >
               <Draggable
-                v-for="column in board.columns"
+                v-for="(column, index) in board.columns"
                 :key="column.id"
               >
                 <KanbanColumn
                   :id="column.id"
                   :ref="(el) => saveColumnRef(el, column.id)"
+                  :index="index"
                   :title="column.title"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :cards-list="column.cards"
@@ -82,6 +83,7 @@
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
                   @openKanbanModal="openKanbanModal"
+                  @setColumnEditIndex="setColumnEditIndex"
                 />
               </Draggable>
               <div class="pr-8">
@@ -252,6 +254,23 @@ enum shortcutKeys {
   "d",
   "n",
   "t"
+}
+
+const setColumnEditIndex = (columnIndex: number, eventType: string) => {
+    columnEditIndex.value = columnIndex;
+    
+    switch(eventType) {
+    case "card-add":
+        columnCardAddMode.value = true;
+        break;
+
+    case "title-edit":
+        columnTitleEditing.value = true;
+        break;
+
+    default:
+        break;
+    }
 }
 
 const keyDownListener = (e: KeyboardEvent) => {

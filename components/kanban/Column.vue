@@ -141,6 +141,7 @@ import { Container, Draggable } from "vue3-smooth-dnd";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps<{
+    index: number,
     id: string;
     title: string;
     cardsList: Array<Card>;
@@ -152,6 +153,7 @@ const emit = defineEmits<{
   (e: "enableDragging"): void,
   (e: "disableDragging"): void,
   (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
+  (e: "setColumnEditIndex", columnId: number, eventType: string): void,
 }>();
 
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
@@ -224,6 +226,7 @@ const disableDragging = () => {
 }
 
 const enableTitleEditing = () => {
+    emit("setColumnEditIndex", props.index, "title-edit");
     disableDragging();
 
     titleEditing.value = true;
@@ -235,6 +238,7 @@ const enableTitleEditing = () => {
 }
 
 const enableCardAddMode = () => {
+    emit("setColumnEditIndex", props.index, "card-add");
     emitter.emit("resetColumnInputs");
     disableDragging();
 
