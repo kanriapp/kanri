@@ -7,7 +7,6 @@
         </h1>
       </div>
     
-    
       <div class="cover__footer">
         <p class="cover__footer__description">
           The following 3rd-party software packages may be used by or distributed with
@@ -15,6 +14,8 @@
         </p>
       </div>
     </div>
+
+    <a href="/licenses_extended">For an extended list of dependencies, click here.</a>
     <!-- Declared Licenses: -->
     <!-- Dependency Summary -->
     <div
@@ -22,7 +23,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/floating-vue">floating-vue (2.0.0-beta.20)</a>
+        <a href="https://www.npmjs.com/package/floating-vue">floating-vue</a>
       </h3>
     
       <h4 class="dependency__heading">
@@ -80,7 +81,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/@heroicons/vue">@heroicons/vue (2.0.13)</a>
+        <a href="https://www.npmjs.com/package/@heroicons/vue">@heroicons/vue</a>
       </h3>
     
     
@@ -141,7 +142,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/mitt">mitt (3.0.0)</a>
+        <a href="https://www.npmjs.com/package/mitt">mitt</a>
       </h3>
     
     
@@ -206,7 +207,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/nuxt">nuxt (3.0.0)</a>
+        <a href="https://www.npmjs.com/package/nuxt">nuxt</a>
       </h3>
     
     
@@ -271,7 +272,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/@nuxtjs/tailwindcss">@nuxtjs/tailwindcss (6.1.3)</a>
+        <a href="https://www.npmjs.com/package/@nuxtjs/tailwindcss">@nuxtjs/tailwindcss</a>
       </h3>
     
     
@@ -336,7 +337,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/pinia">pinia (2.0.28)</a>
+        <a href="https://www.npmjs.com/package/pinia">pinia</a>
       </h3>
     
     
@@ -400,7 +401,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/@pinia/nuxt">@pinia/nuxt (0.4.6)</a>
+        <a href="https://www.npmjs.com/package/@pinia/nuxt">@pinia/nuxt</a>
       </h3>
     
     
@@ -464,7 +465,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/postcss-custom-properties">postcss-custom-properties (12.1.9)</a>
+        <a href="https://www.npmjs.com/package/postcss-custom-properties">postcss-custom-properties</a>
       </h3>
     
     
@@ -528,7 +529,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/@tauri-apps/api">@tauri-apps/api (1.2.0)</a>
+        <a href="https://www.npmjs.com/package/@tauri-apps/api">@tauri-apps/api</a>
       </h3>
     
     
@@ -1001,7 +1002,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/@tauri-apps/cli">@tauri-apps/cli (1.2.2)</a>
+        <a href="https://www.npmjs.com/package/@tauri-apps/cli">@tauri-apps/cli</a>
       </h3>
     
     
@@ -1474,7 +1475,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/vue3-smooth-dnd">vue3-smooth-dnd (0.0.2)</a>
+        <a href="https://www.npmjs.com/package/vue3-smooth-dnd">vue3-smooth-dnd</a>
       </h3>
     
     
@@ -1526,7 +1527,7 @@
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/@nuxt/ui-templates">@nuxt/ui-templates (1.0.0)</a>
+        <a href="https://www.npmjs.com/package/@nuxt/ui-templates">@nuxt/ui-templates</a>
       </h3>
 
 
@@ -1636,7 +1637,7 @@ Creative Commons may be contacted at creativecommons.org.
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/tslib">tslib (2.4.0)</a>
+        <a href="https://www.npmjs.com/package/tslib">tslib</a>
       </h3>
 
 
@@ -1680,7 +1681,7 @@ PERFORMANCE OF THIS SOFTWARE.
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/@babel/helper-module-transforms">@babel/helper-module-transforms (7.0.2)</a>
+        <a href="https://www.npmjs.com/package/@babel/helper-module-transforms">@babel/helper-module-transforms</a>
       </h3>
 
 
@@ -1809,7 +1810,7 @@ Avenue Software Corporation for their prior contributions.
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/node-forge">node-forge (1.3.1)</a>
+        <a href="https://www.npmjs.com/package/node-forge">node-forge</a>
       </h3>
 
 
@@ -1896,7 +1897,7 @@ and disclaimer.
       class="card"
     >
       <h3>
-        <a href="https://www.npmjs.com/package/rxjs">rxjs (7.5.7)</a>
+        <a href="https://www.npmjs.com/package/rxjs">rxjs</a>
       </h3>
 
 
