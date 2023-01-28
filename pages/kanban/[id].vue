@@ -245,6 +245,15 @@ onBeforeUnmount(() => {
     emitter.emit("closeKanbanPage");
 });
 
+enum shortcutKeys {
+  "ArrowLeft",
+  "ArrowRight",
+  "b",
+  "d",
+  "n",
+  "t"
+}
+
 const keyDownListener = (e: KeyboardEvent) => {
     const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
     const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
@@ -253,8 +262,8 @@ const keyDownListener = (e: KeyboardEvent) => {
     // All shortcuts need control as a required key, but we don't want only control to trigger something
     if (!controlOrMetaPressed || controlIsOnlyKeyPressed || metaIsOnlyKeyPressed) return;
 
-    // We do not want to override shortcuts for copying and pasting
-    if (e.key === "a" || e.key === "c" || e.key === "v" || e.key === "x") return;
+    // We do not want to override any shortcuts except the ones we mapped in the app
+    if (!Object.keys(shortcutKeys).includes(e.key)) return;
 
     emitter.emit("resetColumnInputs");
 
