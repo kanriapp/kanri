@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: 2022-2023 trobonox -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 

@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: 2022-2023 trobonox -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
@@ -71,7 +71,7 @@
           (licensed unter the MIT License).
         </p>
         <p class="pt-2">
-          Copyright (c) 2022-2023 Trobonox (hello@trobo.tech) <br>
+          Copyright (c) Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
           Kanri v0.3.1
         </p>
         <nuxt-link
