@@ -295,7 +295,6 @@ const setCardDescription = (cardIndex: number, description: string) => {
 
 const openKanbanModal = (_: any, index: number, el: Card) => {
     disableDragging();
-    emitter.emit("zIndexDown");
 
     emit("openKanbanModal", props.id, index, el);
 };
