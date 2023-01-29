@@ -31,7 +31,7 @@ You can download it for free [from the GitHub releases!](https://github.com/trob
 The long term vision for this app is to keep improving current features, expand it with useful new tools (which can be suggested by users) and in the end also add cloud sync capabilities which would also allow collaboration at a later stage. To address privacy concerns, the backend will have self hosting instructions alongside the identical version hosted by me.
 Keep in mind that the cloud features are only set for the far future, a granular list of current priorities can be found [in the roadmap in the projects tab of this GitHub repo](https://github.com/trobonox/kanri/projects).
 
-This project for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
+This project is open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
 
 ## 🛠 Contributing & Build Setup
 If you want to contribute, please take a look at the [Contribution Guidelines](https://github.com/trobonox/kanri/blob/main/CONTRIBUTING.md).
