@@ -2,23 +2,40 @@
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <template>
-    <div class="px-8 pt-8">
-        <h1 class="text-4xl font-bold mb-2">
-            3rd-Party Software Report for Kanri
-        </h1>
-        <p class="mb-2">
-            The following 3rd-party software packages may be used by or distributed with
-            <b>Kanri</b>. Any information relevant to third-party vendors listed below are collected using common, reasonable means.
-        </p>
-        <p>
-            This page only lists JavaScript dependencies which are included in the final bundle. This report is being automatically generated using rollup-plugin-license, please write an email to hello@trobo.tech if you believe there is a mistake or something missing.
-        </p>
-        <p class="mb-4">For more licenses for Rust and extended JavaScript deps, see the links below.</p>
-        <div class="flex flex-row gap-4 mb-8">
-            <nuxt-link to="/licenses/dev_js" class="p-2 bg-elevation-1 bg-elevation-2-hover rounded-md">More JavaScript dependencies (includes dev deps)</nuxt-link>
-            <nuxt-link to="/licenses/extended_js" class="p-2 bg-elevation-1 bg-elevation-2-hover rounded-md">Summary of JavaScript dependencies</nuxt-link>
-            <nuxt-link to="/licenses/rust" class="p-2 bg-elevation-1 bg-elevation-2-hover rounded-md">Rust dependencies</nuxt-link>
-        </div>
+  <div class="px-8 pt-8">
+    <h1 class="mb-2 text-4xl font-bold">
+      3rd-Party Software Report for Kanri
+    </h1>
+    <p class="mb-2">
+      The following 3rd-party software packages may be used by or distributed with
+      <b>Kanri</b>. Any information relevant to third-party vendors listed below are collected using common, reasonable means.
+    </p>
+    <p>
+      This page only lists JavaScript dependencies which are included in the final bundle. This report is being automatically generated using rollup-plugin-license, please write an email to hello@trobo.tech if you believe there is a mistake or something missing.
+    </p>
+    <p class="mb-4">
+      For more licenses for Rust and extended JavaScript deps, see the links below.
+    </p>
+    <div class="mb-8 flex flex-row gap-4">
+      <nuxt-link
+        to="/licenses/dev_js"
+        class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
+      >
+        More JavaScript dependencies (includes dev deps)
+      </nuxt-link>
+      <nuxt-link
+        to="/licenses/extended_js"
+        class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
+      >
+        Summary of JavaScript dependencies
+      </nuxt-link>
+      <nuxt-link
+        to="/licenses/rust"
+        class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
+      >
+        Rust dependencies
+      </nuxt-link>
+    </div>
 
     <pre>
 Name: @vue/shared
@@ -1096,7 +1113,7 @@ Repository: git+https://github.com/harlan-zw/unhead.git
 Homepage: https://github.com/harlan-zw/unhead#readme
 Author: Harlan Wilton "&lt;harlan@harlanzw\.com>
     </pre>
-    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

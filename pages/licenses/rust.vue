@@ -3,11 +3,11 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-    <div class="pl-8 pt-8 overflow-auto">
-        <h1 class="text-4xl font-bold mb-8">
-            Rust Dependency Report
-        </h1>
-        <pre>
+  <div class="overflow-auto pl-8 pt-8">
+    <h1 class="mb-8 text-4xl font-bold">
+      Rust Dependency Report
+    </h1>
+    <pre>
 Rust dependencies
 adler
 
@@ -47096,5 +47096,5 @@ limitations under the License.
 
 
         </pre>
-    </div>
+  </div>
 </template>

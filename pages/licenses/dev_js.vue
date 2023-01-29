@@ -2120,12 +2120,6 @@ PERFORMANCE OF THIS SOFTWARE.
 </template>
 
 
-<style scoped>
-h3 {
-    @apply font-bold text-2xl my-6
-}
-</style>
-
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
 
@@ -2133,3 +2127,9 @@ onMounted(() => {
     emitter.emit("showSidebarBackArrow");
 })
 </script>
+
+<style scoped>
+h3 {
+    @apply font-bold text-2xl my-6
+}
+</style>

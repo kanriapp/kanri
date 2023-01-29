@@ -37,7 +37,7 @@
             class="h-7 w-7"
           />
         </div>
-    </div>
+      </div>
       <button
         v-if="showAddButton"
         v-tooltip.left-start="'Create a new board'"

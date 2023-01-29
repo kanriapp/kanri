@@ -78,7 +78,9 @@
           to="/licenses"
           class="text-accent text-accent-darker-hover"
           @click="$emit('closeModal')"
-        >Third-party license notices</nuxt-link>
+        >
+          Third-party license notices
+        </nuxt-link>
       </main>
     </template>
   </Modal>
