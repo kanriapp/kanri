@@ -21,6 +21,9 @@ type Events = {
 
     zIndexBack: void;
     zIndexDown: void;
+
+    showSidebarBackArrow: void;
+    hideSidebarBackArrow: void;
 };
 
 const emitter = mitt<Events>();

@@ -169,10 +169,10 @@ onMounted(async () => {
         createNewBoard(title);
     });
 
+    emitter.emit("hideSidebarBackArrow");
+
     boards.value = (await store.get("boards")) || [];
     loading.value = false;
-
-    console.log(boards.value);
 
     const sortingOption = await store.get("boardSortingOption");
     if (sortingOption == null) {

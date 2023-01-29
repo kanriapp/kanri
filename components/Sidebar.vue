@@ -22,7 +22,7 @@
       >
         <IconKanri class="h-12 w-12" />
       </div>
-      <nuxt-link to="/">
+      <div @click="$router.go(-1)">
         <div class="bg-elevation-2-hover rounded-md p-2">
           <HomeIcon
             v-if="showAddButton"
@@ -33,7 +33,7 @@
             class="h-7 w-7"
           />
         </div>
-      </nuxt-link>
+    </div>
       <button
         v-if="showAddButton"
         v-tooltip.left-start="'Create a new board'"
@@ -90,6 +90,14 @@ onMounted(() => {
     });
 
     emitter.on("closeKanbanPage", () => {
+        showAddButton.value = true;
+    });
+
+    emitter.on("showSidebarBackArrow", () => {
+        showAddButton.value = false;
+    });
+
+    emitter.on("hideSidebarBackArrow", () => {
         showAddButton.value = true;
     });
 });
