@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech> -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
 <template>
     <div class="px-8 pt-8">
         <h1 class="text-4xl font-bold mb-2">

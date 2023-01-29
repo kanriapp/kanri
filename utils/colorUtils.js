@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 export const lightenColor = (col, amt) => {
     col = col.replace(/^#/, "");
     if (col.length === 3) col = col[0] + col[0] + col[1] + col[1] + col[2] + col[2];

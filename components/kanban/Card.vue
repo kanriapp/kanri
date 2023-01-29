@@ -1,3 +1,7 @@
+<!-- SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech> -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
 <template>
   <ClickCounter
     v-if="!cardNameEditMode"
@@ -53,11 +57,11 @@ const enableCardEditMode = () => {
     cardNameEditMode.value = true;
 
     console.log(cardNameText.value);
-    
-    if (cardNameText.value == null) return; 
+
+    if (cardNameText.value == null) return;
 
     const textAreaHeight = `height: ${cardNameText.value.scrollHeight}px`;
-    
+
     nextTick(() => {
         if (cardNameInput.value == null) return;
         cardNameInput.value.setAttribute("style", textAreaHeight);

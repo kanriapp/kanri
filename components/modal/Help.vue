@@ -1,3 +1,7 @@
+<!-- SPDX-FileCopyrightText: 2022-2023 trobonox -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
 <template>
   <Modal @closeModal="$emit('closeModal')">
     <template #content>

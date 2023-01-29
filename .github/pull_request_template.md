@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # Pull request
 
 * [ ] Have you followed the guidelines in our Contributing document?

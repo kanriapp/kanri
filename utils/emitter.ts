@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 import mitt from 'mitt';
 import { Board } from '@/types/kanban-types';
 

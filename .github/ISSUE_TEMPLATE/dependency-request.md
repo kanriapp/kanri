@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 ---
 name: Dependency Request
 about: Request a dependency that you want to use in one of your pull requests

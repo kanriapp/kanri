@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech>
+//
+// SPDX-License-Identifier: CC0-1.0
+
 import license from "rollup-plugin-license";
 import "node:path"
 

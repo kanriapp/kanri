@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # Kanri
 [![Release](https://github.com/trobonox/kanri/actions/workflows/release.yml/badge.svg)](https://github.com/trobonox/kanri/actions/workflows/release.yml)
 [![Repo release version](https://img.shields.io/github/v/release/trobonox/kanri)](https://github.com/trobonox/kanri/releases)

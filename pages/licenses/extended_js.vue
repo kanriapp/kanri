@@ -1,3 +1,7 @@
+<!-- SPDX-FileCopyrightText: 2022-2023 trobonox -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
 <template>
   <div class="max-w-full overflow-auto pt-6">
     <h1 class="text-4xl font-bold ml-8 mb-8">

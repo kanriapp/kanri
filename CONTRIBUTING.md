@@ -1,15 +1,21 @@
+<!--
+SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # Contributing to Kanri
 Kanri is written in TypeScript, Vue (Nuxt.js v3), and Rust; and is licensed under the Apache 2.0 license.
 
 ## A few rules
-By contributing to Kanri, you confirm that the work you are submitting is yours and it will be licensed under the Apache 2.0 license of the project. 
+By contributing to Kanri, you confirm that the work you are submitting is yours and it will be licensed under the Apache 2.0 license of the project.
 
 To ensure uniformity in Kanri's repository, every contributor must follow these set of rules:
 * Commits must use the commit convention. (e.g. `feat: add x feature`)
 * Have ESLint and Volar installed on your IDE for code formatting.
 * Follow the general Vue conventions (except for kebab-casing and events)
 * Use camelCasing on any function/method/property in code you've contributed.
-* Sort your imports in the following order: 
+* Sort your imports in the following order:
     1. Internal imports (with the @ alias): emitter first, then stores, then utils and types last
     2. Tauri things (API, dialogs, etc.)
     3. Vue things: first components, then types and then other stuff
