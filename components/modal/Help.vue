@@ -70,10 +70,11 @@
           Copyright (c) 2022-2023 Trobonox (hello@trobo.tech) <br>
           Kanri v0.3.1
         </p>
-        <a
-          href="/licenses"
+        <nuxt-link
+          to="/licenses"
           class="text-accent text-accent-darker-hover"
-        >Third-party license notices</a>
+          @click="$emit('closeModal')"
+        >Third-party license notices</nuxt-link>
       </main>
     </template>
   </Modal>
