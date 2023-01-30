@@ -7,9 +7,9 @@ SPDX-License-Identifier: Apache-2.0
 # Kanri
 [![Release](https://github.com/trobonox/kanri/actions/workflows/release.yml/badge.svg)](https://github.com/trobonox/kanri/actions/workflows/release.yml)
 [![Repo release version](https://img.shields.io/github/v/release/trobonox/kanri)](https://github.com/trobonox/kanri/releases)
-[![Repo size](https://img.shields.io/github/repo-size/trobonox/kanri)](https://github.com/trobonox/kanri)
 [![Repo license](https://img.shields.io/github/license/trobonox/kanri)](https://github.com/trobonox/kanri/blob/main/LICENSE)
 [![Discord server](https://img.shields.io/discord/965559337726656552)](https://discord.gg/AVqHrvxB9C)
+[![REUSE status](https://api.reuse.software/badge/github.com/trobonox/kanri)](https://api.reuse.software/info/github.com/trobonox/kanri)
 
 Kanri is a Kanban board desktop app for Mac, Windows and Linux with a familiar layout (inspired by Trello) with a focus on simplicity and user experience. All of your data is saved locally and can be fully exported at any time, so there are no privacy concerns. Furthermore, the app is customizable with themes and custom backgrounds, you can see an example of a customized app below:
 ![kanri_customized](https://user-images.githubusercontent.com/57040351/210173518-2d99f0cc-9df8-4e0f-8c3c-f86969fab268.png)
