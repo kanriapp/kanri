@@ -39,7 +39,7 @@
         "vue3-smooth-dnd": "0.0.2"
     },
     "resolutions": {
-        "terser": "5.16.1",
+        "terser": "5.16.2",
         "undici": "5.16.0",
         "loader-utils": "2.0.4",
         "json5": "2.2.3"
