@@ -13,3 +13,4 @@ node_modules
 .idea
 dist/*
 dist
+src-tauri/license.html
