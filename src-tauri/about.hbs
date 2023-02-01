@@ -1,55 +1,46 @@
+{{!--
+SPDX-FileCopyrightText: 2022-2023 trobonox <hello@trobo.tech>
+
+SPDX-License-Identifier: Apache-2.0
+--}}
+
 <html>
 
 <head>
     <style>
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #333;
-                color: white;
-            }
-            a {
-                color: skyblue;
-            }
+        h3 {
+            @apply font-bold text-3xl pb-2
         }
-        .container {
-            font-family: sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .intro {
-            text-align: center;
-        }
-        .licenses-list {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        .license-used-by {
-            margin-top: -10px;
-        }
-        .license-text {
-            max-height: 200px;
-            overflow-y: scroll;
-            white-space: pre-wrap;
+
+        pre {
+            @apply mb-8
         }
     </style>
 </head>
 
 <body>
-    <main class="container pl-8 pt-8">
+    <main class="container overflow-auto pl-8 pt-8">
         <div class="intro">
-            <h1>Third Party Licenses</h1>
-            <p>This page lists the licenses of the projects used in cargo-about.</p>
+            <h1 class="mb-2 text-4xl font-bold">
+                Third Party Licenses
+            </h1>
+            <p class="mb-4">
+                This page lists the licenses of the projects used in kanri.
+            </p>
         </div>
 
-        <h2>Overview of licenses:</h2>
-        <ul class="licenses-overview">
+        <h2 class="text-lg italic">
+            Overview of licenses:
+        </h2>
+        <ul class="licenses-overview mb-8">
             {{#each overview}}
             <li><a href="#{{id}}">{{name}}</a> ({{count}})</li>
             {{/each}}
         </ul>
 
-        <h2>All license text:</h2>
+        <h2 class="text-lg italic">
+            All license text:
+        </h2>
         <ul class="licenses-list">
             {{#each licenses}}
             <li class="license">
