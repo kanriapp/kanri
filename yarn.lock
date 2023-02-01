@@ -838,15 +838,16 @@
     vite-plugin-checker "^0.5.4"
     vue-bundle-renderer "^1.0.0"
 
-"@nuxtjs/tailwindcss@6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-6.3.0.tgz#66e9c3b43d01308f35cba892a5195090f2234866"
-  integrity sha512-P8u3VrgyCUHUniq5yQfstRceq1E3HmLqS5oNdwFHscCVPepilimv3333gdgFhDaL0Nv1xzq4Rg2KRsQFRqnBhQ==
+"@nuxtjs/tailwindcss@6.3.1":
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-6.3.1.tgz#2bc8b94389ef8e717b6091f372625d147b4c443e"
+  integrity sha512-UH8GwAGPty+OFiaIQeNIWdSOOqS7pThqN11RmRjigi5xBOVg2LpO0HtrOhcKn7v9+IwuXPWK67m067lNB4HITQ==
   dependencies:
     "@nuxt/kit" "^3.1.1"
     "@nuxt/postcss8" "^1.1.3"
     autoprefixer "^10.4.13"
     chalk "^5.2.0"
+    chokidar "^3.5.3"
     clear-module "^4.1.2"
     consola "^2.15.3"
     defu "^6.1.2"
