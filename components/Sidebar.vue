@@ -1,3 +1,7 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech> -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
 <template>
   <nav
     class="bg-elevation-1 mr-8 flex h-screen flex-col items-center justify-between overflow-hidden px-8 pb-6 pt-4 shadow-md"
@@ -22,7 +26,7 @@
       >
         <IconKanri class="h-12 w-12" />
       </div>
-      <nuxt-link to="/">
+      <div @click="$router.go(-1)">
         <div class="bg-elevation-2-hover rounded-md p-2">
           <HomeIcon
             v-if="showAddButton"
@@ -33,7 +37,7 @@
             class="h-7 w-7"
           />
         </div>
-      </nuxt-link>
+      </div>
       <button
         v-if="showAddButton"
         v-tooltip.left-start="'Create a new board'"
@@ -90,6 +94,14 @@ onMounted(() => {
     });
 
     emitter.on("closeKanbanPage", () => {
+        showAddButton.value = true;
+    });
+
+    emitter.on("showSidebarBackArrow", () => {
+        showAddButton.value = false;
+    });
+
+    emitter.on("hideSidebarBackArrow", () => {
         showAddButton.value = true;
     });
 });

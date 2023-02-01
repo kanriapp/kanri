@@ -1,3 +1,7 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
 <template>
   <Modal @closeModal="$emit('closeModal')">
     <template #content>
@@ -67,13 +71,16 @@
           (licensed unter the MIT License).
         </p>
         <p class="pt-2">
-          Copyright (c) 2022-2023 Trobonox (hello@trobo.tech) <br>
-          Kanri v0.3.0
+          Copyright (c) Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
+          Kanri v0.3.2
         </p>
-        <a
-          href="/licenses"
+        <nuxt-link
+          to="/licenses"
           class="text-accent text-accent-darker-hover"
-        >Third-party license notices</a>
+          @click="$emit('closeModal')"
+        >
+          Third-party license notices
+        </nuxt-link>
       </main>
     </template>
   </Modal>

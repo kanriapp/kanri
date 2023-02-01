@@ -1,3 +1,7 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
 <template>
   <div class="bg-elevation-1 max-h-column flex w-64 flex-col rounded-md p-2 shadow-lg">
     <div
@@ -295,7 +299,6 @@ const setCardDescription = (cardIndex: number, description: string) => {
 
 const openKanbanModal = (_: any, index: number, el: Card) => {
     disableDragging();
-    emitter.emit("zIndexDown");
 
     emit("openKanbanModal", props.id, index, el);
 };

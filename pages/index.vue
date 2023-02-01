@@ -1,3 +1,7 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech> -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
 <template>
   <div class="pt-8 pl-8">
     <ModalRenameBoard
@@ -169,10 +173,10 @@ onMounted(async () => {
         createNewBoard(title);
     });
 
+    emitter.emit("hideSidebarBackArrow");
+
     boards.value = (await store.get("boards")) || [];
     loading.value = false;
-
-    console.log(boards.value);
 
     const sortingOption = await store.get("boardSortingOption");
     if (sortingOption == null) {
