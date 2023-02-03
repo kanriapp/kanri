@@ -82,6 +82,7 @@
                   :title="column.title"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :cards-list="column.cards"
+                  :zoom-level="columnZoomLevel"
                   @updateStorage="updateColumnProperties"
                   @removeColumn="removeColumn"
                   @disableDragging="draggingEnabled = false"
@@ -138,6 +139,7 @@ const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
+const columnZoomLevel = ref(0);
 
 const bgCustom = ref("");
 const bgCustomNoResolution = ref("");
@@ -234,6 +236,16 @@ onMounted(async () => {
     }
     nextTick(() => bgImageLoaded.value = true);
 
+    const columnZoom: number | null = await store.get("columnZoomLevel");
+
+    if (columnZoom == null) {
+        await store.set("columnZoomLevel", 0);
+        columnZoomLevel.value = 0;
+    }
+    else {
+        columnZoomLevel.value = columnZoom;
+    }
+
     document.addEventListener("keydown", keyDownListener);
 
     emitter.emit("openKanbanPage");
@@ -252,12 +264,14 @@ onBeforeUnmount(() => {
 });
 
 enum shortcutKeys {
-  "ArrowLeft",
-  "ArrowRight",
-  "b",
-  "d",
-  "n",
-  "t"
+    "ArrowLeft",
+    "ArrowRight",
+    "b",
+    "d",
+    "n",
+    "t",
+    "+",
+    "-"
 }
 
 const setColumnEditIndex = (columnIndex: number, eventType: string) => {
@@ -313,6 +327,18 @@ const keyDownListener = (e: KeyboardEvent) => {
         } else {
             columnEditIndex.value++;
         }
+    }
+
+    if (e.key === "+") {
+        if (columnZoomLevel.value + 1 > 2) return;
+        columnZoomLevel.value++;
+        store.set("columnZoomLevel", columnZoomLevel.value);
+    }
+
+    if (e.key === "-") {
+        if (columnZoomLevel.value - 1 < -1) return;
+        columnZoomLevel.value--;
+        store.set("columnZoomLevel", columnZoomLevel.value);
     }
 
     const columnID =
