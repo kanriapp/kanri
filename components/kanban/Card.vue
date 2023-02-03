@@ -67,7 +67,6 @@ const enableCardEditMode = () => {
         cardNameInput.value.setAttribute("style", textAreaHeight);
         cardNameInput.value.focus();
     });
-
 }
 
 const updateCardName = () => {
