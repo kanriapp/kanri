@@ -61,7 +61,7 @@ jobs:
       - name: Build Frontend
         run: yarn && yarn generate
 
-      - uses: JonasKruckenberg/tauri-build@v1.2.2
+      - uses: JonasKruckenberg/tauri-build@v1.2.3
         id: tauri_build
         with:
           target: ${{ matrix.platform.rust_target }}
