@@ -23,7 +23,7 @@
       @setCardDescription="setCardDescription"
       @closeModal="closeKanbanModal"
     />
-    <div class="absolute top-8 z-50 ml-8">
+    <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
         v-if="!boardTitleEditing"
         class="mb-2 rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
@@ -47,13 +47,29 @@
           updateStorage();
         "
       >
-      <button
-        class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-        @click="showCustomBgModal = true"
-      >
-        <PhotoIcon class="h-6 w-6" />
-        <span>Change Background</span>
-      </button>
+      <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
+        <button
+          class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+          @click="showCustomBgModal = true"
+        >
+          <PhotoIcon class="h-6 w-6" />
+          <span>Change Background</span>
+        </button>
+        <div class="flex flex-row">
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button rounded-l-2xl px-2 py-1"
+            @click="increaseZoomLevel"
+          >
+            <PlusIcon class="h-6 w-6" />
+          </button>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button rounded-r-2xl px-2 py-1"
+            @click="decreaseZoomLevel"
+          >
+            <MinusIcon class="h-6 w-6" />
+          </button>
+        </div>
+      </div>
     </div>
     <div
       id="kanban-cols-container"
@@ -123,7 +139,7 @@ import { Ref } from "vue";
 
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { PlusIcon } from "@heroicons/vue/24/solid";
+import { PlusIcon, MinusIcon } from "@heroicons/vue/24/solid";
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
@@ -291,6 +307,16 @@ const setColumnEditIndex = (columnIndex: number, eventType: string) => {
     }
 }
 
+const increaseZoomLevel = () => {
+    if (columnZoomLevel.value + 1 > 2) return;
+    columnZoomLevel.value++;
+}
+
+const decreaseZoomLevel = () => {
+    if (columnZoomLevel.value - 1 < -1) return;
+    columnZoomLevel.value--;
+}
+
 const keyDownListener = (e: KeyboardEvent) => {
     const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
     const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
@@ -330,14 +356,12 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     if (e.key === "+") {
-        if (columnZoomLevel.value + 1 > 2) return;
-        columnZoomLevel.value++;
+        increaseZoomLevel();
         store.set("columnZoomLevel", columnZoomLevel.value);
     }
 
     if (e.key === "-") {
-        if (columnZoomLevel.value - 1 < -1) return;
-        columnZoomLevel.value--;
+        decreaseZoomLevel();
         store.set("columnZoomLevel", columnZoomLevel.value);
     }
 
