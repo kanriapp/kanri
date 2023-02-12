@@ -43,8 +43,8 @@
             - Switch columns for title editing and card adding
           </li>
           <li>
-            <b class="font-bold">Ctrl/Command + Plus or minus keys </b>
-            Increase or decrease zoom levels for columns in board view (global preference)
+            <b class="font-bold">Ctrl/Command + Plus or minus Keys </b>
+            Increase/decrease board column zoom (global preference)
           </li>
         </ul>
         <h3 class="mt-4 mb-2 text-xl font-bold">
