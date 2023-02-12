@@ -92,56 +92,60 @@
         v-else
         class="mt-5 mb-8 flex flex-row flex-wrap gap-6"
       >
-        <nuxt-link
-          v-for="(board, index) in boards"
-          id="board-preview"
-          :key="index"
-          class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
-          :to="'/kanban/' + index"
+        <TransitionGroup
+          name="list"
+          tag="div"
+          class="flex flex-row flex-wrap gap-6"
         >
-          <KanbanBoardPreview
-            :board="board"
-            class=""
-          />
-          <div class="flex flex-row justify-between px-1 py-2">
-            <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
-              {{ board.title }}
-            </span>
-
-            <VDropdown
-              :distance="2"
-              placement="bottom-end"
-            >
-              <button
-                class="bg-elevation-3-hover transition-button rounded-md py-0.5 px-1"
-                @click.prevent
+          <nuxt-link
+            v-for="(board, index) in boards"
+            id="board-preview"
+            :key="index"
+            class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
+            :to="'/kanban/' + index"
+          >
+            <KanbanBoardPreview
+              :board="board"
+              class=""
+            />
+            <div class="flex flex-row justify-between px-1 py-2">
+              <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
+                {{ board.title }}
+              </span>
+              <VDropdown
+                :distance="2"
+                placement="bottom-end"
               >
-                <EllipsisHorizontalIcon class="h-6 w-6" />
-              </button>
-
-              <template
-                #popper
-              >
-                <div class="flex flex-col">
-                  <button
-                    v-close-popper
-                    class="px-4 py-1.5 hover:bg-gray-200"
-                    @click="renameBoardModal(index)"
-                  >
-                    Rename
-                  </button>
-                  <button
-                    v-close-popper
-                    class="px-4 py-1.5 hover:bg-gray-200"
-                    @click="deleteBoardModal(index)"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </template>
-            </VDropdown>
-          </div>
-        </nuxt-link>
+                <button
+                  class="bg-elevation-3-hover transition-button rounded-md py-0.5 px-1"
+                  @click.prevent
+                >
+                  <EllipsisHorizontalIcon class="h-6 w-6" />
+                </button>
+                <template
+                  #popper
+                >
+                  <div class="flex flex-col">
+                    <button
+                      v-close-popper
+                      class="px-4 py-1.5 hover:bg-gray-200"
+                      @click="renameBoardModal(index)"
+                    >
+                      Rename
+                    </button>
+                    <button
+                      v-close-popper
+                      class="px-4 py-1.5 hover:bg-gray-200"
+                      @click="deleteBoardModal(index)"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </template>
+              </VDropdown>
+            </div>
+          </nuxt-link>
+        </TransitionGroup>
       </div>
     </main>
   </div>
@@ -298,3 +302,21 @@ const sortBoardsByEditDate = () => {
     sortingOptionText.value = "Sort by edit date";
 }
 </script>
+
+<style scoped>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.list-leave-active {
+    position: absolute;
+}
+</style>
