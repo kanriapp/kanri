@@ -26,24 +26,20 @@
       >
         <IconKanri class="h-12 w-12" />
       </div>
-      <div
+      <button
         v-if="showAddButton"
+        class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="$router.push('/')"
       >
-        <div class="bg-elevation-2-hover rounded-md p-2">
-          <HomeIcon
-            class="h-7 w-7"
-          />
-        </div>
-      </div>
-      <div
+        <HomeIcon class="h-7 w-7" />
+      </button>
+      <button
         v-else
+        class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="$router.go(-1)"
       >
-        <div class="bg-elevation-2-hover rounded-md p-2">
-          <ArrowUturnLeftIcon class="h-7 w-7" />
-        </div>
-      </div>
+        <ArrowUturnLeftIcon class="h-7 w-7" />
+      </button>
       <button
         v-if="showAddButton"
         v-tooltip.left-start="'Create a new board'"
