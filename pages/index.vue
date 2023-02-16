@@ -109,7 +109,7 @@
             id="board-preview"
             :key="board.id"
             class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
-            :to="'/kanban/' + index"
+            :to="'/kanban/' + board.id"
           >
             <KanbanBoardPreview
               :board="board"
@@ -305,7 +305,6 @@ const sortBoardsByCreationDate = async () => {
 const sortBoardsByEditDate = () => {
     boards.value.sort((a, b) => {
         if (!a.lastEdited || !b.lastEdited) {
-            console.log("a")
             editSortWarning.value = true;
             return -1;
         }

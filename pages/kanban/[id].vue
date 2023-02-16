@@ -241,7 +241,15 @@ const enableBoardTitleEditing = () => {
 
 onMounted(async () => {
     boards.value = await store.get("boards") || [];
-    board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
+
+    board.value = boards.value.filter((board) => {
+        return board.id === route.params.id;
+    })[0];
+
+    if(!board.value) {
+        console.error("Could not resolve board!");
+        return;
+    }
 
     if (board.value.background) {
         bgCustomNoResolution.value = board.value.background.src;
