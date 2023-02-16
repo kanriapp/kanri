@@ -240,6 +240,7 @@ const createNewBoard = (title: string) => {
                 cards: [],
             },
         ],
+        lastEdited: new Date()
     };
 
     boards.value = [...boards.value, board];
