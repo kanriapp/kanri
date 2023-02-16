@@ -189,6 +189,13 @@ onMounted(async () => {
 
     boards.value = (await store.get("boards")) || [];
 
+    await setSorting();
+
+    loading.value = false;
+});
+
+
+const setSorting = async () => {
     const sortingOption = await store.get("boardSortingOption");
     if (sortingOption == null) {
         await store.set("boardSortingOption", "default");
@@ -206,11 +213,9 @@ onMounted(async () => {
     default:
         break;
     }
+}
 
-    loading.value = false;
-});
-
-const createNewBoard = (title: string) => {
+const createNewBoard = async (title: string) => {
     const board: Board = {
         id: generateUniqueID(),
         title: title,
@@ -245,6 +250,8 @@ const createNewBoard = (title: string) => {
 
     boards.value = [...boards.value, board];
     store.set("boards", boards.value);
+
+    await setSorting();
 };
 
 const renameBoardModal = (index: number) => {
