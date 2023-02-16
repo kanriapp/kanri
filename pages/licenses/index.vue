@@ -38,8 +38,8 @@
     </div>
 
     <pre>
-Name: @vue/shared
-Version: 3.2.45
+      Name: @vue/shared
+Version: 3.2.47
 License: MIT
 Private: false
 Description: internal utils shared across @vue packages
@@ -75,7 +75,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/reactivity
-Version: 3.2.45
+Version: 3.2.47
 License: MIT
 Private: false
 Description: @vue/reactivity
@@ -111,7 +111,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-core
-Version: 3.2.45
+Version: 3.2.47
 License: MIT
 Private: false
 Description: @vue/runtime-core
@@ -147,7 +147,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-dom
-Version: 3.2.45
+Version: 3.2.47
 License: MIT
 Private: false
 Description: @vue/runtime-dom
@@ -353,7 +353,7 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.1.1
+Version: 3.2.0
 License: MIT
 Private: false
 Repository: undefined
@@ -385,130 +385,8 @@ SOFTWARE.
 
 ---
 
-Name: h3
-Version: 1.1.0
-License: MIT
-Private: false
-Description: Tiny JavaScript Server
-Repository: undefined
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
----
-
-Name: @unhead/vue
-Version: 1.0.18
-License: MIT
-Private: false
-Repository: git+https://github.com/harlan-zw/unhead.git
-Homepage: https://github.com/harlan-zw/unhead#readme
-Author: Harlan Wilton &lt;harlan@harlanzw.com>
-
----
-
-Name: @unhead/dom
-Version: 1.0.18
-License: MIT
-Private: false
-Repository: git+https://github.com/harlan-zw/unhead.git
-Homepage: https://github.com/harlan-zw/unhead#readme
-Author: Harlan Wilton &lt;harlan@harlanzw.com>
-
----
-
-Name: @vueuse/head
-Version: 1.0.23
-License: MIT
-Private: false
-Description: Document head manager for Vue 3. SSR ready.
-Repository: https://github.com/vueuse/head
-Author: EGOIST (https://egoist.sh)
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) 2020 EGOIST (https://egoist.sh)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-Name: defu
-Version: 6.1.2
-License: MIT
-Private: false
-Description: Recursively assign default properties. Lightweight and Fast!
-Repository: undefined
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
----
-
 Name: @nuxtjs/tailwindcss
-Version: 6.3.1
+Version: 6.4.0
 License: MIT
 Private: false
 Description: TailwindCSS module for Nuxt
@@ -555,6 +433,128 @@ License Copyright:
 The MIT License (MIT)
 
 Copyright (c) 2019-present Eduardo San Martin Morote
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
+Name: h3
+Version: 1.4.0
+License: MIT
+Private: false
+Description: Tiny JavaScript Server
+Repository: undefined
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
+Name: @unhead/vue
+Version: 1.0.21
+License: MIT
+Private: false
+Repository: git+https://github.com/harlan-zw/unhead.git
+Homepage: https://github.com/harlan-zw/unhead#readme
+Author: Harlan Wilton &lt;harlan@harlanzw.com>
+
+---
+
+Name: @unhead/dom
+Version: 1.0.21
+License: MIT
+Private: false
+Repository: git+https://github.com/harlan-zw/unhead.git
+Homepage: https://github.com/harlan-zw/unhead#readme
+Author: Harlan Wilton &lt;harlan@harlanzw.com>
+
+---
+
+Name: @vueuse/head
+Version: 1.0.25
+License: MIT
+Private: false
+Description: Document head manager for Vue 3. SSR ready.
+Repository: https://github.com/vueuse/head
+Author: EGOIST (https://egoist.sh)
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2020 EGOIST (https://egoist.sh)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Name: defu
+Version: 6.1.2
+License: MIT
+Private: false
+Description: Recursively assign default properties. Lightweight and Fast!
+Repository: undefined
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -705,15 +705,6 @@ SOFTWARE.
 
 ---
 
-Name: @heroicons/vue
-Version: 2.0.14
-License: MIT
-Private: false
-Repository: https://github.com/tailwindlabs/heroicons.git
-Homepage: https://github.com/tailwindlabs/heroicons#readme
-
----
-
 Name: mitt
 Version: 3.0.0
 License: MIT
@@ -746,6 +737,51 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+
+---
+
+Name: vue
+Version: 3.2.47
+License: MIT
+Private: false
+Description: The progressive JavaScript framework for building modern web UI.
+Repository: git+https://github.com/vuejs/core.git
+Homepage: https://github.com/vuejs/core/tree/main/packages/vue#readme
+Author: Evan You
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2018-present, Yuxi (Evan) You
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: @heroicons/vue
+Version: 2.0.15
+License: MIT
+Private: false
+Repository: https://github.com/tailwindlabs/heroicons.git
+Homepage: https://github.com/tailwindlabs/heroicons#readme
 
 ---
 
@@ -1387,7 +1423,7 @@ License Copyright:
 ---
 
 Name: @nuxt/ui-templates
-Version: 1.1.0
+Version: 1.1.1
 License: CC-BY-ND-4.0
 Private: false
 Repository: undefined
@@ -1415,17 +1451,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
----
-
-Name: @unhead/ssr
-Version: 1.0.18
-License: MIT
-Private: false
-Repository: git+https://github.com/harlan-zw/unhead.git
-Homepage: https://github.com/harlan-zw/unhead#readme
-Author: Harlan Wilton &lt;harlan@harlanzw\.com>
     </pre>
   </div>
 </template>
