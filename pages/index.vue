@@ -96,11 +96,12 @@
           name="list"
           tag="div"
           class="flex flex-row flex-wrap gap-6"
+          v-if="!loading"
         >
           <nuxt-link
             v-for="(board, index) in boards"
             id="board-preview"
-            :key="index"
+            :key="board.id"
             class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
             :to="'/kanban/' + index"
           >
@@ -180,7 +181,6 @@ onMounted(async () => {
     emitter.emit("hideSidebarBackArrow");
 
     boards.value = (await store.get("boards")) || [];
-    loading.value = false;
 
     const sortingOption = await store.get("boardSortingOption");
     if (sortingOption == null) {
@@ -199,6 +199,8 @@ onMounted(async () => {
     default:
         break;
     }
+
+    loading.value = false;
 });
 
 const createNewBoard = (title: string) => {
@@ -290,9 +292,9 @@ const sortBoardsByCreationDate = async () => {
 }
 
 const sortBoardsByEditDate = () => {
-    // TODO: implement with newly added property which gets set on each updateStorage func
     boards.value.sort((a, b) => {
         if (!a.lastEdited || !b.lastEdited) {
+            console.log("At least one last edited date not found!");
             return -1;
         }
 
@@ -305,12 +307,10 @@ const sortBoardsByEditDate = () => {
 
 <style scoped>
 .list-move,
-.list-enter-active,
 .list-leave-active {
     transition: all 0.5s ease;
 }
 
-.list-enter-from,
 .list-leave-to {
     opacity: 0;
     transform: translateX(30px);
