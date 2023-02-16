@@ -5,7 +5,7 @@
 <template>
   <Modal @closeModal="$emit('closeModal')">
     <template #content>
-      <main class="min-h-[36rem] max-w-[48rem]">
+      <main class="min-h-[38rem] max-w-[48rem]">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
             Help & Resources
