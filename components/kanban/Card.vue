@@ -56,8 +56,6 @@ const enableCardEditMode = () => {
 
     cardNameEditMode.value = true;
 
-    console.log(cardNameText.value);
-
     if (cardNameText.value == null) return;
 
     const textAreaHeight = `height: ${cardNameText.value.scrollHeight}px`;
