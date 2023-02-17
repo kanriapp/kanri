@@ -53,7 +53,7 @@ yarn tauri build
 ```
 
 ---
-**Copyright (c) Copyright (c) 2022-2023 trobonox**. Licensed under the Apache 2.0 License.
+**Copyright (c) 2022-2023 trobonox <hello@trobo.tech>**. Licensed under the Apache 2.0 License.
 
 Background image used in the showcase screenshot made by [Richard Horvath on Unsplash](https://unsplash.com/photos/_nWaeTF6qo0).
 
