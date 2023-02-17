@@ -881,10 +881,10 @@
     vite-plugin-checker "^0.5.5"
     vue-bundle-renderer "^1.0.1"
 
-"@nuxtjs/tailwindcss@6.4.0":
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-6.4.0.tgz#c0ba563bcfe276e43e6cb264258de02a526d4c87"
-  integrity sha512-JLCmoaOvk+cY972Oz0UBiSx8rhjYTB2bFydN3AebJN5y1G/8HLugN6m4LANQu6df1rAaRYpdXF0LGlrLsxPXDQ==
+"@nuxtjs/tailwindcss@6.4.1":
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-6.4.1.tgz#e4018312afd087b7f040b63174547918e81b1c42"
+  integrity sha512-b8c6h+iiHJJ/rw/IirmYlF0RaIGVIVFmZXdHYPuDW/Mf6WAEz8IkAicyO5gRL3jYKp98kld067XPGsumDhaVVg==
   dependencies:
     "@nuxt/kit" "^3.2.0"
     "@nuxt/postcss8" "^1.1.3"
@@ -897,10 +897,10 @@
     pathe "^1.1.0"
     postcss "^8.4.21"
     postcss-custom-properties "^13.1.3"
-    postcss-nesting "^11.1.0"
+    postcss-nesting "^11.2.1"
     tailwind-config-viewer "^1.7.2"
-    tailwindcss "^3.2.6"
-    ufo "^1.0.1"
+    tailwindcss "^3.2.7"
+    ufo "^1.1.0"
 
 "@pinia/nuxt@0.4.6":
   version "0.4.6"
@@ -4625,10 +4625,10 @@ postcss-nested@6.0.0:
   dependencies:
     postcss-selector-parser "^6.0.10"
 
-postcss-nesting@^11.1.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/postcss-nesting/-/postcss-nesting-11.1.0.tgz#f7c5cd61de639df35653dcb987d99d018720399a"
-  integrity sha512-TVBCeKlUmMyX3sNeSg10yATb2XmAoosp0E1zdlpjrD+L2FrQPmrRTxlRFQh/R0Y4WlQ0butfDwRhzlYuj7y/TA==
+postcss-nesting@^11.2.1:
+  version "11.2.1"
+  resolved "https://registry.yarnpkg.com/postcss-nesting/-/postcss-nesting-11.2.1.tgz#260806f20971c82700d327468b49d1c1b44f1790"
+  integrity sha512-E6Jq74Jo/PbRAtZioON54NPhUNJYxVWhwxbweYl1vAoBYuGlDIts5yhtKiZFLvkvwT73e/9nFrW3oMqAtgG+GQ==
   dependencies:
     "@csstools/selector-specificity" "^2.0.0"
     postcss-selector-parser "^6.0.10"
@@ -5399,10 +5399,10 @@ tailwind-config-viewer@^1.7.2:
     portfinder "^1.0.26"
     replace-in-file "^6.1.0"
 
-tailwindcss@^3.2.6:
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.2.6.tgz#9bedbc744a4a85d6120ce0cc3db024c551a5c733"
-  integrity sha512-BfgQWZrtqowOQMC2bwaSNe7xcIjdDEgixWGYOd6AL0CbKHJlvhfdbINeAW76l1sO+1ov/MJ93ODJ9yluRituIw==
+tailwindcss@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.2.7.tgz#5936dd08c250b05180f0944500c01dce19188c07"
+  integrity sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==
   dependencies:
     arg "^5.0.2"
     chokidar "^3.5.3"
@@ -5595,6 +5595,11 @@ ufo@^1.0.0, ufo@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ufo/-/ufo-1.0.1.tgz#64ed43b530706bda2e4892f911f568cf4cf67d29"
   integrity sha512-boAm74ubXHY7KJQZLlXrtMz52qFvpsbOxDcZOnw/Wf+LS4Mmyu7JxmzD4tDLtUQtmZECypJ0FrCz4QIe6dvKRA==
+
+ufo@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ufo/-/ufo-1.1.0.tgz#a5c4c814b0a98f7e0ca42c478688663fd3e3c037"
+  integrity sha512-LQc2s/ZDMaCN3QLpa+uzHUOQ7SdV0qgv3VBXOolQGXTaaZpIur6PwUclF5nN2hNkiTRcUugXd1zFOW3FLJ135Q==
 
 uncrypto@^0.1.2:
   version "0.1.2"
