@@ -30,6 +30,12 @@
       >
         Your boards are ready and waiting for you.
       </h2>
+      <p
+        v-if="editSortWarning"
+        class="mt-1 text-red-500"
+      >
+        Warning: there is at least one board which does not have a valid last edited date. This is probably a remainder from a board created in an old version of Kanri. <br> Please edit all boards at least once to mitigate this behaviour.
+      </p>
     </section>
 
     <section
@@ -92,56 +98,61 @@
         v-else
         class="mt-5 mb-8 flex flex-row flex-wrap gap-6"
       >
-        <nuxt-link
-          v-for="(board, index) in boards"
-          id="board-preview"
-          :key="index"
-          class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
-          :to="'/kanban/' + index"
+        <TransitionGroup
+          v-if="!loading"
+          name="list"
+          tag="div"
+          class="flex flex-row flex-wrap gap-6"
         >
-          <KanbanBoardPreview
-            :board="board"
-            class=""
-          />
-          <div class="flex flex-row justify-between px-1 py-2">
-            <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
-              {{ board.title }}
-            </span>
-
-            <VDropdown
-              :distance="2"
-              placement="bottom-end"
-            >
-              <button
-                class="bg-elevation-3-hover transition-button rounded-md py-0.5 px-1"
-                @click.prevent
+          <nuxt-link
+            v-for="(board, index) in boards"
+            id="board-preview"
+            :key="board.id"
+            class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
+            :to="'/kanban/' + board.id"
+          >
+            <KanbanBoardPreview
+              :board="board"
+              class=""
+            />
+            <div class="flex flex-row justify-between px-1 py-2">
+              <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
+                {{ board.title }}
+              </span>
+              <VDropdown
+                :distance="2"
+                placement="bottom-end"
               >
-                <EllipsisHorizontalIcon class="h-6 w-6" />
-              </button>
-
-              <template
-                #popper
-              >
-                <div class="flex flex-col">
-                  <button
-                    v-close-popper
-                    class="px-4 py-1.5 hover:bg-gray-200"
-                    @click="renameBoardModal(index)"
-                  >
-                    Rename
-                  </button>
-                  <button
-                    v-close-popper
-                    class="px-4 py-1.5 hover:bg-gray-200"
-                    @click="deleteBoardModal(index)"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </template>
-            </VDropdown>
-          </div>
-        </nuxt-link>
+                <button
+                  class="bg-elevation-3-hover transition-button rounded-md py-0.5 px-1"
+                  @click.prevent
+                >
+                  <EllipsisHorizontalIcon class="h-6 w-6" />
+                </button>
+                <template
+                  #popper
+                >
+                  <div class="flex flex-col">
+                    <button
+                      v-close-popper
+                      class="px-4 py-1.5 hover:bg-gray-200"
+                      @click="renameBoardModal(index)"
+                    >
+                      Rename
+                    </button>
+                    <button
+                      v-close-popper
+                      class="px-4 py-1.5 hover:bg-gray-200"
+                      @click="deleteBoardModal(index)"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </template>
+              </VDropdown>
+            </div>
+          </nuxt-link>
+        </TransitionGroup>
       </div>
     </main>
   </div>
@@ -163,6 +174,7 @@ const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
 
 const loading = ref(true);
+const editSortWarning = ref(false);
 const renameBoardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 
@@ -176,8 +188,14 @@ onMounted(async () => {
     emitter.emit("hideSidebarBackArrow");
 
     boards.value = (await store.get("boards")) || [];
-    loading.value = false;
 
+    await setSorting();
+
+    loading.value = false;
+});
+
+
+const setSorting = async () => {
     const sortingOption = await store.get("boardSortingOption");
     if (sortingOption == null) {
         await store.set("boardSortingOption", "default");
@@ -195,9 +213,9 @@ onMounted(async () => {
     default:
         break;
     }
-});
+}
 
-const createNewBoard = (title: string) => {
+const createNewBoard = async (title: string) => {
     const board: Board = {
         id: generateUniqueID(),
         title: title,
@@ -227,10 +245,13 @@ const createNewBoard = (title: string) => {
                 cards: [],
             },
         ],
+        lastEdited: new Date()
     };
 
     boards.value = [...boards.value, board];
     store.set("boards", boards.value);
+
+    await setSorting();
 };
 
 const renameBoardModal = (index: number) => {
@@ -272,6 +293,8 @@ const deleteBoard = async (boardIndex: number | undefined) => {
 };
 
 const sortBoardsAlphabetically = () => {
+    editSortWarning.value = false;
+
     boards.value.sort((a, b) => {
         return a.title.localeCompare(b.title);
     });
@@ -280,15 +303,17 @@ const sortBoardsAlphabetically = () => {
 }
 
 const sortBoardsByCreationDate = async () => {
+    editSortWarning.value = false;
+
     boards.value = (await store.get("boards")) || [];
     store.set("boardSortingOption", "default");
     sortingOptionText.value = "Sort by creation date";
 }
 
 const sortBoardsByEditDate = () => {
-    // TODO: implement with newly added property which gets set on each updateStorage func
     boards.value.sort((a, b) => {
         if (!a.lastEdited || !b.lastEdited) {
+            editSortWarning.value = true;
             return -1;
         }
 
@@ -298,3 +323,19 @@ const sortBoardsByEditDate = () => {
     sortingOptionText.value = "Sort by edit date";
 }
 </script>
+
+<style scoped>
+.list-move,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.list-leave-active {
+    position: absolute;
+}
+</style>

@@ -3,14 +3,18 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <div class="bg-elevation-1 max-h-column flex w-64 flex-col rounded-md p-2 shadow-lg">
+  <div
+    class="bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
+    :class="columnSizeClass"
+  >
     <div
       id="board-title"
       class="flex flex-row items-start justify-between gap-4"
+      :class="titleTextClassZoom"
     >
       <h1
         v-if="!titleEditing"
-        class="text-no-overflow ml-1 text-lg font-bold"
+        class="text-no-overflow ml-1 font-bold"
         @click="enableTitleEditing()"
       >
         {{ boardTitle }}
@@ -22,7 +26,7 @@
         v-model="titleNew"
         type="text"
         maxlength="1000"
-        class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 text-lg outline-none"
+        class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none"
         @blur="updateColumnTitle"
         @keypress.enter="
           updateColumnTitle();
@@ -53,6 +57,7 @@
       >
         <div
           class="flex cursor-pointer flex-row justify-between"
+          :class="cardTextClassZoom"
           @click.self="(event) => openKanbanModal(event, index, card)"
         >
           <p
@@ -149,6 +154,7 @@ const props = defineProps<{
     id: string;
     title: string;
     cardsList: Array<Card>;
+    zoomLevel: number;
 }>();
 
 const emit = defineEmits<{
@@ -195,6 +201,63 @@ onMounted(() => {
         titleEditing.value = false;
     });
 });
+
+const titleTextClassZoom = computed(() => {
+    switch (props.zoomLevel) {
+    case 0:
+        return ["text-lg"]
+
+    case -1:
+        return ["text-md"]
+
+    case 1:
+        return ["text-xl"]
+
+    case 2:
+        return ["text-2xl"]
+
+    default:
+        return [""]
+    }
+})
+
+const cardTextClassZoom = computed(() => {
+    switch (props.zoomLevel) {
+    case 0:
+        return [""]
+
+    case -1:
+        return ["text-sm"]
+
+    case 1:
+        return ["text-xl"]
+
+    case 2:
+        return ["text-2xl"]
+
+    default:
+        return [""]
+    }
+})
+
+const columnSizeClass = computed(() => {
+    switch (props.zoomLevel) {
+    case 0:
+        return ["w-64"]
+
+    case -1:
+        return ["w-48"]
+
+    case 1:
+        return ["w-96"]
+
+    case 2:
+        return ["w-[560px]"]
+
+    default:
+        return [""]
+    }
+})
 
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);

@@ -23,7 +23,7 @@
       @setCardDescription="setCardDescription"
       @closeModal="closeKanbanModal"
     />
-    <div class="absolute top-8 z-50 ml-8">
+    <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
         v-if="!boardTitleEditing"
         class="mb-2 rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
@@ -47,13 +47,29 @@
           updateStorage();
         "
       >
-      <button
-        class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-        @click="showCustomBgModal = true"
-      >
-        <PhotoIcon class="h-6 w-6" />
-        <span>Change Background</span>
-      </button>
+      <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
+        <button
+          class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+          @click="showCustomBgModal = true"
+        >
+          <PhotoIcon class="h-6 w-6" />
+          <span>Change Background</span>
+        </button>
+        <div class="flex flex-row">
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button rounded-l-2xl px-2 py-1"
+            @click="increaseZoomLevel"
+          >
+            <PlusIcon class="h-6 w-6" />
+          </button>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button rounded-r-2xl px-2 py-1"
+            @click="decreaseZoomLevel"
+          >
+            <MinusIcon class="h-6 w-6" />
+          </button>
+        </div>
+      </div>
     </div>
     <div
       id="kanban-cols-container"
@@ -82,6 +98,7 @@
                   :title="column.title"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :cards-list="column.cards"
+                  :zoom-level="columnZoomLevel"
                   @updateStorage="updateColumnProperties"
                   @removeColumn="removeColumn"
                   @disableDragging="draggingEnabled = false"
@@ -122,7 +139,7 @@ import { Ref } from "vue";
 
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { PlusIcon } from "@heroicons/vue/24/solid";
+import { PlusIcon, MinusIcon } from "@heroicons/vue/24/solid";
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
@@ -138,6 +155,7 @@ const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
+const columnZoomLevel = ref(0);
 
 const bgCustom = ref("");
 const bgCustomNoResolution = ref("");
@@ -223,7 +241,15 @@ const enableBoardTitleEditing = () => {
 
 onMounted(async () => {
     boards.value = await store.get("boards") || [];
-    board.value = boards.value[parseInt(route.params.id[0])]; // TODO: handle edge cases where for some reason id can't be parsed to int
+
+    board.value = boards.value.filter((board) => {
+        return board.id === route.params.id;
+    })[0];
+
+    if(!board.value) {
+        console.error("Could not resolve board!");
+        return;
+    }
 
     if (board.value.background) {
         bgCustomNoResolution.value = board.value.background.src;
@@ -233,6 +259,16 @@ onMounted(async () => {
         bgBrightness.value = board.value.background.brightness;
     }
     nextTick(() => bgImageLoaded.value = true);
+
+    const columnZoom: number | null = await store.get("columnZoomLevel");
+
+    if (columnZoom == null) {
+        await store.set("columnZoomLevel", 0);
+        columnZoomLevel.value = 0;
+    }
+    else {
+        columnZoomLevel.value = columnZoom;
+    }
 
     document.addEventListener("keydown", keyDownListener);
 
@@ -252,12 +288,14 @@ onBeforeUnmount(() => {
 });
 
 enum shortcutKeys {
-  "ArrowLeft",
-  "ArrowRight",
-  "b",
-  "d",
-  "n",
-  "t"
+    "ArrowLeft",
+    "ArrowRight",
+    "b",
+    "d",
+    "n",
+    "t",
+    "+",
+    "-"
 }
 
 const setColumnEditIndex = (columnIndex: number, eventType: string) => {
@@ -275,6 +313,16 @@ const setColumnEditIndex = (columnIndex: number, eventType: string) => {
     default:
         break;
     }
+}
+
+const increaseZoomLevel = () => {
+    if (columnZoomLevel.value + 1 > 2) return;
+    columnZoomLevel.value++;
+}
+
+const decreaseZoomLevel = () => {
+    if (columnZoomLevel.value - 1 < -1) return;
+    columnZoomLevel.value--;
 }
 
 const keyDownListener = (e: KeyboardEvent) => {
@@ -313,6 +361,16 @@ const keyDownListener = (e: KeyboardEvent) => {
         } else {
             columnEditIndex.value++;
         }
+    }
+
+    if (e.key === "+") {
+        increaseZoomLevel();
+        store.set("columnZoomLevel", columnZoomLevel.value);
+    }
+
+    if (e.key === "-") {
+        decreaseZoomLevel();
+        store.set("columnZoomLevel", columnZoomLevel.value);
     }
 
     const columnID =

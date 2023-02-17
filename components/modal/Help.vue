@@ -5,7 +5,7 @@
 <template>
   <Modal @closeModal="$emit('closeModal')">
     <template #content>
-      <main class="min-h-[36rem] max-w-[48rem]">
+      <main class="min-h-[38rem] max-w-[48rem]">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
             Help & Resources
@@ -42,6 +42,10 @@
             <b class="font-bold">Ctrl/Command + Arrow Keys Left and right </b>
             - Switch columns for title editing and card adding
           </li>
+          <li>
+            <b class="font-bold">Ctrl/Command + Plus or minus Keys </b>
+            Increase/decrease board column zoom (global preference)
+          </li>
         </ul>
         <h3 class="mt-4 mb-2 text-xl font-bold">
           Support resouces:
@@ -72,7 +76,7 @@
         </p>
         <p class="pt-2">
           Copyright (c) Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
-          Kanri v0.3.2
+          Kanri v0.3.3
         </p>
         <nuxt-link
           to="/licenses"
