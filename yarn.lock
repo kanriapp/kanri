@@ -674,6 +674,11 @@
   dependencies:
     is-promise "^4.0.0"
 
+"@noble/hashes@^1.1.5":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.2.0.tgz#a3150eeb09cc7ab207ebf6d7b9ad311a9bdbed12"
+  integrity sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -901,6 +906,13 @@
     tailwind-config-viewer "^1.7.2"
     tailwindcss "^3.2.7"
     ufo "^1.1.0"
+
+"@paralleldrive/cuid2@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@paralleldrive/cuid2/-/cuid2-2.1.0.tgz#9ec5bea61f6905faf4dc34782e40d07ef8b21b86"
+  integrity sha512-tg4/iCuj9WoGXNW2TrjKDOrm9JIuoEQFB0Dv9S072tE/OA/rOWnUEa6RxXy6fhXlxGXmaZyh5HIDXjqX+cN7ig==
+  dependencies:
+    "@noble/hashes" "^1.1.5"
 
 "@pinia/nuxt@0.4.6":
   version "0.4.6"
@@ -5463,14 +5475,12 @@ tar@^6.1.11, tar@^6.1.12:
 
 "tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#0c8e3ad92e00e7b0aed60fc8a639e77407105253":
   version "0.0.0"
-  uid "0c8e3ad92e00e7b0aed60fc8a639e77407105253"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/0c8e3ad92e00e7b0aed60fc8a639e77407105253"
   dependencies:
     "@tauri-apps/api" "^1.2.0"
 
 "tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#916165e4e4ad9821095584dc02ecd9c295cc9971":
   version "0.0.0"
-  uid "916165e4e4ad9821095584dc02ecd9c295cc9971"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/916165e4e4ad9821095584dc02ecd9c295cc9971"
   dependencies:
     "@tauri-apps/api" "^1.2.0"
