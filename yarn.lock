@@ -958,13 +958,13 @@
   dependencies:
     "@noble/hashes" "^1.1.5"
 
-"@pinia/nuxt@0.4.6":
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/@pinia/nuxt/-/nuxt-0.4.6.tgz#ce83714f700594187d8a29e8f4bdaf31abe0bef1"
-  integrity sha512-HjrYEfLdFpmsjhicPJgL36jVhzHWukIQPFFHGTSF84Cplu+f2nY2XHKqe9ToHzE9rLee2RjLOwAzOnXa/I/u6A==
+"@pinia/nuxt@0.4.7":
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/@pinia/nuxt/-/nuxt-0.4.7.tgz#dc1bd597869043fc4ef8c14977454c7b909ba5d0"
+  integrity sha512-ifgA9PO/jmPlK1e/HtkrZa7OMSL8EUOpo8Z1O5vNLRr/OZ42kKGEaY1NbIoCz6dIf/pbkATTNHJmcrlPCo3zSA==
   dependencies:
     "@nuxt/kit" "^3.0.0"
-    pinia ">=2.0.27"
+    pinia ">=2.0.31"
 
 "@planetscale/database@^1.5.0":
   version "1.5.0"
@@ -4505,12 +4505,12 @@ pinia@2.0.31:
     "@vue/devtools-api" "^6.5.0"
     vue-demi "*"
 
-pinia@>=2.0.27:
-  version "2.0.29"
-  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.29.tgz#b7e672980fdb14e03839e8139ce55ca97843679d"
-  integrity sha512-5z/KpFecq/cIgfeTnulJXldiLcTITRkTe3N58RKYSj0Pc1EdR6oyCdnf5A9jLoVwBqX5LtHhd0kGlpzWvk9oiQ==
+pinia@>=2.0.31:
+  version "2.0.31"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.31.tgz#2e33699c274444bf1b08d9f4332513c0ed1a806b"
+  integrity sha512-6OOKZGX79jm3q0xAu+X/PaRjfyOcFnPXcHFAA8HHa+wbJeSi5xc/nYqO8Ff7XLvwV8mKGYXcUfZUHbqUmw6P0w==
   dependencies:
-    "@vue/devtools-api" "^6.4.5"
+    "@vue/devtools-api" "^6.5.0"
     vue-demi "*"
 
 pkg-types@^1.0.1:
