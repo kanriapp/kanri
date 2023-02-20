@@ -38,12 +38,11 @@
           Edit all the things about your card!
         </span>
 
-        <label
-          for="cardDescription"
+        <h2
           class="text-lg font-semibold"
         >
           Card Description
-        </label>
+        </h2>
         <textarea
           id="cardDescription"
           v-model="description"
@@ -57,6 +56,50 @@
           @blur="updateDescription"
           @keypress.enter="updateDescription"
         />
+
+        <h2
+          class="mb-2 mt-8 text-lg font-semibold"
+        >
+          Card Color
+        </h2>
+        <div class="flex flex-row gap-4">
+          <button
+            class="h-7 w-7 rounded-full bg-pink-600 p-2 hover:bg-pink-700"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-pink-600')"
+          />
+          <button
+            class="h-7 w-7 rounded-full bg-red-600 p-2 hover:bg-red-700"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-red-600')"
+          />
+          <button
+            class="h-7 w-7 rounded-full bg-orange-600 p-2 hover:bg-orange-700"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-orange-600')"
+          />
+          <button
+            class="h-7 w-7 rounded-full bg-yellow-600 p-2 hover:bg-yellow-700"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-yellow-600')"
+          />
+          <button
+            class="h-7 w-7 rounded-full bg-green-600 p-2 hover:bg-green-700"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-green-600')"
+          />
+          <button
+            class="h-7 w-7 rounded-full bg-teal-600 p-2 hover:bg-teal-700"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-teal-600')"
+          />
+          <button
+            class="h-7 w-7 rounded-full bg-blue-600 p-2 hover:bg-blue-700"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-blue-600')"
+          />
+          <button
+            class="h-7 w-7 rounded-full bg-purple-600 p-2 hover:bg-purple-700"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-purple-600')"
+          />
+          <button
+            class="bg-elevation-2 bg-elevation-3-hover h-7 w-7 rounded-full p-2"
+            @click="$emit('setCardColor', columnId, cardID, 'bg-elevation-2')"
+          />
+        </div>
       </div>
     </template>
   </Modal>
@@ -71,6 +114,7 @@ const emit = defineEmits<{
     (e: "closeModal", columnId: string): void,
     (e: "setCardDescription", columnId: string, cardIndex: number, description: string): void,
     (e: "setCardTitle", columnId: string, cardIndex: number, title: string): void,
+    (e: "setCardColor", columnId: string, cardIndex: number, color: string): void
 }>();
 
 const columnId = ref("");

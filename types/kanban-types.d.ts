@@ -25,7 +25,8 @@ export declare interface Column {
 export declare interface Card {
     id?: string,
     name: string,
-    description?: string
+    description?: string,
+    color?: string
 }
 
 export declare type ThemeIdentifiers = "dark" | "light" | "catppuccin" | "custom";

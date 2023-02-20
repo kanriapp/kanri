@@ -22,6 +22,7 @@
       @setCardTitle="setCardTitle"
       @setCardDescription="setCardDescription"
       @closeModal="closeKanbanModal"
+      @setCardColor="setCardColor"
     />
     <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
@@ -186,6 +187,10 @@ const setCardTitle = (columnId: string, cardId: number, title: string) => {
 
 const setCardDescription = (columnId: string, cardId: number, description: string) => {
     colRefs[columnId].setCardDescription(cardId, description);
+}
+
+const setCardColor = (columnId: string, cardId: number, color: string) => {
+    colRefs[columnId].setCardColor(cardId, color);
 }
 
 const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {

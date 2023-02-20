@@ -1,8 +1,8 @@
 <template>
   <div
     ref="cardRef"
-    class="kanban-card flex cursor-pointer flex-row justify-between bg-elevation-2"
-    :class="cardTextClassZoom"
+    class="kanban-card bg-blue-600 flex cursor-pointer flex-row justify-between"
+    :class="[cardTextClassZoom, cardBackgroundColor, 'text-gray-50']"
     @click.self="$emit('openKanbanModal', $event, index, card)"
   >
     <p
@@ -22,7 +22,7 @@
       class="cursor-pointer"
       @click="deleteCardWithAnimation(index)"
     >
-      <XMarkIcon class="text-dim-4 text-accent-hover h-4 w-4" />
+      <XMarkIcon class="text-dim-3 text-accent-hover h-4 w-4" />
     </div>
   </div>
 </template>
@@ -51,20 +51,26 @@ const cardRef: Ref<HTMLDivElement | null> = ref(null)
 const cardTextClassZoom = computed(() => {
     switch (props.zoomLevel) {
     case 0:
-        return [""]
+        return ""
 
     case -1:
-        return ["text-sm"]
+        return "text-sm"
 
     case 1:
-        return ["text-xl"]
+        return "text-xl"
 
     case 2:
-        return ["text-2xl"]
+        return "text-2xl"
 
     default:
-        return [""]
+        return ""
     }
+});
+
+const cardBackgroundColor = computed(() => {
+    if (!props.card.color) return "bg-elevation-2";
+
+    return props.card.color;
 })
 
 const deleteCardWithAnimation = (index: number) => {
