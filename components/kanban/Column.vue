@@ -52,34 +52,20 @@
       <Draggable
         v-for="(card, index) in cards"
         :key="index"
-        class="bg-elevation-2 mb-3 min-h-[30px] cursor-grab rounded-sm px-3 pt-3 pb-5"
+        class=""
         :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
       >
-        <div
-          class="flex cursor-pointer flex-row justify-between"
-          :class="cardTextClassZoom"
-          @click.self="(event) => openKanbanModal(event, index, card)"
-        >
-          <p
-            class="text-no-overflow mr-2 w-full min-w-[24px]"
-          >
-            <KanbanCard
-              :card="card"
-              :card-index="index"
-              @updateCardName="setCardTitle"
-              @disableDragging="disableDragging"
-              @enableDragging="enableDragging"
-              @openKanbanModal="(event) => openKanbanModal(event, index, card)"
-            />
-          </p>
-
-          <div
-            class="cursor-pointer"
-            @click="removeCard(index)"
-          >
-            <XMarkIcon class="text-dim-4 text-accent-hover h-4 w-4" />
-          </div>
-        </div>
+        <KanbanCardWrapper
+          class="mb-3 min-h-[30px] cursor-grab rounded-sm px-3 pt-3 pb-5"
+          :index="index"
+          :card="card"
+          :zoom-level="zoomLevel"
+          @remove-card="removeCard"
+          @enable-dragging="enableDragging"
+          @disable-dragging="disableDragging"
+          @open-kanban-modal="openKanbanModal"
+          @set-card-title="setCardTitle"
+        />
       </Draggable>
     </Container>
 
@@ -209,25 +195,6 @@ const titleTextClassZoom = computed(() => {
 
     case -1:
         return ["text-md"]
-
-    case 1:
-        return ["text-xl"]
-
-    case 2:
-        return ["text-2xl"]
-
-    default:
-        return [""]
-    }
-})
-
-const cardTextClassZoom = computed(() => {
-    switch (props.zoomLevel) {
-    case 0:
-        return [""]
-
-    case -1:
-        return ["text-sm"]
 
     case 1:
         return ["text-xl"]
