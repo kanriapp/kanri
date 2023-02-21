@@ -172,7 +172,9 @@ const cssVars = computed(() => {
 }
 
 .transition-button {
-    @apply transition-colors duration-300
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
 }
 
 .page-enter-active,
@@ -183,10 +185,15 @@ const cssVars = computed(() => {
 }
 
 .page-enter-active {
-    @apply transition-all duration-700 ease-in-out overflow-hidden;
+    transition-property: all;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
 .page-enter-from {
-    @apply translate-y-20 opacity-0 overflow-hidden;
+    transform: translateY(5rem);
+    opacity: 0;
+    overflow: hidden;
 }
 </style>
