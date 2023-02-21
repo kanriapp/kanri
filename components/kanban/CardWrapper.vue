@@ -5,7 +5,7 @@
 <template>
   <div
     ref="cardRef"
-    class="kanban-card bg-blue-600 flex cursor-pointer flex-row justify-between"
+    class="kanban-card flex cursor-pointer flex-row justify-between bg-blue-600"
     :class="[cardTextClassZoom, cardBackgroundColor, 'text-gray-50']"
     @click.self="$emit('openKanbanModal', $event, index, card)"
   >
@@ -26,7 +26,7 @@
       class="cursor-pointer"
       @click="deleteCardWithAnimation(index)"
     >
-      <XMarkIcon class="text-dim-3 text-accent-hover h-4 w-4" />
+      <XMarkIcon class="text-dim-1 text-accent-hover h-4 w-4" />
     </div>
   </div>
 </template>
