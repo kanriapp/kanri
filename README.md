@@ -4,14 +4,20 @@ SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# Kanri
-[![Release](https://github.com/trobonox/kanri/actions/workflows/release.yml/badge.svg)](https://github.com/trobonox/kanri/actions/workflows/release.yml)
-[![Repo release version](https://img.shields.io/github/v/release/trobonox/kanri)](https://github.com/trobonox/kanri/releases)
-[![Repo license](https://img.shields.io/github/license/trobonox/kanri)](https://github.com/trobonox/kanri/blob/main/LICENSE)
-[![Discord server](https://img.shields.io/discord/965559337726656552)](https://discord.gg/AVqHrvxB9C)
-[![REUSE status](https://api.reuse.software/badge/github.com/trobonox/kanri)](https://api.reuse.software/info/github.com/trobonox/kanri)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/57040351/220422831-85f636ed-8eee-4083-ad67-c8f9f7d83d96.png" alt="Kanri banner" />
+    <b> Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you create kanban boards easily, right from your desktop. No internet connection or account needed! </b>
+    <br> <br>
+    <img src="https://github.com/trobonox/kanri/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" />
+    <br>
+    <img src="https://img.shields.io/github/license/trobonox/kanri" alt="Repo license" />
+    <img src="https://api.reuse.software/badge/github.com/trobonox/kanri" alt="Reuse status" />
+    <br>
+    <img src="https://img.shields.io/discord/965559337726656552" alt="Discord Status" />
+    <img src="https://img.shields.io/github/v/release/trobonox/kanri" alt="Release Version Badge" />
+</p>
 
-Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you create kanban boards easily, right from your desktop. No internet connection or account needed!
+Screenshot of a fully customized version of the app, in the main Kanban board view:
 ![kanri_customized](https://user-images.githubusercontent.com/57040351/210173518-2d99f0cc-9df8-4e0f-8c3c-f86969fab268.png)
 
 You can download it for free for Windows, Mac and Linux [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
