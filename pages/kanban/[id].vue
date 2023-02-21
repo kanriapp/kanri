@@ -323,11 +323,13 @@ const setColumnEditIndex = (columnIndex: number, eventType: string) => {
 const increaseZoomLevel = () => {
     if (columnZoomLevel.value + 1 > 2) return;
     columnZoomLevel.value++;
+    store.set("columnZoomLevel", columnZoomLevel.value);
 }
 
 const decreaseZoomLevel = () => {
     if (columnZoomLevel.value - 1 < -1) return;
     columnZoomLevel.value--;
+    store.set("columnZoomLevel", columnZoomLevel.value);
 }
 
 const keyDownListener = (e: KeyboardEvent) => {
@@ -370,12 +372,10 @@ const keyDownListener = (e: KeyboardEvent) => {
 
     if (e.key === "+") {
         increaseZoomLevel();
-        store.set("columnZoomLevel", columnZoomLevel.value);
     }
 
     if (e.key === "-") {
         decreaseZoomLevel();
-        store.set("columnZoomLevel", columnZoomLevel.value);
     }
 
     const columnID =
