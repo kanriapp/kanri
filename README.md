@@ -5,7 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 -->
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/57040351/220427404-93815467-b51f-4d14-9412-dbc20bbb0721.png" alt="Kanri banner" />
+    <img src="https://user-images.githubusercontent.com/57040351/220428170-c9bb670a-8154-4cf5-96f3-3967c8f966e9.png" alt="Kanri banner" />
     <b> Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you create kanban boards easily, right from your desktop. No internet connection or account needed! </b>
     <br> <br>
     <img src="https://github.com/trobonox/kanri/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" />
