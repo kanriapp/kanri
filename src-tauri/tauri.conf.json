@@ -12,6 +12,7 @@
     "tauri": {
         "allowlist": {
             "fs": {
+                "readFile": true,
                 "writeFile": true,
                 "scope": [
                     "$HOME/*",
