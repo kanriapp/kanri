@@ -31,9 +31,14 @@ You can download it for free for Windows, Mac and Linux [from the GitHub release
 
 > **Note**: This is a fairly early and untested version, it is advised to make regular JSON exports. Any testers that provide feedback are greatly appreciated.
 
-## 📋 Roadmap (planned features)
-The long term vision for this app is to keep improving current features, expand it with useful new tools (which can be suggested by users) and in the end also add cloud sync capabilities which would also allow collaboration at a later stage. To address privacy concerns, the backend will have self hosting instructions alongside the identical version hosted by me.
-Keep in mind that the cloud features are only set for the far future, a granular list of current priorities can be found [in the roadmap in the projects tab of this GitHub repo](https://github.com/trobonox/kanri/projects).
+## 📋 Roadmap
+Long term vision for the project:
+- 👷‍♂️ Improve current features and refactor to avoid tech debt
+- ➕ Add additional small/mid-sized features with high impact (reminders, sub-tasks, etc.)
+- 🚚 Work towards 1.0 release with features from the backlog like internationalization or a widget panel
+- 🔍 After 1.0: Possibility of cloud sync backend (hosted by me with possibility of self hosting)
+
+A granular list of priorities can be found [in the roadmap in the projects tab of this GitHub repo](https://github.com/trobonox/kanri/projects).
 
 This project is open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
 
