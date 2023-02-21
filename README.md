@@ -11,7 +11,7 @@ SPDX-License-Identifier: Apache-2.0
 [![Discord server](https://img.shields.io/discord/965559337726656552)](https://discord.gg/AVqHrvxB9C)
 [![REUSE status](https://api.reuse.software/badge/github.com/trobonox/kanri)](https://api.reuse.software/info/github.com/trobonox/kanri)
 
-Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you track create kanban boards easily, right from your desktop. No internet connection or account needed!
+Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you create kanban boards easily, right from your desktop. No internet connection or account needed!
 ![kanri_customized](https://user-images.githubusercontent.com/57040351/210173518-2d99f0cc-9df8-4e0f-8c3c-f86969fab268.png)
 
 You can download it for free for Windows, Mac and Linux [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
