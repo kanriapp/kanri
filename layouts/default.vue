@@ -37,6 +37,7 @@ onMounted(async () => {
 const cssVars = computed(() => {
     if (!savedColors.value) {
         store.set("activeTheme", "dark");
+        store.set("colors", dark);
 
         return {
             "--bg-primary": dark.bgPrimary,
