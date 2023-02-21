@@ -11,21 +11,19 @@ SPDX-License-Identifier: Apache-2.0
 [![Discord server](https://img.shields.io/discord/965559337726656552)](https://discord.gg/AVqHrvxB9C)
 [![REUSE status](https://api.reuse.software/badge/github.com/trobonox/kanri)](https://api.reuse.software/info/github.com/trobonox/kanri)
 
-Kanri is a Kanban board desktop app for Mac, Windows and Linux with a familiar layout (inspired by Trello) with a focus on simplicity and user experience. All of your data is saved locally and can be fully exported at any time, so there are no privacy concerns. Furthermore, the app is customizable with themes and custom backgrounds, you can see an example of a customized app below:
+Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you track create kanban boards easily, right from your desktop. No internet connection or account needed!
 ![kanri_customized](https://user-images.githubusercontent.com/57040351/210173518-2d99f0cc-9df8-4e0f-8c3c-f86969fab268.png)
 
-You can download it for free [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
+You can download it for free for Windows, Mac and Linux [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
 
-## ✨ Features:
-- Familiar Kanban board layout with clean design
-- Fully offline with local data saves in a JSON file
-- Theming system with 3 presets and custom theming ability (color scheme & custom background images)
-- Keyboard shortcuts for easy Kanban board navigation
-- Start page with board preview tiles
-- Full data exports as a JSON file
+## ✨ Why Kanri?:
+- 🏙 Modern - featuring a clean design & new technologies like Tauri
+- 👓 Familiar - uses a Kanban board layout (inspired by Trello)
+- 🧾 Offline - saves your data in a local `.json` file
+- 🛠 Customizable - allows for custom themes, background images and card colors
+- ⌨ With power users in mind - implements keyboard shortcuts to speed up board navigation
 
 > **Note**: This is a fairly early and untested version, it is advised to make regular JSON exports. Any testers that provide feedback are greatly appreciated.
-
 
 ## 📋 Roadmap (planned features)
 The long term vision for this app is to keep improving current features, expand it with useful new tools (which can be suggested by users) and in the end also add cloud sync capabilities which would also allow collaboration at a later stage. To address privacy concerns, the backend will have self hosting instructions alongside the identical version hosted by me.
