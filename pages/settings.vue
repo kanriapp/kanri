@@ -231,10 +231,7 @@ const themeIconClass = (theme: string) => {
 };
 
 const deleteAllData = async () => {
-    store.delete("boards");
-    store.delete("colors");
-    store.delete("savedCustomTheme");
-    store.set("activeTheme", "dark");
+    await store.reset();
 
     activeTheme.value = "dark";
     themeEditorDisplayed.value = false;
