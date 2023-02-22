@@ -150,7 +150,7 @@
             <h3 class="text-lg">
               Delete all data (themes and boards)
             </h3>
-            <span class="text-dim-2"><span class="text-red-500">Caution!</span> This will unreversibly
+            <span class="text-dim-2"><span class="text-red-500">Caution!</span> This will irreversibly
               delete all of your data!
             </span>
           </div>
