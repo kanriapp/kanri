@@ -292,6 +292,7 @@ const renameBoard = (index: number, name: string) => {
     }
 
     boards.value[index].title = name;
+    boards.value[index].lastEdited = new Date();
     store.set("boards", boards.value);
 }
 
