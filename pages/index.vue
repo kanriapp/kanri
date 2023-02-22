@@ -101,10 +101,16 @@
           You can import data from another Kanri instance or Trello® below:
         </p>
         <div class="flex flex-row gap-4">
-          <button @click="importFromKanri" class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold">
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+            @click="importFromKanri"
+          >
             Import from Kanri
           </button>
-          <button @click="importFromTrello" class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold">
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+            @click="importFromTrello"
+          >
             Import from Trello®
           </button>
         </div>
@@ -178,8 +184,8 @@
 import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator.js";
-import type { Board } from "@/types/kanban-types";
-import { kanriJsonSchema } from "@/types/json-schemas"
+import type { Board, Column } from "@/types/kanban-types";
+import { kanriBoardSchema, kanriJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
 
 import { Ref } from "vue";
 
@@ -210,6 +216,8 @@ onMounted(async () => {
     emitter.emit("hideSidebarBackArrow");
 
     boards.value = (await store.get("boards")) || [];
+
+    console.log("boardsyeet", boards.value);
 
     await setSorting();
 
@@ -405,9 +413,34 @@ const importFromTrello = async () => {
         }]
     });
 
-    if (selected === null) return;
+    if (selected === null || selected.length === 0) return;
 
-    const textFile = await readTextFile(selected as string);
+    const convertedBoards = [];
+    if (typeof selected === "string") {
+        const result = await trelloParse(selected);
+
+        if (result === undefined) return;
+
+        convertedBoards.push(result);
+    }
+    else {
+        for (let i = 0; i < selected.length; i++) {
+            const result = await trelloParse(selected[i]);
+
+            if (result === undefined) return;
+            convertedBoards.push(result);
+        }
+    }
+
+    if (convertedBoards.length === 0) return;
+
+    await store.set("boards", convertedBoards);
+
+    router.go(0);
+}
+
+const trelloParse = async (board: string) => {
+    const textFile = await readTextFile(board);
     if (!textFile) return;
 
     let parsedJson = null;
@@ -417,33 +450,73 @@ const importFromTrello = async () => {
     catch (error) {
         console.error("Could not parse imported JSON;", error);
         await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
+        return undefined;
     }
-    if (parsedJson === null) return;
+    if (parsedJson === null) return undefined;
 
     let zodParsed = null;
     try {
-        zodParsed = kanriJsonSchema.parse(parsedJson);
+        zodParsed = trelloJsonSchema.parse(parsedJson);
     }
     catch (error) {
         console.error(error);
         //@ts-ignore
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
-            return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
+            await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
+            return undefined;
         }
 
-        await message('Could not load JSON file! Please check the file is formatted correctly and not from an old version of Kanri.', { title: 'Kanri', type: 'error' });
+        await message('Could not load JSON file! Please check the file is formatted correctly.', { title: 'Kanri', type: 'error' });
+        return undefined;
     }
-    if (zodParsed === null) return;
+    if (zodParsed === null) return undefined;
 
-    store.set("boards", zodParsed.boards);
-    store.set("colors", zodParsed.colors);
-    store.set("activeTheme", zodParsed.activeTheme);
-    if (zodParsed.columnZoomLevel) {
-        store.set("columnZoomLevel", zodParsed.columnZoomLevel);
+    const columns: Column[] = []
+    zodParsed.lists.forEach((column) => {
+        if (column.closed === false) {
+            columns.push({
+                id: column.id,
+                title: column.name,
+                cards: []
+            });
+        }
+    });
+
+    zodParsed.cards.forEach((card) => {
+        const selectedCol = columns.filter((column) => {
+            return column.id === card.idList
+        });
+
+        if (selectedCol.length > 1 || selectedCol.length === 0) return undefined;
+
+        const kanriCard = {
+            id: card.id,
+            name: card.name,
+            description: card.desc
+        }
+
+        selectedCol[0].cards.push(kanriCard);
+    });
+
+    const kanriBoard = {
+        id: generateUniqueID(),
+        title: zodParsed.name,
+        lastEdited: new Date().toISOString(),
+        columns: columns
     }
 
-    // Manual refresh
-    router.go(0);
+    let kanriConvertedParsed = null;
+    try {
+        kanriConvertedParsed = kanriBoardSchema.parse(kanriBoard);
+    }
+    catch (error) {
+        console.error(error);
+        await message('Could not convert your Trello board. Please try again and report this bug to the developer if it happens again.', { title: 'Kanri', type: 'error' });
+        return undefined;
+    }
+    if (kanriConvertedParsed === null) return undefined;
+
+    return kanriConvertedParsed;
 }
 </script>
 

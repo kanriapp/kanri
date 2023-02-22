@@ -38,7 +38,7 @@ const kanriBoardBackgroundSchema = z.object({
     src: z.string()
 }).optional();
 
-const kanriBoardSchema =z.object({
+export const kanriBoardSchema = z.object({
     id: z.string(),
     title: z.string(),
     lastEdited: z.string(),
@@ -51,4 +51,20 @@ export const kanriJsonSchema = z.object({
     activeTheme: z.string(),
     colors: kanriThemeSchema,
     columnZoomLevel: z.string().optional()
+});
+
+export const trelloJsonSchema = z.object({
+    name: z.string(),
+    lists: z.array(z.object({
+        id: z.string(),
+        name: z.string(),
+        closed: z.boolean()
+    })),
+    cards: z.array(z.object({
+        id: z.string(),
+        idList: z.string(),
+        name: z.string(),
+        desc: z.string(),
+        closed: z.boolean()
+    }))
 });
