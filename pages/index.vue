@@ -217,8 +217,6 @@ onMounted(async () => {
 
     boards.value = (await store.get("boards")) || [];
 
-    console.log("boardsyeet", boards.value);
-
     await setSorting();
 
     loading.value = false;
