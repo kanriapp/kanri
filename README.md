@@ -24,7 +24,7 @@ You can download it for free for Windows, Mac and Linux [from the GitHub release
 
 ## ✨ Why Kanri?:
 - 🏙 Modern - featuring a clean design & new technologies like Tauri
-- 👓 Familiar - uses a Kanban board layout (inspired by Trello)
+- 👓 Familiar - uses a Kanban board layout (inspired by Trello®)
 - 🧾 Offline - saves your data in a local `.json` file
 - 🛠 Customizable - allows for custom themes, background images and card colors
 - ⌨ With power users in mind - implements keyboard shortcuts to speed up board navigation
