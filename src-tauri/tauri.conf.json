@@ -47,7 +47,7 @@
         "bundle": {
             "active": true,
             "category": "Productivity",
-            "copyright": "© 2022 Trobonox (hello@trobo.tech)",
+            "copyright": "© 2022-2023 Trobonox (hello@trobo.tech)",
             "deb": {
                 "depends": []
             },
