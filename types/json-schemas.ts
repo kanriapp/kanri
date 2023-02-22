@@ -36,7 +36,7 @@ const kanriBoardBackgroundSchema = z.object({
     blur: z.string(),
     brightness: z.string(),
     src: z.string()
-}).optional()
+}).optional();
 
 const kanriBoardSchema =z.object({
     id: z.string(),
@@ -44,7 +44,7 @@ const kanriBoardSchema =z.object({
     lastEdited: z.string(),
     columns: z.array(kanriColumnSchema),
     background: kanriBoardBackgroundSchema
-})
+});
 
 export const kanriJsonSchema = z.object({
     boards: z.array(kanriBoardSchema),
