@@ -183,14 +183,14 @@ import { kanriJsonSchema } from "@/types/json-schemas"
 
 import { Ref } from "vue";
 
-import { z, ZodError } from "zod";
-
 import { readTextFile } from '@tauri-apps/api/fs';
 import { open, message } from '@tauri-apps/api/dialog';
 
 import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { FunnelIcon } from "@heroicons/vue/24/outline";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"
+
+const router = useRouter();
 
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
@@ -392,7 +392,7 @@ const importFromKanri = async () => {
     }
 
     // Manual refresh
-    boards.value = (await store.get("boards")) || [];
+    router.go(0);
 }
 
 const importFromTrello = () => {
