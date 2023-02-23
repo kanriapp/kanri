@@ -23,6 +23,7 @@
       @setCardDescription="setCardDescription"
       @closeModal="closeKanbanModal"
       @setCardColor="setCardColor"
+      @setCardTasks="setCardTasks"
     />
     <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
@@ -204,12 +205,16 @@ const setCardColor = (columnId: string, cardId: number, color: string) => {
     colRefs[columnId].setCardColor(cardId, color);
 }
 
+const setCardTasks = (columnId: string, cardId: number, tasks: Array<{name: string, finished: boolean}>) => {
+    colRefs[columnId].setCardTasks(cardId, tasks);
+}
+
 const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
     kanbanModalVisible.value = true;
     draggingEnabled.value = false;
 
     if (kanbanModal.value == null) return;
-    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description);
+    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description, el.tasks);
 }
 
 const closeKanbanModal = (columnId: string) => {

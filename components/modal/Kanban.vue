@@ -5,7 +5,7 @@
 <template>
   <Modal
     ref="barebonesModal"
-    @closeModal="$emit('closeModal', columnId)"
+    @closeModal="$emit('closeModal', columnId); titleEditing = false; taskAddMode = false"
   >
     <template #content>
       <div class="flex min-h-[40rem] w-[36rem] flex-col">
@@ -48,17 +48,80 @@
           v-model="description"
           name="cardDescription"
           cols="6"
-          rows="70"
+          rows="60"
           maxlength="25000"
           placeholder="Enter a detailed description of your card here..."
-          class="bg-elevation-2 border-accent-focus pointer-events-auto mt-2 h-40 w-11/12 resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
+          class="bg-elevation-2 border-accent-focus pointer-events-auto mt-2 h-36 w-11/12 resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
           @focusin="emitter.emit('modalPreventClickOutsideClose')"
           @blur="updateDescription"
           @keypress.enter="updateDescription"
         />
 
         <h2
-          class="mb-2 mt-8 text-lg font-semibold"
+          class="mb-1 mt-6 text-lg font-semibold"
+        >
+          Tasks
+        </h2>
+        <div
+          class="flex w-full flex-col gap-2"
+        >
+          <div
+            v-if="tasks && tasks.length !== 0"
+            class="flex flex-col gap-1 pl-1"
+          >
+            <div
+              v-for="(task, index) in tasks"
+              :key="task.name"
+              class="flex w-full flex-row items-center justify-between gap-4 pr-8"
+            >
+              <div class="flex flex-row items-center gap-4">
+                <input
+                  v-model="task.finished"
+                  type="checkbox"
+                  class="h-5 w-5"
+                >
+                <span>{{ task.name }}</span>
+              </div>
+              <button @click="deleteTask(index)">
+                <XMarkIcon class="text-dim-1 text-accent-hover h-4 w-4" />
+              </button>
+            </div>
+          </div>
+          <input
+            v-if="taskAddMode"
+            ref="newTaskInput"
+            v-model="newTaskName"
+            type="text"
+            maxlength="1000"
+            placeholder="Enter a task name..."
+            class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto mr-8 rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+            @keypress.enter="createTask"
+          >
+          <div
+            v-if="taskAddMode"
+            class="mt-0.5 ml-0.5 flex flex-row gap-4"
+          >
+            <button
+              class="bg-accent rounded-md px-4 py-1"
+              @click="createTask"
+            >
+              Add
+            </button>
+            <button @click="taskAddMode = false; newTaskName = ''">
+              Cancel
+            </button>
+          </div>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pr-2 pl-1"
+            @click="enableTaskAddMode"
+          >
+            <PlusIcon class="text-accent h-6 w-6" />
+            <span>Add Task</span>
+          </button>
+        </div>
+
+        <h2
+          class="mb-2 mt-6 text-lg font-semibold"
         >
           Card Color
         </h2>
@@ -108,22 +171,28 @@
 <script setup lang="ts">
 import emitter from "@/utils/emitter"
 import { Ref } from "vue";
-import { XMarkIcon } from "@heroicons/vue/24/solid";
+import { PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 
 const emit = defineEmits<{
     (e: "closeModal", columnId: string): void,
     (e: "setCardDescription", columnId: string, cardIndex: number, description: string): void,
     (e: "setCardTitle", columnId: string, cardIndex: number, title: string): void,
-    (e: "setCardColor", columnId: string, cardIndex: number, color: string): void
+    (e: "setCardColor", columnId: string, cardIndex: number, color: string): void,
+    (e: "setCardTasks", columnId: string, cardIndex: number, tasks: Array<{name: string, finished: boolean}>): void
 }>();
 
 const columnId = ref("");
 const cardID = ref(0);
 const title = ref("");
 const description = ref("");
+const tasks: Ref<Array<{ name: string, finished: boolean }>> = ref([]);
 
 const titleEditing = ref(false);
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
+
+const newTaskName = ref("");
+const taskAddMode = ref(false);
+const newTaskInput: Ref<HTMLInputElement | null> = ref(null);
 
 const enableTitleEditing = () => {
     emitter.emit("modalPreventClickOutsideClose");
@@ -135,11 +204,36 @@ const enableTitleEditing = () => {
     });
 }
 
-const initModal = (columnIdParam: string, cardIdParam: number, titleParam: string, descriptionParam?: string) => {
+const initModal = (columnIdParam: string, cardIdParam: number, titleParam: string, descriptionParam?: string, tasksParam?: Array<{name: string, finished: boolean}>) => {
+    newTaskName.value = "";
+
     columnId.value = columnIdParam;
     cardID.value = cardIdParam;
     title.value = titleParam;
     description.value = descriptionParam || "";
+    tasks.value = tasksParam || [];
+}
+
+const enableTaskAddMode = () => {
+    taskAddMode.value = true;
+    nextTick(() => {
+        if (newTaskInput.value === null) return;
+        newTaskInput.value.focus();
+    });
+}
+
+const createTask = () => {
+    if (newTaskName.value == null || !(/\S/.test(newTaskName.value))) return;
+
+    tasks.value.push({ name: newTaskName.value, finished: false });
+    newTaskName.value = "";
+    taskAddMode.value = false;
+
+    emit("setCardTasks", columnId.value, cardID.value, tasks.value);
+}
+
+const deleteTask = (index: number) => {
+    tasks.value.splice(index, 1);
 }
 
 const updateDescription = () => {

@@ -332,6 +332,11 @@ const setCardColor = (cardIndex: number, color: string) => {
     updateStorage();
 };
 
+const setCardTasks = (cardIndex: number, tasks: Array<{name: string, finished: boolean}>) => {
+    cards.value[cardIndex].tasks = tasks;
+    updateStorage();
+};
+
 const openKanbanModal = (_: any, index: number, el: Card) => {
     disableDragging();
 
@@ -352,7 +357,7 @@ const updateStorage = () => {
     emit("updateStorage", column);
 };
 
-defineExpose({ setCardTitle, setCardDescription, setCardColor, closeModal, enableDragging });
+defineExpose({ setCardTitle, setCardDescription, setCardColor, setCardTasks, closeModal, enableDragging });
 </script>
 
 <style scoped>

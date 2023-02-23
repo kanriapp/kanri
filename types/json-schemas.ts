@@ -23,6 +23,10 @@ const kanriCardSchema = z.object({
     id: z.string().optional(),
     name: z.string(),
     description: z.string().optional(),
+    tasks: z.object({
+        name: z.string(),
+        finished: z.boolean()
+    }).optional(),
     color: z.string().optional()
 });
 

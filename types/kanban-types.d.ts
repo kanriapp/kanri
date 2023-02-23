@@ -26,6 +26,10 @@ export declare interface Card {
     id?: string,
     name: string,
     description?: string,
+    tasks?: Array<{
+        name: string,
+        finished: boolean
+    }>,
     color?: string
 }
 
