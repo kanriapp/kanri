@@ -499,6 +499,7 @@ const importFromTrello = async () => {
 
     await store.set("boards", convertedBoards);
 
+    // Manual refresh
     router.go(0);
 }
 
