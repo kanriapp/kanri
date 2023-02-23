@@ -482,7 +482,7 @@ const importFromKanriBoard = async () => {
                 return;
             }
             else {
-                const boardOverrideIndex = convertedBoards.indexOf(checkForDuplicates);
+                const boardOverrideIndex = convertedBoards.indexOf(checkForDuplicates[0]);
                 convertedBoards[boardOverrideIndex] = result;
             }
         }
@@ -506,8 +506,9 @@ const importFromKanriBoard = async () => {
                     return;
                 }
                 else {
-                    const boardOverrideIndex = convertedBoards.indexOf(checkForDuplicates);
+                    const boardOverrideIndex = convertedBoards.indexOf(checkForDuplicates[0]);
                     convertedBoards[boardOverrideIndex] = result;
+                    continue;
                 }
             }
 
@@ -518,9 +519,6 @@ const importFromKanriBoard = async () => {
     if (convertedBoards.length === 0) return;
 
     await store.set("boards", convertedBoards);
-
-    // Manual refresh
-    router.go(0);
 }
 
 const kanriParse = async (board: string) => {
