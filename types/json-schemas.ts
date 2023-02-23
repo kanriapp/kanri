@@ -4,7 +4,7 @@
 
 import { z } from "zod";
 
-const kanriThemeSchema = z.object({
+export const kanriThemeSchema = z.object({
     accent: z.string(),
     accentDarker: z.string(),
     bgPrimary: z.string(),
