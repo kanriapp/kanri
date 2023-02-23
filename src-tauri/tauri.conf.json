@@ -24,7 +24,8 @@
             "dialog": {
                 "save": true,
                 "open": true,
-                "message": true
+                "message": true,
+                "ask": true
             },
             "shell": {
                 "all": false,
