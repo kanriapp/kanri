@@ -146,7 +146,7 @@
             class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
             @click="importFromTrelloBoard"
           >
-            Import from Trello
+            Import from Trello®
           </button>
         </div>
       </div>
