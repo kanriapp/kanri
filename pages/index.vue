@@ -98,7 +98,7 @@
           Have some data already?
         </h3>
         <p class="mb-4">
-          You can import data from another Kanri instance or Trello® below:
+          You can import data from another Kanri (or KanbanElectron) instance or Trello® below:
         </p>
         <div class="flex flex-row gap-4">
           <button
@@ -106,6 +106,12 @@
             @click="importFromKanri"
           >
             Import from Kanri
+          </button>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+            @click="importFromKanbanElectron"
+          >
+            Import from KanbanElectron
           </button>
           <button
             class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
@@ -185,7 +191,7 @@ import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator.js";
 import type { Board, Column } from "@/types/kanban-types";
-import { kanriBoardSchema, kanriJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
+import { kanriBoardSchema, kanriJsonSchema, kanbanElectronJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
 
 import { Ref } from "vue";
 
@@ -392,6 +398,65 @@ const importFromKanri = async () => {
     if (zodParsed === null) return;
 
     store.set("boards", zodParsed.boards);
+    store.set("colors", zodParsed.colors);
+    store.set("activeTheme", zodParsed.activeTheme);
+    if (zodParsed.columnZoomLevel) {
+        store.set("columnZoomLevel", zodParsed.columnZoomLevel);
+    }
+
+    // Manual refresh
+    router.go(0);
+}
+
+const importFromKanbanElectron = async () => {
+    const selected = await open({
+        multiple: false,
+        filters: [{
+            name: 'JSON File',
+            extensions: ['json']
+        }]
+    });
+
+    if (selected === null) return;
+
+    const textFile = await readTextFile(selected as string);
+    if (!textFile) return;
+
+    let parsedJson = null;
+    try {
+        parsedJson = JSON.parse(textFile);
+    }
+    catch (error) {
+        console.error("Could not parse imported JSON;", error);
+        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
+    }
+    if (parsedJson === null) return;
+
+    let zodParsed = null;
+    try {
+        zodParsed = kanbanElectronJsonSchema.parse(parsedJson);
+    }
+    catch (error) {
+        console.error(error);
+        //@ts-ignore
+        if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
+            return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
+        }
+
+        await message('Could not load JSON file! Please check the file is formatted correctly and exported from the lastest version of KanbanElectron.', { title: 'Kanri', type: 'error' });
+    }
+    if (zodParsed === null) return;
+
+    const convertedBoards: Array<any> = []
+    zodParsed.boards.forEach(board => {
+        convertedBoards.push({
+            id: board.id,
+            title: board.title,
+            columns: board.lists
+        });
+    });
+
+    store.set("boards", convertedBoards);
     store.set("colors", zodParsed.colors);
     store.set("activeTheme", zodParsed.activeTheme);
     if (zodParsed.columnZoomLevel) {

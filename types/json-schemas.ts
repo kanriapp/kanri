@@ -41,13 +41,26 @@ const kanriBoardBackgroundSchema = z.object({
 export const kanriBoardSchema = z.object({
     id: z.string(),
     title: z.string(),
-    lastEdited: z.string(),
+    lastEdited: z.string().optional(),
     columns: z.array(kanriColumnSchema),
     background: kanriBoardBackgroundSchema
 });
 
+export const kanbanElectronBoardSchema = z.object({
+    id: z.string(),
+    title: z.string(),
+    lists: z.array(kanriColumnSchema)
+});
+
 export const kanriJsonSchema = z.object({
     boards: z.array(kanriBoardSchema),
+    activeTheme: z.string(),
+    colors: kanriThemeSchema,
+    columnZoomLevel: z.string().optional()
+});
+
+export const kanbanElectronJsonSchema = z.object({
+    boards: z.array(kanbanElectronBoardSchema),
     activeTheme: z.string(),
     colors: kanriThemeSchema,
     columnZoomLevel: z.string().optional()
