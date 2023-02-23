@@ -49,13 +49,22 @@
         "
       >
       <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
-        <button
-          class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-          @click="showCustomBgModal = true"
-        >
-          <PhotoIcon class="h-6 w-6" />
-          <span>Change Background</span>
-        </button>
+        <div class="flex flex-row gap-2">
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+            @click="showCustomBgModal = true"
+          >
+            <PhotoIcon class="h-6 w-6" />
+            <span>Change Background</span>
+          </button>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+            @click="exportBoardToJson"
+          >
+            <ArrowUpOnSquareIcon class="h-6 w-6" />
+            <span>Export Board</span>
+          </button>
+        </div>
         <div class="flex flex-row">
           <button
             class="bg-elevation-1 bg-elevation-2-hover transition-button rounded-l-2xl px-2 py-1"
@@ -133,6 +142,8 @@ import { generateUniqueID } from "@/utils/idGenerator";
 import type { Board, Card, Column } from "@/types/kanban-types";
 
 import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { save } from "@tauri-apps/api/dialog";
+import { writeTextFile } from "@tauri-apps/api/fs";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
 import { default as KanbanModal } from "@/components/modal/Kanban.vue";
@@ -141,7 +152,7 @@ import { Ref } from "vue";
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { PlusIcon, MinusIcon } from "@heroicons/vue/24/solid";
-import { PhotoIcon } from "@heroicons/vue/24/outline";
+import { PhotoIcon, ArrowUpOnSquareIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
 const route = useRoute();
@@ -468,6 +479,28 @@ const updateStorage = () => {
     boards.value[currentBoardIndex] = board.value; // Override old board with new one
     store.set("boards", boards.value); // Override all saved boards with new altered array which includes modified current board
 };
+
+const exportBoardToJson = async () => {
+    const filePath = await save({
+        title: "Select file to export data to",
+        defaultPath: `./kanri_board_${board.value.id}_export.json`,
+        filters: [
+            {
+                name: "JSON File",
+                extensions: ["json"],
+            },
+        ],
+    });
+
+    const fileContents = JSON.stringify(
+        board.value,
+        null,
+        2
+    );
+
+    if (filePath == null) return;
+    await writeTextFile(filePath, fileContents);
+}
 </script>
 
 <style scoped>

@@ -278,7 +278,5 @@ const exportJSON = async () => {
 
     if (filePath == null) return;
     await writeTextFile(filePath, fileContents);
-
-    // TODO: allow importing from JSON
 };
 </script>
