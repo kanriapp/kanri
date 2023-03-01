@@ -54,6 +54,11 @@
       id="icons-bottom"
       class="flex flex-col items-center gap-4"
     >
+      <nuxt-link to="/import">
+        <div class="bg-elevation-2-hover transition-button rounded-md p-2">
+          <ArrowsRightLeftIcon class="h-7 w-7" />
+        </div>
+      </nuxt-link>
       <button
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="helpModalVisible = true"
@@ -72,7 +77,7 @@
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
 
-import { Cog6ToothIcon, HomeIcon, PlusCircleIcon, QuestionMarkCircleIcon, ArrowUturnLeftIcon } from "@heroicons/vue/24/outline";
+import { Cog6ToothIcon, HomeIcon, PlusCircleIcon, QuestionMarkCircleIcon, ArrowUturnLeftIcon, ArrowsRightLeftIcon } from "@heroicons/vue/24/outline";
 
 const helpModalVisible = ref(false);
 const newBoardModalVisible = ref(false);
