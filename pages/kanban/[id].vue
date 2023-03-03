@@ -25,6 +25,21 @@
       @setCardColor="setCardColor"
       @setCardTasks="setCardTasks"
     />
+    <ModalRenameBoard
+      v-show="renameBoardModalVisible"
+      @closeModal="renameBoardModalVisible = false"
+      @renameBoard="renameBoard"
+    />
+
+    <ModalConfirmation
+      v-show="deleteBoardModalVisible"
+      title="Delete Board?"
+      description="Are you sure you want to delete the board? This action is irreverisble."
+      confirm-button-text="Delete"
+      close-button-text="Cancel"
+      @closeModal="deleteBoardModalVisible = false"
+      @confirmAction="deleteBoard"
+    />
     <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
         v-if="!boardTitleEditing"
@@ -58,13 +73,6 @@
             <PhotoIcon class="h-6 w-6" />
             <span>Change Background</span>
           </button>
-          <button
-            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-            @click="exportBoardToJson"
-          >
-            <ArrowUpOnSquareIcon class="h-6 w-6" />
-            <span>Export Board</span>
-          </button>
         </div>
         <div class="flex flex-row">
           <button
@@ -79,6 +87,44 @@
           >
             <MinusIcon class="h-6 w-6" />
           </button>
+          <VDropdown
+            :distance="2"
+            placement="bottom-end"
+          >
+            <button
+              class="bg-elevation-1 bg-elevation-2-hover transition-button ml-4 h-full rounded-md px-2"
+              @click.prevent
+            >
+              <EllipsisHorizontalIcon class="h-6 w-6" />
+            </button>
+            <template
+              #popper
+            >
+              <div class="flex flex-col">
+                <button
+                  v-close-popper
+                  class="px-4 py-1.5 hover:bg-gray-200"
+                  @click="renameBoardModal(getBoardIndex())"
+                >
+                  Rename Board
+                </button>
+                <button
+                  v-close-popper
+                  class="px-4 py-1.5 hover:bg-gray-200"
+                  @click="exportBoardToJson"
+                >
+                  Export Board
+                </button>
+                <button
+                  v-close-popper
+                  class="px-4 py-1.5 hover:bg-gray-200"
+                  @click="deleteBoardModal(getBoardIndex())"
+                >
+                  Delete Board
+                </button>
+              </div>
+            </template>
+          </VDropdown>
         </div>
       </div>
     </div>
@@ -152,11 +198,12 @@ import { Ref } from "vue";
 
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { PlusIcon, MinusIcon } from "@heroicons/vue/24/solid";
-import { PhotoIcon, ArrowUpOnSquareIcon } from "@heroicons/vue/24/outline";
+import { PlusIcon, MinusIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
+import { PhotoIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
 const route = useRoute();
+const router = useRouter();
 
 const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ id: "123", title: "", columns: [] });
@@ -180,6 +227,9 @@ const bgBrightness = ref("100%");
 const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
 const kanbanModalVisible = ref(false);
 const kanbanModal = ref<InstanceType<typeof KanbanModal> | null>(null);
+
+const deleteBoardModalVisible = ref(false);
+const renameBoardModalVisible = ref(false);
 
 const cssVars = computed(() => {
     return {
@@ -301,6 +351,8 @@ onMounted(async () => {
         columnCardAddMode.value = false;
         columnTitleEditing.value = false;
     });
+
+    console.log(getBoardIndex());
 });
 
 onBeforeUnmount(() => {
@@ -505,6 +557,51 @@ const exportBoardToJson = async () => {
 
     if (filePath == null) return;
     await writeTextFile(filePath, fileContents);
+}
+
+const renameBoardModal = (index: number) => {
+    const selectedBoard = boards.value[index];
+    if (selectedBoard == null) {
+        return console.error("Could not find board with index: ", index);
+    }
+
+    emitter.emit("openBoardRenameModal", { index: index, board: selectedBoard });
+    renameBoardModalVisible.value = true;
+};
+
+const renameBoard = (index: number, name: string) => {
+    if (boards.value[index] == null) {
+        return console.error("Could not find board with index: ", index);
+    }
+
+    boards.value[index].title = name;
+    boards.value[index].lastEdited = new Date();
+    store.set("boards", boards.value);
+}
+
+const deleteBoardModal = (index: number | undefined) => {
+    if (index == undefined) return console.error("Undefined board to delete, this should not happen!");
+
+    const selectedBoard = boards.value[index];
+    if (selectedBoard == null) {
+        return console.error("Could not find board with index: ", index);
+    }
+
+    emitter.emit("openBoardDeleteModal", { index: index, description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.` });
+    deleteBoardModalVisible.value = true;
+}
+
+const deleteBoard = async (boardIndex: number | undefined) => {
+    if (boardIndex === -1 || boardIndex == undefined) return;
+
+    boards.value.splice(boardIndex, 1);
+    store.set("boards", boards.value);
+
+    router.push("/");
+};
+
+const getBoardIndex = () => {
+    return boards.value.indexOf(board.value);
 }
 </script>
 
