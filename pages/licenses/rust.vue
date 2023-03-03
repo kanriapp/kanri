@@ -6656,7 +6656,7 @@
           <li><a href=" https://github.com/Diggsey/rust-field-offset ">field-offset 0.3.4</a></li>
           <li><a href=" https://github.com/cbreeden/fxhash ">fxhash 0.2.1</a></li>
           <li><a href=" https://github.com/TedDriggs/ident_case ">ident_case 1.0.1</a></li>
-          <li><a href=" https://github.com/trobonox/tauri ">kanri 0.3.3</a></li>
+          <li><a href=" https://github.com/trobonox/kanri ">kanri 0.4.0</a></li>
           <li><a href=" https://github.com/reem/rust-mac.git ">mac 0.1.1</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk 0.6.0</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk-context 0.1.1</a></li>

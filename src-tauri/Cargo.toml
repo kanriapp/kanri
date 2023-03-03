@@ -4,11 +4,11 @@
 
 [package]
 name = "kanri"
-version = "0.3.3"
+version = "0.4.0"
 description = "Offline kanban board application"
 authors = ["trobonox"]
 license = "Apache-2.0"
-repository = "https://github.com/trobonox/tauri"
+repository = "https://github.com/trobonox/kanri"
 default-run = "kanri"
 edition = "2021"
 rust-version = "1.57"
