@@ -351,8 +351,6 @@ onMounted(async () => {
         columnCardAddMode.value = false;
         columnTitleEditing.value = false;
     });
-
-    console.log(getBoardIndex());
 });
 
 onBeforeUnmount(() => {

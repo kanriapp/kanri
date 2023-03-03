@@ -349,8 +349,6 @@ const importThemeFromJson = async () => {
     }
     if (parsedJson === null) return;
 
-    console.log(parsedJson);
-
     let zodParsed = null;
     try {
         zodParsed = kanriThemeSchema.parse(parsedJson);
