@@ -98,28 +98,14 @@
           Have some data already?
         </h3>
         <p class="mb-4">
-          You can import data from another Kanri (or KanbanElectron) instance or Trello® below:
+          You can import data from other sources using the import/export menu:
         </p>
-        <div class="flex flex-row gap-4">
-          <button
-            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-            @click="importFromKanri"
-          >
-            Import from Kanri
-          </button>
-          <button
-            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-            @click="importFromKanbanElectron"
-          >
-            Import from KanbanElectron
-          </button>
-          <button
-            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-            @click="importFromTrello"
-          >
-            Import from Trello®
-          </button>
-        </div>
+        <nuxt-link
+          class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 text-center font-semibold"
+          to="/import"
+        >
+          Open Import/Export menu
+        </nuxt-link>
       </div>
 
       <div
@@ -190,19 +176,13 @@
 import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator.js";
-import type { Board, Column } from "@/types/kanban-types";
-import { kanriBoardSchema, kanriJsonSchema, kanbanElectronJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
+import type { Board } from "@/types/kanban-types";
 
 import { Ref } from "vue";
-
-import { readTextFile } from '@tauri-apps/api/fs';
-import { open, message } from '@tauri-apps/api/dialog';
 
 import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { FunnelIcon } from "@heroicons/vue/24/outline";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"
-
-const router = useRouter();
 
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
@@ -356,231 +336,6 @@ const sortBoardsByEditDate = () => {
     });
     store.set("boardSortingOption", "edited");
     sortingOptionText.value = "Sort by edit date";
-}
-
-const importFromKanri = async () => {
-    const selected = await open({
-        multiple: false,
-        filters: [{
-            name: 'JSON File',
-            extensions: ['json']
-        }]
-    });
-
-    if (selected === null) return;
-
-    const textFile = await readTextFile(selected as string);
-    if (!textFile) return;
-
-    let parsedJson = null;
-    try {
-        parsedJson = JSON.parse(textFile);
-    }
-    catch (error) {
-        console.error("Could not parse imported JSON;", error);
-        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
-    }
-    if (parsedJson === null) return;
-
-    let zodParsed = null;
-    try {
-        zodParsed = kanriJsonSchema.parse(parsedJson);
-    }
-    catch (error) {
-        console.error(error);
-        //@ts-ignore
-        if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
-            return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
-        }
-
-        await message('Could not load JSON file! Please check the file is formatted correctly and not from an old version of Kanri.', { title: 'Kanri', type: 'error' });
-    }
-    if (zodParsed === null) return;
-
-    store.set("boards", zodParsed.boards);
-    store.set("colors", zodParsed.colors);
-    store.set("activeTheme", zodParsed.activeTheme);
-    if (zodParsed.columnZoomLevel) {
-        store.set("columnZoomLevel", zodParsed.columnZoomLevel);
-    }
-
-    // Manual refresh
-    router.go(0);
-}
-
-const importFromKanbanElectron = async () => {
-    const selected = await open({
-        multiple: false,
-        filters: [{
-            name: 'JSON File',
-            extensions: ['json']
-        }]
-    });
-
-    if (selected === null) return;
-
-    const textFile = await readTextFile(selected as string);
-    if (!textFile) return;
-
-    let parsedJson = null;
-    try {
-        parsedJson = JSON.parse(textFile);
-    }
-    catch (error) {
-        console.error("Could not parse imported JSON;", error);
-        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
-    }
-    if (parsedJson === null) return;
-
-    let zodParsed = null;
-    try {
-        zodParsed = kanbanElectronJsonSchema.parse(parsedJson);
-    }
-    catch (error) {
-        console.error(error);
-        //@ts-ignore
-        if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
-            return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
-        }
-
-        await message('Could not load JSON file! Please check the file is formatted correctly and exported from the lastest version of KanbanElectron.', { title: 'Kanri', type: 'error' });
-    }
-    if (zodParsed === null) return;
-
-    const convertedBoards: Array<any> = []
-    zodParsed.boards.forEach(board => {
-        convertedBoards.push({
-            id: board.id,
-            title: board.title,
-            columns: board.lists
-        });
-    });
-
-    store.set("boards", convertedBoards);
-    store.set("colors", zodParsed.colors);
-    store.set("activeTheme", zodParsed.activeTheme);
-    if (zodParsed.columnZoomLevel) {
-        store.set("columnZoomLevel", zodParsed.columnZoomLevel);
-    }
-
-    // Manual refresh
-    router.go(0);
-}
-
-const importFromTrello = async () => {
-    const selected = await open({
-        multiple: true,
-        filters: [{
-            name: 'JSON File',
-            extensions: ['json']
-        }]
-    });
-
-    if (selected === null || selected.length === 0) return;
-
-    const convertedBoards = [];
-    if (typeof selected === "string") {
-        const result = await trelloParse(selected);
-
-        if (result === undefined) return;
-
-        convertedBoards.push(result);
-    }
-    else {
-        for (let i = 0; i < selected.length; i++) {
-            const result = await trelloParse(selected[i]);
-
-            if (result === undefined) return;
-            convertedBoards.push(result);
-        }
-    }
-
-    if (convertedBoards.length === 0) return;
-
-    await store.set("boards", convertedBoards);
-
-    // Manual refresh
-    router.go(0);
-}
-
-const trelloParse = async (board: string) => {
-    const textFile = await readTextFile(board);
-    if (!textFile) return;
-
-    let parsedJson = null;
-    try {
-        parsedJson = JSON.parse(textFile);
-    }
-    catch (error) {
-        console.error("Could not parse imported JSON;", error);
-        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
-        return undefined;
-    }
-    if (parsedJson === null) return undefined;
-
-    let zodParsed = null;
-    try {
-        zodParsed = trelloJsonSchema.parse(parsedJson);
-    }
-    catch (error) {
-        console.error(error);
-        //@ts-ignore
-        if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
-            await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
-            return undefined;
-        }
-
-        await message('Could not load JSON file! Please check the file is formatted correctly.', { title: 'Kanri', type: 'error' });
-        return undefined;
-    }
-    if (zodParsed === null) return undefined;
-
-    const columns: Column[] = []
-    zodParsed.lists.forEach((column) => {
-        if (column.closed === false) {
-            columns.push({
-                id: column.id,
-                title: column.name,
-                cards: []
-            });
-        }
-    });
-
-    zodParsed.cards.forEach((card) => {
-        const selectedCol = columns.filter((column) => {
-            return column.id === card.idList
-        });
-
-        if (selectedCol.length > 1 || selectedCol.length === 0) return undefined;
-
-        const kanriCard = {
-            id: card.id,
-            name: card.name,
-            description: card.desc
-        }
-
-        selectedCol[0].cards.push(kanriCard);
-    });
-
-    const kanriBoard = {
-        id: generateUniqueID(),
-        title: zodParsed.name,
-        lastEdited: new Date().toISOString(),
-        columns: columns
-    }
-
-    let kanriConvertedParsed = null;
-    try {
-        kanriConvertedParsed = kanriBoardSchema.parse(kanriBoard);
-    }
-    catch (error) {
-        console.error(error);
-        await message('Could not convert your Trello board. Please try again and report this bug to the developer if it happens again.', { title: 'Kanri', type: 'error' });
-        return undefined;
-    }
-    if (kanriConvertedParsed === null) return undefined;
-
-    return kanriConvertedParsed;
 }
 </script>
 

@@ -32,10 +32,10 @@
             Exports all of your data (boards, themes, other preferences like zoom) into one full .json file
           </p>
           <button
-            class="text-buttons bg-accent transition-button mt-4 rounded-md px-4 py-2"
+            class="bg-elevation-1 bg-elevation-2-hover border-accent mt-4 cursor-pointer rounded-md border border-dotted p-2 px-8 font-semibold"
             @click="exportJSON()"
           >
-            Export
+            Export all data
           </button>
         </div>
       </div>
@@ -49,28 +49,10 @@
         Import full data or individual boards from Kanri, KanbanElectron or Trello®
       </p>
       <div>
-        <h3 class="text-lg font-semibold tracking-tight">
-          Full import
-        </h3>
-        <span class="text-red-500">WARNING: This overrides all of your data with what you import!</span>
-        <div class="mt-2 flex flex-row gap-4">
-          <button
-            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-            @click="importFromKanriFull"
-          >
-            Import from Kanri
-          </button>
-          <button
-            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-            @click="importFromKanbanElectronFull"
-          >
-            Import from KanbanElectron
-          </button>
-        </div>
         <h3 class="mt-4 text-lg font-semibold tracking-tight">
-          Individual board import
+          Partial import (individual board)
         </h3>
-        <span class="text-dim-2">Note: you can select multiple boards at once.</span>
+        <span class="text-dim-2">One file equals one board to import. Note: you can select multiple files/boards to import at once.</span>
         <div class="mt-2 flex flex-row gap-4">
           <button
             class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
@@ -83,6 +65,24 @@
             @click="importFromTrelloBoard"
           >
             Import from Trello®
+          </button>
+        </div>
+        <h3 class="mt-4 text-lg font-semibold tracking-tight">
+          Full import
+        </h3>
+        <span class="text-red-500">Imports complete data from one file. WARNING: This overrides all of your data with what you import!</span>
+        <div class="mt-2 flex flex-row gap-4">
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+            @click="importFromKanriFull"
+          >
+            Import from Kanri
+          </button>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+            @click="importFromKanbanElectronFull"
+          >
+            Import from KanbanElectron
           </button>
         </div>
       </div>
