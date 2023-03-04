@@ -95,6 +95,24 @@
           Select the colors for your custom theme:
         </h3>
         <CustomThemeEditor />
+        <h3 class="font-semibold">
+          Or import/export a custom theme:
+        </h3>
+        <span class="text-dim-2 text-base">Note: imports override your current theme so export any custom theme which you don't want to lose in advance!</span>
+        <div class="my-2 flex flex-row gap-2">
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted px-4 py-1"
+            @click="importThemeFromJson"
+          >
+            Import
+          </button>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted px-4 py-1"
+            @click="exportThemeToJson"
+          >
+            Export
+          </button>
+        </div>
       </div>
 
       <button
@@ -104,6 +122,8 @@
         If the colors do not update, please click <span class="underline">here</span>.
       </button>
     </section>
+
+
 
     <section id="miscellaneous-settings">
       <h2 class="mt-8 mb-2 text-2xl font-bold">
@@ -150,7 +170,7 @@
             <h3 class="text-lg">
               Delete all data (themes and boards)
             </h3>
-            <span class="text-dim-2"><span class="text-red-500">Caution!</span> This will unreversibly
+            <span class="text-dim-2"><span class="text-red-500">Caution!</span> This will irreversibly
               delete all of your data!
             </span>
           </div>
@@ -171,9 +191,10 @@ import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
 import { light, dark, catppuccin } from "@/utils/themes.js";
 import { ThemeIdentifiers } from "@/types/kanban-types";
+import { kanriThemeSchema } from "@/types/json-schemas"
 
-import { message, save } from "@tauri-apps/api/dialog";
-import { writeTextFile } from "@tauri-apps/api/fs";
+import { message, save, open } from "@tauri-apps/api/dialog";
+import { writeTextFile, readTextFile } from "@tauri-apps/api/fs";
 import { enable, disable, isEnabled } from 'tauri-plugin-autostart-api';
 
 import { Ref } from "vue";
@@ -231,10 +252,7 @@ const themeIconClass = (theme: string) => {
 };
 
 const deleteAllData = async () => {
-    store.delete("boards");
-    store.delete("colors");
-    store.delete("savedCustomTheme");
-    store.set("activeTheme", "dark");
+    await store.reset();
 
     activeTheme.value = "dark";
     themeEditorDisplayed.value = false;
@@ -281,7 +299,72 @@ const exportJSON = async () => {
 
     if (filePath == null) return;
     await writeTextFile(filePath, fileContents);
-
-    // TODO: allow importing from JSON
 };
+
+const exportThemeToJson = async () => {
+    const filePath = await save({
+        title: "Select file to export data to",
+        defaultPath: "./kanri_theme_export.json",
+        filters: [
+            {
+                name: "JSON File",
+                extensions: ["json"],
+            },
+        ],
+    });
+
+    const colors = await store.get("colors");
+
+    const fileContents = JSON.stringify(
+        colors,
+        null,
+        2
+    );
+
+    if (filePath == null) return;
+    await writeTextFile(filePath, fileContents);
+}
+
+const importThemeFromJson = async () => {
+    const selected = await open({
+        multiple: false,
+        filters: [{
+            name: 'JSON File',
+            extensions: ['json']
+        }]
+    });
+
+    if (selected === null) return;
+
+    const textFile = await readTextFile(selected as string);
+    if (!textFile) return;
+
+    let parsedJson = null;
+    try {
+        parsedJson = JSON.parse(textFile);
+    }
+    catch (error) {
+        console.error("Could not parse imported JSON;", error);
+        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
+    }
+    if (parsedJson === null) return;
+
+    let zodParsed = null;
+    try {
+        zodParsed = kanriThemeSchema.parse(parsedJson);
+    }
+    catch (error) {
+        console.error(error);
+        await message('Could not load JSON file! Please check the file is formatted correctly and not from an old version of Kanri.', { title: 'Kanri', type: 'error' });
+    }
+    if (zodParsed === null) return;
+
+    await store.set("colors", zodParsed);
+    await store.set("activeTheme", "custom");
+    await store.set("savedCustomTheme", zodParsed);
+    emitter.emit("updateColors");
+
+    // Manual refresh
+    router.go(0);
+}
 </script>

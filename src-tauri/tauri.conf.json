@@ -7,11 +7,12 @@
     },
     "package": {
         "productName": "kanri",
-        "version": "0.3.3"
+        "version": "0.4.0"
     },
     "tauri": {
         "allowlist": {
             "fs": {
+                "readFile": true,
                 "writeFile": true,
                 "scope": [
                     "$HOME/*",
@@ -23,7 +24,8 @@
             "dialog": {
                 "save": true,
                 "open": true,
-                "message": true
+                "message": true,
+                "ask": true
             },
             "shell": {
                 "all": false,
@@ -46,7 +48,7 @@
         "bundle": {
             "active": true,
             "category": "Productivity",
-            "copyright": "© 2022 Trobonox (hello@trobo.tech)",
+            "copyright": "© 2022-2023 Trobonox (hello@trobo.tech)",
             "deb": {
                 "depends": []
             },

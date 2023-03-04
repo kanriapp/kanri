@@ -18,12 +18,12 @@ export const light = {
 };
 
 export const dark = {
-    bgPrimary: "#070c10",
-    elevation1: "#181a20",
-    elevation2: "#272b34",
-    elevation3: "#4b5364",
-    accent: "#2563eb",
-    accentDarker: "#1d4ed8",
+    bgPrimary: "#111112",
+    elevation1: "#1b1b1d",
+    elevation2: "#27272a",
+    elevation3: "#333338",
+    accent: "#2150c0",
+    accentDarker: "#17367d",
     text: "#f4f4f5",
     textD1: "#e4e4e7",
     textD2: "#d4d4d8",

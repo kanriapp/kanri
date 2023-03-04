@@ -25,7 +25,12 @@ export declare interface Column {
 export declare interface Card {
     id?: string,
     name: string,
-    description?: string
+    description?: string,
+    tasks?: Array<{
+        name: string,
+        finished: boolean
+    }>,
+    color?: string
 }
 
 export declare type ThemeIdentifiers = "dark" | "light" | "catppuccin" | "custom";

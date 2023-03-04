@@ -22,6 +22,23 @@
       @setCardTitle="setCardTitle"
       @setCardDescription="setCardDescription"
       @closeModal="closeKanbanModal"
+      @setCardColor="setCardColor"
+      @setCardTasks="setCardTasks"
+    />
+    <ModalRenameBoard
+      v-show="renameBoardModalVisible"
+      @closeModal="renameBoardModalVisible = false"
+      @renameBoard="renameBoard"
+    />
+
+    <ModalConfirmation
+      v-show="deleteBoardModalVisible"
+      title="Delete Board?"
+      description="Are you sure you want to delete the board? This action is irreverisble."
+      confirm-button-text="Delete"
+      close-button-text="Cancel"
+      @closeModal="deleteBoardModalVisible = false"
+      @confirmAction="deleteBoard"
     />
     <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
@@ -48,13 +65,15 @@
         "
       >
       <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
-        <button
-          class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-          @click="showCustomBgModal = true"
-        >
-          <PhotoIcon class="h-6 w-6" />
-          <span>Change Background</span>
-        </button>
+        <div class="flex flex-row gap-2">
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+            @click="showCustomBgModal = true"
+          >
+            <PhotoIcon class="h-6 w-6" />
+            <span>Change Background</span>
+          </button>
+        </div>
         <div class="flex flex-row">
           <button
             class="bg-elevation-1 bg-elevation-2-hover transition-button rounded-l-2xl px-2 py-1"
@@ -68,6 +87,44 @@
           >
             <MinusIcon class="h-6 w-6" />
           </button>
+          <VDropdown
+            :distance="2"
+            placement="bottom-end"
+          >
+            <button
+              class="bg-elevation-1 bg-elevation-2-hover transition-button ml-4 h-full rounded-md px-2"
+              @click.prevent
+            >
+              <EllipsisHorizontalIcon class="h-6 w-6" />
+            </button>
+            <template
+              #popper
+            >
+              <div class="flex flex-col">
+                <button
+                  v-close-popper
+                  class="px-4 py-1.5 hover:bg-gray-200"
+                  @click="renameBoardModal(getBoardIndex())"
+                >
+                  Rename Board
+                </button>
+                <button
+                  v-close-popper
+                  class="px-4 py-1.5 hover:bg-gray-200"
+                  @click="exportBoardToJson"
+                >
+                  Export Board
+                </button>
+                <button
+                  v-close-popper
+                  class="px-4 py-1.5 hover:bg-gray-200"
+                  @click="deleteBoardModal(getBoardIndex())"
+                >
+                  Delete Board
+                </button>
+              </div>
+            </template>
+          </VDropdown>
         </div>
       </div>
     </div>
@@ -132,6 +189,8 @@ import { generateUniqueID } from "@/utils/idGenerator";
 import type { Board, Card, Column } from "@/types/kanban-types";
 
 import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { save } from "@tauri-apps/api/dialog";
+import { writeTextFile } from "@tauri-apps/api/fs";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
 import { default as KanbanModal } from "@/components/modal/Kanban.vue";
@@ -139,11 +198,12 @@ import { Ref } from "vue";
 
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { PlusIcon, MinusIcon } from "@heroicons/vue/24/solid";
+import { PlusIcon, MinusIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
 const route = useRoute();
+const router = useRouter();
 
 const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ id: "123", title: "", columns: [] });
@@ -168,6 +228,9 @@ const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({}
 const kanbanModalVisible = ref(false);
 const kanbanModal = ref<InstanceType<typeof KanbanModal> | null>(null);
 
+const deleteBoardModalVisible = ref(false);
+const renameBoardModalVisible = ref(false);
+
 const cssVars = computed(() => {
     return {
         "--bg-custom-image": `url("${bgCustom.value}")`,
@@ -188,12 +251,20 @@ const setCardDescription = (columnId: string, cardId: number, description: strin
     colRefs[columnId].setCardDescription(cardId, description);
 }
 
+const setCardColor = (columnId: string, cardId: number, color: string) => {
+    colRefs[columnId].setCardColor(cardId, color);
+}
+
+const setCardTasks = (columnId: string, cardId: number, tasks: Array<{name: string, finished: boolean}>) => {
+    colRefs[columnId].setCardTasks(cardId, tasks);
+}
+
 const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
     kanbanModalVisible.value = true;
     draggingEnabled.value = false;
 
     if (kanbanModal.value == null) return;
-    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description);
+    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description, el.tasks);
 }
 
 const closeKanbanModal = (columnId: string) => {
@@ -318,11 +389,13 @@ const setColumnEditIndex = (columnIndex: number, eventType: string) => {
 const increaseZoomLevel = () => {
     if (columnZoomLevel.value + 1 > 2) return;
     columnZoomLevel.value++;
+    store.set("columnZoomLevel", columnZoomLevel.value);
 }
 
 const decreaseZoomLevel = () => {
     if (columnZoomLevel.value - 1 < -1) return;
     columnZoomLevel.value--;
+    store.set("columnZoomLevel", columnZoomLevel.value);
 }
 
 const keyDownListener = (e: KeyboardEvent) => {
@@ -365,12 +438,10 @@ const keyDownListener = (e: KeyboardEvent) => {
 
     if (e.key === "+") {
         increaseZoomLevel();
-        store.set("columnZoomLevel", columnZoomLevel.value);
     }
 
     if (e.key === "-") {
         decreaseZoomLevel();
-        store.set("columnZoomLevel", columnZoomLevel.value);
     }
 
     const columnID =
@@ -463,6 +534,73 @@ const updateStorage = () => {
     boards.value[currentBoardIndex] = board.value; // Override old board with new one
     store.set("boards", boards.value); // Override all saved boards with new altered array which includes modified current board
 };
+
+const exportBoardToJson = async () => {
+    const filePath = await save({
+        title: "Select file to export data to",
+        defaultPath: `./kanri_board_${board.value.id}_export.json`,
+        filters: [
+            {
+                name: "JSON File",
+                extensions: ["json"],
+            },
+        ],
+    });
+
+    const fileContents = JSON.stringify(
+        board.value,
+        null,
+        2
+    );
+
+    if (filePath == null) return;
+    await writeTextFile(filePath, fileContents);
+}
+
+const renameBoardModal = (index: number) => {
+    const selectedBoard = boards.value[index];
+    if (selectedBoard == null) {
+        return console.error("Could not find board with index: ", index);
+    }
+
+    emitter.emit("openBoardRenameModal", { index: index, board: selectedBoard });
+    renameBoardModalVisible.value = true;
+};
+
+const renameBoard = (index: number, name: string) => {
+    if (boards.value[index] == null) {
+        return console.error("Could not find board with index: ", index);
+    }
+
+    boards.value[index].title = name;
+    boards.value[index].lastEdited = new Date();
+    store.set("boards", boards.value);
+}
+
+const deleteBoardModal = (index: number | undefined) => {
+    if (index == undefined) return console.error("Undefined board to delete, this should not happen!");
+
+    const selectedBoard = boards.value[index];
+    if (selectedBoard == null) {
+        return console.error("Could not find board with index: ", index);
+    }
+
+    emitter.emit("openBoardDeleteModal", { index: index, description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.` });
+    deleteBoardModalVisible.value = true;
+}
+
+const deleteBoard = async (boardIndex: number | undefined) => {
+    if (boardIndex === -1 || boardIndex == undefined) return;
+
+    boards.value.splice(boardIndex, 1);
+    store.set("boards", boards.value);
+
+    router.push("/");
+};
+
+const getBoardIndex = () => {
+    return boards.value.indexOf(board.value);
+}
 </script>
 
 <style scoped>

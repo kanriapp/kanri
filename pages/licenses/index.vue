@@ -24,12 +24,6 @@
         More JavaScript dependencies (includes dev deps)
       </nuxt-link>
       <nuxt-link
-        to="/licenses/extended_js"
-        class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
-      >
-        Summary of JavaScript dependencies
-      </nuxt-link>
-      <nuxt-link
         to="/licenses/rust"
         class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
       >
@@ -38,7 +32,7 @@
     </div>
 
     <pre>
-      Name: @vue/shared
+Name: @vue/shared
 Version: 3.2.47
 License: MIT
 Private: false
@@ -217,7 +211,7 @@ SOFTWARE.
 ---
 
 Name: ufo
-Version: 1.0.1
+Version: 1.1.0
 License: MIT
 Private: false
 Description: URL utils for humans
@@ -251,7 +245,7 @@ SOFTWARE.
 ---
 
 Name: ofetch
-Version: 1.0.0
+Version: 1.0.1
 License: MIT
 Private: false
 Description: A better fetch API. Works on node, browser and workers.
@@ -319,7 +313,7 @@ SOFTWARE.
 ---
 
 Name: unctx
-Version: 2.1.1
+Version: 2.1.2
 License: MIT
 Private: false
 Description: Composition-api in Vanilla js
@@ -353,7 +347,7 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.2.0
+Version: 3.2.3
 License: MIT
 Private: false
 Repository: undefined
@@ -386,7 +380,7 @@ SOFTWARE.
 ---
 
 Name: @nuxtjs/tailwindcss
-Version: 6.4.0
+Version: 6.4.1
 License: MIT
 Private: false
 Description: TailwindCSS module for Nuxt
@@ -420,7 +414,7 @@ SOFTWARE.
 ---
 
 Name: pinia
-Version: 2.0.30
+Version: 2.0.32
 License: MIT
 Private: false
 Description: Intuitive, type safe and flexible Store for Vue
@@ -452,94 +446,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
----
-
-Name: h3
-Version: 1.4.0
-License: MIT
-Private: false
-Description: Tiny JavaScript Server
-Repository: undefined
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
----
-
-Name: @unhead/vue
-Version: 1.0.21
-License: MIT
-Private: false
-Repository: git+https://github.com/harlan-zw/unhead.git
-Homepage: https://github.com/harlan-zw/unhead#readme
-Author: Harlan Wilton &lt;harlan@harlanzw.com>
-
----
-
-Name: @unhead/dom
-Version: 1.0.21
-License: MIT
-Private: false
-Repository: git+https://github.com/harlan-zw/unhead.git
-Homepage: https://github.com/harlan-zw/unhead#readme
-Author: Harlan Wilton &lt;harlan@harlanzw.com>
-
----
-
-Name: @vueuse/head
-Version: 1.0.25
-License: MIT
-Private: false
-Description: Document head manager for Vue 3. SSR ready.
-Repository: https://github.com/vueuse/head
-Author: EGOIST (https://egoist.sh)
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) 2020 EGOIST (https://egoist.sh)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 ---
 
@@ -577,8 +483,116 @@ SOFTWARE.
 
 ---
 
+Name: h3
+Version: 1.5.0
+License: MIT
+Private: false
+Description: Tiny JavaScript Server
+Repository: undefined
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
+Name: @unhead/shared
+Version: 1.1.14
+License: MIT
+Private: false
+Repository: git+https://github.com/unjs/unhead.git
+Homepage: https://unhead.harlanzw.com
+Author: Harlan Wilton &lt;harlan@harlanzw.com>
+
+---
+
+Name: @unhead/dom
+Version: 1.1.14
+License: MIT
+Private: false
+Repository: git+https://github.com/unjs/unhead.git
+Homepage: https://unhead.harlanzw.com
+Author: Harlan Wilton &lt;harlan@harlanzw.com>
+
+---
+
+Name: unhead
+Version: 1.1.14
+License: MIT
+Private: false
+Repository: git+https://github.com/unjs/unhead.git
+Homepage: https://unhead.harlanzw.com
+Author: Harlan Wilton &lt;harlan@harlanzw.com>
+
+---
+
+Name: @unhead/vue
+Version: 1.1.14
+License: MIT
+Private: false
+Repository: git+https://github.com/unjs/unhead.git
+Homepage: https://unhead.harlanzw.com
+Author: Harlan Wilton &lt;harlan@harlanzw.com>
+
+---
+
+Name: @vueuse/head
+Version: 1.1.9
+License: MIT
+Private: false
+Description: Document head manager for Vue 3. SSR ready.
+Repository: https://github.com/vueuse/head
+Author: EGOIST (https://egoist.sh)
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2020 EGOIST (https://egoist.sh)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
 Name: @pinia/nuxt
-Version: 0.4.6
+Version: 0.4.7
 License: MIT
 Private: false
 Description: Nuxt Module for pinia
@@ -705,19 +719,19 @@ SOFTWARE.
 
 ---
 
-Name: mitt
-Version: 3.0.0
+Name: @paralleldrive/cuid2
+Version: 2.1.0
 License: MIT
 Private: false
-Description: Tiny 200b functional Event Emitter / pubsub.
-Repository: undefined
-Homepage: https://github.com/developit/mitt
+Repository: git+https://github.com/ericelliott/cuid2.git
+Homepage: https://github.com/ericelliott/cuid2#readme
+Author: Eric Elliott
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) 2021 Jason Miller
+Copyright (c) 2022 Eric Elliott
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -740,23 +754,23 @@ SOFTWARE.
 
 ---
 
-Name: vue
-Version: 3.2.47
+Name: @noble/hashes
+Version: 1.2.0
 License: MIT
 Private: false
-Description: The progressive JavaScript framework for building modern web UI.
-Repository: git+https://github.com/vuejs/core.git
-Homepage: https://github.com/vuejs/core/tree/main/packages/vue#readme
-Author: Evan You
+Description: Audited & minimal 0-dependency JS implementation of SHA2, SHA3, RIPEMD, BLAKE2/3, HMAC, HKDF, PBKDF2, Scrypt
+Repository: https://github.com/paulmillr/noble-hashes.git
+Homepage: https://paulmillr.com/noble/
+Author: Paul Miller (https://paulmillr.com)
 License Copyright:
 ===
 
 The MIT License (MIT)
 
-Copyright (c) 2018-present, Yuxi (Evan) You
+Copyright (c) 2022 Paul Miller (https://paulmillr.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
+of this software and associated documentation files (the “Software”), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
@@ -765,23 +779,13 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-
----
-
-Name: @heroicons/vue
-Version: 2.0.15
-License: MIT
-Private: false
-Repository: https://github.com/tailwindlabs/heroicons.git
-Homepage: https://github.com/tailwindlabs/heroicons#readme
 
 ---
 
@@ -973,19 +977,20 @@ License Copyright:
 
 ---
 
-Name: smooth-dnd
-Version: 0.12.1
+Name: zod
+Version: 3.20.6
 License: MIT
 Private: false
-Description: Drag and Drop library
-Repository: https://github.com/kutlugsahin/smooth-dnd.git
-Author: Kutlu Sahin &lt;kutlugsahin@gmail.com>
+Description: TypeScript-first schema declaration and validation library with static type inference
+Repository: https://github.com/colinhacks/zod
+Homepage: https://zod.dev
+Author: Colin McDonnell &lt;colin@colinhacks.com>
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) 2019 Kutlu Sahin
+Copyright (c) 2020 Colin McDonnell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1005,40 +1010,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
----
-
-Name: vue3-smooth-dnd
-Version: 0.0.2
-License: MIT
-Private: false
-Description: Vue 3 wrappers for smooth-dnd library
-Repository: git+https://github.com/gilnd/vue3-smooth-dnd
-Author: Gilbert Ndresaj
-License Copyright:
-===
-
-The MIT License (MIT)
-
-Copyright (c) 2021, Gilbert Ndresaj
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 ---
 
@@ -1232,6 +1203,155 @@ License Copyright:
 
    END OF TERMS AND CONDITIONS
 
+
+---
+
+Name: mitt
+Version: 3.0.0
+License: MIT
+Private: false
+Description: Tiny 200b functional Event Emitter / pubsub.
+Repository: undefined
+Homepage: https://github.com/developit/mitt
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2021 Jason Miller
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
+Name: @heroicons/vue
+Version: 2.0.16
+License: MIT
+Private: false
+Repository: https://github.com/tailwindlabs/heroicons.git
+Homepage: https://github.com/tailwindlabs/heroicons#readme
+
+---
+
+Name: vue
+Version: 3.2.47
+License: MIT
+Private: false
+Description: The progressive JavaScript framework for building modern web UI.
+Repository: git+https://github.com/vuejs/core.git
+Homepage: https://github.com/vuejs/core/tree/main/packages/vue#readme
+Author: Evan You
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2018-present, Yuxi (Evan) You
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: smooth-dnd
+Version: 0.12.1
+License: MIT
+Private: false
+Description: Drag and Drop library
+Repository: https://github.com/kutlugsahin/smooth-dnd.git
+Author: Kutlu Sahin &lt;kutlugsahin@gmail.com>
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2019 Kutlu Sahin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
+Name: vue3-smooth-dnd
+Version: 0.0.2
+License: MIT
+Private: false
+Description: Vue 3 wrappers for smooth-dnd library
+Repository: git+https://github.com/gilnd/vue3-smooth-dnd
+Author: Gilbert Ndresaj
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2021, Gilbert Ndresaj
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ---
 

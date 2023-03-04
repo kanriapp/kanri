@@ -39,6 +39,7 @@
     </section>
 
     <section
+      v-if="!(boards.length === 0 && loading === false)"
       id="filters"
       class="mt-2"
     >
@@ -85,13 +86,26 @@
     <main id="boards">
       <div
         v-if="boards.length === 0 && loading === false"
-        class="items-left bg-elevation-1 mt-2 flex w-fit flex-col justify-center rounded-md p-2"
+        class="items-left mt-2 flex w-fit flex-col justify-center rounded-md p-2"
       >
         <h3 class="text-xl font-bold">
           So empty here!
         </h3>
         <span>Create a board to get started with tracking your tasks better.</span>
         <IconArrow />
+
+        <h3 class="mt-8 mb-0.5 text-xl font-bold">
+          Have some data already?
+        </h3>
+        <p class="mb-4">
+          You can import data from other sources using the import/export menu:
+        </p>
+        <nuxt-link
+          class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 text-center font-semibold"
+          to="/import"
+        >
+          Open Import/Export menu
+        </nuxt-link>
       </div>
 
       <div
@@ -270,6 +284,7 @@ const renameBoard = (index: number, name: string) => {
     }
 
     boards.value[index].title = name;
+    boards.value[index].lastEdited = new Date();
     store.set("boards", boards.value);
 }
 
