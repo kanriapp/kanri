@@ -9,7 +9,7 @@
       :style="cssVars"
     >
       <Sidebar class="fixed left-0 w-8" />
-      <div class="min-h-screen pl-[4rem]">
+      <div class="h-screen overflow-y-auto pl-[4rem]">
         <slot />
       </div>
     </div>
