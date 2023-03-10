@@ -149,37 +149,22 @@
         </div>
 
         <div class="flex w-[48rem] flex-row items-start justify-between">
-          <div>
-            <h3 class="text-lg">
-              Export data to JSON
-            </h3>
-            <span class="text-dim-2">
-              Backup all of your data (boards and themes) to a local JSON file.
-            </span>
+          <div class="mb-8 flex w-[48rem] flex-row items-start justify-between">
+            <div>
+              <h3 class="text-lg">
+                Delete all data (themes and boards)
+              </h3>
+              <span class="text-dim-2"><span class="text-red-500">Caution!</span> This will irreversibly
+                delete all of your data!
+              </span>
+            </div>
+            <button
+              class="text-buttons bg-accent transition-button rounded-md px-4 py-2"
+              @click="deleteBoardModalVisible = true"
+            >
+              Delete
+            </button>
           </div>
-          <button
-            class="text-buttons bg-accent transition-button rounded-md px-4 py-2"
-            @click="exportJSON()"
-          >
-            Export
-          </button>
-        </div>
-
-        <div class="mb-8 flex w-[48rem] flex-row items-start justify-between">
-          <div>
-            <h3 class="text-lg">
-              Delete all data (themes and boards)
-            </h3>
-            <span class="text-dim-2"><span class="text-red-500">Caution!</span> This will irreversibly
-              delete all of your data!
-            </span>
-          </div>
-          <button
-            class="text-buttons bg-accent transition-button rounded-md px-4 py-2"
-            @click="deleteBoardModalVisible = true"
-          >
-            Delete
-          </button>
         </div>
       </div>
     </section>
@@ -270,36 +255,6 @@ const toggleAutostart = async () => {
         await disable();
     }
 }
-
-const exportJSON = async () => {
-    const filePath = await save({
-        title: "Select file to export data to",
-        defaultPath: "./kanri_data_export.json",
-        filters: [
-            {
-                name: "JSON File",
-                extensions: ["json"],
-            },
-        ],
-    });
-
-    const savedBoards = await store.get("boards");
-    const activeTheme = await store.get("activeTheme");
-    const colors = await store.get("colors");
-
-    const fileContents = JSON.stringify(
-        {
-            boards: savedBoards,
-            activeTheme: activeTheme,
-            colors: colors,
-        },
-        null,
-        2
-    );
-
-    if (filePath == null) return;
-    await writeTextFile(filePath, fileContents);
-};
 
 const exportThemeToJson = async () => {
     const filePath = await save({
