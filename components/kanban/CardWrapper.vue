@@ -6,7 +6,7 @@
   <div
     ref="cardRef"
     class="kanban-card flex cursor-pointer flex-row justify-between bg-blue-600"
-    :class="[cardTextClassZoom, cardBackgroundColor, 'text-gray-50']"
+    :class="[cardTextClassZoom, cardBackgroundColor, cardTextColor]"
     @click.self="$emit('openKanbanModal', $event, index, card)"
   >
     <p
@@ -32,8 +32,9 @@
 </template>
 
 <script setup lang="ts">
+import { useTauriStore } from "@/stores/tauriStore";
+import { getContrast } from "@/utils/colorUtils"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-
 import { Card } from '~/types/kanban-types';
 
 const props = defineProps<{
@@ -50,7 +51,14 @@ const emit = defineEmits<{
     (e: "setCardTitle", index: number, name: string): void
 }>();
 
-const cardRef: Ref<HTMLDivElement | null> = ref(null)
+const store = useTauriStore().store;
+
+const savedColors = ref(null);
+const cardRef: Ref<HTMLDivElement | null> = ref(null);
+
+onMounted(async () => {
+    savedColors.value = await store.get("colors");
+})
 
 const cardTextClassZoom = computed(() => {
     switch (props.zoomLevel) {
@@ -75,6 +83,17 @@ const cardBackgroundColor = computed(() => {
     if (!props.card.color) return "bg-elevation-2";
 
     return props.card.color;
+})
+
+const cardTextColor = computed(() => {
+    if (cardBackgroundColor.value === "bg-elevation-2") {
+        if (savedColors.value) {
+            //@ts-ignore
+            return getContrast(savedColors.value.elevation2);
+        }
+    }
+
+    return "text-gray-50";
 })
 
 const deleteCardWithAnimation = (index: number) => {
