@@ -19,3 +19,24 @@ export const lightenColor = (col, amt) => {
 
     return `#${rr}${gg}${bb}`;
 };
+
+export const hexToRgb = (hex) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+export const getContrast = (hexcolor) => {
+    // Convert to RGB value.
+    const rgb = hexToRgb(hexcolor);
+    if (!rgb) return "text-gray-50";
+
+    // Get YIQ ratio.
+    const yiq = ((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000;
+
+    // Check contrast.
+    return (yiq >= 128) ? "text-gray-800" : "text-gray-50";
+}
