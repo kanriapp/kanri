@@ -28,6 +28,7 @@
       </div>
       <button
         v-if="showAddButton"
+        v-tooltip.left-start="'Home'"
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="$router.push('/')"
       >
@@ -35,6 +36,7 @@
       </button>
       <button
         v-else
+        v-tooltip.left-start="'Back'"
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="$router.go(-1)"
       >
@@ -54,18 +56,25 @@
       id="icons-bottom"
       class="flex flex-col items-center gap-4"
     >
-      <nuxt-link to="/import">
+      <nuxt-link
+        v-tooltip.left-start="'Import/Export'"
+        to="/import"
+      >
         <div class="bg-elevation-2-hover transition-button rounded-md p-2">
           <ArrowsRightLeftIcon class="h-7 w-7" />
         </div>
       </nuxt-link>
       <button
+        v-tooltip.left-start="'Help'"
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="helpModalVisible = true"
       >
         <QuestionMarkCircleIcon class="h-7 w-7" />
       </button>
-      <nuxt-link to="/settings">
+      <nuxt-link
+        v-tooltip.left-start="'Settings'"
+        to="/settings"
+      >
         <div class="bg-elevation-2-hover transition-button rounded-md p-2">
           <Cog6ToothIcon class="h-7 w-7" />
         </div>
