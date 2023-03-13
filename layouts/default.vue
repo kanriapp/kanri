@@ -79,6 +79,7 @@ const cssVars = computed(() => {
     transition: color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     transition: background-color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .bg-elevation-1 {
