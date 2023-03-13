@@ -17,7 +17,7 @@
     },
     "devDependencies": {
         "@nuxt/eslint-config": "0.1.1",
-        "@nuxtjs/tailwindcss": "6.4.1",
+        "@nuxtjs/tailwindcss": "6.5.0",
         "@tauri-apps/cli": "1.2.3",
         "@types/node": "^18.11.18",
         "eslint": "8.36.0",
@@ -41,7 +41,7 @@
     },
     "resolutions": {
         "terser": "5.16.6",
-        "undici": "5.20.0",
+        "undici": "5.21.0",
         "loader-utils": "2.0.4",
         "json5": "2.2.3"
     }
