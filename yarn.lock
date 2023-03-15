@@ -999,9 +999,9 @@
     ufo "^1.1.1"
 
 "@paralleldrive/cuid2@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@paralleldrive/cuid2/-/cuid2-2.1.0.tgz#9ec5bea61f6905faf4dc34782e40d07ef8b21b86"
-  integrity sha512-tg4/iCuj9WoGXNW2TrjKDOrm9JIuoEQFB0Dv9S072tE/OA/rOWnUEa6RxXy6fhXlxGXmaZyh5HIDXjqX+cN7ig==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@paralleldrive/cuid2/-/cuid2-2.2.0.tgz#105b31311994c18d816cb0d31f31ecaf425d32b4"
+  integrity sha512-CVQDpPIUHrUGGLdrMGz1NmqZvqmsB2j2rCIQEu1EvxWjlFh4fhvEGmgR409cY20/67/WlJsggenq0no3p3kYsw==
   dependencies:
     "@noble/hashes" "^1.1.5"
 
