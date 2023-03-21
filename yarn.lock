@@ -977,26 +977,31 @@
     vite-plugin-checker "^0.5.6"
     vue-bundle-renderer "^1.0.2"
 
-"@nuxtjs/tailwindcss@6.6.0":
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-6.6.0.tgz#e3fb3d477f25b00d416d151822bd835d46d9afab"
-  integrity sha512-lzUicI2LM6gCbgTkdOJN4HSOXNCWi+fosKzBnB2Z/M+sJxSHDXV1OosuQkDDJEzyJUtzTU0tvk1I7ij20JZVOw==
+"@nuxtjs/tailwindcss@6.6.4":
+  version "6.6.4"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-6.6.4.tgz#4d32fc6b94db609c44a873249e3d881179027f65"
+  integrity sha512-Lpgb1EmbHP6URHpi5D373BoNHBnODfnSstZk88SfrJ0r94r4jUaixtmSwLj9ot0wpO3Adz85RIg468/sCc4nAw==
   dependencies:
     "@nuxt/kit" "^3.3.1"
     "@nuxt/postcss8" "^1.1.3"
     autoprefixer "^10.4.14"
-    chalk "^5.2.0"
     chokidar "^3.5.3"
     clear-module "^4.1.2"
-    consola "^2.15.3"
+    colorette "^2.0.19"
+    cookie-es "^0.5.0"
     defu "^6.1.2"
+    destr "^1.2.2"
+    h3 "^1.6.2"
+    iron-webcrypto "^0.6.0"
     pathe "^1.1.0"
     postcss "^8.4.21"
     postcss-custom-properties "^13.1.4"
     postcss-nesting "^11.2.1"
+    radix3 "^1.0.0"
     tailwind-config-viewer "^1.7.2"
     tailwindcss "^3.2.7"
     ufo "^1.1.1"
+    uncrypto "^0.1.2"
 
 "@paralleldrive/cuid2@^2.1.0":
   version "2.2.0"
@@ -3240,6 +3245,19 @@ h3@^1.5.0:
     ufo "^1.1.0"
     uncrypto "^0.1.2"
 
+h3@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/h3/-/h3-1.6.2.tgz#40177d886acf585a275098601d05cefd628238b7"
+  integrity sha512-1v/clj/qCzWbuiG+DbpViuOVO789sEYNjlwRjekkmyLGsezIJk30gazbnjcWvF8L/ffUdRz2SwxE5HNgNx+Yjg==
+  dependencies:
+    cookie-es "^0.5.0"
+    defu "^6.1.2"
+    destr "^1.2.2"
+    iron-webcrypto "^0.6.0"
+    radix3 "^1.0.0"
+    ufo "^1.1.1"
+    uncrypto "^0.1.2"
+
 has-flag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
@@ -3464,6 +3482,11 @@ iron-webcrypto@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/iron-webcrypto/-/iron-webcrypto-0.5.0.tgz#6028474b6de42bb3b5ea8d2222f5af791696ccf9"
   integrity sha512-9m0tDUIo+GPwDYi1CNlAW3ToIFTS9y88lf41KsEwbBsL4PKNjhrNDGoA0WlB6WWaJ6pgp+FOP1+6ls0YftivyA==
+
+iron-webcrypto@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/iron-webcrypto/-/iron-webcrypto-0.6.0.tgz#3e597930b41363fc81a6ec415d25eb5000092144"
+  integrity sha512-WYgEQttulX/+JTv1BTJFYY3OsAb+ZnCuA53IjppZMyiRsVdGeEuZ/k4fJrg77Rzn0pp9/PgWtXUF+5HndDA5SQ==
 
 is-arrayish@^0.2.1:
   version "0.2.1"
