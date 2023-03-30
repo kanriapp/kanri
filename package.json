@@ -27,7 +27,7 @@
         "rollup-plugin-license": "^3.0.1"
     },
     "dependencies": {
-        "@heroicons/vue": "2.0.16",
+        "@heroicons/vue": "2.0.17",
         "@paralleldrive/cuid2": "^2.1.0",
         "@pinia/nuxt": "0.4.7",
         "@tauri-apps/api": "1.2.0",
