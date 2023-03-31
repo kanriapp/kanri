@@ -11,10 +11,12 @@
       v-show="newBoardModalVisible"
       @closeModal="newBoardModalVisible = false"
     />
-    <ModalHelp
-      v-show="helpModalVisible"
-      @closeModal="helpModalVisible = false"
-    />
+    <Teleport to=".default-layout">
+      <ModalHelp
+        v-show="helpModalVisible"
+        @closeModal="helpModalVisible = false"
+      />
+    </Teleport>
 
     <section
       id="items-top"

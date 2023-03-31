@@ -8,7 +8,9 @@
       class="default-layout custom-scrollbar-hidden overflow-auto"
       :style="cssVars"
     >
-      <Sidebar class="fixed left-0 w-8" />
+      <div v-if="mounted">
+        <Sidebar class="fixed left-0 w-8" />
+      </div>
       <div class="min-h-screen pl-[4rem]">
         <slot />
       </div>
@@ -23,9 +25,12 @@ import { dark } from "@/utils/themes.js";
 
 const store = useTauriStore().store;
 const savedColors = ref({});
+const mounted = ref(false);
 
 onMounted(async () => {
     savedColors.value = await store.get("colors");
+    mounted.value = true;
+
     emitter.on("updateColors", async () => {
         nextTick(async () => {
             savedColors.value = await store.get("colors");
