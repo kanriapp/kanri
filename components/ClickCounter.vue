@@ -1,49 +1,44 @@
 <!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech> -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
-
-<!-- eslint-disable vue/require-explicit-emits -->
-<script>
-export default {
-    props: {
-        tag: {
-            type: String,
-            default: 'a'
-        },
-        delay: {
-            type: Number,
-            default: 250
-        }
-    },
-    data() {
-        return {
-            clickCount: 0,
-            clickTimer: null
-        };
-    },
-    methods: {
-        handleClick(e) {
-            e.preventDefault()
-
-            this.clickCount++
-
-            if (this.clickCount === 1) {
-                this.clickTimer = setTimeout(() => {
-                    this.clickCount = 0
-                    this.$emit('single-click')
-                }, this.delay)
-            } else if (this.clickCount === 2) {
-                clearTimeout(this.clickTimer)
-                this.clickCount = 0
-                this.$emit('double-click')
-            }
-        }
-    }
-};
-</script>
-
 <template>
   <div @click="e => handleClick(e)">
     <slot />
   </div>
 </template>
+
+<script setup lang="ts">
+const props = withDefaults(
+    defineProps<{
+        delay?: number;
+    }>(),
+    {
+        delay: 250,
+    }
+);
+
+const emit = defineEmits<{
+    (e: "single-click"): void;
+    (e: "double-click"): void;
+}>();
+
+const clickCount = ref(0);
+const clickTimer: Ref<any | null> = ref(null);
+
+const handleClick = (e: Event) => {
+    e.preventDefault();
+    clickCount.value++;
+
+    if (clickCount.value === 1) {
+        clickTimer.value = setTimeout(() => {
+            clickCount.value = 0;
+            emit("single-click");
+        }, props.delay);
+    } else if (clickCount.value === 2) {
+        clearTimeout(clickTimer.value);
+        clickCount.value = 0;
+        emit('double-click');
+    }
+}
+</script>
+
