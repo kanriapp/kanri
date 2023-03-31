@@ -55,8 +55,8 @@
         class=""
         :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
       >
-        <KanbanCardWrapper
-          class="mb-3 min-h-[30px] cursor-grab rounded-sm px-3 pt-3 pb-5"
+        <KanbanCard
+          class="mb-3 min-h-[30px] cursor-grab rounded-sm px-3 pb-5 pt-3"
           :index="index"
           :card="card"
           :zoom-level="zoomLevel"
