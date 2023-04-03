@@ -6618,10 +6618,10 @@ vue-router@^4.1.6:
   dependencies:
     "@vue/devtools-api" "^6.4.5"
 
-vue3-smooth-dnd@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/vue3-smooth-dnd/-/vue3-smooth-dnd-0.0.4.tgz#74b6838e7b361ce443cea784595e0a96b1ec4985"
-  integrity sha512-aPfPnUcF7cRlX/5pJeqam51NltzW5qsQNiJuAY/s73nJ9/yRKNpNNOItjpK11GusEkiK957Uf+e8ERUCabapSg==
+vue3-smooth-dnd@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/vue3-smooth-dnd/-/vue3-smooth-dnd-0.0.5.tgz#85e4beecd4e56362bc8641167ada3c6a4e025b3d"
+  integrity sha512-A+l/ozaTGpFbw4fOdj4whmk+MedesOu/mBJgT3MfV+0XFvK44PLAMHB9vXn4lxaBlhZ/gRFs2TzG0kf24s1+3A==
   dependencies:
     smooth-dnd "^0.12.1"
 
