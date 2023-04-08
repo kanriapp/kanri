@@ -26,6 +26,7 @@
         ref="cardNameInput"
         v-model="name"
         v-resizable
+        v-focus
         type="text"
         maxlength="1000"
         class="bg-elevation-3 h-full w-full resize-none rounded-sm focus:outline-none"
@@ -144,7 +145,6 @@ const enableCardEditMode = () => {
     nextTick(() => {
         if (cardNameInput.value == null) return;
         cardNameInput.value.setAttribute("style", textAreaHeight);
-        cardNameInput.value.focus();
     });
 }
 

@@ -24,6 +24,7 @@
         v-if="titleEditing"
         ref="titleInput"
         v-model="titleNew"
+        v-focus
         type="text"
         maxlength="1000"
         class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none"
@@ -77,6 +78,7 @@
         id="newCardInput"
         ref="newCardInput"
         v-model="newCardName"
+        v-focus
         v-resizable
         type="text"
         maxlength="5000"
@@ -265,10 +267,6 @@ const enableTitleEditing = () => {
 
     titleEditing.value = true;
     titleNew.value = boardTitle.value;
-    nextTick(() => {
-        if (titleInput.value == null) return;
-        titleInput.value.focus();
-    });
 }
 
 const enableCardAddMode = () => {
@@ -277,11 +275,6 @@ const enableCardAddMode = () => {
     disableDragging();
 
     cardAddMode.value = true;
-
-    nextTick(() => {
-        if (newCardInput.value == null) return;
-        newCardInput.value.focus()
-    });
 }
 
 const updateColumnTitle = () => {
