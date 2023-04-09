@@ -6271,10 +6271,10 @@ unctx@^2.1.2:
     magic-string "^0.27.0"
     unplugin "^1.0.1"
 
-undici@5.21.1:
-  version "5.21.1"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.21.1.tgz#2a07d21793e433ca56c2a38e9fa3addb97fb901a"
-  integrity sha512-JptL7wJkvuuZfevy0imEcM6P/Q40uI5msocbfrE6KguU6kz/pFk4L0A6//XbMIOq+FSIXxgDMAOgfeH+S/WFaA==
+undici@5.21.2:
+  version "5.21.2"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.21.2.tgz#329f628aaea3f1539a28b9325dccc72097d29acd"
+  integrity sha512-f6pTQ9RF4DQtwoWSaC42P/NKlUjvezVvd9r155ohqkwFNRyBKM3f3pcty3ouusefNRyM25XhIQEbeQ46sZDJfQ==
   dependencies:
     busboy "^1.6.0"
 
