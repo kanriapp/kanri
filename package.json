@@ -35,7 +35,7 @@
         "mitt": "3.0.0",
         "pinia": "2.0.34",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#50054d953afbe78315142a98b810a429eaa9836a",
-        "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#f0da2d1ac8370bd4cc7c1c0617175f0d5b5833a0",
+        "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#df267506bf12de451762f3f4b7f929ebed1421c9",
         "vue3-smooth-dnd": "0.0.5",
         "zod": "^3.20.6"
     },
