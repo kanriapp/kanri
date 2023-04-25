@@ -29,7 +29,7 @@
     "dependencies": {
         "@heroicons/vue": "2.0.17",
         "@paralleldrive/cuid2": "^2.1.0",
-        "@pinia/nuxt": "0.4.8",
+        "@pinia/nuxt": "0.4.9",
         "@tauri-apps/api": "1.2.0",
         "floating-vue": "2.0.0-beta.20",
         "mitt": "3.0.0",
@@ -40,7 +40,7 @@
         "zod": "^3.20.6"
     },
     "resolutions": {
-        "terser": "5.16.9",
+        "terser": "5.17.1",
         "undici": "5.21.2",
         "loader-utils": "2.0.4",
         "json5": "2.2.3"
