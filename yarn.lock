@@ -5034,13 +5034,13 @@ pify@^2.3.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   integrity sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==
 
-pinia@2.0.36:
-  version "2.0.36"
-  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.36.tgz#65130f3b94cc7fe25156308634010fab893dff24"
-  integrity sha512-4UKApwjlmJH+VuHKgA+zQMddcCb3ezYnyewQ9NVrsDqZ/j9dMv5+rh+1r48whKNdpFkZAWVxhBp5ewYaYX9JcQ==
+pinia@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.1.1.tgz#542c6bb8a7c27b342082f431bccd6124b63c5b55"
+  integrity sha512-Y2CgpcUtD8Ogdvo5LW5g20ykSZgnVDMgTSZFr40EvO6HB8axQk+0lHa1UrRah9wworFaxjovwRlY/wRICWj/KQ==
   dependencies:
     "@vue/devtools-api" "^6.5.0"
-    vue-demi "*"
+    vue-demi ">=0.14.2"
 
 pinia@>=2.1.0:
   version "2.1.0"
@@ -6599,15 +6599,15 @@ vue-bundle-renderer@^1.0.3:
   dependencies:
     ufo "^1.1.1"
 
-vue-demi@*:
-  version "0.13.11"
-  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
-  integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
-
 vue-demi@>=0.14.1:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.1.tgz#1ed9af03a27642762bfed83d8750805302d0398d"
   integrity sha512-rt+yuCtXvscYot9SQQj3WKZJVSriPNqVkpVBNEHPzSgBv7QIYzsS410VqVgvx8f9AAPgjg+XPKvmV3vOqqkJQQ==
+
+vue-demi@>=0.14.2:
+  version "0.14.4"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.4.tgz#e3e634eece46ad39e391523cde5b395d22f6cf33"
+  integrity sha512-YR9bCmtIYgsqNVRG3MLLWlhbZ9tTNMuWHPd7yx0pHS3NDX17MeVNHgKTOClYE8pBjsfNe4CMaReP7zQtHDIbiA==
 
 vue-devtools-stub@^0.1.0:
   version "0.1.0"
