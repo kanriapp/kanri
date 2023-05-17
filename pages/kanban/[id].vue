@@ -352,6 +352,8 @@ onMounted(async () => {
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
     emitter.emit("closeKanbanPage");
+
+    await store.save(); // force save store on board close to prevent data loss
 });
 
 enum shortcutKeys {
