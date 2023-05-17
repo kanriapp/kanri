@@ -40,7 +40,7 @@
         "zod": "^3.20.6"
     },
     "resolutions": {
-        "terser": "5.17.3",
+        "terser": "5.17.4",
         "undici": "5.22.1",
         "loader-utils": "2.0.4",
         "json5": "2.2.3"
