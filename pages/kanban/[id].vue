@@ -349,7 +349,7 @@ onMounted(async () => {
     });
 });
 
-onBeforeUnmount(() => {
+onBeforeUnmount(async () => {
     document.removeEventListener("keydown", keyDownListener);
     emitter.emit("closeKanbanPage");
 
