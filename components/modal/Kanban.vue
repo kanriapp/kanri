@@ -22,6 +22,7 @@
             v-if="titleEditing"
             ref="titleInput"
             v-model="title"
+            v-focus
             type="text"
             maxlength="1000"
             class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
@@ -91,6 +92,7 @@
             v-if="taskAddMode"
             ref="newTaskInput"
             v-model="newTaskName"
+            v-focus
             type="text"
             maxlength="1000"
             placeholder="Enter a task name..."
@@ -99,7 +101,7 @@
           >
           <div
             v-if="taskAddMode"
-            class="mt-0.5 ml-0.5 flex flex-row gap-4"
+            class="ml-0.5 mt-0.5 flex flex-row gap-4"
           >
             <button
               class="bg-accent rounded-md px-4 py-1"
@@ -112,7 +114,7 @@
             </button>
           </div>
           <button
-            class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pr-2 pl-1"
+            class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pl-1 pr-2"
             @click="enableTaskAddMode"
           >
             <PlusIcon class="text-accent h-6 w-6" />
@@ -198,10 +200,6 @@ const enableTitleEditing = () => {
     emitter.emit("modalPreventClickOutsideClose");
 
     titleEditing.value = true;
-    nextTick(() => {
-        if (titleInput.value == null) return;
-        titleInput.value.focus();
-    });
 }
 
 const initModal = (columnIdParam: string, cardIdParam: number, titleParam: string, descriptionParam?: string, tasksParam?: Array<{name: string, finished: boolean}>) => {
@@ -216,10 +214,6 @@ const initModal = (columnIdParam: string, cardIdParam: number, titleParam: strin
 
 const enableTaskAddMode = () => {
     taskAddMode.value = true;
-    nextTick(() => {
-        if (newTaskInput.value === null) return;
-        newTaskInput.value.focus();
-    });
 }
 
 const createTask = () => {

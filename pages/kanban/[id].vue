@@ -52,6 +52,7 @@
         v-if="boardTitleEditing"
         ref="boardTitleInput"
         v-model="board.title"
+        v-focus
         type="text"
         maxlength="500"
         class="bg-elevation-2 border-accent text-no-overflow mb-2 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
@@ -303,11 +304,6 @@ const setBrightness = (brightnessAmount: string) => {
 
 const enableBoardTitleEditing = () => {
     boardTitleEditing.value = true;
-
-    nextTick(() => {
-        if (boardTitleInput.value == null) return;
-        boardTitleInput.value.focus();
-    });
 }
 
 onMounted(async () => {
@@ -353,9 +349,11 @@ onMounted(async () => {
     });
 });
 
-onBeforeUnmount(() => {
+onBeforeUnmount(async () => {
     document.removeEventListener("keydown", keyDownListener);
     emitter.emit("closeKanbanPage");
+
+    await store.save(); // force save store on board close to prevent data loss
 });
 
 enum shortcutKeys {

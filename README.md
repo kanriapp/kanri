@@ -22,7 +22,7 @@ Screenshot of a fully customized version of the app, in the main Kanban board vi
 
 You can download it for free for Windows, Mac and Linux [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
 
-## ✨ Why Kanri?:
+## ✨ Why Kanri?
 - 🏙 Modern - featuring a clean design & new technologies like Tauri
 - 👓 Familiar - uses a Kanban board layout (inspired by Trello®)
 - 🧾 Offline - saves your data in a local `.json` file
