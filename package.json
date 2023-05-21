@@ -22,7 +22,7 @@
         "@types/node": "^18.11.18",
         "eslint": "8.40.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
-        "nuxt": "3.5.0",
+        "nuxt": "3.5.1",
         "postcss-custom-properties": "13.1.5",
         "rollup-plugin-license": "^3.0.1"
     },
