@@ -47,7 +47,7 @@
             Increase/decrease board column zoom (global preference)
           </li>
         </ul>
-        <h3 class="mt-4 mb-2 text-xl font-bold">
+        <h3 class="mb-2 mt-4 text-xl font-bold">
           Support resouces:
         </h3>
         <p>
@@ -66,7 +66,7 @@
             class="text-accent text-accent-darker-hover"
           >support Discord server.</a>
         </p>
-        <h3 class="mt-4 mb-2 text-xl font-bold">
+        <h3 class="mb-2 mt-4 text-xl font-bold">
           Credits:
         </h3>
         <p>

@@ -3,7 +3,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <div class="pt-8 pl-8">
+  <div class="pl-8 pt-8">
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
       @closeModal="renameBoardModalVisible = false"
@@ -49,7 +49,10 @@
           placement="bottom-start"
         >
           <button class="flex flex-row items-center gap-2 px-4 py-2">
-            <Icon name="ph:funnel" class="h-6 w-6" />
+            <Icon
+              name="ph:funnel"
+              class="h-6 w-6"
+            />
             <p>{{ sortingOptionText }}</p>
             <ChevronDownIcon class="h-4 w-4" />
           </button>
@@ -94,7 +97,7 @@
         <span>Create a board to get started with tracking your tasks better.</span>
         <IconArrow />
 
-        <h3 class="mt-8 mb-0.5 text-xl font-bold">
+        <h3 class="mb-0.5 mt-8 text-xl font-bold">
           Have some data already?
         </h3>
         <p class="mb-4">
@@ -110,7 +113,7 @@
 
       <div
         v-else
-        class="mt-5 mb-8 flex flex-row flex-wrap gap-6"
+        class="mb-8 mt-5 flex flex-row flex-wrap gap-6"
       >
         <TransitionGroup
           v-if="!loading"
@@ -138,7 +141,7 @@
                 placement="bottom-end"
               >
                 <button
-                  class="bg-elevation-3-hover transition-button rounded-md py-0.5 px-1"
+                  class="bg-elevation-3-hover transition-button rounded-md px-1 py-0.5"
                   @click.prevent
                 >
                   <EllipsisHorizontalIcon class="h-6 w-6" />
@@ -181,7 +184,6 @@ import type { Board } from "@/types/kanban-types";
 import { Ref } from "vue";
 
 import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
-import { FunnelIcon } from "@heroicons/vue/24/outline";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"
 
 const store = useTauriStore().store;
