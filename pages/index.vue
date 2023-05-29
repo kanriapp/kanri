@@ -49,7 +49,7 @@
           placement="bottom-start"
         >
           <button class="flex flex-row items-center gap-2 px-4 py-2">
-            <FunnelIcon class="h-6 w-6" />
+            <Icon name="ph:funnel" class="h-6 w-6" />
             <p>{{ sortingOptionText }}</p>
             <ChevronDownIcon class="h-4 w-4" />
           </button>
