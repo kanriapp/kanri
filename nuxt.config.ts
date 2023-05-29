@@ -8,10 +8,10 @@ import "node:path"
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
     ssr: false,
-    modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
-    css: ['@/assets/css/scrollbars.css', '@/assets/css/global.css'],
+    modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-icon"],
+    css: ["@/assets/css/scrollbars.css", "@/assets/css/global.css"],
     telemetry: false,
-    app: { pageTransition: { name: 'page', mode: 'out-in' } },
+    app: { pageTransition: { name: "page", mode: "out-in" } },
     vite: {
         //@ts-ignore
         plugins: [
@@ -23,4 +23,4 @@ export default defineNuxtConfig({
             }),
         ],
     },
-})
+});

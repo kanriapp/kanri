@@ -33,7 +33,7 @@
 
     <pre>
 Name: @vue/shared
-Version: 3.2.47
+Version: 3.3.4
 License: MIT
 Private: false
 Description: internal utils shared across @vue packages
@@ -69,7 +69,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/reactivity
-Version: 3.2.47
+Version: 3.3.4
 License: MIT
 Private: false
 Description: @vue/reactivity
@@ -105,7 +105,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-core
-Version: 3.2.47
+Version: 3.3.4
 License: MIT
 Private: false
 Description: @vue/runtime-core
@@ -141,7 +141,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-dom
-Version: 3.2.47
+Version: 3.3.4
 License: MIT
 Private: false
 Description: @vue/runtime-dom
@@ -211,7 +211,7 @@ SOFTWARE.
 ---
 
 Name: ufo
-Version: 1.1.0
+Version: 1.1.2
 License: MIT
 Private: false
 Description: URL utils for humans
@@ -313,7 +313,7 @@ SOFTWARE.
 ---
 
 Name: unctx
-Version: 2.1.2
+Version: 2.3.1
 License: MIT
 Private: false
 Description: Composition-api in Vanilla js
@@ -347,7 +347,7 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.3.3
+Version: 3.5.2
 License: MIT
 Private: false
 Repository: undefined
@@ -379,18 +379,19 @@ SOFTWARE.
 
 ---
 
-Name: @nuxtjs/tailwindcss
-Version: 6.6.5
+Name: tailwindcss
+Version: 3.3.2
 License: MIT
 Private: false
-Description: TailwindCSS module for Nuxt
+Description: A utility-first CSS framework for rapidly building custom user interfaces.
 Repository: undefined
+Homepage: https://tailwindcss.com
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) Nuxt Community
+Copyright (c) Tailwind Labs, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -414,7 +415,7 @@ SOFTWARE.
 ---
 
 Name: pinia
-Version: 2.0.34
+Version: 2.1.3
 License: MIT
 Private: false
 Description: Intuitive, type safe and flexible Store for Vue
@@ -450,17 +451,17 @@ SOFTWARE.
 ---
 
 Name: @unhead/shared
-Version: 1.1.25
+Version: 1.1.27
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
 Homepage: https://unhead.harlanzw.com
-Author: Harlan Wilton 6Lt;harlan@harlanzw.com>
+Author: Harlan Wilton &lt;harlan@harlanzw.com>
 
 ---
 
 Name: @unhead/dom
-Version: 1.1.25
+Version: 1.1.27
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -470,7 +471,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: unhead
-Version: 1.1.25
+Version: 1.1.27
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -480,7 +481,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: @unhead/vue
-Version: 1.1.25
+Version: 1.1.27
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -524,7 +525,7 @@ SOFTWARE.
 ---
 
 Name: h3
-Version: 1.6.4
+Version: 1.6.6
 License: MIT
 Private: false
 Description: Tiny JavaScript Server
@@ -557,8 +558,28 @@ SOFTWARE.
 
 ---
 
+Name: devalue
+Version: 4.3.2
+License: MIT
+Private: false
+Description: Gets the job done when JSON.stringify can't
+Repository: undefined
+License Copyright:
+===
+
+Copyright (c) 2018-19 [these people](https://github.com/rich-harris/devalue/graphs/contributors)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+---
+
 Name: @pinia/nuxt
-Version: 0.4.8
+Version: 0.4.11
 License: MIT
 Private: false
 Description: Nuxt Module for pinia
@@ -593,8 +614,41 @@ SOFTWARE.
 
 ---
 
+Name: nuxt-icon
+Version: 0.4.1
+License: MIT
+Private: false
+Repository: undefined
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2022 Sébastien Chopin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
 Name: vue-router
-Version: 4.1.6
+Version: 4.2.2
 License: MIT
 Private: false
 Repository: git+https://github.com/vuejs/router.git
@@ -682,6 +736,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+
+---
+
+Name: @heroicons/vue
+Version: 2.0.18
+License: MIT
+Private: false
+Repository: https://github.com/tailwindlabs/heroicons.git
+Homepage: https://github.com/tailwindlabs/heroicons#readme
 
 ---
 
@@ -790,7 +853,7 @@ SOFTWARE.
 ---
 
 Name: @noble/hashes
-Version: 1.2.0
+Version: 1.3.0
 License: MIT
 Private: false
 Description: Audited & minimal 0-dependency JS implementation of SHA2, SHA3, RIPEMD, BLAKE2/3, HMAC, HKDF, PBKDF2, Scrypt
@@ -1048,7 +1111,7 @@ SOFTWARE.
 ---
 
 Name: @tauri-apps/api
-Version: 1.2.0
+Version: 1.3.0
 License: Apache-2.0 OR MIT
 Private: false
 Description: Tauri API definitions
@@ -1240,29 +1303,20 @@ License Copyright:
 
 ---
 
-Name: @heroicons/vue
-Version: 2.0.17
+Name: @iconify/vue
+Version: 4.1.1
 License: MIT
 Private: false
-Repository: https://github.com/tailwindlabs/heroicons.git
-Homepage: https://github.com/tailwindlabs/heroicons#readme
-
----
-
-Name: vue
-Version: 3.2.47
-License: MIT
-Private: false
-Description: The progressive JavaScript framework for building modern web UI.
-Repository: git+https://github.com/vuejs/core.git
-Homepage: https://github.com/vuejs/core/tree/main/packages/vue#readme
-Author: Evan You
+Description: Iconify icon component for Vue 3.
+Repository: https://github.com/iconify/iconify.git
+Homepage: https://iconify.design/
+Author: Vjacheslav Trushkin
 License Copyright:
 ===
 
-The MIT License (MIT)
+MIT License
 
-Copyright (c) 2018-present, Yuxi (Evan) You
+Copyright (c) 2020 - 2022 Vjacheslav Trushkin / Iconify OÜ
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1271,17 +1325,16 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ---
 

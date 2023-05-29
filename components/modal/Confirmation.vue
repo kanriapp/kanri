@@ -20,7 +20,7 @@
             @click="closeModal()"
           />
         </div>
-        <p class="mt-2 ml-0.5 text-lg">
+        <p class="ml-0.5 mt-2 text-lg">
           {{ modalDescription }}
         </p>
         <section

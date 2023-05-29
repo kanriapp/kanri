@@ -23,7 +23,7 @@
     <span class="text-dim-3"> Change the behaviour of the application here. </span>
 
     <section id="theme-settings">
-      <h2 class="mt-6 mb-2 text-2xl font-bold">
+      <h2 class="mb-2 mt-6 text-2xl font-bold">
         Theme
       </h2>
       <div
@@ -126,7 +126,7 @@
 
 
     <section id="miscellaneous-settings">
-      <h2 class="mt-8 mb-2 text-2xl font-bold">
+      <h2 class="mb-2 mt-8 text-2xl font-bold">
         Miscellaneous
       </h2>
 

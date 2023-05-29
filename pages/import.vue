@@ -13,7 +13,7 @@
     <span class="text-dim-3"> Manage your data by exporting and importing it from and to Kanri. </span>
 
     <section id="export-settings">
-      <h2 class="mt-6 mb-2 text-2xl font-bold">
+      <h2 class="mb-2 mt-6 text-2xl font-bold">
         Export Data
       </h2>
       <div class="flex flex-col gap-4">
@@ -44,7 +44,7 @@
     </section>
 
     <section id="import-settings">
-      <h2 class="mt-8 mb-0.5 text-2xl font-bold">
+      <h2 class="mb-0.5 mt-8 text-2xl font-bold">
         Import Data
       </h2>
       <p class="text-dim-2 mb-2">

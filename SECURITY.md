@@ -11,8 +11,8 @@ Since this app is constantly changing and previous versions are not receiving an
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.4.1   |   :white_check_mark:              |
-| < 0.4.1   | :x:                |
+| 0.4.2   |   :white_check_mark:              |
+| < 0.4.2   | :x:                |
 
 ## Reporting a Vulnerability
 If you find any vulnerability, please write an email at hello@trobo.tech with a short description, reproduction steps and possible attacks.
