@@ -5371,9 +5371,10 @@ tar@^6.1.11, tar@^6.1.13:
   dependencies:
     "@tauri-apps/api" "^1.2.0"
 
-"tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#0558a1f6c869ae0afdb0181dfa1ea31be8cf4893":
+"tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#1467ba770623ab1d41d825841c3d9435d9eaa0f1":
   version "0.0.0"
-  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/0558a1f6c869ae0afdb0181dfa1ea31be8cf4893"
+  uid "1467ba770623ab1d41d825841c3d9435d9eaa0f1"
+  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/1467ba770623ab1d41d825841c3d9435d9eaa0f1"
   dependencies:
     "@tauri-apps/api" "^1.2.0"
 
