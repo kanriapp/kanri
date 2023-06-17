@@ -28,7 +28,6 @@
         "rollup-plugin-license": "^3.0.1"
     },
     "dependencies": {
-        "@headlessui/vue": "^1.7.13",
         "@heroicons/vue": "2.0.18",
         "@paralleldrive/cuid2": "^2.1.0",
         "@pinia/nuxt": "0.4.11",
