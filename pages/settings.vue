@@ -238,7 +238,6 @@ const themeIconClass = (theme: string) => {
 
 const deleteAllData = async () => {
     await store.reset();
-    await store.save();
 
     activeTheme.value = "dark";
     themeEditorDisplayed.value = false;
