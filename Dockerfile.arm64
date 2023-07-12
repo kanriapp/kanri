@@ -20,7 +20,7 @@ RUN apt install -y --no-install-recommends \
                    pkg-config
 RUN rustup target add aarch64-unknown-linux-gnu
 RUN rustup toolchain install stable-aarch64-unknown-linux-gnu
-RUN cargo install tauri-cli --git https://github.com/tauri-apps/tauri
+RUN cargo install tauri-cli
 WORKDIR /app
 
 ENV CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc \
