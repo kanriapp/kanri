@@ -128,11 +128,11 @@
             class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
             :to="'/kanban/' + board.id"
           >
-            <KanbanBoardPreview
+            <LazyKanbanBoardPreview
               :board="board"
-              class=""
+              :is-simple-preview-mode="boards.length >= 25"
             />
-            <div class="flex flex-row justify-between px-1 py-2">
+            <div class="flex flex-row justify-between px-1 py-2 border-t border-accent">
               <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
                 {{ board.title }}
               </span>

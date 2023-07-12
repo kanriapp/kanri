@@ -4,6 +4,29 @@
 
 <template>
   <div
+    class="flex aspect-video h-32 flex-row gap-1.5 overflow-hidden bg-custom rounded-t-md"
+    :style="cssVars"
+    v-if="!isSimplePreviewMode"
+  >
+    <div class="bg-effect-overlay h-full w-max min-w-full p-2 rounded-t-md flex flex-row gap-1.5">
+      <div
+        v-for="column in board.columns"
+        :key="column.id"
+        class="bg-elevation-2 flex h-min shrink-0 w-10 flex-col gap-[1px] rounded-sm p-0.5 text-[3px] font-bold"
+      >
+        {{ column.title }}
+        <div
+          v-for="card in column.cards"
+          :key="card.id"
+          class="bg-elevation-3 rounded-[0.05rem] p-[2px] text-[2px] mb-0.5"
+        >
+          {{ card.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    v-else
     class="bg-elevation-2 flex aspect-video h-32 flex-row gap-4 overflow-hidden rounded-t-md p-2"
   >
     <div
@@ -22,8 +45,49 @@
 
 <script setup lang="ts">
 import type { Board } from "@/types/kanban-types";
+import { convertFileSrc } from "@tauri-apps/api/tauri";
 
-defineProps<{
+const props = defineProps<{
     board: Board;
+    isSimplePreviewMode: boolean;
 }>();
+
+const bgCustom = ref("");
+const bgCustomNoResolution = ref("");
+const bgImageLoaded = ref(false);
+const bgBlur = ref("8px");
+const bgBrightness = ref("100%");
+
+const cssVars = computed(() => {
+    return {
+        "--bg-custom-image": `url("${bgCustom.value}")`,
+        "--blur-intensity": bgBlur.value,
+        "--bg-brightness": bgBrightness.value
+    }
+})
+
+onMounted(() => {
+  if (props.board.background && !props.isSimplePreviewMode) {
+        bgCustomNoResolution.value = props.board.background.src;
+        bgCustom.value = convertFileSrc(props.board.background.src);
+
+        bgBlur.value = props.board.background.blur;
+        bgBrightness.value = props.board.background.brightness;
+    }
+    nextTick(() => bgImageLoaded.value = true);
+})
 </script>
+
+<style scoped>
+.bg-custom {
+    z-index: 1;
+    background-image: var(--bg-custom-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-effect-overlay {
+    z-index: 2;
+    backdrop-filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
+}
+</style>
