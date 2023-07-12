@@ -76,7 +76,7 @@
         </p>
         <p class="pt-2">
           Copyright (c) Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
-          Kanri v0.4.2
+          Kanri v0.4.3
         </p>
         <nuxt-link
           to="/licenses"
