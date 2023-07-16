@@ -5,7 +5,7 @@
 <template>
   <Modal
     ref="barebonesModal"
-    @closeModal="$emit('closeModal', columnId); titleEditing = false; taskAddMode = false"
+    @closeModal="$emit('closeModal', columnID); titleEditing = false; taskAddMode = false"
   >
     <template #content>
       <div class="flex min-h-[40rem] w-[36rem] flex-col">
@@ -129,41 +129,86 @@
         </h2>
         <div class="flex flex-row gap-4">
           <button
-            class="h-7 w-7 rounded-full bg-pink-600 p-2 hover:bg-pink-700"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-pink-600')"
-          />
+            class="h-7 w-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
+            @click="setCardColor(columnID, cardID, 'bg-pink-600')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-pink-600'"
+              class="h-4 w-4"
+            />
+          </button>
           <button
-            class="h-7 w-7 rounded-full bg-red-600 p-2 hover:bg-red-700"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-red-600')"
-          />
+            class="h-7 w-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
+            @click="setCardColor(columnID, cardID, 'bg-red-600')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-red-600'"
+              class="h-4 w-4"
+            />
+          </button>
           <button
-            class="h-7 w-7 rounded-full bg-orange-600 p-2 hover:bg-orange-700"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-orange-600')"
-          />
+            class="h-7 w-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
+            @click="setCardColor(columnID, cardID, 'bg-orange-600')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-orange-600'"
+              class="h-4 w-4"
+            />
+          </button>
           <button
-            class="h-7 w-7 rounded-full bg-yellow-600 p-2 hover:bg-yellow-700"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-yellow-600')"
-          />
+            class="h-7 w-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
+            @click="setCardColor(columnID, cardID, 'bg-yellow-600')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-yellow-600'"
+              class="h-4 w-4"
+            />
+          </button>
           <button
-            class="h-7 w-7 rounded-full bg-green-600 p-2 hover:bg-green-700"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-green-600')"
-          />
+            class="h-7 w-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
+            @click="setCardColor(columnID, cardID, 'bg-green-600')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-green-600'"
+              class="h-4 w-4"
+            />
+          </button>
           <button
-            class="h-7 w-7 rounded-full bg-teal-600 p-2 hover:bg-teal-700"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-teal-600')"
-          />
+            class="h-7 w-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
+            @click="setCardColor(columnID, cardID, 'bg-teal-600')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-teal-600'"
+              class="h-4 w-4"
+            />
+          </button>
           <button
-            class="h-7 w-7 rounded-full bg-blue-600 p-2 hover:bg-blue-700"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-blue-600')"
-          />
+            class="h-7 w-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
+            @click="setCardColor(columnID, cardID, 'bg-blue-600')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-blue-600'"
+              class="h-4 w-4"
+            />
+          </button>
           <button
-            class="h-7 w-7 rounded-full bg-purple-600 p-2 hover:bg-purple-700"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-purple-600')"
-          />
+            class="h-7 w-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
+            @click="setCardColor( columnID, cardID, 'bg-purple-600')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-purple-600'"
+              class="h-4 w-4"
+            />
+          </button>
           <button
-            class="bg-elevation-2 bg-elevation-3-hover h-7 w-7 rounded-full p-2"
-            @click="$emit('setCardColor', columnId, cardID, 'bg-elevation-2')"
-          />
+            class="bg-elevation-2 bg-elevation-3-hover h-7 w-7 rounded-full py-1 pl-1.5 pr-1"
+            @click="setCardColor(columnID, cardID, 'bg-elevation-2')"
+          >
+            <CheckIcon
+              v-if="selectedColor === 'bg-elevation-2'"
+              class="h-4 w-4"
+            />
+          </button>
         </div>
       </div>
     </template>
@@ -173,21 +218,22 @@
 <script setup lang="ts">
 import emitter from "@/utils/emitter"
 import { Ref } from "vue";
-import { PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
+import { PlusIcon, XMarkIcon, CheckIcon } from "@heroicons/vue/24/solid";
 
 const emit = defineEmits<{
-    (e: "closeModal", columnId: string): void,
-    (e: "setCardDescription", columnId: string, cardIndex: number, description: string): void,
-    (e: "setCardTitle", columnId: string, cardIndex: number, title: string): void,
-    (e: "setCardColor", columnId: string, cardIndex: number, color: string): void,
-    (e: "setCardTasks", columnId: string, cardIndex: number, tasks: Array<{name: string, finished: boolean}>): void
+    (e: "closeModal", columnID: string): void,
+    (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
+    (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
+    (e: "setCardColor", columnID: string, cardIndex: number, color: string): void,
+    (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<{name: string, finished: boolean}>): void
 }>();
 
-const columnId = ref("");
+const columnID = ref("");
 const cardID = ref(0);
 const title = ref("");
 const description = ref("");
 const tasks: Ref<Array<{ name: string, finished: boolean }>> = ref([]);
+const selectedColor = ref("");
 
 const titleEditing = ref(false);
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
@@ -202,14 +248,21 @@ const enableTitleEditing = () => {
     titleEditing.value = true;
 }
 
-const initModal = (columnIdParam: string, cardIdParam: number, titleParam: string, descriptionParam?: string, tasksParam?: Array<{name: string, finished: boolean}>) => {
+const initModal = (
+    columnIDParam: string, cardIdParam: number,
+    titleParam: string,
+    descriptionParam?: string,
+    tasksParam?: Array<{ name: string, finished: boolean }>,
+    selectedColorParam?: string
+) => {
     newTaskName.value = "";
 
-    columnId.value = columnIdParam;
+    columnID.value = columnIDParam;
     cardID.value = cardIdParam;
     title.value = titleParam;
     description.value = descriptionParam || "";
     tasks.value = tasksParam || [];
+    selectedColor.value = selectedColorParam || "bg-elevation-2";
 }
 
 const enableTaskAddMode = () => {
@@ -223,7 +276,7 @@ const createTask = () => {
     newTaskName.value = "";
     taskAddMode.value = false;
 
-    emit("setCardTasks", columnId.value, cardID.value, tasks.value);
+    emit("setCardTasks", columnID.value, cardID.value, tasks.value);
 }
 
 const deleteTask = (index: number) => {
@@ -231,7 +284,7 @@ const deleteTask = (index: number) => {
 }
 
 const updateDescription = () => {
-    emit("setCardDescription", columnId.value, cardID.value, description.value);
+    emit("setCardDescription", columnID.value, cardID.value, description.value);
     emitter.emit("modalEnableClickOutsideClose");
 }
 
@@ -241,7 +294,12 @@ const updateTitle = () => {
     if (title.value == null || !(/\S/.test(title.value))) return;
 
     titleEditing.value = false;
-    emit("setCardTitle", columnId.value, cardID.value, title.value);
+    emit("setCardTitle", columnID.value, cardID.value, title.value);
+}
+
+const setCardColor = (columnID: string, cardID: number, color: string) => {
+    selectedColor.value = color;
+    emit('setCardColor', columnID, cardID, color);
 }
 
 defineExpose({ initModal });
