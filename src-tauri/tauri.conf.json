@@ -79,7 +79,7 @@
             }
         },
         "security": {
-            "csp": "default-src 'self' blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost style-src 'unsafe-inline'; style-src-elem 'unsafe-inline'; style-src-attr 'unsafe-inline'"
+            "csp": "default-src 'self' blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost style-src 'unsafe-inline' 'self'; style-src-elem 'unsafe-inline' 'self'; style-src-attr 'unsafe-inline' 'self'"
         },
         "updater": {
             "active": false
