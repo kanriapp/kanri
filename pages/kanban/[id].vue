@@ -265,7 +265,7 @@ const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
     draggingEnabled.value = false;
 
     if (kanbanModal.value == null) return;
-    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description, el.tasks);
+    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description, el.tasks, el.color);
 }
 
 const closeKanbanModal = (columnId: string) => {
