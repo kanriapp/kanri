@@ -36,7 +36,7 @@ Long term vision for the project:
 - 👷‍♂️ Improve current features and refactor to avoid tech debt
 - ➕ Add additional small/mid-sized features with high impact (reminders, sub-tasks, etc.)
 - 🚚 Work towards 1.0 release with features from the backlog like internationalization or a widget panel
-- 🔍 After 1.0: Possibility of cloud sync backend (hosted by me with possibility of self hosting)
+- 🔍 After 1.0: Possibility of cloud sync with collaboration (could be self-hosted or managed by me)
 
 A granular list of priorities can be found [in the roadmap in the projects tab of this GitHub repo](https://github.com/trobonox/kanri/projects).
 
