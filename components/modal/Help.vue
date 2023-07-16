@@ -56,7 +56,7 @@
             href="https://github.com/trobonox/kanri"
             target="_blank"
             class="text-accent text-accent-darker-hover"
-          >issues on GitHub</a>
+          > issues on GitHub</a>
           to see if it is already known, and report if it isn't. For
           any further assistance or anything that is not a bug, you
           can join the
@@ -64,7 +64,7 @@
             href="https://discord.gg/AVqHrvxB9C"
             target="_blank"
             class="text-accent text-accent-darker-hover"
-          >support Discord server.</a>
+          > support Discord server.</a>
         </p>
         <h3 class="mb-2 mt-4 text-xl font-bold">
           Credits:
@@ -75,7 +75,7 @@
           (licensed unter the MIT License).
         </p>
         <p class="pt-2">
-          Copyright (c) Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
+          Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
           Kanri v0.4.3
         </p>
         <nuxt-link
