@@ -8,19 +8,23 @@
     :style="cssVars"
     v-if="!isSimplePreviewMode"
   >
-    <div class="bg-effect-overlay h-full w-max min-w-full p-2 rounded-t-md flex flex-row gap-1.5">
-      <div
-        v-for="column in board.columns"
-        :key="column.id"
-        class="bg-elevation-2 flex h-min shrink-0 w-10 flex-col gap-[1px] rounded-sm p-0.5 text-[3px] font-bold"
-      >
-        {{ column.title }}
+    <div class="bg-effect-overlay h-full w-max min-w-full p-2 rounded-t-md flex flex-col flex-row w-full">
+      <span class="text-[4px] mb-0.5 font-bold"> {{ board.title }}</span>
+      <div class="flex flex-row w-full gap-1.5">
         <div
-          v-for="card in column.cards"
-          :key="card.id"
-          class="bg-elevation-3 rounded-[0.05rem] p-[2px] text-[2px] mb-0.5"
+          v-for="column in board.columns"
+          :key="column.id"
+          class="bg-elevation-2 flex h-min shrink-0 w-10 flex-col gap-[1px] rounded-sm p-0.5 text-[3px] font-bold"
         >
-          {{ card.name }}
+          {{ column.title }}
+          <div
+            v-for="card in column.cards"
+            :key="card.id"
+            class="rounded-[0.05rem] p-[2px] text-[2px] mb-0.5"
+            :class="card.color ? card.color : 'bg-elevation-3'"
+          >
+            {{ card.name }}
+          </div>
         </div>
       </div>
     </div>
