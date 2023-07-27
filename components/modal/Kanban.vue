@@ -69,7 +69,7 @@
           >
             <div
               v-if="tasks && tasks.length !== 0"
-              class="flex flex-col gap-1 pl-1"
+              class="flex flex-col gap-1 pl-1 max-h-[148px] overflow-auto"
             >
               <div
                 v-for="(task, index) in tasks"
