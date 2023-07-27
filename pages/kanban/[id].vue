@@ -30,7 +30,6 @@
       @closeModal="renameBoardModalVisible = false"
       @renameBoard="renameBoard"
     />
-
     <ModalConfirmation
       v-show="deleteBoardModalVisible"
       title="Delete Board?"
