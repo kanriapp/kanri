@@ -39,6 +39,15 @@
       @closeModal="deleteBoardModalVisible = false"
       @confirmAction="deleteBoard"
     />
+    <ModalConfirmation
+      v-show="removeColumnModalVisible"
+      title="Delete column?"
+      description="Are you sure you want to delete this column? This action is irreverisble."
+      confirm-button-text="Delete"
+      close-button-text="Cancel"
+      @closeModal="columnRemoveDialog.cancel()"
+      @confirmAction="columnRemoveDialog.confirm(true)"
+    />
     <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
         v-if="!boardTitleEditing"
@@ -157,7 +166,7 @@
                   :cards-list="column.cards"
                   :zoom-level="columnZoomLevel"
                   @updateStorage="updateColumnProperties"
-                  @removeColumn="removeColumn"
+                  @removeColumn="openColumnRemoveDialog(column.id)"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
                   @openKanbanModal="openKanbanModal"
@@ -198,6 +207,8 @@ import { Ref } from "vue";
 
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
+import { useConfirmDialog } from '@vueuse/core'
+
 import { PlusIcon, MinusIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 
@@ -228,8 +239,11 @@ const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({}
 const kanbanModalVisible = ref(false);
 const kanbanModal = ref<InstanceType<typeof KanbanModal> | null>(null);
 
+const removeColumnModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const renameBoardModalVisible = ref(false);
+
+const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
 
 const cssVars = computed(() => {
     return {
@@ -493,6 +507,14 @@ const addColumn = () => {
     columnEditIndex.value++;
     updateStorage();
 };
+
+const openColumnRemoveDialog = async (columnID: string) => {
+  const { data, isCanceled } = await columnRemoveDialog.reveal();
+  if (!isCanceled) {
+    console.log(data);
+    removeColumn(columnID);
+  }
+}
 
 const removeColumn = (columnID: string) => {
     const column = board.value.columns.filter((obj: Column) => {
