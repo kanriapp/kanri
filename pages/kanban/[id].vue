@@ -167,6 +167,7 @@
                   :zoom-level="columnZoomLevel"
                   @updateStorage="updateColumnProperties"
                   @removeColumn="openColumnRemoveDialog(column.id)"
+                  @removeColumnNoConfirmation="removeColumn"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
                   @openKanbanModal="openKanbanModal"

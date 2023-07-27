@@ -35,10 +35,14 @@
         "
       >
 
-      <XMarkIcon
-        class="text-dim-4 text-accent-hover mt-2 h-4 w-4 shrink-0 grow-0 cursor-pointer"
-        @click="$emit('removeColumn', id)"
-      />
+      <ClickCounter
+        @single-click="$emit('removeColumn', id)"
+        @double-click="$emit('removeColumnNoConfirmation', id)"
+      >
+        <XMarkIcon
+          class="text-dim-4 text-accent-hover mt-2 h-4 w-4 shrink-0 grow-0 cursor-pointer"
+        />
+      </ClickCounter>
     </div>
 
     <Container
@@ -148,6 +152,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "updateStorage", column: Column): void,
   (e: "removeColumn", columnId: string): void,
+  (e: "removeColumnNoConfirmation", columnId: string): void,
   (e: "enableDragging"): void,
   (e: "disableDragging"): void,
   (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
