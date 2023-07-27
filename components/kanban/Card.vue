@@ -165,13 +165,12 @@ const updateCardName = () => {
 .kanban-card {
     transition-duration: 550ms;
     transition-timing-function: ease-out;
-    transition-property: opacity, background-color, text-decoration;
+    transition-property: opacity, text-decoration;
     opacity: 100%;
 }
 
 .kanban-card.card-hidden {
-    opacity: 0;
-    background-color: transparent;
+    opacity: 0%;
     text-decoration: line-through;
 }
 </style>
