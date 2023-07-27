@@ -8,7 +8,7 @@
     :style="cssVars"
     v-if="!isSimplePreviewMode"
   >
-    <div class="bg-effect-overlay h-full w-max min-w-full p-2 rounded-t-md flex flex-col flex-row w-full">
+    <div class="bg-effect-overlay h-full w-max min-w-full p-2 rounded-t-md flex flex-col">
       <span class="text-[4px] mb-0.5 font-bold"> {{ board.title }}</span>
       <div class="flex flex-row w-full gap-1.5">
         <div
