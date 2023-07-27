@@ -253,72 +253,6 @@ const cssVars = computed(() => {
     }
 })
 
-const saveColumnRef = (ref: any, columnId: String) => {
-    colRefs[columnId.toString()] = ref;
-}
-
-const setCardTitle = (columnId: string, cardId: number, title: string) => {
-    colRefs[columnId].setCardTitle(cardId, title);
-}
-
-const setCardDescription = (columnId: string, cardId: number, description: string) => {
-    colRefs[columnId].setCardDescription(cardId, description);
-}
-
-const setCardColor = (columnId: string, cardId: number, color: string) => {
-    colRefs[columnId].setCardColor(cardId, color);
-}
-
-const setCardTasks = (columnId: string, cardId: number, tasks: Array<{name: string, finished: boolean}>) => {
-    colRefs[columnId].setCardTasks(cardId, tasks);
-}
-
-const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
-    kanbanModalVisible.value = true;
-    draggingEnabled.value = false;
-
-    if (kanbanModal.value == null) return;
-    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description, el.tasks, el.color);
-}
-
-const closeKanbanModal = (columnId: string) => {
-    kanbanModalVisible.value = false;
-    draggingEnabled.value = true;
-    colRefs[columnId].enableDragging();
-}
-
-const setBackgroundImage = (img: string) => {
-    bgCustomNoResolution.value = img;
-    bgCustom.value = convertFileSrc(img);
-    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
-    updateStorage();
-}
-
-const resetBackground = () => {
-    bgCustom.value = "";
-    bgBlur.value = "8px";
-    bgBrightness.value = "100%";
-
-    delete board.value.background;
-    updateStorage();
-}
-
-const setBlur = (blurAmount: string) => {
-    bgBlur.value = blurAmount;
-    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
-    updateStorage();
-}
-
-const setBrightness = (brightnessAmount: string) => {
-    bgBrightness.value = brightnessAmount;
-    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
-    updateStorage();
-}
-
-const enableBoardTitleEditing = () => {
-    boardTitleEditing.value = true;
-}
-
 onMounted(async () => {
     boards.value = await store.get("boards") || [];
 
@@ -361,6 +295,10 @@ onMounted(async () => {
         columnTitleEditing.value = false;
     });
 });
+
+/**
+ * Keyboard shortcut handler + utility methods
+ */
 
 onBeforeUnmount(async () => {
     document.removeEventListener("keydown", keyDownListener);
@@ -484,6 +422,10 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 };
 
+/**
+ * Utility methods for drag and drop and misc.
+ */
+
 const scrollView = () => {
     const elem = document.getElementById("kanban-cols-container");
     if (elem == null) return;
@@ -495,6 +437,50 @@ const onDrop = (dropResult: object) => {
     board.value.columns = applyDrag(board.value.columns, dropResult);
     updateStorage();
 };
+
+/**
+ * Kanban card utility methods for editing, deleting, etc.
+ */
+
+const saveColumnRef = (ref: any, columnId: String) => {
+    colRefs[columnId.toString()] = ref;
+}
+
+const setCardTitle = (columnId: string, cardId: number, title: string) => {
+    colRefs[columnId].setCardTitle(cardId, title);
+}
+
+const setCardDescription = (columnId: string, cardId: number, description: string) => {
+    colRefs[columnId].setCardDescription(cardId, description);
+}
+
+const setCardColor = (columnId: string, cardId: number, color: string) => {
+    colRefs[columnId].setCardColor(cardId, color);
+}
+
+const setCardTasks = (columnId: string, cardId: number, tasks: Array<{name: string, finished: boolean}>) => {
+    colRefs[columnId].setCardTasks(cardId, tasks);
+}
+
+// Kanban card modal
+const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
+    kanbanModalVisible.value = true;
+    draggingEnabled.value = false;
+
+    if (kanbanModal.value == null) return;
+    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description, el.tasks, el.color);
+}
+
+const closeKanbanModal = (columnId: string) => {
+    kanbanModalVisible.value = false;
+    draggingEnabled.value = true;
+    colRefs[columnId].enableDragging();
+}
+
+/**
+ * Utility methods for creating, deleting and updating columns
+ * Also includes methods to open modals which are used
+ */
 
 const addColumn = () => {
     const column = {
@@ -546,6 +532,9 @@ const updateColumnProperties = (columnObj: Column) => {
     updateStorage();
 };
 
+/**
+ * Main method for updating the persistent storage, overrides old board with new one and saves to tauri store
+ */
 const updateStorage = () => {
     const currentBoard = boards.value.filter((obj: Board) => {
         return obj.id === board.value.id;
@@ -556,6 +545,10 @@ const updateStorage = () => {
     boards.value[currentBoardIndex] = board.value; // Override old board with new one
     store.set("boards", boards.value); // Override all saved boards with new altered array which includes modified current board
 };
+
+/**
+ * Utility methods for altering board (delete, export, etc.)
+ */
 
 const exportBoardToJson = async () => {
     const filePath = await save({
@@ -619,6 +612,38 @@ const deleteBoard = async (boardIndex: number | undefined) => {
 
     router.push("/");
 };
+
+const setBackgroundImage = (img: string) => {
+    bgCustomNoResolution.value = img;
+    bgCustom.value = convertFileSrc(img);
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
+const resetBackground = () => {
+    bgCustom.value = "";
+    bgBlur.value = "8px";
+    bgBrightness.value = "100%";
+
+    delete board.value.background;
+    updateStorage();
+}
+
+const setBlur = (blurAmount: string) => {
+    bgBlur.value = blurAmount;
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
+const setBrightness = (brightnessAmount: string) => {
+    bgBrightness.value = brightnessAmount;
+    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    updateStorage();
+}
+
+const enableBoardTitleEditing = () => {
+    boardTitleEditing.value = true;
+}
 
 const getBoardIndex = () => {
     return boards.value.indexOf(board.value);
