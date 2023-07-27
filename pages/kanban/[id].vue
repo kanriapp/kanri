@@ -509,11 +509,16 @@ const addColumn = () => {
 };
 
 const openColumnRemoveDialog = async (columnID: string) => {
-  const { data, isCanceled } = await columnRemoveDialog.reveal();
-  if (!isCanceled) {
-    console.log(data);
-    removeColumn(columnID);
-  }
+    const column = board.value.columns.filter((obj: Column) => {
+        return obj.id === columnID;
+    })[0];
+    emitter.emit("openModalWithCustomDescription", {description: `Are you sure you want to delete the column "${column.title}"? This action cannot be undone.`});
+
+    const { data, isCanceled } = await columnRemoveDialog.reveal();
+    if (!isCanceled) {
+        console.log(data);
+        removeColumn(columnID);
+    }
 }
 
 const removeColumn = (columnID: string) => {
