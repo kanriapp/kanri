@@ -66,6 +66,7 @@
           :card="card"
           :zoom-level="zoomLevel"
           @remove-card="removeCard"
+          @remove-card-with-confirmation="removeCardWithConfirmation"
           @enable-dragging="enableDragging"
           @disable-dragging="disableDragging"
           @open-kanban-modal="openKanbanModal"
@@ -153,6 +154,7 @@ const emit = defineEmits<{
   (e: "updateStorage", column: Column): void,
   (e: "removeColumn", columnId: string): void,
   (e: "removeColumnNoConfirmation", columnId: string): void,
+  (e: "removeCardWithConfirmation", columnId: string, cardIndex: number, cardRef: Ref<HTMLDivElement | null>): void,
   (e: "enableDragging"): void,
   (e: "disableDragging"): void,
   (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
@@ -310,6 +312,10 @@ const addCard = () => {
     updateStorage();
 };
 
+const removeCardWithConfirmation = (cardIndex: number, cardRef: Ref<HTMLDivElement | null>) => {
+    emit("removeCardWithConfirmation", props.id, cardIndex, cardRef);
+}
+
 const removeCard = (index: number) => {
     cards.value.splice(index, 1);
     updateStorage();
@@ -355,7 +361,7 @@ const updateStorage = () => {
     emit("updateStorage", column);
 };
 
-defineExpose({ setCardTitle, setCardDescription, setCardColor, setCardTasks, closeModal, enableDragging });
+defineExpose({ setCardTitle, setCardDescription, setCardColor, setCardTasks, removeCard, closeModal, enableDragging });
 </script>
 
 <style scoped>
