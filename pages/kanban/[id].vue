@@ -48,6 +48,15 @@
       @closeModal="columnRemoveDialog.cancel()"
       @confirmAction="columnRemoveDialog.confirm(true)"
     />
+    <ModalConfirmation
+      v-show="removeCardModalVisible"
+      title="Delete column?"
+      description="Are you sure you want to delete this card? This action is irreverisble."
+      confirm-button-text="Delete"
+      close-button-text="Cancel"
+      @closeModal="cardRemoveDialog.cancel()"
+      @confirmAction="cardRemoveDialog.confirm(true)"
+    />
     <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
         v-if="!boardTitleEditing"
@@ -168,6 +177,7 @@
                   @updateStorage="updateColumnProperties"
                   @removeColumn="openColumnRemoveDialog(column.id)"
                   @removeColumnNoConfirmation="removeColumn"
+                  @removeCardWithConfirmation="removeCardWithConfirmation"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
                   @openKanbanModal="openKanbanModal"
@@ -241,10 +251,12 @@ const kanbanModalVisible = ref(false);
 const kanbanModal = ref<InstanceType<typeof KanbanModal> | null>(null);
 
 const removeColumnModalVisible = ref(false);
+const removeCardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const renameBoardModalVisible = ref(false);
 
 const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
+const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
 
 const cssVars = computed(() => {
     return {
@@ -478,6 +490,28 @@ const closeKanbanModal = (columnId: string) => {
     colRefs[columnId].enableDragging();
 }
 
+const removeCardWithConfirmation = async (columnId: string, cardIndex: number, cardRef: Ref<HTMLElement | null>) => {
+    const card = board.value.columns.filter((obj: Column) => {
+        return obj.id === columnId;
+    })[0].cards[cardIndex];
+    emitter.emit("openModalWithCustomDescription", {description: `Are you sure you want to delete the card "${card.name}"? This action cannot be undone.`});
+
+    const { isCanceled } = await cardRemoveDialog.reveal();
+    if (!isCanceled) {
+        if (!cardRef.value) return;
+
+        const oldClasses = cardRef.value.classList.value;
+        cardRef.value.classList.value = oldClasses + " card-hidden";
+
+        setTimeout(() => {
+            colRefs[columnId].removeCard(cardIndex);
+
+            if (!cardRef.value) return;
+            cardRef.value.classList.value = oldClasses;
+        }, 250);
+    }
+}
+
 /**
  * Utility methods for creating, deleting and updating columns
  * Also includes methods to open modals which are used
@@ -501,9 +535,8 @@ const openColumnRemoveDialog = async (columnID: string) => {
     })[0];
     emitter.emit("openModalWithCustomDescription", {description: `Are you sure you want to delete the column "${column.title}"? This action cannot be undone.`});
 
-    const { data, isCanceled } = await columnRemoveDialog.reveal();
+    const { isCanceled } = await columnRemoveDialog.reveal();
     if (!isCanceled) {
-        console.log(data);
         removeColumn(columnID);
     }
 }

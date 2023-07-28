@@ -35,12 +35,13 @@
       />
     </p>
 
-    <div
+    <ClickCounter
       class="cursor-pointer"
-      @click="deleteCardWithAnimation(index)"
+      @single-click="deleteCardWithConfirmation(index)"
+      @double-click="deleteCardWithAnimation(index)"
     >
       <XMarkIcon class="text-dim-1 text-accent-hover h-4 w-4" />
-    </div>
+    </ClickCounter>
   </div>
 </template>
 
@@ -58,6 +59,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     (e: "removeCard", index: number): void,
+    (e: "removeCardWithConfirmation", index: number, cardRef: Ref<HTMLDivElement | null>): void,
     (e: "enableDragging"): void,
     (e: "disableDragging"): void,
     (e: "openKanbanModal", event: Event, index: number, card: Card): void,
@@ -118,6 +120,10 @@ const cardTextColor = computed(() => {
 
     return "text-gray-50";
 })
+
+const deleteCardWithConfirmation = (index: number) => {
+    emit("removeCardWithConfirmation", index, cardRef);
+}
 
 const deleteCardWithAnimation = (index: number) => {
     if (!cardRef.value) return;
