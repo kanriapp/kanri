@@ -25,7 +25,7 @@
         "eslint": "8.47.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.5.2",
-        "nuxt-icon": "^0.4.1",
+        "nuxt-icon": "^0.5.0",
         "postcss-custom-properties": "13.3.0",
         "rollup-plugin-license": "^3.0.1"
     },
