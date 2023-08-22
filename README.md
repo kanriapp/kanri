@@ -21,6 +21,11 @@ Screenshot of a fully customized version of the app, in the main Kanban board vi
 ![kanri_customized](https://user-images.githubusercontent.com/57040351/210173518-2d99f0cc-9df8-4e0f-8c3c-f86969fab268.png)
 
 You can download it for free for Windows, Mac and Linux [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
+MacOS users can also install Kanri using Homebrew:
+```bash
+brew tap trobonox/cask
+brew install kanri
+```
 
 ## ✨ Why Kanri?
 - 🏙 Modern - featuring a clean design & new technologies like Tauri
