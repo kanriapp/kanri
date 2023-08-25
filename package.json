@@ -22,7 +22,7 @@
         "@types/node": "^18.11.18",
         "@vueuse/core": "^10.2.1",
         "@vueuse/nuxt": "^10.2.1",
-        "eslint": "8.47.0",
+        "eslint": "8.48.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.5.2",
         "nuxt-icon": "^0.5.0",
