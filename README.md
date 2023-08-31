@@ -28,6 +28,11 @@ brew tap trobonox/cask
 brew install kanri
 ```
 
+Apple Silicon users, please run this command to prevent the error saying the app is broken:
+```bash
+xattr -cr /Applications/kanri.app
+```
+
 ## ✨ Why Kanri?
 - 🏙 Modern - featuring a clean design & new technologies like Tauri
 - 👓 Familiar - uses a Kanban board layout (inspired by Trello®)
