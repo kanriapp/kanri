@@ -4133,19 +4133,12 @@ magic-string@^0.27.0:
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.13"
 
-magic-string@^0.30.0, magic-string@^0.30.1, magic-string@^0.30.2, magic-string@^0.30.3:
+magic-string@^0.30.0, magic-string@^0.30.1, magic-string@^0.30.2, magic-string@^0.30.3, magic-string@~0.30.0:
   version "0.30.3"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.30.3.tgz#403755dfd9d6b398dfa40635d52e96c5ac095b85"
   integrity sha512-B7xGbll2fG/VjP+SWg4sX3JynwIU0mjoTc6MPpKNuIvftk6u6vqhDnk1R80b8C2GBR6ywqy+1DcKBrevBg+bmw==
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.15"
-
-magic-string@~0.26.2:
-  version "0.26.7"
-  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.26.7.tgz#caf7daf61b34e9982f8228c4527474dac8981d6f"
-  integrity sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==
-  dependencies:
-    sourcemap-codec "^1.4.8"
 
 make-dir@^3.1.0, make-dir@~3.1.0:
   version "3.1.0"
@@ -4295,10 +4288,15 @@ mkdirp@^0.5.6:
   dependencies:
     minimist "^1.2.6"
 
-mkdirp@^1.0.3, mkdirp@~1.0.4:
+mkdirp@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+
+mkdirp@~3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-3.0.1.tgz#e44e4c5607fb279c168241713cc6e0fea9adcb50"
+  integrity sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==
 
 mlly@^1.2.0, mlly@^1.3.0, mlly@^1.4.0, mlly@^1.4.1:
   version "1.4.2"
@@ -5502,15 +5500,15 @@ rimraf@^3.0.2:
     glob "^7.1.3"
 
 rollup-plugin-license@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-license/-/rollup-plugin-license-3.0.1.tgz#e54d9464971dc2c5282b74c00cee09091b329054"
-  integrity sha512-/lec6Y94Y3wMfTDeYTO/jSXII0GQ/XkDZCiqkMKxyU5D5nGPaxr/2JNYvAgYsoCYuOLGOanKDPjCCQiTT96p7A==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-license/-/rollup-plugin-license-3.1.0.tgz#1ee033c461ecee8f58a5d461fd922312c838799b"
+  integrity sha512-Cny2H2hJ7K+VdcJkH1pNcYRVhqIhZNu/fPusedW53fNZQOIwpXiznJ220EFvDkJbFUEkLqIDsDB5bEr/N9qfqw==
   dependencies:
     commenting "~1.1.0"
     glob "~7.2.0"
     lodash "~4.17.21"
-    magic-string "~0.26.2"
-    mkdirp "~1.0.4"
+    magic-string "~0.30.0"
+    mkdirp "~3.0.0"
     moment "~2.29.3"
     package-name-regex "~2.0.6"
     spdx-expression-validate "~2.0.0"
@@ -5698,11 +5696,6 @@ source-map@^0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.4.tgz#a9bbe705c9d8846f4e08ff6765acf0f1b0898656"
   integrity sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==
-
-sourcemap-codec@^1.4.8:
-  version "1.4.8"
-  resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz#ea804bd94857402e6992d05a38ef1ae35a9ab4c4"
-  integrity sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==
 
 spdx-compare@^1.0.0:
   version "1.0.0"
