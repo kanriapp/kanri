@@ -119,6 +119,14 @@ const cssVars = computed(() => {
     background-color: var(--accent);
 }
 
+.border-elevation-1 {
+    border-color: var(--elevation-1);
+}
+
+.border-elevation-2 {
+    border-color: var(--elevation-2);
+}
+
 .border-elevation-3 {
     border-color: var(--elevation-3);
 }
