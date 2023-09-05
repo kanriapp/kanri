@@ -1110,6 +1110,11 @@
     "@parcel/watcher-win32-ia32" "2.3.0"
     "@parcel/watcher-win32-x64" "2.3.0"
 
+"@phosphor-icons/vue@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@phosphor-icons/vue/-/vue-2.1.6.tgz#90c999d54ffe2fcb0ea683120b49269739c9decc"
+  integrity sha512-j4iVvNT4JbDR2udIVfakKZHd14i3jCvO4b24OC0W/1rasftU8qVg1Tnb3QDwAT0teNU+UxvaM+kCWxfGHC2dUg==
+
 "@pinia/nuxt@0.4.11":
   version "0.4.11"
   resolved "https://registry.yarnpkg.com/@pinia/nuxt/-/nuxt-0.4.11.tgz#1b3f728ae112d45deff5971376e05b8a8d64f720"
@@ -5637,14 +5642,12 @@ tar@^6.1.11, tar@^6.1.13:
 
 "tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#0e474395d4990587ad5c1db25ed23220fe11764f":
   version "0.0.0"
-  uid "0e474395d4990587ad5c1db25ed23220fe11764f"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/0e474395d4990587ad5c1db25ed23220fe11764f"
   dependencies:
     "@tauri-apps/api" "1.4.0"
 
 "tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#a65ce9bfb168a9a3cd7ed4102b9f22770cc3abfa":
   version "0.0.0"
-  uid a65ce9bfb168a9a3cd7ed4102b9f22770cc3abfa
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/a65ce9bfb168a9a3cd7ed4102b9f22770cc3abfa"
   dependencies:
     "@tauri-apps/api" "1.4.0"
