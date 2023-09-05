@@ -5,43 +5,71 @@
 <template>
   <div
     ref="cardRef"
-    class="kanban-card border-elevation-3 flex cursor-pointer flex-row justify-between border"
+    class="kanban-card border-elevation-3 flex cursor-pointer flex-col items-start gap-1 border"
     :class="[cardTextClassZoom, cardBackgroundColor, cardTextColor]"
     @click.self="$emit('openKanbanModal', $event, index, card)"
   >
-    <p
-      class="text-no-overflow mr-2 w-full min-w-[24px]"
+    <div
+      class="flex w-full flex-row items-center justify-between"
+      :class="{'pb-1.5': (!tasks && (!description || !(/\S/.test(description))))}"
     >
-      <ClickCounter
-        v-if="!cardNameEditMode"
-        @single-click="$emit('openKanbanModal', $event, index, card)"
-        @double-click="enableCardEditMode"
+      <p
+        class="text-no-overflow mr-2 w-full min-w-[24px]"
       >
-        <p ref="cardNameText">
-          {{ name }}
-        </p>
+        <ClickCounter
+          v-if="!cardNameEditMode"
+          @single-click="$emit('openKanbanModal', $event, index, card)"
+          @double-click="enableCardEditMode"
+        >
+          <p ref="cardNameText">
+            {{ name }}
+          </p>
+        </ClickCounter>
+        <textarea
+          v-else
+          ref="cardNameInput"
+          v-model="name"
+          v-resizable
+          v-focus
+          type="text"
+          maxlength="1000"
+          class="bg-elevation-3 m-0 h-full w-full resize-none rounded-sm p-0 focus:outline-none"
+          @blur="updateCardName"
+          @keypress.enter="updateCardName"
+        />
+      </p>
+      <ClickCounter
+        class="cursor-pointer"
+        @single-click="deleteCardWithConfirmation(index)"
+        @double-click="deleteCardWithAnimation(index)"
+      >
+        <XMarkIcon class="text-dim-1 text-accent-hover h-4 w-4" />
       </ClickCounter>
-      <textarea
-        v-else
-        ref="cardNameInput"
-        v-model="name"
-        v-resizable
-        v-focus
-        type="text"
-        maxlength="1000"
-        class="bg-elevation-3 h-full w-full resize-none rounded-sm focus:outline-none"
-        @blur="updateCardName"
-        @keypress.enter="updateCardName"
-      />
-    </p>
-
-    <ClickCounter
-      class="cursor-pointer"
-      @single-click="deleteCardWithConfirmation(index)"
-      @double-click="deleteCardWithAnimation(index)"
+    </div>
+    <div
+      class="flex flex-row items-center gap-2"
+      @click="$emit('openKanbanModal', $event, index, card)"
     >
-      <XMarkIcon class="text-dim-1 text-accent-hover h-4 w-4" />
-    </ClickCounter>
+      <PhTextAlignLeft
+        v-if="description && (/\S/.test(description))"
+        class="text-dim-2 h-5 w-5"
+      />
+      <div
+        v-if="tasks"
+        class="flex flex-row items-center gap-1"
+        :class="{'bg-accent rounded-sm px-1': allTasksCompleted}"
+      >
+        <PhChecks
+          v-if="allTasksCompleted"
+          class="text-dim-2 h-5 w-5"
+        />
+        <PhListChecks
+          v-else
+          class="text-dim-2 h-5 w-5"
+        />
+        <span class="text-dim-2 text-sm">{{ taskCompletionStatus }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,6 +78,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "@/utils/colorUtils"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { Card } from '@/types/kanban-types';
+import { PhChecks, PhListChecks, PhTextAlignLeft } from "@phosphor-icons/vue";
 
 const props = defineProps<{
     index: number,
@@ -72,6 +101,8 @@ const savedColors = ref(null);
 const cardRef: Ref<HTMLDivElement | null> = ref(null);
 
 const name = ref(props.card.name);
+const description = ref(props.card.description);
+const tasks = ref(props.card.tasks);
 const cardNameEditMode = ref(false);
 
 const cardNameInput: Ref<HTMLTextAreaElement | null> = ref(null);
@@ -79,11 +110,32 @@ const cardNameText: Ref<HTMLParagraphElement | null> = ref(null);
 
 watch(props, (_, newData) => {
     name.value = newData.card.name;
+    description.value = newData.card.description;
+    tasks.value = newData.card.tasks;
 });
 
 onMounted(async () => {
     savedColors.value = await store.get("colors");
 })
+
+const taskCompletionStatus = computed(() => {
+    if (!tasks.value) return "0/0";
+
+    const totalTasks = tasks.value.length;
+    const completedTasks = tasks.value.filter(task => task.finished).length;
+
+    return `${completedTasks}/${totalTasks}`;
+});
+
+const allTasksCompleted = computed(() => {
+    if (!tasks.value) return false;
+
+    const totalTasks = tasks.value.length;
+    const completedTasks = tasks.value.filter(task => task.finished).length;
+
+    if (totalTasks === completedTasks) return true;
+})
+
 
 const cardTextClassZoom = computed(() => {
     switch (props.zoomLevel) {
