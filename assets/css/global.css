@@ -7,3 +7,7 @@ body {
     scroll-behavior: smooth;
     background-color: #111112;
 }
+
+.smooth-dnd-container {
+    min-height: 40px !important;
+}
