@@ -4,7 +4,7 @@
 
 <template>
   <nav
-    class="bg-elevation-1 mr-8 flex h-screen flex-col items-center justify-between overflow-hidden px-8 pb-6 pt-4 shadow-md"
+    class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-4 shadow-md"
     :class="zIndexDown ? '' : 'z-50'"
   >
     <ModalNewBoard
@@ -26,7 +26,7 @@
         id="logo"
         class="flex flex-row rounded-md"
       >
-        <IconKanri class="h-12 w-12" />
+        <IconKanri class="h-10 w-10" />
       </div>
       <button
         v-if="showAddButton"
@@ -34,10 +34,7 @@
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="$router.push('/')"
       >
-        <Icon
-          name="ph:house"
-          class="h-7 w-7"
-        />
+        <PhHouse class="h-7 w-7" />
       </button>
       <button
         v-else
@@ -45,10 +42,7 @@
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="$router.go(-1)"
       >
-        <Icon
-          name="ph:arrow-bend-up-left"
-          class="h-7 w-7"
-        />
+        <PhArrowBendUpLeft class="h-7 w-7" />
       </button>
       <button
         v-if="showAddButton"
@@ -56,10 +50,7 @@
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="newBoardModalVisible = true"
       >
-        <Icon
-          name="ph:plus-circle-duotone"
-          class="text-accent h-7 w-7"
-        />
+        <IconPhPlusCircleDuotone class="text-accent h-7 w-7" />
       </button>
     </section>
 
@@ -72,10 +63,7 @@
         to="/import"
       >
         <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-          <Icon
-            name="ph:arrows-left-right"
-            class="h-7 w-7"
-          />
+          <PhArrowsLeftRight class="h-7 w-7" />
         </div>
       </nuxt-link>
       <button
@@ -83,20 +71,14 @@
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="helpModalVisible = true"
       >
-        <Icon
-          name="ph:question"
-          class="h-7 w-7"
-        />
+        <PhQuestion class="h-7 w-7" />
       </button>
       <nuxt-link
         v-tooltip.left-start="'Settings'"
         to="/settings"
       >
         <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-          <Icon
-            name="ph:gear-six"
-            class="h-7 w-7"
-          />
+          <PhGearSix class="h-7 w-7" />
         </div>
       </nuxt-link>
     </section>
@@ -105,6 +87,8 @@
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
+import { PhArrowBendUpLeft, PhHouse } from "@phosphor-icons/vue";
+import { PhArrowsLeftRight, PhGearSix, PhQuestion } from "@phosphor-icons/vue";
 
 const helpModalVisible = ref(false);
 const newBoardModalVisible = ref(false);
@@ -151,3 +135,9 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 }
 </script>
+
+<style scoped>
+.bg-sidebar {
+    background: radial-gradient(circle at top left, var(--elevation-1) 10%, transparent);
+}
+</style>
