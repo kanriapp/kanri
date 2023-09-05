@@ -25,13 +25,13 @@
         "eslint": "8.48.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.5.2",
-        "nuxt-icon": "^0.5.0",
         "postcss-custom-properties": "13.3.0",
         "rollup-plugin-license": "^3.0.1"
     },
     "dependencies": {
         "@heroicons/vue": "2.0.18",
         "@paralleldrive/cuid2": "^2.1.0",
+        "@phosphor-icons/vue": "^2.1.6",
         "@pinia/nuxt": "0.4.11",
         "@tauri-apps/api": "1.4.0",
         "floating-vue": "2.0.0-beta.24",
