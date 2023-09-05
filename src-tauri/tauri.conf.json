@@ -6,7 +6,7 @@
         "distDir": "../.output/public"
     },
     "package": {
-        "productName": "kanri",
+        "productName": "Kanri",
         "version": "0.4.3"
     },
     "tauri": {
