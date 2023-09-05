@@ -49,10 +49,7 @@
           placement="bottom-start"
         >
           <button class="flex flex-row items-center gap-2 px-4 py-2">
-            <Icon
-              name="ph:funnel"
-              class="h-6 w-6"
-            />
+            <PhFunnel class="h-6 w-6" />
             <p>{{ sortingOptionText }}</p>
             <ChevronDownIcon class="h-4 w-4" />
           </button>
@@ -125,14 +122,14 @@
             v-for="(board, index) in boards"
             id="board-preview"
             :key="board.id"
-            class="bg-elevation-1 flex flex-col rounded-md transition-transform hover:-translate-y-1"
+            class="bg-board-preview border-elevation-1 flex flex-col rounded-md border-2 shadow-xl transition-transform hover:-translate-y-1"
             :to="'/kanban/' + board.id"
           >
             <LazyKanbanBoardPreview
               :board="board"
               :is-simple-preview-mode="boards.length >= 25"
             />
-            <div class="flex flex-row justify-between px-1 py-2 border-t border-accent">
+            <div class="border-accent flex flex-row justify-between border-t px-1 py-2">
               <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
                 {{ board.title }}
               </span>
@@ -185,6 +182,7 @@ import { Ref } from "vue";
 
 import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"
+import { PhFunnel } from "@phosphor-icons/vue";
 
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
@@ -354,5 +352,9 @@ const sortBoardsByEditDate = () => {
 
 .list-leave-active {
     position: absolute;
+}
+
+.bg-board-preview {
+    background: radial-gradient(circle at bottom left, var(--elevation-1) 30%, transparent);
 }
 </style>
