@@ -5,7 +5,7 @@
 <template>
   <div
     ref="cardRef"
-    class="kanban-card flex cursor-pointer flex-row justify-between bg-blue-600"
+    class="kanban-card border-elevation-3 flex cursor-pointer flex-row justify-between border"
     :class="[cardTextClassZoom, cardBackgroundColor, cardTextColor]"
     @click.self="$emit('openKanbanModal', $event, index, card)"
   >
