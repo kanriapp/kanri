@@ -18,7 +18,7 @@ SPDX-License-Identifier: Apache-2.0
 </p>
 
 Screenshot of a fully customized version of the app, in the main Kanban board view:
-![kanri_customized](https://user-images.githubusercontent.com/57040351/210173518-2d99f0cc-9df8-4e0f-8c3c-f86969fab268.png)
+![kanri_customized](https://github.com/trobonox/kanri/assets/57040351/176922c7-8edf-4256-8eb3-ec4d03ad4f75)
 
 You can download it for free for Windows, Mac and Linux [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
 
