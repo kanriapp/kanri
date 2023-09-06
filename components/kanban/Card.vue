@@ -56,7 +56,7 @@
         :class="[cardTextColorDim]"
       />
       <div
-        v-if="tasks"
+        v-if="tasks && taskCompletionStatus !== '0/0'"
         class="flex flex-row items-center gap-1"
         :class="{'bg-accent text-buttons rounded-sm px-1': allTasksCompleted}"
       >
