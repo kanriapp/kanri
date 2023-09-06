@@ -69,25 +69,30 @@
           >
             <div
               v-if="tasks && tasks.length !== 0"
-              class="flex flex-col gap-1 pl-1 max-h-[148px] overflow-auto"
+              class="flex max-h-[148px] flex-col gap-1 overflow-auto pl-1"
             >
-              <div
-                v-for="(task, index) in tasks"
-                :key="task.name"
-                class="flex w-full flex-row items-center justify-between gap-4"
-              >
-                <div class="flex flex-row items-center gap-4">
-                  <input
-                    v-model="task.finished"
-                    type="checkbox"
-                    class="h-5 w-5"
-                  >
-                  <span>{{ task.name }}</span>
-                </div>
-                <button @click="deleteTask(index)">
-                  <XMarkIcon class="text-dim-2 text-accent-hover h-4 w-4" />
-                </button>
-              </div>
+              <Container @drop="onTaskDrop">
+                <Draggable
+                  v-for="(task, index) in tasks"
+                  :key="index"
+                  :index="index"
+                >
+                  <div class="flex w-full flex-row items-center justify-between gap-4">
+                    <div class="flex flex-row items-center gap-4">
+                      <input
+                        v-model="task.finished"
+                        type="checkbox"
+                        class="h-5 w-5"
+                        @change="updateCardTasks"
+                      >
+                      <span>{{ task.name }}</span>
+                    </div>
+                    <button @click="deleteTask(index)">
+                      <XMarkIcon class="text-dim-2 text-accent-hover h-4 w-4" />
+                    </button>
+                  </div>
+                </Draggable>
+              </Container>
             </div>
             <input
               v-if="taskAddMode"
@@ -220,6 +225,8 @@
 <script setup lang="ts">
 import emitter from "@/utils/emitter"
 import { Ref } from "vue";
+//@ts-ignore
+import { Container, Draggable } from 'vue3-smooth-dnd';
 import { PlusIcon, XMarkIcon, CheckIcon } from "@heroicons/vue/24/solid";
 
 const emit = defineEmits<{
@@ -246,7 +253,6 @@ const newTaskInput: Ref<HTMLInputElement | null> = ref(null);
 
 const enableTitleEditing = () => {
     emitter.emit("modalPreventClickOutsideClose");
-
     titleEditing.value = true;
 }
 
@@ -278,11 +284,21 @@ const createTask = () => {
     newTaskName.value = "";
     taskAddMode.value = false;
 
-    emit("setCardTasks", columnID.value, cardID.value, tasks.value);
+    updateCardTasks();
 }
 
 const deleteTask = (index: number) => {
     tasks.value.splice(index, 1);
+    updateCardTasks();
+}
+
+const onTaskDrop = (dropResult: any) => {
+    tasks.value = applyDrag(tasks.value, dropResult);
+    updateCardTasks();
+}
+
+const updateCardTasks = () => {
+    emit("setCardTasks", columnID.value, cardID.value, tasks.value);
 }
 
 const updateDescription = () => {
