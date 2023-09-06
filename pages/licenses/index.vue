@@ -2,7 +2,7 @@
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <template>
-  <div class="px-8 pt-8">
+  <div class="overflow-auto scroll-auto px-8 pt-8">
     <h1 class="mb-2 text-4xl font-bold">
       3rd-Party Software Report for Kanri
     </h1>
@@ -32,7 +32,7 @@
     </div>
 
     <pre>
-      Name: @vue/shared
+Name: @vue/shared
 Version: 3.3.4
 License: MIT
 Private: false
@@ -177,7 +177,7 @@ THE SOFTWARE.
 ---
 
 Name: destr
-Version: 2.0.0
+Version: 2.0.1
 License: MIT
 Private: false
 Description: A faster, secure and convenient alternative for JSON.parse
@@ -211,7 +211,7 @@ SOFTWARE.
 ---
 
 Name: ufo
-Version: 1.1.2
+Version: 1.3.0
 License: MIT
 Private: false
 Description: URL utils for humans
@@ -245,7 +245,7 @@ SOFTWARE.
 ---
 
 Name: ofetch
-Version: 1.1.1
+Version: 1.3.3
 License: MIT
 Private: false
 Description: A better fetch API. Works on node, browser and workers.
@@ -347,7 +347,7 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.6.2
+Version: 3.7.0
 License: MIT
 Private: false
 Repository: undefined
@@ -435,41 +435,41 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 Name: @unhead/shared
-Version: 1.1.30
+Version: 1.5.0
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
-Homepage: https://unhead.harlanzw.com
+Homepage: https://unhead.unjs.io
 Author: Harlan Wilton &lt;harlan@harlanzw.com>
 
 ---
 
 Name: @unhead/dom
-Version: 1.1.30
+Version: 1.5.0
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
-Homepage: https://unhead.harlanzw.com
+Homepage: https://unhead.unjs.io
 Author: Harlan Wilton &lt;harlan@harlanzw.com>
 
 ---
 
 Name: unhead
-Version: 1.1.30
+Version: 1.5.0
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
-Homepage: https://unhead.harlanzw.com
+Homepage: https://unhead.unjs.io
 Author: Harlan Wilton &lt;harlan@harlanzw.com>
 
 ---
 
 Name: @unhead/vue
-Version: 1.1.30
+Version: 1.5.0
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
-Homepage: https://unhead.harlanzw.com
+Homepage: https://unhead.unjs.io
 Author: Harlan Wilton &lt;harlan@harlanzw.com>
 
 ---
@@ -509,10 +509,10 @@ SOFTWARE.
 ---
 
 Name: h3
-Version: 1.7.1
+Version: 1.8.1
 License: MIT
 Private: false
-Description: Tiny JavaScript Server
+Description: Minimal H(TTP) framework built for high performance and portability.
 Repository: undefined
 License Copyright:
 ===
@@ -577,7 +577,7 @@ SOFTWARE.
 ---
 
 Name: pinia
-Version: 2.1.4
+Version: 2.1.6
 License: MIT
 Private: false
 Description: Intuitive, type safe and flexible Store for Vue
@@ -649,7 +649,7 @@ SOFTWARE.
 ---
 
 Name: nuxt-icon
-Version: 0.4.2
+Version: 0.5.0
 License: MIT
 Private: false
 Repository: undefined
@@ -790,7 +790,7 @@ SOFTWARE.
 ---
 
 Name: @nuxt/ui-templates
-Version: 1.2.0
+Version: 1.3.1
 License: CC-BY-ND-4.0
 Private: false
 Repository: undefined
@@ -828,6 +828,40 @@ License: MIT
 Private: false
 Repository: https://github.com/tailwindlabs/heroicons.git
 Homepage: https://github.com/tailwindlabs/heroicons#readme
+
+---
+
+Name: @phosphor-icons/vue
+Version: 2.1.6
+License: MIT
+Private: false
+Description: A clean and friendly icon family for Vue, too!
+Repository: undefined
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2020 Phosphor Icons
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 
 ---
 
@@ -900,8 +934,79 @@ SOFTWARE.
 
 ---
 
+Name: @vueuse/shared
+Version: 10.4.1
+License: MIT
+Private: false
+Repository: git+https://github.com/vueuse/vueuse.git
+Homepage: https://github.com/vueuse/vueuse/tree/main/packages/shared#readme
+Author: Anthony Fu &lt;https://github.com/antfu>
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2019-PRESENT Anthony Fu&lt;https://github.com/antfu>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
+Name: @vueuse/core
+Version: 10.4.1
+License: MIT
+Private: false
+Description: Collection of essential Vue Composition Utilities
+Repository: git+https://github.com/vueuse/vueuse.git
+Homepage: https://github.com/vueuse/vueuse#readme
+Author: Anthony Fu &lt;https://github.com/antfu>
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2019-PRESENT Anthony Fu&lt;https://github.com/antfu>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
 Name: @paralleldrive/cuid2
-Version: 2.2.1
+Version: 2.2.2
 License: MIT
 Private: false
 Repository: git+https://github.com/ericelliott/cuid2.git
@@ -1158,7 +1263,7 @@ License Copyright:
 ---
 
 Name: zod
-Version: 3.21.4
+Version: 3.22.2
 License: MIT
 Private: false
 Description: TypeScript-first schema declaration and validation library with static type inference
@@ -1386,6 +1491,41 @@ License Copyright:
 
 ---
 
+Name: @iconify/vue
+Version: 4.1.1
+License: MIT
+Private: false
+Description: Iconify icon component for Vue 3.
+Repository: https://github.com/iconify/iconify.git
+Homepage: https://iconify.design/
+Author: Vjacheslav Trushkin
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2020 - 2022 Vjacheslav Trushkin / Iconify OÜ
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
 Name: tauri-plugin-store-api
 Version: 0.0.0
 License: MIT or APACHE-2.0
@@ -1587,42 +1727,6 @@ License Copyright:
 MIT License
 
 Copyright (c) 2021 Jason Miller
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
----
-
-Name: @iconify/vue
-Version: 4.1.1
-License: MIT
-Private: false
-Description: Iconify icon component for Vue 3.
-Repository: https://github.com/iconify/iconify.git
-Homepage: https://iconify.design/
-Author: Vjacheslav Trushkin
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) 2020 - 2022 Vjacheslav Trushkin / Iconify OÜ
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
