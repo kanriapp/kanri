@@ -5822,6 +5822,13 @@ vue-devtools-stub@^0.1.0:
   resolved "https://registry.yarnpkg.com/vue-devtools-stub/-/vue-devtools-stub-0.1.0.tgz#a65b9485edecd4273cedcb8102c739b83add2c81"
   integrity sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==
 
+vue-dragscroll@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/vue-dragscroll/-/vue-dragscroll-4.0.5.tgz#b07bbbc0300a5dee892bc48b000942a93d258cd8"
+  integrity sha512-1V4/2rUlNTM8vYC6/y2yfjKjOynuCfp1VRpj+IOGCcj8FWl4/3FMs9GBUJShd5mLoD4BvhY1xveezeuD+9i/mw==
+  dependencies:
+    vue "^3.2.37"
+
 vue-eslint-parser@^9.3.1:
   version "9.3.1"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-9.3.1.tgz#429955e041ae5371df5f9e37ebc29ba046496182"
@@ -5854,7 +5861,7 @@ vue3-smooth-dnd@0.0.5:
   dependencies:
     smooth-dnd "^0.12.1"
 
-vue@^3.3.4:
+vue@^3.2.37, vue@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.3.4.tgz#8ed945d3873667df1d0fcf3b2463ada028f88bd6"
   integrity sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==
