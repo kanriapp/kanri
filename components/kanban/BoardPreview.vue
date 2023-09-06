@@ -20,7 +20,7 @@
           <div
             v-for="card in column.cards"
             :key="card.id"
-            class="mb-0.5 rounded-[0.05rem] p-[2px] text-[2px]"
+            class="text-no-overflow mb-0.5 rounded-[0.05rem] p-[2px] text-[2px]"
             :class="card.color ? card.color : 'bg-elevation-3'"
           >
             {{ card.name }}
