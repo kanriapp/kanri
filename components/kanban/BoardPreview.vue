@@ -4,23 +4,23 @@
 
 <template>
   <div
-    class="flex aspect-video h-32 flex-row gap-1.5 overflow-hidden bg-custom rounded-t-md"
-    :style="cssVars"
     v-if="!isSimplePreviewMode"
+    class="bg-custom flex aspect-video h-32 flex-row gap-1.5 overflow-hidden rounded-t-md"
+    :style="cssVars"
   >
-    <div class="bg-effect-overlay h-full w-max min-w-full p-2 rounded-t-md flex flex-col">
-      <span class="text-[4px] mb-0.5 font-bold"> {{ board.title }}</span>
-      <div class="flex flex-row w-full gap-1.5">
+    <div class="bg-effect-overlay flex h-full w-max min-w-full flex-col rounded-t-md p-2">
+      <span class="mb-0.5 text-[4px] font-bold"> {{ board.title }}</span>
+      <div class="flex w-full flex-row gap-1.5">
         <div
           v-for="column in board.columns"
           :key="column.id"
-          class="bg-elevation-2 flex h-min shrink-0 w-10 flex-col gap-[1px] rounded-sm p-0.5 text-[3px] font-bold"
+          class="bg-elevation-2 flex h-min w-10 shrink-0 flex-col gap-[1px] rounded-sm p-0.5 text-[3px] font-bold"
         >
           {{ column.title }}
           <div
             v-for="card in column.cards"
             :key="card.id"
-            class="rounded-[0.05rem] p-[2px] text-[2px] mb-0.5"
+            class="mb-0.5 rounded-[0.05rem] p-[2px] text-[2px]"
             :class="card.color ? card.color : 'bg-elevation-3'"
           >
             {{ card.name }}
@@ -71,7 +71,7 @@ const cssVars = computed(() => {
 })
 
 onMounted(() => {
-  if (props.board.background && !props.isSimplePreviewMode) {
+    if (props.board.background && !props.isSimplePreviewMode) {
         bgCustomNoResolution.value = props.board.background.src;
         bgCustom.value = convertFileSrc(props.board.background.src);
 
