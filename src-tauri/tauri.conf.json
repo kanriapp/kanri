@@ -7,7 +7,7 @@
     },
     "package": {
         "productName": "Kanri",
-        "version": "0.4.3"
+        "version": "0.5.0"
     },
     "tauri": {
         "allowlist": {
