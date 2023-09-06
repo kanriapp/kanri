@@ -148,11 +148,12 @@
     </div>
     <div
       id="kanban-cols-container"
+      v-dragscroll:nochilddrag
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
       :style="cssVars"
     >
       <div class="bg-effect-overlay h-full w-max min-w-full pt-[7.5rem]">
-        <div class="z-50 pl-8">
+        <div class="pointer-events-auto z-50 pl-8">
           <div class="pt-4">
             <Container
               group-name="columns"
@@ -704,5 +705,6 @@ const getBoardIndex = () => {
 .bg-effect-overlay {
     z-index: 2;
     backdrop-filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
+    pointer-events: none;
 }
 </style>
