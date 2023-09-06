@@ -52,22 +52,27 @@
     >
       <PhTextAlignLeft
         v-if="description && (/\S/.test(description))"
-        class="text-dim-2 h-5 w-5"
+        class="h-5 w-5"
+        :class="[cardTextColorDim]"
       />
       <div
         v-if="tasks"
         class="flex flex-row items-center gap-1"
-        :class="{'bg-accent rounded-sm px-1': allTasksCompleted}"
+        :class="{'bg-accent text-buttons rounded-sm px-1': allTasksCompleted}"
       >
         <PhChecks
           v-if="allTasksCompleted"
-          class="text-dim-2 h-5 w-5"
+          class="text-buttons h-5 w-5"
         />
         <PhListChecks
           v-else
-          class="text-dim-2 h-5 w-5"
+          class="h-5 w-5"
+          :class="[cardTextColorDim]"
         />
-        <span class="text-dim-2 text-sm">{{ taskCompletionStatus }}</span>
+        <span
+          class="text-sm"
+          :class="allTasksCompleted ? 'text-buttons' : cardTextColorDim"
+        >{{ taskCompletionStatus }}</span>
       </div>
     </div>
   </div>
@@ -97,7 +102,7 @@ const emit = defineEmits<{
 
 const store = useTauriStore().store;
 
-const savedColors = ref(null);
+const savedColors: Ref<any> = ref(null);
 const cardRef: Ref<HTMLDivElement | null> = ref(null);
 
 const name = ref(props.card.name);
@@ -171,7 +176,20 @@ const cardTextColor = computed(() => {
     }
 
     return "text-gray-50";
-})
+});
+
+const cardTextColorDim = computed(() => {
+    if (cardBackgroundColor.value === "bg-elevation-2") {
+        if (savedColors.value) {
+            if (getContrast(savedColors.value.elevation2) === "text-gray-50") {
+                return "text-gray-300";
+            }
+            return "text-gray-700"
+        }
+    }
+
+    return "text-gray-300";
+});
 
 const deleteCardWithConfirmation = (index: number) => {
     emit("removeCardWithConfirmation", index, cardRef);

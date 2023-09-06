@@ -4,7 +4,7 @@
 
 <template>
   <Modal
-    :click-outside-to-close="false"
+    :click-outside-to-close="!optionsEdited"
     @closeModal="$emit('closeModal')"
   >
     <template #content>
@@ -62,6 +62,7 @@
                 min="0"
                 max="20"
                 oninput="rangeValue.innerText = this.value"
+                @change="optionsEdited = true"
               >
               <p id="rangeValue">
                 {{ bgBlurString }}
@@ -84,6 +85,7 @@
                 min="0"
                 max="100"
                 oninput="rangeValue.innerText = this.value"
+                @change="optionsEdited = true"
               >
               <p id="rangeValue">
                 {{ bgBrightnessString }}
@@ -126,6 +128,7 @@ const props = defineProps<{
     bgBrightnessProp: string;
 }>();
 
+const optionsEdited = ref(false);
 const customBg = ref(props.background);
 
 const bgBlur = ref(props.bgBlurProp.replace(/[^0-9]/g, ''));
@@ -140,12 +143,16 @@ const bgBrightnessString = computed(() => {
 })
 
 const saveSettings = () => {
+    optionsEdited.value = false;
     emit("setBlur", `${bgBlur.value}px`);
     emit("setBrightness", `${bgBrightness.value}%`);
 }
 
 const resetSettings = () => {
+    optionsEdited.value = false;
     emit("resetBackground");
+    emit("setBlur", "8px");
+    emit("setBrightness", "100%");
 }
 
 const getCustomBg = async () => {

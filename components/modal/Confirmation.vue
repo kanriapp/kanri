@@ -34,7 +34,7 @@
             {{ closeButtonText || "No" }}
           </button>
           <button
-            class="bg-accent transition-button rounded-md px-4 py-2"
+            class="bg-accent text-buttons transition-button rounded-md px-4 py-2"
             @click="$emit('confirmAction', boardIndex); closeModal()"
           >
             {{ confirmButtonText || "Yes" }}
