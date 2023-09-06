@@ -57,6 +57,10 @@ onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
 });
 
+watch(props, (_, newData) => {
+    clickOutsideClose.value = newData.clickOutsideToClose;
+});
+
 const keyDownListener = (e: { key: string; }) => {
     if (e.key === "Escape") {
         emit("closeModal");
