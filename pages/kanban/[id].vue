@@ -579,6 +579,7 @@ const updateStorage = () => {
     board.value.lastEdited = new Date();
     boards.value[currentBoardIndex] = board.value; // Override old board with new one
     store.set("boards", boards.value); // Override all saved boards with new altered array which includes modified current board
+    store.save();
 };
 
 /**
