@@ -50,7 +50,7 @@
     />
     <ModalConfirmation
       v-show="removeCardModalVisible"
-      title="Delete column?"
+      title="Delete card?"
       description="Are you sure you want to delete this card? This action is irreverisble."
       confirm-button-text="Delete"
       close-button-text="Cancel"
