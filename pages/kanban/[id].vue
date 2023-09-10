@@ -417,7 +417,7 @@ const keyDownListener = (e: KeyboardEvent) => {
         columnEditIndex.value = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
         const lastColumnID = board.value.columns[columnEditIndex.value].id;
 
-        removeColumn(lastColumnID);
+        openColumnRemoveDialog(lastColumnID);
         return;
     }
 
