@@ -285,7 +285,7 @@ const enableCardAddMode = () => {
 }
 
 const updateColumnTitle = () => {
-    disableDragging();
+    enableDragging();
 
     if (titleNew.value == null || !(/\S/.test(titleNew.value))) {
         titleNew.value = "";
