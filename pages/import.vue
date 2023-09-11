@@ -93,6 +93,8 @@
 </template>
 
 <script setup lang="ts">
+import emitter from "@/utils/emitter";
+
 import { useTauriStore } from "@/stores/tauriStore";
 
 import { Column } from "@/types/kanban-types";
@@ -104,6 +106,10 @@ import { writeTextFile, readTextFile } from "@tauri-apps/api/fs";
 const router = useRouter();
 
 const store = useTauriStore().store;
+
+onMounted(() => {
+    emitter.emit("showSidebarBackArrow");
+});
 
 const exportJSON = async () => {
     const filePath = await save({
