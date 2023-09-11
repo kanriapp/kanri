@@ -69,7 +69,7 @@
           >
             <div
               v-if="tasks && tasks.length !== 0"
-              class="flex max-h-[148px] flex-col gap-1 overflow-auto pl-1"
+              class="flex max-h-[148px] w-full flex-col gap-1 overflow-auto pl-1"
             >
               <Container @drop="onTaskDrop">
                 <Draggable
@@ -77,17 +77,20 @@
                   :key="index"
                   :index="index"
                 >
-                  <div class="flex w-full flex-row items-center justify-between gap-4">
+                  <div class="mb-1 flex w-full flex-row items-center justify-between gap-4">
                     <div class="flex flex-row items-center gap-4">
                       <input
                         v-model="task.finished"
                         type="checkbox"
-                        class="h-5 w-5"
+                        class="h-5 w-5 shrink-0"
                         @change="updateCardTasks"
                       >
-                      <span>{{ task.name }}</span>
+                      <span class="text-no-overflow-task w-full">{{ task.name }}</span>
                     </div>
-                    <button @click="deleteTask(index)">
+                    <button
+                      class="ml-1 shrink-0"
+                      @click="deleteTask(index)"
+                    >
                       <XMarkIcon class="text-dim-2 text-accent-hover h-4 w-4" />
                     </button>
                   </div>
