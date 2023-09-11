@@ -26,8 +26,8 @@ tauri-plugin-persisted-scope = { version = "0.1", features = [
     "protocol-asset",
 ] }
 ignore = "=0.4.18"
-tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
-tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
+tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 
 [features]
 # by default Tauri runs in production mode
