@@ -40,7 +40,7 @@
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#0e474395d4990587ad5c1db25ed23220fe11764f",
         "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#a65ce9bfb168a9a3cd7ed4102b9f22770cc3abfa",
         "vue-dragscroll": "^4.0.5",
-        "vue3-smooth-dnd": "0.0.5",
+        "vue3-smooth-dnd": "0.0.6",
         "zod": "^3.20.6"
     },
     "resolutions": {
