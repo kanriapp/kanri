@@ -150,9 +150,10 @@ const saveSettings = () => {
 
 const resetSettings = () => {
     optionsEdited.value = false;
-    emit("resetBackground");
+
     emit("setBlur", "8px");
     emit("setBrightness", "100%");
+    emit("resetBackground");
 }
 
 const getCustomBg = async () => {

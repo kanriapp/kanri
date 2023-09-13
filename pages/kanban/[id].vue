@@ -50,7 +50,7 @@
     />
     <ModalConfirmation
       v-show="removeCardModalVisible"
-      title="Delete column?"
+      title="Delete card?"
       description="Are you sure you want to delete this card? This action is irreverisble."
       confirm-button-text="Delete"
       close-button-text="Cancel"
@@ -417,7 +417,7 @@ const keyDownListener = (e: KeyboardEvent) => {
         columnEditIndex.value = board.value.columns.length !== 0 ? board.value.columns.length - 1 : -1;
         const lastColumnID = board.value.columns[columnEditIndex.value].id;
 
-        removeColumn(lastColumnID);
+        openColumnRemoveDialog(lastColumnID);
         return;
     }
 
@@ -579,6 +579,7 @@ const updateStorage = () => {
     board.value.lastEdited = new Date();
     boards.value[currentBoardIndex] = board.value; // Override old board with new one
     store.set("boards", boards.value); // Override all saved boards with new altered array which includes modified current board
+    store.save();
 };
 
 /**

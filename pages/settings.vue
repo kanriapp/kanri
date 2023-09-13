@@ -197,6 +197,8 @@ const autostartCheckbox = ref(false);
 const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
+    emitter.emit("showSidebarBackArrow");
+
     activeTheme.value = await store.get("activeTheme");
     if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
 

@@ -1,7 +1,7 @@
 {
     "name": "kanri",
     "private": true,
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "Offline-first Kanban board desktop app",
     "author": "trobonox <hello@trobo.tech>",
     "license": "Apache-2.0",
@@ -22,7 +22,7 @@
         "@types/node": "^18.11.18",
         "@vueuse/core": "^10.2.1",
         "@vueuse/nuxt": "^10.2.1",
-        "eslint": "8.48.0",
+        "eslint": "8.49.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
         "postcss-custom-properties": "13.3.0",
@@ -40,12 +40,12 @@
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#0e474395d4990587ad5c1db25ed23220fe11764f",
         "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#a65ce9bfb168a9a3cd7ed4102b9f22770cc3abfa",
         "vue-dragscroll": "^4.0.5",
-        "vue3-smooth-dnd": "0.0.5",
+        "vue3-smooth-dnd": "0.0.6",
         "zod": "^3.20.6"
     },
     "resolutions": {
         "terser": "5.19.4",
-        "undici": "5.23.0",
+        "undici": "5.24.0",
         "json5": "2.2.3",
         "semver": "7.5.4"
     }

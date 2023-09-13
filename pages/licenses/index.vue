@@ -347,7 +347,7 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.7.0
+Version: 3.7.2
 License: MIT
 Private: false
 Repository: undefined
@@ -380,7 +380,7 @@ SOFTWARE.
 ---
 
 Name: tailwindcss
-Version: 3.3.2
+Version: 3.3.3
 License: MIT
 Private: false
 Description: A utility-first CSS framework for rapidly building custom user interfaces.
@@ -435,7 +435,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 Name: @unhead/shared
-Version: 1.5.0
+Version: 1.7.0
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -445,7 +445,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: @unhead/dom
-Version: 1.5.0
+Version: 1.7.0
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -455,7 +455,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: unhead
-Version: 1.5.0
+Version: 1.7.0
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -465,7 +465,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: @unhead/vue
-Version: 1.5.0
+Version: 1.7.0
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -648,41 +648,43 @@ SOFTWARE.
 
 ---
 
-Name: nuxt-icon
-Version: 0.5.0
+Name: @floating-ui/utils
+Version: 0.1.1
 License: MIT
 Private: false
-Repository: undefined
+Description: Utilities for Floating UI
+Repository: https://github.com/floating-ui/floating-ui.git
+Homepage: https://floating-ui.com
+Author: atomiks
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) 2022 Sébastien Chopin
+Copyright (c) 2021-present Floating UI contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 ---
 
 Name: @floating-ui/core
-Version: 1.3.0
+Version: 1.4.1
 License: MIT
 Private: false
 Description: Positioning library for floating elements: tooltips, popovers, dropdowns, and more
@@ -694,25 +696,24 @@ License Copyright:
 
 MIT License
 
-Copyright (c) 2021 Floating UI contributors
+Copyright (c) 2021-present Floating UI contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 ---
@@ -767,6 +768,42 @@ License Copyright:
 MIT License
 
 Copyright (c) 2018 Guillaume Chau (alias Akryum)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
+Name: vue-dragscroll
+Version: 4.0.5
+License: MIT
+Private: false
+Description:  vue directive to make a scrollable element scroll by draging to the scroll direction
+Repository: git+https://github.com/donmbelembe/vue-dragscroll.git
+Homepage: https://vue-dragscroll.clebinfosys.com/
+Author: Don mbelembe &lt;bizroy678@gmail.com>
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2017 donmbelembe
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -901,7 +938,7 @@ SOFTWARE.
 ---
 
 Name: vue3-smooth-dnd
-Version: 0.0.5
+Version: 0.0.6
 License: MIT
 Private: false
 Description: Vue 3 wrappers for smooth-dnd library
@@ -1041,7 +1078,7 @@ SOFTWARE.
 ---
 
 Name: @noble/hashes
-Version: 1.3.1
+Version: 1.3.2
 License: MIT
 Private: false
 Description: Audited & minimal 0-dependency JS implementation of SHA2, SHA3, RIPEMD, BLAKE2/3, HMAC, HKDF, PBKDF2, Scrypt
@@ -1488,41 +1525,6 @@ License Copyright:
 
    END OF TERMS AND CONDITIONS
 
-
----
-
-Name: @iconify/vue
-Version: 4.1.1
-License: MIT
-Private: false
-Description: Iconify icon component for Vue 3.
-Repository: https://github.com/iconify/iconify.git
-Homepage: https://iconify.design/
-Author: Vjacheslav Trushkin
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) 2020 - 2022 Vjacheslav Trushkin / Iconify OÜ
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 ---
 

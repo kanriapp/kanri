@@ -57,7 +57,6 @@
       <Draggable
         v-for="(card, index) in cards"
         :key="index"
-        class=""
         :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
       >
         <KanbanCard
@@ -285,7 +284,7 @@ const enableCardAddMode = () => {
 }
 
 const updateColumnTitle = () => {
-    disableDragging();
+    enableDragging();
 
     if (titleNew.value == null || !(/\S/.test(titleNew.value))) {
         titleNew.value = "";

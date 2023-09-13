@@ -183,7 +183,12 @@ const cssVars = computed(() => {
     overflow-wrap: break-word;
     white-space: normal;
     overflow: hidden;
-    hyphens: auto;
+}
+
+.text-no-overflow-task {
+    overflow-wrap: anywhere;
+    white-space: normal;
+    overflow: hidden;
 }
 
 .transition-button {
