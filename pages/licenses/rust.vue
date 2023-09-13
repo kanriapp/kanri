@@ -4,7 +4,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <main class="container overflow-auto pl-8 pt-8">
+  <main class="container overflow-auto scroll-auto pl-8 pt-8">
     <div class="intro">
       <h1 class="mb-2 text-4xl font-bold">
         Third Party Licenses
@@ -19,7 +19,7 @@
     </h2>
     <ul class="licenses-overview mb-8">
       <li><a href="#MIT">MIT License</a> (47)</li>
-      <li><a href="#Apache-2.0">Apache License 2.0</a> (40)</li>
+      <li><a href="#Apache-2.0">Apache License 2.0</a> (39)</li>
       <li><a href="#BSD-3-Clause">BSD 3-Clause &quot;New&quot; or &quot;Revised&quot; License</a> (4)</li>
       <li><a href="#MPL-2.0">Mozilla Public License 2.0</a> (3)</li>
       <li><a href="#CC0-1.0">Creative Commons Zero v1.0 Universal</a> (1)</li>
@@ -36,8 +36,8 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://crates.io/crates/tauri-plugin-autostart ">tauri-plugin-autostart 0.1.0</a></li>
-          <li><a href=" https://crates.io/crates/tauri-plugin-store ">tauri-plugin-store 0.1.0</a></li>
+          <li><a href=" https://crates.io/crates/tauri-plugin-autostart ">tauri-plugin-autostart 0.0.0</a></li>
+          <li><a href=" https://crates.io/crates/tauri-plugin-store ">tauri-plugin-store 0.0.0</a></li>
         </ul>
         <pre class="license-text">
                                  Apache License
@@ -1456,8 +1456,8 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.37.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.39.0</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.44.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.42.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.45.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-targets 0.42.2</a></li>
@@ -6609,21 +6609,6 @@ additional terms or conditions.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/retep998/winapi-rs ">winapi 0.3.9</a></li>
-        </ul>
-        <pre class="license-text">// Licensed under the Apache License, Version 2.0
-// &lt;LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license
-// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your option.
-// All files in the project carrying such notice may not be copied, modified, or distributed
-// except according to those terms.
-</pre>
-      </li>
-      <li class="license">
-        <h3 id="Apache-2.0">
-          Apache License 2.0
-        </h3>
-        <h4>Used by:</h4>
-        <ul class="license-used-by">
           <li><a href=" https://github.com/tauri-apps/tao ">tao 0.16.0</a></li>
         </ul>
         <pre class="license-text">Apache License
@@ -7051,7 +7036,7 @@ additional terms or conditions.
           <li><a href=" https://github.com/servo/core-foundation-rs ">core-graphics-types 0.1.1</a></li>
           <li><a href=" https://github.com/cbreeden/fxhash ">fxhash 0.2.1</a></li>
           <li><a href=" https://github.com/TedDriggs/ident_case ">ident_case 1.0.1</a></li>
-          <li><a href=" https://github.com/trobonox/kanri ">kanri 0.5.0</a></li>
+          <li><a href=" https://github.com/trobonox/kanri ">kanri 0.5.1</a></li>
           <li><a href=" https://github.com/reem/rust-mac.git ">mac 0.1.1</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk 0.6.0</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk-context 0.1.1</a></li>
@@ -7061,7 +7046,7 @@ additional terms or conditions.
           <li><a href=" https://github.com/tauri-apps/tao ">tao-macros 0.1.1</a></li>
           <li><a href=" https://github.com/retep998/winapi-rs ">winapi-i686-pc-windows-gnu 0.4.0</a></li>
           <li><a href=" https://github.com/retep998/winapi-rs ">winapi-x86_64-pc-windows-gnu 0.4.0</a></li>
-          <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.44.0</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.37.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-bindgen 0.39.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-implement 0.39.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-metadata 0.39.0</a></li>
@@ -9015,15 +9000,12 @@ THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/BurntSushi/aho-corasick ">aho-corasick 0.7.20</a></li>
-          <li><a href=" https://github.com/BurntSushi/byteorder ">byteorder 1.4.3</a></li>
           <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/globset ">globset 0.4.10</a></li>
           <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/ignore ">ignore 0.4.18</a></li>
           <li><a href=" https://github.com/BurntSushi/memchr ">memchr 2.5.0</a></li>
           <li><a href=" https://github.com/BurntSushi/regex-automata ">regex-automata 0.1.10</a></li>
           <li><a href=" https://github.com/BurntSushi/same-file ">same-file 1.0.6</a></li>
           <li><a href=" https://github.com/BurntSushi/walkdir ">walkdir 2.3.3</a></li>
-          <li><a href=" https://github.com/BurntSushi/winapi-util ">winapi-util 0.1.5</a></li>
         </ul>
         <pre class="license-text">This project is dual-licensed under the Unlicense and MIT licenses.
 
