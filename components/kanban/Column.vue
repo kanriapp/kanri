@@ -57,7 +57,6 @@
       <Draggable
         v-for="(card, index) in cards"
         :key="index"
-        class=""
         :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
       >
         <KanbanCard
