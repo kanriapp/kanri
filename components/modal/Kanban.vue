@@ -71,28 +71,67 @@
               v-if="tasks && tasks.length !== 0"
               class="flex max-h-[148px] w-full flex-col gap-1 overflow-auto pl-1"
             >
-              <Container @drop="onTaskDrop">
+              <Container
+                drag-handle-selector=".task-drag"
+                orientation="vertical"
+                lock-axis="y"
+                drag-class="cursor-grabbing"
+                @drop="onTaskDrop"
+              >
                 <Draggable
                   v-for="(task, index) in tasks"
                   :key="index"
                   :index="index"
+                  :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
                 >
                   <div class="mb-1 flex w-full flex-row items-center justify-between gap-4">
-                    <div class="flex flex-row items-center gap-4">
+                    <div class="flex w-full flex-row items-center justify-start gap-4">
                       <input
                         v-model="task.finished"
                         type="checkbox"
                         class="h-5 w-5 shrink-0"
                         @change="updateCardTasks"
                       >
-                      <span class="text-no-overflow-task w-full">{{ task.name }}</span>
+                      <input
+                        v-if="taskEditMode && index === currentlyEditingTaskIndex"
+                        v-model="currentlyEditingTaskName"
+                        v-focus
+                        type="text"
+                        class="bg-elevation-2 border-accent w-full rounded-md border-b-2 border-dotted px-2 py-0.5 outline-none"
+                        @blur="updateTask(index)"
+                        @keypress.enter="updateTask(index)"
+                      >
+                      <ClickCounter
+                        v-else
+                        @double-click="enableTaskEditMode(index, task)"
+                      >
+                        <span
+                          class="text-no-overflow-task w-full"
+                        >{{ task.name }}</span>
+                      </ClickCounter>
                     </div>
-                    <button
-                      class="ml-1 shrink-0"
-                      @click="deleteTask(index)"
-                    >
-                      <XMarkIcon class="text-dim-2 text-accent-hover h-4 w-4" />
-                    </button>
+                    <div class="ml-1 flex shrink-0 flex-row gap-1">
+                      <button
+                        v-if="!taskEditMode"
+                        class="shrink-0"
+                        @click="enableTaskEditMode(index, task)"
+                      >
+                        <PhPencilSimple class="text-dim-2 text-accent-hover h-4 w-4" />
+                      </button>
+                      <button
+                        v-if="taskEditMode && currentlyEditingTaskIndex === index"
+                        class="shrink-0"
+                        @click="updateTask(index)"
+                      >
+                        <PhCheck class="text-dim-2 text-accent-hover h-4 w-4" />
+                      </button>
+                      <button
+                        class="shrink-0"
+                        @click="deleteTask(index)"
+                      >
+                        <XMarkIcon class="text-dim-2 text-accent-hover h-4 w-4" />
+                      </button>
+                    </div>
                   </div>
                 </Draggable>
               </Container>
@@ -231,6 +270,7 @@ import { Ref } from "vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
 import { PlusIcon, XMarkIcon, CheckIcon } from "@heroicons/vue/24/solid";
+import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 
 const emit = defineEmits<{
     (e: "closeModal", columnID: string): void,
@@ -253,6 +293,12 @@ const titleInput: Ref<HTMLInputElement | null> = ref(null);
 const newTaskName = ref("");
 const taskAddMode = ref(false);
 const newTaskInput: Ref<HTMLInputElement | null> = ref(null);
+
+const currentlyEditingTaskIndex = ref(-1);
+const currentlyEditingTaskName = ref("");
+const taskEditMode = ref(false);
+
+const draggingEnabled = ref(true);
 
 const enableTitleEditing = () => {
     emitter.emit("modalPreventClickOutsideClose");
@@ -297,6 +343,27 @@ const deleteTask = (index: number) => {
 
 const onTaskDrop = (dropResult: any) => {
     tasks.value = applyDrag(tasks.value, dropResult);
+    updateCardTasks();
+}
+
+const enableTaskEditMode = (index: number, task: {name: string, finished: boolean}) => {
+    taskEditMode.value = true;
+    draggingEnabled.value = false;
+    currentlyEditingTaskIndex.value = index;
+    currentlyEditingTaskName.value = task.name;
+}
+
+const updateTask = (index: number) => {
+    const taskNameEmpty = currentlyEditingTaskName.value == null || !(/\S/.test(currentlyEditingTaskName.value));
+    if (taskNameEmpty || currentlyEditingTaskIndex.value === -1) return;
+
+    tasks.value[index].name = currentlyEditingTaskName.value;
+
+    currentlyEditingTaskIndex.value = -1;
+    currentlyEditingTaskName.value = "";
+    taskEditMode.value = false;
+    draggingEnabled.value = true;
+
     updateCardTasks();
 }
 
