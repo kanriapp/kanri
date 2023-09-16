@@ -57,7 +57,7 @@ This project is open for any contributions or feature requests, though always ke
 If you want to contribute, please take a look at the [Contribution Guidelines](https://github.com/trobonox/kanri/blob/main/CONTRIBUTING.md).
 
 **Build Setup**:
-If you want to build the app, you need to install Node.js (v16 LTS is recommended), a package manager like yarn and the [Tauri development environment](https://tauri.app/v1/guides/getting-started/prerequisites).
+If you want to build the app, you need to install Node.js (latest LTS version recommended), a package manager like yarn and the [Tauri development environment](https://tauri.app/v1/guides/getting-started/prerequisites).
 Then, depending on your use case you can run the commands below:
 
 ```bash
