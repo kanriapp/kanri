@@ -25,7 +25,7 @@
         "eslint": "8.49.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
-        "postcss-custom-properties": "13.3.0",
+        "postcss-custom-properties": "13.3.1",
         "rollup-plugin-license": "^3.0.1"
     },
     "dependencies": {
