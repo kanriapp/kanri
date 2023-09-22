@@ -495,7 +495,7 @@ const removeCardWithConfirmation = async (columnId: string, cardIndex: number, c
     const card = board.value.columns.filter((obj: Column) => {
         return obj.id === columnId;
     })[0].cards[cardIndex];
-    emitter.emit("openModalWithCustomDescription", {description: `Are you sure you want to delete the card "${card.name}"? This action cannot be undone.`});
+    emitter.emit("openModalWithCustomDescription", { description: `Are you sure you want to delete the card "${card.name}"? This action cannot be undone.` });
 
     const { isCanceled } = await cardRemoveDialog.reveal();
     if (!isCanceled) {
@@ -511,6 +511,9 @@ const removeCardWithConfirmation = async (columnId: string, cardIndex: number, c
             cardRef.value.classList.value = oldClasses;
         }, 250);
     }
+
+    draggingEnabled.value = true;
+    colRefs[columnId].enableDragging();
 }
 
 /**
@@ -540,6 +543,9 @@ const openColumnRemoveDialog = async (columnID: string) => {
     if (!isCanceled) {
         removeColumn(columnID);
     }
+
+    draggingEnabled.value = true;
+    colRefs[columnID].enableDragging();
 }
 
 const removeColumn = (columnID: string) => {
