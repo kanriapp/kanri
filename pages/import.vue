@@ -124,14 +124,23 @@ const exportJSON = async () => {
     });
 
     const savedBoards = await store.get("boards");
+    const boardSortingOption = await store.get("boardSortingOption");
     const activeTheme = await store.get("activeTheme");
     const colors = await store.get("colors");
+    const savedCustomTheme = await store.get("savedCustomTheme");
+    const columnZoomLevel = await store.get("columnZoomLevel");
+    const lastInstalledVersion = await store.get("lastInstalledVersion");
+
 
     const fileContents = JSON.stringify(
         {
             boards: savedBoards,
+            boardSortingOption: boardSortingOption,
             activeTheme: activeTheme,
             colors: colors,
+            savedCustomTheme: savedCustomTheme,
+            columnZoomLevel: columnZoomLevel,
+            lastInstalledVersion: lastInstalledVersion
         },
         null,
         2
