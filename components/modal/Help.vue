@@ -76,7 +76,7 @@
         </p>
         <p class="pt-2">
           Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
-          Kanri v0.5.1
+          Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}
         </p>
         <nuxt-link
           to="/licenses"
@@ -93,6 +93,7 @@
 <script setup lang="ts">
 import Modal from "@/components/Modal.vue";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
+import versionInfo from "@/version_info.json"
 
 defineEmits<{
   (e: "closeModal"): void

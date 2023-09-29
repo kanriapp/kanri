@@ -58,9 +58,12 @@ export const kanbanElectronBoardSchema = z.object({
 
 export const kanriJsonSchema = z.object({
     boards: z.array(kanriBoardSchema),
+    boardSortingOption: z.string().optional(),
     activeTheme: z.string(),
     colors: kanriThemeSchema,
-    columnZoomLevel: z.string().optional()
+    savedCustomTheme: kanriThemeSchema.optional(),
+    columnZoomLevel: z.number().optional(),
+    lastInstalledVersion: z.string().optional()
 });
 
 export const kanbanElectronJsonSchema = z.object({

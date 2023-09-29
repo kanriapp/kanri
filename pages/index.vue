@@ -3,7 +3,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <div class="pl-8 pt-8">
+  <div class="overflow-auto pl-8 pt-8">
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
       @closeModal="renameBoardModalVisible = false"
@@ -18,6 +18,11 @@
       close-button-text="Cancel"
       @closeModal="deleteBoardModalVisible = false"
       @confirmAction="deleteBoard"
+    />
+
+    <ModalChangelog
+      v-show="changelogModalVisible"
+      @closeModal="changelogModalVisible = false"
     />
 
     <section id="welcome-text">
@@ -191,6 +196,7 @@ const loading = ref(true);
 const editSortWarning = ref(false);
 const renameBoardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
+const changelogModalVisible = ref(false);
 
 const sortingOptionText = ref("Sort by creation date");
 
@@ -198,6 +204,8 @@ onMounted(async () => {
     emitter.on("createBoard", (title: string) => {
         createNewBoard(title);
     });
+
+    emitter.on("openChangelogModal", () => changelogModalVisible.value = true);
 
     emitter.emit("hideSidebarBackArrow");
 
