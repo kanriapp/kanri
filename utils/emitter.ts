@@ -29,6 +29,8 @@ type Events = {
 
     showSidebarBackArrow: void;
     hideSidebarBackArrow: void;
+
+    openChangelogModal: void;
 };
 
 const emitter = mitt<Events>();

@@ -20,6 +20,11 @@
       @confirmAction="deleteBoard"
     />
 
+    <ModalChangelog
+      v-show="changelogModalVisible"
+      @closeModal="changelogModalVisible = false"
+    />
+
     <section id="welcome-text">
       <h1 class="text-4xl font-bold">
         Welcome back to Kanri!
@@ -191,6 +196,7 @@ const loading = ref(true);
 const editSortWarning = ref(false);
 const renameBoardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
+const changelogModalVisible = ref(false);
 
 const sortingOptionText = ref("Sort by creation date");
 
@@ -198,6 +204,8 @@ onMounted(async () => {
     emitter.on("createBoard", (title: string) => {
         createNewBoard(title);
     });
+
+    emitter.on("openChangelogModal", () => changelogModalVisible.value = true);
 
     emitter.emit("hideSidebarBackArrow");
 

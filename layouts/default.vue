@@ -23,11 +23,20 @@ import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
 import { dark } from "@/utils/themes.js";
 
+import versionInfo from "@/version_info.json"
+
 const store = useTauriStore().store;
 const savedColors = ref({});
 const mounted = ref(false);
 
 onMounted(async () => {
+    const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
+    const lastInstalledVersionNumber = await store.get("lastInstalledVersion");
+    if (lastInstalledVersionNumber === null || lastInstalledVersionNumber !== currentVersionIdentifier) {
+        emitter.emit("openChangelogModal");
+        await store.set("lastInstalledVersion", currentVersionIdentifier);
+    }
+
     savedColors.value = await store.get("colors");
     mounted.value = true;
 
