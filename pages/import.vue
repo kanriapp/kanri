@@ -102,6 +102,7 @@ import { kanriBoardSchema, kanriJsonSchema, kanbanElectronJsonSchema, trelloJson
 
 import { message, save, open, ask } from "@tauri-apps/api/dialog";
 import { writeTextFile, readTextFile } from "@tauri-apps/api/fs";
+import { z } from "zod";
 
 const router = useRouter();
 
@@ -195,9 +196,20 @@ const importFromKanriFull = async () => {
     if (zodParsed.columnZoomLevel) {
         store.set("columnZoomLevel", zodParsed.columnZoomLevel);
     }
+    if (zodParsed.boardSortingOption) {
+        store.set("boardSortingOption", zodParsed.boardSortingOption);
+    }
+    if (zodParsed.savedCustomTheme) {
+        store.set("savedCustomTheme", zodParsed.savedCustomTheme);
+    }
+    if (zodParsed.lastInstalledVersion) {
+        store.set("lastInstalledVersion", zodParsed.lastInstalledVersion);
+    }
 
     // Manual refresh
     router.go(0);
+
+    // TODO: Add toast indicating success
 }
 
 const importFromKanbanElectronFull = async () => {
@@ -257,6 +269,8 @@ const importFromKanbanElectronFull = async () => {
 
     // Manual refresh
     router.go(0);
+
+    // TODO: Add toast indicating success
 }
 
 const importFromKanriBoard = async () => {
@@ -323,6 +337,8 @@ const importFromKanriBoard = async () => {
     if (convertedBoards.length === 0) return;
 
     await store.set("boards", convertedBoards);
+
+    // TODO: Add toast indicating success
 }
 
 const kanriParse = async (board: string) => {
@@ -392,6 +408,8 @@ const importFromTrelloBoard = async () => {
 
     // Manual refresh
     router.go(0);
+
+    // TODO: Add toast indicating success
 }
 
 const trelloParse = async (board: string) => {
@@ -409,7 +427,7 @@ const trelloParse = async (board: string) => {
     }
     if (parsedJson === null) return undefined;
 
-    let zodParsed = null;
+    let zodParsed: z.infer<typeof trelloJsonSchema> | null = null;
     try {
         zodParsed = trelloJsonSchema.parse(parsedJson);
     }
@@ -444,10 +462,28 @@ const trelloParse = async (board: string) => {
 
         if (selectedCol.length > 1 || selectedCol.length === 0) return undefined;
 
+        const tasks: { name: string; finished: boolean; }[] = [];
+
+        if (card.idChecklists.length > 0) {
+            card.idChecklists.forEach((checklistId) => {
+                const checklist = zodParsed?.checklists.filter((checklist) => checklist.id === checklistId)[0];
+
+                if (checklist) {
+                    checklist.checkItems.forEach((checkItem) => {
+                        tasks.push({
+                            name: checkItem.name,
+                            finished: checkItem.state === "complete" ? true : false
+                        })
+                    })
+                }
+            })
+        }
+
         const kanriCard = {
             id: card.id,
             name: card.name,
-            description: card.desc
+            description: card.desc,
+            tasks: tasks
         }
 
         selectedCol[0].cards.push(kanriCard);

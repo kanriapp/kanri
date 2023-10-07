@@ -85,6 +85,17 @@ export const trelloJsonSchema = z.object({
         idList: z.string(),
         name: z.string(),
         desc: z.string(),
-        closed: z.boolean()
+        closed: z.boolean(),
+        idChecklists: z.array(z.string())
+    })),
+    checklists: z.array(z.object({
+        id: z.string(),
+        idBoard: z.string(),
+        idCard: z.string(),
+        checkItems: z.array(z.object({
+            id: z.string(),
+            name: z.string(),
+            state: z.string()
+        }))
     }))
 });
