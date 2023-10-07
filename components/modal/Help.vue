@@ -15,7 +15,7 @@
             @click="$emit('closeModal')"
           />
         </div>
-        <h2 class="text-md text-dim-3 mb-6">
+        <h2 class="text-md text-dim-3 mb-4">
           Here are some useful resources to assist you.
         </h2>
         <h3 class="mb-2 text-xl font-bold">
@@ -51,6 +51,11 @@
           Support resouces:
         </h3>
         <p>
+          You can find some general help resources <a
+            href="https://www.kanriapp.com/guides/shortcuts"
+            target="_blank"
+            class="text-accent text-accent-darker-hover"
+          > in the official documentation.</a>
           If you encounter any bug, you can check the
           <a
             href="https://github.com/trobonox/kanri"
