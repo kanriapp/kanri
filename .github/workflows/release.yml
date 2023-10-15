@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - os: ubuntu-latest
+          - os: ubuntu-20.04
             rust_target: x86_64-unknown-linux-gnu
           - os: macos-latest
             rust_target: x86_64-apple-darwin
@@ -53,7 +53,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: install dependencies (ubuntu x86_64)
-        if: matrix.platform.os == 'ubuntu-latest'
+        if: matrix.platform.os == 'ubuntu-20.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
