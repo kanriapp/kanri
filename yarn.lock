@@ -5544,12 +5544,12 @@ tar@^6.1.11, tar@^6.2.0:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-"tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#ddb8917170309ce52fb9d433f58570b5caf6b27a":
+"tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#072ebc2914c19eb7022c90add7ea328d437d5eb2":
   version "0.0.0"
-  uid ddb8917170309ce52fb9d433f58570b5caf6b27a
-  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/ddb8917170309ce52fb9d433f58570b5caf6b27a"
+  uid "072ebc2914c19eb7022c90add7ea328d437d5eb2"
+  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/072ebc2914c19eb7022c90add7ea328d437d5eb2"
   dependencies:
-    "@tauri-apps/api" "1.5.0"
+    "@tauri-apps/api" "1.5.1"
 
 "tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#1a741b721ed1eae0de0d811ecfe86fc6ad54fb73":
   version "0.0.0"
