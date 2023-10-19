@@ -16,6 +16,7 @@
         "lint": "eslint . --fix"
     },
     "devDependencies": {
+        "@nuxt/devtools": "^1.0.0",
         "@nuxt/eslint-config": "0.2.0",
         "@nuxtjs/tailwindcss": "6.8.0",
         "@tauri-apps/cli": "1.5.4",
