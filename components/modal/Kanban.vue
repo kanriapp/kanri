@@ -346,7 +346,7 @@ const enableTaskAddMode = () => {
 const createTask = () => {
     if (newTaskName.value == null || !(/\S/.test(newTaskName.value))) return;
 
-    tasks.value.push({ name: newTaskName.value, finished: false });
+    tasks.value.push({ id: generateUniqueID(), name: newTaskName.value, finished: false });
     newTaskName.value = "";
     taskAddMode.value = false;
 
