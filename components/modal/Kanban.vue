@@ -5,7 +5,7 @@
 <template>
   <Modal
     ref="barebonesModal"
-    @closeModal="$emit('closeModal', columnID); titleEditing = false; taskAddMode = false"
+    @closeModal="$emit('closeModal'); titleEditing = false; taskAddMode = false"
   >
     <template #content>
       <div class="flex min-h-[40rem] w-[36rem] flex-col">
@@ -274,7 +274,7 @@ import { PlusIcon, XMarkIcon, CheckIcon } from "@heroicons/vue/24/solid";
 import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 
 const emit = defineEmits<{
-    (e: "closeModal", columnID: string): void,
+    (e: "closeModal"): void,
     (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
     (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
     (e: "setCardColor", columnID: string, cardIndex: number, color: string): void,
@@ -319,6 +319,7 @@ const initModal = (
     cardID.value = cardIdParam;
     title.value = titleParam;
     description.value = descriptionParam || "";
+
     /**
      * Enforce adding IDs to all card tasks
      * TODO: Potentially remove later on in a version with breaking change to make ID non-optional
@@ -333,6 +334,7 @@ const initModal = (
     }
     tasks.value = savedTasks;
     updateCardTasks();
+
     selectedColor.value = selectedColorParam || "bg-elevation-2";
 }
 
