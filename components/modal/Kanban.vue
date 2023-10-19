@@ -5,7 +5,7 @@
 <template>
   <Modal
     ref="barebonesModal"
-    @closeModal="$emit('closeModal'); titleEditing = false; taskAddMode = false"
+    @closeModal="$emit('closeModal', columnID); titleEditing = false; taskAddMode = false"
   >
     <template #content>
       <div class="flex min-h-[40rem] w-[36rem] flex-col">
@@ -32,7 +32,7 @@
             >
             <XMarkIcon
               class="text-accent-hover h-6 w-6 shrink-0 cursor-pointer"
-              @click="$emit('closeModal')"
+              @click="$emit('closeModal', columnID)"
             />
           </div>
           <span class="text-md text-dim-3 mb-6">
@@ -274,7 +274,7 @@ import { PlusIcon, XMarkIcon, CheckIcon } from "@heroicons/vue/24/solid";
 import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 
 const emit = defineEmits<{
-    (e: "closeModal"): void,
+    (e: "closeModal", columnID: string): void,
     (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
     (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
     (e: "setCardColor", columnID: string, cardIndex: number, color: string): void,
@@ -328,6 +328,7 @@ const initModal = (
     if (savedTasks.length > 0) {
         savedTasks.forEach(task => {
             if (!task.id) {
+                console.log("this should not happen again");
                 task.id = generateUniqueID();
             }
         });
