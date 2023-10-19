@@ -80,7 +80,7 @@
               >
                 <Draggable
                   v-for="(task, index) in tasks"
-                  :key="index"
+                  :key="task.id"
                   :index="index"
                   :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
                 >
@@ -266,6 +266,7 @@
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter"
+import { generateUniqueID } from "@/utils/idGenerator";
 import { Ref } from "vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
@@ -284,7 +285,7 @@ const columnID = ref("");
 const cardID = ref(0);
 const title = ref("");
 const description = ref("");
-const tasks: Ref<Array<{ name: string, finished: boolean }>> = ref([]);
+const tasks: Ref<Array<{id?: string; name: string, finished: boolean }>> = ref([]);
 const selectedColor = ref("");
 
 const titleEditing = ref(false);
@@ -309,7 +310,7 @@ const initModal = (
     columnIDParam: string, cardIdParam: number,
     titleParam: string,
     descriptionParam?: string,
-    tasksParam?: Array<{ name: string, finished: boolean }>,
+    tasksParam?: Array<{ id?: string, name: string, finished: boolean  }>,
     selectedColorParam?: string
 ) => {
     newTaskName.value = "";
@@ -318,7 +319,20 @@ const initModal = (
     cardID.value = cardIdParam;
     title.value = titleParam;
     description.value = descriptionParam || "";
-    tasks.value = tasksParam || [];
+    /**
+     * Enforce adding IDs to all card tasks
+     * TODO: Potentially remove later on in a version with breaking change to make ID non-optional
+    */
+    const savedTasks = tasksParam || [];
+    if (savedTasks.length > 0) {
+        savedTasks.forEach(task => {
+            if (!task.id) {
+                task.id = generateUniqueID();
+            }
+        });
+    }
+    tasks.value = savedTasks;
+    updateCardTasks();
     selectedColor.value = selectedColorParam || "bg-elevation-2";
 }
 
