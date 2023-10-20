@@ -70,7 +70,7 @@
                 "signingIdentity": null
             },
             "resources": [],
-            "shortDescription": "",
+            "shortDescription": "Kanri",
             "targets": "all",
             "windows": {
                 "certificateThumbprint": null,
