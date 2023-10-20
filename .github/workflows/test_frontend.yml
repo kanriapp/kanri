@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: "Test frontend on pull requests"
+on:
+  pull_request:
+    types: [ opened, reopened ]
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - 'yarn.lock'
+
+jobs:
+  test-tauri:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+    - name: setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: install app dependencies and build it
+      run: yarn && yarn generate
