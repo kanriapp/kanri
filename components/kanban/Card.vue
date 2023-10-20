@@ -7,7 +7,7 @@
     ref="cardRef"
     class="kanban-card border-elevation-3 flex cursor-pointer flex-col items-start gap-1 border"
     :class="[cardTextClassZoom, cardBackgroundColor, cardTextColor]"
-    @click.self="$emit('openKanbanModal', $event, index, card)"
+    @click.self="$emit('openKanbanModal', index, card)"
   >
     <div
       class="flex w-full flex-row items-center justify-between"
@@ -18,7 +18,7 @@
       >
         <ClickCounter
           v-if="!cardNameEditMode"
-          @single-click="$emit('openKanbanModal', $event, index, card)"
+          @single-click="$emit('openKanbanModal', index, card)"
           @double-click="enableCardEditMode"
         >
           <p ref="cardNameText">
@@ -48,7 +48,7 @@
     </div>
     <div
       class="flex flex-row items-center gap-2"
-      @click="$emit('openKanbanModal', $event, index, card)"
+      @click="$emit('openKanbanModal', index, card)"
     >
       <PhTextAlignLeft
         v-if="description && (/\S/.test(description))"
@@ -96,7 +96,7 @@ const emit = defineEmits<{
     (e: "removeCardWithConfirmation", index: number, cardRef: Ref<HTMLDivElement | null>): void,
     (e: "enableDragging"): void,
     (e: "disableDragging"): void,
-    (e: "openKanbanModal", event: Event, index: number, card: Card): void,
+    (e: "openKanbanModal", index: number, card: Card): void,
     (e: "setCardTitle", index: number, name: string): void
 }>();
 
@@ -112,12 +112,6 @@ const cardNameEditMode = ref(false);
 
 const cardNameInput: Ref<HTMLTextAreaElement | null> = ref(null);
 const cardNameText: Ref<HTMLParagraphElement | null> = ref(null);
-
-watch(props, (_, newData) => {
-    name.value = newData.card.name;
-    description.value = newData.card.description;
-    tasks.value = newData.card.tasks;
-});
 
 onMounted(async () => {
     savedColors.value = await store.get("colors");
