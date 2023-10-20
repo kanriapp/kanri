@@ -25,7 +25,7 @@ const emit = defineEmits<{
 const clickCount = ref(0);
 const clickTimer: Ref<any | null> = ref(null);
 
-const handleClick = (e: Event) => {
+const handleClick = (e: MouseEvent) => {
     e.preventDefault();
     clickCount.value++;
 
