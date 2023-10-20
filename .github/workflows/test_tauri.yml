@@ -2,17 +2,16 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-name: "Test on pull requests"
+name: "Test Tauri app on pull requests"
 on:
   pull_request:
+    types: [ opened, reopened ]
     branches:
       - main
     paths:
       - '.github/workflows/**'
       - 'src/**'
       - 'src-tauri/**'
-      - 'package.json'
-      - 'yarn.lock'
 
 jobs:
   test-tauri:
