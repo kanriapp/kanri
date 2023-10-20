@@ -113,6 +113,12 @@ const cardNameEditMode = ref(false);
 const cardNameInput: Ref<HTMLTextAreaElement | null> = ref(null);
 const cardNameText: Ref<HTMLParagraphElement | null> = ref(null);
 
+watch(props, (_, newData) => {
+    name.value = newData.card.name;
+    description.value = newData.card.description;
+    tasks.value = newData.card.tasks;
+});
+
 onMounted(async () => {
     savedColors.value = await store.get("colors");
 })
