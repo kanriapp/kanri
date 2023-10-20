@@ -56,7 +56,7 @@
     >
       <Draggable
         v-for="(card, index) in cards"
-        :key="index"
+        :key="card.id"
         :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
       >
         <KanbanCard
@@ -194,6 +194,19 @@ onMounted(() => {
         newCardName.value = "";
         titleEditing.value = false;
     });
+
+    /**
+     * Enforce adding IDs to all cards
+     * TODO: Potentially remove later on in a version with breaking change to make ID non-optional
+    */
+    if (cards.value.length > 0) {
+        cards.value.forEach(card => {
+            if (!card.id) {
+                card.id = generateUniqueID();
+            }
+        });
+    }
+    updateStorage();
 });
 
 const titleTextClassZoom = computed(() => {
@@ -340,7 +353,7 @@ const setCardTasks = (cardIndex: number, tasks: Array<{name: string, finished: b
     updateStorage();
 };
 
-const openKanbanModal = (_: any, index: number, el: Card) => {
+const openKanbanModal = (index: number, el: Card) => {
     disableDragging();
 
     emit("openKanbanModal", props.id, index, el);
