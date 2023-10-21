@@ -13,7 +13,7 @@ on:
       - 'yarn.lock'
 
 jobs:
-  test-tauri:
+  test-frontend:
     strategy:
       fail-fast: false
 
