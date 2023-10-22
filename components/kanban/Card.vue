@@ -82,7 +82,7 @@
 import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "@/utils/colorUtils"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-import { Card } from '@/types/kanban-types';
+import type { Card } from '@/types/kanban-types';
 import { PhChecks, PhListChecks, PhTextAlignLeft } from "@phosphor-icons/vue";
 
 const props = defineProps<{

@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import mitt from 'mitt';
-import { Board } from '@/types/kanban-types';
+import type { Board } from '@/types/kanban-types';
 
 type Events = {
     createBoard: string;

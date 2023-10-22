@@ -175,14 +175,14 @@
 import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
 import { light, dark, catppuccin } from "@/utils/themes.js";
-import { ThemeIdentifiers } from "@/types/kanban-types";
+import type { ThemeIdentifiers } from "@/types/kanban-types";
 import { kanriThemeSchema } from "@/types/json-schemas"
 
 import { message, save, open } from "@tauri-apps/api/dialog";
 import { writeTextFile, readTextFile } from "@tauri-apps/api/fs";
 import { enable, disable, isEnabled } from 'tauri-plugin-autostart-api';
 
-import { Ref } from "vue";
+import type { Ref } from "vue";
 import { SwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/outline";
 
 const router = useRouter();

@@ -267,7 +267,7 @@
 <script setup lang="ts">
 import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
-import { Ref } from "vue";
+import type { Ref } from "vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
 import { PlusIcon, XMarkIcon, CheckIcon } from "@heroicons/vue/24/solid";

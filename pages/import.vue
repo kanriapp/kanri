@@ -97,7 +97,7 @@ import emitter from "@/utils/emitter";
 
 import { useTauriStore } from "@/stores/tauriStore";
 
-import { Column } from "@/types/kanban-types";
+import type { Column } from "@/types/kanban-types";
 import { kanriBoardSchema, kanriJsonSchema, kanbanElectronJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
 
 import { message, save, open, ask } from "@tauri-apps/api/dialog";

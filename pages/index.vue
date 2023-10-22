@@ -183,7 +183,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator.js";
 import type { Board } from "@/types/kanban-types";
 
-import { Ref } from "vue";
+import type { Ref } from "vue";
 
 import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"

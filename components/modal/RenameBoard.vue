@@ -63,8 +63,8 @@
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
-import { Board } from "@/types/kanban-types";
-import { Ref } from "vue";
+import type { Board } from "@/types/kanban-types";
+import type { Ref } from "vue";
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 
 const emit = defineEmits<{

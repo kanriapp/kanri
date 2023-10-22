@@ -215,7 +215,7 @@ import { writeTextFile } from "@tauri-apps/api/fs";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
 import { default as KanbanModal } from "@/components/modal/Kanban.vue";
-import { Ref } from "vue";
+import type { Ref } from "vue";
 
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
