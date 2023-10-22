@@ -11,7 +11,7 @@
   >
     <div
       class="flex w-full flex-row items-center justify-between"
-      :class="{'pb-1.5': (!tasks && (!description || !(/\S/.test(description))))}"
+      :class="{'pb-1.5': ((!tasks || tasks.length === 0) && (!description || !(/\S/.test(description))))}"
     >
       <p
         class="text-no-overflow mr-2 w-full min-w-[24px]"
@@ -117,6 +117,9 @@ watch(props, (_, newData) => {
     name.value = newData.card.name;
     description.value = newData.card.description;
     tasks.value = newData.card.tasks;
+
+    console.log(!tasks.value && (!description.value || !(/\S/.test(description.value))));
+    console.log(tasks);
 });
 
 onMounted(async () => {
