@@ -2,26 +2,26 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-import license from "rollup-plugin-license";
 import "node:path"
+import license from "rollup-plugin-license";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-    ssr: false,
-    modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@vueuse/nuxt"],
+    app: { pageTransition: { mode: "out-in", name: "page" } },
     css: ["@/assets/css/scrollbars.css", "@/assets/css/global.css"],
+    devtools: true,
+    modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@vueuse/nuxt"],
+    ssr: false,
     telemetry: false,
-    app: { pageTransition: { name: "page", mode: "out-in" } },
     vite: {
         //@ts-ignore
         plugins: [
             license({
                 thirdParty: {
-                    output: "LICENSES_3RD_PARTY.txt",
                     includePrivate: true,
+                    output: "LICENSES_3RD_PARTY.txt",
                 },
             }),
         ],
-    },
-    devtools: true
+    }
 });

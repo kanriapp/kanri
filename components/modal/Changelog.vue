@@ -32,8 +32,8 @@
 
 <script setup lang="ts">
 import Modal from "@/components/Modal.vue";
-import { XMarkIcon } from "@heroicons/vue/24/solid";
 import versionInfo from "@/version_info.json"
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 
 defineEmits<{
     (e: "closeModal"): void

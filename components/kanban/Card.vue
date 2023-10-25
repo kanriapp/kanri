@@ -5,21 +5,21 @@
 <template>
   <div
     ref="cardRef"
-    class="kanban-card border-elevation-3 flex cursor-pointer flex-col items-start gap-1 border"
     :class="[cardTextClassZoom, cardBackgroundColor, cardTextColor]"
+    class="kanban-card border-elevation-3 flex cursor-pointer flex-col items-start gap-1 border"
     @click.self="$emit('openKanbanModal', index, card)"
   >
     <div
-      class="flex w-full flex-row items-center justify-between"
       :class="{'pb-1.5': ((!tasks || tasks.length === 0) && (!description || !(/\S/.test(description))))}"
+      class="flex w-full flex-row items-center justify-between"
     >
       <p
         class="text-no-overflow mr-2 w-full min-w-[24px]"
       >
         <ClickCounter
           v-if="!cardNameEditMode"
-          @single-click="$emit('openKanbanModal', index, card)"
           @double-click="enableCardEditMode"
+          @single-click="$emit('openKanbanModal', index, card)"
         >
           <p ref="cardNameText">
             {{ name }}
@@ -29,19 +29,19 @@
           v-else
           ref="cardNameInput"
           v-model="name"
-          v-resizable
           v-focus
-          type="text"
-          maxlength="1000"
+          v-resizable
           class="bg-elevation-3 m-0 h-full w-full resize-none rounded-sm p-0 focus:outline-none"
+          maxlength="1000"
+          type="text"
           @blur="updateCardName"
           @keypress.enter="updateCardName"
         />
       </p>
       <ClickCounter
         class="cursor-pointer"
-        @single-click="deleteCardWithConfirmation(index)"
         @double-click="deleteCardWithAnimation(index)"
+        @single-click="deleteCardWithConfirmation(index)"
       >
         <XMarkIcon class="text-dim-1 text-accent-hover h-4 w-4" />
       </ClickCounter>
@@ -52,13 +52,13 @@
     >
       <PhTextAlignLeft
         v-if="description && (/\S/.test(description))"
-        class="h-5 w-5"
         :class="[cardTextColorDim]"
+        class="h-5 w-5"
       />
       <div
         v-if="tasks && taskCompletionStatus !== '0/0'"
-        class="flex flex-row items-center gap-1"
         :class="{'bg-accent text-buttons rounded-sm px-1': allTasksCompleted}"
+        class="flex flex-row items-center gap-1"
       >
         <PhChecks
           v-if="allTasksCompleted"
@@ -66,12 +66,12 @@
         />
         <PhListChecks
           v-else
-          class="h-5 w-5"
           :class="[cardTextColorDim]"
+          class="h-5 w-5"
         />
         <span
-          class="text-sm"
           :class="allTasksCompleted ? 'text-buttons' : cardTextColorDim"
+          class="text-sm"
         >{{ taskCompletionStatus }}</span>
       </div>
     </div>
@@ -79,24 +79,25 @@
 </template>
 
 <script setup lang="ts">
+import type { Card } from '@/types/kanban-types';
+
 import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "@/utils/colorUtils"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-import type { Card } from '@/types/kanban-types';
 import { PhChecks, PhListChecks, PhTextAlignLeft } from "@phosphor-icons/vue";
 
 const props = defineProps<{
-    index: number,
     card: Card,
+    index: number,
     zoomLevel: number
 }>();
 
 const emit = defineEmits<{
+    (e: "disableDragging"): void,
+    (e: "enableDragging"): void,
+    (e: "openKanbanModal", index: number, card: Card): void,
     (e: "removeCard", index: number): void,
     (e: "removeCardWithConfirmation", index: number, cardRef: Ref<HTMLDivElement | null>): void,
-    (e: "enableDragging"): void,
-    (e: "disableDragging"): void,
-    (e: "openKanbanModal", index: number, card: Card): void,
     (e: "setCardTitle", index: number, name: string): void
 }>();
 

@@ -93,15 +93,13 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
+import type { Column } from "@/types/kanban-types";
 
 import { useTauriStore } from "@/stores/tauriStore";
-
-import type { Column } from "@/types/kanban-types";
-import { kanriBoardSchema, kanriJsonSchema, kanbanElectronJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
-
-import { message, save, open, ask } from "@tauri-apps/api/dialog";
-import { writeTextFile, readTextFile } from "@tauri-apps/api/fs";
+import { kanbanElectronJsonSchema, kanriBoardSchema, kanriJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
+import emitter from "@/utils/emitter";
+import { ask, message, open, save } from "@tauri-apps/api/dialog";
+import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { z } from "zod";
 
 const router = useRouter();
@@ -114,14 +112,14 @@ onMounted(() => {
 
 const exportJSON = async () => {
     const filePath = await save({
-        title: "Select file to export data to",
         defaultPath: "./kanri_data_export.json",
         filters: [
             {
-                name: "JSON File",
                 extensions: ["json"],
+                name: "JSON File",
             },
         ],
+        title: "Select file to export data to",
     });
 
     const savedBoards = await store.get("boards");
@@ -135,13 +133,13 @@ const exportJSON = async () => {
 
     const fileContents = JSON.stringify(
         {
-            boards: savedBoards,
-            boardSortingOption: boardSortingOption,
             activeTheme: activeTheme,
+            boardSortingOption: boardSortingOption,
+            boards: savedBoards,
             colors: colors,
-            savedCustomTheme: savedCustomTheme,
             columnZoomLevel: columnZoomLevel,
-            lastInstalledVersion: lastInstalledVersion
+            lastInstalledVersion: lastInstalledVersion,
+            savedCustomTheme: savedCustomTheme
         },
         null,
         2
@@ -153,11 +151,11 @@ const exportJSON = async () => {
 
 const importFromKanriFull = async () => {
     const selected = await open({
-        multiple: false,
         filters: [{
-            name: 'JSON File',
-            extensions: ['json']
-        }]
+            extensions: ['json'],
+            name: 'JSON File'
+        }],
+        multiple: false
     });
 
     if (selected === null) return;
@@ -214,11 +212,11 @@ const importFromKanriFull = async () => {
 
 const importFromKanbanElectronFull = async () => {
     const selected = await open({
-        multiple: false,
         filters: [{
-            name: 'JSON File',
-            extensions: ['json']
-        }]
+            extensions: ['json'],
+            name: 'JSON File'
+        }],
+        multiple: false
     });
 
     if (selected === null) return;
@@ -254,9 +252,9 @@ const importFromKanbanElectronFull = async () => {
     const convertedBoards: Array<any> = []
     zodParsed.boards.forEach(board => {
         convertedBoards.push({
+            columns: board.lists,
             id: board.id,
-            title: board.title,
-            columns: board.lists
+            title: board.title
         });
     });
 
@@ -275,11 +273,11 @@ const importFromKanbanElectronFull = async () => {
 
 const importFromKanriBoard = async () => {
     const selected = await open({
-        multiple: true,
         filters: [{
-            name: 'JSON File',
-            extensions: ['json']
-        }]
+            extensions: ['json'],
+            name: 'JSON File'
+        }],
+        multiple: true
     });
 
     if (selected === null) return;
@@ -375,11 +373,11 @@ const kanriParse = async (board: string) => {
 
 const importFromTrelloBoard = async () => {
     const selected = await open({
-        multiple: true,
         filters: [{
-            name: 'JSON File',
-            extensions: ['json']
-        }]
+            extensions: ['json'],
+            name: 'JSON File'
+        }],
+        multiple: true
     });
 
     if (selected === null || selected.length === 0) return;
@@ -427,7 +425,7 @@ const trelloParse = async (board: string) => {
     }
     if (parsedJson === null) return undefined;
 
-    let zodParsed: z.infer<typeof trelloJsonSchema> | null = null;
+    let zodParsed: null | z.infer<typeof trelloJsonSchema> = null;
     try {
         zodParsed = trelloJsonSchema.parse(parsedJson);
     }
@@ -448,9 +446,9 @@ const trelloParse = async (board: string) => {
     zodParsed.lists.forEach((column) => {
         if (column.closed === false) {
             columns.push({
+                cards: [],
                 id: column.id,
-                title: column.name,
-                cards: []
+                title: column.name
             });
         }
     });
@@ -462,7 +460,7 @@ const trelloParse = async (board: string) => {
 
         if (selectedCol.length > 1 || selectedCol.length === 0) return undefined;
 
-        const tasks: { name: string; finished: boolean; }[] = [];
+        const tasks: { finished: boolean; name: string; }[] = [];
 
         if (card.idChecklists.length > 0) {
             card.idChecklists.forEach((checklistId) => {
@@ -471,8 +469,8 @@ const trelloParse = async (board: string) => {
                 if (checklist) {
                     checklist.checkItems.forEach((checkItem) => {
                         tasks.push({
-                            name: checkItem.name,
-                            finished: checkItem.state === "complete" ? true : false
+                            finished: checkItem.state === "complete" ? true : false,
+                            name: checkItem.name
                         })
                     })
                 }
@@ -480,9 +478,9 @@ const trelloParse = async (board: string) => {
         }
 
         const kanriCard = {
+            description: card.desc,
             id: card.id,
             name: card.name,
-            description: card.desc,
             tasks: tasks
         }
 
@@ -490,10 +488,10 @@ const trelloParse = async (board: string) => {
     });
 
     const kanriBoard = {
+        columns: columns,
         id: generateUniqueID(),
-        title: zodParsed.name,
         lastEdited: new Date().toISOString(),
-        columns: columns
+        title: zodParsed.name
     }
 
     let kanriConvertedParsed = null;

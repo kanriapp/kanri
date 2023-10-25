@@ -24,9 +24,9 @@
               ref="titleInput"
               v-model="title"
               v-focus
-              type="text"
-              maxlength="1000"
               class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
+              maxlength="1000"
+              type="text"
               @blur="updateTitle"
               @keypress.enter="updateTitle"
             >
@@ -49,14 +49,14 @@
           <textarea
             id="cardDescription"
             v-model="description"
-            name="cardDescription"
-            cols="6"
-            rows="60"
-            maxlength="25000"
-            placeholder="Enter a detailed description of your card here..."
             class="bg-elevation-2 border-accent-focus pointer-events-auto mt-1.5 h-36 w-full resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
-            @focusin="emitter.emit('modalPreventClickOutsideClose')"
+            cols="6"
+            maxlength="25000"
+            name="cardDescription"
+            placeholder="Enter a detailed description of your card here..."
+            rows="60"
             @blur="updateDescription"
+            @focusin="emitter.emit('modalPreventClickOutsideClose')"
             @keypress.enter="updateDescription"
           />
           <h2
@@ -72,32 +72,32 @@
               class="flex max-h-[148px] w-full flex-col gap-1 overflow-auto pl-1"
             >
               <Container
-                drag-handle-selector=".task-drag"
-                orientation="vertical"
-                lock-axis="y"
                 drag-class="cursor-grabbing"
+                drag-handle-selector=".task-drag"
+                lock-axis="y"
+                orientation="vertical"
                 @drop="onTaskDrop"
               >
                 <Draggable
                   v-for="(task, index) in tasks"
                   :key="task.id"
-                  :index="index"
                   :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
+                  :index="index"
                 >
                   <div class="mb-1 flex w-full flex-row items-center justify-between gap-4">
                     <div class="flex w-full flex-row items-center justify-start gap-4">
                       <input
                         v-model="task.finished"
-                        type="checkbox"
                         class="h-5 w-5 shrink-0"
+                        type="checkbox"
                         @change="updateCardTasks"
                       >
                       <input
                         v-if="taskEditMode && index === currentlyEditingTaskIndex"
                         v-model="currentlyEditingTaskName"
                         v-focus
-                        type="text"
                         class="bg-elevation-2 border-accent w-full rounded-md border-b-2 border-dotted px-2 py-0.5 outline-none"
+                        type="text"
                         @blur="updateTask(index)"
                         @keypress.enter="updateTask(index)"
                       >
@@ -141,10 +141,10 @@
               ref="newTaskInput"
               v-model="newTaskName"
               v-focus
-              type="text"
+              class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
               maxlength="1000"
               placeholder="Enter a task name..."
-              class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+              type="text"
               @keypress.enter="createTask"
             >
             <div
@@ -265,27 +265,28 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from "vue";
+
 import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
-import type { Ref } from "vue";
+import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
+import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
-import { PlusIcon, XMarkIcon, CheckIcon } from "@heroicons/vue/24/solid";
-import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 
 const emit = defineEmits<{
     (e: "closeModal", columnID: string): void,
-    (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
-    (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
     (e: "setCardColor", columnID: string, cardIndex: number, color: string): void,
-    (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<{name: string, finished: boolean}>): void
+    (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
+    (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<{finished: boolean, name: string}>): void
+    (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
 }>();
 
 const columnID = ref("");
 const cardID = ref(0);
 const title = ref("");
 const description = ref("");
-const tasks: Ref<Array<{id?: string; name: string, finished: boolean }>> = ref([]);
+const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
 const selectedColor = ref("");
 
 const titleEditing = ref(false);
@@ -310,7 +311,7 @@ const initModal = (
     columnIDParam: string, cardIdParam: number,
     titleParam: string,
     descriptionParam?: string,
-    tasksParam?: Array<{ id?: string, name: string, finished: boolean  }>,
+    tasksParam?: Array<{ finished: boolean, id?: string, name: string  }>,
     selectedColorParam?: string
 ) => {
     newTaskName.value = "";
@@ -346,7 +347,7 @@ const enableTaskAddMode = () => {
 const createTask = () => {
     if (newTaskName.value == null || !(/\S/.test(newTaskName.value))) return;
 
-    tasks.value.push({ id: generateUniqueID(), name: newTaskName.value, finished: false });
+    tasks.value.push({ finished: false, id: generateUniqueID(), name: newTaskName.value });
     newTaskName.value = "";
     taskAddMode.value = false;
 
@@ -363,7 +364,7 @@ const onTaskDrop = (dropResult: any) => {
     updateCardTasks();
 }
 
-const enableTaskEditMode = (index: number, task: {name: string, finished: boolean}) => {
+const enableTaskEditMode = (index: number, task: {finished: boolean, name: string}) => {
     taskEditMode.value = true;
     draggingEnabled.value = false;
     currentlyEditingTaskIndex.value = index;

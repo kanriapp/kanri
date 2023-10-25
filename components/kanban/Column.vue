@@ -4,13 +4,13 @@
 
 <template>
   <div
-    class="bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
     :class="columnSizeClass"
+    class="bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
   >
     <div
       id="board-title"
-      class="flex flex-row items-start justify-between gap-4"
       :class="titleTextClassZoom"
+      class="flex flex-row items-start justify-between gap-4"
     >
       <h1
         v-if="!titleEditing"
@@ -25,9 +25,9 @@
         ref="titleInput"
         v-model="titleNew"
         v-focus
-        type="text"
-        maxlength="1000"
         class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none"
+        maxlength="1000"
+        type="text"
         @blur="updateColumnTitle"
         @keypress.enter="
           updateColumnTitle();
@@ -36,8 +36,8 @@
       >
 
       <ClickCounter
-        @single-click="$emit('removeColumn', id)"
         @double-click="$emit('removeColumnNoConfirmation', id)"
+        @single-click="$emit('removeColumn', id)"
       >
         <XMarkIcon
           class="text-dim-4 text-accent-hover mt-2 h-4 w-4 shrink-0 grow-0 cursor-pointer"
@@ -46,30 +46,30 @@
     </div>
 
     <Container
-      group-name="cards"
       :get-child-payload="getChildPayload"
       class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm"
-      drag-handle-selector=".kanbancard-drag"
-      orientation="vertical"
       drag-class="cursor-grabbing"
+      drag-handle-selector=".kanbancard-drag"
+      group-name="cards"
+      orientation="vertical"
       @drop="onDrop"
     >
       <Draggable
         v-for="(card, index) in cards"
         :key="card.id"
-        :index="index"
         :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
+        :index="index"
       >
         <KanbanCard
-          class="mb-3 min-h-[30px] cursor-grab rounded-sm p-3"
-          :index="index"
           :card="card"
+          :index="index"
           :zoom-level="zoomLevel"
+          class="mb-3 min-h-[30px] cursor-grab rounded-sm p-3"
+          @disable-dragging="disableDragging"
+          @enable-dragging="enableDragging"
+          @open-kanban-modal="openKanbanModal"
           @remove-card="removeCard"
           @remove-card-with-confirmation="removeCardWithConfirmation"
-          @enable-dragging="enableDragging"
-          @disable-dragging="disableDragging"
-          @open-kanban-modal="openKanbanModal"
           @set-card-title="setCardTitle"
         />
       </Draggable>
@@ -85,10 +85,10 @@
         v-model="newCardName"
         v-focus
         v-resizable
-        type="text"
+        class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
         maxlength="5000"
         placeholder="Enter a card title..."
-        class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
+        type="text"
         @keypress.enter="
           addCard();
           emitter.emit('columnActionDone');
@@ -132,33 +132,32 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
-import { applyDrag } from "@/utils/drag-n-drop";
 import type { Card, Column } from "@/types/kanban-types";
-
 import type { Ref } from "vue"
+
+import { applyDrag } from "@/utils/drag-n-drop";
+import emitter from "@/utils/emitter";
+import { PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 //@ts-ignore, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
 
-import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/solid";
-
 const props = defineProps<{
+    cardsList: Array<Card>;
     colIndex: number,
     id: string;
     title: string;
-    cardsList: Array<Card>;
     zoomLevel: number;
 }>();
 
 const emit = defineEmits<{
-  (e: "updateStorage", column: Column): void,
+  (e: "disableDragging"): void,
+  (e: "enableDragging"): void,
+  (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
+  (e: "removeCardWithConfirmation", columnId: string, cardIndex: number, cardRef: Ref<HTMLDivElement | null>): void,
   (e: "removeColumn", columnId: string): void,
   (e: "removeColumnNoConfirmation", columnId: string): void,
-  (e: "removeCardWithConfirmation", columnId: string, cardIndex: number, cardRef: Ref<HTMLDivElement | null>): void,
-  (e: "enableDragging"): void,
-  (e: "disableDragging"): void,
-  (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
   (e: "setColumnEditIndex", columnId: number, eventType: string): void,
+  (e: "updateStorage", column: Column): void,
 }>();
 
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
@@ -349,7 +348,7 @@ const setCardColor = (cardIndex: number, color: string) => {
     updateStorage();
 };
 
-const setCardTasks = (cardIndex: number, tasks: Array<{name: string, finished: boolean}>) => {
+const setCardTasks = (cardIndex: number, tasks: Array<{finished: boolean, name: string}>) => {
     cards.value[cardIndex].tasks = tasks;
     updateStorage();
 };
@@ -366,15 +365,15 @@ const closeModal = () => {
 
 const updateStorage = () => {
     const column = {
+        cards: cards.value,
         id: props.id,
         title: boardTitle.value,
-        cards: cards.value,
     };
 
     emit("updateStorage", column);
 };
 
-defineExpose({ setCardTitle, setCardDescription, setCardColor, setCardTasks, removeCard, closeModal, enableDragging });
+defineExpose({ closeModal, enableDragging, removeCard, setCardColor, setCardDescription, setCardTasks, setCardTitle });
 </script>
 
 <style scoped>

@@ -18,14 +18,14 @@
     </p>
     <div class="mb-8 flex flex-row gap-4">
       <nuxt-link
-        to="/licenses/dev_js"
         class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
+        to="/licenses/dev_js"
       >
         More JavaScript dependencies (includes dev deps)
       </nuxt-link>
       <nuxt-link
-        to="/licenses/rust"
         class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
+        to="/licenses/rust"
       >
         Rust dependencies
       </nuxt-link>

@@ -46,14 +46,14 @@
 </template>
 
 <script setup lang="ts">
-import { XMarkIcon } from '@heroicons/vue/24/outline';
 import emitter from "@/utils/emitter"
+import { XMarkIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
-    title?: string;
-    description?: string;
     closeButtonText?: string;
     confirmButtonText?: string;
+    description?: string;
+    title?: string;
 }>();
 
 const emit = defineEmits<{
@@ -65,7 +65,7 @@ const boardIndex = ref(-1);
 const modalDescription = ref(props.description || "");
 
 onMounted(() => {
-    emitter.on("openBoardDeleteModal", (params: { index: number, description: string }) => {
+    emitter.on("openBoardDeleteModal", (params: { description: string, index: number }) => {
         boardIndex.value = params.index;
         modalDescription.value = params.description;
     })

@@ -5,8 +5,8 @@
 <template>
   <div class="overflow-auto">
     <div
-      class="default-layout custom-scrollbar-hidden overflow-auto"
       :style="cssVars"
+      class="default-layout custom-scrollbar-hidden overflow-auto"
     >
       <div v-if="mounted">
         <Sidebar class="fixed left-0 w-8" />
@@ -19,10 +19,9 @@
 </template>
 
 <script setup>
-import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
+import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes.js";
-
 import versionInfo from "@/version_info.json"
 
 const store = useTauriStore().store;
@@ -54,33 +53,33 @@ const cssVars = computed(() => {
         store.set("colors", dark);
 
         return {
+            "--accent": dark.accent,
+            "--accent-darker": dark.accentDarker,
             "--bg-primary": dark.bgPrimary,
             "--elevation-1": dark.elevation1,
             "--elevation-2": dark.elevation2,
             "--elevation-3": dark.elevation3,
-            "--accent": dark.accent,
-            "--accent-darker": dark.accentDarker,
             "--text": dark.text,
+            "--text-buttons": dark.textButtons,
             "--text-dim-1": dark.textD1,
             "--text-dim-2": dark.textD2,
             "--text-dim-3": dark.textD3,
             "--text-dim-4": dark.textD4,
-            "--text-buttons": dark.textButtons,
         };
     } else {
         return {
+            "--accent": savedColors.value.accent,
+            "--accent-darker": savedColors.value.accentDarker,
             "--bg-primary": savedColors.value.bgPrimary,
             "--elevation-1": savedColors.value.elevation1,
             "--elevation-2": savedColors.value.elevation2,
             "--elevation-3": savedColors.value.elevation3,
-            "--accent": savedColors.value.accent,
-            "--accent-darker": savedColors.value.accentDarker,
             "--text": savedColors.value.text,
+            "--text-buttons": savedColors.value.textButtons,
             "--text-dim-1": savedColors.value.textD1,
             "--text-dim-2": savedColors.value.textD2,
             "--text-dim-3": savedColors.value.textD3,
             "--text-dim-4": savedColors.value.textD4,
-            "--text-buttons": savedColors.value.textButtons,
         };
     }
 });

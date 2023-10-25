@@ -20,20 +20,20 @@ export const kanriThemeSchema = z.object({
 });
 
 const kanriCardSchema = z.object({
+    color: z.string().optional(),
+    description: z.string().optional(),
     id: z.string().optional(),
     name: z.string(),
-    description: z.string().optional(),
     tasks: z.array(z.object({
-        name: z.string(),
-        finished: z.boolean()
-    })).optional(),
-    color: z.string().optional()
+        finished: z.boolean(),
+        name: z.string()
+    })).optional()
 });
 
 const kanriColumnSchema = z.object({
+    cards: z.array(kanriCardSchema),
     id: z.string(),
-    title: z.string(),
-    cards: z.array(kanriCardSchema)
+    title: z.string()
 });
 
 const kanriBoardBackgroundSchema = z.object({
@@ -43,59 +43,59 @@ const kanriBoardBackgroundSchema = z.object({
 }).optional();
 
 export const kanriBoardSchema = z.object({
-    id: z.string(),
-    title: z.string(),
-    lastEdited: z.string().optional(),
+    background: kanriBoardBackgroundSchema,
     columns: z.array(kanriColumnSchema),
-    background: kanriBoardBackgroundSchema
+    id: z.string(),
+    lastEdited: z.string().optional(),
+    title: z.string()
 });
 
 export const kanbanElectronBoardSchema = z.object({
     id: z.string(),
-    title: z.string(),
-    lists: z.array(kanriColumnSchema)
+    lists: z.array(kanriColumnSchema),
+    title: z.string()
 });
 
 export const kanriJsonSchema = z.object({
-    boards: z.array(kanriBoardSchema),
-    boardSortingOption: z.string().optional(),
     activeTheme: z.string(),
+    boardSortingOption: z.string().optional(),
+    boards: z.array(kanriBoardSchema),
     colors: kanriThemeSchema,
-    savedCustomTheme: kanriThemeSchema.optional(),
     columnZoomLevel: z.number().optional(),
-    lastInstalledVersion: z.string().optional()
+    lastInstalledVersion: z.string().optional(),
+    savedCustomTheme: kanriThemeSchema.optional()
 });
 
 export const kanbanElectronJsonSchema = z.object({
-    boards: z.array(kanbanElectronBoardSchema),
     activeTheme: z.string(),
+    boards: z.array(kanbanElectronBoardSchema),
     colors: kanriThemeSchema,
     columnZoomLevel: z.string().optional()
 });
 
 export const trelloJsonSchema = z.object({
-    name: z.string(),
-    lists: z.array(z.object({
-        id: z.string(),
-        name: z.string(),
-        closed: z.boolean()
-    })),
     cards: z.array(z.object({
-        id: z.string(),
-        idList: z.string(),
-        name: z.string(),
-        desc: z.string(),
         closed: z.boolean(),
-        idChecklists: z.array(z.string())
+        desc: z.string(),
+        id: z.string(),
+        idChecklists: z.array(z.string()),
+        idList: z.string(),
+        name: z.string()
     })),
     checklists: z.array(z.object({
-        id: z.string(),
-        idBoard: z.string(),
-        idCard: z.string(),
         checkItems: z.array(z.object({
             id: z.string(),
             name: z.string(),
             state: z.string()
-        }))
-    }))
+        })),
+        id: z.string(),
+        idBoard: z.string(),
+        idCard: z.string()
+    })),
+    lists: z.array(z.object({
+        closed: z.boolean(),
+        id: z.string(),
+        name: z.string()
+    })),
+    name: z.string()
 });

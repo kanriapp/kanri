@@ -18,8 +18,8 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-    (e: "single-click"): void;
     (e: "double-click"): void;
+    (e: "single-click"): void;
 }>();
 
 const clickCount = ref(0);

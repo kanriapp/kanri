@@ -2,35 +2,35 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import mitt from 'mitt';
 import type { Board } from '@/types/kanban-types';
 
+import mitt from 'mitt';
+
 type Events = {
+    closeKanbanPage: void;
+    columnActionDone: void;
     createBoard: string;
-    updateColors: void;
 
     enableColumnCardAddMode: string;
     enableColumnTitleEditing: string;
 
+    hideSidebarBackArrow: void;
+
+    modalEnableClickOutsideClose: void;
+    modalPreventClickOutsideClose: void;
+
+    openBoardDeleteModal: { description: string, index: number };
+    openBoardRenameModal: { board: Board, index: number };
+    openChangelogModal: void;
     openKanbanPage: void;
-    openBoardDeleteModal: { index: number, description: string };
-    openBoardRenameModal: { index: number, board: Board };
     openModalWithCustomDescription: { description: string };
 
-    modalPreventClickOutsideClose: void;
-    modalEnableClickOutsideClose: void;
-
-    closeKanbanPage: void;
     resetColumnInputs: void;
-    columnActionDone: void;
+    showSidebarBackArrow: void;
+    updateColors: void;
 
     zIndexBack: void;
     zIndexDown: void;
-
-    showSidebarBackArrow: void;
-    hideSidebarBackArrow: void;
-
-    openChangelogModal: void;
 };
 
 const emitter = mitt<Events>();

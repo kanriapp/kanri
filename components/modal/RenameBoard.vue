@@ -26,17 +26,17 @@
           class="mt-4 flex flex-col"
         >
           <label
-            for="boardName"
             class="text-medium text-dim-1 mb-2 text-lg"
+            for="boardName"
           >Board Name</label>
           <input
             id="boardName"
             ref="boardNameInput"
             v-model="newBoardName"
-            type="text"
+            class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-[20rem] rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
             maxlength="500"
             placeholder="Board Name"
-            class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-[20rem] rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
+            type="text"
           >
         </section>
         <section
@@ -62,9 +62,10 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
 import type { Board } from "@/types/kanban-types";
 import type { Ref } from "vue";
+
+import emitter from "@/utils/emitter";
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 
 const emit = defineEmits<{
@@ -78,7 +79,7 @@ const newBoardName = ref("");
 const boardIndex = ref(-1);
 
 onMounted(() => {
-    emitter.on("openBoardRenameModal", (params: {index: number, board: Board}) => {
+    emitter.on("openBoardRenameModal", (params: {board: Board, index: number}) => {
         newBoardName.value = params.board.title;
         boardIndex.value = params.index;
     })

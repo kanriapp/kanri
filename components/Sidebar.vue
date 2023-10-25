@@ -4,8 +4,8 @@
 
 <template>
   <nav
-    class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-4 shadow-md"
     :class="zIndexDown ? '' : 'z-50'"
+    class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-4 shadow-md"
   >
     <ModalNewBoard
       v-show="newBoardModalVisible"

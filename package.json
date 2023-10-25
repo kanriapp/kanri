@@ -24,6 +24,7 @@
         "@vueuse/core": "^10.2.1",
         "@vueuse/nuxt": "^10.2.1",
         "eslint": "8.52.0",
+        "eslint-plugin-perfectionist": "^2.2.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
         "postcss-custom-properties": "13.3.2",

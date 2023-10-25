@@ -26,17 +26,17 @@
           class="mt-4 flex flex-col"
         >
           <label
-            for="boardName"
             class="text-medium text-dim-1 mb-2 text-lg"
+            for="boardName"
           >Board Name</label>
           <input
             id="boardName"
             ref="boardNameInput"
             v-model="newBoardName"
-            type="text"
-            placeholder="New Board"
-            maxlength="500"
             class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-[20rem] rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
+            maxlength="500"
+            placeholder="New Board"
+            type="text"
           >
         </section>
         <section
@@ -62,8 +62,9 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
 import type { Ref } from "vue";
+
+import emitter from "@/utils/emitter";
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 
 const emit = defineEmits<{

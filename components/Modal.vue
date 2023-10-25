@@ -5,16 +5,16 @@
 <template>
   <transition name="modal-fade">
     <div
-      class="modal z-huge inset-0 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
       :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
+      class="modal z-huge inset-0 flex h-screen w-screen flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
       @click.self="clickOutsideClose ? $emit('closeModal') : () => {}"
     >
       <div
         class="bg-elevation-1 min-h-content min-w-content rounded-md py-4 pl-8 pr-6 shadow-lg"
       >
         <slot
-          name="content"
           class="p-4"
+          name="content"
         />
       </div>
     </div>
@@ -26,12 +26,12 @@ import emitter from '@/utils/emitter';
 
 const props = withDefaults(
     defineProps<{
-        clickOutsideToClose?: boolean;
         blurBackground?: boolean;
+        clickOutsideToClose?: boolean;
     }>(),
     {
-        clickOutsideToClose: true,
         blurBackground: true,
+        clickOutsideToClose: true,
     }
 );
 

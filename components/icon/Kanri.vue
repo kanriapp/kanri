@@ -4,10 +4,10 @@
 
 <template>
   <svg
-    width="128"
+    fill="none"
     height="128"
     viewBox="0 0 128 128"
-    fill="none"
+    width="128"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g clip-path="url(#clip0_9_38)">
@@ -21,30 +21,30 @@
           fill="white"
         />
         <rect
+          fill="url(#paint1_linear_9_38)"
+          height="6.64628"
+          width="63.1257"
           x="43.7488"
           y="100.959"
-          width="63.1257"
-          height="6.64628"
-          fill="url(#paint1_linear_9_38)"
         />
         <rect
+          fill="white"
+          height="0.324587"
+          width="14.5603"
           x="41.9336"
           y="20.3439"
-          width="14.5603"
-          height="0.324587"
-          fill="white"
         />
       </g>
     </g>
     <defs>
       <filter
         id="filter0_d_9_38"
+        color-interpolation-filters="sRGB"
+        filterUnits="userSpaceOnUse"
+        height="95.2772"
+        width="99.0806"
         x="11.7966"
         y="20.3284"
-        width="99.0806"
-        height="95.2772"
-        filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
       >
         <feFlood
           flood-opacity="0"
@@ -52,9 +52,9 @@
         />
         <feColorMatrix
           in="SourceAlpha"
+          result="hardAlpha"
           type="matrix"
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
         />
         <feOffset dy="4" />
         <feGaussianBlur stdDeviation="2" />
@@ -67,24 +67,24 @@
           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
         />
         <feBlend
-          mode="normal"
           in2="BackgroundImageFix"
+          mode="normal"
           result="effect1_dropShadow_9_38"
         />
         <feBlend
-          mode="normal"
           in="SourceGraphic"
           in2="effect1_dropShadow_9_38"
+          mode="normal"
           result="shape"
         />
       </filter>
       <linearGradient
         id="paint0_linear_9_38"
-        x1="29.7511"
-        y1="0.419327"
-        x2="52.793"
-        y2="112.419"
         gradientUnits="userSpaceOnUse"
+        x1="29.7511"
+        x2="52.793"
+        y1="0.419327"
+        y2="112.419"
       >
         <stop stop-color="#153092" />
         <stop
@@ -94,11 +94,11 @@
       </linearGradient>
       <linearGradient
         id="paint1_linear_9_38"
-        x1="43.7488"
-        y1="102.916"
-        x2="108.365"
-        y2="104.245"
         gradientUnits="userSpaceOnUse"
+        x1="43.7488"
+        x2="108.365"
+        y1="102.916"
+        y2="104.245"
       >
         <stop stop-color="#5979E9" />
         <stop
@@ -109,9 +109,9 @@
       </linearGradient>
       <clipPath id="clip0_9_38">
         <rect
-          width="128"
-          height="128"
           fill="white"
+          height="128"
+          width="128"
         />
       </clipPath>
     </defs>

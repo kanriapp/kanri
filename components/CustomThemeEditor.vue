@@ -12,9 +12,9 @@
       <div class="flex flex-row gap-4">
         <input
           v-model="customTheme.accent"
-          type="text"
           class="bg-elevation-1 w-24 rounded-md px-2"
           readonly="readonly"
+          type="text"
         >
         <input
           ref="colorInput"
@@ -29,9 +29,9 @@
       <div class="flex flex-row gap-4">
         <input
           v-model="customTheme.text"
-          type="text"
           class="bg-elevation-1 w-24 rounded-md px-2"
           readonly="readonly"
+          type="text"
         >
         <input
           ref="colorInput"
@@ -46,9 +46,9 @@
       <div class="flex flex-row gap-4">
         <input
           v-model="customTheme.textButtons"
-          type="text"
           class="bg-elevation-1 w-24 rounded-md px-2"
           readonly="readonly"
+          type="text"
         >
         <input
           ref="colorInput"
@@ -63,9 +63,9 @@
       <div class="flex flex-row gap-4">
         <input
           v-model="customTheme.bgPrimary"
-          type="text"
           class="bg-elevation-1 w-24 rounded-md px-2"
           readonly="readonly"
+          type="text"
         >
         <input
           ref="colorInput"
@@ -80,9 +80,9 @@
       <div class="flex flex-row gap-4">
         <input
           v-model="customTheme.elevation1"
-          type="text"
           class="bg-elevation-1 w-24 rounded-md px-2"
           readonly="readonly"
+          type="text"
         >
         <input
           ref="colorInput"
@@ -97,9 +97,9 @@
       <div class="flex flex-row gap-4">
         <input
           v-model="customTheme.elevation2"
-          type="text"
           class="bg-elevation-1 w-24 rounded-md px-2"
           readonly="readonly"
+          type="text"
         >
         <input
           ref="colorInput"
@@ -114,9 +114,9 @@
       <div class="flex flex-row gap-4">
         <input
           v-model="customTheme.elevation3"
-          type="text"
           class="bg-elevation-1 w-24 rounded-md px-2"
           readonly="readonly"
+          type="text"
         >
         <input
           ref="colorInput"
@@ -138,11 +138,11 @@
 </template>
 
 <script setup lang="ts">
+import { useTauriStore } from "@/stores/tauriStore";
+import { lightenColor } from "@/utils/colorUtils.js";
 // @ts-nocheck
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes.js";
-import { lightenColor } from "@/utils/colorUtils.js";
-import { useTauriStore } from "@/stores/tauriStore";
 
 const store = useTauriStore().store;
 
@@ -160,19 +160,19 @@ const setCustomTheme = () => {
     store.set("activeTheme", "custom");
 
     const theme = {
+        accent: customTheme.value.accent,
+        accentDarker: lightenColor(customTheme.value.accent, -40),
         // take values from inputs and generate missing shades
         bgPrimary: customTheme.value.bgPrimary,
         elevation1: customTheme.value.elevation1,
         elevation2: customTheme.value.elevation2,
         elevation3: customTheme.value.elevation3,
-        accent: customTheme.value.accent,
-        accentDarker: lightenColor(customTheme.value.accent, -40),
         text: customTheme.value.text,
+        textButtons: customTheme.value.textButtons,
         textD1: lightenColor(customTheme.value.text, -30),
         textD2: lightenColor(customTheme.value.text, -50),
         textD3: lightenColor(customTheme.value.text, -70),
         textD4: lightenColor(customTheme.value.text, -90),
-        textButtons: customTheme.value.textButtons,
     };
 
     store.set("colors", theme);

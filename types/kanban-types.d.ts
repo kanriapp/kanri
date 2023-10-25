@@ -3,41 +3,41 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export declare interface Board {
-    id: string,
-    title: string,
-    columns: Array<Column>,
     background?: BackgroundSettings,
+    columns: Array<Column>,
+    id: string,
     lastEdited?: Date
+    title: string,
 }
 
 export declare interface BackgroundSettings {
-    src: string,
     blur: string,
     brightness: string
+    src: string,
 }
 
 export declare interface Column {
+    cards: Array<Card>
     id: string,
     title: string,
-    cards: Array<Card>
 }
 
 export declare interface Card {
+    color?: string
+    description?: string,
     id?: string,
     name: string,
-    description?: string,
     tasks?: Array<{
-        name: string,
         finished: boolean
+        name: string,
     }>,
-    color?: string
 }
 
-export declare type ThemeIdentifiers = "dark" | "light" | "catppuccin" | "custom";
+export declare type ThemeIdentifiers = "catppuccin" | "custom" | "dark" | "light";
 
 export default {
     Board,
-    Column,
     Card,
+    Column,
     ThemeIdentifiers
 }

@@ -52,23 +52,23 @@
         </h3>
         <p>
           You can find some general help resources <a
+            class="text-accent text-accent-darker-hover"
             href="https://www.kanriapp.com/guides/shortcuts"
             target="_blank"
-            class="text-accent text-accent-darker-hover"
           > in the official documentation.</a>
           If you encounter any bug, you can check the
           <a
+            class="text-accent text-accent-darker-hover"
             href="https://github.com/trobonox/kanri"
             target="_blank"
-            class="text-accent text-accent-darker-hover"
           > issues on GitHub</a>
           to see if it is already known, and report if it isn't. For
           any further assistance or anything that is not a bug, you
           can join the
           <a
+            class="text-accent text-accent-darker-hover"
             href="https://discord.gg/AVqHrvxB9C"
             target="_blank"
-            class="text-accent text-accent-darker-hover"
           > support Discord server.</a>
         </p>
         <h3 class="mb-2 mt-4 text-xl font-bold">
@@ -84,8 +84,8 @@
           Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}
         </p>
         <nuxt-link
-          to="/licenses"
           class="text-accent text-accent-darker-hover"
+          to="/licenses"
           @click="$emit('closeModal')"
         >
           Third-party license notices
@@ -97,8 +97,8 @@
 
 <script setup lang="ts">
 import Modal from "@/components/Modal.vue";
-import { XMarkIcon } from "@heroicons/vue/24/solid";
 import versionInfo from "@/version_info.json"
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 
 defineEmits<{
   (e: "closeModal"): void

@@ -29,8 +29,8 @@
               @click="getCustomBg"
             >
               <img
-                alt="bg image preview"
                 :src="customBg"
+                alt="bg image preview"
                 class="aspect-[16/10]
                     h-auto w-56 rounded-md"
               >
@@ -58,10 +58,10 @@
               <input
                 v-model="bgBlur"
                 class="w-full"
-                type="range"
-                min="0"
                 max="20"
+                min="0"
                 oninput="rangeValue.innerText = this.value"
+                type="range"
                 @change="optionsEdited = true"
               >
               <p id="rangeValue">
@@ -81,10 +81,10 @@
               <input
                 v-model="bgBrightness"
                 class="w-full"
-                type="range"
-                min="0"
                 max="100"
+                min="0"
                 oninput="rangeValue.innerText = this.value"
+                type="range"
                 @change="optionsEdited = true"
               >
               <p id="rangeValue">
@@ -115,10 +115,10 @@
 </template>
 
 <script setup lang="ts">
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { open } from '@tauri-apps/api/dialog';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { ref } from "vue";
-import { XMarkIcon } from "@heroicons/vue/24/solid";
 
 const emit = defineEmits(["closeModal", "setBackground", "resetBackground", "setBlur", "setBrightness"]);
 
@@ -158,11 +158,11 @@ const resetSettings = () => {
 
 const getCustomBg = async () => {
     const selected = await open({
-        multiple: false,
         filters: [{
-            name: 'Image',
-            extensions: ['png', 'jpeg', 'jpg']
-        }]
+            extensions: ['png', 'jpeg', 'jpg'],
+            name: 'Image'
+        }],
+        multiple: false
     });
     if (selected == null) return;
 

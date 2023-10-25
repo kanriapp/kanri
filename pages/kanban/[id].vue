@@ -5,25 +5,25 @@
 <template>
   <div>
     <ModalCustomBackground
-      v-show="showCustomBgModal"
       v-if="bgImageLoaded"
+      v-show="showCustomBgModal"
       :background="bgCustom"
       :bg-blur-prop="bgBlur"
       :bg-brightness-prop="bgBrightness"
       @closeModal="showCustomBgModal = false"
-      @setBackground="setBackgroundImage"
       @resetBackground="resetBackground"
+      @setBackground="setBackgroundImage"
       @setBlur="setBlur"
       @setBrightness="setBrightness"
     />
     <ModalKanban
       v-show="kanbanModalVisible"
       ref="kanbanModal"
-      @setCardTitle="setCardTitle"
-      @setCardDescription="setCardDescription"
       @closeModal="closeKanbanModal"
       @setCardColor="setCardColor"
+      @setCardDescription="setCardDescription"
       @setCardTasks="setCardTasks"
+      @setCardTitle="setCardTitle"
     />
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
@@ -32,28 +32,28 @@
     />
     <ModalConfirmation
       v-show="deleteBoardModalVisible"
-      title="Delete Board?"
-      description="Are you sure you want to delete the board? This action is irreverisble."
-      confirm-button-text="Delete"
       close-button-text="Cancel"
+      confirm-button-text="Delete"
+      description="Are you sure you want to delete the board? This action is irreverisble."
+      title="Delete Board?"
       @closeModal="deleteBoardModalVisible = false"
       @confirmAction="deleteBoard"
     />
     <ModalConfirmation
       v-show="removeColumnModalVisible"
-      title="Delete column?"
-      description="Are you sure you want to delete this column? This action is irreverisble."
-      confirm-button-text="Delete"
       close-button-text="Cancel"
+      confirm-button-text="Delete"
+      description="Are you sure you want to delete this column? This action is irreverisble."
+      title="Delete column?"
       @closeModal="columnRemoveDialog.cancel()"
       @confirmAction="columnRemoveDialog.confirm(true)"
     />
     <ModalConfirmation
       v-show="removeCardModalVisible"
-      title="Delete card?"
-      description="Are you sure you want to delete this card? This action is irreverisble."
-      confirm-button-text="Delete"
       close-button-text="Cancel"
+      confirm-button-text="Delete"
+      description="Are you sure you want to delete this card? This action is irreverisble."
+      title="Delete card?"
       @closeModal="cardRemoveDialog.cancel()"
       @confirmAction="cardRemoveDialog.confirm(true)"
     />
@@ -70,9 +70,9 @@
         ref="boardTitleInput"
         v-model="board.title"
         v-focus
-        type="text"
-        maxlength="500"
         class="bg-elevation-2 border-accent text-no-overflow mb-2 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+        maxlength="500"
+        type="text"
         @blur="
           boardTitleEditing = false;
           updateStorage();
@@ -149,18 +149,18 @@
     <div
       id="kanban-cols-container"
       v-dragscroll:nochilddrag
-      class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
       :style="cssVars"
+      class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
     >
       <div class="bg-effect-overlay h-full w-max min-w-full pt-[7.5rem]">
         <div class="pointer-events-auto z-50 pl-8">
           <div class="pt-4">
             <Container
-              group-name="columns"
-              :orientation="'horizontal'"
               :non-drag-area-selector="'nodrag'"
-              drag-handle-selector=".dragging-handle"
+              :orientation="'horizontal'"
               class="flex-row gap-4"
+              drag-handle-selector=".dragging-handle"
+              group-name="columns"
               @drop="onDrop"
             >
               <Draggable
@@ -170,19 +170,19 @@
                 <KanbanColumn
                   :id="column.id"
                   :ref="(el) => saveColumnRef(el, column.id)"
+                  :cards-list="column.cards"
+                  :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :col-index="index"
                   :title="column.title"
-                  :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-                  :cards-list="column.cards"
                   :zoom-level="columnZoomLevel"
-                  @updateStorage="updateColumnProperties"
-                  @removeColumn="openColumnRemoveDialog(column.id)"
-                  @removeColumnNoConfirmation="removeColumn"
-                  @removeCardWithConfirmation="removeCardWithConfirmation"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
                   @openKanbanModal="openKanbanModal"
+                  @removeCardWithConfirmation="removeCardWithConfirmation"
+                  @removeColumn="openColumnRemoveDialog(column.id)"
+                  @removeColumnNoConfirmation="removeColumn"
                   @setColumnEditIndex="setColumnEditIndex"
+                  @updateStorage="updateColumnProperties"
                 />
               </Draggable>
               <div class="pr-8">
@@ -203,33 +203,30 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
-import { useTauriStore } from "@/stores/tauriStore";
-import { applyDrag } from "@/utils/drag-n-drop";
-import { generateUniqueID } from "@/utils/idGenerator";
 import type { Board, Card, Column } from "@/types/kanban-types";
-
-import { convertFileSrc } from '@tauri-apps/api/tauri';
-import { save } from "@tauri-apps/api/dialog";
-import { writeTextFile } from "@tauri-apps/api/fs";
+import type { Ref } from "vue";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
 import { default as KanbanModal } from "@/components/modal/Kanban.vue";
-import type { Ref } from "vue";
-
+import { useTauriStore } from "@/stores/tauriStore";
+import { applyDrag } from "@/utils/drag-n-drop";
+import emitter from "@/utils/emitter";
+import { generateUniqueID } from "@/utils/idGenerator";
+import { PhotoIcon } from "@heroicons/vue/24/outline";
+import { EllipsisHorizontalIcon, MinusIcon, PlusIcon } from "@heroicons/vue/24/solid";
+import { save } from "@tauri-apps/api/dialog";
+import { writeTextFile } from "@tauri-apps/api/fs";
+import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { useConfirmDialog } from '@vueuse/core'
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { useConfirmDialog } from '@vueuse/core'
-
-import { PlusIcon, MinusIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
-import { PhotoIcon } from "@heroicons/vue/24/outline";
 
 const store = useTauriStore().store;
 const route = useRoute();
 const router = useRouter();
 
 const boards: Ref<Array<Board>> = ref([]);
-const board: Ref<Board> = ref({ id: "123", title: "", columns: [] });
+const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
 const draggingEnabled = ref(true);
 
 const boardTitleEditing = ref(false);
@@ -261,9 +258,9 @@ const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
 
 const cssVars = computed(() => {
     return {
+        "--bg-brightness": bgBrightness.value,
         "--bg-custom-image": `url("${bgCustom.value}")`,
-        "--blur-intensity": bgBlur.value,
-        "--bg-brightness": bgBrightness.value
+        "--blur-intensity": bgBlur.value
     }
 })
 
@@ -288,7 +285,7 @@ onMounted(async () => {
     }
     nextTick(() => bgImageLoaded.value = true);
 
-    const columnZoom: number | null = await store.get("columnZoomLevel");
+    const columnZoom: null | number = await store.get("columnZoomLevel");
 
     if (columnZoom == null) {
         await store.set("columnZoomLevel", 0);
@@ -472,7 +469,7 @@ const setCardColor = (columnId: string, cardId: number, color: string) => {
     colRefs[columnId].setCardColor(cardId, color);
 }
 
-const setCardTasks = (columnId: string, cardId: number, tasks: Array<{name: string, finished: boolean}>) => {
+const setCardTasks = (columnId: string, cardId: number, tasks: Array<{finished: boolean, name: string}>) => {
     colRefs[columnId].setCardTasks(cardId, tasks);
 }
 
@@ -523,9 +520,9 @@ const removeCardWithConfirmation = async (columnId: string, cardIndex: number, c
 
 const addColumn = () => {
     const column = {
+        cards: [],
         id: generateUniqueID(),
         title: "New Column",
-        cards: [],
     };
 
     board.value.columns.push(column);
@@ -594,14 +591,14 @@ const updateStorage = () => {
 
 const exportBoardToJson = async () => {
     const filePath = await save({
-        title: "Select file to export data to",
         defaultPath: `./kanri_board_${board.value.id}_export.json`,
         filters: [
             {
-                name: "JSON File",
                 extensions: ["json"],
+                name: "JSON File",
             },
         ],
+        title: "Select file to export data to",
     });
 
     const fileContents = JSON.stringify(
@@ -620,7 +617,7 @@ const renameBoardModal = (index: number) => {
         return console.error("Could not find board with index: ", index);
     }
 
-    emitter.emit("openBoardRenameModal", { index: index, board: selectedBoard });
+    emitter.emit("openBoardRenameModal", { board: selectedBoard, index: index });
     renameBoardModalVisible.value = true;
 };
 
@@ -642,7 +639,7 @@ const deleteBoardModal = (index: number | undefined) => {
         return console.error("Could not find board with index: ", index);
     }
 
-    emitter.emit("openBoardDeleteModal", { index: index, description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.` });
+    emitter.emit("openBoardDeleteModal", { description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.`, index: index });
     deleteBoardModalVisible.value = true;
 }
 
@@ -658,7 +655,7 @@ const deleteBoard = async (boardIndex: number | undefined) => {
 const setBackgroundImage = (img: string) => {
     bgCustomNoResolution.value = img;
     bgCustom.value = convertFileSrc(img);
-    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    board.value.background = {blur: bgBlur.value, brightness: bgBrightness.value, src: bgCustomNoResolution.value};
     updateStorage();
 }
 
@@ -673,13 +670,13 @@ const resetBackground = () => {
 
 const setBlur = (blurAmount: string) => {
     bgBlur.value = blurAmount;
-    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    board.value.background = {blur: bgBlur.value, brightness: bgBrightness.value, src: bgCustomNoResolution.value};
     updateStorage();
 }
 
 const setBrightness = (brightnessAmount: string) => {
     bgBrightness.value = brightnessAmount;
-    board.value.background = {src: bgCustomNoResolution.value, blur: bgBlur.value, brightness: bgBrightness.value};
+    board.value.background = {blur: bgBlur.value, brightness: bgBrightness.value, src: bgCustomNoResolution.value};
     updateStorage();
 }
 
