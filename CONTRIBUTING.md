@@ -21,7 +21,7 @@ Please also take a look at the [Code of Conduct](https://github.com/trobonox/kan
 
 ## Here’s the process for contributing to Kanri
 * Fork the Kanri repository, and clone it locally on your development machine.
-* Find help wanted tickets that are up for grabs in GitHub. Comment to let everyone know you’re working on it and let a core contributor assign the issue to you. If there’s no ticket for what you want to work on, you are free to continue with your changes but consider opening an issue or a discussion to make sure what you want to add is in line with the project vision.
+* Find help wanted tickets that are up for grabs in GitHub or look at the things that are todo or work in progress in the roadmap (projects tab). Comment to let everyone know you’re working on it and let a core contributor assign the issue to you. If there’s no ticket for what you want to work on, you are free to continue with your changes but consider opening an issue or a discussion to make sure what you want to add is in line with the project vision.
 * If in some case you need to use another dependency, create a new issue requesting for the package to be reviewed (by adding the "dependency request" label to the according issue).
 * Your code should follow general Vue conventions, except for some exclusions, most notably camelCasing and events.
 * After writing your code, make sure to lint your code with `yarn lint`.
