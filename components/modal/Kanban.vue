@@ -257,6 +257,33 @@
                 class="h-4 w-4"
               />
             </button>
+            <button
+              :class="`h-7 w-7 rounded-full bg-[${customColor}] border border-white py-1 pl-1.5 pr-1`"
+              @click="setCardColor(columnID, cardID, `bg-[${customColor}]`)"
+            >
+              <CheckIcon
+                v-if="isCustomColor"
+                class="h-4 w-4"
+              />
+              <PencilIcon
+                v-else
+                class="h-4 w-4"
+              />
+            </button>
+            <div class="flex flex-col gap-2 bg-elevation-2 rounded-md p-2" v-if="isCustomColor">
+              <input
+                ref="colorInput"
+                v-model="customColor"
+                class="bg-elevation-2 w-20 rounded-md px-2"
+                type="color"
+              >
+              <input
+                v-model="customColor"
+                class="bg-elevation-1 w-20 rounded-md px-2"
+                readonly="true"
+                type="text"
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -269,7 +296,7 @@ import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
-import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
+import { CheckIcon, PlusIcon, XMarkIcon, PencilIcon } from "@heroicons/vue/24/solid";
 import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
@@ -282,12 +309,29 @@ const emit = defineEmits<{
     (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
 }>();
 
+const presetColors = [
+    "bg-pink-600",
+    "bg-red-600",
+    "bg-orange-600",
+    "bg-yellow-600",
+    "bg-green-600",
+    "bg-teal-600",
+    "bg-blue-600",
+    "bg-purple-600",
+    "bg-elevation-2",
+];
+
 const columnID = ref("");
 const cardID = ref(0);
 const title = ref("");
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
 const selectedColor = ref("");
+
+const isCustomColor = computed(() => {
+    return !presetColors.includes(selectedColor.value);
+});
+const customColor = ref("#ffffff");
 
 const titleEditing = ref(false);
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
@@ -337,7 +381,13 @@ const initModal = (
     tasks.value = savedTasks;
     updateCardTasks();
 
-    selectedColor.value = selectedColorParam || "bg-elevation-2";
+    if (selectedColorParam && presetColors.includes(selectedColorParam)) {
+        selectedColor.value = selectedColorParam || "bg-elevation-2";
+    } else {
+        // get custom color in between [ ]
+        customColor.value = selectedColorParam?.substring(4, selectedColorParam.length - 1) || "#ffffff";
+        selectedColor.value = `bg-[${customColor.value}]`;
+    }
 }
 
 const enableTaskAddMode = () => {
@@ -407,6 +457,12 @@ const setCardColor = (columnID: string, cardID: number, color: string) => {
     selectedColor.value = color;
     emit('setCardColor', columnID, cardID, color);
 }
+
+watch(customColor, (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+        setCardColor(columnID.value, cardID.value, `bg-[${newVal}]`);
+    }
+});
 
 defineExpose({ initModal });
 </script>
