@@ -38,7 +38,8 @@ const props = withDefaults(
 const clickOutsideClose = ref(props.clickOutsideToClose);
 
 const emit = defineEmits<{
-    (e: "closeModal"): void
+    (e: "closeModal"): void,
+    (e: "enterKeyPressed"): void,
 }>();
 
 onMounted(() => {
@@ -64,6 +65,8 @@ watch(props, (_, newData) => {
 const keyDownListener = (e: { key: string; }) => {
     if (e.key === "Escape") {
         emit("closeModal");
+    } else if (e.key === "Enter") {
+        emit("enterKeyPressed");
     }
 };
 </script>
