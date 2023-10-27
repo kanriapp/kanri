@@ -26,7 +26,10 @@
         id="logo"
         class="flex flex-row rounded-md"
       >
-        <IconKanri class="h-10 w-10" />
+        <IconKanri
+          class="h-10 w-10"
+          @click="$router.push('/')"
+        />
       </div>
       <button
         v-if="showAddButton"
