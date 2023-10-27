@@ -6,6 +6,7 @@
   <Modal
     :blur-background="false"
     @closeModal="closeModal()"
+    @enterKeyPressed="$emit('confirmAction', boardIndex); closeModal()"
   >
     <template #content>
       <main
@@ -60,6 +61,7 @@ const emit = defineEmits<{
     (e: "closeModal"): void,
     (e: "confirmAction", boardIndex?: number): void
 }>();
+
 
 const boardIndex = ref(-1);
 const modalDescription = ref(props.description || "");
