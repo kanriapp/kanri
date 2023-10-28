@@ -44,7 +44,7 @@
         @double-click="deleteCardWithAnimation(index)"
         @single-click="deleteCardWithConfirmation(index)"
       >
-        <XMarkIcon class="text-dim-1 text-accent-hover h-4 w-4" />
+        <XMarkIcon class="text-accent-hover h-4 w-4" :class="cardTextColor" />
       </ClickCounter>
     </div>
     <div
