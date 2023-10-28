@@ -257,6 +257,37 @@
                 class="h-4 w-4"
               />
             </button>
+            <button
+              :class="`h-7 w-7 rounded-full py-1 pl-1.5 pr-1`"
+              :style="{'background-color': customColor}"
+              @click="setCardColor(columnID, cardID, customColor)"
+            >
+              <CheckIcon
+                v-if="isCustomColor"
+                :class="['h-4', 'w-4', getContrast(customColor)]"
+              />
+              <PencilIcon
+                v-else
+                :class="['h-4', 'w-4', getContrast(customColor)]"
+              />
+            </button>
+            <div
+              v-if="isCustomColor"
+              class="bg-elevation-2 flex flex-col gap-2 rounded-md p-2"
+            >
+              <input
+                v-model="customColor"
+                class="bg-elevation-1 w-20 rounded-md px-2"
+                readonly="true"
+                type="text"
+              >
+              <input
+                ref="colorInput"
+                v-model="customColor"
+                class="bg-elevation-2 w-20 rounded-md px-2"
+                type="color"
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -269,7 +300,7 @@ import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
-import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
+import { CheckIcon, PencilIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
@@ -288,6 +319,9 @@ const title = ref("");
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
 const selectedColor = ref("");
+
+const isCustomColor = computed(() => selectedColor.value.startsWith('#'));
+const customColor = ref("#ffffff");
 
 const titleEditing = ref(false);
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
@@ -338,6 +372,9 @@ const initModal = (
     updateCardTasks();
 
     selectedColor.value = selectedColorParam || "bg-elevation-2";
+    if (selectedColorParam?.startsWith('#')) {
+        customColor.value = selectedColorParam;
+    }
 }
 
 const enableTaskAddMode = () => {
@@ -407,6 +444,12 @@ const setCardColor = (columnID: string, cardID: number, color: string) => {
     selectedColor.value = color;
     emit('setCardColor', columnID, cardID, color);
 }
+
+watch(customColor, (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+        setCardColor(columnID.value, cardID.value, newVal);
+    }
+});
 
 defineExpose({ initModal });
 </script>

@@ -5,7 +5,8 @@
 <template>
   <div
     ref="cardRef"
-    :class="[cardTextClassZoom, cardBackgroundColor, cardTextColor]"
+    :class="[cardTextClassZoom, (cardBackgroundColor.startsWith('#') ? '' : cardBackgroundColor), cardTextColor]"
+    :style="[cardBackgroundColor.startsWith('#') ? {'background-color': cardBackgroundColor} : {}]"
     class="kanban-card border-elevation-3 flex cursor-pointer flex-col items-start gap-1 border"
     @click.self="$emit('openKanbanModal', index, card)"
   >
@@ -177,6 +178,10 @@ const cardTextColor = computed(() => {
             //@ts-ignore
             return getContrast(savedColors.value.elevation2);
         }
+    }
+
+    if (cardBackgroundColor.value.startsWith("#")) {
+        return getContrast(cardBackgroundColor.value);
     }
 
     return "text-gray-50";
