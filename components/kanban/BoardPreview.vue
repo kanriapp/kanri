@@ -20,8 +20,9 @@
           <div
             v-for="card in column.cards"
             :key="card.id"
-            :class="(card.color && card.color !== 'bg-elevation-2') ? card.color : 'bg-elevation-3'"
+            :class="(card.color && card.color !== 'bg-elevation-2' && !card.color?.startsWith('#')) ? card.color : 'bg-elevation-3'"
             class="text-no-overflow mb-0.5 rounded-[0.05rem] p-[2px] text-[2px]"
+            :style="[card.color?.startsWith('#') ? { 'background-color': card.color } : {}]"
           >
             {{ card.name }}
           </div>
