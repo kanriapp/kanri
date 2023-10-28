@@ -266,9 +266,9 @@
                 v-if="isCustomColor"
                 :class="['h-4', 'w-4', getContrast(customColor)]"
               />
-              <PencilIcon
+              <SwatchIcon
                 v-else
-                :class="['h-4', 'w-4', getContrast(customColor)]"
+                :class="['stroke-2', 'h-4', 'w-4', getContrast(customColor)]"
               />
             </button>
             <div
@@ -300,7 +300,8 @@ import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
-import { CheckIcon, PencilIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
+import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
+import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
