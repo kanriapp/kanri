@@ -180,6 +180,10 @@ const cardTextColor = computed(() => {
         }
     }
 
+    if (cardBackgroundColor.value.startsWith("#")) {
+        return getContrast(cardBackgroundColor.value);
+    }
+
     return "text-gray-50";
 });
 

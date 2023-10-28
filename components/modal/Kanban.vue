@@ -258,17 +258,17 @@
               />
             </button>
             <button
-              :class="`h-7 w-7 rounded-full border border-white py-1 pl-1.5 pr-1`"
+              :class="`h-7 w-7 rounded-full py-1 pl-1.5 pr-1`"
               :style="{'background-color': customColor}"
               @click="setCardColor(columnID, cardID, customColor)"
             >
               <CheckIcon
                 v-if="isCustomColor"
-                class="h-4 w-4"
+                :class="['h-4', 'w-4', getContrast(customColor)]"
               />
               <PencilIcon
                 v-else
-                class="h-4 w-4"
+                :class="['h-4', 'w-4', getContrast(customColor)]"
               />
             </button>
             <div
