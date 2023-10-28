@@ -43,6 +43,9 @@
                     "localhost/*",
                     "assets/*"
                 ]
+            },
+            "window": {
+                "show": true
             }
         },
         "bundle": {
@@ -91,7 +94,8 @@
                 "resizable": true,
                 "title": "Kanri",
                 "width": 1400,
-                "center": true
+                "center": true,
+                "visible": false
             }
         ]
     }
