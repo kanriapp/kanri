@@ -40,7 +40,7 @@ xattr -cr /Applications/kanri.app
 - 🛠 Customizable - allows for custom themes, background images and card colors
 - ⌨ With power users in mind - implements keyboard shortcuts to speed up board navigation
 
-> **Note**: This is a fairly early and untested version, it is advised to make regular JSON exports. Any testers that provide feedback are greatly appreciated.
+> **Note**: This project is still in active development, it is advised to make regular JSON exports to prevent data loss. Any testers that provide feedback are greatly appreciated.
 
 ## 📋 Roadmap
 Long term vision for the project:
