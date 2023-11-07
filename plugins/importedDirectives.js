@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import { defineNuxtPlugin } from '#app'
+import { defineNuxtPlugin } from '#imports'
 import FloatingVue from 'floating-vue'
 import 'floating-vue/dist/style.css'
 import VueDragscroll from "vue-dragscroll";
