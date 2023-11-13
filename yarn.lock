@@ -2026,7 +2026,7 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.3.8.tgz#f044942142e1d3a395f24132e6203a784838542d"
   integrity sha512-8PGwybFwM4x8pcfgqEQFy70NaQxASvOC5DJwLQfpArw1UDfUXrJkdxD3BhVTMS+0Lef/TU7YO0Jvr0jJY8T+mw==
 
-"@vueuse/core@10.6.0", "@vueuse/core@^10.2.1":
+"@vueuse/core@10.6.0":
   version "10.6.0"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-10.6.0.tgz#de4113cc63680d04a0c3e1e156992ca3e0d52115"
   integrity sha512-+Yee+g9+9BEbvkyGdn4Bf4yZx9EfocAytpV2ZlrlP7xcz+qznLmZIDqDroTvc5vtMkWZicisgEv8dt3+jL+HQg==
@@ -2036,10 +2036,25 @@
     "@vueuse/shared" "10.6.0"
     vue-demi ">=0.14.6"
 
+"@vueuse/core@^10.2.1":
+  version "10.6.1"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-10.6.1.tgz#5b16d8238054c6983b6cb7cd77a78035f098dd89"
+  integrity sha512-Pc26IJbqgC9VG1u6VY/xrXXfxD33hnvxBnKrLlA2LJlyHII+BSrRoTPJgGYq7qZOu61itITFUnm6QbacwZ4H8Q==
+  dependencies:
+    "@types/web-bluetooth" "^0.0.20"
+    "@vueuse/metadata" "10.6.1"
+    "@vueuse/shared" "10.6.1"
+    vue-demi ">=0.14.6"
+
 "@vueuse/metadata@10.6.0":
   version "10.6.0"
   resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-10.6.0.tgz#f652829668ba4146ab0f79d52ea26b5544f12fe8"
   integrity sha512-mzKHkHoiK6xVz01VzQjM2l6ofUanEaofgEGPgDHcAzlvOTccPRTIdEuzneOUTYxgfm1vkDikS6rtrEw/NYlaTQ==
+
+"@vueuse/metadata@10.6.1":
+  version "10.6.1"
+  resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-10.6.1.tgz#100faa0ced3c0ab4c014fb8e66e781e85e4eb88d"
+  integrity sha512-qhdwPI65Bgcj23e5lpGfQsxcy0bMjCAsUGoXkJ7DsoeDUdasbZ2DBa4dinFCOER3lF4gwUv+UD2AlA11zdzMFw==
 
 "@vueuse/nuxt@^10.2.1":
   version "10.6.0"
@@ -2057,6 +2072,13 @@
   version "10.6.0"
   resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-10.6.0.tgz#e13f3b0f642db6467bd8aadf9693409f33f45fc4"
   integrity sha512-0t4MVE18sO+/4Gh0jfeOXBTjKeV4606N9kIrDOLPjFl8Rwnlodn+QC5A4LfJuysK7aOsTMjF3KnzNeueaI0xlQ==
+  dependencies:
+    vue-demi ">=0.14.6"
+
+"@vueuse/shared@10.6.1":
+  version "10.6.1"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-10.6.1.tgz#1d9fc1e3f9083e45b59a693fc372bc50ad62a9e4"
+  integrity sha512-TECVDTIedFlL0NUfHWncf3zF9Gc4VfdxfQc8JFwoVZQmxpONhLxFrlm0eHQeidHj4rdTPL3KXJa0TZCk1wnc5Q==
   dependencies:
     vue-demi ">=0.14.6"
 
