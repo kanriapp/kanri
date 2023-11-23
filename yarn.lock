@@ -1454,11 +1454,6 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/merge-streams/-/merge-streams-1.0.0.tgz#9cd84cc15bc865a5ca35fcaae198eb899f7b5c90"
   integrity sha512-rUV5WyJrJLoloD4NDN1V1+LDMDWOa4OTsT4yYJwQNpTU6FWxkxHpL7eu4w+DmiH8x/EAM1otkPE1+LaspIbplw==
 
-"@tauri-apps/api@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.4.0.tgz#b4013ca3d17b853f7df29fe14079ebb4d52dbffa"
-  integrity sha512-Jd6HPoTM1PZSFIzq7FB8VmMu3qSSyo/3lSwLpoapW+lQ41CL5Dow2KryLg+gyazA/58DRWI9vu/XpEeHK4uMdw==
-
 "@tauri-apps/api@1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.5.1.tgz#9074476c4323f71351db624e9711c99277cdfb99"
@@ -6752,11 +6747,12 @@ tar@^6.1.11, tar@^6.1.2, tar@^6.2.0:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-"tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#072ebc2914c19eb7022c90add7ea328d437d5eb2":
+"tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#57a2519475e65d1e52374c4a44ba96c30b7b5507":
   version "0.0.0"
-  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/072ebc2914c19eb7022c90add7ea328d437d5eb2"
+  uid "57a2519475e65d1e52374c4a44ba96c30b7b5507"
+  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/57a2519475e65d1e52374c4a44ba96c30b7b5507"
   dependencies:
-    "@tauri-apps/api" "1.4.0"
+    "@tauri-apps/api" "1.5.1"
 
 "tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#9eb678838515e8d5b7ed4d704fa6aefe21eb05bd":
   version "0.0.0"
