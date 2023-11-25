@@ -37,11 +37,7 @@
             "protocol": {
                 "asset": true,
                 "assetScope": [
-                    "$HOME/*",
-                    "$APPDATA/*",
-                    "$APPCONFIG/*",
-                    "localhost/*",
-                    "assets/*"
+                    "/**/*"
                 ]
             },
             "window": {
