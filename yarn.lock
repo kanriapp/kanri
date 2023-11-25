@@ -922,7 +922,7 @@
     rc9 "^2.1.1"
     semver "^7.5.4"
 
-"@nuxt/devtools@^1.0.0", "@nuxt/devtools@^1.0.3":
+"@nuxt/devtools@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@nuxt/devtools/-/devtools-1.0.3.tgz#176e6c1fd0be398d48c773cffa22111875459f5e"
   integrity sha512-2mXvQiS3KTMF0fO80Y9WLx95yubRoIp2wSCarmhhqInPe8/0K9VZ4TUiTGF20ti45h0ky3OAxiVSmLfViwDWjg==
@@ -1458,6 +1458,11 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/merge-streams/-/merge-streams-1.0.0.tgz#9cd84cc15bc865a5ca35fcaae198eb899f7b5c90"
   integrity sha512-rUV5WyJrJLoloD4NDN1V1+LDMDWOa4OTsT4yYJwQNpTU6FWxkxHpL7eu4w+DmiH8x/EAM1otkPE1+LaspIbplw==
+
+"@tauri-apps/api@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.4.0.tgz#b4013ca3d17b853f7df29fe14079ebb4d52dbffa"
+  integrity sha512-Jd6HPoTM1PZSFIzq7FB8VmMu3qSSyo/3lSwLpoapW+lQ41CL5Dow2KryLg+gyazA/58DRWI9vu/XpEeHK4uMdw==
 
 "@tauri-apps/api@1.5.1":
   version "1.5.1"
@@ -6561,13 +6566,13 @@ tar@^6.1.11, tar@^6.1.2, tar@^6.2.0:
   version "0.0.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/57a2519475e65d1e52374c4a44ba96c30b7b5507"
   dependencies:
-    "@tauri-apps/api" "1.5.1"
+    "@tauri-apps/api" "1.4.0"
 
 "tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#806da5f1c46a14cd32444cd476e9c1dd7e6ee094":
   version "0.0.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/806da5f1c46a14cd32444cd476e9c1dd7e6ee094"
   dependencies:
-    "@tauri-apps/api" "1.5.1"
+    "@tauri-apps/api" "1.4.0"
 
 terser@5.24.0, terser@^5.17.4:
   version "5.24.0"
