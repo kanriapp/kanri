@@ -110,7 +110,7 @@
                         v-if="taskEditMode && index === currentlyEditingTaskIndex"
                         v-model="currentlyEditingTaskName"
                         v-focus
-                        class="bg-elevation-2 border-accent w-full rounded-md border-b-2 border-dotted px-2 py-0.5 outline-none"
+                        class="bg-elevation-2 border-accent -mx-1.5 w-full rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
                         type="text"
                         @blur="updateTask(index)"
                         @keypress.enter="updateTask(index)"
