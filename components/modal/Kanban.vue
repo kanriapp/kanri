@@ -287,7 +287,7 @@
             </button>
             <div
               v-if="isCustomColor"
-              class="bg-elevation-2 flex flex-col gap-2 rounded-md p-2"
+              class="bg-elevation-2 flex flex-col gap-1 rounded-md p-1"
             >
               <input
                 v-model="customColor"
@@ -298,7 +298,7 @@
               <input
                 ref="colorInput"
                 v-model="customColor"
-                class="bg-elevation-2 w-20 rounded-md px-2"
+                class="bg-elevation-2 w-full rounded-md px-2"
                 type="color"
               >
             </div>
