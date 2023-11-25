@@ -59,11 +59,25 @@
             @focusin="emitter.emit('modalPreventClickOutsideClose')"
             @keypress.enter="updateDescription"
           />
-          <h2
-            class="mb-1 mt-6 text-lg font-semibold"
+          <div class="mb-1 mt-6 flex flex-row items-center gap-2">
+            <h2
+              class="text-lg font-semibold"
+            >
+              Tasks
+            </h2>
+            <span class="text-dim-1 text-sm">({{ getCheckedTaskNumber }}/{{ tasks.length }})</span>
+          </div>
+          <ProgressRoot
+            v-if="tasks"
+            v-model="getTaskPercentage"
+            class="bg-elevation-2 relative mb-4 h-2 w-full overflow-hidden rounded-full"
+            style="transform: translateZ(0)"
           >
-            Tasks
-          </h2>
+            <ProgressIndicator
+              class="ease-[cubic-bezier(0.65, 0, 0.35, 1)] bg-accent-no-hover h-full w-full rounded-full transition-transform duration-[660ms]"
+              :style="`transform: translateX(-${100 - getTaskPercentage}%)`"
+            />
+          </ProgressRoot>
           <div
             class="flex w-full flex-col gap-2"
           >
@@ -300,8 +314,8 @@ import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
-import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
+import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
@@ -381,6 +395,16 @@ const initModal = (
 const enableTaskAddMode = () => {
     taskAddMode.value = true;
 }
+
+const getCheckedTaskNumber = computed(() => {
+    return tasks.value.filter(task => task.finished).length || 0;
+})
+
+const getTaskPercentage = computed(() => {
+    if (!tasks.value || tasks.value.length === 0) return 0;
+
+    return (getCheckedTaskNumber.value / tasks.value.length) * 100;
+})
 
 const createTask = () => {
     if (newTaskName.value == null || !(/\S/.test(newTaskName.value))) return;
