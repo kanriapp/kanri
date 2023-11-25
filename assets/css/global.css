@@ -11,3 +11,10 @@ body {
 .smooth-dnd-container {
     min-height: 40px !important;
 }
+
+body:has(> .disable-animations) * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}

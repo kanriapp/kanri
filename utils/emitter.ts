@@ -26,6 +26,10 @@ type Events = {
     openModalWithCustomDescription: { description: string };
 
     resetColumnInputs: void;
+
+    setAnimationsOff: void;
+    setAnimationsOn: void;
+
     showSidebarBackArrow: void;
     updateColors: void;
 

@@ -134,6 +134,26 @@
         <div class="flex w-[48rem] flex-row items-start justify-between">
           <div>
             <h3 class="text-lg">
+              Animations
+            </h3>
+            <span class="text-dim-2">
+              Disable this option to remove all animations in the app.
+            </span>
+          </div>
+          <SwitchRoot
+            v-model:checked="animationsEnabled"
+            class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-default rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            @update:checked="toggleAnimations"
+          >
+            <SwitchThumb
+              class="bg-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+            />
+          </SwitchRoot>
+        </div>
+
+        <div class="flex w-[48rem] flex-row items-start justify-between">
+          <div>
+            <h3 class="text-lg">
               Autostart on startup
             </h3>
             <span class="text-dim-2">
@@ -195,11 +215,15 @@ const activeTheme: Ref<null | string> = ref("");
 const themeEditorDisplayed = ref(false);
 
 const autostartCheckbox = ref(false);
+const animationsEnabled = ref(true);
 
 const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
     emitter.emit("showSidebarBackArrow");
+
+    const animationsEnabledSaved: boolean | null = await store.get("animationsEnabled");
+    animationsEnabled.value = animationsEnabledSaved || false;
 
     activeTheme.value = await store.get("activeTheme");
     if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
@@ -257,6 +281,17 @@ const toggleAutostart = async (autostartToggled: boolean) => {
     }
     else {
         await disable();
+    }
+}
+
+const toggleAnimations = async (animationsToggled: boolean) => {
+    if (animationsToggled) {
+        emitter.emit("setAnimationsOn");
+        await store.set("animationsEnabled", true);
+    }
+    else {
+        emitter.emit("setAnimationsOff");
+        await store.set("animationsEnabled", false);
     }
 }
 

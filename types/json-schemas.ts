@@ -58,6 +58,7 @@ export const kanbanElectronBoardSchema = z.object({
 
 export const kanriJsonSchema = z.object({
     activeTheme: z.string(),
+    animationsEnabled: z.boolean().optional(),
     boardSortingOption: z.string().optional(),
     boards: z.array(kanriBoardSchema),
     colors: kanriThemeSchema,

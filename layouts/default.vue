@@ -6,6 +6,7 @@
   <div class="overflow-auto">
     <div
       :style="cssVars"
+      :class="[animationsEnabled ? '' : 'disable-animations']"
       class="default-layout custom-scrollbar-hidden overflow-auto"
     >
       <div v-if="mounted">
@@ -28,12 +29,22 @@ const store = useTauriStore().store;
 const savedColors = ref({});
 const mounted = ref(false);
 
+const animationsEnabled = ref(true);
+
 onMounted(async () => {
     const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
     const lastInstalledVersionNumber = await store.get("lastInstalledVersion");
     if (lastInstalledVersionNumber === null || lastInstalledVersionNumber !== currentVersionIdentifier) {
         emitter.emit("openChangelogModal");
         await store.set("lastInstalledVersion", currentVersionIdentifier);
+    }
+
+    const animationsEnabledSaved = await store.get("animationsEnabled");
+    if (animationsEnabledSaved !== null) {
+        animationsEnabled.value = animationsEnabledSaved;
+    }
+    else {
+        await store.set("animationsEnabled", true);
     }
 
     savedColors.value = await store.get("colors");
@@ -44,6 +55,14 @@ onMounted(async () => {
             savedColors.value = await store.get("colors");
         });
         savedColors.value = await store.get("colors");
+    });
+
+    emitter.on("setAnimationsOn", () => {
+        animationsEnabled.value = true;
+    });
+
+    emitter.on("setAnimationsOff", () => {
+        animationsEnabled.value = false;
     });
 });
 
@@ -86,6 +105,13 @@ const cssVars = computed(() => {
 </script>
 
 <style>
+.disable-animations * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
 .default-layout {
     background-color: var(--bg-primary);
     color: var(--text);
