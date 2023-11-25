@@ -140,12 +140,15 @@
               Automatically starts Kanri at startup.
             </span>
           </div>
-          <input
-            v-model="autostartCheckbox"
-            class=" h-4 w-4 rounded-md"
-            type="checkbox"
-            @click="toggleAutostart()"
+          <SwitchRoot
+            v-model:checked="autostartCheckbox"
+            class="bg-elevation-1 bg-accent-checked relative flex h-[24px] w-[42px] cursor-default rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            @update:checked="toggleAutostart"
           >
+            <SwitchThumb
+              class="bg-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+            />
+          </SwitchRoot>
         </div>
 
         <div class="flex w-[48rem] flex-row items-start justify-between">
@@ -248,8 +251,8 @@ const deleteAllData = async () => {
     await message("Successfully deleted data.", { title: "Kanri", type: "info" });
 };
 
-const toggleAutostart = async () => {
-    if (autostartCheckbox.value == false) {
+const toggleAutostart = async (autostartToggled: boolean) => {
+    if (autostartToggled) {
         await enable();
     }
     else {
@@ -324,3 +327,13 @@ const importThemeFromJson = async () => {
     router.go(0);
 }
 </script>
+
+<style>
+.bg-accent-checked[data-state=checked] {
+    background-color: var(--accent);
+}
+
+.bg-text {
+    background-color: var(--text);
+}
+</style>
