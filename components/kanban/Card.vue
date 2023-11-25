@@ -200,6 +200,13 @@ const cardTextColorDim = computed(() => {
         }
     }
 
+    if (cardBackgroundColor.value.startsWith("#")) {
+        if (getContrast(cardBackgroundColor.value) === "text-gray-50") {
+            return "text-gray-300";
+        }
+        return "text-gray-700"
+    }
+
     return "text-gray-300";
 });
 
