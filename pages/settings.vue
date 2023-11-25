@@ -142,7 +142,7 @@
           </div>
           <SwitchRoot
             v-model:checked="autostartCheckbox"
-            class="bg-elevation-1 bg-accent-checked relative flex h-[24px] w-[42px] cursor-default rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-default rounded-full shadow-sm focus-within:outline focus-within:outline-black"
             @update:checked="toggleAutostart"
           >
             <SwitchThumb
