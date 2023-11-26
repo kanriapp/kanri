@@ -145,6 +145,10 @@ const cssVars = computed(() => {
     background-color: color-mix(in srgb, var(--elevation-3) 95%, white);
 }
 
+.bg-button-text {
+    background-color: var(--text-buttons);
+}
+
 .bg-accent {
     background-color: var(--accent);
 }
