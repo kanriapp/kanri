@@ -293,13 +293,16 @@ const importFromKanriBoard = async () => {
         });
 
         if (checkForDuplicates.length !== 0) {
-            const confirmation = await ask(`The board ${result.title} already exists. Do you want to override it with the version you are about to import?`, { title: 'Kanri', type: 'error' });
+            const confirmation = await ask(`The board ${result.title} already exists (board with the same ID). Do you want to import as a duplicate?`, { title: 'Kanri', type: 'info' });
             if (!confirmation) {
                 return;
             }
             else {
-                const boardOverrideIndex = convertedBoards.indexOf(checkForDuplicates[0]);
-                convertedBoards[boardOverrideIndex] = result;
+                result.id = generateUniqueID();
+                while (convertedBoards.some(board => board.id === result.id)) {
+                    result.id = generateUniqueID();
+                }
+                result.title = result.title + " (duplicate)";
             }
         }
 
@@ -316,15 +319,17 @@ const importFromKanriBoard = async () => {
             });
 
             if (checkForDuplicates.length !== 0) {
-                const confirmation = await ask(`The board ${result.title} already exists. Do you want to override it with the version you are about to import?`, { title: 'Kanri', type: 'error' });
+                const confirmation = await ask(`The board ${result.title} already exists (board with the same ID). Do you want to import as a duplicate?`, { title: 'Kanri', type: 'info' });
 
                 if (!confirmation) {
                     return;
                 }
                 else {
-                    const boardOverrideIndex = convertedBoards.indexOf(checkForDuplicates[0]);
-                    convertedBoards[boardOverrideIndex] = result;
-                    continue;
+                    result.id = generateUniqueID();
+                    while (convertedBoards.some(board => board.id === result.id)) {
+                        result.id = generateUniqueID();
+                    }
+                    result.title = result.title + " (duplicate)";
                 }
             }
 
