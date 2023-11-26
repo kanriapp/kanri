@@ -141,6 +141,10 @@ const cssVars = computed(() => {
     background-color: var(--elevation-3);
 }
 
+.bg-elevation-4 {
+    background-color: color-mix(in srgb, var(--elevation-3) 95%, white);
+}
+
 .bg-accent {
     background-color: var(--accent);
 }
@@ -165,12 +169,20 @@ const cssVars = computed(() => {
     border-color: var(--elevation-3);
 }
 
+.border-elevation-5 {
+    border-color: color-mix(in srgb, var(--elevation-3) 85%, white);
+}
+
 .border-accent {
     border-color: var(--accent);
 }
 
 .border-accent-focus:focus {
     border-color: var(--accent);
+}
+
+.text-accent-lighter {
+    color: color-mix(in srgb, var(--accent) 70%, white);
 }
 
 .text-accent {
