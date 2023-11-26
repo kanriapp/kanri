@@ -129,6 +129,13 @@
                 <button
                   v-close-popper
                   class="px-4 py-1.5 hover:bg-gray-200"
+                  @click="duplicateBoard"
+                >
+                  Duplicate Board
+                </button>
+                <button
+                  v-close-popper
+                  class="px-4 py-1.5 hover:bg-gray-200"
                   @click="exportBoardToJson"
                 >
                   Export Board
@@ -629,6 +636,16 @@ const renameBoard = (index: number, name: string) => {
     boards.value[index].title = name;
     boards.value[index].lastEdited = new Date();
     store.set("boards", boards.value);
+}
+
+const duplicateBoard = () => {
+    const newBoard = JSON.parse(JSON.stringify(board.value));
+    newBoard.id = generateUniqueID();
+    newBoard.title = newBoard.title + " (duplicate)";
+    boards.value.push(newBoard);
+    store.set("boards", boards.value);
+
+    router.push("/");
 }
 
 const deleteBoardModal = (index: number | undefined) => {
