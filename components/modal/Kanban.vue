@@ -83,7 +83,7 @@
           >
             <div
               v-if="tasks && tasks.length !== 0"
-              class="flex max-h-[148px] w-full flex-col gap-1 overflow-auto pl-1"
+              class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1"
             >
               <Container
                 drag-class="cursor-grabbing"
@@ -100,12 +100,18 @@
                 >
                   <div class="mb-1 flex w-full flex-row items-center justify-between gap-4">
                     <div class="flex w-full flex-row items-center justify-start gap-4">
-                      <input
-                        v-model="task.finished"
-                        class="h-5 w-5 shrink-0"
-                        type="checkbox"
-                        @change="updateCardTasks"
+                      <CheckboxRoot
+                        v-model:checked="task.finished"
+                        class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex h-5 w-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
+                        @checked="updateCardTasks"
                       >
+                        <CheckboxIndicator class="flex h-full w-full items-center justify-center rounded">
+                          <PhCheck
+                            weight="bold"
+                            class="text-accent-lighter h-4 w-4"
+                          />
+                        </CheckboxIndicator>
+                      </CheckboxRoot>
                       <input
                         v-if="taskEditMode && index === currentlyEditingTaskIndex"
                         v-model="currentlyEditingTaskName"
@@ -124,7 +130,7 @@
                         >{{ task.name }}</span>
                       </ClickCounter>
                     </div>
-                    <div class="ml-1 flex shrink-0 flex-row gap-1">
+                    <div class="ml-1 flex shrink-0 flex-row items-end gap-1 self-end">
                       <button
                         v-if="!taskEditMode"
                         class="shrink-0"
