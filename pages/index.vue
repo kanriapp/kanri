@@ -321,7 +321,7 @@ const sortBoardsAlphabetically = () => {
         return a.title.localeCompare(b.title);
     });
     store.set("boardSortingOption", "alphabetically");
-    sortingOptionText.value = "Alphabetical sort";
+    sortingOptionText.value = "Sort alphabetically";
 }
 
 const sortBoardsByCreationDate = async () => {
