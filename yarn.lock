@@ -5813,9 +5813,9 @@ queue-tick@^1.0.1:
   integrity sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==
 
 radix-vue@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/radix-vue/-/radix-vue-1.2.2.tgz#58446d6efe2d9d772f22b1ec37cb41249f0a04eb"
-  integrity sha512-34Z+Oy4AuiajdGmkcfi2H6LthT5qMeby6jP9DaNzcf9299KQfm8PHUuo754XnguL2PnfgePa9T7IF+hSkwYwmQ==
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/radix-vue/-/radix-vue-1.2.3.tgz#f3951a35fe817b5411d23d78bb14e04d6e8616e8"
+  integrity sha512-iR4D3SoIoCzKeCldxwxjLv0roGBZNSKAxE5/CgB8V1P7Mk7RtVhnFmOIWL/Z3XNzR9XfU03s8FZLIs+1LCEXnQ==
   dependencies:
     "@floating-ui/dom" "^1.5.3"
     "@floating-ui/vue" "^1.0.2"
