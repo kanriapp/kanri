@@ -122,9 +122,6 @@ watch(props, (_, newData) => {
     name.value = newData.card.name;
     description.value = newData.card.description;
     tasks.value = newData.card.tasks;
-
-    console.log(!tasks.value && (!description.value || !(/\S/.test(description.value))));
-    console.log(tasks);
 });
 
 onMounted(async () => {
