@@ -4,12 +4,13 @@
 
 import type { Board } from '@/types/kanban-types';
 
+import emitter from "@/utils/emitter";
 import mitt from 'mitt';
 
 type Events = {
     closeKanbanPage: void;
     columnActionDone: void;
-    createBoard: string;
+    createBoard: { columns?: Array<Column>, title: string };
 
     enableColumnCardAddMode: string;
     enableColumnTitleEditing: string;

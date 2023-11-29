@@ -178,7 +178,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Board } from "@/types/kanban-types";
+import type { Board, Column } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { useTauriStore } from "@/stores/tauriStore";
@@ -200,8 +200,8 @@ const changelogModalVisible = ref(false);
 const sortingOptionText = ref("Sort by creation date");
 
 onMounted(async () => {
-    emitter.on("createBoard", (title: string) => {
-        createNewBoard(title);
+    emitter.on("createBoard", ({columns, title}) => {
+        createNewBoard(title, columns);
     });
 
     emitter.on("openChangelogModal", () => changelogModalVisible.value = true);
@@ -236,34 +236,36 @@ const setSorting = async () => {
     }
 }
 
-const createNewBoard = async (title: string) => {
+const createNewBoard = async (title: string, columns?: Column[]) => {
+    const exampleColumns = [
+        {
+            cards: [
+                {
+                    description: "",
+                    name: "Eat something tasty",
+                },
+                {
+                    description: "This is an extended description for an example task",
+                    name: "Do some important task",
+                },
+            ],
+            id: generateUniqueID(),
+            title: "Todo",
+        },
+        {
+            cards: [{ description: "", name: "Doing something cool" }],
+            id: generateUniqueID(),
+            title: "Doing",
+        },
+        {
+            cards: [],
+            id: generateUniqueID(),
+            title: "Done",
+        },
+    ]
+
     const board: Board = {
-        columns: [
-            {
-                cards: [
-                    {
-                        description: "",
-                        name: "Eat something tasty",
-                    },
-                    {
-                        description: "This is an extended description for an example task",
-                        name: "Do some important task",
-                    },
-                ],
-                id: generateUniqueID(),
-                title: "Todo",
-            },
-            {
-                cards: [{ description: "", name: "Doing something cool" }],
-                id: generateUniqueID(),
-                title: "Doing",
-            },
-            {
-                cards: [],
-                id: generateUniqueID(),
-                title: "Done",
-            },
-        ],
+        columns: columns || exampleColumns,
         id: generateUniqueID(),
         lastEdited: new Date(),
         title: title

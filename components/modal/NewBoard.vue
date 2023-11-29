@@ -35,13 +35,58 @@
             v-model="newBoardName"
             class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-[20rem] rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
             maxlength="500"
-            placeholder="New Board"
+            placeholder="Enter a board name..."
             type="text"
           >
+
+          <div class="mt-3 flex flex-row gap-4">
+            <SwitchRoot
+              v-model:checked="exampleColumns"
+              class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-default rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            >
+              <SwitchThumb
+                class="bg-button-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+              />
+            </SwitchRoot>
+            <p>Create example columns and cards</p>
+          </div>
+        </section>
+        <section
+          v-if="!exampleColumns"
+          class="mt-6"
+        >
+          <div class="mb-2 flex items-center gap-2">
+            <h2 class="text-medium text-dim-1 text-lg">
+              Columns
+            </h2>
+            <div
+              class="bg-accent text-buttons flex cursor-pointer items-center justify-center rounded-full p-1 text-center transition-colors"
+              @click="addColumnAndScrollToEnd()"
+            >
+              <PhPlus class="h-4 w-4" />
+            </div>
+          </div>
+          <div class="flex max-w-xl flex-row items-center gap-2 overflow-auto">
+            <div
+              v-for="(column, index) in columns"
+              :key="column.id"
+              class="bg-elevation-2 column flex flex-row items-center gap-2 rounded-lg p-2"
+            >
+              <input
+                v-model="column.title"
+                class="bg-elevation-3 text-text w-32 text-ellipsis rounded-md border-none px-2 py-1 focus:outline-none"
+                type="text"
+              >
+              <PhTrash
+                class="text-accent-hover h-5 w-5 cursor-pointer"
+                @click="columns.splice(index, 1)"
+              />
+            </div>
+          </div>
         </section>
         <section
           id="buttons"
-          class="mt-8 flex w-full flex-row items-center justify-end gap-8"
+          class="mt-6 flex w-full flex-row items-center justify-end gap-8"
         >
           <button
             class="text-accent-hover transition-button"
@@ -62,10 +107,12 @@
 </template>
 
 <script setup lang="ts">
+import type { Column } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter";
 import { XMarkIcon } from '@heroicons/vue/24/outline';
+import { PhPlus, PhTrash } from "@phosphor-icons/vue";
 
 const emit = defineEmits<{
     (e: "closeModal"): void
@@ -74,6 +121,24 @@ const emit = defineEmits<{
 const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
 
 const newBoardName = ref("");
+const exampleColumns = ref(true);
+const columns: Ref<Array<Column>> = ref([
+    {
+        cards: [],
+        id: generateUniqueID(),
+        title: "Todo",
+    },
+    {
+        cards: [],
+        id: generateUniqueID(),
+        title: "Work in progress",
+    },
+    {
+        cards: [],
+        id: generateUniqueID(),
+        title: "Done",
+    },
+]);
 
 onUpdated(() => {
     nextTick(() => {
@@ -82,15 +147,56 @@ onUpdated(() => {
     });
 });
 
+const addColumnAndScrollToEnd = () => {
+    columns.value.push({
+        cards: [],
+        id: generateUniqueID(),
+        title: "New Column",
+    });
+    nextTick(() => {
+        const columnElements = document.querySelectorAll('.column');
+        columnElements[columnElements.length - 1].scrollIntoView({ behavior: 'smooth' });
+    });
+
+}
+
 const createNewBoard = () => {
     if (newBoardName.value == null || !(/\S/.test(newBoardName.value))) return;
 
-    emitter.emit('createBoard', newBoardName.value);
+    if (exampleColumns.value === true) {
+        emitter.emit('createBoard', {title: newBoardName.value});
+    }
+    else {
+        emitter.emit('createBoard', {columns: columns.value, title: newBoardName.value});
+    }
+
     closeModal();
 }
 
 const closeModal = () => {
     newBoardName.value = "";
+    exampleColumns.value = true;
+    columns.value = [{
+        cards: [],
+        id: generateUniqueID(),
+        title: "Todo",
+    },
+    {
+        cards: [],
+        id: generateUniqueID(),
+        title: "Work in progress",
+    },
+    {
+        cards: [],
+        id: generateUniqueID(),
+        title: "Done",
+    },]
     emit("closeModal");
 }
 </script>
+
+<style scoped>
+.force-flex {
+    display: flex !important;
+}
+</style>
