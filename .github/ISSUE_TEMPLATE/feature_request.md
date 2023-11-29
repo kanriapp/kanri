@@ -1,14 +1,8 @@
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
-
-SPDX-License-Identifier: Apache-2.0
--->
-
 ---
 name: Feature request
 about: Suggest an idea for this project
 title: ''
-labels: enhancement
+labels: ''
 assignees: ''
 
 ---
