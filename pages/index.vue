@@ -111,6 +111,17 @@
         >
           Open Import/Export menu
         </nuxt-link>
+
+        <div class="flex w-full flex-col items-start">
+          <h3 class="mb-4 mt-10 text-xl font-bold">
+            Want to get the latest updates and chat with the creator?
+          </h3>
+          <a
+            href="https://discord.gg/AVqHrvxB9C"
+            target="_blank"
+            class="bg-accent cursor-pointer rounded-md px-6 py-2 text-center font-semibold transition-colors"
+          >Join the Discord community!</a>
+        </div>
       </div>
 
       <div
