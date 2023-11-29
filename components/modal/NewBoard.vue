@@ -37,7 +37,15 @@
             maxlength="500"
             placeholder="Enter a board name..."
             type="text"
+            @focus="boardNameEmptyError = false"
+            @blur="checkIfBoardNameEmpty"
           >
+          <p
+            v-if="boardNameEmptyError"
+            class="mt-0.5 text-red-500"
+          >
+            Board name cannot be empty
+          </p>
 
           <div class="mt-3 flex flex-row gap-4">
             <SwitchRoot
@@ -119,6 +127,7 @@ const emit = defineEmits<{
 }>();
 
 const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
+const boardNameEmptyError= ref(false);
 
 const newBoardName = ref("");
 const exampleColumns = ref(false);
@@ -146,6 +155,15 @@ onUpdated(() => {
         boardNameInput.value.focus();
     });
 });
+
+const checkIfBoardNameEmpty = () => {
+    if (newBoardName.value == null || !(/\S/.test(newBoardName.value))) {
+        boardNameEmptyError.value = true;
+    }
+    else {
+        boardNameEmptyError.value = false;
+    }
+}
 
 const addColumnAndScrollToEnd = () => {
     columns.value.push({
@@ -175,6 +193,7 @@ const createNewBoard = () => {
 
 const closeModal = () => {
     newBoardName.value = "";
+    boardNameEmptyError.value = false; // we do not want to show the error before the user clicks outside the input for the first time
     exampleColumns.value = false;
     columns.value = [{
         cards: [],
