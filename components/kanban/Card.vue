@@ -32,7 +32,7 @@
           v-model="name"
           v-focus
           v-resizable
-          class="bg-elevation-3 m-0 h-full w-full resize-none rounded-sm p-0 focus:outline-none"
+          class="bg-elevation-3 text-normal m-0 h-full w-full resize-none rounded-sm p-0 focus:outline-none"
           maxlength="1000"
           type="text"
           @blur="updateCardName"
