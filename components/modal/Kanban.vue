@@ -46,18 +46,9 @@
           >
             Card Description
           </h2>
-          <textarea
-            id="cardDescription"
+          <KanbanDescriptionEditor
             v-model="description"
-            class="bg-elevation-2 border-accent-focus pointer-events-auto mt-1.5 h-36 w-full resize-none rounded-md p-2 shadow-lg focus:border-2 focus:border-dotted focus:outline-none"
-            cols="6"
-            maxlength="25000"
-            name="cardDescription"
-            placeholder="Enter a detailed description of your card here..."
-            rows="60"
-            @blur="updateDescription"
-            @focusin="emitter.emit('modalPreventClickOutsideClose')"
-            @keypress.enter="updateDescription"
+            @editorBlurred="updateDescription"
           />
           <div class="mb-1 mt-6 flex flex-row items-center gap-2">
             <h2
