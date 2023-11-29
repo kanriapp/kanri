@@ -74,7 +74,7 @@
             >
               <input
                 v-model="column.title"
-                class="bg-elevation-3 text-text w-32 text-ellipsis rounded-md border-none px-2 py-1 focus:outline-none"
+                class="bg-elevation-3 text-normal w-32 text-ellipsis rounded-md border-none px-2 py-1 focus:outline-none"
                 type="text"
               >
               <PhTrash
@@ -121,7 +121,7 @@ const emit = defineEmits<{
 const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
 
 const newBoardName = ref("");
-const exampleColumns = ref(true);
+const exampleColumns = ref(false);
 const columns: Ref<Array<Column>> = ref([
     {
         cards: [],
@@ -175,7 +175,7 @@ const createNewBoard = () => {
 
 const closeModal = () => {
     newBoardName.value = "";
-    exampleColumns.value = true;
+    exampleColumns.value = false;
     columns.value = [{
         cards: [],
         id: generateUniqueID(),
