@@ -8,7 +8,7 @@
     @closeModal="$emit('closeModal')"
   >
     <template #content>
-      <main class="min-h-[38rem] max-w-[48rem]">
+      <main class="max-w-[48rem]">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
             What's new in Kanri {{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}
@@ -18,13 +18,22 @@
             @click="$emit('closeModal')"
           />
         </div>
-        <p class="mr-8">
-          Welcome (back) to Kanri! With this new release, following new features and fixes have been released:
-
-          Seasoned user? Get back to the app ->
-
-          First time here? Click here to read the introduction!
+        <p class="mr-8 mt-6">
+          Welcome to Kanri! With this new release, following new features and fixes have been released: <br> <br>
+          - Directly edit columns from the popup for creating a new board <br>
+          - Fixed contrast issues when double clicking on a card's text to quickly edit it <br>
+          - Import checklist items from Trello™ <br>
+          - Feature to disable all animations from settings <br>
+          - Other miscellaneous fixes and improvements (full changelog available in the GitHub release notes)
         </p>
+        <div class="mt-6 flex justify-between">
+          <button
+            class="bg-accent text-buttons mb-4 w-full rounded px-4 py-2"
+            @click="$emit('closeModal')"
+          >
+            Close
+          </button>
+        </div>
       </main>
     </template>
   </Modal>
