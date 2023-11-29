@@ -105,14 +105,15 @@ export default {
     line-height: 1.1;
 }
  .tiptap code {
-    background-color: rgba(97, 97, 97, 0.1);
-    color: #616161;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: color-mix(in srgb, var(--accent) 50%, white);
 }
  .tiptap pre {
     background: #0d0d0d;
     color: #fff;
     font-family: 'JetBrainsMono', monospace;
     padding: 0.75rem 1rem;
+    margin: 1rem 0;
     border-radius: 0.5rem;
 }
  .tiptap pre code {
@@ -130,7 +131,7 @@ export default {
 }
  .tiptap blockquote {
     padding-left: 1rem;
-    border-left: 2px solid rgba(13, 13, 13, 0.1);
+    border-left: 2px solid var(--text-dim-2);
 }
 .tiptap ul::marker {
     color: var(-text-normal);
