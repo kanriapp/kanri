@@ -86,7 +86,7 @@
         </div>
       </TabsContent>
       <TabsContent
-        class="grow rounded-b-md pt-8 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
+        class="grow rounded-b-md pt-8 outline-none"
         value="tab2"
       >
         <div class="flex flex-col gap-4">
