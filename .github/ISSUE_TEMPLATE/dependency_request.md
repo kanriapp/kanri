@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
 
 ---
 name: Dependency Request
-description: Request a dependency that you want to use in one of your pull requests
+about: Request a dependency that you want to use in one of your pull requests
 title: ''
 labels: dependency request
 assignees: trobonox
