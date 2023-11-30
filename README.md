@@ -22,12 +22,6 @@ Screenshot of a fully customized version of the app, in the main Kanban board vi
 
 You can download it for free for Windows, Mac and Linux [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
 
-MacOS users can also install Kanri using Homebrew:
-```bash
-brew tap trobonox/cask
-brew install kanri
-```
-
 Apple Silicon users, please run this command to prevent the error saying the app is broken:
 ```bash
 xattr -cr /Applications/kanri.app
@@ -40,8 +34,6 @@ xattr -cr /Applications/kanri.app
 - 🛠 Customizable - allows for custom themes, background images and card colors
 - ⌨ With power users in mind - implements keyboard shortcuts to speed up board navigation
 
-> **Note**: This project is still in active development, it is advised to make regular JSON exports to prevent data loss. Any testers that provide feedback are greatly appreciated.
-
 ## 📋 Roadmap
 Long term vision for the project:
 - 👷‍♂️ Improve current features and refactor to avoid tech debt
@@ -52,6 +44,9 @@ Long term vision for the project:
 A granular list of priorities can be found [in the roadmap in the projects tab of this GitHub repo](https://github.com/trobonox/kanri/projects).
 
 This project is open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
+
+> [!NOTE]  
+> This project is still in active development and is provided "AS IS". Please make regular backups/exports to prevent any data loss.
 
 ## 🛠 Contributing & Build Setup
 If you want to contribute, please take a look at the [Contribution Guidelines](https://github.com/trobonox/kanri/blob/main/CONTRIBUTING.md).
