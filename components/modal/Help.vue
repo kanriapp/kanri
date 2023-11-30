@@ -5,7 +5,7 @@
 <template>
   <Modal @closeModal="$emit('closeModal')">
     <template #content>
-      <main class="min-h-[38rem] max-w-[48rem]">
+      <main class="h-38 max-w-[48rem]">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
             Help & Resources
@@ -77,7 +77,10 @@
         <p>
           Application made by Trobonox (trobo.tech), licensed under
           the Apache 2.0 License. Icons used are from Heroicons
-          (licensed unter the MIT License).
+          (licensed unter the MIT License). <br>
+        </p>
+        <p>
+          We are not affiliated, associated, authorized, endorsed by or in any way officially connected to Trello, Inc. (www.trello.com).
         </p>
         <p class="pt-2">
           Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
