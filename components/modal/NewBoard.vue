@@ -50,7 +50,7 @@
           <div class="mt-3 flex flex-row gap-4">
             <SwitchRoot
               v-model:checked="exampleColumns"
-              class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-default rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+              class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
             >
               <SwitchThumb
                 class="bg-button-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"

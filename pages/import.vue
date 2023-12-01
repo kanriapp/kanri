@@ -24,13 +24,13 @@
           <div class="bg-accent h-full w-full" />
         </TabsIndicator>
         <TabsTrigger
-          class="tab-active-text flex h-[45px] flex-1 cursor-default select-none items-center justify-center rounded-tl-md text-[15px] leading-none outline-none"
+          class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tl-md text-[15px] leading-none outline-none"
           value="tab1"
         >
           Import
         </TabsTrigger>
         <TabsTrigger
-          class="tab-active-text flex h-[45px] flex-1 cursor-default select-none items-center justify-center rounded-tr-md text-[15px] leading-none outline-none"
+          class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tr-md text-[15px] leading-none outline-none"
           value="tab2"
         >
           Export
