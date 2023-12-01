@@ -24,6 +24,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes.js";
 import versionInfo from "@/version_info.json"
+import { invoke } from '@tauri-apps/api/tauri'
 
 const store = useTauriStore().store;
 const savedColors = ref({});
@@ -32,6 +33,8 @@ const mounted = ref(false);
 const animationsEnabled = ref(true);
 
 onMounted(async () => {
+    invoke('load_json_from_path', {path: "/home/trobo/Documents"});
+
     const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
     const lastInstalledVersionNumber = await store.get("lastInstalledVersion");
     if (lastInstalledVersionNumber === null || lastInstalledVersionNumber !== currentVersionIdentifier) {

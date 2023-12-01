@@ -19,6 +19,12 @@ fn main() {
       MacosLauncher::LaunchAgent,
       None,
     ))
+    .invoke_handler(tauri::generate_handler![load_json_from_path])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
+}
+
+#[tauri::command]
+fn load_json_from_path(path: String) {
+    println!("This was invoked from JS {}", path);
 }

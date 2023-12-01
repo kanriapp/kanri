@@ -123,8 +123,6 @@
       </button>
     </section>
 
-
-
     <section id="miscellaneous-settings">
       <h2 class="mb-2 mt-8 text-2xl font-bold">
         Miscellaneous
@@ -191,6 +189,35 @@
         </div>
       </div>
     </section>
+
+    <section id="experimental-settings">
+      <section id="miscellaneous-settings">
+        <h2 class="mb-0.5 mt-8 text-2xl font-bold">
+          Experimental features
+        </h2>
+        <span class="text-dim-3 mb-2"> These features are experimental so they are untested and might be subject to major changes. <br> Please make regular backups to prevent data loss and <span class="text-red-500">use these features at your own risk!</span></span>
+        <div class="mt-4 flex flex-col gap-4">
+          <div class="flex w-[48rem] flex-row items-start justify-between">
+            <div>
+              <h3 class="text-lg">
+                Save data in custom location
+              </h3>
+              <span class="text-dim-2">
+                Enable this feature to be able to change the location of where boards are saved.
+              </span>
+            </div>
+            <SwitchRoot
+              v-model:checked="customSavingBackendEnabled"
+              class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-default rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            >
+              <SwitchThumb
+                class="bg-button-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+              />
+            </SwitchRoot>
+          </div>
+        </div>
+      </section>
+    </section>
   </main>
 </template>
 
@@ -216,6 +243,8 @@ const themeEditorDisplayed = ref(false);
 
 const autostartCheckbox = ref(false);
 const animationsEnabled = ref(true);
+
+const customSavingBackendEnabled = ref(false);
 
 const deleteBoardModalVisible = ref(false);
 
