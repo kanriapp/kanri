@@ -17,10 +17,11 @@ SPDX-License-Identifier: Apache-2.0
     <img src="https://img.shields.io/github/v/release/trobonox/kanri" alt="Release Version Badge" />
 </p>
 
-Screenshot of a fully customized version of the app, in the main Kanban board view:
-![kanri_customized](https://github.com/trobonox/kanri/assets/57040351/176922c7-8edf-4256-8eb3-ec4d03ad4f75)
+## 🚀 Demo
+![kanri_demo_gif](https://github.com/trobonox/kanri/assets/57040351/fa7a9d79-3847-47cb-8325-6715477879f4)
 
-You can download it for free for Windows, Mac and Linux [from the GitHub releases!](https://github.com/trobonox/kanri/releases)
+## ⬇️ Download
+You can download Kanri for Windows, Mac and Linux at [kanriapp.com](https://kanriapp.com), it's free!
 
 Apple Silicon users, please run this command to prevent the error saying the app is broken:
 ```bash
