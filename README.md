@@ -71,7 +71,3 @@ yarn tauri build
 
 ---
 **Copyright (c) 2022-2023 trobonox (trobo@kanriapp.com)**. Licensed under the Apache 2.0 License.
-
-Background image used in the showcase screenshot made by [Richard Horvath on Unsplash](https://unsplash.com/photos/_nWaeTF6qo0).
-
-
