@@ -89,6 +89,7 @@ export default {
 .tiptap h1 {
     font-size: larger;
     font-weight: bold;
+    margin-bottom: 4px;
 }
 
 .tiptap h2 {
