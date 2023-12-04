@@ -88,8 +88,8 @@
             class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
             @click="showCustomBgModal = true"
           >
-            <PhotoIcon class="h-6 w-6" />
-            <span>Change Background</span>
+            <PhotoIcon class="my-auto h-6 w-6" />
+            <span class="my-auto">Change Background</span>
           </button>
         </div>
         <div class="flex flex-row">
