@@ -89,7 +89,7 @@
             @click="showCustomBgModal = true"
           >
             <PhotoIcon class="my-auto h-6 w-6" />
-            <span class="my-auto">Change Background</span>
+            <span class="my-auto ml-0.5">Change Background</span>
           </button>
         </div>
         <div class="flex flex-row">
@@ -98,11 +98,11 @@
             class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
             @click="increaseZoomLevel"
           >
-            <MagnifyingGlassPlusIcon class="h-6 w-6" />
+            <MagnifyingGlassPlusIcon class="h-5 w-5" />
           </button>
           <button
             v-tooltip.top-center="'Reset zoom level'"
-            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-2"
+            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1"
             @click="resetZoomLevel"
           >
             {{ (columnZoomLevel * 50) + 100 }}%
@@ -112,7 +112,7 @@
             class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
             @click="decreaseZoomLevel"
           >
-            <MagnifyingGlassMinusIcon class="h-6 w-6" />
+            <MagnifyingGlassMinusIcon class="h-5 w-5" />
           </button>
           <VDropdown
             :distance="2"
