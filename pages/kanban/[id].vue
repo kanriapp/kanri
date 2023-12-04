@@ -100,6 +100,12 @@
             <MagnifyingGlassPlusIcon class="h-6 w-6" />
           </button>
           <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-2"
+            @click="resetZoomLevel"
+          >
+            {{ (columnZoomLevel * 50) + 100 }}%
+          </button>
+          <button
             class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
             @click="decreaseZoomLevel"
           >
@@ -360,6 +366,11 @@ const increaseZoomLevel = () => {
 const decreaseZoomLevel = () => {
     if (columnZoomLevel.value - 1 < -1) return;
     columnZoomLevel.value--;
+    store.set("columnZoomLevel", columnZoomLevel.value);
+}
+
+const resetZoomLevel = () => {
+    columnZoomLevel.value = 0;
     store.set("columnZoomLevel", columnZoomLevel.value);
 }
 
