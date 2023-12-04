@@ -94,18 +94,21 @@
         </div>
         <div class="flex flex-row">
           <button
+            v-tooltip.top-center="'Increase zoom level'"
             class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
             @click="increaseZoomLevel"
           >
             <MagnifyingGlassPlusIcon class="h-6 w-6" />
           </button>
           <button
+            v-tooltip.top-center="'Reset zoom level'"
             class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-2"
             @click="resetZoomLevel"
           >
             {{ (columnZoomLevel * 50) + 100 }}%
           </button>
           <button
+            v-tooltip.top-center="'Decrease zoom level'"
             class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
             @click="decreaseZoomLevel"
           >
