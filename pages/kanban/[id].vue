@@ -94,16 +94,22 @@
         </div>
         <div class="flex flex-row">
           <button
-            class="bg-elevation-1 bg-elevation-2-hover transition-button rounded-l-2xl px-2 py-1"
+            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
             @click="increaseZoomLevel"
           >
-            <PlusIcon class="h-6 w-6" />
+            <MagnifyingGlassPlusIcon class="h-6 w-6" />
           </button>
           <button
-            class="bg-elevation-1 bg-elevation-2-hover transition-button rounded-r-2xl px-2 py-1"
+            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-2"
+            @click="resetZoomLevel"
+          >
+            {{ (columnZoomLevel * 50) + 100 }}%
+          </button>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
             @click="decreaseZoomLevel"
           >
-            <MinusIcon class="h-6 w-6" />
+            <MagnifyingGlassMinusIcon class="h-6 w-6" />
           </button>
           <VDropdown
             :distance="2"
@@ -220,7 +226,7 @@ import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator";
 import { PhotoIcon } from "@heroicons/vue/24/outline";
-import { EllipsisHorizontalIcon, MinusIcon, PlusIcon } from "@heroicons/vue/24/solid";
+import { EllipsisHorizontalIcon, MagnifyingGlassMinusIcon, MagnifyingGlassPlusIcon } from "@heroicons/vue/24/solid";
 import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { convertFileSrc } from '@tauri-apps/api/tauri';
@@ -360,6 +366,11 @@ const increaseZoomLevel = () => {
 const decreaseZoomLevel = () => {
     if (columnZoomLevel.value - 1 < -1) return;
     columnZoomLevel.value--;
+    store.set("columnZoomLevel", columnZoomLevel.value);
+}
+
+const resetZoomLevel = () => {
+    columnZoomLevel.value = 0;
     store.set("columnZoomLevel", columnZoomLevel.value);
 }
 
