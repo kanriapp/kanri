@@ -5,8 +5,8 @@
 <template>
   <div
     v-if="!isSimplePreviewMode"
-    class="bg-custom flex aspect-video h-32 flex-row gap-1.5 overflow-hidden rounded-t-md"
     :style="cssVars"
+    class="bg-custom flex aspect-video h-32 flex-row gap-1.5 overflow-hidden rounded-t-md"
   >
     <div class="bg-effect-overlay flex h-full w-max min-w-full flex-col rounded-t-md p-2">
       <span class="mb-0.5 text-[4px] font-bold"> {{ board.title }}</span>
@@ -20,8 +20,9 @@
           <div
             v-for="card in column.cards"
             :key="card.id"
+            :class="(card.color && card.color !== 'bg-elevation-2' && !card.color?.startsWith('#')) ? card.color : 'bg-elevation-3'"
             class="text-no-overflow mb-0.5 rounded-[0.05rem] p-[2px] text-[2px]"
-            :class="(card.color && card.color !== 'bg-elevation-2') ? card.color : 'bg-elevation-3'"
+            :style="[card.color?.startsWith('#') ? { 'background-color': card.color } : {}]"
           >
             {{ card.name }}
           </div>
@@ -49,6 +50,7 @@
 
 <script setup lang="ts">
 import type { Board } from "@/types/kanban-types";
+
 import { convertFileSrc } from "@tauri-apps/api/tauri";
 
 const props = defineProps<{
@@ -64,9 +66,9 @@ const bgBrightness = ref("100%");
 
 const cssVars = computed(() => {
     return {
+        "--bg-brightness": bgBrightness.value,
         "--bg-custom-image": `url("${bgCustom.value}")`,
-        "--blur-intensity": bgBlur.value,
-        "--bg-brightness": bgBrightness.value
+        "--blur-intensity": bgBlur.value
     }
 })
 

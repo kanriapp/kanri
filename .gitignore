@@ -9,7 +9,6 @@ node_modules
 .cache
 .output
 .env
-.vscode
 .idea
 dist/*
 dist

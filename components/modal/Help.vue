@@ -1,11 +1,11 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech> -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
   <Modal @closeModal="$emit('closeModal')">
     <template #content>
-      <main class="min-h-[38rem] max-w-[48rem]">
+      <main class="h-38 max-w-[48rem]">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
             Help & Resources
@@ -15,7 +15,7 @@
             @click="$emit('closeModal')"
           />
         </div>
-        <h2 class="text-md text-dim-3 mb-6">
+        <h2 class="text-md text-dim-3 mb-4">
           Here are some useful resources to assist you.
         </h2>
         <h3 class="mb-2 text-xl font-bold">
@@ -51,19 +51,24 @@
           Support resouces:
         </h3>
         <p>
+          You can find some general help resources <a
+            class="text-accent text-accent-darker-hover"
+            href="https://www.kanriapp.com/guides/shortcuts"
+            target="_blank"
+          > in the official documentation.</a>
           If you encounter any bug, you can check the
           <a
+            class="text-accent text-accent-darker-hover"
             href="https://github.com/trobonox/kanri"
             target="_blank"
-            class="text-accent text-accent-darker-hover"
           > issues on GitHub</a>
           to see if it is already known, and report if it isn't. For
           any further assistance or anything that is not a bug, you
           can join the
           <a
+            class="text-accent text-accent-darker-hover"
             href="https://discord.gg/AVqHrvxB9C"
             target="_blank"
-            class="text-accent text-accent-darker-hover"
           > support Discord server.</a>
         </p>
         <h3 class="mb-2 mt-4 text-xl font-bold">
@@ -72,15 +77,18 @@
         <p>
           Application made by Trobonox (trobo.tech), licensed under
           the Apache 2.0 License. Icons used are from Heroicons
-          (licensed unter the MIT License).
+          (licensed unter the MIT License). <br>
+        </p>
+        <p>
+          We are not affiliated, associated, authorized, endorsed by or in any way officially connected to Trello, Inc. (www.trello.com).
         </p>
         <p class="pt-2">
           Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
-          Kanri v0.5.1
+          Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}
         </p>
         <nuxt-link
-          to="/licenses"
           class="text-accent text-accent-darker-hover"
+          to="/licenses"
           @click="$emit('closeModal')"
         >
           Third-party license notices
@@ -92,6 +100,7 @@
 
 <script setup lang="ts">
 import Modal from "@/components/Modal.vue";
+import versionInfo from "@/version_info.json"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 
 defineEmits<{

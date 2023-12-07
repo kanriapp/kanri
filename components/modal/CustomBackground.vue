@@ -29,8 +29,8 @@
               @click="getCustomBg"
             >
               <img
-                alt="bg image preview"
                 :src="customBg"
+                alt="bg image preview"
                 class="aspect-[16/10]
                     h-auto w-56 rounded-md"
               >
@@ -58,10 +58,10 @@
               <input
                 v-model="bgBlur"
                 class="w-full"
-                type="range"
-                min="0"
                 max="20"
+                min="0"
                 oninput="rangeValue.innerText = this.value"
+                type="range"
                 @change="optionsEdited = true"
               >
               <p id="rangeValue">
@@ -81,10 +81,10 @@
               <input
                 v-model="bgBrightness"
                 class="w-full"
-                type="range"
-                min="0"
                 max="100"
+                min="0"
                 oninput="rangeValue.innerText = this.value"
+                type="range"
                 @change="optionsEdited = true"
               >
               <p id="rangeValue">
@@ -95,7 +95,7 @@
           <div class="flex flex-col gap-2">
             <button
               v-if="background.length > 0"
-              class="bg-accent transition-button mt-8 w-full rounded-md px-2 py-1"
+              class="bg-accent text-buttons transition-button mt-8 w-full rounded-md px-2 py-1"
               @click="saveSettings(); $emit('closeModal')"
             >
               Save Background Settings
@@ -115,10 +115,10 @@
 </template>
 
 <script setup lang="ts">
+import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { open } from '@tauri-apps/api/dialog';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { ref } from "vue";
-import { XMarkIcon } from "@heroicons/vue/24/solid";
 
 const emit = defineEmits(["closeModal", "setBackground", "resetBackground", "setBlur", "setBrightness"]);
 
@@ -158,11 +158,11 @@ const resetSettings = () => {
 
 const getCustomBg = async () => {
     const selected = await open({
-        multiple: false,
         filters: [{
-            name: 'Image',
-            extensions: ['png', 'jpeg', 'jpg']
-        }]
+            extensions: ['png', 'jpeg', 'jpg'],
+            name: 'Image'
+        }],
+        multiple: false
     });
     if (selected == null) return;
 

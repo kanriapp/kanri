@@ -9,10 +9,10 @@
   >
     <ModalConfirmation
       v-show="deleteBoardModalVisible"
-      title="Delete ALL Data?"
-      description="This action will irreversibly delete all of your boards, custom themes and revert all settings to default. Are you sure?"
-      confirm-button-text="Delete Data"
       close-button-text="Cancel"
+      confirm-button-text="Delete Data"
+      description="This action will irreversibly delete all of your boards, custom themes and revert all settings to default. Are you sure?"
+      title="Delete ALL Data?"
       @closeModal="deleteBoardModalVisible = false"
       @confirmAction="deleteAllData"
     />
@@ -35,12 +35,12 @@
           @click="setTheme('light')"
         >
           <SunIcon
-            class="h-8 w-8"
             :class="themeIconClass('light')"
+            class="h-8 w-8"
           />
           <label
-            for="light-mode-icon"
             class="cursor-pointer"
+            for="light-mode-icon"
           >Light</label>
         </div>
 
@@ -49,12 +49,12 @@
           @click="setTheme('dark')"
         >
           <MoonIcon
-            class="h-8 w-8"
             :class="themeIconClass('dark')"
+            class="h-8 w-8"
           />
           <label
-            for="dark-mode-icon"
             class="cursor-pointer"
+            for="dark-mode-icon"
           >Dark</label>
         </div>
 
@@ -63,12 +63,12 @@
           @click="setTheme('catppuccin')"
         >
           <IconCatppuccin
-            class="h-8 w-8"
             :class="themeIconClass('catppuccin')"
+            class="h-8 w-8"
           />
           <label
-            for="catppuccin-mode-icon"
             class="cursor-pointer"
+            for="catppuccin-mode-icon"
           >Catppuccin</label>
         </div>
 
@@ -77,12 +77,12 @@
           @click="setTheme('custom')"
         >
           <SwatchIcon
-            class="h-8 w-8"
             :class="themeIconClass('custom')"
+            class="h-8 w-8"
           />
           <label
-            for="custom-mode-icon"
             class="cursor-pointer"
+            for="custom-mode-icon"
           >Custom</label>
         </div>
       </div>
@@ -134,18 +134,41 @@
         <div class="flex w-[48rem] flex-row items-start justify-between">
           <div>
             <h3 class="text-lg">
+              Animations
+            </h3>
+            <span class="text-dim-2">
+              Disable this option to remove all animations in the app.
+            </span>
+          </div>
+          <SwitchRoot
+            v-model:checked="animationsEnabled"
+            class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            @update:checked="toggleAnimations"
+          >
+            <SwitchThumb
+              class="bg-button-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+            />
+          </SwitchRoot>
+        </div>
+
+        <div class="flex w-[48rem] flex-row items-start justify-between">
+          <div>
+            <h3 class="text-lg">
               Autostart on startup
             </h3>
             <span class="text-dim-2">
               Automatically starts Kanri at startup.
             </span>
           </div>
-          <input
-            v-model="autostartCheckbox"
-            type="checkbox"
-            class=" h-4 w-4 rounded-md"
-            @click="toggleAutostart()"
+          <SwitchRoot
+            v-model:checked="autostartCheckbox"
+            class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            @update:checked="toggleAutostart"
           >
+            <SwitchThumb
+              class="bg-button-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+            />
+          </SwitchRoot>
         </div>
 
         <div class="flex w-[48rem] flex-row items-start justify-between">
@@ -172,32 +195,35 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
+import type { ThemeIdentifiers } from "@/types/kanban-types";
+import type { Ref } from "vue";
+
 import { useTauriStore } from "@/stores/tauriStore";
-import { light, dark, catppuccin } from "@/utils/themes.js";
-import { ThemeIdentifiers } from "@/types/kanban-types";
 import { kanriThemeSchema } from "@/types/json-schemas"
-
-import { message, save, open } from "@tauri-apps/api/dialog";
-import { writeTextFile, readTextFile } from "@tauri-apps/api/fs";
-import { enable, disable, isEnabled } from 'tauri-plugin-autostart-api';
-
-import { Ref } from "vue";
-import { SwatchIcon, MoonIcon, SunIcon } from "@heroicons/vue/24/outline";
+import emitter from "@/utils/emitter";
+import { catppuccin, dark, light } from "@/utils/themes.js";
+import { MoonIcon, SunIcon, SwatchIcon } from "@heroicons/vue/24/outline";
+import { message, open, save } from "@tauri-apps/api/dialog";
+import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
+import { disable, enable, isEnabled } from 'tauri-plugin-autostart-api';
 
 const router = useRouter();
 
 const store = useTauriStore().store;
 
-const activeTheme: Ref<string | null> = ref("");
+const activeTheme: Ref<null | string> = ref("");
 const themeEditorDisplayed = ref(false);
 
 const autostartCheckbox = ref(false);
+const animationsEnabled = ref(true);
 
 const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
     emitter.emit("showSidebarBackArrow");
+
+    const animationsEnabledSaved: boolean | null = await store.get("animationsEnabled");
+    animationsEnabled.value = animationsEnabledSaved || false;
 
     activeTheme.value = await store.get("activeTheme");
     if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
@@ -221,7 +247,7 @@ const setTheme = (themeName: ThemeIdentifiers) => {
     activeTheme.value = themeName;
     themeEditorDisplayed.value = false;
 
-    const themes = { light, dark, catppuccin };
+    const themes = { catppuccin, dark, light };
 
     if (themeName === "custom") {
         themeEditorDisplayed.value = true;
@@ -249,8 +275,8 @@ const deleteAllData = async () => {
     await message("Successfully deleted data.", { title: "Kanri", type: "info" });
 };
 
-const toggleAutostart = async () => {
-    if (autostartCheckbox.value == false) {
+const toggleAutostart = async (autostartToggled: boolean) => {
+    if (autostartToggled) {
         await enable();
     }
     else {
@@ -258,16 +284,27 @@ const toggleAutostart = async () => {
     }
 }
 
+const toggleAnimations = async (animationsToggled: boolean) => {
+    if (animationsToggled) {
+        emitter.emit("setAnimationsOn");
+        await store.set("animationsEnabled", true);
+    }
+    else {
+        emitter.emit("setAnimationsOff");
+        await store.set("animationsEnabled", false);
+    }
+}
+
 const exportThemeToJson = async () => {
     const filePath = await save({
-        title: "Select file to export data to",
         defaultPath: "./kanri_theme_export.json",
         filters: [
             {
-                name: "JSON File",
                 extensions: ["json"],
+                name: "JSON File",
             },
         ],
+        title: "Select file to export data to",
     });
 
     const colors = await store.get("colors");
@@ -284,11 +321,11 @@ const exportThemeToJson = async () => {
 
 const importThemeFromJson = async () => {
     const selected = await open({
-        multiple: false,
         filters: [{
-            name: 'JSON File',
-            extensions: ['json']
-        }]
+            extensions: ['json'],
+            name: 'JSON File'
+        }],
+        multiple: false
     });
 
     if (selected === null) return;
@@ -325,3 +362,13 @@ const importThemeFromJson = async () => {
     router.go(0);
 }
 </script>
+
+<style>
+.bg-accent-checked[data-state=checked] {
+    background-color: var(--accent);
+}
+
+.bg-text {
+    background-color: var(--text);
+}
+</style>

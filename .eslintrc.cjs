@@ -5,15 +5,16 @@
  */
 
 module.exports = {
-    root: true,
-    extends: ["@nuxt/eslint-config", "plugin:tailwindcss/recommended"],
+    extends: ["@nuxt/eslint-config", "plugin:tailwindcss/recommended", "plugin:perfectionist/recommended-natural"],
     ignorePatterns: ["src-tauri/**/*", "dist/**/*"],
+    plugins: ["tailwindcss", "perfectionist"],
+    root: true,
     rules: {
-        "vue/multi-word-component-names": "off",
-        "vue/v-on-event-hyphenation": "off",
         "indent": ["warn", 4],
         "no-undef": "off",
-        "tailwindcss/no-custom-classname": "off"
-    },
-    plugins: ["tailwindcss"]
+        "perfectionist/sort-vue-attributes": "off",
+        "tailwindcss/no-custom-classname": "off",
+        "vue/multi-word-component-names": "off",
+        "vue/v-on-event-hyphenation": "off"
+    }
 };

@@ -4,8 +4,8 @@
 
 <template>
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 256 256"
+    xmlns="http://www.w3.org/2000/svg"
   ><g fill="currentColor"><path
     d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96Z"
     opacity=".2"

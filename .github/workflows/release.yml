@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - os: ubuntu-latest
+          - os: ubuntu-20.04
             rust_target: x86_64-unknown-linux-gnu
           - os: macos-latest
             rust_target: x86_64-apple-darwin
@@ -31,15 +31,15 @@ jobs:
 
     runs-on: ${{ matrix.platform.os }}
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
       - name: Output info
         run: echo ${{ matrix.platform.os }} ${{ matrix.platform.rust_target }}
 
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
 
       - name: 'Setup Rust'
         uses: actions-rs/toolchain@v1
@@ -53,7 +53,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: install dependencies (ubuntu x86_64)
-        if: matrix.platform.os == 'ubuntu-latest'
+        if: matrix.platform.os == 'ubuntu-20.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
@@ -78,7 +78,7 @@ jobs:
     outputs:
       upload_url: ${{ steps.release.outputs.upload_url }}
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       # Download the previously uploaded artifacts
       - uses: actions/download-artifact@v3
         id: download
@@ -104,10 +104,10 @@ jobs:
 
       runs-on: ubuntu-20.04
       steps:
-        - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
-        - uses: actions/setup-node@v3
+        - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        - uses: actions/setup-node@v4
           with:
-            node-version: 16
+            node-version: 18
         - name: Install dependencies
           run: yarn install
         - name: Build for ${{ matrix.arch }}

@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export function applyDrag(arr, dragResult) {
-    const { removedIndex, addedIndex, payload } = dragResult;
+    const { addedIndex, payload, removedIndex } = dragResult;
     if (removedIndex === null && addedIndex === null) return arr;
 
     const result = [...arr];

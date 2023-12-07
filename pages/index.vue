@@ -3,7 +3,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <div class="pl-8 pt-8">
+  <div class="overflow-auto pl-8 pt-8">
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
       @closeModal="renameBoardModalVisible = false"
@@ -12,12 +12,17 @@
 
     <ModalConfirmation
       v-show="deleteBoardModalVisible"
-      title="Delete Board?"
-      description="Are you sure you want to delete the board? This action is irreverisble."
-      confirm-button-text="Delete"
       close-button-text="Cancel"
+      confirm-button-text="Delete"
+      description="Are you sure you want to delete the board? This action is irreverisble."
+      title="Delete Board?"
       @closeModal="deleteBoardModalVisible = false"
       @confirmAction="deleteBoard"
+    />
+
+    <ModalChangelog
+      v-show="changelogModalVisible"
+      @closeModal="changelogModalVisible = false"
     />
 
     <section id="welcome-text">
@@ -106,6 +111,17 @@
         >
           Open Import/Export menu
         </nuxt-link>
+
+        <div class="flex w-full flex-col items-start">
+          <h3 class="mb-4 mt-10 text-xl font-bold">
+            Want to get the latest updates and chat with the creator?
+          </h3>
+          <a
+            href="https://discord.gg/AVqHrvxB9C"
+            target="_blank"
+            class="bg-accent cursor-pointer rounded-md px-6 py-2 text-center font-semibold transition-colors"
+          >Join the Discord community!</a>
+        </div>
       </div>
 
       <div
@@ -114,16 +130,16 @@
       >
         <TransitionGroup
           v-if="!loading"
+          class="flex flex-row flex-wrap gap-6"
           name="list"
           tag="div"
-          class="flex flex-row flex-wrap gap-6"
         >
           <nuxt-link
             v-for="(board, index) in boards"
             id="board-preview"
             :key="board.id"
-            class="bg-board-preview border-elevation-1 flex flex-col rounded-md border-2 shadow-xl transition-transform hover:-translate-y-1"
             :to="'/kanban/' + board.id"
+            class="bg-board-preview border-elevation-1 flex flex-col rounded-md border-2 shadow-xl transition-transform hover:-translate-y-1"
           >
             <LazyKanbanBoardPreview
               :board="board"
@@ -173,15 +189,14 @@
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
+import type { Board, Column } from "@/types/kanban-types";
+import type { Ref } from "vue";
+
 import { useTauriStore } from "@/stores/tauriStore";
+import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator.js";
-import type { Board } from "@/types/kanban-types";
-
-import { Ref } from "vue";
-
-import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"
+import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel } from "@phosphor-icons/vue";
 
 const store = useTauriStore().store;
@@ -191,13 +206,16 @@ const loading = ref(true);
 const editSortWarning = ref(false);
 const renameBoardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
+const changelogModalVisible = ref(false);
 
 const sortingOptionText = ref("Sort by creation date");
 
 onMounted(async () => {
-    emitter.on("createBoard", (title: string) => {
-        createNewBoard(title);
+    emitter.on("createBoard", ({columns, title}) => {
+        createNewBoard(title, columns);
     });
+
+    emitter.on("openChangelogModal", () => changelogModalVisible.value = true);
 
     emitter.emit("hideSidebarBackArrow");
 
@@ -229,37 +247,39 @@ const setSorting = async () => {
     }
 }
 
-const createNewBoard = async (title: string) => {
+const createNewBoard = async (title: string, columns?: Column[]) => {
+    const exampleColumns = [
+        {
+            cards: [
+                {
+                    description: "",
+                    name: "Eat something tasty",
+                },
+                {
+                    description: "This is an extended description for an example task",
+                    name: "Do some important task",
+                },
+            ],
+            id: generateUniqueID(),
+            title: "Todo",
+        },
+        {
+            cards: [{ description: "", name: "Doing something cool" }],
+            id: generateUniqueID(),
+            title: "Doing",
+        },
+        {
+            cards: [],
+            id: generateUniqueID(),
+            title: "Done",
+        },
+    ]
+
     const board: Board = {
+        columns: columns || exampleColumns,
         id: generateUniqueID(),
-        title: title,
-        columns: [
-            {
-                id: generateUniqueID(),
-                title: "Todo",
-                cards: [
-                    {
-                        name: "Eat something tasty",
-                        description: "",
-                    },
-                    {
-                        name: "Do some important task",
-                        description: "This is an extended description for an example task",
-                    },
-                ],
-            },
-            {
-                id: generateUniqueID(),
-                title: "Doing",
-                cards: [{ name: "Doing something cool", description: "" }],
-            },
-            {
-                id: generateUniqueID(),
-                title: "Done",
-                cards: [],
-            },
-        ],
-        lastEdited: new Date()
+        lastEdited: new Date(),
+        title: title
     };
 
     boards.value = [...boards.value, board];
@@ -274,7 +294,7 @@ const renameBoardModal = (index: number) => {
         return console.error("Could not find board with index: ", index);
     }
 
-    emitter.emit("openBoardRenameModal", {index: index, board: selectedBoard});
+    emitter.emit("openBoardRenameModal", {board: selectedBoard, index: index});
     renameBoardModalVisible.value = true;
 };
 
@@ -296,7 +316,7 @@ const deleteBoardModal = (index: number | undefined) => {
         return console.error("Could not find board with index: ", index);
     }
 
-    emitter.emit("openBoardDeleteModal", { index: index, description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.` });
+    emitter.emit("openBoardDeleteModal", { description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.`, index: index });
     deleteBoardModalVisible.value = true;
 }
 
@@ -314,7 +334,7 @@ const sortBoardsAlphabetically = () => {
         return a.title.localeCompare(b.title);
     });
     store.set("boardSortingOption", "alphabetically");
-    sortingOptionText.value = "Alphabetical sort";
+    sortingOptionText.value = "Sort alphabetically";
 }
 
 const sortBoardsByCreationDate = async () => {

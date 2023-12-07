@@ -7,7 +7,7 @@
     },
     "package": {
         "productName": "kanri",
-        "version": "0.5.1"
+        "version": "0.6.0"
     },
     "tauri": {
         "allowlist": {
@@ -30,19 +30,18 @@
             "shell": {
                 "all": false,
                 "execute": false,
-                "open": "https://github.com/trobonox/kanri|https://discord.gg/AVqHrvxB9C",
+                "open": "https://github.com/trobonox/kanri|https://discord.gg/AVqHrvxB9C|https://www.kanriapp.com/guides/shortcuts",
                 "scope": [],
                 "sidecar": false
             },
             "protocol": {
                 "asset": true,
                 "assetScope": [
-                    "$HOME/*",
-                    "$APPDATA/*",
-                    "$APPCONFIG/*",
-                    "localhost/*",
-                    "assets/*"
+                    "/**/*"
                 ]
+            },
+            "window": {
+                "show": true
             }
         },
         "bundle": {
@@ -70,7 +69,7 @@
                 "signingIdentity": null
             },
             "resources": [],
-            "shortDescription": "",
+            "shortDescription": "Kanri",
             "targets": "all",
             "windows": {
                 "certificateThumbprint": null,
@@ -91,7 +90,8 @@
                 "resizable": true,
                 "title": "Kanri",
                 "width": 1400,
-                "center": true
+                "center": true,
+                "visible": false
             }
         ]
     }

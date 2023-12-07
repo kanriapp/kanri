@@ -5,8 +5,9 @@
 <template>
   <div class="overflow-auto">
     <div
-      class="default-layout custom-scrollbar-hidden overflow-auto"
       :style="cssVars"
+      :class="[animationsEnabled ? '' : 'disable-animations']"
+      class="default-layout custom-scrollbar-hidden overflow-auto"
     >
       <div v-if="mounted">
         <Sidebar class="fixed left-0 w-8" />
@@ -19,15 +20,33 @@
 </template>
 
 <script setup>
-import emitter from "@/utils/emitter";
 import { useTauriStore } from "@/stores/tauriStore";
+import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes.js";
+import versionInfo from "@/version_info.json"
 
 const store = useTauriStore().store;
 const savedColors = ref({});
 const mounted = ref(false);
 
+const animationsEnabled = ref(true);
+
 onMounted(async () => {
+    const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
+    const lastInstalledVersionNumber = await store.get("lastInstalledVersion");
+    if (lastInstalledVersionNumber === null || lastInstalledVersionNumber !== currentVersionIdentifier) {
+        emitter.emit("openChangelogModal");
+        await store.set("lastInstalledVersion", currentVersionIdentifier);
+    }
+
+    const animationsEnabledSaved = await store.get("animationsEnabled");
+    if (animationsEnabledSaved !== null) {
+        animationsEnabled.value = animationsEnabledSaved;
+    }
+    else {
+        await store.set("animationsEnabled", true);
+    }
+
     savedColors.value = await store.get("colors");
     mounted.value = true;
 
@@ -37,6 +56,14 @@ onMounted(async () => {
         });
         savedColors.value = await store.get("colors");
     });
+
+    emitter.on("setAnimationsOn", () => {
+        animationsEnabled.value = true;
+    });
+
+    emitter.on("setAnimationsOff", () => {
+        animationsEnabled.value = false;
+    });
 });
 
 const cssVars = computed(() => {
@@ -45,39 +72,46 @@ const cssVars = computed(() => {
         store.set("colors", dark);
 
         return {
+            "--accent": dark.accent,
+            "--accent-darker": dark.accentDarker,
             "--bg-primary": dark.bgPrimary,
             "--elevation-1": dark.elevation1,
             "--elevation-2": dark.elevation2,
             "--elevation-3": dark.elevation3,
-            "--accent": dark.accent,
-            "--accent-darker": dark.accentDarker,
             "--text": dark.text,
+            "--text-buttons": dark.textButtons,
             "--text-dim-1": dark.textD1,
             "--text-dim-2": dark.textD2,
             "--text-dim-3": dark.textD3,
             "--text-dim-4": dark.textD4,
-            "--text-buttons": dark.textButtons,
         };
     } else {
         return {
+            "--accent": savedColors.value.accent,
+            "--accent-darker": savedColors.value.accentDarker,
             "--bg-primary": savedColors.value.bgPrimary,
             "--elevation-1": savedColors.value.elevation1,
             "--elevation-2": savedColors.value.elevation2,
             "--elevation-3": savedColors.value.elevation3,
-            "--accent": savedColors.value.accent,
-            "--accent-darker": savedColors.value.accentDarker,
             "--text": savedColors.value.text,
+            "--text-buttons": savedColors.value.textButtons,
             "--text-dim-1": savedColors.value.textD1,
             "--text-dim-2": savedColors.value.textD2,
             "--text-dim-3": savedColors.value.textD3,
             "--text-dim-4": savedColors.value.textD4,
-            "--text-buttons": savedColors.value.textButtons,
         };
     }
 });
 </script>
 
 <style>
+.disable-animations * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
 .default-layout {
     background-color: var(--bg-primary);
     color: var(--text);
@@ -107,6 +141,14 @@ const cssVars = computed(() => {
     background-color: var(--elevation-3);
 }
 
+.bg-elevation-4 {
+    background-color: color-mix(in srgb, var(--elevation-3) 95%, white);
+}
+
+.bg-button-text {
+    background-color: var(--text-buttons);
+}
+
 .bg-accent {
     background-color: var(--accent);
 }
@@ -131,12 +173,20 @@ const cssVars = computed(() => {
     border-color: var(--elevation-3);
 }
 
+.border-elevation-5 {
+    border-color: color-mix(in srgb, var(--elevation-3) 85%, white);
+}
+
 .border-accent {
     border-color: var(--accent);
 }
 
 .border-accent-focus:focus {
     border-color: var(--accent);
+}
+
+.text-accent-lighter {
+    color: color-mix(in srgb, var(--accent) 70%, white);
 }
 
 .text-accent {

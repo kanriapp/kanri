@@ -4,7 +4,7 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <main class="container overflow-auto scroll-auto pl-8 pt-8">
+  <main class="container overflow-auto pl-8 pt-8">
     <div class="intro">
       <h1 class="mb-2 text-4xl font-bold">
         Third Party Licenses
@@ -18,11 +18,10 @@
       Overview of licenses:
     </h2>
     <ul class="licenses-overview mb-8">
-      <li><a href="#MIT">MIT License</a> (47)</li>
-      <li><a href="#Apache-2.0">Apache License 2.0</a> (39)</li>
+      <li><a href="#MIT">MIT License</a> (52)</li>
+      <li><a href="#Apache-2.0">Apache License 2.0</a> (40)</li>
       <li><a href="#BSD-3-Clause">BSD 3-Clause &quot;New&quot; or &quot;Revised&quot; License</a> (4)</li>
       <li><a href="#MPL-2.0">Mozilla Public License 2.0</a> (3)</li>
-      <li><a href="#CC0-1.0">Creative Commons Zero v1.0 Universal</a> (1)</li>
       <li><a href="#Unicode-DFS-2016">Unicode License Agreement - Data Files and Software (2016)</a> (1)</li>
     </ul>
 
@@ -37,6 +36,7 @@
         <h4>Used by:</h4>
         <ul class="license-used-by">
           <li><a href=" https://crates.io/crates/tauri-plugin-autostart ">tauri-plugin-autostart 0.0.0</a></li>
+          <li><a href=" https://crates.io/crates/tauri-plugin-persisted-scope ">tauri-plugin-persisted-scope 0.1.3</a></li>
           <li><a href=" https://crates.io/crates/tauri-plugin-store ">tauri-plugin-store 0.0.0</a></li>
         </ul>
         <pre class="license-text">
@@ -223,17 +223,17 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide ">miniz_oxide 0.6.2</a></li>
-          <li><a href=" https://github.com/taiki-e/pin-project-lite ">pin-project-lite 0.2.9</a></li>
-          <li><a href=" https://github.com/rust-windowing/raw-window-handle ">raw-window-handle 0.5.0</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri ">tauri 1.4.1</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri/tree/dev/core/tauri-build ">tauri-build 1.4.0</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen ">tauri-codegen 1.4.0</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri ">tauri-macros 1.4.0</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri-plugin-persisted-scope ">tauri-plugin-persisted-scope 0.1.0</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri ">tauri-runtime 0.14.0</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri ">tauri-runtime-wry 0.14.0</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri ">tauri-utils 1.4.0</a></li>
+          <li><a href=" https://github.com/image-rs/fdeflate ">fdeflate 0.3.1</a></li>
+          <li><a href=" https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide ">miniz_oxide 0.7.1</a></li>
+          <li><a href=" https://github.com/taiki-e/pin-project-lite ">pin-project-lite 0.2.13</a></li>
+          <li><a href=" https://github.com/rust-windowing/raw-window-handle ">raw-window-handle 0.5.2</a></li>
+          <li><a href=" https://github.com/tauri-apps/tauri ">tauri 1.5.3</a></li>
+          <li><a href=" https://github.com/tauri-apps/tauri/tree/dev/core/tauri-build ">tauri-build 1.5.0</a></li>
+          <li><a href=" https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen ">tauri-codegen 1.4.1</a></li>
+          <li><a href=" https://github.com/tauri-apps/tauri ">tauri-macros 1.4.2</a></li>
+          <li><a href=" https://github.com/tauri-apps/tauri ">tauri-runtime 0.14.1</a></li>
+          <li><a href=" https://github.com/tauri-apps/tauri ">tauri-runtime-wry 0.14.2</a></li>
+          <li><a href=" https://github.com/tauri-apps/tauri ">tauri-utils 1.5.1</a></li>
         </ul>
         <pre class="license-text">
                                  Apache License
@@ -420,219 +420,9 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/jhpratt/num_threads ">num_threads 0.1.6</a></li>
-        </ul>
-        <pre class="license-text">
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
-
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-
-   1. Definitions.
-
-      &quot;License&quot; shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
-
-      &quot;Licensor&quot; shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
-
-      &quot;Legal Entity&quot; shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      &quot;control&quot; means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
-
-      &quot;You&quot; (or &quot;Your&quot;) shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
-
-      &quot;Source&quot; form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
-
-      &quot;Object&quot; form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
-
-      &quot;Work&quot; shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
-
-      &quot;Derivative Works&quot; shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
-
-      &quot;Contribution&quot; shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, &quot;submitted&quot;
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as &quot;Not a Contribution.&quot;
-
-      &quot;Contributor&quot; shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
-
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
-
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
-
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
-
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
-
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
-
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
-
-      (d) If the Work includes a &quot;NOTICE&quot; text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
-
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
-
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
-
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
-
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an &quot;AS IS&quot; BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
-
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
-
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
-
-   END OF TERMS AND CONDITIONS
-
-   APPENDIX: How to apply the Apache License to your work.
-
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets &quot;[]&quot;
-      replaced with your own identifying information. (Don&#x27;t include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same &quot;printed page&quot; as the copyright notice for easier
-      identification within third-party archives.
-
-   Copyright 2021 Jacob Pratt
-
-   Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-</pre>
-      </li>
-      <li class="license">
-        <h3 id="Apache-2.0">
-          Apache License 2.0
-        </h3>
-        <h4>Used by:</h4>
-        <ul class="license-used-by">
-          <li><a href=" https://github.com/time-rs/time ">time 0.3.15</a></li>
+          <li><a href=" https://github.com/jhpratt/deranged ">deranged 0.3.10</a></li>
+          <li><a href=" https://github.com/time-rs/time ">time 0.3.30</a></li>
+          <li><a href=" https://github.com/time-rs/time ">time-core 0.1.2</a></li>
         </ul>
         <pre class="license-text">
                                  Apache License
@@ -844,8 +634,220 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
+          <li><a href=" https://github.com/jhpratt/powerfmt ">powerfmt 0.2.0</a></li>
+        </ul>
+        <pre class="license-text">
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      &quot;License&quot; shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      &quot;Licensor&quot; shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      &quot;Legal Entity&quot; shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      &quot;control&quot; means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      &quot;You&quot; (or &quot;Your&quot;) shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      &quot;Source&quot; form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      &quot;Object&quot; form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      &quot;Work&quot; shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      &quot;Derivative Works&quot; shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      &quot;Contribution&quot; shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, &quot;submitted&quot;
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as &quot;Not a Contribution.&quot;
+
+      &quot;Contributor&quot; shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a &quot;NOTICE&quot; text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an &quot;AS IS&quot; BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets &quot;[]&quot;
+      replaced with your own identifying information. (Don&#x27;t include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same &quot;printed page&quot; as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright 2023 Jacob Pratt et al.
+
+   Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+</pre>
+      </li>
+      <li class="license">
+        <h3 id="Apache-2.0">
+          Apache License 2.0
+        </h3>
+        <h4>Used by:</h4>
+        <ul class="license-used-by">
           <li><a href=" https://github.com/nvzqz/embed-plist-rs ">embed_plist 1.2.2</a></li>
-          <li><a href=" https://github.com/hsivonen/encoding_rs ">encoding_rs 0.8.32</a></li>
+          <li><a href=" https://github.com/hsivonen/encoding_rs ">encoding_rs 0.8.33</a></li>
           <li><a href=" https://bitbucket.org/marshallpierce/line-wrap-rs/src ">line-wrap 0.1.1</a></li>
         </ul>
         <pre class="license-text">
@@ -1270,7 +1272,7 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/Diggsey/rust-field-offset ">field-offset 0.3.5</a></li>
+          <li><a href=" https://github.com/Diggsey/rust-field-offset ">field-offset 0.3.6</a></li>
         </ul>
         <pre class="license-text">                                 Apache License
                            Version 2.0, January 2004
@@ -1456,18 +1458,36 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.37.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.39.0</a></li>
-          <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.44.0</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.48.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.42.0</a></li>
-          <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.45.0</a></li>
-          <li><a href=" https://github.com/microsoft/windows-rs ">windows-targets 0.42.2</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.48.0</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.52.0</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows-targets 0.48.5</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows-targets 0.52.0</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows-version 0.1.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_gnullvm 0.42.2</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_gnullvm 0.48.5</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_gnullvm 0.52.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_msvc 0.42.2</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_msvc 0.48.5</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_msvc 0.52.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows_i686_gnu 0.42.2</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_i686_gnu 0.48.5</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_i686_gnu 0.52.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows_i686_msvc 0.42.2</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_i686_msvc 0.48.5</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_i686_msvc 0.52.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_gnu 0.42.2</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_gnu 0.48.5</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_gnu 0.52.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_gnullvm 0.42.2</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_gnullvm 0.48.5</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_gnullvm 0.52.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_msvc 0.42.2</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_msvc 0.48.5</a></li>
+          <li><a href=" https://github.com/microsoft/windows-rs ">windows_x86_64_msvc 0.52.0</a></li>
         </ul>
         <pre class="license-text">                                 Apache License
                            Version 2.0, January 2004
@@ -1892,7 +1912,6 @@
         <ul class="license-used-by">
           <li><a href=" https://github.com/chippers/serialize-to-javascript ">serialize-to-javascript 0.1.1</a></li>
           <li><a href=" https://github.com/chippers/serialize-to-javascript ">serialize-to-javascript-impl 0.1.1</a></li>
-          <li><a href=" https://github.com/tauri-apps/tauri-plugin-persisted-scope ">tauri-plugin-persisted-scope 0.1.0</a></li>
         </ul>
         <pre class="license-text">                                 Apache License
                            Version 2.0, January 2004
@@ -2103,7 +2122,7 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/idubrov/json-patch ">json-patch 1.0.0</a></li>
+          <li><a href=" https://github.com/idubrov/json-patch ">json-patch 1.2.0</a></li>
           <li><a href=" https://github.com/retep998/winapi-rs ">winapi 0.3.9</a></li>
         </ul>
         <pre class="license-text">                                 Apache License
@@ -2319,6 +2338,12 @@
           <li><a href=" https://github.com/sfackler/foreign-types ">foreign-types 0.3.2</a></li>
           <li><a href=" https://github.com/sfackler/foreign-types ">foreign-types-shared 0.1.1</a></li>
           <li><a href=" https://github.com/sfackler/rust-jni-sys ">jni-sys 0.3.0</a></li>
+          <li><a href=" https://github.com/toml-rs/toml ">serde_spanned 0.6.4</a></li>
+          <li><a href=" https://github.com/toml-rs/toml ">toml 0.7.8</a></li>
+          <li><a href=" https://github.com/toml-rs/toml ">toml 0.8.8</a></li>
+          <li><a href=" https://github.com/toml-rs/toml ">toml_datetime 0.6.5</a></li>
+          <li><a href=" https://github.com/toml-rs/toml ">toml_edit 0.19.15</a></li>
+          <li><a href=" https://github.com/toml-rs/toml ">toml_edit 0.21.0</a></li>
         </ul>
         <pre class="license-text">                                 Apache License
                            Version 2.0, January 2004
@@ -2530,7 +2555,7 @@
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/Xudong-Huang/generator-rs.git ">generator 0.7.3</a></li>
+          <li><a href=" https://github.com/Xudong-Huang/generator-rs.git ">generator 0.7.5</a></li>
         </ul>
         <pre class="license-text">                               Apache License
                            Version 2.0, January 2004
@@ -2928,24 +2953,25 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/dtolnay/anyhow ">anyhow 1.0.70</a></li>
-          <li><a href=" https://github.com/dtolnay/itoa ">itoa 1.0.6</a></li>
-          <li><a href=" https://github.com/rust-lang/libc ">libc 0.2.140</a></li>
+          <li><a href=" https://github.com/dtolnay/anyhow ">anyhow 1.0.75</a></li>
+          <li><a href=" https://github.com/dtolnay/dtoa ">dtoa 1.0.9</a></li>
+          <li><a href=" https://github.com/dtolnay/itoa ">itoa 1.0.9</a></li>
+          <li><a href=" https://github.com/rust-lang/libc ">libc 0.2.150</a></li>
           <li><a href=" https://github.com/illicitonion/num_enum ">num_enum 0.5.11</a></li>
           <li><a href=" https://github.com/illicitonion/num_enum ">num_enum_derive 0.5.11</a></li>
-          <li><a href=" https://github.com/dtolnay/proc-macro2 ">proc-macro2 1.0.56</a></li>
-          <li><a href=" https://github.com/dtolnay/quote ">quote 1.0.26</a></li>
-          <li><a href=" https://github.com/dtolnay/rustversion ">rustversion 1.0.12</a></li>
-          <li><a href=" https://github.com/dtolnay/ryu ">ryu 1.0.13</a></li>
-          <li><a href=" https://github.com/dtolnay/semver ">semver 1.0.17</a></li>
-          <li><a href=" https://github.com/serde-rs/serde ">serde 1.0.159</a></li>
-          <li><a href=" https://github.com/serde-rs/serde ">serde_derive 1.0.159</a></li>
-          <li><a href=" https://github.com/serde-rs/json ">serde_json 1.0.95</a></li>
-          <li><a href=" https://github.com/dtolnay/serde-repr ">serde_repr 0.1.12</a></li>
-          <li><a href=" https://github.com/dtolnay/syn ">syn 2.0.15</a></li>
-          <li><a href=" https://github.com/dtolnay/thiserror ">thiserror 1.0.40</a></li>
-          <li><a href=" https://github.com/dtolnay/thiserror ">thiserror-impl 1.0.40</a></li>
-          <li><a href=" https://github.com/dtolnay/unicode-ident ">unicode-ident 1.0.8</a></li>
+          <li><a href=" https://github.com/dtolnay/proc-macro2 ">proc-macro2 1.0.70</a></li>
+          <li><a href=" https://github.com/dtolnay/quote ">quote 1.0.33</a></li>
+          <li><a href=" https://github.com/dtolnay/rustversion ">rustversion 1.0.14</a></li>
+          <li><a href=" https://github.com/dtolnay/ryu ">ryu 1.0.15</a></li>
+          <li><a href=" https://github.com/dtolnay/semver ">semver 1.0.20</a></li>
+          <li><a href=" https://github.com/serde-rs/serde ">serde 1.0.193</a></li>
+          <li><a href=" https://github.com/serde-rs/serde ">serde_derive 1.0.193</a></li>
+          <li><a href=" https://github.com/serde-rs/json ">serde_json 1.0.108</a></li>
+          <li><a href=" https://github.com/dtolnay/serde-repr ">serde_repr 0.1.17</a></li>
+          <li><a href=" https://github.com/dtolnay/syn ">syn 2.0.39</a></li>
+          <li><a href=" https://github.com/dtolnay/thiserror ">thiserror 1.0.50</a></li>
+          <li><a href=" https://github.com/dtolnay/thiserror ">thiserror-impl 1.0.50</a></li>
+          <li><a href=" https://github.com/dtolnay/unicode-ident ">unicode-ident 1.0.12</a></li>
           <li><a href=" https://github.com/SimonSapin/rust-utf8 ">utf-8 0.7.6</a></li>
         </ul>
         <pre class="license-text">                              Apache License
@@ -3132,13 +3158,13 @@ END OF TERMS AND CONDITIONS
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-channel 0.3.28</a></li>
-          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-core 0.3.28</a></li>
-          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-executor 0.3.28</a></li>
-          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-io 0.3.28</a></li>
-          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-macro 0.3.28</a></li>
-          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-task 0.3.28</a></li>
-          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-util 0.3.28</a></li>
+          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-channel 0.3.29</a></li>
+          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-core 0.3.29</a></li>
+          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-executor 0.3.29</a></li>
+          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-io 0.3.29</a></li>
+          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-macro 0.3.29</a></li>
+          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-task 0.3.29</a></li>
+          <li><a href=" https://github.com/rust-lang/futures-rs ">futures-util 0.3.29</a></li>
         </ul>
         <pre class="license-text">                              Apache License
                         Version 2.0, January 2004
@@ -3350,7 +3376,7 @@ limitations under the License.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/paholg/typenum ">typenum 1.16.0</a></li>
+          <li><a href=" https://github.com/paholg/typenum ">typenum 1.17.0</a></li>
         </ul>
         <pre class="license-text">                              Apache License
                         Version 2.0, January 2004
@@ -3771,7 +3797,7 @@ limitations under the License.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/hyperium/http ">http 0.2.9</a></li>
+          <li><a href=" https://github.com/hyperium/http ">http 0.2.11</a></li>
         </ul>
         <pre class="license-text">                              Apache License
                         Version 2.0, January 2004
@@ -4615,67 +4641,80 @@ limitations under the License.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
+          <li><a href=" https://github.com/gimli-rs/addr2line ">addr2line 0.21.0</a></li>
           <li><a href=" https://github.com/cuviper/autocfg ">autocfg 1.1.0</a></li>
+          <li><a href=" https://github.com/rust-lang/backtrace-rs ">backtrace 0.3.69</a></li>
           <li><a href=" https://github.com/marshallpierce/rust-base64 ">base64 0.13.1</a></li>
-          <li><a href=" https://github.com/marshallpierce/rust-base64 ">base64 0.21.0</a></li>
+          <li><a href=" https://github.com/marshallpierce/rust-base64 ">base64 0.21.5</a></li>
           <li><a href=" https://github.com/bitflags/bitflags ">bitflags 1.3.2</a></li>
-          <li><a href=" https://github.com/BurntSushi/bstr ">bstr 1.4.0</a></li>
-          <li><a href=" https://github.com/fitzgen/bumpalo ">bumpalo 3.12.0</a></li>
-          <li><a href=" https://github.com/rust-lang/cc-rs ">cc 1.0.79</a></li>
+          <li><a href=" https://github.com/bitflags/bitflags ">bitflags 2.4.1</a></li>
+          <li><a href=" https://github.com/BurntSushi/bstr ">bstr 1.8.0</a></li>
+          <li><a href=" https://github.com/fitzgen/bumpalo ">bumpalo 3.14.0</a></li>
+          <li><a href=" https://github.com/rust-lang/cc-rs ">cc 1.0.83</a></li>
           <li><a href=" https://github.com/alexcrichton/cfg-if ">cfg-if 1.0.0</a></li>
           <li><a href=" https://github.com/servo/core-foundation-rs ">cocoa 0.24.1</a></li>
-          <li><a href=" https://github.com/servo/core-foundation-rs ">core-foundation 0.9.3</a></li>
-          <li><a href=" https://github.com/servo/core-foundation-rs ">core-foundation-sys 0.8.3</a></li>
+          <li><a href=" https://github.com/servo/core-foundation-rs ">cocoa-foundation 0.1.2</a></li>
+          <li><a href=" https://github.com/servo/core-foundation-rs ">core-foundation 0.9.4</a></li>
+          <li><a href=" https://github.com/servo/core-foundation-rs ">core-foundation-sys 0.8.6</a></li>
           <li><a href=" https://github.com/servo/core-foundation-rs ">core-graphics 0.22.3</a></li>
-          <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-channel 0.5.7</a></li>
-          <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-utils 0.8.15</a></li>
-          <li><a href=" https://github.com/japaric/cty ">cty 0.2.2</a></li>
-          <li><a href=" https://github.com/dtolnay/dtoa ">dtoa 0.4.8</a></li>
-          <li><a href=" https://github.com/smol-rs/fastrand ">fastrand 1.9.0</a></li>
-          <li><a href=" https://github.com/alexcrichton/filetime ">filetime 0.2.20</a></li>
-          <li><a href=" https://github.com/rust-lang/flate2-rs ">flate2 1.0.25</a></li>
+          <li><a href=" https://github.com/servo/core-foundation-rs ">core-graphics-types 0.1.3</a></li>
+          <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-channel 0.5.8</a></li>
+          <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-deque 0.8.3</a></li>
+          <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-epoch 0.9.15</a></li>
+          <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-utils 0.8.16</a></li>
+          <li><a href=" https://github.com/cuviper/equivalent ">equivalent 1.0.1</a></li>
+          <li><a href=" https://github.com/smol-rs/fastrand ">fastrand 2.0.1</a></li>
+          <li><a href=" https://github.com/alexcrichton/filetime ">filetime 0.2.22</a></li>
+          <li><a href=" https://github.com/rust-lang/flate2-rs ">flate2 1.0.28</a></li>
           <li><a href=" https://github.com/servo/rust-fnv ">fnv 1.0.7</a></li>
-          <li><a href=" https://github.com/servo/rust-url ">form_urlencoded 1.1.0</a></li>
+          <li><a href=" https://github.com/servo/rust-url ">form_urlencoded 1.2.1</a></li>
           <li><a href=" https://github.com/servo/futf ">futf 0.1.5</a></li>
+          <li><a href=" https://github.com/gimli-rs/gimli ">gimli 0.28.1</a></li>
           <li><a href=" https://github.com/rust-lang/glob ">glob 0.3.1</a></li>
           <li><a href=" https://github.com/rust-lang/hashbrown ">hashbrown 0.12.3</a></li>
+          <li><a href=" https://github.com/rust-lang/hashbrown ">hashbrown 0.14.3</a></li>
           <li><a href=" https://github.com/withoutboats/heck ">heck 0.3.3</a></li>
           <li><a href=" https://github.com/withoutboats/heck ">heck 0.4.1</a></li>
-          <li><a href=" https://github.com/hermitcore/rusty-hermit ">hermit-abi 0.2.6</a></li>
-          <li><a href=" https://github.com/hermitcore/rusty-hermit ">hermit-abi 0.3.1</a></li>
+          <li><a href=" https://github.com/hermitcore/hermit-rs ">hermit-abi 0.3.3</a></li>
           <li><a href=" https://github.com/servo/html5ever ">html5ever 0.25.2</a></li>
-          <li><a href=" https://github.com/servo/rust-url/ ">idna 0.3.0</a></li>
+          <li><a href=" https://github.com/servo/html5ever ">html5ever 0.26.0</a></li>
+          <li><a href=" https://github.com/servo/rust-url/ ">idna 0.5.0</a></li>
           <li><a href=" https://github.com/bluss/indexmap ">indexmap 1.9.3</a></li>
-          <li><a href=" https://github.com/sunfishcode/io-lifetimes ">io-lifetimes 1.0.9</a></li>
+          <li><a href=" https://github.com/bluss/indexmap ">indexmap 2.1.0</a></li>
           <li><a href=" https://github.com/dtolnay/itoa ">itoa 0.4.8</a></li>
           <li><a href=" https://github.com/jni-rs/jni-rs ">jni 0.20.0</a></li>
-          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/js-sys ">js-sys 0.3.61</a></li>
+          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/js-sys ">js-sys 0.3.66</a></li>
           <li><a href=" https://github.com/rust-lang-nursery/lazy-static.rs ">lazy_static 1.4.0</a></li>
-          <li><a href=" https://github.com/sunfishcode/linux-raw-sys ">linux-raw-sys 0.3.1</a></li>
-          <li><a href=" https://github.com/Amanieu/parking_lot ">lock_api 0.4.9</a></li>
+          <li><a href=" https://github.com/sunfishcode/linux-raw-sys ">linux-raw-sys 0.4.12</a></li>
+          <li><a href=" https://github.com/Amanieu/parking_lot ">lock_api 0.4.11</a></li>
+          <li><a href=" https://github.com/rust-lang/log ">log 0.4.20</a></li>
           <li><a href=" https://github.com/servo/html5ever ">markup5ever 0.10.1</a></li>
+          <li><a href=" https://github.com/servo/html5ever ">markup5ever 0.11.0</a></li>
           <li><a href=" https://github.com/bluss/arrayvec ">nodrop 0.1.14</a></li>
           <li><a href=" https://github.com/rust-num/num-integer ">num-integer 0.1.45</a></li>
           <li><a href=" https://github.com/rust-num/num-rational ">num-rational 0.4.1</a></li>
-          <li><a href=" https://github.com/rust-num/num-traits ">num-traits 0.2.15</a></li>
-          <li><a href=" https://github.com/seanmonstar/num_cpus ">num_cpus 1.15.0</a></li>
-          <li><a href=" https://github.com/matklad/once_cell ">once_cell 1.17.1</a></li>
+          <li><a href=" https://github.com/rust-num/num-traits ">num-traits 0.2.17</a></li>
+          <li><a href=" https://github.com/seanmonstar/num_cpus ">num_cpus 1.16.0</a></li>
+          <li><a href=" https://github.com/gimli-rs/object ">object 0.32.1</a></li>
+          <li><a href=" https://github.com/matklad/once_cell ">once_cell 1.18.0</a></li>
           <li><a href=" https://github.com/Amanieu/parking_lot ">parking_lot 0.12.1</a></li>
-          <li><a href=" https://github.com/Amanieu/parking_lot ">parking_lot_core 0.9.7</a></li>
-          <li><a href=" https://github.com/servo/rust-url/ ">percent-encoding 2.2.0</a></li>
-          <li><a href=" https://github.com/rust-lang/pkg-config-rs ">pkg-config 0.3.26</a></li>
-          <li><a href=" https://github.com/image-rs/image-png.git ">png 0.17.7</a></li>
+          <li><a href=" https://github.com/Amanieu/parking_lot ">parking_lot_core 0.9.9</a></li>
+          <li><a href=" https://github.com/servo/rust-url/ ">percent-encoding 2.3.1</a></li>
+          <li><a href=" https://github.com/rust-lang/pkg-config-rs ">pkg-config 0.3.27</a></li>
+          <li><a href=" https://github.com/image-rs/image-png.git ">png 0.17.10</a></li>
           <li><a href=" https://github.com/dtolnay/proc-macro-hack ">proc-macro-hack 0.5.20+deprecated</a></li>
-          <li><a href=" https://github.com/rust-lang/regex ">regex 1.7.3</a></li>
+          <li><a href=" https://github.com/rust-lang/regex ">regex 1.10.2</a></li>
+          <li><a href=" https://github.com/rust-lang/regex/tree/master/regex-automata ">regex-automata 0.4.3</a></li>
           <li><a href=" https://github.com/rust-lang/regex ">regex-syntax 0.6.29</a></li>
+          <li><a href=" https://github.com/rust-lang/regex/tree/master/regex-syntax ">regex-syntax 0.8.2</a></li>
+          <li><a href=" https://github.com/alexcrichton/rustc-demangle ">rustc-demangle 0.1.23</a></li>
           <li><a href=" https://github.com/Kimundi/rustc-version-rs ">rustc_version 0.4.0</a></li>
-          <li><a href=" https://github.com/bytecodealliance/rustix ">rustix 0.37.5</a></li>
+          <li><a href=" https://github.com/bytecodealliance/rustix ">rustix 0.38.26</a></li>
           <li><a href=" https://github.com/alexcrichton/scoped-tls ">scoped-tls 1.0.1</a></li>
-          <li><a href=" https://github.com/bluss/scopeguard ">scopeguard 1.1.0</a></li>
-          <li><a href=" https://github.com/toml-rs/toml ">serde_spanned 0.6.1</a></li>
-          <li><a href=" https://github.com/jonasbb/serde_with ">serde_with 3.0.0</a></li>
-          <li><a href=" https://github.com/jonasbb/serde_with/ ">serde_with_macros 3.0.0</a></li>
-          <li><a href=" https://github.com/servo/rust-smallvec ">smallvec 1.10.0</a></li>
+          <li><a href=" https://github.com/bluss/scopeguard ">scopeguard 1.2.0</a></li>
+          <li><a href=" https://github.com/jonasbb/serde_with/ ">serde_with 3.4.0</a></li>
+          <li><a href=" https://github.com/jonasbb/serde_with/ ">serde_with_macros 3.4.0</a></li>
+          <li><a href=" https://github.com/servo/rust-smallvec ">smallvec 1.11.2</a></li>
           <li><a href=" https://github.com/storyyeller/stable_deref_trait ">stable_deref_trait 1.2.0</a></li>
           <li><a href=" https://github.com/SergioBenitez/state ">state 0.5.3</a></li>
           <li><a href=" https://github.com/SergioBenitez/state ">state 0.5.3</a></li>
@@ -4683,33 +4722,30 @@ limitations under the License.
           <li><a href=" https://github.com/servo/string-cache ">string_cache_codegen 0.5.2</a></li>
           <li><a href=" https://github.com/dtolnay/syn ">syn 1.0.109</a></li>
           <li><a href=" https://github.com/gdesmott/system-deps ">system-deps 5.0.0</a></li>
-          <li><a href=" https://github.com/gdesmott/system-deps ">system-deps 6.0.4</a></li>
-          <li><a href=" https://github.com/alexcrichton/tar-rs ">tar 0.4.38</a></li>
-          <li><a href=" https://github.com/Stebalien/tempfile ">tempfile 3.5.0</a></li>
+          <li><a href=" https://github.com/gdesmott/system-deps ">system-deps 6.2.0</a></li>
+          <li><a href=" https://github.com/alexcrichton/tar-rs ">tar 0.4.40</a></li>
+          <li><a href=" https://github.com/Stebalien/tempfile ">tempfile 3.8.1</a></li>
           <li><a href=" https://github.com/servo/tendril ">tendril 0.4.3</a></li>
           <li><a href=" https://github.com/Amanieu/thread_local-rs ">thread_local 1.1.7</a></li>
           <li><a href=" https://github.com/toml-rs/toml ">toml 0.5.11</a></li>
-          <li><a href=" https://github.com/toml-rs/toml ">toml 0.7.3</a></li>
-          <li><a href=" https://github.com/toml-rs/toml ">toml_datetime 0.6.1</a></li>
-          <li><a href=" https://github.com/ordian/toml_edit ">toml_edit 0.19.8</a></li>
           <li><a href=" https://github.com/Byron/treediff-rs ">treediff 4.0.2</a></li>
           <li><a href=" https://github.com/servo/unicode-bidi ">unicode-bidi 0.3.13</a></li>
           <li><a href=" https://github.com/unicode-rs/unicode-normalization ">unicode-normalization 0.1.22</a></li>
           <li><a href=" https://github.com/unicode-rs/unicode-segmentation ">unicode-segmentation 1.10.1</a></li>
-          <li><a href=" https://github.com/servo/rust-url ">url 2.3.1</a></li>
-          <li><a href=" https://github.com/uuid-rs/uuid ">uuid 1.3.0</a></li>
+          <li><a href=" https://github.com/servo/rust-url ">url 2.5.0</a></li>
+          <li><a href=" https://github.com/uuid-rs/uuid ">uuid 1.6.1</a></li>
           <li><a href=" https://github.com/SergioBenitez/version_check ">version_check 0.9.4</a></li>
           <li><a href=" https://github.com/bytecodealliance/wasi ">wasi 0.11.0+wasi-snapshot-preview1</a></li>
           <li><a href=" https://github.com/bytecodealliance/wasi ">wasi 0.9.0+wasi-snapshot-preview1</a></li>
-          <li><a href=" https://github.com/rustwasm/wasm-bindgen ">wasm-bindgen 0.2.84</a></li>
-          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/backend ">wasm-bindgen-backend 0.2.84</a></li>
-          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/futures ">wasm-bindgen-futures 0.4.34</a></li>
-          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/macro ">wasm-bindgen-macro 0.2.84</a></li>
-          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/macro-support ">wasm-bindgen-macro-support 0.2.84</a></li>
-          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/shared ">wasm-bindgen-shared 0.2.84</a></li>
-          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/web-sys ">web-sys 0.3.61</a></li>
-          <li><a href=" https://github.com/tauri-apps/wry ">wry 0.24.1</a></li>
-          <li><a href=" https://github.com/Stebalien/xattr ">xattr 0.2.3</a></li>
+          <li><a href=" https://github.com/rustwasm/wasm-bindgen ">wasm-bindgen 0.2.89</a></li>
+          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/backend ">wasm-bindgen-backend 0.2.89</a></li>
+          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/futures ">wasm-bindgen-futures 0.4.39</a></li>
+          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/macro ">wasm-bindgen-macro 0.2.89</a></li>
+          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/macro-support ">wasm-bindgen-macro-support 0.2.89</a></li>
+          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/shared ">wasm-bindgen-shared 0.2.89</a></li>
+          <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/web-sys ">web-sys 0.3.66</a></li>
+          <li><a href=" https://github.com/tauri-apps/wry ">wry 0.24.6</a></li>
+          <li><a href=" https://github.com/Stebalien/xattr ">xattr 1.0.1</a></li>
         </ul>
         <pre class="license-text">                              Apache License
                         Version 2.0, January 2004
@@ -4920,7 +4956,7 @@ limitations under the License.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/EmbarkStudios/cfg-expr ">cfg-expr 0.14.0</a></li>
+          <li><a href=" https://github.com/EmbarkStudios/cfg-expr ">cfg-expr 0.15.5</a></li>
           <li><a href=" https://github.com/EmbarkStudios/cfg-expr ">cfg-expr 0.9.1</a></li>
         </ul>
         <pre class="license-text">                              Apache License
@@ -5133,10 +5169,10 @@ limitations under the License.
         <h4>Used by:</h4>
         <ul class="license-used-by">
           <li><a href=" https://github.com/RustCrypto/utils ">block-buffer 0.10.4</a></li>
-          <li><a href=" https://github.com/RustCrypto/utils ">cpufeatures 0.2.6</a></li>
+          <li><a href=" https://github.com/RustCrypto/utils ">cpufeatures 0.2.11</a></li>
           <li><a href=" https://github.com/RustCrypto/traits ">crypto-common 0.1.6</a></li>
-          <li><a href=" https://github.com/RustCrypto/traits ">digest 0.10.6</a></li>
-          <li><a href=" https://github.com/RustCrypto/hashes ">sha2 0.10.6</a></li>
+          <li><a href=" https://github.com/RustCrypto/traits ">digest 0.10.7</a></li>
+          <li><a href=" https://github.com/RustCrypto/hashes ">sha2 0.10.8</a></li>
         </ul>
         <pre class="license-text">                              Apache License
                         Version 2.0, January 2004
@@ -5731,7 +5767,7 @@ APPENDIX: How to apply the Apache License to your work.
         <h4>Used by:</h4>
         <ul class="license-used-by">
           <li><a href=" https://github.com/rust-random/getrandom ">getrandom 0.1.16</a></li>
-          <li><a href=" https://github.com/rust-random/getrandom ">getrandom 0.2.8</a></li>
+          <li><a href=" https://github.com/rust-random/getrandom ">getrandom 0.2.11</a></li>
           <li><a href=" https://github.com/rust-random/rand ">rand 0.7.3</a></li>
           <li><a href=" https://github.com/rust-random/rand ">rand_chacha 0.2.2</a></li>
           <li><a href=" https://github.com/rust-random/rand ">rand_chacha 0.3.1</a></li>
@@ -6371,7 +6407,6 @@ limitations under the License.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/rust-lang/log ">log 0.4.17</a></li>
           <li><a href=" https://github.com/abonander/safemem ">safemem 0.3.3</a></li>
         </ul>
         <pre class="license-text">                              Apache License
@@ -6583,7 +6618,7 @@ limitations under the License.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/seanmonstar/num_cpus ">num_cpus 1.15.0</a></li>
+          <li><a href=" https://github.com/seanmonstar/num_cpus ">num_cpus 1.16.0</a></li>
         </ul>
         <pre class="license-text"># Contributing
 
@@ -6609,7 +6644,22 @@ additional terms or conditions.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/tauri-apps/tao ">tao 0.16.0</a></li>
+          <li><a href=" https://github.com/retep998/winapi-rs ">winapi 0.3.9</a></li>
+        </ul>
+        <pre class="license-text">// Licensed under the Apache License, Version 2.0
+// &lt;LICENSE-APACHE or http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license
+// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your option.
+// All files in the project carrying such notice may not be copied, modified, or distributed
+// except according to those terms.
+</pre>
+      </li>
+      <li class="license">
+        <h3 id="Apache-2.0">
+          Apache License 2.0
+        </h3>
+        <h4>Used by:</h4>
+        <ul class="license-used-by">
+          <li><a href=" https://github.com/tauri-apps/tao ">tao 0.16.5</a></li>
         </ul>
         <pre class="license-text">Apache License
                            Version 2.0, January 2004
@@ -6819,7 +6869,7 @@ additional terms or conditions.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/mmastrac/rust-ctor ">ctor 0.1.26</a></li>
+          <li><a href=" https://github.com/mmastrac/rust-ctor ">ctor 0.2.5</a></li>
         </ul>
         <pre class="license-text">Apache License
                            Version 2.0, January 2004
@@ -7030,23 +7080,22 @@ additional terms or conditions.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://gitlab.com/crates.rs/cargo_toml ">cargo_toml 0.15.2</a></li>
+          <li><a href=" https://gitlab.com/crates.rs/cargo_toml ">cargo_toml 0.15.3</a></li>
           <li><a href=" https://github.com/emk/cesu8-rs ">cesu8 1.1.0</a></li>
-          <li><a href=" https://github.com/servo/core-foundation-rs ">cocoa-foundation 0.1.1</a></li>
-          <li><a href=" https://github.com/servo/core-foundation-rs ">core-graphics-types 0.1.1</a></li>
+          <li><a href=" https://gitlab.com/kornelski/dunce ">dunce 1.0.4</a></li>
           <li><a href=" https://github.com/cbreeden/fxhash ">fxhash 0.2.1</a></li>
           <li><a href=" https://github.com/TedDriggs/ident_case ">ident_case 1.0.1</a></li>
-          <li><a href=" https://github.com/trobonox/kanri ">kanri 0.5.1</a></li>
+          <li><a href=" https://github.com/trobonox/kanri ">kanri 0.6.0</a></li>
           <li><a href=" https://github.com/reem/rust-mac.git ">mac 0.1.1</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk 0.6.0</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk-context 0.1.1</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk-sys 0.3.0</a></li>
           <li><a href=" https://github.com/servo/servo ">servo_arc 0.1.1</a></li>
-          <li><a href=" https://github.com/jedisct1/rust-siphash ">siphasher 0.3.10</a></li>
-          <li><a href=" https://github.com/tauri-apps/tao ">tao-macros 0.1.1</a></li>
+          <li><a href=" https://github.com/jedisct1/rust-siphash ">siphasher 0.3.11</a></li>
+          <li><a href=" https://github.com/tauri-apps/tao ">tao-macros 0.1.2</a></li>
+          <li><a href=" https://github.com/bytecodealliance/target-lexicon ">target-lexicon 0.12.12</a></li>
           <li><a href=" https://github.com/retep998/winapi-rs ">winapi-i686-pc-windows-gnu 0.4.0</a></li>
           <li><a href=" https://github.com/retep998/winapi-rs ">winapi-x86_64-pc-windows-gnu 0.4.0</a></li>
-          <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.37.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-bindgen 0.39.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-implement 0.39.0</a></li>
           <li><a href=" https://github.com/microsoft/windows-rs ">windows-metadata 0.39.0</a></li>
@@ -7143,7 +7192,7 @@ limitations under the License.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/Lokathor/bytemuck ">bytemuck 1.13.1</a></li>
+          <li><a href=" https://github.com/Lokathor/bytemuck ">bytemuck 1.14.0</a></li>
         </ul>
         <pre class="license-text">Apache License
 Version 2.0, January 2004
@@ -7247,7 +7296,7 @@ copied, modified, or distributed except according to those terms.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/paholg/typenum ">typenum 1.16.0</a></li>
+          <li><a href=" https://github.com/paholg/typenum ">typenum 1.17.0</a></li>
         </ul>
         <pre class="license-text">MIT OR Apache-2.0</pre>
       </li>
@@ -7337,7 +7386,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/hsivonen/encoding_rs ">encoding_rs 0.8.32</a></li>
+          <li><a href=" https://github.com/hsivonen/encoding_rs ">encoding_rs 0.8.33</a></li>
         </ul>
         <pre class="license-text">Copyright © WHATWG (Apple, Google, Mozilla, Microsoft).
 
@@ -7365,137 +7414,6 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-</pre>
-      </li>
-      <li class="license">
-        <h3 id="CC0-1.0">
-          Creative Commons Zero v1.0 Universal
-        </h3>
-        <h4>Used by:</h4>
-        <ul class="license-used-by">
-          <li><a href=" https://gitlab.com/kornelski/dunce ">dunce 1.0.3</a></li>
-        </ul>
-        <pre class="license-text">Creative Commons Legal Code
-
-CC0 1.0 Universal
-
-    CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE
-    LEGAL SERVICES. DISTRIBUTION OF THIS DOCUMENT DOES NOT CREATE AN
-    ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS
-    INFORMATION ON AN &quot;AS-IS&quot; BASIS. CREATIVE COMMONS MAKES NO WARRANTIES
-    REGARDING THE USE OF THIS DOCUMENT OR THE INFORMATION OR WORKS
-    PROVIDED HEREUNDER, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM
-    THE USE OF THIS DOCUMENT OR THE INFORMATION OR WORKS PROVIDED
-    HEREUNDER.
-
-Statement of Purpose
-
-The laws of most jurisdictions throughout the world automatically confer
-exclusive Copyright and Related Rights (defined below) upon the creator
-and subsequent owner(s) (each and all, an &quot;owner&quot;) of an original work of
-authorship and/or a database (each, a &quot;Work&quot;).
-
-Certain owners wish to permanently relinquish those rights to a Work for
-the purpose of contributing to a commons of creative, cultural and
-scientific works (&quot;Commons&quot;) that the public can reliably and without fear
-of later claims of infringement build upon, modify, incorporate in other
-works, reuse and redistribute as freely as possible in any form whatsoever
-and for any purposes, including without limitation commercial purposes.
-These owners may contribute to the Commons to promote the ideal of a free
-culture and the further production of creative, cultural and scientific
-works, or to gain reputation or greater distribution for their Work in
-part through the use and efforts of others.
-
-For these and/or other purposes and motivations, and without any
-expectation of additional consideration or compensation, the person
-associating CC0 with a Work (the &quot;Affirmer&quot;), to the extent that he or she
-is an owner of Copyright and Related Rights in the Work, voluntarily
-elects to apply CC0 to the Work and publicly distribute the Work under its
-terms, with knowledge of his or her Copyright and Related Rights in the
-Work and the meaning and intended legal effect of CC0 on those rights.
-
-1. Copyright and Related Rights. A Work made available under CC0 may be
-protected by copyright and related or neighboring rights (&quot;Copyright and
-Related Rights&quot;). Copyright and Related Rights include, but are not
-limited to, the following:
-
-  i. the right to reproduce, adapt, distribute, perform, display,
-     communicate, and translate a Work;
- ii. moral rights retained by the original author(s) and/or performer(s);
-iii. publicity and privacy rights pertaining to a person&#x27;s image or
-     likeness depicted in a Work;
- iv. rights protecting against unfair competition in regards to a Work,
-     subject to the limitations in paragraph 4(a), below;
-  v. rights protecting the extraction, dissemination, use and reuse of data
-     in a Work;
- vi. database rights (such as those arising under Directive 96/9/EC of the
-     European Parliament and of the Council of 11 March 1996 on the legal
-     protection of databases, and under any national implementation
-     thereof, including any amended or successor version of such
-     directive); and
-vii. other similar, equivalent or corresponding rights throughout the
-     world based on applicable law or treaty, and any national
-     implementations thereof.
-
-2. Waiver. To the greatest extent permitted by, but not in contravention
-of, applicable law, Affirmer hereby overtly, fully, permanently,
-irrevocably and unconditionally waives, abandons, and surrenders all of
-Affirmer&#x27;s Copyright and Related Rights and associated claims and causes
-of action, whether now known or unknown (including existing as well as
-future claims and causes of action), in the Work (i) in all territories
-worldwide, (ii) for the maximum duration provided by applicable law or
-treaty (including future time extensions), (iii) in any current or future
-medium and for any number of copies, and (iv) for any purpose whatsoever,
-including without limitation commercial, advertising or promotional
-purposes (the &quot;Waiver&quot;). Affirmer makes the Waiver for the benefit of each
-member of the public at large and to the detriment of Affirmer&#x27;s heirs and
-successors, fully intending that such Waiver shall not be subject to
-revocation, rescission, cancellation, termination, or any other legal or
-equitable action to disrupt the quiet enjoyment of the Work by the public
-as contemplated by Affirmer&#x27;s express Statement of Purpose.
-
-3. Public License Fallback. Should any part of the Waiver for any reason
-be judged legally invalid or ineffective under applicable law, then the
-Waiver shall be preserved to the maximum extent permitted taking into
-account Affirmer&#x27;s express Statement of Purpose. In addition, to the
-extent the Waiver is so judged Affirmer hereby grants to each affected
-person a royalty-free, non transferable, non sublicensable, non exclusive,
-irrevocable and unconditional license to exercise Affirmer&#x27;s Copyright and
-Related Rights in the Work (i) in all territories worldwide, (ii) for the
-maximum duration provided by applicable law or treaty (including future
-time extensions), (iii) in any current or future medium and for any number
-of copies, and (iv) for any purpose whatsoever, including without
-limitation commercial, advertising or promotional purposes (the
-&quot;License&quot;). The License shall be deemed effective as of the date CC0 was
-applied by Affirmer to the Work. Should any part of the License for any
-reason be judged legally invalid or ineffective under applicable law, such
-partial invalidity or ineffectiveness shall not invalidate the remainder
-of the License, and in such case Affirmer hereby affirms that he or she
-will not (i) exercise any of his or her remaining Copyright and Related
-Rights in the Work or (ii) assert any associated claims and causes of
-action with respect to the Work, in either case contrary to Affirmer&#x27;s
-express Statement of Purpose.
-
-4. Limitations and Disclaimers.
-
- a. No trademark or patent rights held by Affirmer are waived, abandoned,
-    surrendered, licensed or otherwise affected by this document.
- b. Affirmer offers the Work as-is and makes no representations or
-    warranties of any kind concerning the Work, express, implied,
-    statutory or otherwise, including without limitation warranties of
-    title, merchantability, fitness for a particular purpose, non
-    infringement, or the absence of latent or other defects, accuracy, or
-    the present or absence of errors, whether or not discoverable, all to
-    the greatest extent permissible under applicable law.
- c. Affirmer disclaims responsibility for clearing rights of other persons
-    that may apply to the Work or any use thereof, including without
-    limitation any person&#x27;s Copyright and Related Rights in the Work.
-    Further, Affirmer disclaims responsibility for obtaining any necessary
-    consents, permissions or other rights required for any use of the
-    Work.
- d. Affirmer understands and acknowledges that Creative Commons is not a
-    party to this document and has no duty or obligation with respect to
-    this CC0 or use of the Work.
 </pre>
       </li>
       <li class="license">
@@ -7539,7 +7457,7 @@ DEALINGS IN THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/ebarnard/rust-plist/ ">plist 1.4.3</a></li>
+          <li><a href=" https://github.com/ebarnard/rust-plist/ ">plist 1.6.0</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2015 Edward Barnard
 
@@ -7568,6 +7486,7 @@ SOFTWARE.</pre>
         <h4>Used by:</h4>
         <ul class="license-used-by">
           <li><a href=" https://github.com/gentoo90/winreg-rs ">winreg 0.10.1</a></li>
+          <li><a href=" https://github.com/gentoo90/winreg-rs ">winreg 0.51.0</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2015 Igor Shaula
 
@@ -7689,7 +7608,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/Gilnaa/memoffset ">memoffset 0.8.0</a></li>
+          <li><a href=" https://github.com/Gilnaa/memoffset ">memoffset 0.9.0</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2017 Gilad Naaman
 
@@ -7717,8 +7636,8 @@ SOFTWARE.</pre>
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://gitlab.redox-os.org/redox-os/syscall ">redox_syscall 0.2.16</a></li>
           <li><a href=" https://gitlab.redox-os.org/redox-os/syscall ">redox_syscall 0.3.5</a></li>
+          <li><a href=" https://gitlab.redox-os.org/redox-os/syscall ">redox_syscall 0.4.1</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2017 Redox OS Developers
 
@@ -7781,7 +7700,7 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/tokio-rs/bytes ">bytes 1.4.0</a></li>
+          <li><a href=" https://github.com/tokio-rs/bytes ">bytes 1.5.0</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2018 Carl Lerche
 
@@ -7817,7 +7736,7 @@ DEALINGS IN THE SOFTWARE.
         <h4>Used by:</h4>
         <ul class="license-used-by">
           <li><a href=" https://github.com/tokio-rs/loom ">loom 0.5.6</a></li>
-          <li><a href=" https://github.com/tokio-rs/slab ">slab 0.4.8</a></li>
+          <li><a href=" https://github.com/tokio-rs/slab ">slab 0.4.9</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2019 Carl Lerche
 
@@ -7852,7 +7771,7 @@ DEALINGS IN THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/hawkw/sharded-slab ">sharded-slab 0.1.4</a></li>
+          <li><a href=" https://github.com/hawkw/sharded-slab ">sharded-slab 0.1.7</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2019 Eliza Weisman
 
@@ -7910,11 +7829,11 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/tokio-rs/tracing ">tracing 0.1.37</a></li>
-          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-attributes 0.1.23</a></li>
-          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-core 0.1.30</a></li>
-          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-log 0.1.3</a></li>
-          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-subscriber 0.3.16</a></li>
+          <li><a href=" https://github.com/tokio-rs/tracing ">tracing 0.1.40</a></li>
+          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-attributes 0.1.27</a></li>
+          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-core 0.1.32</a></li>
+          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-log 0.2.0</a></li>
+          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-subscriber 0.3.18</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2019 Tokio Contributors
 
@@ -7949,7 +7868,7 @@ DEALINGS IN THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/tokio-rs/tokio ">tokio 1.27.0</a></li>
+          <li><a href=" https://github.com/tokio-rs/tokio ">tokio 1.34.0</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2023 Tokio Contributors
 
@@ -8077,9 +7996,9 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/TedDriggs/darling ">darling 0.20.1</a></li>
-          <li><a href=" https://github.com/TedDriggs/darling ">darling_core 0.20.1</a></li>
-          <li><a href=" https://github.com/TedDriggs/darling ">darling_macro 0.20.1</a></li>
+          <li><a href=" https://github.com/TedDriggs/darling ">darling 0.20.3</a></li>
+          <li><a href=" https://github.com/TedDriggs/darling ">darling_core 0.20.3</a></li>
+          <li><a href=" https://github.com/TedDriggs/darling ">darling_macro 0.20.3</a></li>
         </ul>
         <pre class="license-text">MIT License
 
@@ -8141,7 +8060,7 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/bojand/infer ">infer 0.12.0</a></li>
+          <li><a href=" https://github.com/bojand/infer ">infer 0.13.0</a></li>
         </ul>
         <pre class="license-text">MIT License
 
@@ -8203,7 +8122,7 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/zzzgydi/auto-launch.git ">auto-launch 0.4.0</a></li>
+          <li><a href=" https://github.com/zzzgydi/auto-launch.git ">auto-launch 0.5.0</a></li>
         </ul>
         <pre class="license-text">MIT License
 
@@ -8234,9 +8153,40 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
+          <li><a href=" https://gitlab.redox-os.org/redox-os/libredox.git ">libredox 0.0.1</a></li>
+        </ul>
+        <pre class="license-text">MIT License
+
+Copyright (c) 2023 4lDO2
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</pre>
+      </li>
+      <li class="license">
+        <h3 id="MIT">
+          MIT License
+        </h3>
+        <h4>Used by:</h4>
+        <ul class="license-used-by">
           <li><a href=" http://github.com/SSheldon/rust-block ">block 0.1.6</a></li>
-          <li><a href=" https://github.com/dropbox/rust-brotli ">brotli 3.3.4</a></li>
-          <li><a href=" https://github.com/dropbox/rust-brotli-decompressor ">brotli-decompressor 2.3.4</a></li>
+          <li><a href=" https://github.com/dropbox/rust-brotli ">brotli 3.4.0</a></li>
+          <li><a href=" https://github.com/dropbox/rust-brotli-decompressor ">brotli-decompressor 2.5.1</a></li>
           <li><a href=" https://github.com/rutrum/convert-case ">convert_case 0.4.0</a></li>
           <li><a href=" http://github.com/SSheldon/rust-dispatch ">dispatch 0.2.0</a></li>
           <li><a href=" https://github.com/SimonSapin/kuchiki ">kuchiki 0.8.1</a></li>
@@ -8246,10 +8196,11 @@ SOFTWARE.
           <li><a href=" http://github.com/SSheldon/rust-objc-id ">objc_id 0.1.1</a></li>
           <li><a href=" https://github.com/sfackler/rust-phf ">phf 0.10.1</a></li>
           <li><a href=" https://github.com/sfackler/rust-phf ">phf 0.8.0</a></li>
+          <li><a href=" https://github.com/sfackler/rust-phf ">phf_codegen 0.10.0</a></li>
           <li><a href=" https://github.com/sfackler/rust-phf ">phf_codegen 0.8.0</a></li>
           <li><a href=" https://github.com/sfackler/rust-phf ">phf_generator 0.10.0</a></li>
           <li><a href=" https://github.com/sfackler/rust-phf ">phf_generator 0.8.0</a></li>
-          <li><a href=" https://github.com/sfackler/rust-phf ">phf_macros 0.10.0</a></li>
+          <li><a href=" https://github.com/rust-phf/rust-phf ">phf_macros 0.11.2</a></li>
           <li><a href=" https://github.com/sfackler/rust-phf ">phf_macros 0.8.0</a></li>
           <li><a href=" https://github.com/sfackler/rust-phf ">phf_shared 0.10.0</a></li>
           <li><a href=" https://github.com/sfackler/rust-phf ">phf_shared 0.8.0</a></li>
@@ -8307,6 +8258,37 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
+          <li><a href=" https://github.com/mcountryman/simd-adler32 ">simd-adler32 0.3.7</a></li>
+        </ul>
+        <pre class="license-text">MIT License
+
+Copyright (c) [2021] [Marvin Countryman]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</pre>
+      </li>
+      <li class="license">
+        <h3 id="MIT">
+          MIT License
+        </h3>
+        <h4>Used by:</h4>
+        <ul class="license-used-by">
           <li><a href=" https://github.com/danaugrs/overload ">overload 0.1.1</a></li>
         </ul>
         <pre class="license-text">MIT License
@@ -8337,6 +8319,7 @@ SOFTWARE.</pre>
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
+          <li><a href=" https://github.com/brave/kuchikiki ">kuchikiki 0.8.2</a></li>
           <li><a href=" https://github.com/AltF02/x11-rs.git ">x11 2.21.0</a></li>
           <li><a href=" https://github.com/AltF02/x11-rs.git ">x11-dl 2.21.0</a></li>
         </ul>
@@ -8371,7 +8354,7 @@ DEALINGS IN THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/winnow-rs/winnow ">winnow 0.4.1</a></li>
+          <li><a href=" https://github.com/winnow-rs/winnow ">winnow 0.5.19</a></li>
         </ul>
         <pre class="license-text">Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -8407,6 +8390,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gdk-pixbuf 0.15.11</a></li>
           <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gdk-pixbuf-sys 0.15.10</a></li>
           <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gdk-sys 0.15.1</a></li>
+          <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gdkwayland-sys 0.15.3</a></li>
           <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gdkx11-sys 0.15.1</a></li>
           <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gio 0.15.12</a></li>
           <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gio-sys 0.15.10</a></li>
@@ -8544,7 +8528,7 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-core 0.1.30</a></li>
+          <li><a href=" https://github.com/tokio-rs/tracing ">tracing-core 0.1.32</a></li>
         </ul>
         <pre class="license-text">The MIT License (MIT)
 
@@ -8575,7 +8559,7 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/image-rs/image ">image 0.24.6</a></li>
+          <li><a href=" https://github.com/image-rs/image ">image 0.24.7</a></li>
         </ul>
         <pre class="license-text">The MIT License (MIT)
 
@@ -8605,13 +8589,45 @@ SOFTWARE.</pre>
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/BurntSushi/aho-corasick ">aho-corasick 0.7.20</a></li>
-          <li><a href=" https://github.com/BurntSushi/byteorder ">byteorder 1.4.3</a></li>
-          <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/globset ">globset 0.4.10</a></li>
-          <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/ignore ">ignore 0.4.18</a></li>
-          <li><a href=" https://github.com/BurntSushi/memchr ">memchr 2.5.0</a></li>
+          <li><a href=" https://github.com/rust-phf/rust-phf ">phf 0.11.2</a></li>
+          <li><a href=" https://github.com/rust-phf/rust-phf ">phf_generator 0.11.2</a></li>
+          <li><a href=" https://github.com/rust-phf/rust-phf ">phf_shared 0.11.2</a></li>
+        </ul>
+        <pre class="license-text">The MIT License (MIT)
+
+Copyright (c) 2014-2022 Steven Fackler, Yuki Okushi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the &quot;Software&quot;), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</pre>
+      </li>
+      <li class="license">
+        <h3 id="MIT">
+          MIT License
+        </h3>
+        <h4>Used by:</h4>
+        <ul class="license-used-by">
+          <li><a href=" https://github.com/BurntSushi/aho-corasick ">aho-corasick 1.1.2</a></li>
+          <li><a href=" https://github.com/BurntSushi/byteorder ">byteorder 1.5.0</a></li>
+          <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/globset ">globset 0.4.14</a></li>
+          <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/ignore ">ignore 0.4.21</a></li>
+          <li><a href=" https://github.com/BurntSushi/memchr ">memchr 2.6.4</a></li>
           <li><a href=" https://github.com/BurntSushi/regex-automata ">regex-automata 0.1.10</a></li>
-          <li><a href=" https://github.com/BurntSushi/walkdir ">walkdir 2.3.3</a></li>
+          <li><a href=" https://github.com/BurntSushi/walkdir ">walkdir 2.4.0</a></li>
         </ul>
         <pre class="license-text">The MIT License (MIT)
 
@@ -8770,7 +8786,7 @@ SOFTWARE.
         <h4>Used by:</h4>
         <ul class="license-used-by">
           <li><a href=" https://github.com/BurntSushi/same-file ">same-file 1.0.6</a></li>
-          <li><a href=" https://github.com/BurntSushi/winapi-util ">winapi-util 0.1.5</a></li>
+          <li><a href=" https://github.com/BurntSushi/winapi-util ">winapi-util 0.1.6</a></li>
         </ul>
         <pre class="license-text">The MIT License (MIT)
 
@@ -8801,7 +8817,7 @@ THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://gitlab.redox-os.org/redox-os/users ">redox_users 0.4.3</a></li>
+          <li><a href=" https://gitlab.redox-os.org/redox-os/users ">redox_users 0.4.4</a></li>
         </ul>
         <pre class="license-text">The MIT License (MIT)
 
@@ -8833,7 +8849,71 @@ SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/tauri-apps/winres ">tauri-winres 0.1.0</a></li>
+          <li><a href=" https://github.com/nabijaczleweli/rust-embed-resource ">embed-resource 2.4.0</a></li>
+        </ul>
+        <pre class="license-text">The MIT License (MIT)
+
+Copyright (c) 2017 nabijaczleweli
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</pre>
+      </li>
+      <li class="license">
+        <h3 id="MIT">
+          MIT License
+        </h3>
+        <h4>Used by:</h4>
+        <ul class="license-used-by">
+          <li><a href=" https://github.com/nabijaczleweli/vswhom.rs ">vswhom 0.1.0</a></li>
+          <li><a href=" https://github.com/nabijaczleweli/vswhom-sys.rs ">vswhom-sys 0.1.2</a></li>
+        </ul>
+        <pre class="license-text">The MIT License (MIT)
+
+Copyright (c) 2019 nabijaczleweli
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+</pre>
+      </li>
+      <li class="license">
+        <h3 id="MIT">
+          MIT License
+        </h3>
+        <h4>Used by:</h4>
+        <ul class="license-used-by">
+          <li><a href=" https://github.com/tauri-apps/winres ">tauri-winres 0.1.1</a></li>
         </ul>
         <pre class="license-text">The MIT License (MIT)
 
@@ -8967,7 +9047,7 @@ SOFTWARE.</pre>
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/tafia/quick-xml ">quick-xml 0.28.1</a></li>
+          <li><a href=" https://github.com/tafia/quick-xml ">quick-xml 0.31.0</a></li>
         </ul>
         <pre class="license-text">The MIT License (MIT)
 
@@ -9000,12 +9080,13 @@ THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/globset ">globset 0.4.10</a></li>
-          <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/ignore ">ignore 0.4.18</a></li>
-          <li><a href=" https://github.com/BurntSushi/memchr ">memchr 2.5.0</a></li>
+          <li><a href=" https://github.com/BurntSushi/aho-corasick ">aho-corasick 1.1.2</a></li>
+          <li><a href=" https://github.com/BurntSushi/byteorder ">byteorder 1.5.0</a></li>
+          <li><a href=" https://github.com/BurntSushi/memchr ">memchr 2.6.4</a></li>
           <li><a href=" https://github.com/BurntSushi/regex-automata ">regex-automata 0.1.10</a></li>
           <li><a href=" https://github.com/BurntSushi/same-file ">same-file 1.0.6</a></li>
-          <li><a href=" https://github.com/BurntSushi/walkdir ">walkdir 2.3.3</a></li>
+          <li><a href=" https://github.com/BurntSushi/walkdir ">walkdir 2.4.0</a></li>
+          <li><a href=" https://github.com/BurntSushi/winapi-util ">winapi-util 0.1.6</a></li>
         </ul>
         <pre class="license-text">This project is dual-licensed under the Unlicense and MIT licenses.
 
@@ -9018,7 +9099,7 @@ You may use this code under the terms of either license.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/upsuper/dtoa-short ">dtoa-short 0.3.3</a></li>
+          <li><a href=" https://github.com/upsuper/dtoa-short ">dtoa-short 0.3.4</a></li>
         </ul>
         <pre class="license-text">Mozilla Public License Version 2.0
 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
@@ -9402,7 +9483,7 @@ Exhibit B - &quot;Incompatible With Secondary Licenses&quot; Notice
         <h4>Used by:</h4>
         <ul class="license-used-by">
           <li><a href=" https://github.com/servo/rust-cssparser ">cssparser 0.27.2</a></li>
-          <li><a href=" https://github.com/servo/rust-cssparser ">cssparser-macros 0.6.0</a></li>
+          <li><a href=" https://github.com/servo/rust-cssparser ">cssparser-macros 0.6.1</a></li>
         </ul>
         <pre class="license-text">Mozilla Public License Version 2.0
 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
@@ -10169,7 +10250,7 @@ Exhibit B - &quot;Incompatible With Secondary Licenses&quot; Notice
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/dtolnay/unicode-ident ">unicode-ident 1.0.8</a></li>
+          <li><a href=" https://github.com/dtolnay/unicode-ident ">unicode-ident 1.0.12</a></li>
         </ul>
         <pre class="license-text">UNICODE, INC. LICENSE AGREEMENT - DATA FILES AND SOFTWARE
 
