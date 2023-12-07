@@ -33,7 +33,7 @@
 
     <pre>
 Name: @vue/shared
-Version: 3.3.4
+Version: 3.3.8
 License: MIT
 Private: false
 Description: internal utils shared across @vue packages
@@ -69,7 +69,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/reactivity
-Version: 3.3.4
+Version: 3.3.8
 License: MIT
 Private: false
 Description: @vue/reactivity
@@ -105,7 +105,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-core
-Version: 3.3.4
+Version: 3.3.8
 License: MIT
 Private: false
 Description: @vue/runtime-core
@@ -141,7 +141,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-dom
-Version: 3.3.4
+Version: 3.3.8
 License: MIT
 Private: false
 Description: @vue/runtime-dom
@@ -176,11 +176,11 @@ THE SOFTWARE.
 
 ---
 
-Name: destr
-Version: 2.0.1
+Name: ufo
+Version: 1.3.2
 License: MIT
 Private: false
-Description: A faster, secure and convenient alternative for JSON.parse
+Description: URL utils for humans
 Repository: undefined
 License Copyright:
 ===
@@ -210,11 +210,11 @@ SOFTWARE.
 
 ---
 
-Name: ufo
-Version: 1.3.0
+Name: destr
+Version: 2.0.2
 License: MIT
 Private: false
-Description: URL utils for humans
+Description: A faster, secure and convenient alternative for JSON.parse
 Repository: undefined
 License Copyright:
 ===
@@ -347,10 +347,12 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.7.2
+Version: 3.8.2
 License: MIT
 Private: false
-Repository: undefined
+Description: Nuxt is a free and open-source framework with an intuitive and extendable way to create type-safe, performant and production-grade full-stack web applications and websites with Vue.js.
+Repository: git+https://github.com/nuxt/nuxt.git
+Homepage: https://nuxt.com
 License Copyright:
 ===
 
@@ -380,7 +382,7 @@ SOFTWARE.
 ---
 
 Name: tailwindcss
-Version: 3.3.3
+Version: 3.3.5
 License: MIT
 Private: false
 Description: A utility-first CSS framework for rapidly building custom user interfaces.
@@ -435,7 +437,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 Name: @unhead/shared
-Version: 1.7.0
+Version: 1.8.7
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -445,7 +447,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: @unhead/dom
-Version: 1.7.0
+Version: 1.8.7
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -455,7 +457,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: unhead
-Version: 1.7.0
+Version: 1.8.7
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -465,7 +467,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: @unhead/vue
-Version: 1.7.0
+Version: 1.8.7
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -474,8 +476,42 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 
 ---
 
+Name: radix3
+Version: 1.1.0
+License: MIT
+Private: false
+Description: Lightweight and fast router for JavaScript based on Radix Tree
+Repository: undefined
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+---
+
 Name: defu
-Version: 6.1.2
+Version: 6.1.3
 License: MIT
 Private: false
 Description: Recursively assign default properties. Lightweight and Fast!
@@ -509,7 +545,7 @@ SOFTWARE.
 ---
 
 Name: h3
-Version: 1.8.1
+Version: 1.9.0
 License: MIT
 Private: false
 Description: Minimal H(TTP) framework built for high performance and portability.
@@ -543,11 +579,12 @@ SOFTWARE.
 ---
 
 Name: vue-router
-Version: 4.2.4
+Version: 4.2.5
 License: MIT
 Private: false
 Repository: git+https://github.com/vuejs/router.git
 Homepage: https://github.com/vuejs/router#readme
+Author: Eduardo San Martin Morote &lt;posva13@gmail.com>
 License Copyright:
 ===
 
@@ -577,7 +614,7 @@ SOFTWARE.
 ---
 
 Name: pinia
-Version: 2.1.6
+Version: 2.1.7
 License: MIT
 Private: false
 Description: Intuitive, type safe and flexible Store for Vue
@@ -613,7 +650,7 @@ SOFTWARE.
 ---
 
 Name: @pinia/nuxt
-Version: 0.4.11
+Version: 0.5.1
 License: MIT
 Private: false
 Description: Nuxt Module for pinia
@@ -826,6 +863,199 @@ SOFTWARE.
 
 ---
 
+Name: @tauri-apps/api
+Version: 1.5.1
+License: Apache-2.0 OR MIT
+Private: false
+Description: Tauri API definitions
+Repository: git+https://github.com/tauri-apps/tauri.git
+Homepage: https://github.com/tauri-apps/tauri#readme
+Contributors:
+  Tauri Programme within The Commons Conservancy
+License Copyright:
+===
+
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+
+---
+
 Name: @nuxt/ui-templates
 Version: 1.3.1
 License: CC-BY-ND-4.0
@@ -902,6 +1132,647 @@ SOFTWARE.
 
 ---
 
+Name: orderedmap
+Version: 2.1.1
+License: MIT
+Private: false
+Description: Persistent ordered mapping from strings
+Repository: git+https://github.com/marijnh/orderedmap.git
+Homepage: https://github.com/marijnh/orderedmap#readme
+Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin>
+License Copyright:
+===
+
+Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: prosemirror-model
+Version: 1.19.3
+License: MIT
+Private: false
+Description: ProseMirror's document model
+Repository: git://github.com/prosemirror/prosemirror-model.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: prosemirror-transform
+Version: 1.8.0
+License: MIT
+Private: false
+Description: ProseMirror document transformations
+Repository: git://github.com/prosemirror/prosemirror-transform.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: prosemirror-state
+Version: 1.4.3
+License: MIT
+Private: false
+Description: ProseMirror editor state
+Repository: git://github.com/prosemirror/prosemirror-state.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: prosemirror-view
+Version: 1.32.4
+License: MIT
+Private: false
+Description: ProseMirror's view component
+Repository: git://github.com/prosemirror/prosemirror-view.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: w3c-keyname
+Version: 2.2.8
+License: MIT
+Private: false
+Description: Get a KeyboardEvent.key-style string from an event
+Repository: git+https://github.com/marijnh/w3c-keyname.git
+Homepage: https://github.com/marijnh/w3c-keyname#readme
+Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin>
+License Copyright:
+===
+
+Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: prosemirror-keymap
+Version: 1.2.2
+License: MIT
+Private: false
+Description: Keymap plugin for ProseMirror
+Repository: git://github.com/prosemirror/prosemirror-keymap.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: prosemirror-commands
+Version: 1.5.2
+License: MIT
+Private: false
+Description: Editing commands for ProseMirror
+Repository: git://github.com/prosemirror/prosemirror-commands.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: prosemirror-schema-list
+Version: 1.3.0
+License: MIT
+Private: false
+Description: List-related schema elements and commands for ProseMirror
+Repository: git://github.com/prosemirror/prosemirror-schema-list.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: @tiptap/core
+Version: 2.1.13
+License: MIT
+Private: false
+Description: headless rich text editor
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-typography
+Version: 2.1.13
+License: MIT
+Private: false
+Description: typography extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-blockquote
+Version: 2.1.13
+License: MIT
+Private: false
+Description: blockquote extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-bold
+Version: 2.1.13
+License: MIT
+Private: false
+Description: bold extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-bullet-list
+Version: 2.1.13
+License: MIT
+Private: false
+Description: bullet list extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-code
+Version: 2.1.13
+License: MIT
+Private: false
+Description: code extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-code-block
+Version: 2.1.13
+License: MIT
+Private: false
+Description: code block extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-document
+Version: 2.1.13
+License: MIT
+Private: false
+Description: document extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: prosemirror-dropcursor
+Version: 1.8.1
+License: MIT
+Private: false
+Description: Drop cursor plugin for ProseMirror
+Repository: git://github.com/prosemirror/prosemirror-dropcursor.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: @tiptap/extension-dropcursor
+Version: 2.1.13
+License: MIT
+Private: false
+Description: dropcursor extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: prosemirror-gapcursor
+Version: 1.3.2
+License: MIT
+Private: false
+Description: ProseMirror plugin for cursors at normally impossible-to-reach positions
+Repository: git://github.com/prosemirror/prosemirror-gapcursor.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: @tiptap/extension-gapcursor
+Version: 2.1.13
+License: MIT
+Private: false
+Description: gapcursor extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-hard-break
+Version: 2.1.13
+License: MIT
+Private: false
+Description: hard break extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-heading
+Version: 2.1.13
+License: MIT
+Private: false
+Description: heading extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: rope-sequence
+Version: 1.3.4
+License: MIT
+Private: false
+Description: Rope-based persistent sequence type
+Repository: git+https://github.com/marijnh/rope-sequence.git
+Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin>
+License Copyright:
+===
+
+Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: prosemirror-history
+Version: 1.3.2
+License: MIT
+Private: false
+Description: Undo history for ProseMirror
+Repository: git://github.com/prosemirror/prosemirror-history.git
+License Copyright:
+===
+
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+---
+
+Name: @tiptap/extension-history
+Version: 2.1.13
+License: MIT
+Private: false
+Description: history extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-horizontal-rule
+Version: 2.1.13
+License: MIT
+Private: false
+Description: horizontal rule extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-italic
+Version: 2.1.13
+License: MIT
+Private: false
+Description: italic extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-list-item
+Version: 2.1.13
+License: MIT
+Private: false
+Description: list item extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-ordered-list
+Version: 2.1.13
+License: MIT
+Private: false
+Description: ordered list extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-paragraph
+Version: 2.1.13
+License: MIT
+Private: false
+Description: paragraph extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-strike
+Version: 2.1.13
+License: MIT
+Private: false
+Description: strike extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/extension-text
+Version: 2.1.13
+License: MIT
+Private: false
+Description: text extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/starter-kit
+Version: 2.1.13
+License: MIT
+Private: false
+Description: starter kit for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
+Name: @tiptap/vue-3
+Version: 2.1.13
+License: MIT
+Private: false
+Description: Vue components for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
 Name: smooth-dnd
 Version: 0.12.1
 License: MIT
@@ -972,7 +1843,7 @@ SOFTWARE.
 ---
 
 Name: @vueuse/shared
-Version: 10.4.1
+Version: 10.6.1
 License: MIT
 Private: false
 Repository: git+https://github.com/vueuse/vueuse.git
@@ -1007,7 +1878,7 @@ SOFTWARE.
 ---
 
 Name: @vueuse/core
-Version: 10.4.1
+Version: 10.6.1
 License: MIT
 Private: false
 Description: Collection of essential Vue Composition Utilities
@@ -1039,76 +1910,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
----
-
-Name: @paralleldrive/cuid2
-Version: 2.2.2
-License: MIT
-Private: false
-Repository: git+https://github.com/ericelliott/cuid2.git
-Homepage: https://github.com/ericelliott/cuid2#readme
-Author: Eric Elliott
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) 2022 Eric Elliott
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
----
-
-Name: @noble/hashes
-Version: 1.3.2
-License: MIT
-Private: false
-Description: Audited & minimal 0-dependency JS implementation of SHA2, SHA3, RIPEMD, BLAKE2/3, HMAC, HKDF, PBKDF2, Scrypt
-Repository: https://github.com/paulmillr/noble-hashes.git
-Homepage: https://paulmillr.com/noble/
-Author: Paul Miller (https://paulmillr.com)
-License Copyright:
-===
-
-The MIT License (MIT)
-
-Copyright (c) 2022 Paul Miller (https://paulmillr.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the “Software”), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
 
 ---
 
@@ -1300,7 +2101,7 @@ License Copyright:
 ---
 
 Name: zod
-Version: 3.22.2
+Version: 3.22.4
 License: MIT
 Private: false
 Description: TypeScript-first schema declaration and validation library with static type inference
@@ -1335,195 +2136,144 @@ SOFTWARE.
 
 ---
 
-Name: @tauri-apps/api
-Version: 1.4.0
-License: Apache-2.0 OR MIT
+Name: @paralleldrive/cuid2
+Version: 2.2.2
+License: MIT
 Private: false
-Description: Tauri API definitions
-Repository: git+https://github.com/tauri-apps/tauri.git
-Homepage: https://github.com/tauri-apps/tauri#readme
-Contributors:
-  Tauri Programme within The Commons Conservancy
+Repository: git+https://github.com/ericelliott/cuid2.git
+Homepage: https://github.com/ericelliott/cuid2#readme
+Author: Eric Elliott
 License Copyright:
 ===
 
+MIT License
 
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
+Copyright (c) 2022 Eric Elliott
 
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-   1. Definitions.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
 
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
+---
 
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
+Name: @noble/hashes
+Version: 1.3.2
+License: MIT
+Private: false
+Description: Audited & minimal 0-dependency JS implementation of SHA2, SHA3, RIPEMD, BLAKE2/3, HMAC, HKDF, PBKDF2, Scrypt
+Repository: https://github.com/paulmillr/noble-hashes.git
+Homepage: https://paulmillr.com/noble/
+Author: Paul Miller (https://paulmillr.com)
+License Copyright:
+===
 
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
+The MIT License (MIT)
 
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
+Copyright (c) 2022 Paul Miller (https://paulmillr.com)
 
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
+---
 
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
+Name: @floating-ui/vue
+Version: 1.0.2
+License: MIT
+Private: false
+Description: Floating UI for Vue
+Repository: https://github.com/floating-ui/floating-ui.git
+Homepage: https://floating-ui.com/docs/vue
+Author: lozinsky
+License Copyright:
+===
 
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
+MIT License
 
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
+Copyright (c) 2021 Floating UI contributors
 
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
 
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
+---
 
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
+Name: radix-vue
+Version: 1.2.3
+License: MIT
+Private: false
+Description: Vue port for Radix UI Primitives.
+Repository: git+https://github.com/radix-vue/radix-vue.git
+Homepage: https://github.com/radix-vue/radix-vue
+Author: Radix Vue Contributors (https://github.com/radix-vue)
+License Copyright:
+===
 
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
+MIT License
 
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
+Copyright (c) 2023 Radix Vue &lt;https://github.com/radix-vue>
 
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-   END OF TERMS AND CONDITIONS
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 
 ---
