@@ -95,7 +95,7 @@
           <div class="flex flex-col gap-2">
             <button
               v-if="background.length > 0"
-              class="bg-accent transition-button mt-8 w-full rounded-md px-2 py-1"
+              class="bg-accent text-buttons transition-button mt-8 w-full rounded-md px-2 py-1"
               @click="saveSettings(); $emit('closeModal')"
             >
               Save Background Settings

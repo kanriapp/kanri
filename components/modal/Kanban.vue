@@ -163,7 +163,7 @@
               class="ml-0.5 mt-0.5 flex flex-row gap-4"
             >
               <button
-                class="bg-accent rounded-md px-4 py-1"
+                class="bg-accent text-buttons rounded-md px-4 py-1"
                 @click="createTask"
               >
                 Add
