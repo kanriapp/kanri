@@ -146,8 +146,6 @@ onMounted(async () => {
 const lightModeKanriIcon = computed(() => {
     if (!savedColors.value) return false;
 
-    console.log(getContrast(savedColors.value.elevation1));
-
     if (getContrast(savedColors.value.elevation1) === 'text-gray-800') {
         return true;
     }
