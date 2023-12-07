@@ -26,7 +26,13 @@
         id="logo"
         class="flex flex-row rounded-md"
       >
+        <IconKanriLightMode
+          v-if="lightModeKanriIcon"
+          class="h-10 w-10"
+          @click="$router.push('/')"
+        />
         <IconKanri
+          v-else
           class="h-10 w-10"
           @click="$router.push('/')"
         />
@@ -93,14 +99,24 @@ import emitter from "@/utils/emitter";
 import { PhArrowBendUpLeft, PhHouse } from "@phosphor-icons/vue";
 import { PhArrowsLeftRight, PhGearSix, PhQuestion } from "@phosphor-icons/vue";
 
+const store = useTauriStore().store;
+
 const helpModalVisible = ref(false);
 const newBoardModalVisible = ref(false);
 
 const zIndexDown = ref(false);
 const showAddButton = ref(true);
 
-onMounted(() => {
+const savedColors: Ref<any> = ref(null);
+
+onMounted(async () => {
     document.addEventListener("keydown", keyDownListener);
+
+    savedColors.value = await store.get("colors");
+
+    emitter.on("updateColors", async () => {
+        savedColors.value = await store.get("colors");
+    })
 
     emitter.on("zIndexDown", () => {
         zIndexDown.value = true;
@@ -126,6 +142,18 @@ onMounted(() => {
         showAddButton.value = true;
     });
 });
+
+const lightModeKanriIcon = computed(() => {
+    if (!savedColors.value) return false;
+
+    console.log(getContrast(savedColors.value.elevation1));
+
+    if (getContrast(savedColors.value.elevation1) === 'text-gray-800') {
+        return true;
+    }
+
+    return false;
+})
 
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
