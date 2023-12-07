@@ -61,6 +61,7 @@
       <h1
         v-if="!boardTitleEditing"
         class="mb-2 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
+        :class="[boardTitleColor]"
         @click="enableBoardTitleEditing()"
       >
         {{ board.title }}
@@ -237,6 +238,8 @@ import { useConfirmDialog } from '@vueuse/core'
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
 
+import { getAverageColor } from "~/utils/colorUtils";
+
 const store = useTauriStore().store;
 const route = useRoute();
 const router = useRouter();
@@ -269,6 +272,8 @@ const removeCardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const renameBoardModalVisible = ref(false);
 
+const boardTitleColor = ref("");
+
 const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
 const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
 
@@ -300,6 +305,8 @@ onMounted(async () => {
         bgBrightness.value = board.value.background.brightness;
     }
     nextTick(() => bgImageLoaded.value = true);
+
+    await getBoardTitleTextColor();
 
     const columnZoom: null | number = await store.get("columnZoomLevel");
 
@@ -469,6 +476,18 @@ const onDrop = (dropResult: object) => {
     board.value.columns = applyDrag(board.value.columns, dropResult);
     updateStorage();
 };
+
+/**
+ * Get the text color with the correct contrast if a background image is set
+ */
+const getBoardTitleTextColor = async () => {
+    if (bgCustom.value == "") return;
+
+    const averageColorFromBackground = await getAverageColor(bgCustom.value);
+    const hexColor = rgbToHex(averageColorFromBackground[0], averageColorFromBackground[1], averageColorFromBackground[2]);
+
+    boardTitleColor.value = getContrast(hexColor);
+}
 
 /**
  * Kanban card utility methods for editing, deleting, etc.
@@ -683,11 +702,12 @@ const deleteBoard = async (boardIndex: number | undefined) => {
     router.push("/");
 };
 
-const setBackgroundImage = (img: string) => {
+const setBackgroundImage = async (img: string) => {
     bgCustomNoResolution.value = img;
     bgCustom.value = convertFileSrc(img);
     board.value.background = {blur: bgBlur.value, brightness: bgBrightness.value, src: bgCustomNoResolution.value};
     updateStorage();
+    await getBoardTitleTextColor();
 }
 
 const resetBackground = () => {
@@ -697,6 +717,8 @@ const resetBackground = () => {
 
     delete board.value.background;
     updateStorage();
+
+    boardTitleColor.value = "";
 }
 
 const setBlur = (blurAmount: string) => {
