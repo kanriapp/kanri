@@ -20,8 +20,10 @@
         </div>
         <p class="mr-8 mt-6">
           Welcome to Kanri! With this new release, following new features and fixes have been released: <br> <br>
+          - Use rich text in card description (using shortcuts similar to Markdown) <br>
+          - Custom colors for cards <br>
+          - Improved light mode <br>
           - Directly edit columns from the popup for creating a new board <br>
-          - Fixed contrast issues when double clicking on a card's text to quickly edit it <br>
           - Import checklist items from Trello® <br>
           - Feature to disable all animations from settings <br>
           - Clicking on the Kanri icon in the sidebar acts as a home button <br>
