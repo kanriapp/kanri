@@ -186,7 +186,7 @@
           >
             Card Color
           </h2>
-          <div class="flex flex-row gap-4">
+          <div class="mb-6 flex flex-row gap-4">
             <button
               class="h-7 w-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
               @click="setCardColor(columnID, cardID, 'bg-pink-600')"
