@@ -12,8 +12,6 @@ all(not(debug_assertions), target_os = "windows"),
 use tauri_plugin_autostart::MacosLauncher;
 
 fn main() {
-    std::env::set_var("GDK_BACKEND", "X11"); // Force X11 backend on Linux
-
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_persisted_scope::init())
