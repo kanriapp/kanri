@@ -12,13 +12,15 @@ all(not(debug_assertions), target_os = "windows"),
 use tauri_plugin_autostart::MacosLauncher;
 
 fn main() {
-  tauri::Builder::default()
-    .plugin(tauri_plugin_store::Builder::default().build())
-    .plugin(tauri_plugin_persisted_scope::init())
-    .plugin(tauri_plugin_autostart::init(
-      MacosLauncher::LaunchAgent,
-      None,
-    ))
-    .run(tauri::generate_context!())
-    .expect("error while running tauri application");
+    std::env::set_var("GDK_BACKEND", "X11"); // Force X11 backend on Linux
+
+    tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::default().build())
+        .plugin(tauri_plugin_persisted_scope::init())
+        .plugin(tauri_plugin_autostart::init(
+        MacosLauncher::LaunchAgent,
+        None,
+        ))
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
