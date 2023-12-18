@@ -4664,7 +4664,7 @@ limitations under the License.
           <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-utils 0.8.16</a></li>
           <li><a href=" https://github.com/cuviper/equivalent ">equivalent 1.0.1</a></li>
           <li><a href=" https://github.com/smol-rs/fastrand ">fastrand 2.0.1</a></li>
-          <li><a href=" https://github.com/alexcrichton/filetime ">filetime 0.2.22</a></li>
+          <li><a href=" https://github.com/alexcrichton/filetime ">filetime 0.2.23</a></li>
           <li><a href=" https://github.com/rust-lang/flate2-rs ">flate2 1.0.28</a></li>
           <li><a href=" https://github.com/servo/rust-fnv ">fnv 1.0.7</a></li>
           <li><a href=" https://github.com/servo/rust-url ">form_urlencoded 1.2.1</a></li>
@@ -4696,7 +4696,7 @@ limitations under the License.
           <li><a href=" https://github.com/rust-num/num-traits ">num-traits 0.2.17</a></li>
           <li><a href=" https://github.com/seanmonstar/num_cpus ">num_cpus 1.16.0</a></li>
           <li><a href=" https://github.com/gimli-rs/object ">object 0.32.1</a></li>
-          <li><a href=" https://github.com/matklad/once_cell ">once_cell 1.18.0</a></li>
+          <li><a href=" https://github.com/matklad/once_cell ">once_cell 1.19.0</a></li>
           <li><a href=" https://github.com/Amanieu/parking_lot ">parking_lot 0.12.1</a></li>
           <li><a href=" https://github.com/Amanieu/parking_lot ">parking_lot_core 0.9.9</a></li>
           <li><a href=" https://github.com/servo/rust-url/ ">percent-encoding 2.3.1</a></li>
@@ -4709,7 +4709,7 @@ limitations under the License.
           <li><a href=" https://github.com/rust-lang/regex/tree/master/regex-syntax ">regex-syntax 0.8.2</a></li>
           <li><a href=" https://github.com/alexcrichton/rustc-demangle ">rustc-demangle 0.1.23</a></li>
           <li><a href=" https://github.com/Kimundi/rustc-version-rs ">rustc_version 0.4.0</a></li>
-          <li><a href=" https://github.com/bytecodealliance/rustix ">rustix 0.38.26</a></li>
+          <li><a href=" https://github.com/bytecodealliance/rustix ">rustix 0.38.27</a></li>
           <li><a href=" https://github.com/alexcrichton/scoped-tls ">scoped-tls 1.0.1</a></li>
           <li><a href=" https://github.com/bluss/scopeguard ">scopeguard 1.2.0</a></li>
           <li><a href=" https://github.com/jonasbb/serde_with/ ">serde_with 3.4.0</a></li>
@@ -4729,7 +4729,7 @@ limitations under the License.
           <li><a href=" https://github.com/Amanieu/thread_local-rs ">thread_local 1.1.7</a></li>
           <li><a href=" https://github.com/toml-rs/toml ">toml 0.5.11</a></li>
           <li><a href=" https://github.com/Byron/treediff-rs ">treediff 4.0.2</a></li>
-          <li><a href=" https://github.com/servo/unicode-bidi ">unicode-bidi 0.3.13</a></li>
+          <li><a href=" https://github.com/servo/unicode-bidi ">unicode-bidi 0.3.14</a></li>
           <li><a href=" https://github.com/unicode-rs/unicode-normalization ">unicode-normalization 0.1.22</a></li>
           <li><a href=" https://github.com/unicode-rs/unicode-segmentation ">unicode-segmentation 1.10.1</a></li>
           <li><a href=" https://github.com/servo/rust-url ">url 2.5.0</a></li>
@@ -7085,7 +7085,7 @@ additional terms or conditions.
           <li><a href=" https://gitlab.com/kornelski/dunce ">dunce 1.0.4</a></li>
           <li><a href=" https://github.com/cbreeden/fxhash ">fxhash 0.2.1</a></li>
           <li><a href=" https://github.com/TedDriggs/ident_case ">ident_case 1.0.1</a></li>
-          <li><a href=" https://github.com/trobonox/kanri ">kanri 0.6.0</a></li>
+          <li><a href=" https://github.com/trobonox/kanri ">kanri 0.6.1</a></li>
           <li><a href=" https://github.com/reem/rust-mac.git ">mac 0.1.1</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk 0.6.0</a></li>
           <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk-context 0.1.1</a></li>
@@ -7636,7 +7636,6 @@ SOFTWARE.</pre>
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://gitlab.redox-os.org/redox-os/syscall ">redox_syscall 0.3.5</a></li>
           <li><a href=" https://gitlab.redox-os.org/redox-os/syscall ">redox_syscall 0.4.1</a></li>
         </ul>
         <pre class="license-text">Copyright (c) 2017 Redox OS Developers
@@ -8354,7 +8353,7 @@ DEALINGS IN THE SOFTWARE.
         </h3>
         <h4>Used by:</h4>
         <ul class="license-used-by">
-          <li><a href=" https://github.com/winnow-rs/winnow ">winnow 0.5.19</a></li>
+          <li><a href=" https://github.com/winnow-rs/winnow ">winnow 0.5.26</a></li>
         </ul>
         <pre class="license-text">Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -9082,6 +9081,8 @@ THE SOFTWARE.
         <ul class="license-used-by">
           <li><a href=" https://github.com/BurntSushi/aho-corasick ">aho-corasick 1.1.2</a></li>
           <li><a href=" https://github.com/BurntSushi/byteorder ">byteorder 1.5.0</a></li>
+          <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/globset ">globset 0.4.14</a></li>
+          <li><a href=" https://github.com/BurntSushi/ripgrep/tree/master/crates/ignore ">ignore 0.4.21</a></li>
           <li><a href=" https://github.com/BurntSushi/memchr ">memchr 2.6.4</a></li>
           <li><a href=" https://github.com/BurntSushi/regex-automata ">regex-automata 0.1.10</a></li>
           <li><a href=" https://github.com/BurntSushi/same-file ">same-file 1.0.6</a></li>

@@ -33,7 +33,7 @@
 
     <pre>
 Name: @vue/shared
-Version: 3.3.8
+Version: 3.3.12
 License: MIT
 Private: false
 Description: internal utils shared across @vue packages
@@ -69,7 +69,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/reactivity
-Version: 3.3.8
+Version: 3.3.12
 License: MIT
 Private: false
 Description: @vue/reactivity
@@ -105,7 +105,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-core
-Version: 3.3.8
+Version: 3.3.12
 License: MIT
 Private: false
 Description: @vue/runtime-core
@@ -141,7 +141,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-dom
-Version: 3.3.8
+Version: 3.3.12
 License: MIT
 Private: false
 Description: @vue/runtime-dom
@@ -382,7 +382,7 @@ SOFTWARE.
 ---
 
 Name: tailwindcss
-Version: 3.3.5
+Version: 3.3.6
 License: MIT
 Private: false
 Description: A utility-first CSS framework for rapidly building custom user interfaces.
@@ -437,7 +437,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 Name: @unhead/shared
-Version: 1.8.7
+Version: 1.8.9
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -447,7 +447,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: @unhead/dom
-Version: 1.8.7
+Version: 1.8.9
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -457,7 +457,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: unhead
-Version: 1.8.7
+Version: 1.8.9
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -467,7 +467,7 @@ Author: Harlan Wilton &lt;harlan@harlanzw.com>
 ---
 
 Name: @unhead/vue
-Version: 1.8.7
+Version: 1.8.9
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -864,7 +864,7 @@ SOFTWARE.
 ---
 
 Name: @tauri-apps/api
-Version: 1.5.1
+Version: 1.5.2
 License: Apache-2.0 OR MIT
 Private: false
 Description: Tauri API definitions
@@ -1167,7 +1167,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-model
-Version: 1.19.3
+Version: 1.19.4
 License: MIT
 Private: false
 Description: ProseMirror's document model
@@ -1263,7 +1263,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-view
-Version: 1.32.4
+Version: 1.32.7
 License: MIT
 Private: false
 Description: ProseMirror's view component
@@ -1843,7 +1843,7 @@ SOFTWARE.
 ---
 
 Name: @vueuse/shared
-Version: 10.6.1
+Version: 10.7.0
 License: MIT
 Private: false
 Repository: git+https://github.com/vueuse/vueuse.git
@@ -1878,7 +1878,7 @@ SOFTWARE.
 ---
 
 Name: @vueuse/core
-Version: 10.6.1
+Version: 10.7.0
 License: MIT
 Private: false
 Description: Collection of essential Vue Composition Utilities
@@ -2172,10 +2172,10 @@ SOFTWARE.
 ---
 
 Name: @noble/hashes
-Version: 1.3.2
+Version: 1.3.3
 License: MIT
 Private: false
-Description: Audited & minimal 0-dependency JS implementation of SHA2, SHA3, RIPEMD, BLAKE2/3, HMAC, HKDF, PBKDF2, Scrypt
+Description: Audited & minimal 0-dependency JS implementation of SHA, RIPEMD, BLAKE, HMAC, HKDF, PBKDF & Scrypt
 Repository: https://github.com/paulmillr/noble-hashes.git
 Homepage: https://paulmillr.com/noble/
 Author: Paul Miller (https://paulmillr.com)
@@ -2243,7 +2243,7 @@ SOFTWARE.
 ---
 
 Name: radix-vue
-Version: 1.2.3
+Version: 1.2.5
 License: MIT
 Private: false
 Description: Vue port for Radix UI Primitives.
