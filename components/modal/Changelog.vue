@@ -20,7 +20,12 @@
         </div>
         <p class="mr-8 mt-6">
           Welcome to Kanri! With this small releaes, following bug has been resolved: <br>
-          - Fixed a bug where the checkbox status of card tasks was not persistently saved<br>
+          - Fixed a bug where the checkbox status of card tasks was not persistently saved<br> <br>
+          To quickly get notified about fixes to important features like this, please join <a
+            class="text-accent text-accent-darker-hover"
+            href="https://discord.gg/AVqHrvxB9C"
+            target="_blank"
+          >the official Discord server.</a>
         </p>
         <div class="mt-6 flex justify-between">
           <button
