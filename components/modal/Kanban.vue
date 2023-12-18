@@ -94,7 +94,7 @@
                       <CheckboxRoot
                         v-model:checked="task.finished"
                         class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex h-5 w-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
-                        @checked="updateCardTasks"
+                        @update:checked="updateCardTasks()"
                       >
                         <CheckboxIndicator class="flex h-full w-full items-center justify-center rounded">
                           <PhCheck
