@@ -19,15 +19,13 @@
           />
         </div>
         <p class="mr-8 mt-6">
-          Welcome to Kanri! With this new release, following new features and fixes have been released: <br> <br>
-          - Use rich text in card description (using shortcuts similar to Markdown) <br>
-          - Custom colors for cards <br>
-          - Improved light mode <br>
-          - Directly edit columns from the popup for creating a new board <br>
-          - Import checklist items from Trello® <br>
-          - Feature to disable all animations from settings <br>
-          - Clicking on the Kanri icon in the sidebar acts as a home button <br>
-          - Other miscellaneous fixes and improvements (full changelog available in the GitHub release notes)
+          Welcome to Kanri! With this small releaes, following bug has been resolved: <br>
+          - Fixed a bug where the checkbox status of card tasks was not persistently saved<br> <br>
+          To quickly get notified about fixes to important features like this, please join <a
+            class="text-accent text-accent-darker-hover"
+            href="https://discord.gg/AVqHrvxB9C"
+            target="_blank"
+          >the official Discord server.</a>
         </p>
         <div class="mt-6 flex justify-between">
           <button
