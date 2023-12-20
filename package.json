@@ -18,7 +18,7 @@
     "devDependencies": {
         "@nuxt/eslint-config": "0.2.0",
         "@nuxtjs/tailwindcss": "6.10.1",
-        "@tauri-apps/cli": "1.5.8",
+        "@tauri-apps/cli": "1.5.9",
         "@types/node": "^18.11.18",
         "@vueuse/core": "^10.2.1",
         "@vueuse/nuxt": "^10.2.1",
@@ -34,7 +34,7 @@
         "@paralleldrive/cuid2": "^2.1.0",
         "@phosphor-icons/vue": "^2.1.6",
         "@pinia/nuxt": "0.5.1",
-        "@tauri-apps/api": "1.5.2",
+        "@tauri-apps/api": "1.5.3",
         "@tiptap/extension-typography": "2.1.13",
         "@tiptap/pm": "2.1.13",
         "@tiptap/starter-kit": "2.1.13",
