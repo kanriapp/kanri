@@ -493,8 +493,8 @@ const getBoardTitleTextColor = async () => {
  * Kanban card utility methods for editing, deleting, etc.
  */
 
-const saveColumnRef = (ref: any, columnId: String) => {
-    colRefs[columnId.toString()] = ref;
+const saveColumnRef = (ref: any, columnId: string) => {
+    colRefs[columnId] = ref;
 }
 
 const setCardTitle = (columnId: string, cardId: number, title: string) => {
