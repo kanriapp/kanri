@@ -1439,11 +1439,6 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/merge-streams/-/merge-streams-1.0.0.tgz#9cd84cc15bc865a5ca35fcaae198eb899f7b5c90"
   integrity sha512-rUV5WyJrJLoloD4NDN1V1+LDMDWOa4OTsT4yYJwQNpTU6FWxkxHpL7eu4w+DmiH8x/EAM1otkPE1+LaspIbplw==
 
-"@tauri-apps/api@1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.5.1.tgz#9074476c4323f71351db624e9711c99277cdfb99"
-  integrity sha512-6unsZDOdlXTmauU3NhWhn+Cx0rODV+rvNvTdvolE5Kls5ybA6cqndQENDt1+FS0tF7ozCP66jwWoH6a5h90BrA==
-
 "@tauri-apps/api@1.5.3":
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.5.3.tgz#f7b362b1f30aadb0a8bbeb7ae111755c0ed33d73"
@@ -6730,11 +6725,12 @@ tar@^6.1.11, tar@^6.1.2, tar@^6.2.0:
   dependencies:
     "@tauri-apps/api" "1.5.3"
 
-"tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#3367248b2661abcb73d2a89f30df780c387fb57d":
+"tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#7d2632996f290b0f18cc5f8a2b2791046400690e":
   version "0.0.0"
-  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/3367248b2661abcb73d2a89f30df780c387fb57d"
+  uid "7d2632996f290b0f18cc5f8a2b2791046400690e"
+  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/7d2632996f290b0f18cc5f8a2b2791046400690e"
   dependencies:
-    "@tauri-apps/api" "1.5.1"
+    "@tauri-apps/api" "1.5.3"
 
 terser@5.26.0, terser@^5.17.4:
   version "5.26.0"
