@@ -248,6 +248,7 @@ const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
 const draggingEnabled = ref(true);
 
+const boardTitleColor = ref("");
 const boardTitleEditing = ref(false);
 const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 
@@ -271,8 +272,6 @@ const removeColumnModalVisible = ref(false);
 const removeCardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const renameBoardModalVisible = ref(false);
-
-const boardTitleColor = ref("");
 
 const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
 const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
@@ -702,6 +701,18 @@ const deleteBoard = async (boardIndex: number | undefined) => {
     router.push("/");
 };
 
+const enableBoardTitleEditing = () => {
+    boardTitleEditing.value = true;
+}
+
+const getBoardIndex = () => {
+    return boards.value.indexOf(board.value);
+}
+
+/**
+ * Board background utilities
+ */
+
 const setBackgroundImage = async (img: string) => {
     bgCustomNoResolution.value = img;
     bgCustom.value = convertFileSrc(img);
@@ -731,14 +742,6 @@ const setBrightness = (brightnessAmount: string) => {
     bgBrightness.value = brightnessAmount;
     board.value.background = {blur: bgBlur.value, brightness: bgBrightness.value, src: bgCustomNoResolution.value};
     updateStorage();
-}
-
-const enableBoardTitleEditing = () => {
-    boardTitleEditing.value = true;
-}
-
-const getBoardIndex = () => {
-    return boards.value.indexOf(board.value);
 }
 </script>
 
