@@ -16,9 +16,11 @@
       @setBlur="setBlur"
       @setBrightness="setBrightness"
     />
-    <ModalKanban
+    <ModalEditCard
       v-show="kanbanModalVisible"
-      ref="kanbanModal"
+      :card="currentlyActiveCardInfo.card"
+      :card-index-prop="currentlyActiveCardInfo.cardIndex"
+      :column-id="currentlyActiveCardInfo.columnId"
       @closeModal="closeKanbanModal"
       @setCardColor="setCardColor"
       @setCardDescription="setCardDescription"
@@ -57,6 +59,7 @@
       @closeModal="cardRemoveDialog.cancel()"
       @confirmAction="cardRemoveDialog.confirm(true)"
     />
+
     <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
       <h1
         v-if="!boardTitleEditing"
@@ -83,6 +86,7 @@
           updateStorage();
         "
       >
+
       <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
         <div class="flex flex-row gap-2">
           <button
@@ -93,6 +97,7 @@
             <span class="my-auto ml-0.5">Change Background</span>
           </button>
         </div>
+
         <div class="flex flex-row">
           <button
             v-tooltip.top-center="'Increase zoom level'"
@@ -115,6 +120,7 @@
           >
             <MagnifyingGlassMinusIcon class="h-5 w-5" />
           </button>
+
           <VDropdown
             :distance="2"
             placement="bottom-end"
@@ -163,6 +169,7 @@
         </div>
       </div>
     </div>
+
     <div
       id="kanban-cols-container"
       v-dragscroll:nochilddrag
@@ -224,7 +231,7 @@ import type { Board, Card, Column } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
-import { default as KanbanModal } from "@/components/modal/Kanban.vue";
+import { default as EditCardModal } from "@/components/modal/EditCard.vue";
 import { useTauriStore } from "@/stores/tauriStore";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
@@ -266,7 +273,8 @@ const bgBrightness = ref("100%");
 
 const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
 const kanbanModalVisible = ref(false);
-const kanbanModal = ref<InstanceType<typeof KanbanModal> | null>(null);
+
+const currentlyActiveCardInfo: { card: Card | null, cardIndex: number, columnId: string} = reactive({ card: null, cardIndex: -1, columnId: '' })
 
 const removeColumnModalVisible = ref(false);
 const removeCardModalVisible = ref(false);
@@ -514,11 +522,16 @@ const setCardTasks = (columnId: string, cardId: number, tasks: Array<{finished: 
 
 // Kanban card modal
 const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
-    kanbanModalVisible.value = true;
-    draggingEnabled.value = false;
+    currentlyActiveCardInfo.columnId = columnId;
+    currentlyActiveCardInfo.cardIndex = cardIndex;
+    currentlyActiveCardInfo.card = el;
 
-    if (kanbanModal.value == null) return;
-    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description, el.tasks, el.color);
+    console.log(currentlyActiveCardInfo);
+
+    nextTick(() => {
+        kanbanModalVisible.value = true;
+        draggingEnabled.value = false;
+    });
 }
 
 const closeKanbanModal = (columnId: string) => {

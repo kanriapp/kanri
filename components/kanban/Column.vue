@@ -359,10 +359,6 @@ const openKanbanModal = (index: number, el: Card) => {
     emit("openKanbanModal", props.id, index, el);
 };
 
-const closeModal = () => {
-    enableDragging();
-};
-
 const updateStorage = () => {
     const column = {
         cards: cards.value,
@@ -373,7 +369,7 @@ const updateStorage = () => {
     emit("updateStorage", column);
 };
 
-defineExpose({ closeModal, enableDragging, removeCard, setCardColor, setCardDescription, setCardTasks, setCardTitle });
+defineExpose({ enableDragging, removeCard, setCardColor, setCardDescription, setCardTasks, setCardTitle });
 </script>
 
 <style scoped>

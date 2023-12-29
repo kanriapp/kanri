@@ -4,7 +4,11 @@
 
 <template>
   <Modal
-    @closeModal="$emit('closeModal', columnID); titleEditing = false; taskAddMode = false"
+    @closeModal="
+      $emit('closeModal', columnID);
+      titleEditing = false;
+      taskAddMode = false
+    "
   >
     <template #content>
       <div class="flex min-h-[40rem] w-[36rem] flex-col">
@@ -306,6 +310,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Card } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter"
@@ -315,6 +320,12 @@ import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
+
+const props = defineProps<{
+    card: Card | null,
+    cardIndexProp: number,
+    columnId: string,
+}>();
 
 const emit = defineEmits<{
     (e: "closeModal", columnID: string): void,
@@ -350,43 +361,6 @@ const draggingEnabled = ref(true);
 const enableTitleEditing = () => {
     emitter.emit("modalPreventClickOutsideClose");
     titleEditing.value = true;
-}
-
-const initModal = (
-    columnIDParam: string,
-    cardIndexParam: number,
-    titleParam: string,
-    descriptionParam?: string,
-    tasksParam?: Array<{ finished: boolean, id?: string, name: string  }>,
-    selectedColorParam?: string
-) => {
-    newTaskName.value = "";
-
-    columnID.value = columnIDParam;
-    cardIndex.value = cardIndexParam;
-    title.value = titleParam;
-    description.value = descriptionParam || "";
-
-    /**
-     * Enforce adding IDs to all card tasks
-     * TODO: Potentially remove later on in a version with breaking change to make ID non-optional
-    */
-    const savedTasks = tasksParam || [];
-    if (savedTasks.length > 0) {
-        savedTasks.forEach(task => {
-            if (!task.id) {
-                console.log("this should not happen again");
-                task.id = generateUniqueID();
-            }
-        });
-    }
-    tasks.value = savedTasks;
-    updateCardTasks();
-
-    selectedColor.value = selectedColorParam || "bg-elevation-2";
-    if (selectedColorParam?.startsWith('#')) {
-        customColor.value = selectedColorParam;
-    }
 }
 
 const enableTaskAddMode = () => {
@@ -473,5 +447,38 @@ watch(customColor, (newVal, oldVal) => {
     }
 });
 
-defineExpose({ initModal });
+watch(props, (newVal) => {
+    if (newVal) {
+        if (!newVal.card) return;
+
+        newTaskName.value = "";
+
+        columnID.value = newVal.columnId;
+        cardIndex.value = newVal.cardIndexProp;
+
+
+        title.value = newVal.card.name;
+        description.value = newVal.card.description || "";
+
+        /**
+         * Enforce adding IDs to all card tasks
+         * TODO: Potentially remove later on in a version with breaking change to make ID non-optional
+        */
+        const savedTasks = newVal.card.tasks || [];
+        if (savedTasks.length > 0) {
+            savedTasks.forEach(task => {
+                if (!task.id) {
+                    console.log("this should not happen again");
+                    task.id = generateUniqueID();
+                }
+            });
+        }
+        tasks.value = savedTasks;
+
+        selectedColor.value = newVal.card.color || "bg-elevation-2";
+        if (newVal.card.color?.startsWith('#')) {
+            customColor.value = newVal.card.color;
+        }
+    }
+})
 </script>
