@@ -28,7 +28,8 @@ export declare interface Card {
     id?: string,
     name: string,
     tasks?: Array<{
-        finished: boolean
+        finished: boolean,
+        id?: string,
         name: string,
     }>,
 }
