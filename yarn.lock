@@ -3222,9 +3222,9 @@ eslint-plugin-perfectionist@^2.2.0:
     natural-compare-lite "^1.4.0"
 
 eslint-plugin-tailwindcss@^3.8.0:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-3.13.0.tgz#60858cdc8888da2deda5f200c1b163b211c4b8fa"
-  integrity sha512-Fcep4KDRLWaK3KmkQbdyKHG0P4GdXFmXdDaweTIPcgOP60OOuWFbh1++dufRT28Q4zpKTKaHwTsXPJ4O/EjU2Q==
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-3.13.1.tgz#40b26aa7cbde3dfe55b1a343258b5b495628dc06"
+  integrity sha512-2Nlgr9doO6vFAG9w4iGU0sspWXuzypfng10HTF+dFS2NterhweWtgdRvf/f7aaoOUUxVZM8wMIXzazrZ7CxyeA==
   dependencies:
     fast-glob "^3.2.5"
     postcss "^8.4.4"
