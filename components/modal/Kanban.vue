@@ -189,7 +189,7 @@
           <div class="mb-6 flex flex-row gap-4">
             <button
               class="h-7 w-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
-              @click="setCardColor(columnID, cardID, 'bg-pink-600')"
+              @click="setCardColor(columnID, cardIndex, 'bg-pink-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-pink-600'"
@@ -198,7 +198,7 @@
             </button>
             <button
               class="h-7 w-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
-              @click="setCardColor(columnID, cardID, 'bg-red-600')"
+              @click="setCardColor(columnID, cardIndex, 'bg-red-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-red-600'"
@@ -207,7 +207,7 @@
             </button>
             <button
               class="h-7 w-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
-              @click="setCardColor(columnID, cardID, 'bg-orange-600')"
+              @click="setCardColor(columnID, cardIndex, 'bg-orange-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-orange-600'"
@@ -216,7 +216,7 @@
             </button>
             <button
               class="h-7 w-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
-              @click="setCardColor(columnID, cardID, 'bg-yellow-600')"
+              @click="setCardColor(columnID, cardIndex, 'bg-yellow-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-yellow-600'"
@@ -225,7 +225,7 @@
             </button>
             <button
               class="h-7 w-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
-              @click="setCardColor(columnID, cardID, 'bg-green-600')"
+              @click="setCardColor(columnID, cardIndex, 'bg-green-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-green-600'"
@@ -234,7 +234,7 @@
             </button>
             <button
               class="h-7 w-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
-              @click="setCardColor(columnID, cardID, 'bg-teal-600')"
+              @click="setCardColor(columnID, cardIndex, 'bg-teal-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-teal-600'"
@@ -243,7 +243,7 @@
             </button>
             <button
               class="h-7 w-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
-              @click="setCardColor(columnID, cardID, 'bg-blue-600')"
+              @click="setCardColor(columnID, cardIndex, 'bg-blue-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-blue-600'"
@@ -252,7 +252,7 @@
             </button>
             <button
               class="h-7 w-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
-              @click="setCardColor( columnID, cardID, 'bg-purple-600')"
+              @click="setCardColor( columnID, cardIndex, 'bg-purple-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-purple-600'"
@@ -261,7 +261,7 @@
             </button>
             <button
               class="bg-elevation-2 bg-elevation-3-hover h-7 w-7 rounded-full py-1 pl-1.5 pr-1"
-              @click="setCardColor(columnID, cardID, 'bg-elevation-2')"
+              @click="setCardColor(columnID, cardIndex, 'bg-elevation-2')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-elevation-2'"
@@ -271,7 +271,7 @@
             <button
               :class="`h-7 w-7 rounded-full py-1 pl-1.5 pr-1`"
               :style="{'background-color': customColor}"
-              @click="setCardColor(columnID, cardID, customColor)"
+              @click="setCardColor(columnID, cardIndex, customColor)"
             >
               <CheckIcon
                 v-if="isCustomColor"
@@ -326,7 +326,7 @@ const emit = defineEmits<{
 }>();
 
 const columnID = ref("");
-const cardID = ref(0);
+const cardIndex = ref(0);
 const title = ref("");
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
@@ -354,7 +354,8 @@ const enableTitleEditing = () => {
 }
 
 const initModal = (
-    columnIDParam: string, cardIdParam: number,
+    columnIDParam: string,
+    cardIndexParam: number,
     titleParam: string,
     descriptionParam?: string,
     tasksParam?: Array<{ finished: boolean, id?: string, name: string  }>,
@@ -363,7 +364,7 @@ const initModal = (
     newTaskName.value = "";
 
     columnID.value = columnIDParam;
-    cardID.value = cardIdParam;
+    cardIndex.value = cardIndexParam;
     title.value = titleParam;
     description.value = descriptionParam || "";
 
@@ -445,11 +446,11 @@ const updateTask = (index: number) => {
 }
 
 const updateCardTasks = () => {
-    emit("setCardTasks", columnID.value, cardID.value, tasks.value);
+    emit("setCardTasks", columnID.value, cardIndex.value, tasks.value);
 }
 
 const updateDescription = () => {
-    emit("setCardDescription", columnID.value, cardID.value, description.value);
+    emit("setCardDescription", columnID.value, cardIndex.value, description.value);
     emitter.emit("modalEnableClickOutsideClose");
 }
 
@@ -459,17 +460,17 @@ const updateTitle = () => {
     if (title.value == null || !(/\S/.test(title.value))) return;
 
     titleEditing.value = false;
-    emit("setCardTitle", columnID.value, cardID.value, title.value);
+    emit("setCardTitle", columnID.value, cardIndex.value, title.value);
 }
 
-const setCardColor = (columnID: string, cardID: number, color: string) => {
+const setCardColor = (columnID: string, cardIndex: number, color: string) => {
     selectedColor.value = color;
-    emit('setCardColor', columnID, cardID, color);
+    emit('setCardColor', columnID, cardIndex, color);
 }
 
 watch(customColor, (newVal, oldVal) => {
     if (newVal !== oldVal) {
-        setCardColor(columnID.value, cardID.value, newVal);
+        setCardColor(columnID.value, cardIndex.value, newVal);
     }
 });
 
