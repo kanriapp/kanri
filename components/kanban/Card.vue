@@ -39,6 +39,7 @@
           @keypress.enter="updateCardName"
         />
       </p>
+
       <ClickCounter
         class="cursor-pointer"
         @double-click="deleteCardWithAnimation(index)"
@@ -50,6 +51,7 @@
         />
       </ClickCounter>
     </div>
+
     <div
       class="flex flex-row items-center gap-2"
       @click="$emit('openKanbanModal', index, card)"
@@ -59,6 +61,7 @@
         :class="[cardTextColorDim]"
         class="h-5 w-5"
       />
+
       <div
         v-if="tasks && taskCompletionStatus !== '0/0'"
         :class="{'bg-accent text-buttons rounded-sm px-1': allTasksCompleted}"
@@ -145,7 +148,6 @@ const allTasksCompleted = computed(() => {
 
     if (totalTasks === completedTasks) return true;
 })
-
 
 const cardTextClassZoom = computed(() => {
     switch (props.zoomLevel) {
