@@ -4,7 +4,6 @@
 
 <template>
   <Modal
-    ref="barebonesModal"
     @closeModal="$emit('closeModal', columnID); titleEditing = false; taskAddMode = false"
   >
     <template #content>
