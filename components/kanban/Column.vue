@@ -338,21 +338,6 @@ const setCardTitle = (cardIndex: number, name: string) => {
     updateStorage();
 };
 
-const setCardDescription = (cardIndex: number, description: string) => {
-    cards.value[cardIndex].description = description;
-    updateStorage();
-};
-
-const setCardColor = (cardIndex: number, color: string) => {
-    cards.value[cardIndex].color = color;
-    updateStorage();
-};
-
-const setCardTasks = (cardIndex: number, tasks: Array<{finished: boolean, name: string}>) => {
-    cards.value[cardIndex].tasks = tasks;
-    updateStorage();
-};
-
 const openKanbanModal = (index: number, el: Card) => {
     disableDragging();
 
@@ -369,7 +354,7 @@ const updateStorage = () => {
     emit("updateStorage", column);
 };
 
-defineExpose({ enableDragging, removeCard, setCardColor, setCardDescription, setCardTasks, setCardTitle });
+defineExpose({ enableDragging, removeCard });
 </script>
 
 <style scoped>

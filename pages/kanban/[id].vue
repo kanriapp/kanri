@@ -504,20 +504,37 @@ const saveColumnRef = (ref: any, columnId: string) => {
     colRefs[columnId] = ref;
 }
 
-const setCardTitle = (columnId: string, cardId: number, title: string) => {
-    colRefs[columnId].setCardTitle(cardId, title);
+type CardMutateFunction = (card: Card) => void;
+
+const mutateCardData = (columnId: string, cardIndex: number, mutateCard: CardMutateFunction) => {
+    const column = findObjectById<Column>(board.value.columns, columnId);
+    const card = column.cards[cardIndex];
+    mutateCard(card);
+    updateColumnProperties(column);
 }
 
-const setCardDescription = (columnId: string, cardId: number, description: string) => {
-    colRefs[columnId].setCardDescription(cardId, description);
+const setCardTitle = (columnId: string, cardIndex: number, title: string) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.name = title;
+    })
 }
 
-const setCardColor = (columnId: string, cardId: number, color: string) => {
-    colRefs[columnId].setCardColor(cardId, color);
+const setCardDescription = (columnId: string, cardIndex: number, description: string) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.description = description;
+    })
 }
 
-const setCardTasks = (columnId: string, cardId: number, tasks: Array<{finished: boolean, name: string}>) => {
-    colRefs[columnId].setCardTasks(cardId, tasks);
+const setCardColor = (columnId: string, cardIndex: number, color: string) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.color = color;
+    })
+}
+
+const setCardTasks = (columnId: string, cardIndex: number, tasks: Card['tasks']) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tasks = tasks;
+    })
 }
 
 // Kanban card modal
@@ -525,8 +542,6 @@ const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
     currentlyActiveCardInfo.columnId = columnId;
     currentlyActiveCardInfo.cardIndex = cardIndex;
     currentlyActiveCardInfo.card = el;
-
-    console.log(currentlyActiveCardInfo);
 
     nextTick(() => {
         kanbanModalVisible.value = true;
