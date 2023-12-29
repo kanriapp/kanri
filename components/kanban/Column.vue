@@ -195,6 +195,14 @@ onMounted(() => {
         titleEditing.value = false;
     });
 
+    emitter.on("columnDraggingOn", () => {
+        enableDragging();
+    });
+
+    emitter.on("columnDraggingOff", () => {
+        disableDragging();
+    })
+
     /**
      * Enforce adding IDs to all cards
      * TODO: Potentially remove later on in a version with breaking change to make ID non-optional
@@ -353,8 +361,6 @@ const updateStorage = () => {
 
     emit("updateStorage", column);
 };
-
-defineExpose({ enableDragging, removeCard });
 </script>
 
 <style scoped>

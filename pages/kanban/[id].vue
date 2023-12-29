@@ -193,7 +193,6 @@
               >
                 <KanbanColumn
                   :id="column.id"
-                  :ref="(el) => saveColumnRef(el, column.id)"
                   :cards-list="column.cards"
                   :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
                   :col-index="index"
@@ -231,7 +230,6 @@ import type { Board, Card, Column } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
-import { default as EditCardModal } from "@/components/modal/EditCard.vue";
 import { useTauriStore } from "@/stores/tauriStore";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
@@ -500,10 +498,6 @@ const getBoardTitleTextColor = async () => {
  * Kanban card utility methods for editing, deleting, etc.
  */
 
-const saveColumnRef = (ref: any, columnId: string) => {
-    colRefs[columnId] = ref;
-}
-
 type CardMutateFunction = (card: Card) => void;
 
 const mutateCardData = (columnId: string, cardIndex: number, mutateCard: CardMutateFunction) => {
@@ -549,10 +543,10 @@ const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
     });
 }
 
-const closeKanbanModal = (columnId: string) => {
+const closeKanbanModal = () => {
     kanbanModalVisible.value = false;
     draggingEnabled.value = true;
-    colRefs[columnId].enableDragging();
+    emitter.emit("columnDraggingOn");
 }
 
 const removeCardWithConfirmation = async (columnId: string, cardIndex: number, cardRef: Ref<HTMLElement | null>) => {
@@ -569,7 +563,9 @@ const removeCardWithConfirmation = async (columnId: string, cardIndex: number, c
         cardRef.value.classList.value = oldClasses + " card-hidden";
 
         setTimeout(() => {
-            colRefs[columnId].removeCard(cardIndex);
+            const column = findObjectById<Column>(board.value.columns, columnId);
+            column.cards.splice(cardIndex, 1);
+            updateColumnProperties(column);
 
             if (!cardRef.value) return;
             cardRef.value.classList.value = oldClasses;
@@ -577,7 +573,7 @@ const removeCardWithConfirmation = async (columnId: string, cardIndex: number, c
     }
 
     draggingEnabled.value = true;
-    colRefs[columnId].enableDragging();
+    emitter.emit("columnDraggingOn");
 }
 
 /**
@@ -609,7 +605,7 @@ const openColumnRemoveDialog = async (columnID: string) => {
     }
 
     draggingEnabled.value = true;
-    colRefs[columnID].enableDragging();
+    emitter.emit("columnDraggingOn");
 }
 
 const removeColumn = (columnID: string) => {

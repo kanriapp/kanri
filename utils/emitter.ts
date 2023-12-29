@@ -2,14 +2,17 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Board } from '@/types/kanban-types';
+import type { Board, Column } from '@/types/kanban-types';
 
-import emitter from "@/utils/emitter";
 import mitt from 'mitt';
 
 type Events = {
     closeKanbanPage: void;
+
     columnActionDone: void;
+    columnDraggingOff: void;
+    columnDraggingOn: void;
+
     createBoard: { columns?: Array<Column>, title: string };
 
     enableColumnCardAddMode: string;
