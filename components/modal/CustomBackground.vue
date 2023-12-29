@@ -25,7 +25,7 @@
             </h2>
             <div
               v-if="background.length > 0"
-              class="img-container max-w-56 relative inline-block"
+              class="img-container relative inline-block max-w-56"
               @click="getCustomBg"
             >
               <img
@@ -150,6 +150,8 @@ const saveSettings = () => {
 
 const resetSettings = () => {
     optionsEdited.value = false;
+    bgBlur.value = "8";
+    bgBrightness.value = "100";
 
     emit("setBlur", "8px");
     emit("setBrightness", "100%");
