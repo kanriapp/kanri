@@ -4,6 +4,7 @@
 
 <template>
   <Modal
+    :blur-background="false"
     @closeModal="
       $emit('closeModal', columnID);
       titleEditing = false;
