@@ -34,6 +34,7 @@
         "@paralleldrive/cuid2": "^2.1.0",
         "@phosphor-icons/vue": "^2.1.6",
         "@pinia/nuxt": "0.5.1",
+        "@popperjs/core": "^2.11.8",
         "@tauri-apps/api": "1.5.3",
         "@tiptap/extension-typography": "2.1.13",
         "@tiptap/pm": "2.1.13",
@@ -45,6 +46,7 @@
         "radix-vue": "^1.2.2",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#a534e61e246e6d96ab938fcd3e644dcb74d5c0bf",
         "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#7d2632996f290b0f18cc5f8a2b2791046400690e",
+        "v-calendar": "^3.1.2",
         "vue-dragscroll": "^4.0.5",
         "vue3-smooth-dnd": "0.0.6",
         "zod": "^3.20.6"
