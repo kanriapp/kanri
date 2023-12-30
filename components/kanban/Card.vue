@@ -11,7 +11,7 @@
     @click.self="$emit('openKanbanModal', index, card)"
   >
     <div
-      :class="{'pb-1.5': ((!tasks || tasks.length === 0) && (!description || !(/\S/.test(description))))}"
+      :class="{'pb-1.5': ((!tasks || tasks.length === 0) && isDescriptionEmpty )}"
       class="flex w-full flex-row items-center justify-between"
     >
       <p
@@ -57,7 +57,7 @@
       @click="$emit('openKanbanModal', index, card)"
     >
       <PhTextAlignLeft
-        v-if="description && (/\S/.test(description))"
+        v-if="!isDescriptionEmpty"
         :class="[cardTextColorDim]"
         class="h-5 w-5"
       />
@@ -130,6 +130,13 @@ watch(props, (_, newData) => {
 onMounted(async () => {
     savedColors.value = await store.get("colors");
 })
+
+const isDescriptionEmpty = computed(() => {
+    if (!description.value) return true;
+    if (description.value == "<p></p>" || !(/\S/.test(description.value))) return true;
+
+    return false;
+});
 
 const taskCompletionStatus = computed(() => {
     if (!tasks.value) return "0/0";
