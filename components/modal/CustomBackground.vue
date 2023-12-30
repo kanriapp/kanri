@@ -4,7 +4,7 @@
 
 <template>
   <Modal
-    :click-outside-to-close="!optionsEdited"
+    :click-outside-to-close="true"
     @closeModal="$emit('closeModal')"
   >
     <template #content>
@@ -51,8 +51,8 @@
             id="bg-blur"
             class="w-full"
           >
-            <h2 class="mb-2 text-lg font-semibold">
-              Background blur:
+            <h2 class="mb-2">
+              <span class="text-lg font-semibold">Background blur strength:</span> {{ bgBlurString }}
             </h2>
             <div class="slider">
               <input
@@ -62,11 +62,7 @@
                 min="0"
                 oninput="rangeValue.innerText = this.value"
                 type="range"
-                @change="optionsEdited = true"
               >
-              <p id="rangeValue">
-                {{ bgBlurString }}
-              </p>
             </div>
           </section>
           <section
@@ -74,8 +70,8 @@
             id="bg-brightness"
             class="w-full"
           >
-            <h2 class="mb-2 text-lg font-semibold">
-              Background brightness:
+            <h2 class="mb-2">
+              <span class="text-lg font-semibold">Background brightness:</span> {{ bgBrightnessString }}%
             </h2>
             <div class="slider">
               <input
@@ -85,30 +81,18 @@
                 min="0"
                 oninput="rangeValue.innerText = this.value"
                 type="range"
-                @change="optionsEdited = true"
               >
-              <p id="rangeValue">
-                {{ bgBrightnessString }}
-              </p>
             </div>
           </section>
-          <div class="flex flex-col gap-2">
-            <button
-              v-if="background.length > 0"
-              class="bg-accent text-buttons transition-button mt-8 w-full rounded-md px-2 py-1"
-              @click="saveSettings(); $emit('closeModal')"
-            >
-              Save Background Settings
-            </button>
-            <button
-              v-if="background.length > 0"
-              class="bg-elevation-2-hover transition-button w-full rounded-md px-2 py-1"
-              @click="resetSettings()"
-            >
-              Reset Background Image
-            </button>
-          </div>
         </div>
+        <button
+          v-if="background.length > 0"
+          class="bg-elevation-2 bg-elevation-3-hover transition-button mt-8 flex flex-row gap-2 rounded-md px-4 py-1.5"
+          @click="resetSettings()"
+        >
+          <XMarkIcon class="h-6 w-6" />
+          Reset Background Image
+        </button>
       </main>
     </template>
   </Modal>
@@ -128,11 +112,25 @@ const props = defineProps<{
     bgBrightnessProp: string;
 }>();
 
-const optionsEdited = ref(false);
 const customBg = ref(props.background);
 
 const bgBlur = ref(props.bgBlurProp.replace(/[^0-9]/g, ''));
 const bgBrightness = ref(props.bgBrightnessProp.replace(/[^0-9]/g, ''));
+
+const bgBlurDebounced = refDebounced(bgBlur);
+const bgBrightnessDebounced = refDebounced(bgBrightness);
+
+watch(bgBlurDebounced, (newVal, oldVal) => {
+    if (newVal != oldVal) {
+        emit("setBlur", `${newVal}px`);
+    }
+})
+
+watch(bgBrightnessDebounced, (newVal, oldVal) => {
+    if (newVal != oldVal) {
+        emit("setBrightness", `${newVal}%`);
+    }
+})
 
 const bgBlurString = computed(() => {
     return `${bgBlur.value}`
@@ -142,14 +140,7 @@ const bgBrightnessString = computed(() => {
     return `${bgBrightness.value}`
 })
 
-const saveSettings = () => {
-    optionsEdited.value = false;
-    emit("setBlur", `${bgBlur.value}px`);
-    emit("setBrightness", `${bgBrightness.value}%`);
-}
-
 const resetSettings = () => {
-    optionsEdited.value = false;
     bgBlur.value = "8";
     bgBrightness.value = "100";
 
