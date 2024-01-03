@@ -70,4 +70,4 @@ yarn tauri build
 ```
 
 ---
-**Copyright (c) 2022-2023 trobonox (trobo@kanriapp.com)**. Licensed under the Apache 2.0 License.
+**Copyright (c) 2022-2024 trobonox (trobo@kanriapp.com)**. Licensed under the Apache 2.0 License.
