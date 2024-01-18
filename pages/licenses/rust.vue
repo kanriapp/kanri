@@ -1,5 +1,5 @@
 <!-- eslint-disable no-mixed-spaces-and-tabs -->
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 

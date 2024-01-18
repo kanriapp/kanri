@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech> -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
@@ -83,7 +83,7 @@
           We are not affiliated, associated, authorized, endorsed by or in any way officially connected to Trello, Inc. (www.trello.com).
         </p>
         <p class="pt-2">
-          Copyright (c) 2022-2023 trobonox (hello@trobo.tech) <br>
+          Copyright (c) 2022-2024 trobonox (hello@trobo.tech) <br>
           Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}
         </p>
         <nuxt-link

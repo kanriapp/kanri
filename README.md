@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
+SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech>
 
 SPDX-License-Identifier: Apache-2.0
 -->
@@ -46,7 +46,7 @@ A granular list of priorities can be found [in the roadmap in the projects tab o
 
 This project is open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
 
-> [!NOTE]  
+> [!NOTE]
 > This project is still in active development and is provided "AS IS". Please make regular backups/exports to prevent any data loss.
 
 ## 🛠 Contributing & Build Setup
