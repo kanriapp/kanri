@@ -52,7 +52,7 @@
         "zod": "^3.20.6"
     },
     "resolutions": {
-        "terser": "5.26.0",
+        "terser": "5.27.0",
         "undici": "6.3.0",
         "json5": "2.2.3",
         "semver": "7.5.4"
