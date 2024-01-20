@@ -17,7 +17,7 @@
     },
     "devDependencies": {
         "@nuxt/eslint-config": "0.2.0",
-        "@nuxtjs/tailwindcss": "6.10.4",
+        "@nuxtjs/tailwindcss": "6.11.0",
         "@tauri-apps/cli": "1.5.9",
         "@types/node": "^18.11.18",
         "@vueuse/core": "^10.2.1",
