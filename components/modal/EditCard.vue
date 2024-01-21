@@ -125,7 +125,7 @@
                         >{{ task.name }}</span>
                       </ClickCounter>
                     </div>
-                    <div class="ml-1 flex shrink-0 flex-row items-end gap-1 self-end">
+                    <div class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center">
                       <button
                         v-if="!taskEditMode"
                         class="shrink-0"
@@ -141,6 +141,7 @@
                         <PhCheck class="text-dim-2 text-accent-hover h-4 w-4" />
                       </button>
                       <button
+                        v-if="!(taskEditMode && currentlyEditingTaskIndex === index)"
                         class="shrink-0"
                         @click="deleteTask(index)"
                       >
