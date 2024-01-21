@@ -5,7 +5,7 @@
 <template>
   <nav
     :class="zIndexDown ? '' : 'z-50'"
-    class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-4 shadow-md"
+    class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
   >
     <ModalNewBoard
       v-show="newBoardModalVisible"
@@ -26,14 +26,8 @@
         id="logo"
         class="flex flex-row rounded-md"
       >
-        <IconKanriLightMode
-          v-if="lightModeKanriIcon"
-          class="h-10 w-10"
-          @click="$router.push('/')"
-        />
         <IconKanri
-          v-else
-          class="h-10 w-10"
+          class="text-accent-logo-icon h-9 w-9 pl-1"
           @click="$router.push('/')"
         />
       </div>
@@ -142,16 +136,6 @@ onMounted(async () => {
         showAddButton.value = true;
     });
 });
-
-const lightModeKanriIcon = computed(() => {
-    if (!savedColors.value) return false;
-
-    if (getContrast(savedColors.value.elevation1) === 'text-gray-800') {
-        return true;
-    }
-
-    return false;
-})
 
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);

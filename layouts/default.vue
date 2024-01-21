@@ -21,6 +21,7 @@
 
 <script setup>
 import { useTauriStore } from "@/stores/tauriStore";
+import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes.js";
 import versionInfo from "@/version_info.json"
@@ -66,6 +67,27 @@ onMounted(async () => {
     });
 });
 
+const increaseSaturation = (hex) =>  {
+    if (hex == undefined) return;
+
+    const rgb = hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
+        ,(m, r, g, b) => '#' + r + r + g + g + b + b)
+        .substring(1).match(/.{2}/g)
+        .map(x => parseInt(x, 16))
+
+    console.log(hex, rgb);
+    const hslColor = rgbToHsl(...rgb);
+    console.log(hslColor);
+
+    hslColor[0] = Math.round(hslColor[0]);
+    hslColor[1] = Math.round(hslColor[1]) < 80 ? Math.round(hslColor[1] + 20) : Math.round(hslColor[1]);
+    hslColor[2] = Math.round(hslColor[2]);
+
+    console.log(hslColor, "pog");
+
+    return hslToHex(...hslColor);
+}
+
 const cssVars = computed(() => {
     if (!savedColors.value) {
         store.set("activeTheme", "dark");
@@ -78,6 +100,7 @@ const cssVars = computed(() => {
             "--elevation-1": dark.elevation1,
             "--elevation-2": dark.elevation2,
             "--elevation-3": dark.elevation3,
+            "--logo-accent": increaseSaturation(dark.accent),
             "--text": dark.text,
             "--text-buttons": dark.textButtons,
             "--text-dim-1": dark.textD1,
@@ -93,6 +116,7 @@ const cssVars = computed(() => {
             "--elevation-1": savedColors.value.elevation1,
             "--elevation-2": savedColors.value.elevation2,
             "--elevation-3": savedColors.value.elevation3,
+            "--logo-accent": increaseSaturation(savedColors.value.accent),
             "--text": savedColors.value.text,
             "--text-buttons": savedColors.value.textButtons,
             "--text-dim-1": savedColors.value.textD1,
@@ -187,6 +211,10 @@ const cssVars = computed(() => {
 
 .text-accent-lighter {
     color: color-mix(in srgb, var(--accent) 70%, white);
+}
+
+.text-accent-logo-icon {
+    color: var(--logo-accent);
 }
 
 .text-accent {
