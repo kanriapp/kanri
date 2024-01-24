@@ -75,15 +75,11 @@ const increaseSaturation = (hex) =>  {
         .substring(1).match(/.{2}/g)
         .map(x => parseInt(x, 16))
 
-    console.log(hex, rgb);
     const hslColor = rgbToHsl(...rgb);
-    console.log(hslColor);
 
     hslColor[0] = Math.round(hslColor[0]);
     hslColor[1] = Math.round(hslColor[1]) < 80 ? Math.round(hslColor[1] + 20) : Math.round(hslColor[1]);
     hslColor[2] = Math.round(hslColor[2]);
-
-    console.log(hslColor, "pog");
 
     return hslToHex(...hslColor);
 }
