@@ -25,7 +25,9 @@ export declare interface Column {
 export declare interface Card {
     color?: string
     description?: string,
+    dueDate?: Date,
     id?: string,
+    isDueDateCounterRelative?: boolean
     name: string,
     tasks?: Array<{
         finished: boolean,

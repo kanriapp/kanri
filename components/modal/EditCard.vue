@@ -39,9 +39,39 @@
               @click="$emit('closeModal', columnID)"
             />
           </div>
-          <span class="text-md text-dim-3 mb-6">
-            Edit all the things about your card!
-          </span>
+          <VDatePicker
+            v-model="dueDate"
+            mode="dateTime"
+            is24hr
+            @update:modelValue="updateDueDate"
+          >
+            <template #default="{ togglePopover, inputValue}">
+              <button
+                class="bg-elevation-2 bg-elevation-3-hover mt-1 flex items-center justify-center gap-2 rounded-md px-2 py-1"
+                @click="() => togglePopover()"
+              >
+                <PhCalendar class="h-5 w-5" />
+                <span v-if="dueDate">Due date: {{ inputValue }}</span>
+                <span v-else>Set due date</span>
+              </button>
+            </template>
+            <template #footer>
+              <div class="w-full px-4 pb-3">
+                <div class="mt-3 flex flex-row gap-4">
+                  <SwitchRoot
+                    v-model:checked="isDueDateCounterRelative"
+                    class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+                    @update:checked="updateDueDate"
+                  >
+                    <SwitchThumb
+                      class="bg-button-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                    />
+                  </SwitchRoot>
+                  <p>Relative countdown</p>
+                </div>
+              </div>
+            </template>
+          </VDatePicker>
         </div>
 
         <div class="flex flex-col pr-10">
@@ -319,7 +349,7 @@ import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
-import { PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
+import { PhCalendar, PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
 
@@ -333,6 +363,7 @@ const emit = defineEmits<{
     (e: "closeModal", columnID: string): void,
     (e: "setCardColor", columnID: string, cardIndex: number, color: string): void,
     (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
+    (e: "setCardDueDate", columnID: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean): void,
     (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<{finished: boolean, name: string}>): void
     (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
 }>();
@@ -343,6 +374,8 @@ const title = ref("");
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
 const selectedColor = ref("");
+const dueDate: Ref<Date | null> = ref(null);
+const isDueDateCounterRelative = ref(false);
 
 const isCustomColor = computed(() => selectedColor.value.startsWith('#'));
 const customColor = ref("#ffffff");
@@ -424,6 +457,10 @@ const updateCardTasks = () => {
     emit("setCardTasks", columnID.value, cardIndex.value, tasks.value);
 }
 
+const updateDueDate = () => {
+    emit("setCardDueDate", columnID.value, cardIndex.value, dueDate.value, isDueDateCounterRelative.value );
+}
+
 const updateDescription = () => {
     emit("setCardDescription", columnID.value, cardIndex.value, description.value);
     emitter.emit("modalEnableClickOutsideClose");
@@ -458,9 +495,11 @@ watch(props, (newVal) => {
         columnID.value = newVal.columnId;
         cardIndex.value = newVal.cardIndexProp;
 
-
         title.value = newVal.card.name;
         description.value = newVal.card.description || "";
+
+        dueDate.value = newVal.card.dueDate || null;
+        isDueDateCounterRelative.value = newVal.card.isDueDateCounterRelative || false;
 
         /**
          * Enforce adding IDs to all card tasks
@@ -484,3 +523,70 @@ watch(props, (newVal) => {
     }
 })
 </script>
+
+<style>
+.vc-light {
+  /* Base */
+  --vc-color: var(--text);
+  --vc-bg: var(--bg-primary);
+  --vc-border: var(--elevation-1);
+  --vc-hover-bg: hsla(211, 25%, 84%, 0.3);
+  --vc-focus-ring: 0 0 0 2px rgb(59, 131, 246, 0.4);
+  /* Calendar header */
+  --vc-header-arrow-color: var(--text-dim-2);
+  --vc-header-arrow-hover-bg: var(--elevation-2);
+  --vc-header-title-color: var(--accent);
+  /* Calendar weekdays */
+  --vc-weekday-color: var(--text-dim-3);
+  /* Calendar weeknumbers */
+  --vc-weeknumber-color: var(--vc-gray-400);
+  /* Calendar nav */
+  --vc-nav-hover-bg: var(--vc-gray-200);
+  --vc-nav-title-color: var(--vc-gray-900);
+  --vc-nav-item-hover-box-shadow: none;
+  --vc-nav-item-active-color: var(--vc-white);
+  --vc-nav-item-active-bg: var(--vc-accent-500);
+  --vc-nav-item-active-box-shadow: var(--vc-shadow);
+  --vc-nav-item-current-color: var(--vc-accent-600);
+  /* Calendar day popover */
+  --vc-day-popover-container-color: var(--vc-white);
+  --vc-day-popover-container-bg: var(--vc-gray-800);
+  --vc-day-popover-container-border: var(--vc-gray-700);
+  --vc-day-popover-header-color: var(--vc-gray-700);
+  /* Popover content */
+  --vc-popover-content-color: var(--vc-gray-900);
+  --vc-popover-content-bg: var(--vc-gray-50);
+  --vc-popover-content-border: var(--elevation-2);
+  /* Time picker */
+  --vc-time-picker-border: var(--elevation-1);
+  --vc-time-weekday-color: var(--text-dim-3);
+  --vc-time-month-color: var(--accent);
+  --vc-time-day-color: var(--accent);
+  --vc-time-year-color: var(--text-dim-3);
+  /* Time select group */
+  --vc-time-select-group-bg: var(--elevation-1);
+  --vc-time-select-group-border: var(--elevation-2);
+  --vc-time-select-group-icon-color: var(--accent);
+  /* Base select */
+  --vc-select-color: var(--text);
+  --vc-select-bg: var(--elevation-1);
+  --vc-select-hover-bg: var(--elevation-2);
+  /* Calendar day */
+  --vc-day-content-hover-bg: var(--elevation-2);
+  --vc-day-content-disabled-color: var(--vc-gray-400);
+  /* Calendar attributes */
+  &.vc-attr,
+  & .vc-attr {
+    --vc-content-color: var(--vc-accent-600);
+    --vc-highlight-outline-bg: var(--vc-white);
+    --vc-highlight-outline-border: var(--vc-accent-600);
+    --vc-highlight-outline-content-color: var(--vc-accent-700);
+    --vc-highlight-light-bg: var(--vc-accent-200);
+    --vc-highlight-light-content-color: var(--vc-accent-900);
+    --vc-highlight-solid-bg: var(--accent);
+    --vc-highlight-solid-content-color: var(--vc-white);
+    --vc-dot-bg: var(--vc-accent-600);
+    --vc-bar-bg: var(--vc-accent-600);
+  }
+}
+</style>

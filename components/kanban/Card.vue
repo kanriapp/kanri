@@ -11,7 +11,7 @@
     @click.self="$emit('openKanbanModal', index, card)"
   >
     <div
-      :class="{'pb-1.5': ((!tasks || tasks.length === 0) && isDescriptionEmpty )}"
+      :class="{'pb-1.5': ((!tasks || tasks.length === 0) && isDescriptionEmpty && !dueDate )}"
       class="flex w-full flex-row items-center justify-between"
     >
       <p
@@ -53,7 +53,7 @@
     </div>
 
     <div
-      class="flex flex-row items-center gap-2"
+      class="flex flex-row flex-wrap items-center gap-2"
       @click="$emit('openKanbanModal', index, card)"
     >
       <PhTextAlignLeft
@@ -81,6 +81,15 @@
           class="text-sm"
         >{{ taskCompletionStatus }}</span>
       </div>
+
+      <div
+        v-if="dueDate"
+        class="flex flex-row items-center gap-1"
+        :class="{'bg-accent text-buttons rounded-sm px-1': dueDateOverdue}"
+      >
+        <PhClock class="h-4 w-4" />
+        <span class="text-sm">{{ getFormattedDueDate }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -91,7 +100,7 @@ import type { Card } from '@/types/kanban-types';
 import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "@/utils/colorUtils"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-import { PhChecks, PhListChecks, PhTextAlignLeft } from "@phosphor-icons/vue";
+import { PhChecks, PhClock, PhListChecks, PhTextAlignLeft } from "@phosphor-icons/vue";
 
 const props = defineProps<{
     card: Card,
@@ -116,8 +125,10 @@ const cardRef: Ref<HTMLDivElement | null> = ref(null);
 const name = ref(props.card.name);
 const description = ref(props.card.description);
 const tasks = ref(props.card.tasks);
-const cardNameEditMode = ref(false);
+const dueDate = ref(props.card.dueDate);
+const isDueDateRelative = ref(props.card.isDueDateCounterRelative)
 
+const cardNameEditMode = ref(false);
 const cardNameInput: Ref<HTMLTextAreaElement | null> = ref(null);
 const cardNameText: Ref<HTMLParagraphElement | null> = ref(null);
 
@@ -125,6 +136,8 @@ watch(props, (_, newData) => {
     name.value = newData.card.name;
     description.value = newData.card.description;
     tasks.value = newData.card.tasks;
+    dueDate.value = newData.card.dueDate;
+    isDueDateRelative.value = newData.card.isDueDateCounterRelative;
 });
 
 onMounted(async () => {
@@ -215,6 +228,65 @@ const cardTextColorDim = computed(() => {
 
     return "text-gray-300";
 });
+
+const getFormattedDueDate = computed(() => {
+    if (!dueDate.value) return "";
+
+    //relative countdown showing in 2 days in 2 hours etc
+    if (isDueDateRelative.value) {
+        const now = new Date();
+        const dueDateTimestamp = new Date(dueDate.value).getTime();
+        const timeDifference = dueDateTimestamp - now.getTime();
+
+        if (timeDifference <= 0) {
+            const secondsPast = Math.floor(-timeDifference / 1000);
+            const minutesPast = Math.floor(secondsPast / 60);
+            const hoursPast = Math.floor(minutesPast / 60);
+            const daysPast = Math.floor(hoursPast / 24);
+
+            const seconds = secondsPast % 60;
+            const minutes = minutesPast % 60;
+            const hours = hoursPast % 24;
+            const days = daysPast;
+
+            const daysAgo = days > 0 ? `${days} day${days > 1 ? 's' : ''} ago` : '';
+            const hoursAgo = hours > 0 ? `${hours}h ago` : '';
+            const minutesAgo = minutes > 0 ? `${minutes}min${minutes > 1 ? 's' : ''} ago` : '';
+            const secondsAgo = seconds > 0 ? `${seconds}s ago` : '';
+
+            return daysAgo || hoursAgo || minutesAgo || secondsAgo;
+        }
+
+        const seconds = Math.floor(timeDifference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (days > 0) {
+            return `in ${days} day${days > 1 ? 's' : ''}`;
+        } else if (hours > 0) {
+            return `in ${hours}h`;
+        } else if (minutes > 0) {
+            return `in ${minutes}min${minutes > 1 ? 's' : ''}`;
+        } else {
+            return `in ${seconds}s}`;
+        }
+    }
+
+    return new Date(dueDate.value).toLocaleDateString();
+})
+
+const dueDateOverdue = computed(() => {
+    if (!dueDate.value) return false;
+
+    const now = new Date();
+    const dueDateTimestamp = new Date(dueDate.value).getTime();
+    const timeDifference = dueDateTimestamp - now.getTime();
+
+    if (timeDifference <= 0) return true
+
+    return false;
+})
 
 const deleteCardWithConfirmation = (index: number) => {
     emit("removeCardWithConfirmation", index, cardRef);

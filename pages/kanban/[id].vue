@@ -26,6 +26,7 @@
       @setCardDescription="setCardDescription"
       @setCardTasks="setCardTasks"
       @setCardTitle="setCardTitle"
+      @setCardDueDate="setCardDueDate"
     />
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
@@ -528,6 +529,15 @@ const setCardColor = (columnId: string, cardIndex: number, color: string) => {
 const setCardTasks = (columnId: string, cardIndex: number, tasks: Card['tasks']) => {
     mutateCardData(columnId, cardIndex, (card) => {
         card.tasks = tasks;
+    })
+}
+
+const setCardDueDate = (columnId: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean) => {
+    if (!dueDate) return;
+
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.dueDate = dueDate;
+        card.isDueDateCounterRelative = isCounterRelative;
     })
 }
 
