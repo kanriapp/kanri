@@ -85,7 +85,7 @@
       <div
         v-if="dueDate"
         class="flex flex-row items-center gap-1"
-        :class="{'bg-accent text-buttons rounded-sm px-1': dueDateOverdue}"
+        :class="{'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue}"
       >
         <PhClock class="h-4 w-4" />
         <span class="text-sm">{{ getFormattedDueDate }}</span>
