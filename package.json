@@ -36,10 +36,10 @@
         "@pinia/nuxt": "0.5.1",
         "@popperjs/core": "^2.11.8",
         "@tauri-apps/api": "1.5.3",
-        "@tiptap/extension-typography": "2.2.1",
-        "@tiptap/pm": "2.2.1",
-        "@tiptap/starter-kit": "2.2.1",
-        "@tiptap/vue-3": "2.2.1",
+        "@tiptap/extension-typography": "2.2.2",
+        "@tiptap/pm": "2.2.2",
+        "@tiptap/starter-kit": "2.2.2",
+        "@tiptap/vue-3": "2.2.2",
         "floating-vue": "5.2.2",
         "mitt": "3.0.1",
         "pinia": "2.1.7",
@@ -55,6 +55,6 @@
         "terser": "5.27.0",
         "undici": "6.6.2",
         "json5": "2.2.3",
-        "semver": "7.5.4"
+        "semver": "7.6.0"
     }
 }
