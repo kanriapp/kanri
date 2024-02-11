@@ -21,7 +21,7 @@
         aria-label="Manage your account"
       >
         <TabsIndicator class="absolute bottom-0 left-0 h-[2px] w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-full px-8 transition-[width,transform] duration-300">
-          <div class="bg-accent h-full w-full" />
+          <div class="bg-accent size-full" />
         </TabsIndicator>
         <TabsTrigger
           class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tl-md text-[15px] leading-none outline-none"

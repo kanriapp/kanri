@@ -54,9 +54,9 @@
           placement="bottom-start"
         >
           <button class="flex flex-row items-center gap-2 px-4 py-2">
-            <PhFunnel class="h-6 w-6" />
+            <PhFunnel class="size-6" />
             <p>{{ sortingOptionText }}</p>
-            <ChevronDownIcon class="h-4 w-4" />
+            <ChevronDownIcon class="size-4" />
           </button>
 
           <template #popper>
@@ -157,7 +157,7 @@
                   class="bg-elevation-3-hover transition-button rounded-md px-1 py-0.5"
                   @click.prevent
                 >
-                  <EllipsisHorizontalIcon class="h-6 w-6" />
+                  <EllipsisHorizontalIcon class="size-6" />
                 </button>
                 <template
                   #popper
@@ -289,6 +289,8 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
 };
 
 const renameBoardModal = (index: number) => {
+    console.log("wtf");
+
     const selectedBoard = boards.value[index];
     if (selectedBoard == null) {
         return console.error("Could not find board with index: ", index);
