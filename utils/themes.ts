@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+import type { Theme } from "@/types/kanban-types";
+
 export const light: Theme = {
     accent: "#1d4ed8",
     accentDarker: "#1e40af",
