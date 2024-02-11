@@ -1569,6 +1569,11 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/merge-streams/-/merge-streams-1.0.0.tgz#9cd84cc15bc865a5ca35fcaae198eb899f7b5c90"
   integrity sha512-rUV5WyJrJLoloD4NDN1V1+LDMDWOa4OTsT4yYJwQNpTU6FWxkxHpL7eu4w+DmiH8x/EAM1otkPE1+LaspIbplw==
 
+"@tauri-apps/api@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.4.0.tgz#b4013ca3d17b853f7df29fe14079ebb4d52dbffa"
+  integrity sha512-Jd6HPoTM1PZSFIzq7FB8VmMu3qSSyo/3lSwLpoapW+lQ41CL5Dow2KryLg+gyazA/58DRWI9vu/XpEeHK4uMdw==
+
 "@tauri-apps/api@1.5.3":
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.5.3.tgz#f7b362b1f30aadb0a8bbeb7ae111755c0ed33d73"
@@ -3718,10 +3723,10 @@ flatted@^3.2.9:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.9.tgz#7eb4c67ca1ba34232ca9d2d93e9886e611ad7daf"
   integrity sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==
 
-floating-vue@5.2.2:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/floating-vue/-/floating-vue-5.2.2.tgz#e263932042753f59f3e36e7c1188f3f3e272a539"
-  integrity sha512-afW+h2CFafo+7Y9Lvw/xsqjaQlKLdJV7h1fCHfcYQ1C4SVMlu7OAekqWgu5d4SgvkBVU0pVpLlVsrSTBURFRkg==
+floating-vue@5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/floating-vue/-/floating-vue-5.0.3.tgz#aa6643c7080408cfdd6ad392d7a016c2f3dede05"
+  integrity sha512-AM7yczIuFACI6T2l8z0ozpTSqHDagcxiQCCanUqvm7Zxtk4CUJNyF6nSuBkkeEYX6hDyTAcmNHe2NJ5x54qnnw==
   dependencies:
     "@floating-ui/dom" "~1.1.1"
     vue-resize "^2.0.0-alpha.1"
@@ -6970,13 +6975,13 @@ tar@^6.1.11, tar@^6.1.2, tar@^6.2.0:
   version "0.0.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/a534e61e246e6d96ab938fcd3e644dcb74d5c0bf"
   dependencies:
-    "@tauri-apps/api" "1.5.3"
+    "@tauri-apps/api" "1.4.0"
 
 "tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#7d2632996f290b0f18cc5f8a2b2791046400690e":
   version "0.0.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/7d2632996f290b0f18cc5f8a2b2791046400690e"
   dependencies:
-    "@tauri-apps/api" "1.5.3"
+    "@tauri-apps/api" "1.4.0"
 
 terser@5.27.0, terser@^5.17.4:
   version "5.27.0"

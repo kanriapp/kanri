@@ -40,7 +40,7 @@
         "@tiptap/pm": "2.2.2",
         "@tiptap/starter-kit": "2.2.2",
         "@tiptap/vue-3": "2.2.2",
-        "floating-vue": "5.2.2",
+        "floating-vue": "5.0.3",
         "mitt": "3.0.1",
         "pinia": "2.1.7",
         "radix-vue": "^1.2.2",
