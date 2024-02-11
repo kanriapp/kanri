@@ -13,7 +13,7 @@
         <input
           v-model="customTheme.accent"
           class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
+          readonly
           type="text"
         >
         <input
@@ -30,7 +30,7 @@
         <input
           v-model="customTheme.text"
           class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
+          readonly
           type="text"
         >
         <input
@@ -47,7 +47,7 @@
         <input
           v-model="customTheme.textButtons"
           class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
+          readonly
           type="text"
         >
         <input
@@ -64,7 +64,7 @@
         <input
           v-model="customTheme.bgPrimary"
           class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
+          readonly
           type="text"
         >
         <input
@@ -81,7 +81,7 @@
         <input
           v-model="customTheme.elevation1"
           class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
+          readonly
           type="text"
         >
         <input
@@ -98,7 +98,7 @@
         <input
           v-model="customTheme.elevation2"
           class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
+          readonly
           type="text"
         >
         <input
@@ -115,7 +115,7 @@
         <input
           v-model="customTheme.elevation3"
           class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly="readonly"
+          readonly
           type="text"
         >
         <input
