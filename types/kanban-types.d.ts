@@ -36,6 +36,22 @@ export declare interface Card {
     }>,
 }
 
+export declare interface Theme {
+    accent: string,
+    accentDarker: string,
+    bgPrimary: string,
+    elevation1: string,
+    elevation2: string,
+    elevation3: string,
+    text: string,
+    textButtons: string,
+    textD1: string,
+    textD2: string,
+    textD3: string,
+    textD4: string,
+}
+
+
 export declare type ThemeIdentifiers = "catppuccin" | "custom" | "dark" | "light";
 
 export default {

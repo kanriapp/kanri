@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-export const light = {
+export const light: Theme = {
     accent: "#1d4ed8",
     accentDarker: "#1e40af",
     bgPrimary: "#ffffff",
@@ -15,9 +15,9 @@ export const light = {
     textD2: "#475569",
     textD3: "#64748b",
     textD4: "#94a3b8",
-};
+} as const;
 
-export const dark = {
+export const dark: Theme = {
     accent: "#2150c0",
     accentDarker: "#17367d",
     bgPrimary: "#111112",
@@ -30,9 +30,9 @@ export const dark = {
     textD2: "#d4d4d8",
     textD3: "#a1a1aa",
     textD4: "#71717a",
-};
+} as const;
 
-export const catppuccin = {
+export const catppuccin: Theme = {
     accent: "#f28fad",
     accentDarker: "#c97790",
     bgPrimary: "#1e1e2e",
@@ -45,7 +45,7 @@ export const catppuccin = {
     textD2: "#d4d4d8",
     textD3: "#a1a1aa",
     textD4: "#71717a",
-};
+} as const;
 
 export default {
     catppuccin,

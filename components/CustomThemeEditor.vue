@@ -138,18 +138,20 @@
 </template>
 
 <script setup lang="ts">
+import type { Theme } from "@/types/kanban-types";
+
 import { useTauriStore } from "@/stores/tauriStore";
 import { lightenColor } from "@/utils/colorUtils.js";
 // @ts-nocheck
 import emitter from "@/utils/emitter";
-import { dark } from "@/utils/themes.js";
+import { dark } from "@/utils/themes";
 
 const store = useTauriStore().store;
 
-const customTheme = ref({});
+const customTheme: Ref<Theme> = ref(dark);
 
 onMounted(async () => {
-    const savedPalette = await store.get("savedCustomTheme") || await store.get("colors");
+    const savedPalette: Theme | null = await store.get("savedCustomTheme") || await store.get("colors");
     await store.set("colors", savedPalette);
     await store.set("activeTheme", "custom");
     emitter.emit("updateColors");
@@ -157,6 +159,8 @@ onMounted(async () => {
 });
 
 const setCustomTheme = () => {
+    if (!customTheme.value) return;
+
     store.set("activeTheme", "custom");
 
     const theme = {

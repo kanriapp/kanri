@@ -199,7 +199,7 @@ import type { Ref } from "vue";
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas"
 import emitter from "@/utils/emitter";
-import { catppuccin, dark, light } from "@/utils/themes.js";
+import { catppuccin, dark, light } from "@/utils/themes";
 import { MoonIcon, SunIcon, SwatchIcon } from "@heroicons/vue/24/outline";
 import { message, open, save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
