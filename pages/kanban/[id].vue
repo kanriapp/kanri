@@ -61,7 +61,7 @@
       @confirmAction="cardRemoveDialog.confirm(true)"
     />
 
-    <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
+    <div class="absolute top-8 z-50 ml-8 w-[calc(100vw-112px)]">
       <h1
         v-if="!boardTitleEditing"
         class="mb-2 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
