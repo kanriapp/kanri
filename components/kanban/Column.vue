@@ -40,7 +40,7 @@
         @single-click="$emit('removeColumn', id)"
       >
         <XMarkIcon
-          class="text-dim-4 text-accent-hover mt-2 h-4 w-4 shrink-0 grow-0 cursor-pointer"
+          class="text-dim-4 text-accent-hover mt-2 size-4 shrink-0 grow-0 cursor-pointer"
         />
       </ClickCounter>
     </div>
@@ -125,7 +125,7 @@
       class="text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row gap-1 rounded-md py-1 font-medium"
       @click="enableCardAddMode()"
     >
-      <PlusIcon class="h-6 w-6 p-0.5" />
+      <PlusIcon class="size-6 p-0.5" />
       <h2>Add Card</h2>
     </div>
   </div>
@@ -298,9 +298,9 @@ const enableTitleEditing = () => {
 
 const enableCardAddMode = () => {
     emit("setColumnEditIndex", props.colIndex, "card-add");
-    emitter.emit("resetColumnInputs");
     disableDragging();
 
+    newCardName.value = "";
     cardAddMode.value = true;
 }
 

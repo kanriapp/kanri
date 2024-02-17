@@ -401,31 +401,32 @@ const keyDownListener = (e: KeyboardEvent) => {
     // We do not want to override any shortcuts except the ones we mapped in the app
     if (!Object.keys(shortcutKeys).includes(e.key)) return;
 
-    emitter.emit("resetColumnInputs");
+    // Arrow key left to decrease
+    if (e.key === "ArrowLeft" && e.altKey) {
+        if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
+            columnEditIndex.value = board.value.columns.length - 1;
+        } else {
+            columnEditIndex.value--;
+        }
+
+
+    }
+
+    // Arrow key right to increase
+    if (e.key === "ArrowRight" && e.altKey) {
+        if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
+            columnEditIndex.value = 0;
+        } else {
+            columnEditIndex.value++;
+        }
+    }
+
 
     // Ctrl + B for new board
     if (e.key === "b") {
         addColumn();
         scrollView();
         return;
-    }
-
-    // Arrow key left to decrease
-    if (e.key === "ArrowLeft") {
-        if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
-            columnEditIndex.value = board.value.columns.length - 1;
-        } else {
-            columnEditIndex.value--;
-        }
-    }
-
-    // Arrow key right to increase
-    if (e.key === "ArrowRight") {
-        if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
-            columnEditIndex.value = 0;
-        } else {
-            columnEditIndex.value++;
-        }
     }
 
     if (e.key === "+") {
@@ -453,14 +454,14 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // ctrl + t for enabling title editing for the last column
-    if (e.key === "t" || columnTitleEditing.value === true) {
+    if (e.key === "t" || (columnTitleEditing.value === true && e.altKey)) {
         columnTitleEditing.value = true;
         emitter.emit("enableColumnTitleEditing", columnID);
         return;
     }
 
     // ctrl + n for new card in the last column
-    if (e.key === "n" || columnCardAddMode.value === true) {
+    if (e.key === "n" || (columnCardAddMode.value === true && e.altKey)) {
         columnCardAddMode.value = true;
         emitter.emit("enableColumnCardAddMode", columnID);
         return;
