@@ -10,12 +10,9 @@
     >
       <label for="color-picker">Accent color</label>
       <div class="flex flex-row gap-4">
-        <input
+        <HexColorInput
           v-model="customTheme.accent"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly
-          type="text"
-        >
+        />
         <input
           ref="colorInput"
           v-model="customTheme.accent"
@@ -27,12 +24,9 @@
     <div class="flex flex-row items-center justify-between">
       <label for="color-picker">Primary text color</label>
       <div class="flex flex-row gap-4">
-        <input
+        <HexColorInput
           v-model="customTheme.text"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly
-          type="text"
-        >
+        />
         <input
           ref="colorInput"
           v-model="customTheme.text"
@@ -44,12 +38,9 @@
     <div class="flex flex-row items-center justify-between">
       <label for="color-picker">Button text</label>
       <div class="flex flex-row gap-4">
-        <input
+        <HexColorInput
           v-model="customTheme.textButtons"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly
-          type="text"
-        >
+        />
         <input
           ref="colorInput"
           v-model="customTheme.textButtons"
@@ -61,12 +52,9 @@
     <div class="flex flex-row items-center justify-between">
       <label for="color-picker">Primary background color</label>
       <div class="flex flex-row gap-4">
-        <input
+        <HexColorInput
           v-model="customTheme.bgPrimary"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly
-          type="text"
-        >
+        />
         <input
           ref="colorInput"
           v-model="customTheme.bgPrimary"
@@ -78,12 +66,9 @@
     <div class="flex flex-row items-center justify-between">
       <label for="color-picker">1st level of elevation</label>
       <div class="flex flex-row gap-4">
-        <input
+        <HexColorInput
           v-model="customTheme.elevation1"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly
-          type="text"
-        >
+        />
         <input
           ref="colorInput"
           v-model="customTheme.elevation1"
@@ -95,12 +80,9 @@
     <div class="flex flex-row items-center justify-between">
       <label for="color-picker">2nd level of elevation</label>
       <div class="flex flex-row gap-4">
-        <input
+        <HexColorInput
           v-model="customTheme.elevation2"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly
-          type="text"
-        >
+        />
         <input
           ref="colorInput"
           v-model="customTheme.elevation2"
@@ -112,12 +94,9 @@
     <div class="flex flex-row items-center justify-between">
       <label for="color-picker">3rd level of elevation</label>
       <div class="flex flex-row gap-4">
-        <input
+        <HexColorInput
           v-model="customTheme.elevation3"
-          class="bg-elevation-1 w-24 rounded-md px-2"
-          readonly
-          type="text"
-        >
+        />
         <input
           ref="colorInput"
           v-model="customTheme.elevation3"
@@ -147,7 +126,7 @@ import { dark } from "@/utils/themes";
 
 const store = useTauriStore().store;
 
-const customTheme: Ref<Theme> = ref(dark);
+const customTheme = ref(dark);
 
 onMounted(async () => {
     const savedPalette: Theme | null = await store.get("savedCustomTheme") || await store.get("colors");
