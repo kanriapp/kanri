@@ -534,8 +534,6 @@ const setCardTasks = (columnId: string, cardIndex: number, tasks: Card['tasks'])
 }
 
 const setCardDueDate = (columnId: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean) => {
-    if (!dueDate) return;
-
     mutateCardData(columnId, cardIndex, (card) => {
         card.dueDate = dueDate;
         card.isDueDateCounterRelative = isCounterRelative;

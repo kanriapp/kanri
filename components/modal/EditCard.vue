@@ -39,39 +39,50 @@
               @click="$emit('closeModal', columnID)"
             />
           </div>
-          <VDatePicker
-            v-model="dueDate"
-            mode="dateTime"
-            is24hr
-            @update:modelValue="updateDueDate"
-          >
-            <template #default="{ togglePopover, inputValue}">
-              <button
-                class="bg-elevation-2 bg-elevation-3-hover mt-1 flex items-center justify-center gap-2 rounded-md px-2 py-1"
-                @click="() => togglePopover()"
-              >
-                <PhCalendar class="size-5" />
-                <span v-if="dueDate">Due date: {{ inputValue }}</span>
-                <span v-else>Set due date</span>
-              </button>
-            </template>
-            <template #footer>
-              <div class="w-full px-4 pb-3">
-                <div class="mt-3 flex flex-row gap-4">
-                  <SwitchRoot
-                    v-model:checked="isDueDateCounterRelative"
-                    class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-                    @update:checked="updateDueDate"
-                  >
-                    <SwitchThumb
-                      class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
-                    />
-                  </SwitchRoot>
-                  <p>Relative countdown</p>
+          <div class="flex flex-row items-center gap-2">
+            <VDatePicker
+              v-model="dueDate"
+              mode="dateTime"
+              is24hr
+              @update:modelValue="updateDueDate"
+            >
+              <template #default="{ togglePopover, inputValue}">
+                <button
+                  class="bg-elevation-2 bg-elevation-3-hover mt-1 flex items-center justify-center gap-2 rounded-md px-2 py-1"
+                  @click="() => togglePopover()"
+                >
+                  <PhCalendar class="size-5" />
+                  <span v-if="dueDate">Due date: {{ inputValue }}</span>
+                  <span v-else>Set due date</span>
+                </button>
+              </template>
+              <template #footer>
+                <div class="w-full px-4 pb-3">
+                  <div class="mt-3 flex flex-col gap-4">
+                    <div class="flex flex-row items-center gap-4">
+                      <SwitchRoot
+                        v-model:checked="isDueDateCounterRelative"
+                        class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+                        @update:checked="updateDueDate"
+                      >
+                        <SwitchThumb
+                          class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                        />
+                      </SwitchRoot>
+                      <p>Relative countdown</p>
+                    </div>
+                    <button
+                      class="bg-elevation-1 bg-elevation-2-hover flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
+                      @click="resetDueDate"
+                    >
+                      <PhTrash class="mt-0.5 size-5" />
+                      Remove due date
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </template>
-          </VDatePicker>
+              </template>
+            </VDatePicker>
+          </div>
         </div>
 
         <div class="flex flex-col pr-10">
@@ -349,7 +360,7 @@ import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
-import { PhCalendar, PhCheck, PhPencilSimple } from "@phosphor-icons/vue";
+import { PhCalendar, PhCheck, PhPencilSimple, PhTrash } from "@phosphor-icons/vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
 
@@ -455,6 +466,11 @@ const updateTask = (index: number) => {
 
 const updateCardTasks = () => {
     emit("setCardTasks", columnID.value, cardIndex.value, tasks.value);
+}
+
+const resetDueDate = () => {
+    dueDate.value = null;
+    emit("setCardDueDate", columnID.value, cardIndex.value, null, isDueDateCounterRelative.value);
 }
 
 const updateDueDate = () => {
