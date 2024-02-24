@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech> -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
 <template>
   <input
     v-model="inputValue"
