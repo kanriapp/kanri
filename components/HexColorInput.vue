@@ -42,7 +42,6 @@ const updateInputValue = (event: Event) => {
         const regex = /[0 - 9A - Fa - f]/
         //@ts-ignore
         if (!(regex.test(event.target.value))) {
-            console.log("yeetus");
             inputValue.value = inputValue.value.substring(0, inputValue.value.length - 1);
             return;
         }
