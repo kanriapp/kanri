@@ -289,8 +289,6 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
 };
 
 const renameBoardModal = (index: number) => {
-    console.log("wtf");
-
     const selectedBoard = boards.value[index];
     if (selectedBoard == null) {
         return console.error("Could not find board with index: ", index);
