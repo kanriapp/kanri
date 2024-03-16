@@ -365,6 +365,6 @@ const updateStorage = () => {
 
 <style scoped>
 .max-h-column {
-   max-height: 75vh;
+   max-height: calc(90vh - 100px);
 }
 </style>
