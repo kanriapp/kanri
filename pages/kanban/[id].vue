@@ -17,11 +17,11 @@
       @setBrightness="setBrightness"
     />
     <ModalEditCard
-      v-show="kanbanModalVisible"
+      v-show="editCardModalVisible"
       :card="currentlyActiveCardInfo.card"
       :card-index-prop="currentlyActiveCardInfo.cardIndex"
       :column-id="currentlyActiveCardInfo.columnId"
-      @closeModal="closeKanbanModal"
+      @closeModal="closeeditCardModal"
       @setCardColor="setCardColor"
       @setCardDescription="setCardDescription"
       @setCardTasks="setCardTasks"
@@ -201,7 +201,7 @@
                   :zoom-level="columnZoomLevel"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
-                  @openKanbanModal="openKanbanModal"
+                  @openEditCardModal="openEditCardModal"
                   @removeCardWithConfirmation="removeCardWithConfirmation"
                   @removeColumn="openColumnRemoveDialog(column.id)"
                   @removeColumnNoConfirmation="removeColumn"
@@ -271,7 +271,7 @@ const bgBlur = ref("8px");
 const bgBrightness = ref("100%");
 
 const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
-const kanbanModalVisible = ref(false);
+const editCardModalVisible = ref(false);
 
 const currentlyActiveCardInfo: { card: Card | null, cardIndex: number, columnId: string} = reactive({ card: null, cardIndex: -1, columnId: '' })
 
@@ -541,19 +541,19 @@ const setCardDueDate = (columnId: string, cardIndex: number, dueDate: Date | nul
 }
 
 // Kanban card modal
-const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
+const openEditCardModal = (columnId: string, cardIndex: number, el: Card) => {
     currentlyActiveCardInfo.columnId = columnId;
     currentlyActiveCardInfo.cardIndex = cardIndex;
     currentlyActiveCardInfo.card = el;
 
     nextTick(() => {
-        kanbanModalVisible.value = true;
+        editCardModalVisible.value = true;
         draggingEnabled.value = false;
     });
 }
 
-const closeKanbanModal = () => {
-    kanbanModalVisible.value = false;
+const closeeditCardModal = () => {
+    editCardModalVisible.value = false;
     draggingEnabled.value = true;
     emitter.emit("columnDraggingOn");
 }

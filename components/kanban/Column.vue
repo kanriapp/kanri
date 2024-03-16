@@ -67,7 +67,7 @@
           class="mb-3 min-h-[30px] cursor-grab rounded-sm p-3"
           @disable-dragging="disableDragging"
           @enable-dragging="enableDragging"
-          @open-kanban-modal="openKanbanModal"
+          @open-edit-card-modal="openEditCardModal"
           @remove-card="removeCard"
           @remove-card-with-confirmation="removeCardWithConfirmation"
           @set-card-title="setCardTitle"
@@ -152,7 +152,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "disableDragging"): void,
   (e: "enableDragging"): void,
-  (e: "openKanbanModal", columnId: string, cardIndex: number, el: Card ): void,
+  (e: "openEditCardModal", columnId: string, cardIndex: number, el: Card ): void,
   (e: "removeCardWithConfirmation", columnId: string, cardIndex: number, cardRef: Ref<HTMLDivElement | null>): void,
   (e: "removeColumn", columnId: string): void,
   (e: "removeColumnNoConfirmation", columnId: string): void,
@@ -346,10 +346,10 @@ const setCardTitle = (cardIndex: number, name: string) => {
     updateStorage();
 };
 
-const openKanbanModal = (index: number, el: Card) => {
+const openEditCardModal = (index: number, el: Card) => {
     disableDragging();
 
-    emit("openKanbanModal", props.id, index, el);
+    emit("openEditCardModal", props.id, index, el);
 };
 
 const updateStorage = () => {
