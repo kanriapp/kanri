@@ -101,7 +101,10 @@
             >
               Tasks
             </h2>
-            <span class="text-dim-1 text-sm">({{ getCheckedTaskNumber }}/{{ tasks.length }})</span>
+            <span
+              v-if="tasks.length !== 0"
+              class="text-dim-1 text-sm"
+            >({{ getCheckedTaskNumber }}/{{ tasks.length }})</span>
           </div>
           <ProgressRoot
             v-if="tasks"
