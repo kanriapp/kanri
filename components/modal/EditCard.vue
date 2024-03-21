@@ -39,37 +39,6 @@
               @click="$emit('closeModal', columnID)"
             />
           </div>
-<<<<<<< HEAD
-          <VDatePicker
-            v-model="dueDate"
-            mode="dateTime"
-            is24hr
-            @update:modelValue="updateDueDate"
-          >
-            <template #default="{ togglePopover, inputValue}">
-              <button
-                class="bg-elevation-2 bg-elevation-3-hover mt-1 flex items-center justify-center gap-2 rounded-md px-2 py-1"
-                @click="() => togglePopover()"
-              >
-                <PhCalendar class="size-5" />
-                <span v-if="dueDate">Due date: {{ inputValue }}</span>
-                <span v-else>Set due date</span>
-              </button>
-            </template>
-            <template #footer>
-              <div class="w-full px-4 pb-3">
-                <div class="mt-3 flex flex-row gap-4">
-                  <SwitchRoot
-                    v-model:checked="isDueDateCounterRelative"
-                    class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-                    @update:checked="updateDueDate"
-                  >
-                    <SwitchThumb
-                      class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
-                    />
-                  </SwitchRoot>
-                  <p>Relative countdown</p>
-=======
           <div class="flex flex-row items-center gap-2">
             <VDatePicker
               v-model="dueDate"
@@ -110,7 +79,6 @@
                       Remove due date
                     </button>
                   </div>
->>>>>>> 93b21a891253bb5c02b4ff645fead933288063ac
                 </div>
               </template>
             </VDatePicker>
@@ -592,14 +560,13 @@ const updateCardTasks = () => {
     emit("setCardTasks", columnID.value, cardIndex.value, tasks.value);
 }
 
-<<<<<<< HEAD
 const updateCardTags = () => {
     emit("setCardTags", columnID.value, cardIndex.value, tags.value);
-=======
+}
+
 const resetDueDate = () => {
     dueDate.value = null;
     emit("setCardDueDate", columnID.value, cardIndex.value, null, isDueDateCounterRelative.value);
->>>>>>> 93b21a891253bb5c02b4ff645fead933288063ac
 }
 
 const updateDueDate = () => {
