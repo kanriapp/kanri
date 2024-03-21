@@ -27,7 +27,7 @@
         class="flex flex-row rounded-md"
       >
         <IconKanri
-          class="text-accent-logo-icon h-9 w-9 pl-1"
+          class="text-accent-logo-icon size-9 pl-1"
           @click="$router.push('/')"
         />
       </div>
@@ -37,7 +37,7 @@
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="$router.push('/')"
       >
-        <PhHouse class="h-7 w-7" />
+        <PhHouse class="size-7" />
       </button>
       <button
         v-else
@@ -45,7 +45,7 @@
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="$router.go(-1)"
       >
-        <PhArrowBendUpLeft class="h-7 w-7" />
+        <PhArrowBendUpLeft class="size-7" />
       </button>
       <button
         v-if="showAddButton"
@@ -53,7 +53,7 @@
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="newBoardModalVisible = true"
       >
-        <IconPhPlusCircleDuotone class="text-accent h-7 w-7" />
+        <IconPhPlusCircleDuotone class="text-accent size-7" />
       </button>
     </section>
 
@@ -62,11 +62,19 @@
       class="flex flex-col items-center gap-4"
     >
       <nuxt-link
+        v-tooltip.left-start="'Tags'"
+        to="/tags"
+      >
+        <div class="bg-elevation-2-hover transition-button rounded-md p-2">
+          <PhHash class="size-7" />
+        </div>
+      </nuxt-link>
+      <nuxt-link
         v-tooltip.left-start="'Import/Export'"
         to="/import"
       >
         <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-          <PhArrowsLeftRight class="h-7 w-7" />
+          <PhArrowsLeftRight class="size-7" />
         </div>
       </nuxt-link>
       <button
@@ -74,14 +82,14 @@
         class="bg-elevation-2-hover transition-button rounded-md p-2"
         @click="helpModalVisible = true"
       >
-        <PhQuestion class="h-7 w-7" />
+        <PhQuestion class="size-7" />
       </button>
       <nuxt-link
         v-tooltip.left-start="'Settings'"
         to="/settings"
       >
         <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-          <PhGearSix class="h-7 w-7" />
+          <PhGearSix class="size-7" />
         </div>
       </nuxt-link>
     </section>
@@ -90,7 +98,7 @@
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
-import { PhArrowBendUpLeft, PhHouse } from "@phosphor-icons/vue";
+import { PhArrowBendUpLeft, PhHash, PhHouse } from "@phosphor-icons/vue";
 import { PhArrowsLeftRight, PhGearSix, PhQuestion } from "@phosphor-icons/vue";
 
 const store = useTauriStore().store;

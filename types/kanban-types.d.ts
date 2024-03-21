@@ -29,11 +29,18 @@ export declare interface Card {
     id?: string,
     isDueDateCounterRelative?: boolean
     name: string,
+    tags?: Array<Tag>,
     tasks?: Array<{
         finished: boolean,
         id?: string,
         name: string,
     }>,
+}
+
+export declare interface Tag {
+    color?: string,
+    id?: string,
+    tag?: string,
 }
 
 export declare type ThemeIdentifiers = "catppuccin" | "custom" | "dark" | "light";
@@ -42,5 +49,6 @@ export default {
     Board,
     Card,
     Column,
-    ThemeIdentifiers
+    Tag,
+    ThemeIdentifiers,
 }
