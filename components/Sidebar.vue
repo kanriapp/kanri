@@ -5,7 +5,7 @@
 <template>
   <nav
     :class="zIndexDown ? '' : 'z-50'"
-    class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
+    class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-12 shadow-md rounded-l-xl"
   >
     <ModalNewBoard
       v-show="newBoardModalVisible"

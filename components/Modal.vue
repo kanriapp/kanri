@@ -92,6 +92,6 @@ const keyDownListener = (e: { key: string; }) => {
 }
 
 .z-huge {
-    z-index: 10000000;
+    z-index: 10000000000;
 }
 </style>

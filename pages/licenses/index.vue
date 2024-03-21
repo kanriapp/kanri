@@ -2,7 +2,7 @@
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <template>
-  <div class="overflow-auto scroll-auto px-8 pt-8">
+  <div class="overflow-auto scroll-auto px-8 pt-12">
     <h1 class="mb-2 text-4xl font-bold">
       3rd-Party Software Report for Kanri
     </h1>

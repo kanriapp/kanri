@@ -3,20 +3,39 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <div class="overflow-auto">
-    <div
-      :style="cssVars"
-      :class="[animationsEnabled ? '' : 'disable-animations']"
-      class="default-layout custom-scrollbar-hidden overflow-auto"
-    >
-      <div v-if="mounted">
-        <Sidebar class="fixed left-0 w-8" />
-      </div>
-      <div class="min-h-screen pl-[4rem]">
-        <slot />
-      </div>
+    <div class="overflow-auto">
+        <!-- TODO: add background at the top here when window is maximized next to overflow-auto & add click actions, & remove rounded corners when maximized -->
+        <div
+            :style="cssVars"
+            :class="[animationsEnabled ? '' : 'disable-animations']"
+            class="default-layout custom-scrollbar-hidden overflow-auto rounded-xl"
+        >
+            <div class="bg-elevation-1 fixed left-16 top-8 size-5" />
+            <div class="bg-primary fixed left-16 top-8 size-5 rounded-tl-xl" />
+            <div
+                data-tauri-drag-region
+                class="bg-elevation-1 topbar fixed inset-x-0 top-0 flex h-8 w-full items-center justify-end rounded-t-xl pr-2"
+            >
+                <button class="bg-elevation-3-hover rounded-md px-2.5 py-1">
+                    <PhMinus class="size-4" />
+                </button>
+                <button class="bg-elevation-3-hover rounded-md px-2.5 py-1 ">
+                    <PhCards class="size-4" />
+                </button>
+                <button class="rounded-md px-2.5 py-1 hover:bg-red-600">
+                    <PhX class="size-4" />
+                </button>
+            </div>
+            <div>
+                <div v-if="mounted">
+                    <Sidebar class="fixed left-0 w-8" />
+                </div>
+                <div class="min-h-screen pl-[4rem]">
+                    <slot />
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup>
@@ -25,6 +44,7 @@ import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json"
+import { PhCards, PhMinus, PhX } from "@phosphor-icons/vue";
 
 const store = useTauriStore().store;
 const savedColors = ref({});
@@ -125,6 +145,26 @@ const cssVars = computed(() => {
 </script>
 
 <style>
+.bg-rounded-corner-square {
+    background: linear-gradient(to left top, transparent, var(--bg-primary));
+}
+
+.bg-rounded-corner-square2 {
+    background: linear-gradient(to right bottom, transparent, var(--elevation-1));
+}
+
+.rounded-corner {
+    z-index: 9999999 !important;
+}
+
+.rounded-corner2 {
+    z-index: 999999 !important;
+}
+
+.topbar {
+    z-index: 9999 !important;
+}
+
 .disable-animations * {
     -webkit-transition: none !important;
     -moz-transition: none !important;
@@ -139,6 +179,11 @@ const cssVars = computed(() => {
     transition: background-color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
+    border-radius: 0.75rem;
+}
+
+.bg-primary {
+    background-color: var(--bg-primary);
 }
 
 .bg-elevation-1 {

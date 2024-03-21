@@ -5,7 +5,7 @@ SPDX-License-Identifier: Apache-2.0 */
 body {
     overscroll-behavior: none;
     scroll-behavior: smooth;
-    background-color: #111112;
+    background-color: transparent;
 }
 
 .smooth-dnd-container {
