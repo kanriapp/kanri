@@ -35,7 +35,7 @@
               @keypress.enter="updateTitle"
             >
             <XMarkIcon
-              class="text-accent-hover h-6 w-6 shrink-0 cursor-pointer"
+              class="text-accent-hover size-6 shrink-0 cursor-pointer"
               @click="$emit('closeModal', columnID)"
             />
           </div>
@@ -50,7 +50,7 @@
                 class="bg-elevation-2 bg-elevation-3-hover mt-1 flex items-center justify-center gap-2 rounded-md px-2 py-1"
                 @click="() => togglePopover()"
               >
-                <PhCalendar class="h-5 w-5" />
+                <PhCalendar class="size-5" />
                 <span v-if="dueDate">Due date: {{ inputValue }}</span>
                 <span v-else>Set due date</span>
               </button>
@@ -64,7 +64,7 @@
                     @update:checked="updateDueDate"
                   >
                     <SwitchThumb
-                      class="bg-button-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                      class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
                     />
                   </SwitchRoot>
                   <p>Relative countdown</p>
@@ -99,7 +99,7 @@
             style="transform: translateZ(0)"
           >
             <ProgressIndicator
-              class="ease-[cubic-bezier(0.65, 0, 0.35, 1)] bg-accent-no-hover h-full w-full rounded-full transition-transform duration-[660ms]"
+              class="ease-[cubic-bezier(0.65, 0, 0.35, 1)] bg-accent-no-hover size-full rounded-full transition-transform duration-[660ms]"
               :style="`transform: translateX(-${100 - getTaskPercentage}%)`"
             />
           </ProgressRoot>
@@ -127,13 +127,13 @@
                     <div class="flex w-full flex-row items-center justify-start gap-4">
                       <CheckboxRoot
                         v-model:checked="task.finished"
-                        class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex h-5 w-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
+                        class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
                         @update:checked="updateCardTasks()"
                       >
-                        <CheckboxIndicator class="flex h-full w-full items-center justify-center rounded">
+                        <CheckboxIndicator class="flex size-full items-center justify-center rounded">
                           <PhCheck
                             weight="bold"
-                            class="text-accent-lighter h-4 w-4"
+                            class="text-accent-lighter size-4"
                           />
                         </CheckboxIndicator>
                       </CheckboxRoot>
@@ -161,21 +161,21 @@
                         class="shrink-0"
                         @click="enableTaskEditMode(index, task)"
                       >
-                        <PhPencilSimple class="text-dim-2 text-accent-hover h-4 w-4" />
+                        <PhPencilSimple class="text-dim-2 text-accent-hover size-4" />
                       </button>
                       <button
                         v-if="taskEditMode && currentlyEditingTaskIndex === index"
                         class="shrink-0"
                         @click="updateTask(index)"
                       >
-                        <PhCheck class="text-dim-2 text-accent-hover h-4 w-4" />
+                        <PhCheck class="text-dim-2 text-accent-hover size-4" />
                       </button>
                       <button
                         v-if="!(taskEditMode && currentlyEditingTaskIndex === index)"
                         class="shrink-0"
                         @click="deleteTask(index)"
                       >
-                        <XMarkIcon class="text-dim-2 text-accent-hover h-4 w-4" />
+                        <XMarkIcon class="text-dim-2 text-accent-hover size-4" />
                       </button>
                     </div>
                   </div>
@@ -212,7 +212,7 @@
               class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pl-1 pr-2"
               @click="enableTaskAddMode"
             >
-              <PlusIcon class="text-accent h-6 w-6" />
+              <PlusIcon class="text-accent size-6" />
               <span>Add Task</span>
             </button>
           </div>
@@ -223,84 +223,84 @@
           </h2>
           <div class="mb-6 flex flex-row gap-4">
             <button
-              class="h-7 w-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
+              class="size-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
               @click="setCardColor(columnID, cardIndex, 'bg-pink-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-pink-600'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
-              class="h-7 w-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
+              class="size-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
               @click="setCardColor(columnID, cardIndex, 'bg-red-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-red-600'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
-              class="h-7 w-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
+              class="size-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
               @click="setCardColor(columnID, cardIndex, 'bg-orange-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-orange-600'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
-              class="h-7 w-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
+              class="size-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
               @click="setCardColor(columnID, cardIndex, 'bg-yellow-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-yellow-600'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
-              class="h-7 w-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
+              class="size-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
               @click="setCardColor(columnID, cardIndex, 'bg-green-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-green-600'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
-              class="h-7 w-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
+              class="size-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
               @click="setCardColor(columnID, cardIndex, 'bg-teal-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-teal-600'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
-              class="h-7 w-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
+              class="size-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
               @click="setCardColor(columnID, cardIndex, 'bg-blue-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-blue-600'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
-              class="h-7 w-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
+              class="size-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
               @click="setCardColor( columnID, cardIndex, 'bg-purple-600')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-purple-600'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
-              class="bg-elevation-2 bg-elevation-3-hover h-7 w-7 rounded-full py-1 pl-1.5 pr-1"
+              class="bg-elevation-2 bg-elevation-3-hover size-7 rounded-full py-1 pl-1.5 pr-1"
               @click="setCardColor(columnID, cardIndex, 'bg-elevation-2')"
             >
               <CheckIcon
                 v-if="selectedColor === 'bg-elevation-2'"
-                class="h-4 w-4"
+                class="size-4"
               />
             </button>
             <button
@@ -335,6 +335,52 @@
               >
             </div>
           </div>
+          <div>
+            <h2
+              class="text-lg font-semibold"
+            >
+              Tags
+            </h2>
+            <div
+              v-for="tag in tags"
+              :key="tag.id"
+            >
+              {{ tag.tag }}
+            </div>
+            <button
+              v-if="!tagsAddMode"
+              class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pl-1 pr-2"
+              @click="enableTagsAddMode"
+            >
+              <PlusIcon class="text-accent size-6" />
+              <span>Add Tag</span>
+            </button>
+            <input
+              v-if="tagsAddMode"
+              ref="newTagInput"
+              v-model="newTagName"
+              v-focus
+              class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+              maxlength="1000"
+              placeholder="Enter a tag"
+              type="text"
+              @keypress.enter="createTag"
+            >
+            <div
+              v-if="tagsAddMode"
+              class="ml-0.5 mt-0.5 flex flex-row gap-4"
+            >
+              <button
+                class="bg-accent text-buttons rounded-md px-4 py-1"
+                @click="createTag"
+              >
+                Add
+              </button>
+              <button @click="tagsAddMode = false; newTagName = ''">
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </template>
@@ -343,8 +389,10 @@
 
 <script setup lang="ts">
 import type { Card } from "@/types/kanban-types";
+import type { Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
+import { useTauriStore } from "@/stores/tauriStore";
 import emitter from "@/utils/emitter"
 import { generateUniqueID } from "@/utils/idGenerator";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
@@ -364,6 +412,7 @@ const emit = defineEmits<{
     (e: "setCardColor", columnID: string, cardIndex: number, color: string): void,
     (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
     (e: "setCardDueDate", columnID: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean): void,
+    (e: "setCardTags", columnID: string, cardIndex: number, tags: Array<Tag>): void,
     (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<{finished: boolean, name: string}>): void
     (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
 }>();
@@ -373,6 +422,7 @@ const cardIndex = ref(0);
 const title = ref("");
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
+const tags = ref<Tag[]>([]);
 const selectedColor = ref("");
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
@@ -391,6 +441,13 @@ const currentlyEditingTaskIndex = ref(-1);
 const currentlyEditingTaskName = ref("");
 const taskEditMode = ref(false);
 
+const newTagName = ref("");
+const tagsAddMode = ref(false);
+const newTagInput: Ref<HTMLInputElement | null> = ref(null);
+const storedTags = ref<Tag[]>([]);
+const store = useTauriStore().store;
+storedTags.value = await store.get("tags") || [];
+
 const draggingEnabled = ref(true);
 
 const enableTitleEditing = () => {
@@ -400,6 +457,10 @@ const enableTitleEditing = () => {
 
 const enableTaskAddMode = () => {
     taskAddMode.value = true;
+}
+
+const enableTagsAddMode = () => {
+    tagsAddMode.value = true;
 }
 
 const getCheckedTaskNumber = computed(() => {
@@ -420,6 +481,34 @@ const createTask = () => {
     taskAddMode.value = false;
 
     updateCardTasks();
+}
+
+const createTag = async () => {
+    if (newTagName.value == null || !(/\S/.test(newTagName.value))) return;
+    if (storedTags.value.find((x) => x.tag === newTagName.value) !== undefined) {
+        const storedTag = storedTags.value.find((x) => x.tag === newTagName.value);
+        tags.value.push(storedTag!);
+        newTagName.value = "";
+        tagsAddMode.value = false;
+
+        updateCardTags();
+    }
+    console.log("new tag");
+    
+    storedTags.value.push({
+        id: generateUniqueID(),
+        tag: newTagName.value,
+    });
+    await store.set("tags", storedTags);
+
+    tags.value.push({
+        id: generateUniqueID(),
+        tag: newTagName.value,
+    });
+    newTagName.value = "";
+    tagsAddMode.value = false;
+
+    updateCardTags();
 }
 
 const deleteTask = (index: number) => {
@@ -455,6 +544,10 @@ const updateTask = (index: number) => {
 
 const updateCardTasks = () => {
     emit("setCardTasks", columnID.value, cardIndex.value, tasks.value);
+}
+
+const updateCardTags = () => {
+    emit("setCardTags", columnID.value, cardIndex.value, tags.value);
 }
 
 const updateDueDate = () => {
@@ -494,6 +587,8 @@ watch(props, (newVal) => {
 
         columnID.value = newVal.columnId;
         cardIndex.value = newVal.cardIndexProp;
+        
+        tags.value = newVal.card.tags!;
 
         title.value = newVal.card.name;
         description.value = newVal.card.description || "";

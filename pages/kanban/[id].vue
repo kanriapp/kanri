@@ -25,6 +25,7 @@
       @setCardColor="setCardColor"
       @setCardDescription="setCardDescription"
       @setCardTasks="setCardTasks"
+      @setCardTags="setCardTags"
       @setCardTitle="setCardTitle"
       @setCardDueDate="setCardDueDate"
     />
@@ -94,7 +95,7 @@
             class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
             @click="showCustomBgModal = true"
           >
-            <PhotoIcon class="my-auto h-6 w-6" />
+            <PhotoIcon class="my-auto size-6" />
             <span class="my-auto ml-0.5">Change Background</span>
           </button>
         </div>
@@ -105,7 +106,7 @@
             class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
             @click="increaseZoomLevel"
           >
-            <MagnifyingGlassPlusIcon class="h-5 w-5" />
+            <MagnifyingGlassPlusIcon class="size-5" />
           </button>
           <button
             v-tooltip.top-center="'Reset zoom level'"
@@ -119,7 +120,7 @@
             class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
             @click="decreaseZoomLevel"
           >
-            <MagnifyingGlassMinusIcon class="h-5 w-5" />
+            <MagnifyingGlassMinusIcon class="size-5" />
           </button>
 
           <VDropdown
@@ -130,7 +131,7 @@
               class="bg-elevation-1 bg-elevation-2-hover transition-button ml-4 h-full rounded-md px-2"
               @click.prevent
             >
-              <EllipsisHorizontalIcon class="h-6 w-6" />
+              <EllipsisHorizontalIcon class="size-6" />
             </button>
             <template
               #popper
@@ -214,7 +215,7 @@
                   class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
                   @click="addColumn()"
                 >
-                  <PlusIcon class="text-accent h-6 w-6" />
+                  <PlusIcon class="text-accent size-6" />
                   <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
                 </div>
               </div>
@@ -529,6 +530,12 @@ const setCardColor = (columnId: string, cardIndex: number, color: string) => {
 const setCardTasks = (columnId: string, cardIndex: number, tasks: Card['tasks']) => {
     mutateCardData(columnId, cardIndex, (card) => {
         card.tasks = tasks;
+    })
+}
+
+const setCardTags = (columnId: string, cardIndex: number, tags: Card['tags']) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tags = tags;
     })
 }
 
