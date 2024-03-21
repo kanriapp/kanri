@@ -12,7 +12,7 @@
     "
   >
     <template #content>
-      <div class="flex min-h-[40rem] w-[36rem] flex-col">
+      <div class="flex max-h-[40rem] w-[36rem] flex-col">
         <div class="mb-6">
           <div class="flex flex-row items-start justify-between gap-12">
             <h1
@@ -84,8 +84,7 @@
             </VDatePicker>
           </div>
         </div>
-
-        <div class="flex flex-col pr-10">
+        <div class="flex max-h-full flex-col overflow-hidden overflow-y-auto pr-10">
           <h2
             class="text-lg font-semibold"
           >
@@ -351,15 +350,26 @@
           </div>
           <div>
             <h2
-              class="text-lg font-semibold"
+              class="mb-2 text-lg font-semibold"
             >
               Tags
             </h2>
-            <div
-              v-for="tag in tags"
-              :key="tag.id"
-            >
-              {{ tag.tag }}
+            <div class="mb-4 flex flex-row gap-4">
+              <div
+                v-for="(tag, index) in tags"
+                :key="tag.id"
+                class="flex justify-items-center rounded-3xl border p-2"
+              >
+                <span>
+                  {{ tag.tag }}
+                </span>
+                <button
+                  class="shrink-0"
+                  @click="deleteTag(index)"
+                >
+                  <XMarkIcon class="text-dim-2 text-accent-hover size-4" />
+                </button>
+              </div>
             </div>
             <button
               v-if="!tagsAddMode"
@@ -374,7 +384,7 @@
               ref="newTagInput"
               v-model="newTagName"
               v-focus
-              class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+              class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto mb-2 rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
               maxlength="1000"
               placeholder="Enter a tag"
               type="text"
@@ -404,7 +414,6 @@
 <script setup lang="ts">
 import type { Card } from "@/types/kanban-types";
 import type { Tag } from "@/types/kanban-types";
-import type { Ref } from "vue";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import emitter from "@/utils/emitter"
@@ -412,6 +421,7 @@ import { generateUniqueID } from "@/utils/idGenerator";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { PhCalendar, PhCheck, PhPencilSimple, PhTrash } from "@phosphor-icons/vue";
+import { type Ref, onMounted } from "vue";
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
 
@@ -430,6 +440,10 @@ const emit = defineEmits<{
     (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<{finished: boolean, name: string}>): void
     (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
 }>();
+
+onMounted( async () => {
+    storedTags = await store.get("tags") || [];
+});
 
 const columnID = ref("");
 const cardIndex = ref(0);
@@ -458,9 +472,8 @@ const taskEditMode = ref(false);
 const newTagName = ref("");
 const tagsAddMode = ref(false);
 const newTagInput: Ref<HTMLInputElement | null> = ref(null);
-const storedTags = ref<Tag[]>([]);
+let storedTags = reactive<Tag[]>([]);
 const store = useTauriStore().store;
-storedTags.value = await store.get("tags") || [];
 
 const draggingEnabled = ref(true);
 
@@ -499,8 +512,8 @@ const createTask = () => {
 
 const createTag = async () => {
     if (newTagName.value == null || !(/\S/.test(newTagName.value))) return;
-    if (storedTags.value.find((x) => x.tag === newTagName.value) !== undefined) {
-        const storedTag = storedTags.value.find((x) => x.tag === newTagName.value);
+    if (storedTags.find((x) => x.tag === newTagName.value) !== undefined) {
+        const storedTag = storedTags.find((x) => x.tag === newTagName.value);
         tags.value.push(storedTag!);
         newTagName.value = "";
         tagsAddMode.value = false;
@@ -509,7 +522,7 @@ const createTag = async () => {
     }
     console.log("new tag");
     
-    storedTags.value.push({
+    storedTags.push({
         id: generateUniqueID(),
         tag: newTagName.value,
     });
@@ -528,6 +541,11 @@ const createTag = async () => {
 const deleteTask = (index: number) => {
     tasks.value.splice(index, 1);
     updateCardTasks();
+}
+
+const deleteTag = (index: number) => {
+    tags.value.splice(index, 1);
+    updateCardTags();
 }
 
 const onTaskDrop = (dropResult: any) => {
