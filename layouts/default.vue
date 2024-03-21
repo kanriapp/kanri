@@ -23,7 +23,7 @@
 import { useTauriStore } from "@/stores/tauriStore";
 import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
-import { dark } from "@/utils/themes.js";
+import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json"
 
 const store = useTauriStore().store;

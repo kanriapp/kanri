@@ -8,7 +8,7 @@
     :class="[cardTextClassZoom, (cardBackgroundColor.startsWith('#') ? '' : cardBackgroundColor), cardTextColor]"
     :style="[cardBackgroundColor.startsWith('#') ? {'background-color': cardBackgroundColor} : {}]"
     class="kanban-card border-elevation-3 flex cursor-pointer flex-col items-start gap-1 border"
-    @click.self="$emit('openKanbanModal', index, card)"
+    @click.self="$emit('openEditCardModal', index, card)"
   >
     <div
       :class="{'pb-1.5': ((!tasks || tasks.length === 0) && isDescriptionEmpty && !dueDate )}"
@@ -20,7 +20,7 @@
         <ClickCounter
           v-if="!cardNameEditMode"
           @double-click="enableCardEditMode"
-          @single-click="$emit('openKanbanModal', index, card)"
+          @single-click="$emit('openEditCardModal', index, card)"
         >
           <p ref="cardNameText">
             {{ name }}
@@ -32,7 +32,7 @@
           v-model="name"
           v-focus
           v-resizable
-          class="bg-elevation-3 text-normal m-0 h-full w-full resize-none rounded-sm p-0 focus:outline-none"
+          class="bg-elevation-3 text-normal m-0 size-full resize-none rounded-sm p-0 focus:outline-none"
           maxlength="1000"
           type="text"
           @blur="updateCardName"
@@ -46,7 +46,7 @@
         @single-click="deleteCardWithConfirmation(index)"
       >
         <XMarkIcon
-          class="text-accent-hover h-4 w-4"
+          class="text-accent-hover size-4"
           :class="cardTextColor"
         />
       </ClickCounter>
@@ -54,12 +54,12 @@
 
     <div
       class="flex flex-row flex-wrap items-center gap-2"
-      @click="$emit('openKanbanModal', index, card)"
+      @click="$emit('openEditCardModal', index, card)"
     >
       <PhTextAlignLeft
         v-if="!isDescriptionEmpty"
         :class="[cardTextColorDim]"
-        class="h-5 w-5"
+        class="size-5"
       />
 
       <div
@@ -69,12 +69,12 @@
       >
         <PhChecks
           v-if="allTasksCompleted"
-          class="text-buttons h-5 w-5"
+          class="text-buttons size-5"
         />
         <PhListChecks
           v-else
           :class="[cardTextColorDim]"
-          class="h-5 w-5"
+          class="size-5"
         />
         <span
           :class="allTasksCompleted ? 'text-buttons' : cardTextColorDim"
@@ -85,9 +85,9 @@
       <div
         v-if="dueDate"
         class="flex flex-row items-center gap-1"
-        :class="{'bg-accent text-buttons rounded-sm px-1': dueDateOverdue}"
+        :class="{'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue}"
       >
-        <PhClock class="h-4 w-4" />
+        <PhClock class="size-4" />
         <span class="text-sm">{{ getFormattedDueDate }}</span>
       </div>
     </div>
@@ -111,7 +111,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: "disableDragging"): void,
     (e: "enableDragging"): void,
-    (e: "openKanbanModal", index: number, card: Card): void,
+    (e: "openEditCardModal", index: number, card: Card): void,
     (e: "removeCard", index: number): void,
     (e: "removeCardWithConfirmation", index: number, cardRef: Ref<HTMLDivElement | null>): void,
     (e: "setCardTitle", index: number, name: string): void

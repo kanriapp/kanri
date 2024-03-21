@@ -25,7 +25,7 @@ export declare interface Column {
 export declare interface Card {
     color?: string
     description?: string,
-    dueDate?: Date,
+    dueDate?: Date | null,
     id?: string,
     isDueDateCounterRelative?: boolean
     name: string,
@@ -37,12 +37,31 @@ export declare interface Card {
     }>,
 }
 
+<<<<<<< HEAD
 export declare interface Tag {
     color?: string,
     id?: string,
     tag?: string,
 }
 
+=======
+export declare interface Theme {
+    accent: string,
+    accentDarker: string,
+    bgPrimary: string,
+    elevation1: string,
+    elevation2: string,
+    elevation3: string,
+    text: string,
+    textButtons: string,
+    textD1: string,
+    textD2: string,
+    textD3: string,
+    textD4: string,
+}
+
+
+>>>>>>> 93b21a891253bb5c02b4ff645fead933288063ac
 export declare type ThemeIdentifiers = "catppuccin" | "custom" | "dark" | "light";
 
 export default {

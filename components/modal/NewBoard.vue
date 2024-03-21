@@ -17,7 +17,7 @@
             Create a new board
           </h1>
           <XMarkIcon
-            class="text-accent-hover h-6 w-6 cursor-pointer"
+            class="text-accent-hover size-6 cursor-pointer"
             @click="closeModal()"
           />
         </div>
@@ -53,7 +53,7 @@
               class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
             >
               <SwitchThumb
-                class="bg-button-text my-auto block h-[18px] w-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
               />
             </SwitchRoot>
             <p>Create example columns and cards</p>
@@ -71,7 +71,7 @@
               class="bg-accent text-buttons flex cursor-pointer items-center justify-center rounded-full p-1 text-center transition-colors"
               @click="addColumnAndScrollToEnd()"
             >
-              <PhPlus class="h-4 w-4" />
+              <PhPlus class="size-4" />
             </div>
           </div>
           <div class="flex max-w-xl flex-row items-center gap-2 overflow-auto">
@@ -86,7 +86,7 @@
                 type="text"
               >
               <PhTrash
-                class="text-accent-hover h-5 w-5 cursor-pointer"
+                class="text-accent-hover size-5 cursor-pointer"
                 @click="columns.splice(index, 1)"
               />
             </div>
@@ -157,12 +157,14 @@ onUpdated(() => {
 });
 
 const checkIfBoardNameEmpty = () => {
-    if (newBoardName.value == null || !(/\S/.test(newBoardName.value))) {
-        boardNameEmptyError.value = true;
-    }
-    else {
-        boardNameEmptyError.value = false;
-    }
+    nextTick(() => {
+        if (newBoardName.value == null || !(/\S/.test(newBoardName.value))) {
+            boardNameEmptyError.value = true;
+        }
+        else {
+            boardNameEmptyError.value = false;
+        }
+    })
 }
 
 const addColumnAndScrollToEnd = () => {

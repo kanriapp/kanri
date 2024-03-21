@@ -17,11 +17,11 @@
       @setBrightness="setBrightness"
     />
     <ModalEditCard
-      v-show="kanbanModalVisible"
+      v-show="editCardModalVisible"
       :card="currentlyActiveCardInfo.card"
       :card-index-prop="currentlyActiveCardInfo.cardIndex"
       :column-id="currentlyActiveCardInfo.columnId"
-      @closeModal="closeKanbanModal"
+      @closeModal="closeeditCardModal"
       @setCardColor="setCardColor"
       @setCardDescription="setCardDescription"
       @setCardTasks="setCardTasks"
@@ -62,7 +62,7 @@
       @confirmAction="cardRemoveDialog.confirm(true)"
     />
 
-    <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
+    <div class="absolute top-8 z-50 ml-8 w-[calc(100vw-112px)]">
       <h1
         v-if="!boardTitleEditing"
         class="mb-2 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
@@ -202,7 +202,7 @@
                   :zoom-level="columnZoomLevel"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
-                  @openKanbanModal="openKanbanModal"
+                  @openEditCardModal="openEditCardModal"
                   @removeCardWithConfirmation="removeCardWithConfirmation"
                   @removeColumn="openColumnRemoveDialog(column.id)"
                   @removeColumnNoConfirmation="removeColumn"
@@ -272,7 +272,7 @@ const bgBlur = ref("8px");
 const bgBrightness = ref("100%");
 
 const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
-const kanbanModalVisible = ref(false);
+const editCardModalVisible = ref(false);
 
 const currentlyActiveCardInfo: { card: Card | null, cardIndex: number, columnId: string} = reactive({ card: null, cardIndex: -1, columnId: '' })
 
@@ -402,31 +402,32 @@ const keyDownListener = (e: KeyboardEvent) => {
     // We do not want to override any shortcuts except the ones we mapped in the app
     if (!Object.keys(shortcutKeys).includes(e.key)) return;
 
-    emitter.emit("resetColumnInputs");
+    // Arrow key left to decrease
+    if (e.key === "ArrowLeft" && e.altKey) {
+        if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
+            columnEditIndex.value = board.value.columns.length - 1;
+        } else {
+            columnEditIndex.value--;
+        }
+
+
+    }
+
+    // Arrow key right to increase
+    if (e.key === "ArrowRight" && e.altKey) {
+        if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
+            columnEditIndex.value = 0;
+        } else {
+            columnEditIndex.value++;
+        }
+    }
+
 
     // Ctrl + B for new board
     if (e.key === "b") {
         addColumn();
         scrollView();
         return;
-    }
-
-    // Arrow key left to decrease
-    if (e.key === "ArrowLeft") {
-        if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
-            columnEditIndex.value = board.value.columns.length - 1;
-        } else {
-            columnEditIndex.value--;
-        }
-    }
-
-    // Arrow key right to increase
-    if (e.key === "ArrowRight") {
-        if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
-            columnEditIndex.value = 0;
-        } else {
-            columnEditIndex.value++;
-        }
     }
 
     if (e.key === "+") {
@@ -454,14 +455,14 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // ctrl + t for enabling title editing for the last column
-    if (e.key === "t" || columnTitleEditing.value === true) {
+    if (e.key === "t" || (columnTitleEditing.value === true && e.altKey)) {
         columnTitleEditing.value = true;
         emitter.emit("enableColumnTitleEditing", columnID);
         return;
     }
 
     // ctrl + n for new card in the last column
-    if (e.key === "n" || columnCardAddMode.value === true) {
+    if (e.key === "n" || (columnCardAddMode.value === true && e.altKey)) {
         columnCardAddMode.value = true;
         emitter.emit("enableColumnCardAddMode", columnID);
         return;
@@ -540,8 +541,6 @@ const setCardTags = (columnId: string, cardIndex: number, tags: Card['tags']) =>
 }
 
 const setCardDueDate = (columnId: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean) => {
-    if (!dueDate) return;
-
     mutateCardData(columnId, cardIndex, (card) => {
         card.dueDate = dueDate;
         card.isDueDateCounterRelative = isCounterRelative;
@@ -549,19 +548,19 @@ const setCardDueDate = (columnId: string, cardIndex: number, dueDate: Date | nul
 }
 
 // Kanban card modal
-const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
+const openEditCardModal = (columnId: string, cardIndex: number, el: Card) => {
     currentlyActiveCardInfo.columnId = columnId;
     currentlyActiveCardInfo.cardIndex = cardIndex;
     currentlyActiveCardInfo.card = el;
 
     nextTick(() => {
-        kanbanModalVisible.value = true;
+        editCardModalVisible.value = true;
         draggingEnabled.value = false;
     });
 }
 
-const closeKanbanModal = () => {
-    kanbanModalVisible.value = false;
+const closeeditCardModal = () => {
+    editCardModalVisible.value = false;
     draggingEnabled.value = true;
     emitter.emit("columnDraggingOn");
 }
