@@ -10,8 +10,6 @@
             :class="[animationsEnabled ? '' : 'disable-animations']"
             class="default-layout custom-scrollbar-hidden overflow-auto rounded-xl"
         >
-            <div class="bg-elevation-1 fixed left-16 top-8 size-5" />
-            <div class="bg-primary fixed left-16 top-8 size-5 rounded-tl-xl" />
             <div
                 data-tauri-drag-region
                 class="bg-elevation-1 topbar fixed inset-x-0 top-0 flex h-8 w-full items-center justify-end rounded-t-xl pr-2"
