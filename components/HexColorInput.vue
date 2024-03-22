@@ -2,13 +2,13 @@
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <template>
-  <input
-    v-model="inputValue"
-    class="bg-elevation-1 w-24 rounded-md px-2"
-    type="text"
-    maxlength="7"
-    @input="updateInputValue($event)"
-  >
+    <input
+        v-model="inputValue"
+        class="bg-elevation-1 w-24 rounded-md px-2"
+        type="text"
+        maxlength="7"
+        @input="updateInputValue($event)"
+    >
 </template>
 
 <script setup lang="ts">

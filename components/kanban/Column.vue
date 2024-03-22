@@ -3,132 +3,132 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <div
-    :class="columnSizeClass"
-    class="bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
-  >
     <div
-      id="board-title"
-      :class="titleTextClassZoom"
-      class="flex flex-row items-start justify-between gap-4"
+        :class="columnSizeClass"
+        class="bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
     >
-      <h1
-        v-if="!titleEditing"
-        class="text-no-overflow ml-1 font-bold"
-        @click="enableTitleEditing()"
-      >
-        {{ boardTitle }}
-      </h1>
-
-      <input
-        v-if="titleEditing"
-        ref="titleInput"
-        v-model="titleNew"
-        v-focus
-        class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none"
-        maxlength="1000"
-        type="text"
-        @blur="updateColumnTitle"
-        @keypress.enter="
-          updateColumnTitle();
-          emitter.emit('columnActionDone');
-        "
-      >
-
-      <ClickCounter
-        @double-click="$emit('removeColumnNoConfirmation', id)"
-        @single-click="$emit('removeColumn', id)"
-      >
-        <XMarkIcon
-          class="text-dim-4 text-accent-hover mt-2 size-4 shrink-0 grow-0 cursor-pointer"
-        />
-      </ClickCounter>
-    </div>
-
-    <Container
-      :get-child-payload="getChildPayload"
-      class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm"
-      drag-class="cursor-grabbing"
-      drag-handle-selector=".kanbancard-drag"
-      group-name="cards"
-      orientation="vertical"
-      @drop="onDrop"
-    >
-      <Draggable
-        v-for="(card, index) in cards"
-        :key="card.id"
-        :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
-        :index="index"
-      >
-        <KanbanCard
-          :card="card"
-          :index="index"
-          :zoom-level="zoomLevel"
-          class="mb-3 min-h-[30px] cursor-grab rounded-sm p-3"
-          @disable-dragging="disableDragging"
-          @enable-dragging="enableDragging"
-          @open-edit-card-modal="openEditCardModal"
-          @remove-card="removeCard"
-          @remove-card-with-confirmation="removeCardWithConfirmation"
-          @set-card-title="setCardTitle"
-        />
-      </Draggable>
-    </Container>
-
-    <div
-      v-if="cardAddMode"
-      class="mt-2 flex flex-col"
-    >
-      <textarea
-        id="newCardInput"
-        ref="newCardInput"
-        v-model="newCardName"
-        v-focus
-        v-resizable
-        class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
-        maxlength="5000"
-        placeholder="Enter a card title..."
-        type="text"
-        @keypress.enter="
-          addCard();
-          emitter.emit('columnActionDone');
-        "
-      />
-      <div class="flex w-full flex-row justify-start gap-2">
-        <button
-          id="submitButton"
-          class="text-buttons transition-button bg-accent rounded-md px-2 py-1"
-          @click="
-            addCard();
-            emitter.emit('columnActionDone');
-          "
+        <div
+            id="board-title"
+            :class="titleTextClassZoom"
+            class="flex flex-row items-start justify-between gap-4"
         >
-          Add Card
-        </button>
-        <button
-          class="bg-elevation-3-hover transition-button rounded-md px-2 py-1"
-          @click="
-            cardAddMode = !cardAddMode;
-            newCardName = '';
-            draggingEnabled = true;
-            emit('enableDragging');
-            emitter.emit('columnActionDone');
-          "
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
+            <h1
+                v-if="!titleEditing"
+                class="text-no-overflow ml-1 font-bold"
+                @click="enableTitleEditing()"
+            >
+                {{ boardTitle }}
+            </h1>
 
-    <div
-      v-if="!cardAddMode"
-      class="text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row gap-1 rounded-md py-1 font-medium"
-      @click="enableCardAddMode()"
-    >
-      <PlusIcon class="size-6 p-0.5" />
-      <h2>Add Card</h2>
+            <input
+                v-if="titleEditing"
+                ref="titleInput"
+                v-model="titleNew"
+                v-focus
+                class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none"
+                maxlength="1000"
+                type="text"
+                @blur="updateColumnTitle"
+                @keypress.enter="
+                    updateColumnTitle();
+                    emitter.emit('columnActionDone');
+                "
+            >
+
+            <ClickCounter
+                @double-click="$emit('removeColumnNoConfirmation', id)"
+                @single-click="$emit('removeColumn', id)"
+            >
+                <XMarkIcon
+                    class="text-dim-4 text-accent-hover mt-2 size-4 shrink-0 grow-0 cursor-pointer"
+                />
+            </ClickCounter>
+        </div>
+
+        <Container
+            :get-child-payload="getChildPayload"
+            class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm"
+            drag-class="cursor-grabbing"
+            drag-handle-selector=".kanbancard-drag"
+            group-name="cards"
+            orientation="vertical"
+            @drop="onDrop"
+        >
+            <Draggable
+                v-for="(card, index) in cards"
+                :key="card.id"
+                :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
+                :index="index"
+            >
+                <KanbanCard
+                    :card="card"
+                    :index="index"
+                    :zoom-level="zoomLevel"
+                    class="mb-3 min-h-[30px] cursor-grab rounded-sm p-3"
+                    @disable-dragging="disableDragging"
+                    @enable-dragging="enableDragging"
+                    @open-edit-card-modal="openEditCardModal"
+                    @remove-card="removeCard"
+                    @remove-card-with-confirmation="removeCardWithConfirmation"
+                    @set-card-title="setCardTitle"
+                />
+            </Draggable>
+        </Container>
+
+        <div
+            v-if="cardAddMode"
+            class="mt-2 flex flex-col"
+        >
+            <textarea
+                id="newCardInput"
+                ref="newCardInput"
+                v-model="newCardName"
+                v-focus
+                v-resizable
+                class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
+                maxlength="5000"
+                placeholder="Enter a card title..."
+                type="text"
+                @keypress.enter="
+                    addCard();
+                    emitter.emit('columnActionDone');
+                "
+            />
+            <div class="flex w-full flex-row justify-start gap-2">
+                <button
+                    id="submitButton"
+                    class="text-buttons transition-button bg-accent rounded-md px-2 py-1"
+                    @click="
+                        addCard();
+                        emitter.emit('columnActionDone');
+                    "
+                >
+                    Add Card
+                </button>
+                <button
+                    class="bg-elevation-3-hover transition-button rounded-md px-2 py-1"
+                    @click="
+                        cardAddMode = !cardAddMode;
+                        newCardName = '';
+                        draggingEnabled = true;
+                        emit('enableDragging');
+                        emitter.emit('columnActionDone');
+                    "
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <div
+            v-if="!cardAddMode"
+            class="text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row gap-1 rounded-md py-1 font-medium"
+            @click="enableCardAddMode()"
+        >
+            <PlusIcon class="size-6 p-0.5" />
+            <h2>Add Card</h2>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">

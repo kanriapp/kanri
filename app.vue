@@ -3,11 +3,11 @@
 <!-- SPDX-License-Identifier: CC0-1.0 -->
 
 <template>
-  <div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+    <div>
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
+    </div>
 </template>
 
 <script setup>

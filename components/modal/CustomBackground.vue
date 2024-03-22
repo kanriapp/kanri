@@ -3,99 +3,99 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <Modal
-    :click-outside-to-close="true"
-    @closeModal="$emit('closeModal')"
-  >
-    <template #content>
-      <main class="min-h-[36rem] min-w-[32rem] max-w-[48rem]">
-        <div class="flex flex-row items-start justify-between">
-          <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
-            Set a custom background
-          </h1>
-          <XMarkIcon
-            class="text-accent-hover h-6 w-6 cursor-pointer"
-            @click="$emit('closeModal')"
-          />
-        </div>
-        <div class="mt-4 flex flex-col gap-4">
-          <section id="bg-selection">
-            <h2 class="mb-2 text-lg font-semibold">
-              Background image:
-            </h2>
-            <div
-              v-if="background.length > 0"
-              class="img-container relative inline-block max-w-56"
-              @click="getCustomBg"
-            >
-              <img
-                :src="customBg"
-                alt="bg image preview"
-                class="aspect-[16/10]
+    <Modal
+        :click-outside-to-close="true"
+        @closeModal="$emit('closeModal')"
+    >
+        <template #content>
+            <main class="min-h-[36rem] min-w-[32rem] max-w-[48rem]">
+                <div class="flex flex-row items-start justify-between">
+                    <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
+                        Set a custom background
+                    </h1>
+                    <XMarkIcon
+                        class="text-accent-hover size-6 cursor-pointer"
+                        @click="$emit('closeModal')"
+                    />
+                </div>
+                <div class="mt-4 flex flex-col gap-4">
+                    <section id="bg-selection">
+                        <h2 class="mb-2 text-lg font-semibold">
+                            Background image:
+                        </h2>
+                        <div
+                            v-if="background.length > 0"
+                            class="img-container relative inline-block max-w-56"
+                            @click="getCustomBg"
+                        >
+                            <img
+                                :src="customBg"
+                                alt="bg image preview"
+                                class="aspect-[16/10]
                     h-auto w-56 rounded-md"
-              >
-              <div class="img-overlay">
-                Edit background image
-              </div>
-            </div>
-            <button
-              v-else
-              class="bg-elevation-2 bg-elevation-3-hover transition-button aspect-[16/10] w-56 rounded-md"
-              @click="getCustomBg"
-            >
-              Add background image
-            </button>
-          </section>
-          <section
-            v-if="background.length > 0"
-            id="bg-blur"
-            class="w-full"
-          >
-            <h2 class="mb-2">
-              <span class="text-lg font-semibold">Background blur strength:</span> {{ bgBlurString }}
-            </h2>
-            <div class="slider">
-              <input
-                v-model="bgBlur"
-                class="w-full"
-                max="20"
-                min="0"
-                oninput="rangeValue.innerText = this.value"
-                type="range"
-              >
-            </div>
-          </section>
-          <section
-            v-if="background.length > 0"
-            id="bg-brightness"
-            class="w-full"
-          >
-            <h2 class="mb-2">
-              <span class="text-lg font-semibold">Background brightness:</span> {{ bgBrightnessString }}%
-            </h2>
-            <div class="slider">
-              <input
-                v-model="bgBrightness"
-                class="w-full"
-                max="100"
-                min="0"
-                oninput="rangeValue.innerText = this.value"
-                type="range"
-              >
-            </div>
-          </section>
-        </div>
-        <button
-          v-if="background.length > 0"
-          class="bg-elevation-2 bg-elevation-3-hover transition-button mt-8 flex flex-row gap-2 rounded-md px-4 py-1.5"
-          @click="resetSettings()"
-        >
-          <XMarkIcon class="h-6 w-6" />
-          Reset Background Image
-        </button>
-      </main>
-    </template>
-  </Modal>
+                            >
+                            <div class="img-overlay">
+                                Edit background image
+                            </div>
+                        </div>
+                        <button
+                            v-else
+                            class="bg-elevation-2 bg-elevation-3-hover transition-button aspect-[16/10] w-56 rounded-md"
+                            @click="getCustomBg"
+                        >
+                            Add background image
+                        </button>
+                    </section>
+                    <section
+                        v-if="background.length > 0"
+                        id="bg-blur"
+                        class="w-full"
+                    >
+                        <h2 class="mb-2">
+                            <span class="text-lg font-semibold">Background blur strength:</span> {{ bgBlurString }}
+                        </h2>
+                        <div class="slider">
+                            <input
+                                v-model="bgBlur"
+                                class="w-full"
+                                max="20"
+                                min="0"
+                                oninput="rangeValue.innerText = this.value"
+                                type="range"
+                            >
+                        </div>
+                    </section>
+                    <section
+                        v-if="background.length > 0"
+                        id="bg-brightness"
+                        class="w-full"
+                    >
+                        <h2 class="mb-2">
+                            <span class="text-lg font-semibold">Background brightness:</span> {{ bgBrightnessString }}%
+                        </h2>
+                        <div class="slider">
+                            <input
+                                v-model="bgBrightness"
+                                class="w-full"
+                                max="100"
+                                min="0"
+                                oninput="rangeValue.innerText = this.value"
+                                type="range"
+                            >
+                        </div>
+                    </section>
+                </div>
+                <button
+                    v-if="background.length > 0"
+                    class="bg-elevation-2 bg-elevation-3-hover transition-button mt-8 flex flex-row gap-2 rounded-md px-4 py-1.5"
+                    @click="resetSettings()"
+                >
+                    <XMarkIcon class="size-6" />
+                    Reset Background Image
+                </button>
+            </main>
+        </template>
+    </Modal>
 </template>
 
 <script setup lang="ts">

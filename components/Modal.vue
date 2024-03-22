@@ -3,22 +3,22 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <transition name="modal-fade">
-    <div
-      :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
-      class="modal z-huge size-screen inset-0 flex flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
-      @click.self="clickOutsideClose ? $emit('closeModal') : () => {}"
-    >
-      <div
-        class="bg-elevation-1 min-h-content min-w-content rounded-md py-4 pl-8 pr-6 shadow-lg"
-      >
-        <slot
-          class="p-4"
-          name="content"
-        />
-      </div>
-    </div>
-  </transition>
+    <transition name="modal-fade">
+        <div
+            :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
+            class="modal z-huge size-screen inset-0 flex flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
+            @click.self="clickOutsideClose ? $emit('closeModal') : () => {}"
+        >
+            <div
+                class="bg-elevation-1 min-h-content min-w-content rounded-md py-4 pl-8 pr-6 shadow-lg"
+            >
+                <slot
+                    class="p-4"
+                    name="content"
+                />
+            </div>
+        </div>
+    </transition>
 </template>
 
 <script setup lang="ts">

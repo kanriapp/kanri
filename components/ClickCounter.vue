@@ -2,9 +2,9 @@
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <template>
-  <div @click="e => handleClick(e)">
-    <slot />
-  </div>
+    <div @click="e => handleClick(e)">
+        <slot />
+    </div>
 </template>
 
 <script setup lang="ts">

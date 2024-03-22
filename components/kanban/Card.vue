@@ -3,95 +3,95 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-  <div
-    ref="cardRef"
-    :class="[cardTextClassZoom, (cardBackgroundColor.startsWith('#') ? '' : cardBackgroundColor), cardTextColor]"
-    :style="[cardBackgroundColor.startsWith('#') ? {'background-color': cardBackgroundColor} : {}]"
-    class="kanban-card border-elevation-3 flex cursor-pointer flex-col items-start gap-1 border"
-    @click.self="$emit('openEditCardModal', index, card)"
-  >
     <div
-      :class="{'pb-1.5': ((!tasks || tasks.length === 0) && isDescriptionEmpty && !dueDate )}"
-      class="flex w-full flex-row items-center justify-between"
+        ref="cardRef"
+        :class="[cardTextClassZoom, (cardBackgroundColor.startsWith('#') ? '' : cardBackgroundColor), cardTextColor]"
+        :style="[cardBackgroundColor.startsWith('#') ? {'background-color': cardBackgroundColor} : {}]"
+        class="kanban-card border-elevation-3 flex cursor-pointer flex-col items-start gap-1 border"
+        @click.self="$emit('openEditCardModal', index, card)"
     >
-      <p
-        class="text-no-overflow mr-2 w-full min-w-[24px]"
-      >
-        <ClickCounter
-          v-if="!cardNameEditMode"
-          @double-click="enableCardEditMode"
-          @single-click="$emit('openEditCardModal', index, card)"
+        <div
+            :class="{'pb-1.5': ((!tasks || tasks.length === 0) && isDescriptionEmpty && !dueDate )}"
+            class="flex w-full flex-row items-center justify-between"
         >
-          <p ref="cardNameText">
-            {{ name }}
-          </p>
-        </ClickCounter>
-        <textarea
-          v-else
-          ref="cardNameInput"
-          v-model="name"
-          v-focus
-          v-resizable
-          class="bg-elevation-3 text-normal m-0 size-full resize-none rounded-sm p-0 focus:outline-none"
-          maxlength="1000"
-          type="text"
-          @blur="updateCardName"
-          @keypress.enter="updateCardName"
-        />
-      </p>
+            <p
+                class="text-no-overflow mr-2 w-full min-w-[24px]"
+            >
+                <ClickCounter
+                    v-if="!cardNameEditMode"
+                    @double-click="enableCardEditMode"
+                    @single-click="$emit('openEditCardModal', index, card)"
+                >
+                    <p ref="cardNameText">
+                        {{ name }}
+                    </p>
+                </ClickCounter>
+                <textarea
+                    v-else
+                    ref="cardNameInput"
+                    v-model="name"
+                    v-focus
+                    v-resizable
+                    class="bg-elevation-3 text-normal m-0 size-full resize-none rounded-sm p-0 focus:outline-none"
+                    maxlength="1000"
+                    type="text"
+                    @blur="updateCardName"
+                    @keypress.enter="updateCardName"
+                />
+            </p>
 
-      <ClickCounter
-        class="cursor-pointer"
-        @double-click="deleteCardWithAnimation(index)"
-        @single-click="deleteCardWithConfirmation(index)"
-      >
-        <XMarkIcon
-          class="text-accent-hover size-4"
-          :class="cardTextColor"
-        />
-      </ClickCounter>
+            <ClickCounter
+                class="cursor-pointer"
+                @double-click="deleteCardWithAnimation(index)"
+                @single-click="deleteCardWithConfirmation(index)"
+            >
+                <XMarkIcon
+                    class="text-accent-hover size-4"
+                    :class="cardTextColor"
+                />
+            </ClickCounter>
+        </div>
+
+        <div
+            class="flex flex-row flex-wrap items-center gap-2"
+            @click="$emit('openEditCardModal', index, card)"
+        >
+            <PhTextAlignLeft
+                v-if="!isDescriptionEmpty"
+                :class="[cardTextColorDim]"
+                class="size-5"
+            />
+
+            <div
+                v-if="tasks && taskCompletionStatus !== '0/0'"
+                :class="{'bg-accent text-buttons rounded-sm px-1': allTasksCompleted}"
+                class="flex flex-row items-center gap-1"
+            >
+                <PhChecks
+                    v-if="allTasksCompleted"
+                    class="text-buttons size-5"
+                />
+                <PhListChecks
+                    v-else
+                    :class="[cardTextColorDim]"
+                    class="size-5"
+                />
+                <span
+                    :class="allTasksCompleted ? 'text-buttons' : cardTextColorDim"
+                    class="text-sm"
+                >{{ taskCompletionStatus }}</span>
+            </div>
+
+            <div
+                v-if="dueDate"
+                class="flex flex-row items-center gap-1"
+                :class="{'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue}"
+            >
+                <PhClock class="size-4" />
+                <span class="text-sm">{{ getFormattedDueDate }}</span>
+            </div>
+        </div>
     </div>
-
-    <div
-      class="flex flex-row flex-wrap items-center gap-2"
-      @click="$emit('openEditCardModal', index, card)"
-    >
-      <PhTextAlignLeft
-        v-if="!isDescriptionEmpty"
-        :class="[cardTextColorDim]"
-        class="size-5"
-      />
-
-      <div
-        v-if="tasks && taskCompletionStatus !== '0/0'"
-        :class="{'bg-accent text-buttons rounded-sm px-1': allTasksCompleted}"
-        class="flex flex-row items-center gap-1"
-      >
-        <PhChecks
-          v-if="allTasksCompleted"
-          class="text-buttons size-5"
-        />
-        <PhListChecks
-          v-else
-          :class="[cardTextColorDim]"
-          class="size-5"
-        />
-        <span
-          :class="allTasksCompleted ? 'text-buttons' : cardTextColorDim"
-          class="text-sm"
-        >{{ taskCompletionStatus }}</span>
-      </div>
-
-      <div
-        v-if="dueDate"
-        class="flex flex-row items-center gap-1"
-        :class="{'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue}"
-      >
-        <PhClock class="size-4" />
-        <span class="text-sm">{{ getFormattedDueDate }}</span>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">

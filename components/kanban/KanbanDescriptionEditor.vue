@@ -4,10 +4,10 @@
 
 <!-- eslint-disable perfectionist/sort-objects -->
 <template>
-  <editor-content
-    class="bg-elevation-2 mt-1 rounded-sm"
-    :editor="editor"
-  />
+    <editor-content
+        class="bg-elevation-2 mt-1 rounded-sm"
+        :editor="editor"
+    />
 </template>
 
 <script>
