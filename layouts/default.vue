@@ -7,7 +7,6 @@
         class="overflow-auto"
         :class="[windowIsMaximized ? 'bg-black' : '']"
     >
-        <!-- TODO: add background at the top here when window is maximized next to overflow-auto & add click actions, & remove rounded corners when maximized -->
         <div
             :style="cssVars"
             :class="[animationsEnabled ? '' : 'disable-animations']"
@@ -27,7 +26,14 @@
                     class="bg-elevation-3-hover rounded-md px-2.5 py-1 "
                     @click="maximizeWindow"
                 >
-                    <PhCards class="size-4" />
+                    <PhCards
+                        v-if="windowIsMaximized"
+                        class="size-4"
+                    />
+                    <PhRectangle
+                        v-else
+                        class="size-4"
+                    />
                 </button>
                 <button
                     class="rounded-md px-2.5 py-1 hover:bg-red-600"
@@ -54,7 +60,7 @@ import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json"
-import { PhCards, PhMinus, PhX } from "@phosphor-icons/vue";
+import { PhCards, PhMinus, PhRectangle, PhX } from "@phosphor-icons/vue";
 import { appWindow } from '@tauri-apps/api/window'
 
 const store = useTauriStore().store;
