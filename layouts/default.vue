@@ -3,7 +3,10 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
 <template>
-    <div class="overflow-auto">
+    <div
+        class="overflow-auto"
+        :class="[windowIsMaximized ? 'bg-black' : '']"
+    >
         <!-- TODO: add background at the top here when window is maximized next to overflow-auto & add click actions, & remove rounded corners when maximized -->
         <div
             :style="cssVars"
@@ -14,13 +17,22 @@
                 data-tauri-drag-region
                 class="bg-elevation-1 topbar fixed inset-x-0 top-0 flex h-8 w-full items-center justify-end rounded-t-xl pr-2"
             >
-                <button class="bg-elevation-3-hover rounded-md px-2.5 py-1">
+                <button
+                    class="bg-elevation-3-hover rounded-md px-2.5 py-1"
+                    @click="minimizeWindow"
+                >
                     <PhMinus class="size-4" />
                 </button>
-                <button class="bg-elevation-3-hover rounded-md px-2.5 py-1 ">
+                <button
+                    class="bg-elevation-3-hover rounded-md px-2.5 py-1 "
+                    @click="maximizeWindow"
+                >
                     <PhCards class="size-4" />
                 </button>
-                <button class="rounded-md px-2.5 py-1 hover:bg-red-600">
+                <button
+                    class="rounded-md px-2.5 py-1 hover:bg-red-600"
+                    @click="closeWindow"
+                >
                     <PhX class="size-4" />
                 </button>
             </div>
@@ -43,12 +55,14 @@ import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json"
 import { PhCards, PhMinus, PhX } from "@phosphor-icons/vue";
+import { appWindow } from '@tauri-apps/api/window'
 
 const store = useTauriStore().store;
 const savedColors = ref({});
 const mounted = ref(false);
 
 const animationsEnabled = ref(true);
+const windowIsMaximized = ref(false);
 
 onMounted(async () => {
     const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
@@ -69,6 +83,9 @@ onMounted(async () => {
     savedColors.value = await store.get("colors");
     mounted.value = true;
 
+    const appMaximized = await appWindow.isMaximized();
+    windowIsMaximized.value = appMaximized;
+
     emitter.on("updateColors", async () => {
         nextTick(async () => {
             savedColors.value = await store.get("colors");
@@ -82,6 +99,12 @@ onMounted(async () => {
 
     emitter.on("setAnimationsOff", () => {
         animationsEnabled.value = false;
+    });
+
+    appWindow.onResized(async () => {
+        const appMaximized = await appWindow.isMaximized();
+        console.log(appMaximized);
+        windowIsMaximized.value = appMaximized;
     });
 });
 
@@ -100,6 +123,18 @@ const increaseSaturation = (hex) =>  {
     hslColor[2] = Math.round(hslColor[2]);
 
     return hslToHex(...hslColor);
+}
+
+const minimizeWindow = () => {
+    appWindow.minimize();
+}
+
+const maximizeWindow = () => {
+    appWindow.maximize();
+}
+
+const closeWindow = () => {
+    appWindow.close();
 }
 
 const cssVars = computed(() => {
