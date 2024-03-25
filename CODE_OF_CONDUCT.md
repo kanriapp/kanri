@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech>
+SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
 
 SPDX-License-Identifier: Apache-2.0
 -->
@@ -66,7 +66,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-hello@trobo.tech.
+hello@trobo.dev.
 All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the

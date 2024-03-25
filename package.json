@@ -3,8 +3,8 @@
     "private": true,
     "version": "0.6.1",
     "description": "Offline-first Kanban board desktop app",
-    "author": "trobonox <hello@trobo.tech>",
-    "license": "Apache-2.0",
+    "author": "trobonox <hello@trobo.dev>",
+    "license": "GPL-3.0+",
     "scripts": {
         "init:armv7": "docker build . -t rust_cross_compile/armv7 -f Dockerfile.armv7",
         "init:arm64": "docker build . -t rust_cross_compile/arm64 -f Dockerfile.arm64",

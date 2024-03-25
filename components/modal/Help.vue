@@ -1,6 +1,22 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
 <!-- -->
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+Kanri is an offline Kanban board app made using Tauri and Nuxt.
+Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
     <Modal @closeModal="$emit('closeModal')">
@@ -76,14 +92,14 @@
                 </h3>
                 <p>
                     Application made by Trobonox (trobo.tech), licensed under
-                    the Apache 2.0 License. Icons used are from Heroicons
+                    the GPL v3 license (except some files with different licenses designated in their appropriate license headers/files). Icons used are from Heroicons
                     (licensed unter the MIT License). <br>
                 </p>
                 <p>
                     We are not affiliated, associated, authorized, endorsed by or in any way officially connected to Trello, Inc. (www.trello.com).
                 </p>
                 <p class="pt-2">
-                    Copyright (c) 2022-2024 trobonox (hello@trobo.tech) <br>
+                    Copyright (c) 2022-2024 trobonox (hello@trobo.dev) <br>
                     Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}
                 </p>
                 <nuxt-link
