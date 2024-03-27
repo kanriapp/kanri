@@ -203,6 +203,11 @@ onMounted(() => {
         if (columnID === props.id) {
             enableCardAddMode();
         }
+        else {
+            cardAddMode.value = false;
+            newCardName.value = '';
+            draggingEnabled.value = true;
+        }
     });
 
     emitter.on("resetColumnInputs", () => {
@@ -321,6 +326,8 @@ const enableCardAddMode = () => {
 }
 
 const updateColumnTitle = () => {
+    console.log("huh");
+
     enableDragging();
 
     if (titleNew.value == null || !(/\S/.test(titleNew.value))) {
