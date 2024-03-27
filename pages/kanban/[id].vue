@@ -193,7 +193,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             :style="cssVars"
             class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
         >
-            <div class="bg-effect-overlay h-full w-max min-w-full pt-[7.5rem]">
+            <div class="bg-effect-overlay h-full w-max min-w-full pt-32">
                 <div class="pointer-events-auto z-50 pl-8">
                     <div class="pt-4">
                         <Container
@@ -424,8 +424,6 @@ const keyDownListener = (e: KeyboardEvent) => {
         } else {
             columnEditIndex.value--;
         }
-
-
     }
 
     // Arrow key right to increase
