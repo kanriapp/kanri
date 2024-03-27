@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
     <div
         :class="columnSizeClass"
-        class="bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
+        class="kanban-column bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
     >
         <div
             id="board-title"
