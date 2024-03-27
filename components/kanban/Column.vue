@@ -20,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
     <div
+        ref="columnDOMElement"
         :class="columnSizeClass"
         class="kanban-column bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
     >
@@ -190,6 +191,8 @@ const draggingEnabled = ref(true);
 
 const boardTitle = ref(props.title);
 
+const columnDOMElement = ref<HTMLDivElement | null>(null);
+
 onMounted(() => {
     document.addEventListener("keydown", keyDownListener);
 
@@ -353,7 +356,19 @@ const addCard = () => {
     newCardName.value = "";
     cardAddMode.value = false;
     updateStorage();
+    scrollCardIntoView();
 };
+
+const scrollCardIntoView = () => {
+    // only get elements that are inside this column
+    if (!columnDOMElement.value) return;
+    const cards = columnDOMElement.value.getElementsByClassName("kanban-card");
+
+    console.log(cards);
+    if (!cards || cards.length === 0) return;
+
+    cards[cards.length - 1].scrollIntoView({ behavior: "smooth" });
+}
 
 const removeCardWithConfirmation = (cardIndex: number, cardRef: Ref<HTMLDivElement | null>) => {
     emit("removeCardWithConfirmation", props.id, cardIndex, cardRef);
