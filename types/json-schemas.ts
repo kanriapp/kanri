@@ -75,13 +75,13 @@ export const kanbanElectronBoardSchema = z.object({
 
 export const kanriJsonSchema = z.object({
     activeTheme: z.string(),
-    animationsEnabled: z.boolean().optional(),
-    boardSortingOption: z.string().optional(),
+    animationsEnabled: z.boolean().optional().nullable(),
+    boardSortingOption: z.string().optional().nullable(),
     boards: z.array(kanriBoardSchema),
     colors: kanriThemeSchema,
-    columnZoomLevel: z.number().optional(),
-    lastInstalledVersion: z.string().optional(),
-    savedCustomTheme: kanriThemeSchema.optional()
+    columnZoomLevel: z.number().optional().nullable(),
+    lastInstalledVersion: z.string().optional().nullable(),
+    savedCustomTheme: kanriThemeSchema.optional().nullable()
 });
 
 export const kanbanElectronJsonSchema = z.object({
