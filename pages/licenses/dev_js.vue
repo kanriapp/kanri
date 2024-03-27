@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <div class="max-w-full px-8 pt-12">
+    <div class="max-w-full px-8 pt-8">
         <div class="cover">
             <div class="cover__heading">
                 <h1 class="text-4xl font-bold">

@@ -47,7 +47,6 @@ const savedColors = ref({});
 const mounted = ref(false);
 
 const animationsEnabled = ref(true);
-const windowIsMaximized = ref(false);
 
 onMounted(async () => {
     const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
@@ -68,9 +67,6 @@ onMounted(async () => {
     savedColors.value = await store.get("colors");
     mounted.value = true;
 
-    const appMaximized = await appWindow.isMaximized();
-    windowIsMaximized.value = appMaximized;
-
     emitter.on("updateColors", async () => {
         nextTick(async () => {
             savedColors.value = await store.get("colors");
@@ -84,12 +80,6 @@ onMounted(async () => {
 
     emitter.on("setAnimationsOff", () => {
         animationsEnabled.value = false;
-    });
-
-    appWindow.onResized(async () => {
-        const appMaximized = await appWindow.isMaximized();
-        console.log(appMaximized);
-        windowIsMaximized.value = appMaximized;
     });
 });
 

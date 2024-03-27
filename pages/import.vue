@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
     <main
         id="settings"
-        class="overflow-auto pl-8 pt-12"
+        class="overflow-auto pl-8 pt-8"
     >
         <h1 class="text-4xl font-bold">
             Import & Export

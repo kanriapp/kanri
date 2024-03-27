@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <main class="container overflow-auto pl-8 pt-12">
+    <main class="container overflow-auto pl-8 pt-8">
         <div class="intro">
             <h1 class="mb-2 text-4xl font-bold">
                 Third Party Licenses
