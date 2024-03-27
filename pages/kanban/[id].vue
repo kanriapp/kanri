@@ -368,6 +368,8 @@ enum shortcutKeys {
     "d",
     "n",
     "t",
+    "h",
+    "l",
     "+",
     "-"
 }
@@ -418,7 +420,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     if (!Object.keys(shortcutKeys).includes(e.key)) return;
 
     // Arrow key left to decrease
-    if (e.key === "ArrowLeft" && e.altKey) {
+    if ((e.key === "ArrowLeft" || e.key === "h") && e.altKey) {
         if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
             columnEditIndex.value = board.value.columns.length - 1;
         } else {
@@ -427,7 +429,7 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // Arrow key right to increase
-    if (e.key === "ArrowRight" && e.altKey) {
+    if ((e.key === "ArrowRight" || e.key === "l") && e.altKey) {
         if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
             columnEditIndex.value = 0;
         } else {
