@@ -18,7 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
-    <div class="overflow-auto scroll-auto px-8 pt-12">
+    <div class="overflow-auto scroll-auto px-8 pt-8">
         <h1 class="mb-2 text-4xl font-bold">
             3rd-Party Software Report for Kanri
         </h1>
@@ -27,7 +27,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <b>Kanri</b>. Any information relevant to third-party vendors listed below are collected using common, reasonable means.
         </p>
         <p>
-            This page only lists JavaScript dependencies which are included in the final bundle. This report is being automatically generated using rollup-plugin-license, please write an email to hello@trobo.dev if you believe there is a mistake or something missing.
+            This page only lists JavaScript dependencies which are included in the final bundle. This report is being automatically generated using rollup-plugin-license, please write an email to hello@trobo.tech if you believe there is a mistake or something missing.
         </p>
         <p class="mb-4">
             For more licenses for Rust and extended JavaScript deps, see the links below.

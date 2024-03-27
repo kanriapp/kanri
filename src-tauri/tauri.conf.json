@@ -10,7 +10,6 @@
         "version": "0.6.1"
     },
     "tauri": {
-        "macOSPrivateApi": true,
         "allowlist": {
             "fs": {
                 "readFile": true,
@@ -42,15 +41,7 @@
                 ]
             },
             "window": {
-                "all": false,
-                "close": true,
-                "hide": true,
-                "show": true,
-                "maximize": true,
-                "minimize": true,
-                "unmaximize": true,
-                "unminimize": true,
-                "startDragging": true
+                "show": true
             }
         },
         "bundle": {
@@ -100,9 +91,7 @@
                 "title": "Kanri",
                 "width": 1400,
                 "center": true,
-                "visible": false,
-                "decorations": false,
-                "transparent": true
+                "visible": false
             }
         ]
     }

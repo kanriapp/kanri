@@ -77,7 +77,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @confirmAction="cardRemoveDialog.confirm(true)"
         />
 
-        <div class="absolute top-10 z-50 ml-8 w-[calc(100vw-112px)]">
+        <div class="absolute top-8 z-50 ml-8 w-[calc(100vw-112px)]">
             <h1
                 v-if="!boardTitleEditing"
                 class="mb-2 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
@@ -193,7 +193,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             :style="cssVars"
             class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
         >
-            <div class="bg-effect-overlay h-full w-max min-w-full pt-32">
+            <div class="bg-effect-overlay h-full w-max min-w-full pt-[7.5rem]">
                 <div class="pointer-events-auto z-50 pl-8">
                     <div class="pt-4">
                         <Container

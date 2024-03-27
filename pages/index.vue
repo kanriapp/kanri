@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <div class="overflow-auto pl-8 pt-12">
+    <div class="overflow-auto pl-8 pt-8">
         <ModalRenameBoard
             v-show="renameBoardModalVisible"
             @closeModal="renameBoardModalVisible = false"

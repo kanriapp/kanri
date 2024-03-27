@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 body {
     overscroll-behavior: none;
     scroll-behavior: smooth;
-    background-color: transparent;
+    background-color: #111112;
 }
 
 .smooth-dnd-container {

@@ -19,52 +19,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <div
-        class="overflow-auto"
-        :class="[windowIsMaximized ? 'bg-black' : '']"
-    >
+    <div class="overflow-auto">
         <div
             :style="cssVars"
             :class="[animationsEnabled ? '' : 'disable-animations']"
-            class="default-layout custom-scrollbar-hidden overflow-auto rounded-xl"
+            class="default-layout custom-scrollbar-hidden overflow-auto"
         >
-            <div
-                data-tauri-drag-region
-                class="bg-elevation-1 topbar fixed inset-x-0 top-0 flex h-8 w-full items-center justify-end rounded-t-xl pr-2"
-            >
-                <button
-                    class="bg-elevation-3-hover rounded-md px-2.5 py-1"
-                    @click="minimizeWindow"
-                >
-                    <PhMinus class="size-4" />
-                </button>
-                <button
-                    class="bg-elevation-3-hover rounded-md px-2.5 py-1 "
-                    @click="maximizeWindow"
-                >
-                    <PhCards
-                        v-if="windowIsMaximized"
-                        class="size-4"
-                    />
-                    <PhRectangle
-                        v-else
-                        class="size-4"
-                    />
-                </button>
-                <button
-                    class="rounded-md px-2.5 py-1 hover:bg-red-600"
-                    @click="closeWindow"
-                >
-                    <PhX class="size-4" />
-                </button>
+            <div v-if="mounted">
+                <Sidebar class="fixed left-0 w-8" />
             </div>
-            <div>
-                <div v-if="mounted">
-                    <Sidebar class="fixed left-0 w-8" />
-                </div>
-                <div class="min-h-screen pl-[4rem]">
-                    <slot />
-                </div>
+            <div class="min-h-screen pl-16">
+                <slot />
             </div>
         </div>
     </div>
@@ -76,8 +41,6 @@ import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json"
-import { PhCards, PhMinus, PhRectangle, PhX } from "@phosphor-icons/vue";
-import { appWindow } from '@tauri-apps/api/window'
 
 const store = useTauriStore().store;
 const savedColors = ref({});
@@ -147,18 +110,6 @@ const increaseSaturation = (hex) =>  {
     return hslToHex(...hslColor);
 }
 
-const minimizeWindow = () => {
-    appWindow.minimize();
-}
-
-const maximizeWindow = () => {
-    appWindow.maximize();
-}
-
-const closeWindow = () => {
-    appWindow.close();
-}
-
 const cssVars = computed(() => {
     if (!savedColors.value) {
         store.set("activeTheme", "dark");
@@ -200,26 +151,6 @@ const cssVars = computed(() => {
 </script>
 
 <style>
-.bg-rounded-corner-square {
-    background: linear-gradient(to left top, transparent, var(--bg-primary));
-}
-
-.bg-rounded-corner-square2 {
-    background: linear-gradient(to right bottom, transparent, var(--elevation-1));
-}
-
-.rounded-corner {
-    z-index: 9999999 !important;
-}
-
-.rounded-corner2 {
-    z-index: 999999 !important;
-}
-
-.topbar {
-    z-index: 9999 !important;
-}
-
 .disable-animations * {
     -webkit-transition: none !important;
     -moz-transition: none !important;
@@ -234,11 +165,6 @@ const cssVars = computed(() => {
     transition: background-color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
-    border-radius: 0.75rem;
-}
-
-.bg-primary {
-    background-color: var(--bg-primary);
 }
 
 .bg-elevation-1 {
