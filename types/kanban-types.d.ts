@@ -37,14 +37,12 @@ export declare interface Card {
     }>,
 }
 
-<<<<<<< HEAD
 export declare interface Tag {
     color?: string,
     id?: string,
     tag?: string,
 }
 
-=======
 export declare interface Theme {
     accent: string,
     accentDarker: string,
@@ -61,7 +59,6 @@ export declare interface Theme {
 }
 
 
->>>>>>> 93b21a891253bb5c02b4ff645fead933288063ac
 export declare type ThemeIdentifiers = "catppuccin" | "custom" | "dark" | "light";
 
 export default {
