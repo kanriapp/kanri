@@ -412,8 +412,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Card } from "@/types/kanban-types";
-import type { Tag } from "@/types/kanban-types";
+import type { Card, Tag } from "@/types/kanban-types";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import emitter from "@/utils/emitter"
@@ -442,7 +441,8 @@ const emit = defineEmits<{
 }>();
 
 onMounted( async () => {
-    storedTags = await store.get("tags") || [];
+    storedTags.value = await store.get("tags") || [];
+    console.log(storedTags);
 });
 
 const columnID = ref("");
@@ -450,7 +450,9 @@ const cardIndex = ref(0);
 const title = ref("");
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
-const tags = ref<Tag[]>([]);
+const storedTags: Ref<Array<Tag>> = ref([]);
+const store = useTauriStore().store;
+const tags: Ref<Array<Tag>> = ref([]);
 const selectedColor = ref("");
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
@@ -472,8 +474,6 @@ const taskEditMode = ref(false);
 const newTagName = ref("");
 const tagsAddMode = ref(false);
 const newTagInput: Ref<HTMLInputElement | null> = ref(null);
-let storedTags = reactive<Tag[]>([]);
-const store = useTauriStore().store;
 
 const draggingEnabled = ref(true);
 
@@ -511,18 +511,21 @@ const createTask = () => {
 }
 
 const createTag = async () => {
+    console.log(storedTags);
+
     if (newTagName.value == null || !(/\S/.test(newTagName.value))) return;
-    if (storedTags.find((x) => x.tag === newTagName.value) !== undefined) {
-        const storedTag = storedTags.find((x) => x.tag === newTagName.value);
+    if (storedTags.value.find(x => x.tag === newTagName.value) !== undefined) {
+        const storedTag = storedTags.value.find(x => x.tag === newTagName.value);
         tags.value.push(storedTag!);
         newTagName.value = "";
         tagsAddMode.value = false;
 
         updateCardTags();
+        return;
     }
     console.log("new tag");
-    
-    storedTags.push({
+
+    storedTags.value.push({
         id: generateUniqueID(),
         tag: newTagName.value,
     });
