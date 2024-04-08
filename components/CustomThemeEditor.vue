@@ -1,119 +1,135 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
 <!-- -->
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+Kanri is an offline Kanban board app made using Tauri and Nuxt.
+Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="flex w-[48rem] flex-col gap-4">
-    <div
-      id="color-row"
-      class="flex flex-row items-center justify-between"
-    >
-      <label for="color-picker">Accent color</label>
-      <div class="flex flex-row gap-4">
-        <HexColorInput
-          v-model="customTheme.accent"
-        />
-        <input
-          ref="colorInput"
-          v-model="customTheme.accent"
-          type="color"
+    <div class="flex w-[48rem] flex-col gap-4">
+        <div
+            id="color-row"
+            class="flex flex-row items-center justify-between"
         >
-      </div>
-    </div>
+            <label for="color-picker">Accent color</label>
+            <div class="flex flex-row gap-4">
+                <HexColorInput
+                    v-model="customTheme.accent"
+                />
+                <input
+                    ref="colorInput"
+                    v-model="customTheme.accent"
+                    type="color"
+                >
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">Primary text color</label>
-      <div class="flex flex-row gap-4">
-        <HexColorInput
-          v-model="customTheme.text"
-        />
-        <input
-          ref="colorInput"
-          v-model="customTheme.text"
-          type="color"
-        >
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">Primary text color</label>
+            <div class="flex flex-row gap-4">
+                <HexColorInput
+                    v-model="customTheme.text"
+                />
+                <input
+                    ref="colorInput"
+                    v-model="customTheme.text"
+                    type="color"
+                >
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">Button text</label>
-      <div class="flex flex-row gap-4">
-        <HexColorInput
-          v-model="customTheme.textButtons"
-        />
-        <input
-          ref="colorInput"
-          v-model="customTheme.textButtons"
-          type="color"
-        >
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">Button text</label>
+            <div class="flex flex-row gap-4">
+                <HexColorInput
+                    v-model="customTheme.textButtons"
+                />
+                <input
+                    ref="colorInput"
+                    v-model="customTheme.textButtons"
+                    type="color"
+                >
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">Primary background color</label>
-      <div class="flex flex-row gap-4">
-        <HexColorInput
-          v-model="customTheme.bgPrimary"
-        />
-        <input
-          ref="colorInput"
-          v-model="customTheme.bgPrimary"
-          type="color"
-        >
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">Primary background color</label>
+            <div class="flex flex-row gap-4">
+                <HexColorInput
+                    v-model="customTheme.bgPrimary"
+                />
+                <input
+                    ref="colorInput"
+                    v-model="customTheme.bgPrimary"
+                    type="color"
+                >
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">1st level of elevation</label>
-      <div class="flex flex-row gap-4">
-        <HexColorInput
-          v-model="customTheme.elevation1"
-        />
-        <input
-          ref="colorInput"
-          v-model="customTheme.elevation1"
-          type="color"
-        >
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">1st level of elevation</label>
+            <div class="flex flex-row gap-4">
+                <HexColorInput
+                    v-model="customTheme.elevation1"
+                />
+                <input
+                    ref="colorInput"
+                    v-model="customTheme.elevation1"
+                    type="color"
+                >
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">2nd level of elevation</label>
-      <div class="flex flex-row gap-4">
-        <HexColorInput
-          v-model="customTheme.elevation2"
-        />
-        <input
-          ref="colorInput"
-          v-model="customTheme.elevation2"
-          type="color"
-        >
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">2nd level of elevation</label>
+            <div class="flex flex-row gap-4">
+                <HexColorInput
+                    v-model="customTheme.elevation2"
+                />
+                <input
+                    ref="colorInput"
+                    v-model="customTheme.elevation2"
+                    type="color"
+                >
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-between">
-      <label for="color-picker">3rd level of elevation</label>
-      <div class="flex flex-row gap-4">
-        <HexColorInput
-          v-model="customTheme.elevation3"
-        />
-        <input
-          ref="colorInput"
-          v-model="customTheme.elevation3"
-          type="color"
-        >
-      </div>
-    </div>
+        <div class="flex flex-row items-center justify-between">
+            <label for="color-picker">3rd level of elevation</label>
+            <div class="flex flex-row gap-4">
+                <HexColorInput
+                    v-model="customTheme.elevation3"
+                />
+                <input
+                    ref="colorInput"
+                    v-model="customTheme.elevation3"
+                    type="color"
+                >
+            </div>
+        </div>
 
-    <div class="flex flex-row items-center justify-end">
-      <button
-        class="text-buttons transition-button bg-accent rounded-md px-6 py-1"
-        @click="setCustomTheme"
-      >
-        Save
-      </button>
+        <div class="flex flex-row items-center justify-end">
+            <button
+                class="text-buttons transition-button bg-accent rounded-md px-6 py-1"
+                @click="setCustomTheme"
+            >
+                Save
+            </button>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">

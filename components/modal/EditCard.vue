@@ -1,414 +1,427 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, Khusyasy -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
+<!--
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
 
 <template>
-  <Modal
-    :blur-background="false"
-    @closeModal="
-      $emit('closeModal', columnID);
-      titleEditing = false;
-      taskAddMode = false
-    "
-  >
-    <template #content>
-      <div class="flex max-h-[40rem] w-[36rem] flex-col">
-        <div class="mb-6">
-          <div class="flex flex-row items-start justify-between gap-12">
-            <h1
-              v-if="!titleEditing"
-              :v-model="title"
-              class="text-no-overflow pointer-events-auto min-w-[64px] pr-5 text-2xl font-bold"
-              @click="enableTitleEditing()"
-            >
-              {{ title }}
-            </h1>
-            <input
-              v-if="titleEditing"
-              ref="titleInput"
-              v-model="title"
-              v-focus
-              class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
-              maxlength="1000"
-              type="text"
-              @blur="updateTitle"
-              @keypress.enter="updateTitle"
-            >
-            <XMarkIcon
-              class="text-accent-hover size-6 shrink-0 cursor-pointer"
-              @click="$emit('closeModal', columnID)"
-            />
-          </div>
-          <div class="flex flex-row items-center gap-2">
-            <VDatePicker
-              v-model="dueDate"
-              mode="dateTime"
-              is24hr
-              @update:modelValue="updateDueDate"
-            >
-              <template #default="{ togglePopover, inputValue}">
-                <button
-                  class="bg-elevation-2 bg-elevation-3-hover mt-1 flex items-center justify-center gap-2 rounded-md px-2 py-1"
-                  @click="() => togglePopover()"
-                >
-                  <PhCalendar class="size-5" />
-                  <span v-if="dueDate">Due date: {{ inputValue }}</span>
-                  <span v-else>Set due date</span>
-                </button>
-              </template>
-              <template #footer>
-                <div class="w-full px-4 pb-3">
-                  <div class="mt-3 flex flex-col gap-4">
-                    <div class="flex flex-row items-center gap-4">
-                      <SwitchRoot
-                        v-model:checked="isDueDateCounterRelative"
-                        class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-                        @update:checked="updateDueDate"
-                      >
-                        <SwitchThumb
-                          class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+    <Modal
+        :blur-background="false"
+        @closeModal="
+            $emit('closeModal', columnID);
+            titleEditing = false;
+            taskAddMode = false
+        "
+    >
+        <template #content>
+            <div class="flex max-h-[40rem] w-[36rem] flex-col">
+                <div class="mb-6">
+                    <div class="flex flex-row items-start justify-between gap-12">
+                        <h1
+                            v-if="!titleEditing"
+                            :v-model="title"
+                            class="text-no-overflow pointer-events-auto min-w-[64px] pr-5 text-2xl font-bold"
+                            @click="enableTitleEditing()"
+                        >
+                            {{ title }}
+                        </h1>
+                        <input
+                            v-if="titleEditing"
+                            ref="titleInput"
+                            v-model="title"
+                            v-focus
+                            class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
+                            maxlength="1000"
+                            type="text"
+                            @blur="updateTitle"
+                            @keypress.enter="updateTitle"
+                        >
+                        <XMarkIcon
+                            class="text-accent-hover size-6 shrink-0 cursor-pointer"
+                            @click="$emit('closeModal', columnID)"
                         />
-                      </SwitchRoot>
-                      <p>Relative countdown</p>
                     </div>
-                    <button
-                      class="bg-elevation-1 bg-elevation-2-hover flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
-                      @click="resetDueDate"
-                    >
-                      <PhTrash class="mt-0.5 size-5" />
-                      Remove due date
-                    </button>
-                  </div>
+                    <div class="flex flex-row items-center gap-2">
+                        <VDatePicker
+                            v-model="dueDate"
+                            mode="dateTime"
+                            is24hr
+                            @update:modelValue="updateDueDate"
+                        >
+                            <template #default="{ togglePopover, inputValue}">
+                                <button
+                                    class="bg-elevation-2 bg-elevation-3-hover mt-1 flex items-center justify-center gap-2 rounded-md px-2 py-1"
+                                    @click="() => togglePopover()"
+                                >
+                                    <PhCalendar class="size-5" />
+                                    <span v-if="dueDate">Due date: {{ inputValue }}</span>
+                                    <span v-else>Set due date</span>
+                                </button>
+                            </template>
+                            <template #footer>
+                                <div class="w-full px-4 pb-3">
+                                    <div class="mt-3 flex flex-col gap-4">
+                                        <div class="flex flex-row items-center gap-4">
+                                            <SwitchRoot
+                                                v-model:checked="isDueDateCounterRelative"
+                                                class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+                                                @update:checked="updateDueDate"
+                                            >
+                                                <SwitchThumb
+                                                    class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                                                />
+                                            </SwitchRoot>
+                                            <p>Relative countdown</p>
+                                        </div>
+                                        <button
+                                            class="bg-elevation-1 bg-elevation-2-hover flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
+                                            @click="resetDueDate"
+                                        >
+                                            <PhTrash class="mt-0.5 size-5" />
+                                            Remove due date
+                                        </button>
+                                    </div>
+                                </div>
+                            </template>
+                        </VDatePicker>
+                    </div>
                 </div>
-              </template>
-            </VDatePicker>
-          </div>
-        </div>
-        <div class="flex max-h-full flex-col overflow-hidden overflow-y-auto pr-10">
-          <h2
-            class="text-lg font-semibold"
-          >
-            Card Description
-          </h2>
-          <KanbanDescriptionEditor
-            v-model="description"
-            @editorBlurred="updateDescription"
-          />
-          <div class="mb-1 mt-6 flex flex-row items-center gap-2">
-            <h2
-              class="text-lg font-semibold"
-            >
-              Tasks
-            </h2>
-            <span
-              v-if="tasks.length !== 0"
-              class="text-dim-1 text-sm"
-            >({{ getCheckedTaskNumber }}/{{ tasks.length }})</span>
-          </div>
-          <ProgressRoot
-            v-if="tasks"
-            v-model="getTaskPercentage"
-            class="bg-elevation-2 relative mb-4 h-2 w-full overflow-hidden rounded-full"
-            style="transform: translateZ(0)"
-          >
-            <ProgressIndicator
-              class="ease-[cubic-bezier(0.65, 0, 0.35, 1)] bg-accent-no-hover size-full rounded-full transition-transform duration-[660ms]"
-              :style="`transform: translateX(-${100 - getTaskPercentage}%)`"
-            />
-          </ProgressRoot>
-          <div
-            class="flex w-full flex-col gap-2"
-          >
-            <div
-              v-if="tasks && tasks.length !== 0"
-              class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1"
-            >
-              <Container
-                drag-class="cursor-grabbing"
-                drag-handle-selector=".task-drag"
-                lock-axis="y"
-                orientation="vertical"
-                @drop="onTaskDrop"
-              >
-                <Draggable
-                  v-for="(task, index) in tasks"
-                  :key="task.id"
-                  :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
-                  :index="index"
-                >
-                  <div class="mb-1 flex w-full flex-row items-center justify-between gap-4">
-                    <div class="flex w-full flex-row items-center justify-start gap-4">
-                      <CheckboxRoot
-                        v-model:checked="task.finished"
-                        class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
-                        @update:checked="updateCardTasks()"
-                      >
-                        <CheckboxIndicator class="flex size-full items-center justify-center rounded">
-                          <PhCheck
-                            weight="bold"
-                            class="text-accent-lighter size-4"
-                          />
-                        </CheckboxIndicator>
-                      </CheckboxRoot>
-                      <input
-                        v-if="taskEditMode && index === currentlyEditingTaskIndex"
-                        v-model="currentlyEditingTaskName"
-                        v-focus
-                        class="bg-elevation-2 border-accent -mx-1.5 w-full rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
-                        type="text"
-                        @blur="updateTask(index)"
-                        @keypress.enter="updateTask(index)"
-                      >
-                      <ClickCounter
-                        v-else
-                        @double-click="enableTaskEditMode(index, task)"
-                      >
+                <div class="flex max-h-full flex-col overflow-hidden overflow-y-auto pr-10">
+                    <h2
+                        class="text-lg font-semibold"
+                    >
+                        Card Description
+                    </h2>
+                    <KanbanDescriptionEditor
+                        v-model="description"
+                        @editorBlurred="updateDescription"
+                    />
+                    <div class="mb-1 mt-6 flex flex-row items-center gap-2">
+                        <h2
+                            class="text-lg font-semibold"
+                        >
+                            Tasks
+                        </h2>
                         <span
-                          class="text-no-overflow-task w-full"
-                        >{{ task.name }}</span>
-                      </ClickCounter>
+                            v-if="tasks.length !== 0"
+                            class="text-dim-1 text-sm"
+                        >({{ getCheckedTaskNumber }}/{{ tasks.length }})</span>
                     </div>
-                    <div class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center">
-                      <button
-                        v-if="!taskEditMode"
-                        class="shrink-0"
-                        @click="enableTaskEditMode(index, task)"
-                      >
-                        <PhPencilSimple class="text-dim-2 text-accent-hover size-4" />
-                      </button>
-                      <button
-                        v-if="taskEditMode && currentlyEditingTaskIndex === index"
-                        class="shrink-0"
-                        @click="updateTask(index)"
-                      >
-                        <PhCheck class="text-dim-2 text-accent-hover size-4" />
-                      </button>
-                      <button
-                        v-if="!(taskEditMode && currentlyEditingTaskIndex === index)"
-                        class="shrink-0"
-                        @click="deleteTask(index)"
-                      >
-                        <XMarkIcon class="text-dim-2 text-accent-hover size-4" />
-                      </button>
+                    <ProgressRoot
+                        v-if="tasks"
+                        v-model="getTaskPercentage"
+                        class="bg-elevation-2 relative mb-4 h-2 w-full overflow-hidden rounded-full"
+                        style="transform: translateZ(0)"
+                    >
+                        <ProgressIndicator
+                            class="ease-[cubic-bezier(0.65, 0, 0.35, 1)] bg-accent-no-hover size-full rounded-full transition-transform duration-[660ms]"
+                            :style="`transform: translateX(-${100 - getTaskPercentage}%)`"
+                        />
+                    </ProgressRoot>
+                    <div
+                        class="flex w-full flex-col gap-2"
+                    >
+                        <div
+                            v-if="tasks && tasks.length !== 0"
+                            class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1"
+                        >
+                            <Container
+                                drag-class="cursor-grabbing"
+                                drag-handle-selector=".task-drag"
+                                lock-axis="y"
+                                orientation="vertical"
+                                @drop="onTaskDrop"
+                            >
+                                <Draggable
+                                    v-for="(task, index) in tasks"
+                                    :key="task.id"
+                                    :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
+                                    :index="index"
+                                >
+                                    <div class="mb-1 flex w-full flex-row items-center justify-between gap-4">
+                                        <div class="flex w-full flex-row items-center justify-start gap-4">
+                                            <CheckboxRoot
+                                                v-model:checked="task.finished"
+                                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
+                                                @update:checked="updateCardTasks()"
+                                            >
+                                                <CheckboxIndicator class="flex size-full items-center justify-center rounded">
+                                                    <PhCheck
+                                                        weight="bold"
+                                                        class="text-accent-lighter size-4"
+                                                    />
+                                                </CheckboxIndicator>
+                                            </CheckboxRoot>
+                                            <input
+                                                v-if="taskEditMode && index === currentlyEditingTaskIndex"
+                                                v-model="currentlyEditingTaskName"
+                                                v-focus
+                                                class="bg-elevation-2 border-accent -mx-1.5 w-full rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
+                                                type="text"
+                                                @blur="updateTask(index)"
+                                                @keypress.enter="updateTask(index)"
+                                            >
+                                            <ClickCounter
+                                                v-else
+                                                @double-click="enableTaskEditMode(index, task)"
+                                            >
+                                                <span
+                                                    class="text-no-overflow-task w-full"
+                                                >{{ task.name }}</span>
+                                            </ClickCounter>
+                                        </div>
+                                        <div class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center">
+                                            <button
+                                                v-if="!taskEditMode"
+                                                class="shrink-0"
+                                                @click="enableTaskEditMode(index, task)"
+                                            >
+                                                <PhPencilSimple class="text-dim-2 text-accent-hover size-4" />
+                                            </button>
+                                            <button
+                                                v-if="taskEditMode && currentlyEditingTaskIndex === index"
+                                                class="shrink-0"
+                                                @click="updateTask(index)"
+                                            >
+                                                <PhCheck class="text-dim-2 text-accent-hover size-4" />
+                                            </button>
+                                            <button
+                                                v-if="!(taskEditMode && currentlyEditingTaskIndex === index)"
+                                                class="shrink-0"
+                                                @click="deleteTask(index)"
+                                            >
+                                                <XMarkIcon class="text-dim-2 text-accent-hover size-4" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </Draggable>
+                            </Container>
+                        </div>
+                        <input
+                            v-if="taskAddMode"
+                            ref="newTaskInput"
+                            v-model="newTaskName"
+                            v-focus
+                            class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+                            maxlength="1000"
+                            placeholder="Enter a task name..."
+                            type="text"
+                            @keypress.enter="createTask"
+                        >
+                        <div
+                            v-if="taskAddMode"
+                            class="ml-0.5 mt-0.5 flex flex-row gap-4"
+                        >
+                            <button
+                                class="bg-accent text-buttons rounded-md px-4 py-1"
+                                @click="createTask"
+                            >
+                                Add
+                            </button>
+                            <button @click="taskAddMode = false; newTaskName = ''">
+                                Cancel
+                            </button>
+                        </div>
+                        <button
+                            v-if="!taskAddMode"
+                            class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pl-1 pr-2"
+                            @click="enableTaskAddMode"
+                        >
+                            <PlusIcon class="text-accent size-6" />
+                            <span>Add Task</span>
+                        </button>
                     </div>
-                  </div>
-                </Draggable>
-              </Container>
+                    <h2
+                        class="mb-2 mt-6 text-lg font-semibold"
+                    >
+                        Card Color
+                    </h2>
+                    <div class="mb-6 flex flex-row gap-4">
+                        <button
+                            class="size-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
+                            @click="setCardColor(columnID, cardIndex, 'bg-pink-600')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-pink-600'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            class="size-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
+                            @click="setCardColor(columnID, cardIndex, 'bg-red-600')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-red-600'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            class="size-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
+                            @click="setCardColor(columnID, cardIndex, 'bg-orange-600')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-orange-600'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            class="size-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
+                            @click="setCardColor(columnID, cardIndex, 'bg-yellow-600')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-yellow-600'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            class="size-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
+                            @click="setCardColor(columnID, cardIndex, 'bg-green-600')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-green-600'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            class="size-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
+                            @click="setCardColor(columnID, cardIndex, 'bg-teal-600')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-teal-600'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            class="size-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
+                            @click="setCardColor(columnID, cardIndex, 'bg-blue-600')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-blue-600'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            class="size-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
+                            @click="setCardColor( columnID, cardIndex, 'bg-purple-600')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-purple-600'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            class="bg-elevation-2 bg-elevation-3-hover size-7 rounded-full py-1 pl-1.5 pr-1"
+                            @click="setCardColor(columnID, cardIndex, 'bg-elevation-2')"
+                        >
+                            <CheckIcon
+                                v-if="selectedColor === 'bg-elevation-2'"
+                                class="size-4"
+                            />
+                        </button>
+                        <button
+                            :class="`h-7 w-7 rounded-full py-1 pl-1.5 pr-1`"
+                            :style="{'background-color': customColor}"
+                            @click="setCardColor(columnID, cardIndex, customColor)"
+                        >
+                            <CheckIcon
+                                v-if="isCustomColor"
+                                :class="['h-4', 'w-4', getContrast(customColor)]"
+                            />
+                            <SwatchIcon
+                                v-else
+                                :class="['stroke-2', 'h-4', 'w-4', getContrast(customColor)]"
+                            />
+                        </button>
+                        <div
+                            v-if="isCustomColor"
+                            class="bg-elevation-2 flex flex-col gap-1 rounded-md p-1"
+                        >
+                            <input
+                                v-model="customColor"
+                                class="bg-elevation-1 w-20 rounded-md px-2"
+                                readonly="true"
+                                type="text"
+                            >
+                            <input
+                                ref="colorInput"
+                                v-model="customColor"
+                                class="bg-elevation-2 w-full rounded-md px-2"
+                                type="color"
+                            >
+                        </div>
+                    </div>
+                    <div>
+                        <h2
+                            class="mb-2 text-lg font-semibold"
+                        >
+                            Tags
+                        </h2>
+                        <div class="mb-4 flex flex-row gap-4">
+                            <div
+                                v-for="(tag, index) in tags"
+                                :key="tag.id"
+                                class="flex justify-items-center rounded-3xl border p-2"
+                            >
+                                <span>
+                                    {{ tag.tag }}
+                                </span>
+                                <button
+                                    class="shrink-0"
+                                    @click="deleteTag(index)"
+                                >
+                                    <XMarkIcon class="text-dim-2 text-accent-hover size-4" />
+                                </button>
+                            </div>
+                        </div>
+                        <button
+                            v-if="!tagsAddMode"
+                            class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pl-1 pr-2"
+                            @click="enableTagsAddMode"
+                        >
+                            <PlusIcon class="text-accent size-6" />
+                            <span>Add Tag</span>
+                        </button>
+                        <input
+                            v-if="tagsAddMode"
+                            ref="newTagInput"
+                            v-model="newTagName"
+                            v-focus
+                            class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto mb-2 rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+                            maxlength="1000"
+                            placeholder="Enter a tag"
+                            type="text"
+                            @keypress.enter="createTag"
+                        >
+                        <div
+                            v-if="tagsAddMode"
+                            class="ml-0.5 mt-0.5 flex flex-row gap-4"
+                        >
+                            <button
+                                class="bg-accent text-buttons rounded-md px-4 py-1"
+                                @click="createTag"
+                            >
+                                Add
+                            </button>
+                            <button @click="tagsAddMode = false; newTagName = ''">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <input
-              v-if="taskAddMode"
-              ref="newTaskInput"
-              v-model="newTaskName"
-              v-focus
-              class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
-              maxlength="1000"
-              placeholder="Enter a task name..."
-              type="text"
-              @keypress.enter="createTask"
-            >
-            <div
-              v-if="taskAddMode"
-              class="ml-0.5 mt-0.5 flex flex-row gap-4"
-            >
-              <button
-                class="bg-accent text-buttons rounded-md px-4 py-1"
-                @click="createTask"
-              >
-                Add
-              </button>
-              <button @click="taskAddMode = false; newTaskName = ''">
-                Cancel
-              </button>
-            </div>
-            <button
-              v-if="!taskAddMode"
-              class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pl-1 pr-2"
-              @click="enableTaskAddMode"
-            >
-              <PlusIcon class="text-accent size-6" />
-              <span>Add Task</span>
-            </button>
-          </div>
-          <h2
-            class="mb-2 mt-6 text-lg font-semibold"
-          >
-            Card Color
-          </h2>
-          <div class="mb-6 flex flex-row gap-4">
-            <button
-              class="size-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
-              @click="setCardColor(columnID, cardIndex, 'bg-pink-600')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-pink-600'"
-                class="size-4"
-              />
-            </button>
-            <button
-              class="size-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
-              @click="setCardColor(columnID, cardIndex, 'bg-red-600')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-red-600'"
-                class="size-4"
-              />
-            </button>
-            <button
-              class="size-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
-              @click="setCardColor(columnID, cardIndex, 'bg-orange-600')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-orange-600'"
-                class="size-4"
-              />
-            </button>
-            <button
-              class="size-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
-              @click="setCardColor(columnID, cardIndex, 'bg-yellow-600')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-yellow-600'"
-                class="size-4"
-              />
-            </button>
-            <button
-              class="size-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
-              @click="setCardColor(columnID, cardIndex, 'bg-green-600')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-green-600'"
-                class="size-4"
-              />
-            </button>
-            <button
-              class="size-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
-              @click="setCardColor(columnID, cardIndex, 'bg-teal-600')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-teal-600'"
-                class="size-4"
-              />
-            </button>
-            <button
-              class="size-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
-              @click="setCardColor(columnID, cardIndex, 'bg-blue-600')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-blue-600'"
-                class="size-4"
-              />
-            </button>
-            <button
-              class="size-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
-              @click="setCardColor( columnID, cardIndex, 'bg-purple-600')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-purple-600'"
-                class="size-4"
-              />
-            </button>
-            <button
-              class="bg-elevation-2 bg-elevation-3-hover size-7 rounded-full py-1 pl-1.5 pr-1"
-              @click="setCardColor(columnID, cardIndex, 'bg-elevation-2')"
-            >
-              <CheckIcon
-                v-if="selectedColor === 'bg-elevation-2'"
-                class="size-4"
-              />
-            </button>
-            <button
-              :class="`h-7 w-7 rounded-full py-1 pl-1.5 pr-1`"
-              :style="{'background-color': customColor}"
-              @click="setCardColor(columnID, cardIndex, customColor)"
-            >
-              <CheckIcon
-                v-if="isCustomColor"
-                :class="['h-4', 'w-4', getContrast(customColor)]"
-              />
-              <SwatchIcon
-                v-else
-                :class="['stroke-2', 'h-4', 'w-4', getContrast(customColor)]"
-              />
-            </button>
-            <div
-              v-if="isCustomColor"
-              class="bg-elevation-2 flex flex-col gap-1 rounded-md p-1"
-            >
-              <input
-                v-model="customColor"
-                class="bg-elevation-1 w-20 rounded-md px-2"
-                readonly="true"
-                type="text"
-              >
-              <input
-                ref="colorInput"
-                v-model="customColor"
-                class="bg-elevation-2 w-full rounded-md px-2"
-                type="color"
-              >
-            </div>
-          </div>
-          <div>
-            <h2
-              class="mb-2 text-lg font-semibold"
-            >
-              Tags
-            </h2>
-            <div class="mb-4 flex flex-row gap-4">
-              <div
-                v-for="(tag, index) in tags"
-                :key="tag.id"
-                class="flex justify-items-center rounded-3xl border p-2"
-              >
-                <span>
-                  {{ tag.tag }}
-                </span>
-                <button
-                  class="shrink-0"
-                  @click="deleteTag(index)"
-                >
-                  <XMarkIcon class="text-dim-2 text-accent-hover size-4" />
-                </button>
-              </div>
-            </div>
-            <button
-              v-if="!tagsAddMode"
-              class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pl-1 pr-2"
-              @click="enableTagsAddMode"
-            >
-              <PlusIcon class="text-accent size-6" />
-              <span>Add Tag</span>
-            </button>
-            <input
-              v-if="tagsAddMode"
-              ref="newTagInput"
-              v-model="newTagName"
-              v-focus
-              class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto mb-2 rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
-              maxlength="1000"
-              placeholder="Enter a tag"
-              type="text"
-              @keypress.enter="createTag"
-            >
-            <div
-              v-if="tagsAddMode"
-              class="ml-0.5 mt-0.5 flex flex-row gap-4"
-            >
-              <button
-                class="bg-accent text-buttons rounded-md px-4 py-1"
-                @click="createTag"
-              >
-                Add
-              </button>
-              <button @click="tagsAddMode = false; newTagName = ''">
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-  </Modal>
+        </template>
+    </Modal>
 </template>
 
 <script setup lang="ts">

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech>
+# SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -7,7 +7,7 @@ name = "kanri"
 version = "0.6.1"
 description = "Offline kanban board application"
 authors = ["trobonox"]
-license = "Apache-2.0"
+license = "GPL-3.0+"
 repository = "https://github.com/trobonox/kanri"
 default-run = "kanri"
 edition = "2021"
@@ -21,7 +21,7 @@ tauri-build = { version = "1.5.1", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.5.4", features = [ "window-show", "dialog-ask", "dialog-message", "dialog-open", "dialog-save", "fs-read-file", "fs-write-file", "protocol-asset", "shell-open"] }
+tauri = { version = "1.6.1", features = [ "window-show", "dialog-ask", "dialog-message", "dialog-open", "dialog-save", "fs-read-file", "fs-write-file", "protocol-asset", "shell-open"] }
 tauri-plugin-persisted-scope = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1", features= ["protocol-asset"] }
 ignore = "=0.4.22"
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }

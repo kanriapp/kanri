@@ -1,191 +1,207 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
 <!-- -->
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+Kanri is an offline Kanban board app made using Tauri and Nuxt.
+Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="overflow-auto pl-8 pt-8">
-    <ModalRenameBoard
-      v-show="renameBoardModalVisible"
-      @closeModal="renameBoardModalVisible = false"
-      @renameBoard="renameBoard"
-    />
+    <div class="overflow-auto pl-8 pt-8">
+        <ModalRenameBoard
+            v-show="renameBoardModalVisible"
+            @closeModal="renameBoardModalVisible = false"
+            @renameBoard="renameBoard"
+        />
 
-    <ModalConfirmation
-      v-show="deleteBoardModalVisible"
-      close-button-text="Cancel"
-      confirm-button-text="Delete"
-      description="Are you sure you want to delete the board? This action is irreverisble."
-      title="Delete Board?"
-      @closeModal="deleteBoardModalVisible = false"
-      @confirmAction="deleteBoard"
-    />
+        <ModalConfirmation
+            v-show="deleteBoardModalVisible"
+            close-button-text="Cancel"
+            confirm-button-text="Delete"
+            description="Are you sure you want to delete the board? This action is irreverisble."
+            title="Delete Board?"
+            @closeModal="deleteBoardModalVisible = false"
+            @confirmAction="deleteBoard"
+        />
 
-    <ModalChangelog
-      v-show="changelogModalVisible"
-      @closeModal="changelogModalVisible = false"
-    />
+        <ModalChangelog
+            v-show="changelogModalVisible"
+            @closeModal="changelogModalVisible = false"
+        />
 
-    <section id="welcome-text">
-      <h1 class="text-4xl font-bold">
-        Welcome back to Kanri!
-      </h1>
-      <h2
-        v-if="boards.length !== 0"
-        class="text-dim-3 ml-1"
-      >
-        Your boards are ready and waiting for you.
-      </h2>
-      <p
-        v-if="editSortWarning"
-        class="mt-1 text-red-500"
-      >
-        Warning: there is at least one board which does not have a valid last edited date. This is probably a remainder from a board created in an old version of Kanri. <br> Please edit all boards at least once to mitigate this behaviour.
-      </p>
-    </section>
+        <section id="welcome-text">
+            <h1 class="text-4xl font-bold">
+                Welcome back to Kanri!
+            </h1>
+            <h2
+                v-if="boards.length !== 0"
+                class="text-dim-3 ml-1"
+            >
+                Your boards are ready and waiting for you.
+            </h2>
+            <p
+                v-if="editSortWarning"
+                class="mt-1 text-red-500"
+            >
+                Warning: there is at least one board which does not have a valid last edited date. This is probably a remainder from a board created in an old version of Kanri. <br> Please edit all boards at least once to mitigate this behaviour.
+            </p>
+        </section>
 
-    <section
-      v-if="!(boards.length === 0 && loading === false)"
-      id="filters"
-      class="mt-2"
-    >
-      <div class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow w-fit rounded-md hover:cursor-pointer">
-        <VDropdown
-          :distance="12"
-          placement="bottom-start"
+        <section
+            v-if="!(boards.length === 0 && loading === false)"
+            id="filters"
+            class="mt-2"
         >
-          <button class="flex flex-row items-center gap-2 px-4 py-2">
-            <PhFunnel class="size-6" />
-            <p>{{ sortingOptionText }}</p>
-            <ChevronDownIcon class="size-4" />
-          </button>
-
-          <template #popper>
-            <div class="flex flex-col">
-              <button
-                v-close-popper
-                class="px-4 py-1.5 hover:bg-gray-200"
-                @click="sortBoardsAlphabetically()"
-              >
-                Sort Alphabetically
-              </button>
-              <button
-                v-close-popper
-                class="px-4 py-1.5 hover:bg-gray-200"
-                @click="sortBoardsByCreationDate()"
-              >
-                Sort by creation date
-              </button>
-              <button
-                v-close-popper
-                class="px-4 py-1.5 hover:bg-gray-200"
-                @click="sortBoardsByEditDate()"
-              >
-                Sort by last edited
-              </button>
-            </div>
-          </template>
-        </VDropdown>
-      </div>
-    </section>
-
-    <main id="boards">
-      <div
-        v-if="boards.length === 0 && loading === false"
-        class="items-left mt-2 flex w-fit flex-col justify-center rounded-md p-2"
-      >
-        <h3 class="text-xl font-bold">
-          So empty here!
-        </h3>
-        <span>Create a board to get started with tracking your tasks better.</span>
-        <IconArrow />
-
-        <h3 class="mb-0.5 mt-8 text-xl font-bold">
-          Have some data already?
-        </h3>
-        <p class="mb-4">
-          You can import data from other sources using the import/export menu:
-        </p>
-        <nuxt-link
-          class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 text-center font-semibold"
-          to="/import"
-        >
-          Open Import/Export menu
-        </nuxt-link>
-
-        <div class="flex w-full flex-col items-start">
-          <h3 class="mb-4 mt-10 text-xl font-bold">
-            Want to get the latest updates and chat with the creator?
-          </h3>
-          <a
-            href="https://discord.gg/AVqHrvxB9C"
-            target="_blank"
-            class="bg-accent cursor-pointer rounded-md px-6 py-2 text-center font-semibold transition-colors"
-          >Join the Discord community!</a>
-        </div>
-      </div>
-
-      <div
-        v-else
-        class="mb-8 mt-5 flex flex-row flex-wrap gap-6"
-      >
-        <TransitionGroup
-          v-if="!loading"
-          class="flex flex-row flex-wrap gap-6"
-          name="list"
-          tag="div"
-        >
-          <nuxt-link
-            v-for="(board, index) in boards"
-            id="board-preview"
-            :key="board.id"
-            :to="'/kanban/' + board.id"
-            class="bg-board-preview border-elevation-1 flex flex-col rounded-md border-2 shadow-xl transition-transform hover:-translate-y-1"
-          >
-            <LazyKanbanBoardPreview
-              :board="board"
-              :is-simple-preview-mode="boards.length >= 25"
-            />
-            <div class="border-accent flex flex-row justify-between border-t px-1 py-2">
-              <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
-                {{ board.title }}
-              </span>
-              <VDropdown
-                :distance="2"
-                placement="bottom-end"
-              >
-                <button
-                  class="bg-elevation-3-hover transition-button rounded-md px-1 py-0.5"
-                  @click.prevent
+            <div class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow w-fit rounded-md hover:cursor-pointer">
+                <VDropdown
+                    :distance="12"
+                    placement="bottom-start"
                 >
-                  <EllipsisHorizontalIcon class="size-6" />
-                </button>
-                <template
-                  #popper
-                >
-                  <div class="flex flex-col">
-                    <button
-                      v-close-popper
-                      class="px-4 py-1.5 hover:bg-gray-200"
-                      @click="renameBoardModal(index)"
-                    >
-                      Rename
+                    <button class="flex flex-row items-center gap-2 px-4 py-2">
+                        <PhFunnel class="size-6" />
+                        <p>{{ sortingOptionText }}</p>
+                        <ChevronDownIcon class="size-4" />
                     </button>
-                    <button
-                      v-close-popper
-                      class="px-4 py-1.5 hover:bg-gray-200"
-                      @click="deleteBoardModal(index)"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </template>
-              </VDropdown>
+
+                    <template #popper>
+                        <div class="flex flex-col">
+                            <button
+                                v-close-popper
+                                class="px-4 py-1.5 hover:bg-gray-200"
+                                @click="sortBoardsAlphabetically()"
+                            >
+                                Sort Alphabetically
+                            </button>
+                            <button
+                                v-close-popper
+                                class="px-4 py-1.5 hover:bg-gray-200"
+                                @click="sortBoardsByCreationDate()"
+                            >
+                                Sort by creation date
+                            </button>
+                            <button
+                                v-close-popper
+                                class="px-4 py-1.5 hover:bg-gray-200"
+                                @click="sortBoardsByEditDate()"
+                            >
+                                Sort by last edited
+                            </button>
+                        </div>
+                    </template>
+                </VDropdown>
             </div>
-          </nuxt-link>
-        </TransitionGroup>
-      </div>
-    </main>
-  </div>
+        </section>
+
+        <main id="boards">
+            <div
+                v-if="boards.length === 0 && loading === false"
+                class="items-left mt-2 flex w-fit flex-col justify-center rounded-md p-2"
+            >
+                <h3 class="text-xl font-bold">
+                    So empty here!
+                </h3>
+                <span>Create a board to get started with tracking your tasks better.</span>
+                <IconArrow />
+
+                <h3 class="mb-0.5 mt-8 text-xl font-bold">
+                    Have some data already?
+                </h3>
+                <p class="mb-4">
+                    You can import data from other sources using the import/export menu:
+                </p>
+                <nuxt-link
+                    class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 text-center font-semibold"
+                    to="/import"
+                >
+                    Open Import/Export menu
+                </nuxt-link>
+
+                <div class="flex w-full flex-col items-start">
+                    <h3 class="mb-4 mt-10 text-xl font-bold">
+                        Want to get the latest updates and chat with the creator?
+                    </h3>
+                    <a
+                        href="https://discord.gg/AVqHrvxB9C"
+                        target="_blank"
+                        class="bg-accent cursor-pointer rounded-md px-6 py-2 text-center font-semibold transition-colors"
+                    >Join the Discord community!</a>
+                </div>
+            </div>
+
+            <div
+                v-else
+                class="mb-8 mt-5 flex flex-row flex-wrap gap-6"
+            >
+                <TransitionGroup
+                    v-if="!loading"
+                    class="flex flex-row flex-wrap gap-6"
+                    name="list"
+                    tag="div"
+                >
+                    <nuxt-link
+                        v-for="(board, index) in boards"
+                        id="board-preview"
+                        :key="board.id"
+                        :to="'/kanban/' + board.id"
+                        class="bg-board-preview border-elevation-1 flex flex-col rounded-md border-2 shadow-xl transition-transform hover:-translate-y-1"
+                    >
+                        <LazyKanbanBoardPreview
+                            :board="board"
+                            :is-simple-preview-mode="boards.length >= 25"
+                        />
+                        <div class="border-accent flex flex-row justify-between border-t px-1 py-2">
+                            <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
+                                {{ board.title }}
+                            </span>
+                            <VDropdown
+                                :distance="2"
+                                placement="bottom-end"
+                            >
+                                <button
+                                    class="bg-elevation-3-hover transition-button rounded-md px-1 py-0.5"
+                                    @click.prevent
+                                >
+                                    <EllipsisHorizontalIcon class="size-6" />
+                                </button>
+                                <template
+                                    #popper
+                                >
+                                    <div class="flex flex-col">
+                                        <button
+                                            v-close-popper
+                                            class="px-4 py-1.5 hover:bg-gray-200"
+                                            @click="renameBoardModal(index)"
+                                        >
+                                            Rename
+                                        </button>
+                                        <button
+                                            v-close-popper
+                                            class="px-4 py-1.5 hover:bg-gray-200"
+                                            @click="deleteBoardModal(index)"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </template>
+                            </VDropdown>
+                        </div>
+                    </nuxt-link>
+                </TransitionGroup>
+            </div>
+        </main>
+    </div>
 </template>
 
 <script setup lang="ts">

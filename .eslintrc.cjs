@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech>
+ * SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -14,6 +14,7 @@ module.exports = {
         "no-undef": "off",
         "perfectionist/sort-vue-attributes": "off",
         "tailwindcss/no-custom-classname": "off",
+        "vue/html-indent": ["warn", 4],
         "vue/multi-word-component-names": "off",
         "vue/v-on-event-hyphenation": "off"
     }

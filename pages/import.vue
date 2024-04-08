@@ -1,125 +1,141 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.tech> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
 <!-- -->
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+Kanri is an offline Kanban board app made using Tauri and Nuxt.
+Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <main
-    id="settings"
-    class="overflow-auto pl-8 pt-8"
-  >
-    <h1 class="text-4xl font-bold">
-      Import & Export
-    </h1>
-    <span class="text-dim-3"> Manage your data by exporting and importing it from and to Kanri. </span>
-
-    <TabsRoot
-      class="mt-4 flex w-2/3 flex-col"
-      default-value="tab1"
+    <main
+        id="settings"
+        class="overflow-auto pl-8 pt-8"
     >
-      <TabsList
-        class="border-elevation-2 relative flex shrink-0 border-b"
-        aria-label="Manage your account"
-      >
-        <TabsIndicator class="absolute bottom-0 left-0 h-[2px] w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-full px-8 transition-[width,transform] duration-300">
-          <div class="bg-accent size-full" />
-        </TabsIndicator>
-        <TabsTrigger
-          class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tl-md text-[15px] leading-none outline-none"
-          value="tab1"
+        <h1 class="text-4xl font-bold">
+            Import & Export
+        </h1>
+        <span class="text-dim-3"> Manage your data by exporting and importing it from and to Kanri. </span>
+
+        <TabsRoot
+            class="mt-4 flex w-2/3 flex-col"
+            default-value="tab1"
         >
-          Import
-        </TabsTrigger>
-        <TabsTrigger
-          class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tr-md text-[15px] leading-none outline-none"
-          value="tab2"
-        >
-          Export
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent
-        class="grow rounded-b-md pt-8 outline-none"
-        value="tab1"
-      >
-        <div>
-          <h2 class="mb-0.5 text-2xl font-bold">
-            Import Data
-          </h2>
-          <p class="text-dim-2 mb-2">
-            Import full data or individual boards from Kanri, KanbanElectron or Trello®
-          </p>
-          <h3 class="mt-4 text-lg font-semibold tracking-tight">
-            Partial import (individual board)
-          </h3>
-          <span class="text-dim-2">One file equals one board to import. Note: you can select multiple files/boards to import at once.</span>
-          <div class="mt-2 flex flex-row gap-4">
-            <button
-              class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-              @click="importFromKanriBoard"
+            <TabsList
+                class="border-elevation-2 relative flex shrink-0 border-b"
+                aria-label="Manage your account"
             >
-              Import from Kanri
-            </button>
-            <button
-              class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-              @click="importFromTrelloBoard"
+                <TabsIndicator class="absolute bottom-0 left-0 h-[2px] w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-full px-8 transition-[width,transform] duration-300">
+                    <div class="bg-accent size-full" />
+                </TabsIndicator>
+                <TabsTrigger
+                    class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tl-md text-[15px] leading-none outline-none"
+                    value="tab1"
+                >
+                    Import
+                </TabsTrigger>
+                <TabsTrigger
+                    class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tr-md text-[15px] leading-none outline-none"
+                    value="tab2"
+                >
+                    Export
+                </TabsTrigger>
+            </TabsList>
+            <TabsContent
+                class="grow rounded-b-md pt-8 outline-none"
+                value="tab1"
             >
-              Import from Trello®
-            </button>
-          </div>
-          <h3 class="mt-4 text-lg font-semibold tracking-tight">
-            Full import
-          </h3>
-          <span class="text-red-500">Imports complete data from one file. WARNING: This overrides all of your data with what you import!</span>
-          <div class="mt-2 flex flex-row gap-4">
-            <button
-              class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-              @click="importFromKanriFull"
+                <div>
+                    <h2 class="mb-0.5 text-2xl font-bold">
+                        Import Data
+                    </h2>
+                    <p class="text-dim-2 mb-2">
+                        Import full data or individual boards from Kanri, KanbanElectron or Trello®
+                    </p>
+                    <h3 class="mt-4 text-lg font-semibold tracking-tight">
+                        Partial import (individual board)
+                    </h3>
+                    <span class="text-dim-2">One file equals one board to import. Note: you can select multiple files/boards to import at once.</span>
+                    <div class="mt-2 flex flex-row gap-4">
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+                            @click="importFromKanriBoard"
+                        >
+                            Import from Kanri
+                        </button>
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+                            @click="importFromTrelloBoard"
+                        >
+                            Import from Trello®
+                        </button>
+                    </div>
+                    <h3 class="mt-4 text-lg font-semibold tracking-tight">
+                        Full import
+                    </h3>
+                    <span class="text-red-500">Imports complete data from one file. WARNING: This overrides all of your data with what you import!</span>
+                    <div class="mt-2 flex flex-row gap-4">
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+                            @click="importFromKanriFull"
+                        >
+                            Import from Kanri
+                        </button>
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+                            @click="importFromKanbanElectronFull"
+                        >
+                            Import from KanbanElectron
+                        </button>
+                    </div>
+                </div>
+            </TabsContent>
+            <TabsContent
+                class="grow rounded-b-md pt-8 outline-none"
+                value="tab2"
             >
-              Import from Kanri
-            </button>
-            <button
-              class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
-              @click="importFromKanbanElectronFull"
-            >
-              Import from KanbanElectron
-            </button>
-          </div>
-        </div>
-      </TabsContent>
-      <TabsContent
-        class="grow rounded-b-md pt-8 outline-none"
-        value="tab2"
-      >
-        <div class="flex flex-col gap-4">
-          <h2 class="mb-2 text-2xl font-bold">
-            Export Data
-          </h2>
-          <div>
-            <h3 class="text-lg font-semibold tracking-tight">
-              Partial Export
-            </h3>
-            <p class="text-dim-1">
-              A partial export means that you receive one .json file for one individual board.
-            </p>
-            <p>To generate an individual export, use the three dot menu inside a board.</p>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold tracking-tight">
-              Full Export
-            </h3>
-            <p class="text-dim-1">
-              Exports all of your data (boards, themes, other preferences like zoom) into one full .json file
-            </p>
-            <button
-              class="bg-elevation-1 bg-elevation-2-hover border-accent mt-4 cursor-pointer rounded-md border border-dotted p-2 px-8 font-semibold"
-              @click="exportJSON()"
-            >
-              Export all data
-            </button>
-          </div>
-        </div>
-      </TabsContent>
-    </TabsRoot>
-  </main>
+                <div class="flex flex-col gap-4">
+                    <h2 class="mb-2 text-2xl font-bold">
+                        Export Data
+                    </h2>
+                    <div>
+                        <h3 class="text-lg font-semibold tracking-tight">
+                            Partial Export
+                        </h3>
+                        <p class="text-dim-1">
+                            A partial export means that you receive one .json file for one individual board.
+                        </p>
+                        <p>To generate an individual export, use the three dot menu inside a board.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold tracking-tight">
+                            Full Export
+                        </h3>
+                        <p class="text-dim-1">
+                            Exports all of your data (boards, themes, other preferences like zoom) into one full .json file
+                        </p>
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover border-accent mt-4 cursor-pointer rounded-md border border-dotted p-2 px-8 font-semibold"
+                            @click="exportJSON()"
+                        >
+                            Export all data
+                        </button>
+                    </div>
+                </div>
+            </TabsContent>
+        </TabsRoot>
+    </main>
 </template>
 
 <script setup lang="ts">
