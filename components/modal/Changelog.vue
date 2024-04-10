@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         @closeModal="$emit('closeModal')"
     >
         <template #content>
-            <main class="max-w-[48rem]">
+            <main class="max-w-3xl">
                 <div class="flex flex-row items-start justify-between">
                     <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
                         What's new in Kanri {{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}
@@ -35,8 +35,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     />
                 </div>
                 <p class="mr-8 mt-6">
-                    Welcome to Kanri! With this small releaes, following bug has been resolved: <br>
-                    - Fixed a bug where the checkbox status of card tasks was not persistently saved<br> <br>
+                    Welcome to Kanri! This is a beta pre-release for version 0.7, it is still unfinished and might contain bugs, so use with caution.
                     To quickly get notified about fixes to important features like this, please join <a
                         class="text-accent text-accent-darker-hover"
                         href="https://discord.gg/AVqHrvxB9C"

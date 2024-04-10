@@ -100,7 +100,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </p>
                 <p class="pt-2">
                     Copyright (c) 2022-2024 trobonox (hello@trobo.dev) <br>
-                    Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }} - <nuxt-link
+                    Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }} (INSIDER BETA) - <nuxt-link
                         class="text-accent text-accent-darker-hover"
                         to="/licenses"
                         @click="$emit('closeModal')"
