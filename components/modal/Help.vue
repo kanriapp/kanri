@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
     <Modal @closeModal="$emit('closeModal')">
         <template #content>
-            <main class="h-38 max-w-[48rem]">
+            <main class="h-38 max-w-3xl">
                 <div class="flex flex-row items-start justify-between">
                     <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
                         Help & Resources
@@ -55,7 +55,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         card inside last column in board view
                     </li>
                     <li>
-                        <b class="font-bold">Ctrl/Command + Arrow Keys Left and right </b>
+                        <b class="font-bold">Ctrl/Command + Alt + Arrow Keys Left and right </b>
                         - Switch columns for title editing and card adding
                     </li>
                     <li>
@@ -100,15 +100,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </p>
                 <p class="pt-2">
                     Copyright (c) 2022-2024 trobonox (hello@trobo.dev) <br>
-                    Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}
+                    Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }} - <nuxt-link
+                        class="text-accent text-accent-darker-hover"
+                        to="/licenses"
+                        @click="$emit('closeModal')"
+                    >
+                        Third-party license notices
+                    </nuxt-link>
                 </p>
-                <nuxt-link
-                    class="text-accent text-accent-darker-hover"
-                    to="/licenses"
-                    @click="$emit('closeModal')"
-                >
-                    Third-party license notices
-                </nuxt-link>
             </main>
         </template>
     </Modal>
