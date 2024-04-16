@@ -21,32 +21,172 @@ limitations under the License.
         @closeModal="
             $emit('closeModal', columnID);
             titleEditing = false;
-            taskAddMode = false
+            taskAddMode = false;
+            showCustomColorPopup = false;
         "
     >
         <template #content>
-            <div class="flex min-h-[40rem] w-[36rem] flex-col">
+            <div class="flex min-h-[40rem] w-[36rem] flex-col pl-2">
                 <div class="mb-6">
                     <div class="flex flex-row items-start justify-between gap-12">
-                        <h1
-                            v-if="!titleEditing"
-                            :v-model="title"
-                            class="text-no-overflow pointer-events-auto min-w-[64px] pr-5 text-2xl font-bold"
-                            @click="enableTitleEditing()"
-                        >
-                            {{ title }}
-                        </h1>
-                        <input
-                            v-if="titleEditing"
-                            ref="titleInput"
-                            v-model="title"
-                            v-focus
-                            class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
-                            maxlength="1000"
-                            type="text"
-                            @blur="updateTitle"
-                            @keypress.enter="updateTitle"
-                        >
+                        <div class="relative -left-8 top-0 flex flex-row items-center gap-2">
+                            <div @blur="showCustomColorPopup = false">
+                                <button
+                                    v-tooltip.left-start="'Set card color'"
+                                    class="size-6 rounded-full py-1 pl-[0.3rem] pr-1"
+                                    :class="[isCustomColor ? '' : selectedColor]"
+                                    :style="{'background-color': (isCustomColor ? customColor : '')}"
+                                    @click="showCustomColorPopup = !showCustomColorPopup"
+                                >
+                                    <SwatchIcon
+                                        :class="['stroke-2', 'size-3.5', isCustomColor ? getContrast(customColor) : '']"
+                                    />
+                                </button>
+                                <div
+                                    v-if="showCustomColorPopup"
+                                    v-on-click-outside="() => showCustomColorPopup = false"
+                                >
+                                    <div
+                                        class="border-b-bg-primary absolute left-0 top-4 z-10 size-0 border-x-[12px] border-b-[20px] border-x-transparent"
+                                        @click="showCustomColorPopup = false"
+                                    />
+                                    <div class="bg-primary border-elevation-1 absolute -left-4 top-8 z-20 flex flex-col gap-1 rounded-md border p-3">
+                                        <h2 class="mb-1 text-lg font-semibold">
+                                            Card Color
+                                        </h2>
+                                        <div class="flex w-full flex-row gap-3">
+                                            <button
+                                                class="size-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
+                                                @click="setCardColor(columnID, cardIndex, 'bg-pink-600')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-pink-600'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                class="size-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
+                                                @click="setCardColor(columnID, cardIndex, 'bg-red-600')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-red-600'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                class="size-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
+                                                @click="setCardColor(columnID, cardIndex, 'bg-orange-600')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-orange-600'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                class="size-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
+                                                @click="setCardColor(columnID, cardIndex, 'bg-yellow-600')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-yellow-600'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                class="size-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
+                                                @click="setCardColor(columnID, cardIndex, 'bg-green-600')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-green-600'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                class="size-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
+                                                @click="setCardColor(columnID, cardIndex, 'bg-teal-600')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-teal-600'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                class="size-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
+                                                @click="setCardColor(columnID, cardIndex, 'bg-blue-600')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-blue-600'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                class="size-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
+                                                @click="setCardColor( columnID, cardIndex, 'bg-purple-600')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-purple-600'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                class="bg-elevation-2 bg-elevation-3-hover size-7 rounded-full py-1 pl-1.5 pr-1"
+                                                @click="setCardColor(columnID, cardIndex, 'bg-elevation-2')"
+                                            >
+                                                <CheckIcon
+                                                    v-if="selectedColor === 'bg-elevation-2'"
+                                                    class="size-4"
+                                                />
+                                            </button>
+                                            <button
+                                                :class="`h-7 w-7 rounded-full py-1 pl-1.5 pr-1`"
+                                                :style="{'background-color': customColor}"
+                                                @click="setCardColor(columnID, cardIndex, customColor)"
+                                            >
+                                                <CheckIcon
+                                                    v-if="isCustomColor"
+                                                    :class="['h-4', 'w-4', getContrast(customColor)]"
+                                                />
+                                                <SwatchIcon
+                                                    v-else
+                                                    :class="['stroke-2', 'h-4', 'w-4', getContrast(customColor)]"
+                                                />
+                                            </button>
+                                        </div>
+                                        <div v-if="isCustomColor">
+                                            <h3 class="mb-1 mt-2 font-semibold">
+                                                Select a custom color:
+                                            </h3>
+                                            <div class="flex w-full flex-row gap-4">
+                                                <input
+                                                    v-model="customColor"
+                                                    class="w-20"
+                                                    type="color"
+                                                >
+                                                <HexColorInput v-model="customColor" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h1
+                                v-if="!titleEditing"
+                                :v-model="title"
+                                class="text-no-overflow pointer-events-auto min-w-[64px] pr-5 text-2xl font-bold"
+                                @click="enableTitleEditing()"
+                            >
+                                {{ title }}
+                            </h1>
+                            <input
+                                v-if="titleEditing"
+                                ref="titleInput"
+                                v-model="title"
+                                v-focus
+                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
+                                maxlength="1000"
+                                type="text"
+                                @blur="updateTitle"
+                                @keypress.enter="updateTitle"
+                            >
+                        </div>
                         <XMarkIcon
                             class="text-accent-hover size-6 shrink-0 cursor-pointer"
                             @click="$emit('closeModal', columnID)"
@@ -243,125 +383,6 @@ limitations under the License.
                             <span>Add Task</span>
                         </button>
                     </div>
-                    <h2
-                        class="mb-2 mt-6 text-lg font-semibold"
-                    >
-                        Card Color
-                    </h2>
-                    <div class="mb-6 flex flex-row gap-4">
-                        <button
-                            class="size-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
-                            @click="setCardColor(columnID, cardIndex, 'bg-pink-600')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-pink-600'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            class="size-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
-                            @click="setCardColor(columnID, cardIndex, 'bg-red-600')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-red-600'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            class="size-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
-                            @click="setCardColor(columnID, cardIndex, 'bg-orange-600')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-orange-600'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            class="size-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
-                            @click="setCardColor(columnID, cardIndex, 'bg-yellow-600')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-yellow-600'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            class="size-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
-                            @click="setCardColor(columnID, cardIndex, 'bg-green-600')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-green-600'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            class="size-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
-                            @click="setCardColor(columnID, cardIndex, 'bg-teal-600')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-teal-600'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            class="size-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
-                            @click="setCardColor(columnID, cardIndex, 'bg-blue-600')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-blue-600'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            class="size-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
-                            @click="setCardColor( columnID, cardIndex, 'bg-purple-600')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-purple-600'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            class="bg-elevation-2 bg-elevation-3-hover size-7 rounded-full py-1 pl-1.5 pr-1"
-                            @click="setCardColor(columnID, cardIndex, 'bg-elevation-2')"
-                        >
-                            <CheckIcon
-                                v-if="selectedColor === 'bg-elevation-2'"
-                                class="size-4"
-                            />
-                        </button>
-                        <button
-                            :class="`h-7 w-7 rounded-full py-1 pl-1.5 pr-1`"
-                            :style="{'background-color': customColor}"
-                            @click="setCardColor(columnID, cardIndex, customColor)"
-                        >
-                            <CheckIcon
-                                v-if="isCustomColor"
-                                :class="['h-4', 'w-4', getContrast(customColor)]"
-                            />
-                            <SwatchIcon
-                                v-else
-                                :class="['stroke-2', 'h-4', 'w-4', getContrast(customColor)]"
-                            />
-                        </button>
-                        <div
-                            v-if="isCustomColor"
-                            class="bg-elevation-2 flex flex-col gap-1 rounded-md p-1"
-                        >
-                            <input
-                                v-model="customColor"
-                                class="bg-elevation-1 w-20 rounded-md px-2"
-                                readonly="true"
-                                type="text"
-                            >
-                            <input
-                                ref="colorInput"
-                                v-model="customColor"
-                                class="bg-elevation-2 w-full rounded-md px-2"
-                                type="color"
-                            >
-                        </div>
-                    </div>
                 </div>
             </div>
         </template>
@@ -377,6 +398,7 @@ import { generateUniqueID } from "@/utils/idGenerator";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { PhCalendar, PhCheck, PhPencilSimple, PhTrash } from "@phosphor-icons/vue";
+import { vOnClickOutside } from '@vueuse/components'
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
 
@@ -406,6 +428,7 @@ const isDueDateCounterRelative = ref(false);
 
 const isCustomColor = computed(() => selectedColor.value.startsWith('#'));
 const customColor = ref("#ffffff");
+const showCustomColorPopup = ref(false);
 
 const titleEditing = ref(false);
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
@@ -557,6 +580,10 @@ watch(props, (newVal) => {
 </script>
 
 <style>
+.v-popper__popper {
+    z-index: 9999999999 !important;
+}
+
 .vc-light {
   /* Base */
   --vc-color: var(--text);
@@ -620,5 +647,24 @@ watch(props, (newVal) => {
     --vc-dot-bg: var(--vc-accent-600);
     --vc-bar-bg: var(--vc-accent-600);
   }
+}
+</style>
+
+<style scoped>
+input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 8px;
+}
+input[type="color"]::-webkit-color-swatch {
+    border-radius: 8px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--text);
 }
 </style>

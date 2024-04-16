@@ -157,6 +157,10 @@ const cssVars = computed(() => {
     -webkit-overflow-scrolling: touch;
 }
 
+.bg-primary {
+    background-color: var(--bg-primary);
+}
+
 .bg-elevation-1 {
     background-color: var(--elevation-1);
 }
@@ -195,6 +199,10 @@ const cssVars = computed(() => {
 
 .bg-accent-no-hover {
     background-color: var(--accent);
+}
+
+.border-b-bg-primary {
+    border-bottom-color: var(--bg-primary);
 }
 
 .border-elevation-1 {
