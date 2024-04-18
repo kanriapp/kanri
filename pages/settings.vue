@@ -117,15 +117,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <span class="text-dim-2 text-base">Note: imports override your current theme so export any custom theme which you don't want to lose in advance!</span>
                 <div class="my-2 flex flex-row gap-2">
                     <button
-                        class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted px-4 py-1"
+                        class="bg-elevation-1 bg-elevation-2-hover border-accent flex cursor-pointer flex-row items-center gap-2 rounded-md border border-dotted px-4 py-1"
                         @click="importThemeFromJson"
                     >
+                        <ArrowDownTrayIcon class="size-4" />
                         Import
                     </button>
                     <button
-                        class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted px-4 py-1"
+                        class="bg-elevation-1 bg-elevation-2-hover border-accent flex cursor-pointer flex-row items-center gap-2 rounded-md border border-dotted px-4 py-1"
                         @click="exportThemeToJson"
                     >
+                        <ArrowUpTrayIcon class="size-4" />
                         Export
                     </button>
                 </div>
@@ -216,7 +218,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas"
 import emitter from "@/utils/emitter";
 import { catppuccin, dark, light } from "@/utils/themes";
-import { MoonIcon, SunIcon, SwatchIcon } from "@heroicons/vue/24/outline";
+import { ArrowDownTrayIcon, ArrowUpTrayIcon, MoonIcon, SunIcon, SwatchIcon } from "@heroicons/vue/24/outline";
 import { message, open, save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { disable, enable, isEnabled } from 'tauri-plugin-autostart-api';
