@@ -271,7 +271,7 @@ limitations under the License.
                         />
                     </ProgressRoot>
                     <div
-                        class="flex w-full flex-col gap-2"
+                        class="flex w-full flex-col gap-1"
                     >
                         <div
                             v-if="tasks && tasks.length !== 0"
@@ -376,7 +376,7 @@ limitations under the License.
                         </div>
                         <button
                             v-if="!taskAddMode"
-                            class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-2 pl-1 pr-2"
+                            class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-1 pr-2"
                             @click="enableTaskAddMode"
                         >
                             <PlusIcon class="text-accent size-6" />
