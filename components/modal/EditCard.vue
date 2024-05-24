@@ -205,7 +205,7 @@ limitations under the License.
                                     @click="() => togglePopover()"
                                 >
                                     <PhCalendar class="size-5" />
-                                    <span v-if="dueDate">Due date: {{ inputValue }}</span>
+                                    <span v-if="dueDate">Due: {{ dueDate.toLocaleDateString() }}</span>
                                     <span v-else>Set due date</span>
                                 </button>
                             </template>
@@ -238,7 +238,7 @@ limitations under the License.
                     </div>
                 </div>
 
-                <div class="flex flex-col pr-10">
+                <div class="flex flex-col pr-6">
                     <h2
                         class="text-lg font-semibold"
                     >
