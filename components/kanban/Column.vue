@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div
         ref="columnDOMElement"
         :class="columnSizeClass"
-        class="kanban-column bg-elevation-1 max-h-column flex flex-col rounded-md p-2 shadow-lg"
+        class="kanban-column bg-elevation-1 max-h-column flex flex-col rounded-lg p-2 shadow-lg"
     >
         <div
             id="board-title"
@@ -81,7 +81,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     :card="card"
                     :index="index"
                     :zoom-level="zoomLevel"
-                    class="mb-3 min-h-[30px] cursor-grab rounded-sm p-3"
+                    class="mb-3 min-h-[30px] cursor-grab rounded-[3px] p-3"
                     @disable-dragging="disableDragging"
                     @enable-dragging="enableDragging"
                     @open-edit-card-modal="openEditCardModal"
