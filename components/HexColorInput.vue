@@ -55,9 +55,9 @@ const updateInputValue = (event: Event) => {
 
     //@ts-ignore
     if (event.target.value.length > 1) {
-        const regex = /[0 - 9A - Fa - f]/
+        const regex = /^#[0-9A-F]{6}$/i
         //@ts-ignore
-        if (!(regex.test(event.target.value))) {
+        if (!(regex.test(event.target.value.toLowerCase()))) {
             inputValue.value = inputValue.value.substring(0, inputValue.value.length - 1);
             return;
         }
