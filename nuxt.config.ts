@@ -10,7 +10,13 @@ export default defineNuxtConfig({
     app: { pageTransition: { mode: "out-in", name: "page" } },
     css: ["@/assets/css/scrollbars.css", "@/assets/css/global.css"],
     devtools: false,
-    modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@vueuse/nuxt", 'radix-vue/nuxt'],
+    modules: [
+        "@nuxtjs/tailwindcss",
+        "@pinia/nuxt",
+        "@vueuse/nuxt",
+        'radix-vue/nuxt',
+        "nuxt-better-optimize-deps"
+    ],
     ssr: false,
     telemetry: false,
     vite: {
