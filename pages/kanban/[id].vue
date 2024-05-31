@@ -199,7 +199,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         <Container
                             :non-drag-area-selector="'nodrag'"
                             :orientation="'horizontal'"
-                            class="flex-row gap-4"
+                            class="flex-row gap-3.5"
                             drag-handle-selector=".dragging-handle"
                             group-name="columns"
                             @drop="onDrop"
