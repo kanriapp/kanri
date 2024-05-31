@@ -22,7 +22,7 @@
         "@types/node": "^18.11.18",
         "@vueuse/core": "^10.2.1",
         "@vueuse/nuxt": "^10.2.1",
-        "eslint": "9.3.0",
+        "eslint": "9.4.0",
         "eslint-plugin-perfectionist": "^2.2.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
@@ -54,7 +54,7 @@
     },
     "resolutions": {
         "terser": "5.31.0",
-        "undici": "6.18.1",
+        "undici": "6.18.2",
         "json5": "2.2.3",
         "semver": "7.6.2"
     }
