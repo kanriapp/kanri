@@ -161,6 +161,14 @@ const cssVars = computed(() => {
     background-color: var(--bg-primary);
 }
 
+.bg-primary-darker {
+    background-color: color-mix(in srgb, var(--bg-primary) 100%, black 10%);
+}
+
+.fill-bg-primary-darker {
+    fill: color-mix(in srgb, var(--bg-primary) 100%, black 10%);
+}
+
 .bg-elevation-1 {
     background-color: var(--elevation-1);
 }

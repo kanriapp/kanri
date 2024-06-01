@@ -47,59 +47,103 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     @click="$router.push('/')"
                 />
             </div>
-            <button
-                v-if="showAddButton"
-                v-tooltip.left-start="'Home'"
-                class="bg-elevation-2-hover transition-button rounded-md p-2"
-                @click="$router.push('/')"
-            >
-                <PhHouse class="size-7" />
-            </button>
-            <button
-                v-else
-                v-tooltip.left-start="'Back'"
-                class="bg-elevation-2-hover transition-button rounded-md p-2"
-                @click="$router.go(-1)"
-            >
-                <PhArrowBendUpLeft class="size-7" />
-            </button>
-            <button
-                v-if="showAddButton"
-                v-tooltip.left-start="'Create a new board'"
-                class="bg-elevation-2-hover transition-button rounded-md p-2"
-                @click="newBoardModalVisible = true"
-            >
-                <IconPhPlusCircleDuotone class="text-accent size-7" />
-            </button>
+
+            <Tooltip v-if="showAddButton">
+                <template #trigger>
+                    <button
+                        class="bg-elevation-2-hover transition-button rounded-md p-2"
+                        @click="$router.push('/')"
+                    >
+                        <PhHouse class="size-7" />
+                    </button>
+                </template>
+
+                <template #content>
+                    Home
+                </template>
+            </Tooltip>
+
+            <Tooltip v-else>
+                <template #trigger>
+                    <button
+                        class="bg-elevation-2-hover transition-button rounded-md p-2"
+                        @click="$router.go(-1)"
+                    >
+                        <PhArrowBendUpLeft class="size-7" />
+                    </button>
+                </template>
+
+                <template #content>
+                    Back
+                </template>
+            </Tooltip>
+
+            <Tooltip v-if="showAddButton">
+                <template #trigger>
+                    <button
+                        class="bg-elevation-2-hover transition-button rounded-md p-2"
+                        @click="newBoardModalVisible = true"
+                    >
+                        <IconPhPlusCircleDuotone class="text-accent size-7" />
+                    </button>
+                </template>
+
+                <template #content>
+                    Create a new board
+                </template>
+            </Tooltip>
         </section>
 
         <section
             id="icons-bottom"
             class="flex flex-col items-center gap-4"
         >
-            <nuxt-link
-                v-tooltip.left-start="'Import/Export'"
-                to="/import"
-            >
-                <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-                    <PhArrowsLeftRight class="size-7" />
-                </div>
-            </nuxt-link>
-            <button
-                v-tooltip.left-start="'Help'"
-                class="bg-elevation-2-hover transition-button rounded-md p-2"
-                @click="helpModalVisible = true"
-            >
-                <PhQuestion class="size-7" />
-            </button>
-            <nuxt-link
-                v-tooltip.left-start="'Settings'"
-                to="/settings"
-            >
-                <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-                    <PhGearSix class="size-7" />
-                </div>
-            </nuxt-link>
+            <Tooltip>
+                <template #trigger>
+                    <nuxt-link
+                        to="/import"
+                    >
+                        <div class="bg-elevation-2-hover transition-button rounded-md p-2">
+                            <PhArrowsLeftRight class="size-7" />
+                        </div>
+                    </nuxt-link>
+                </template>
+
+                <template #content>
+                    Import/Export
+                </template>
+            </Tooltip>
+
+            <Tooltip>
+                <template #trigger>
+                    <button
+                        class="bg-elevation-2-hover transition-button rounded-md p-2"
+                        @click="helpModalVisible = true"
+                    >
+                        <PhQuestion class="size-7" />
+                    </button>
+                </template>
+
+                <template #content>
+                    Help
+                </template>
+            </Tooltip>
+
+            <Tooltip>
+                <template #trigger>
+                    <nuxt-link
+                        to="/settings"
+                    >
+                        <div class="bg-elevation-2-hover transition-button rounded-md p-2">
+                            <PhGearSix class="size-7" />
+                        </div>
+                    </nuxt-link>
+                </template>
+
+                <template #content>
+                    Settings
+                </template>
+            </Tooltip>
         </section>
     </nav>
 </template>
@@ -108,6 +152,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import emitter from "@/utils/emitter";
 import { PhArrowBendUpLeft, PhHouse } from "@phosphor-icons/vue";
 import { PhArrowsLeftRight, PhGearSix, PhQuestion } from "@phosphor-icons/vue";
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 
 const store = useTauriStore().store;
 
