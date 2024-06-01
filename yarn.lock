@@ -7746,13 +7746,19 @@ tar@^6.1.11, tar@^6.1.2, tar@^6.2.0:
   version "0.0.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/a8455f120ad801d828f91528f1b4ca47d00c8ba3"
   dependencies:
+    "@tauri-apps/api" "1.4.0"
+
+"tauri-plugin-log-api@https://github.com/tauri-apps/tauri-plugin-log#v1":
+  version "0.0.0"
+  resolved "https://github.com/tauri-apps/tauri-plugin-log#752531f21f626c9f9f1716a28c4a37054c679657"
+  dependencies:
     "@tauri-apps/api" "1.5.3"
 
 "tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#b1ce9b38662a2990dddb30de1af88509a45e4625":
   version "0.0.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/b1ce9b38662a2990dddb30de1af88509a45e4625"
   dependencies:
-    "@tauri-apps/api" "1.5.3"
+    "@tauri-apps/api" "1.4.0"
 
 terser@5.31.0, terser@^5.17.4:
   version "5.31.0"

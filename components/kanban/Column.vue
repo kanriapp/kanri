@@ -329,8 +329,6 @@ const enableCardAddMode = () => {
 }
 
 const updateColumnTitle = () => {
-    console.log("huh");
-
     enableDragging();
 
     if (titleNew.value == null || !(/\S/.test(titleNew.value))) {
@@ -364,7 +362,6 @@ const scrollCardIntoView = () => {
     if (!columnDOMElement.value) return;
     const cards = columnDOMElement.value.getElementsByClassName("kanban-card");
 
-    console.log(cards);
     if (!cards || cards.length === 0) return;
 
     cards[cards.length - 1].scrollIntoView({ behavior: "smooth" });

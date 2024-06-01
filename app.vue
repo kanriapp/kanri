@@ -12,10 +12,26 @@
 
 <script setup>
 import { appWindow } from '@tauri-apps/api/window';
+import {
+  attachConsole,
+  trace,
+  debug,
+  info,
+  warn,
+  error,
+} from "tauri-plugin-log-api";
 
-onMounted(() => {
+onMounted(async () => {
     setTimeout(() => {
         appWindow.show();
     }, 50);
+
+    await attachConsole();
+
+    console.trace = trace
+    console.log = debug
+    console.info = info
+    console.warn = warn
+    console.error = error
 })
 </script>

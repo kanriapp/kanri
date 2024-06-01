@@ -10,9 +10,14 @@ all(not(debug_assertions), target_os = "windows"),
 )]
 
 use tauri_plugin_autostart::MacosLauncher;
+use tauri_plugin_log::LogTarget;
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_log::Builder::default().targets([
+            LogTarget::LogDir,
+            LogTarget::Stdout
+        ]).build())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_persisted_scope::init())
         .plugin(tauri_plugin_autostart::init(
