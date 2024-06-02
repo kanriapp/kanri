@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
     <main
         id="settings"
-        class="overflow-auto pl-8 pt-8"
+        class="overflow-auto pl-8 pt-6"
     >
         <ModalConfirmation
             v-show="deleteBoardModalVisible"

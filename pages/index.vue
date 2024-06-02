@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <div class="overflow-auto pl-8 pt-8">
+    <div class="overflow-auto pl-8 pt-6">
         <ModalRenameBoard
             v-show="renameBoardModalVisible"
             @closeModal="renameBoardModalVisible = false"
@@ -142,7 +142,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
             <div
                 v-else
-                class="mb-8 mt-5 flex flex-row flex-wrap gap-6"
+                class="mb-8 mt-6 flex flex-row flex-wrap gap-6"
             >
                 <TransitionGroup
                     v-if="!loading"
