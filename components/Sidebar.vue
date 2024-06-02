@@ -152,7 +152,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import emitter from "@/utils/emitter";
 import { PhArrowBendUpLeft, PhHouse } from "@phosphor-icons/vue";
 import { PhArrowsLeftRight, PhGearSix, PhQuestion } from "@phosphor-icons/vue";
-import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue'
 
 const store = useTauriStore().store;
 
