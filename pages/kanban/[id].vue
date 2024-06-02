@@ -77,10 +77,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @confirmAction="cardRemoveDialog.confirm(true)"
         />
 
-        <div class="absolute top-6 z-50 ml-8 w-[calc(100vw-112px)]">
+        <div class="absolute top-4 z-50 ml-8 w-[calc(100vw-112px)]">
             <h1
                 v-if="!boardTitleEditing"
-                class="mb-2 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
+                class="mb-1 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
                 :class="[boardTitleColor]"
                 @click="enableBoardTitleEditing()"
             >
@@ -91,7 +91,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 ref="boardTitleInput"
                 v-model="board.title"
                 v-focus
-                class="bg-elevation-2 border-accent text-no-overflow mb-2 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+                class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
                 maxlength="500"
                 type="text"
                 @blur="
