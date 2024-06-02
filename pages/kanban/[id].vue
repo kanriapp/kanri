@@ -116,27 +116,45 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </div>
 
                 <div class="flex flex-row">
-                    <button
-                        v-tooltip.top-center="'Increase zoom level'"
-                        class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
-                        @click="increaseZoomLevel"
-                    >
-                        <MagnifyingGlassPlusIcon class="size-5" />
-                    </button>
-                    <button
-                        v-tooltip.top-center="'Reset zoom level'"
-                        class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1"
-                        @click="resetZoomLevel"
-                    >
-                        {{ (columnZoomLevel * 50) + 100 }}%
-                    </button>
-                    <button
-                        v-tooltip.top-center="'Decrease zoom level'"
-                        class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
-                        @click="decreaseZoomLevel"
-                    >
-                        <MagnifyingGlassMinusIcon class="size-5" />
-                    </button>
+                    <Tooltip direction="top">
+                        <template #trigger>
+                            <button
+                                class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
+                                @click="increaseZoomLevel"
+                            >
+                                <MagnifyingGlassPlusIcon class="size-5" />
+                            </button>
+                        </template>
+                        <template #content>
+                            Increase zoom level
+                        </template>
+                    </Tooltip>
+                    <Tooltip direction="top">
+                        <template #trigger>
+                            <button
+                                class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1.5"
+                                @click="resetZoomLevel"
+                            >
+                                {{ (columnZoomLevel * 50) + 100 }}%
+                            </button>
+                        </template>
+                        <template #content>
+                            Reset zoom level
+                        </template>
+                    </Tooltip>
+                    <Tooltip direction="top">
+                        <template #trigger>
+                            <button
+                                class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
+                                @click="decreaseZoomLevel"
+                            >
+                                <MagnifyingGlassMinusIcon class="size-5" />
+                            </button>
+                        </template>
+                        <template #content>
+                            Decrease zoom level
+                        </template>
+                    </Tooltip>
 
                     <VDropdown
                         :distance="2"
