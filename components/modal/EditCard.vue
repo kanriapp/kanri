@@ -31,7 +31,7 @@ limitations under the License.
                     <div class="flex flex-row items-start justify-between gap-12">
                         <div class="relative -left-8 top-0 flex flex-row items-center gap-2">
                             <div @blur="showCustomColorPopup = false">
-                                <Tooltip>
+                                <Tooltip direction="top">
                                     <template #trigger>
                                         <button
                                             class="size-6 rounded-full py-1 pl-[0.3rem] pr-1"
