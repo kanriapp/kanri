@@ -153,7 +153,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         Zoom
                     </h3>
                     <span class="text-dim-2">
-                        Adjust the global zoom level for your boards
+                        Adjust the global zoom level for your boards.
                     </span>
                 </div>
                 <KanbanZoomAdjustment v-model="columnZoomLevel" />
