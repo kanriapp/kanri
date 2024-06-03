@@ -116,45 +116,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </div>
 
                 <div class="flex flex-row">
-                    <Tooltip direction="top">
-                        <template #trigger>
-                            <button
-                                class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
-                                @click="increaseZoomLevel"
-                            >
-                                <MagnifyingGlassPlusIcon class="size-5" />
-                            </button>
-                        </template>
-                        <template #content>
-                            Increase zoom level
-                        </template>
-                    </Tooltip>
-                    <Tooltip direction="top">
-                        <template #trigger>
-                            <button
-                                class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1.5"
-                                @click="resetZoomLevel"
-                            >
-                                {{ (columnZoomLevel * 50) + 100 }}%
-                            </button>
-                        </template>
-                        <template #content>
-                            Reset zoom level
-                        </template>
-                    </Tooltip>
-                    <Tooltip direction="top">
-                        <template #trigger>
-                            <button
-                                class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
-                                @click="decreaseZoomLevel"
-                            >
-                                <MagnifyingGlassMinusIcon class="size-5" />
-                            </button>
-                        </template>
-                        <template #content>
-                            Decrease zoom level
-                        </template>
-                    </Tooltip>
+                    <KanbanZoomAdjustment v-model="columnZoomLevel" />
 
                     <VDropdown
                         :distance="2"
@@ -270,7 +232,7 @@ import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator";
 import { PhotoIcon } from "@heroicons/vue/24/outline";
-import { EllipsisHorizontalIcon, MagnifyingGlassMinusIcon, MagnifyingGlassPlusIcon, PlusIcon } from "@heroicons/vue/24/solid";
+import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { convertFileSrc } from '@tauri-apps/api/tauri';
