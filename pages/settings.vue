@@ -141,6 +141,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </button>
         </section>
 
+        <section id="kanban-settings">
+            <h2 class="mt-8 text-2xl font-bold">
+                Board Preferences
+            </h2>
+            <span class="text-dim-3 mb-2">Change the behaviour of your Kanban boards.</span>
+
+            <div class="flex w-[48rem] flex-row items-start justify-between mt-4">
+                <div>
+                    <h3 class="text-lg">
+                        Zoom
+                    </h3>
+                    <span class="text-dim-2">
+                        Adjust the global zoom level for your boards
+                    </span>
+                </div>
+                <KanbanZoomAdjustment v-model="columnZoomLevel" />
+            </div>
+        </section>
+
         <section id="miscellaneous-settings">
             <h2 class="mb-2 mt-8 text-2xl font-bold">
                 Miscellaneous
@@ -230,6 +249,8 @@ const store = useTauriStore().store;
 const activeTheme: Ref<null | string> = ref("");
 const themeEditorDisplayed = ref(false);
 
+const columnZoomLevel = ref(0);
+
 const autostartCheckbox = ref(false);
 const animationsEnabled = ref(true);
 
@@ -243,6 +264,16 @@ onMounted(async () => {
 
     activeTheme.value = await store.get("activeTheme");
     if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
+
+    const columnZoom: null | number = await store.get("columnZoomLevel");
+
+    if (columnZoom == null) {
+        await store.set("columnZoomLevel", 0);
+        columnZoomLevel.value = 0;
+    }
+    else {
+        columnZoomLevel.value = columnZoom;
+    }
 
     const autostartStatus = await isEnabled();
     switch (autostartStatus) {
