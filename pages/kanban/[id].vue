@@ -118,51 +118,52 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <div class="flex flex-row">
                     <KanbanZoomAdjustment v-model="columnZoomLevel" />
 
-                    <VDropdown
+                    <Dropdown
                         :distance="2"
-                        placement="bottom-end"
+                        align="end"
                     >
-                        <button
-                            class="bg-elevation-1 bg-elevation-2-hover transition-button ml-4 h-full rounded-md px-2"
-                            @click.prevent
-                        >
-                            <EllipsisHorizontalIcon class="size-6" />
-                        </button>
-                        <template
-                            #popper
-                        >
+                        <template #trigger>
+                            <button
+                                class="bg-elevation-1 bg-elevation-2-hover transition-button ml-4 h-full rounded-md px-2"
+                                @click.prevent
+                            >
+                                <EllipsisHorizontalIcon class="size-6" />
+                            </button>
+                        </template>
+
+                        <template #content>
                             <div class="flex flex-col">
-                                <button
+                                <DropdownMenuItem
                                     v-close-popper
-                                    class="px-4 py-1.5 hover:bg-gray-200"
+                                    class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                     @click="renameBoardModal(getBoardIndex())"
                                 >
                                     Rename Board
-                                </button>
-                                <button
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
                                     v-close-popper
-                                    class="px-4 py-1.5 hover:bg-gray-200"
+                                    class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                     @click="duplicateBoard"
                                 >
                                     Duplicate Board
-                                </button>
-                                <button
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
                                     v-close-popper
-                                    class="px-4 py-1.5 hover:bg-gray-200"
+                                    class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                     @click="exportBoardToJson"
                                 >
                                     Export Board
-                                </button>
-                                <button
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
                                     v-close-popper
-                                    class="px-4 py-1.5 hover:bg-gray-200"
+                                    class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                     @click="deleteBoardModal(getBoardIndex())"
                                 >
                                     Delete Board
-                                </button>
+                                </DropdownMenuItem>
                             </div>
                         </template>
-                    </VDropdown>
+                    </Dropdown>
                 </div>
             </div>
         </div>
