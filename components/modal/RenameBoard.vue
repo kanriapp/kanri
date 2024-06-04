@@ -53,6 +53,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         maxlength="500"
                         placeholder="Board Name"
                         type="text"
+                        autofocus
                     >
                 </section>
                 <section
@@ -98,6 +99,13 @@ onMounted(() => {
     emitter.on("openBoardRenameModal", (params: {board: Board, index: number}) => {
         newBoardName.value = params.board.title;
         boardIndex.value = params.index;
+
+        setTimeout(() => {
+            if (boardNameInput.value == null) return;
+            boardNameInput.value.focus();
+
+            console.log("FOCUS")
+        }, 200);
     })
 });
 
