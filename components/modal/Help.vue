@@ -146,7 +146,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     </li>
                 </ul>
                 <h3 class="mb-2 mt-4 text-xl font-bold">
-                    Support resouces:
+                    Support resouces
                 </h3>
                 <div class="flex flex-row gap-3">
                     <a
@@ -175,7 +175,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     </a>
                 </div>
                 <h3 class="mb-1 mt-4 text-xl font-bold">
-                    Credits:
+                    Credits
                 </h3>
                 <div class="block max-w-2xl">
                     <p class="text-sm text-dim-2">
