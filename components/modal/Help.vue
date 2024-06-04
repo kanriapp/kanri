@@ -148,39 +148,45 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <h3 class="mb-2 mt-4 text-xl font-bold">
                     Support resouces:
                 </h3>
-                <p>
-                    You can find some general help resources <a
-                        class="text-accent text-accent-darker-hover"
-                        href="https://www.kanriapp.com/guides/shortcuts"
-                        target="_blank"
-                    > in the official documentation.</a>
-                    If you encounter any bug, you can check the
+                <div class="flex flex-row gap-3">
                     <a
-                        class="text-accent text-accent-darker-hover"
-                        href="https://github.com/trobonox/kanri"
+                        href="https://www.kanriapp.com/getting-started/faq"
                         target="_blank"
-                    > issues on GitHub</a>
-                    to see if it is already known, and report if it isn't. For
-                    any further assistance or anything that is not a bug, you
-                    can join the
+                        class="flex flex-row gap-2 items-center px-4 py-1.5 border border-elevation-3 rounded-md bg-elevation-3-hover transition-colors duration-300"
+                    >
+                        <BookOpenIcon class="size-6" />
+                        Docs
+                    </a>
                     <a
-                        class="text-accent text-accent-darker-hover"
+                        href="https://github.com/trobonox/kanri/issues"
+                        target="_blank"
+                        class="flex flex-row gap-2 items-center px-4 py-1.5 border border-elevation-3 rounded-md bg-elevation-3-hover transition-colors duration-300"
+                    >
+                        <IconGithub class="size-6" />
+                        GitHub issues
+                    </a>
+                    <a
                         href="https://discord.gg/AVqHrvxB9C"
                         target="_blank"
-                    > support Discord server.</a>
-                </p>
-                <h3 class="mb-2 mt-4 text-xl font-bold">
+                        class="flex flex-row gap-2 items-center px-4 py-1.5 border border-elevation-3 rounded-md bg-elevation-3-hover transition-colors duration-300"
+                    >
+                        <IconDiscord class="size-6" />
+                        Discord server
+                    </a>
+                </div>
+                <h3 class="mb-1 mt-4 text-xl font-bold">
                     Credits:
                 </h3>
-                <p>
-                    Application made by Trobonox (trobo.tech), licensed under
-                    the GPL v3 license (except some files with different licenses designated in their appropriate license headers/files). Icons used are from Heroicons
-                    (licensed unter the MIT License). <br>
-                </p>
-                <p>
-                    We are not affiliated, associated, authorized, endorsed by or in any way officially connected to Trello, Inc. (www.trello.com).
-                </p>
-                <p class="pt-2">
+                <div class="block max-w-2xl">
+                    <p class="text-sm text-dim-2">
+                        App licensed GPL v3 license (except some files with different licenses designated in their appropriate license headers/files). Icons used are from Heroicons and Phosphor Icons
+                        <br>
+                    </p>
+                    <p class="text-sm text-dim-2">
+                        We are not affiliated, associated, authorized, endorsed by or in any way officially connected to Trello, Inc. (www.trello.com).
+                    </p>
+                </div>
+                <p class="pt-2 mb-2">
                     Copyright (c) 2022-2024 trobonox (hello@trobo.dev) <br>
                     Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }} (INSIDER BETA) - <nuxt-link
                         class="text-accent text-accent-darker-hover"
@@ -199,7 +205,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import Modal from "@/components/Modal.vue";
 import versionInfo from "@/version_info.json"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-
+import { BookOpenIcon } from "@heroicons/vue/24/outline";
 import { platform } from '@tauri-apps/api/os';
 
 const osType = ref("");

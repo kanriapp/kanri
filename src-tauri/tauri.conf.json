@@ -30,7 +30,7 @@
             "shell": {
                 "all": false,
                 "execute": false,
-                "open": "https://github.com/trobonox/kanri|https://discord.gg/AVqHrvxB9C|https://www.kanriapp.com/guides/shortcuts",
+                "open": "https://github.com/trobonox/kanri/issues|https://discord.gg/AVqHrvxB9C|https://www.kanriapp.com/getting-started/faq",
                 "scope": [],
                 "sidecar": false
             },
