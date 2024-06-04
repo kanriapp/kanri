@@ -383,11 +383,6 @@ const decreaseZoomLevel = () => {
     store.set("columnZoomLevel", columnZoomLevel.value);
 }
 
-const resetZoomLevel = () => {
-    columnZoomLevel.value = 0;
-    store.set("columnZoomLevel", columnZoomLevel.value);
-}
-
 const keyDownListener = (e: KeyboardEvent) => {
     const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
     const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
