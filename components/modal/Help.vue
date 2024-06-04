@@ -179,7 +179,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </h3>
                 <div class="block max-w-2xl">
                     <p class="text-sm text-dim-2">
-                        App licensed GPL v3 license (except some files with different licenses designated in their appropriate license headers/files). Icons used are from Heroicons and Phosphor Icons
+                        App licensed GPL v3 license (except some files with different licenses designated in their appropriate license headers/files). Icons used are from Heroicons and Phosphor Icons.
                         <br>
                     </p>
                     <p class="text-sm text-dim-2">
