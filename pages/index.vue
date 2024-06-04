@@ -184,37 +184,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             <span class="text-no-overflow w-fit max-w-[180px] px-1 text-lg font-semibold">
                                 {{ board.title }}
                             </span>
-                            <VDropdown
-                                :distance="2"
-                                placement="bottom-end"
-                            >
-                                <button
-                                    class="bg-elevation-3-hover transition-button rounded-md px-1 py-0.5"
-                                    @click.prevent
-                                >
-                                    <EllipsisHorizontalIcon class="size-6" />
-                                </button>
+                            <Dropdown align="end" :side-offset="-10">
+                                <template #trigger>
+                                    <button
+                                        class="bg-elevation-3-hover transition-button rounded-md px-1 py-0.5"
+                                        @click.prevent
+                                    >
+                                        <EllipsisHorizontalIcon class="size-6" />
+                                    </button>
+                                </template>
+
                                 <template
-                                    #popper
+                                    #content
                                 >
-                                    <div class="flex flex-col">
-                                        <button
-                                            v-close-popper
-                                            class="px-4 py-1.5 hover:bg-gray-200"
+                                    <div class="flex flex-col items-start">
+                                        <DropdownMenuItem
+                                            class="py-1.5 px-2 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                             @click="renameBoardModal(index)"
                                         >
                                             Rename
-                                        </button>
-                                        <button
-                                            v-close-popper
-                                            class="px-4 py-1.5 hover:bg-gray-200"
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            class="py-1.5 px-2 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                             @click="deleteBoardModal(index)"
                                         >
                                             Delete
-                                        </button>
+                                        </DropdownMenuItem>
                                     </div>
+                                    <DropdownMenuArrow class="fill-bg-primary-darker" :width="10" />
                                 </template>
-                            </VDropdown>
+                            </Dropdown>
                         </div>
                     </nuxt-link>
                 </TransitionGroup>
