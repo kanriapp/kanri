@@ -359,7 +359,7 @@ const renameBoardModal = (index: number) => {
     renameBoardModalVisible.value = true;
 };
 
-const renameBoard = (index: number, name: string) => {
+const renameBoard = async (index: number, name: string) => {
     if (boards.value[index] == null) {
         return console.error("Could not find board with index: ", index);
     }
@@ -367,6 +367,8 @@ const renameBoard = (index: number, name: string) => {
     boards.value[index].title = name;
     boards.value[index].lastEdited = new Date();
     store.set("boards", boards.value);
+
+    await setSorting();
 }
 
 const deleteBoardModal = (index: number | undefined) => {
