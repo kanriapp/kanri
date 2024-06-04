@@ -70,7 +70,6 @@ const store = useTauriStore().store;
 const columnZoomLevel = defineModel({ type: Number, required: true });
 
 const increaseZoomLevel = () => {
-    console.log(columnZoomLevel.value.toString() + "initial yeet");
     if (columnZoomLevel.value + 1 > 2) return;
     columnZoomLevel.value++;
 
