@@ -235,10 +235,10 @@ onMounted(() => {
         cards.value.forEach(card => {
             if (!card.id) {
                 card.id = generateUniqueID();
+                updateStorage();
             }
         });
     }
-    updateStorage();
 });
 
 const titleTextClassZoom = computed(() => {
