@@ -65,42 +65,61 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="mt-2"
         >
             <div class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow w-fit rounded-md hover:cursor-pointer">
-                <VDropdown
-                    :distance="12"
-                    placement="bottom-start"
-                >
-                    <button class="flex flex-row items-center gap-2 px-4 py-2">
-                        <PhFunnel class="size-6" />
-                        <p>{{ sortingOptionText }}</p>
-                        <ChevronDownIcon class="size-4" />
-                    </button>
+                <Dropdown>
+                    <template #trigger>
+                        <button class="flex flex-row items-center gap-2 px-4 py-2">
+                            <PhFunnel class="size-6" />
+                            <p>{{ sortingOptionText }}</p>
+                            <ChevronDownIcon class="size-4" />
+                        </button>
+                    </template>
 
-                    <template #popper>
-                        <div class="flex flex-col">
-                            <button
-                                v-close-popper
-                                class="px-4 py-1.5 hover:bg-gray-200"
+                    <template #content>
+                        <DropdownMenuRadioGroup v-model="sortingOptionRef" class="flex flex-col">
+                            <DropdownMenuRadioItem
+                                value="alphabetically"
+                                class="px-4 py-1.5 pl-[25px] bg-elevation-2-hover rounded-md w-full flex flex-row items-center"
                                 @click="sortBoardsAlphabetically()"
                             >
+                                <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                                    <CheckIcon class="size-4" />
+                                </DropdownMenuItemIndicator>
                                 Sort Alphabetically
-                            </button>
-                            <button
-                                v-close-popper
-                                class="px-4 py-1.5 hover:bg-gray-200"
+                            </DropdownMenuRadioItem>
+                            <DropdownMenuRadioItem
+                                value="default"
+                                class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center"
                                 @click="sortBoardsByCreationDate()"
                             >
+                                <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                                    <CheckIcon class="size-4" />
+                                </DropdownMenuItemIndicator>
                                 Sort by creation date
-                            </button>
-                            <button
-                                v-close-popper
-                                class="px-4 py-1.5 hover:bg-gray-200"
+                            </DropdownMenuRadioItem>
+                            <DropdownMenuRadioItem
+                                value="edited"
+                                class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center"
                                 @click="sortBoardsByEditDate()"
                             >
+                                <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                                    <CheckIcon class="size-4" />
+                                </DropdownMenuItemIndicator>
                                 Sort by last edited
-                            </button>
-                        </div>
+                            </DropdownMenuRadioItem>
+                        </DropdownMenuRadioGroup>
+                        <DropdownMenuSeparator class="h-[1px] bg-elevation-2 m-[5px]" />
+                        <DropdownMenuCheckboxItem
+                            @click="reverseCurrentSorting"
+                            v-model:checked="reverseSortOrder"
+                            class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center"
+                        >
+                            <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                                <CheckIcon class="size-4" />
+                            </DropdownMenuItemIndicator>
+                            Reversed sort order
+                        </DropdownMenuCheckboxItem>
                     </template>
-                </VDropdown>
+                </Dropdown>
             </div>
         </section>
 
@@ -212,7 +231,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator.js";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"
-import { EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
+import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel } from "@phosphor-icons/vue";
 
 const store = useTauriStore().store;
@@ -224,6 +243,8 @@ const renameBoardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const changelogModalVisible = ref(false);
 
+const sortingOptionRef = ref("");
+const reverseSortOrder = ref(false);
 const sortingOptionText = ref("Sort by creation date");
 
 onMounted(async () => {
@@ -249,6 +270,17 @@ const setSorting = async () => {
         await store.set("boardSortingOption", "default");
     }
 
+    let savedSortPreference = await store.get("reverseSorting");
+    if (savedSortPreference == null) {
+        savedSortPreference = "false";
+    }
+    savedSortPreference = Boolean(savedSortPreference as string).valueOf();
+
+    sortingOptionRef.value = sortingOption as string || "default";
+    reverseSortOrder.value = savedSortPreference as boolean;
+
+    console.log("" + savedSortPreference);
+
     switch (sortingOption) {
     case "alphabetically":
         sortBoardsAlphabetically();
@@ -259,8 +291,24 @@ const setSorting = async () => {
         break;
 
     default:
+        if (reverseSortOrder.value) {
+            boards.value.reverse();
+        }
         break;
     }
+}
+
+const reverseCurrentSorting = async () => {
+    let savedSortPreference = await store.get("reverseSorting");
+    if (savedSortPreference == null) {
+        savedSortPreference = "false";
+    }
+    savedSortPreference = Boolean(savedSortPreference as string).valueOf();
+
+    reverseSortOrder.value = !savedSortPreference;
+    await store.set("reverseSorting", !savedSortPreference);
+
+    boards.value.reverse();
 }
 
 const createNewBoard = async (title: string, columns?: Column[]) => {
@@ -349,6 +397,11 @@ const sortBoardsAlphabetically = () => {
     boards.value.sort((a, b) => {
         return a.title.localeCompare(b.title);
     });
+
+    if (reverseSortOrder.value) {
+        boards.value.reverse();
+    }
+
     store.set("boardSortingOption", "alphabetically");
     sortingOptionText.value = "Sort alphabetically";
 }
@@ -357,6 +410,10 @@ const sortBoardsByCreationDate = async () => {
     editSortWarning.value = false;
 
     boards.value = (await store.get("boards")) || [];
+    if (reverseSortOrder.value) {
+        boards.value.reverse();
+    }
+
     store.set("boardSortingOption", "default");
     sortingOptionText.value = "Sort by creation date";
 }
@@ -370,6 +427,11 @@ const sortBoardsByEditDate = () => {
 
         return new Date(b.lastEdited).getTime() - new Date(a.lastEdited).getTime();
     });
+
+    if (reverseSortOrder.value) {
+        boards.value.reverse();
+    }
+
     store.set("boardSortingOption", "edited");
     sortingOptionText.value = "Sort by edit date";
 }
