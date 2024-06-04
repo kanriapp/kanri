@@ -78,7 +78,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         <DropdownMenuRadioGroup v-model="sortingOptionRef" class="flex flex-col">
                             <DropdownMenuRadioItem
                                 value="alphabetically"
-                                class="px-4 py-1.5 pl-[25px] bg-elevation-2-hover rounded-md w-full flex flex-row items-center"
+                                class="px-4 py-1.5 pl-[25px] bg-elevation-2-hover rounded-md w-full flex flex-row items-center cursor-pointer"
                                 @click="sortBoardsAlphabetically()"
                             >
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
@@ -88,7 +88,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             </DropdownMenuRadioItem>
                             <DropdownMenuRadioItem
                                 value="default"
-                                class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center"
+                                class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center cursor-pointer"
                                 @click="sortBoardsByCreationDate()"
                             >
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
@@ -98,7 +98,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             </DropdownMenuRadioItem>
                             <DropdownMenuRadioItem
                                 value="edited"
-                                class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center"
+                                class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center cursor-pointer"
                                 @click="sortBoardsByEditDate()"
                             >
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
@@ -111,7 +111,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         <DropdownMenuCheckboxItem
                             @click="reverseCurrentSorting"
                             v-model:checked="reverseSortOrder"
-                            class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center"
+                            class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center cursor-pointer"
                         >
                             <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                                 <CheckIcon class="size-4" />
