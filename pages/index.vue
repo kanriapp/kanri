@@ -279,8 +279,6 @@ const setSorting = async () => {
     sortingOptionRef.value = sortingOption as string || "default";
     reverseSortOrder.value = savedSortPreference as boolean;
 
-    console.log("" + savedSortPreference);
-
     switch (sortingOption) {
     case "alphabetically":
         sortBoardsAlphabetically();
