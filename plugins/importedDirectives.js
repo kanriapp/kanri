@@ -20,14 +20,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { defineNuxtPlugin } from '#imports'
-import FloatingVue from 'floating-vue'
-import 'floating-vue/dist/style.css'
 import VCalendar from 'v-calendar';
 import 'v-calendar/style.css';
 import VueDragscroll from "vue-dragscroll";
 
 export default defineNuxtPlugin(({ vueApp }) => {
-    vueApp.use(FloatingVue)
     vueApp.use(VueDragscroll);
     vueApp.use(VCalendar);
 })
