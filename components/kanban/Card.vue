@@ -24,7 +24,7 @@ limitations under the License.
         @click.self="$emit('openEditCardModal', index, card)"
     >
         <div
-            :class="{'pb-1.5': ((!tasks || tasks.length === 0) && isDescriptionEmpty && !dueDate )}"
+            :class="{'pb-1.5': cardHasNoExtraProperties}"
             class="flex w-full flex-row items-center justify-between"
         >
             <p
@@ -63,6 +63,15 @@ limitations under the License.
                     :class="cardTextColor"
                 />
             </ClickCounter>
+        </div>
+
+        <div
+            class="flex flex-row flex-wrap items-center gap-1 -ml-0.5 -mt-0.5 mb-1"
+            @click="$emit('openEditCardModal', index, card)"
+        >
+            <div class="text-xs text-normal bg-elevation-3 px-2 py-0.5 rounded-xl">Nice tag</div>
+            <div class="text-xs text-normal bg-elevation-3 px-2 py-0.5 rounded-xl">Priority</div>
+            <div class="text-xs text-normal bg-elevation-3 px-2 py-0.5 rounded-xl">Test</div>
         </div>
 
         <div
@@ -155,6 +164,11 @@ watch(props, (_, newData) => {
 
 onMounted(async () => {
     savedColors.value = await store.get("colors");
+})
+
+const cardHasNoExtraProperties = computed(() => {
+    //return ((!tasks.value || tasks.value.length === 0) && isDescriptionEmpty && !dueDate.value);
+    return false;
 })
 
 const isDescriptionEmpty = computed(() => {

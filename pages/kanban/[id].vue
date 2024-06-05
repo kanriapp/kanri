@@ -106,13 +106,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
             <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
                 <div class="flex flex-row gap-2">
-                    <button
-                        class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-                        @click="showCustomBgModal = true"
-                    >
-                        <PhotoIcon class="my-auto size-6" />
-                        <span class="my-auto ml-0.5">Change Background</span>
-                    </button>
+                    <div class="flex flex-row gap-2">
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+                            @click="showCustomBgModal = true"
+                        >
+                            <PhotoIcon class="my-auto size-6" />
+                            <span class="my-auto ml-0.5">Change Background</span>
+                        </button>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+                            @click="showCustomBgModal = true"
+                        >
+                            <PhHashStraight class="my-auto size-6" />
+                            <span class="my-auto ml-0.5">Edit Tags</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="flex flex-row">
@@ -229,19 +240,22 @@ import type { Ref } from "vue";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
 import { useTauriStore } from "@/stores/tauriStore";
+
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator";
+import { getAverageColor } from "@/utils/colorUtils";
+
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
+import { PhHashStraight } from "@phosphor-icons/vue";
+
 import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { useConfirmDialog } from '@vueuse/core'
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
-
-import { getAverageColor } from "~/utils/colorUtils";
 
 const store = useTauriStore().store;
 const route = useRoute();
