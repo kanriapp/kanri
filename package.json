@@ -44,7 +44,7 @@
         "mitt": "3.0.1",
         "pinia": "2.1.7",
         "radix-vue": "^1.2.2",
-        "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#a8455f120ad801d828f91528f1b4ca47d00c8ba3",
+        "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#95dbee4b9e1209cbbea17c77d197b267fa7fe8d9",
         "tauri-plugin-log-api": "https://github.com/tauri-apps/tauri-plugin-log#v1",
         "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#b1ce9b38662a2990dddb30de1af88509a45e4625",
         "v-calendar": "^3.1.2",
