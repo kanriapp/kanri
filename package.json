@@ -46,7 +46,7 @@
         "radix-vue": "^1.2.2",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#a8455f120ad801d828f91528f1b4ca47d00c8ba3",
         "tauri-plugin-log-api": "https://github.com/tauri-apps/tauri-plugin-log#v1",
-        "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#b1ce9b38662a2990dddb30de1af88509a45e4625",
+        "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#51717bbde4101f44d3e2191907419f6f7085e2ef",
         "v-calendar": "^3.1.2",
         "vue-dragscroll": "^4.0.5",
         "vue3-smooth-dnd": "0.0.6",
