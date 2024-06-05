@@ -147,16 +147,38 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </h2>
             <span class="text-dim-3 mb-2">Change the behaviour of your Kanban boards.</span>
 
-            <div class="flex w-[48rem] flex-row items-start justify-between mt-4">
-                <div>
-                    <h3 class="text-lg">
-                        Zoom
-                    </h3>
-                    <span class="text-dim-2">
-                        Adjust the global zoom level for your boards.
-                    </span>
+            <div class="flex flex-col gap-4">
+                <div class="flex w-[48rem] flex-row items-start justify-between mt-4">
+                    <div>
+                        <h3 class="text-lg">
+                            Zoom
+                        </h3>
+                        <span class="text-dim-2">
+                            Adjust the global zoom level for your boards.
+                        </span>
+                    </div>
+                    <KanbanZoomAdjustment v-model="columnZoomLevel" />
                 </div>
-                <KanbanZoomAdjustment v-model="columnZoomLevel" />
+
+                <div class="flex w-[48rem] flex-row items-start justify-between">
+                    <div>
+                        <h3 class="text-lg">
+                            Custom storage [EXPERIMENTAL]
+                        </h3>
+                        <span class="text-dim-2 block max-w-xl">
+                            Change the location and the way your boards are stored. <span class="text-red-500">WARNING:</span> Using this option might result in data loss. Please make regular backups!
+                        </span>
+                    </div>
+                    <SwitchRoot
+                        v-model:checked=""
+                        class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+                        @update:checked="() => {}"
+                    >
+                        <SwitchThumb
+                            class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                        />
+                    </SwitchRoot>
+                </div>
             </div>
         </section>
 
