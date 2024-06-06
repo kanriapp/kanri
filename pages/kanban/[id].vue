@@ -32,6 +32,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @setBlur="setBlur"
             @setBrightness="setBrightness"
         />
+        <ModalCardTags
+            v-show="editTagModalVisible"
+            @closeModal="editTagModalVisible = false"
+        />
         <ModalEditCard
             v-show="editCardModalVisible"
             :card="currentlyActiveCardInfo.card"
@@ -118,7 +122,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <div class="flex flex-row gap-2">
                         <button
                             class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-                            @click="showCustomBgModal = true"
+                            @click="editTagModalVisible = true"
                         >
                             <PhHashStraight class="my-auto size-6" />
                             <span class="my-auto ml-0.5">Edit Tags</span>
@@ -290,6 +294,8 @@ const removeColumnModalVisible = ref(false);
 const removeCardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const renameBoardModalVisible = ref(false);
+
+const editTagModalVisible = ref(false);
 
 const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
 const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
