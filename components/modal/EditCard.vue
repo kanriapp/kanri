@@ -402,7 +402,8 @@ limitations under the License.
                         v-model="tag"
                         :tags="tags"
                         placeholder="Add tag..."
-                        @tags-changed="newTags => tags = newTags"
+                        @tags-changed="updateTags"
+                        @before-adding-tag="beforeTagAdd"
                     />
                 </div>
             </div>
@@ -411,7 +412,7 @@ limitations under the License.
 </template>
 
 <script setup lang="ts">
-import type { Card } from "@/types/kanban-types";
+import type { Card, Task, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter"
@@ -436,8 +437,9 @@ const emit = defineEmits<{
     (e: "setCardColor", columnID: string, cardIndex: number, color: string): void,
     (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
     (e: "setCardDueDate", columnID: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean): void,
-    (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<{finished: boolean, name: string}>): void
-    (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
+    (e: "setCardTags", columnID: string, cardIndex: number, tags: Array<Tag>): void,
+    (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<Task>): void,
+    (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void
 }>();
 
 const columnID = ref("");
@@ -449,7 +451,7 @@ const selectedColor = ref("");
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
 const tag = ref("");
-const tags = ref([]);
+const tags: Ref<Array<Tag>> = ref([]);
 
 const isCustomColor = computed(() => selectedColor.value.startsWith('#'));
 const customColor = ref("#ffffff");
@@ -486,6 +488,18 @@ const getTaskPercentage = computed(() => {
 
     return (getCheckedTaskNumber.value / tasks.value.length) * 100;
 })
+
+const beforeTagAdd = ({tag, addTag}: any) => {
+    tag.id = generateUniqueID();
+    addTag();
+}
+
+const updateTags = (newTags: any) => {
+    console.log(newTags);
+    tags.value = newTags;
+
+    emit("setCardTags", columnID.value, cardIndex.value, tags.value);
+}
 
 const createTask = () => {
     if (newTaskName.value == null || !(/\S/.test(newTaskName.value))) return;
@@ -580,6 +594,9 @@ watch(props, (newVal) => {
 
         dueDate.value = newVal.card.dueDate || null;
         isDueDateCounterRelative.value = newVal.card.isDueDateCounterRelative || false;
+
+        tags.value = newVal.card.tags || [];
+        tag.value = "";
 
         /**
          * Enforce adding IDs to all card tasks

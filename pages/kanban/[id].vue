@@ -47,6 +47,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @setCardTasks="setCardTasks"
             @setCardTitle="setCardTitle"
             @setCardDueDate="setCardDueDate"
+            @setCardTags="setCardTags"
         />
         <ModalRenameBoard
             v-show="renameBoardModalVisible"
@@ -234,7 +235,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Board, Card, Column } from "@/types/kanban-types";
+import type { Board, Card, Column, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
@@ -544,6 +545,12 @@ const setCardDueDate = (columnId: string, cardIndex: number, dueDate: Date | nul
     mutateCardData(columnId, cardIndex, (card) => {
         card.dueDate = dueDate;
         card.isDueDateCounterRelative = isCounterRelative;
+    })
+}
+
+const setCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tags = tags;
     })
 }
 

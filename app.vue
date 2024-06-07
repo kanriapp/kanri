@@ -28,10 +28,12 @@ onMounted(async () => {
 
     await attachConsole();
 
+    /*
     console.trace = trace
-    console.log = debug
+    //console.log = debug
     console.info = info
     console.warn = warn
     console.error = error
+    */
 })
 </script>

@@ -39,6 +39,18 @@ export declare interface Column {
     title: string,
 }
 
+export declare interface Task {
+    finished: boolean,
+    id?: string,
+    name: string,
+}
+
+export declare interface Tag {
+    id?: string,
+    text: string,
+    tiClasses?: Array<string>,
+}
+
 export declare interface Card {
     color?: string
     description?: string,
@@ -46,11 +58,8 @@ export declare interface Card {
     id?: string,
     isDueDateCounterRelative?: boolean
     name: string,
-    tasks?: Array<{
-        finished: boolean,
-        id?: string,
-        name: string,
-    }>,
+    tasks?: Array<Task>,
+    tags?: Array<Tag> | null,
 }
 
 export declare interface Theme {
