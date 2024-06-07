@@ -401,6 +401,7 @@ limitations under the License.
                     <vue-tags-input
                         v-model="tag"
                         :tags="tags"
+                        :autocomplete-items="filteredItems"
                         placeholder="Add tag..."
                         @tags-changed="updateTags"
                         @before-adding-tag="beforeTagAdd"
@@ -430,6 +431,7 @@ const props = defineProps<{
     card: Card | null,
     cardIndexProp: number,
     columnId: string,
+    globalTags: Array<Tag>
 }>();
 
 const emit = defineEmits<{
@@ -439,7 +441,8 @@ const emit = defineEmits<{
     (e: "setCardDueDate", columnID: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean): void,
     (e: "setCardTags", columnID: string, cardIndex: number, tags: Array<Tag>): void,
     (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<Task>): void,
-    (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void
+    (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
+    (e: "addGlobalTag", tag: Tag): void,
 }>();
 
 const columnID = ref("");
@@ -450,8 +453,10 @@ const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([
 const selectedColor = ref("");
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
+
 const tag = ref("");
 const tags: Ref<Array<Tag>> = ref([]);
+const autocompleteItems: Ref<Array<Tag>> = ref([]);
 
 const isCustomColor = computed(() => selectedColor.value.startsWith('#'));
 const customColor = ref("#ffffff");
@@ -479,6 +484,11 @@ const enableTaskAddMode = () => {
     taskAddMode.value = true;
 }
 
+const filteredItems = computed(() => {
+  const currentInput = tag.value.trim().toLowerCase();
+  return autocompleteItems.value.filter((item) => item.text.toLowerCase().includes(currentInput));
+})
+
 const getCheckedTaskNumber = computed(() => {
     return tasks.value.filter(task => task.finished).length || 0;
 })
@@ -492,6 +502,8 @@ const getTaskPercentage = computed(() => {
 const beforeTagAdd = ({tag, addTag}: any) => {
     tag.id = generateUniqueID();
     addTag();
+
+    emit("addGlobalTag", tag);
 }
 
 const updateTags = (newTags: any) => {
@@ -597,6 +609,7 @@ watch(props, (newVal) => {
 
         tags.value = newVal.card.tags || [];
         tag.value = "";
+        autocompleteItems.value = newVal.globalTags;
 
         /**
          * Enforce adding IDs to all card tasks
@@ -661,9 +674,10 @@ watch(props, (newVal) => {
 }
 
 .vue-tags-input .ti-autocomplete {
-    border: 1px solid #8b9396;
+    background: var(--elevation-2);
+    border: 1px solid var(--elevation-3);
     border-top: none;
-    color: var(--text-dim-1);
+    border-radius: 0 0 8px 8px;
 }
 
 .vue-tags-input .ti-tag {

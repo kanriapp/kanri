@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         @closeModal="$emit('closeModal')"
     >
         <template #content>
-            <main class="min-h-[36rem] min-w-[32rem] max-w-[48rem]">
+            <main class="h-[36rem] min-w-[32rem] max-w-[48rem] overflow-auto">
                 <div class="flex flex-row items-start justify-between">
                     <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
                         Edit card tags
@@ -37,8 +37,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <div class="mt-4 flex flex-col gap-4">
                     <section id="bg-selection">
                         <h2 class="mb-2 text-lg font-semibold">
-                            Background image:
+                            Your tags:
                         </h2>
+                        <div class="flex flex-col gap-2">
+                            <KanbanTagEdit v-for="tag in tags" :key="tag.id" :tag="tag" @removeTag="removeTag" />
+                        </div>
                     </section>
                 </div>
             </main>
@@ -48,9 +51,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-import { open } from '@tauri-apps/api/dialog';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
-import { ref } from "vue";
+import type { Tag } from "@/types/kanban-types";
 
-const emit = defineEmits(["closeModal"]);
+const emit = defineEmits(["closeModal", "removeTag"]);
+
+defineProps<{
+    tags: Array<Tag>;
+}>();
+
+const removeTag = (tagId: string) => {
+    emit("removeTag", tagId);
+};
 </script>

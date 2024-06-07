@@ -33,14 +33,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @setBrightness="setBrightness"
         />
         <ModalCardTags
+            :tags="board.globalTags || []"
             v-show="editTagModalVisible"
             @closeModal="editTagModalVisible = false"
+            @removeTag="removeTag"
         />
         <ModalEditCard
             v-show="editCardModalVisible"
             :card="currentlyActiveCardInfo.card"
             :card-index-prop="currentlyActiveCardInfo.cardIndex"
             :column-id="currentlyActiveCardInfo.columnId"
+            :global-tags="board.globalTags || []"
             @closeModal="closeeditCardModal"
             @setCardColor="setCardColor"
             @setCardDescription="setCardDescription"
@@ -48,6 +51,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @setCardTitle="setCardTitle"
             @setCardDueDate="setCardDueDate"
             @setCardTags="setCardTags"
+            @addGlobalTag="addGlobalTag"
         />
         <ModalRenameBoard
             v-show="renameBoardModalVisible"
@@ -552,6 +556,32 @@ const setCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
     mutateCardData(columnId, cardIndex, (card) => {
         card.tags = tags;
     })
+}
+
+const addGlobalTag = (tag: Tag) => {
+    // check if tag with same name already exists in board.value.globalTags
+
+    const globalTags = board.value.globalTags || []
+    if (globalTags.some((el) => el.text === tag.text)) {
+        return;
+    }
+
+    if (!board.value.globalTags) {
+        board.value.globalTags = [];
+    }
+    board.value.globalTags.push(tag);
+
+    console.log(board.value.globalTags, "OAIJWODIAJWDOIAWJD");
+    updateStorage();
+}
+
+const removeTag = (tagId: string) => {
+    const globalTags = board.value.globalTags || [];
+    const index = globalTags.findIndex((el) => el.id === tagId);
+
+    if (index!== -1) {
+        board.value.globalTags?.splice(index, 1);
+    }
 }
 
 // Kanban card modal

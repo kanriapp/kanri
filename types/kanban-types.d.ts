@@ -25,6 +25,7 @@ export declare interface Board {
     id: string,
     lastEdited?: Date
     title: string,
+    globalTags?: Array<Tag>
 }
 
 export declare interface BackgroundSettings {
