@@ -24,7 +24,7 @@ limitations under the License.
         @click.self="$emit('openEditCardModal', index, card)"
     >
         <div
-            :class="{'pb-1.5': cardHasNoExtraProperties}"
+            :class="{'pb-1': cardHasNoExtraProperties}"
             class="flex w-full flex-row items-center justify-between"
         >
             <p
@@ -66,6 +66,7 @@ limitations under the License.
         </div>
 
         <div
+            v-if="card.tags && card.tags?.length > 0"
             class="flex flex-row flex-wrap items-center gap-1 -ml-0.5 -mt-0.5 mb-1"
             @click="$emit('openEditCardModal', index, card)"
         >
@@ -165,8 +166,7 @@ onMounted(async () => {
 })
 
 const cardHasNoExtraProperties = computed(() => {
-    //return ((!tasks.value || tasks.value.length === 0) && isDescriptionEmpty && !dueDate.value);
-    return false;
+    return ((!tasks.value || tasks.value.length === 0) && isDescriptionEmpty && !dueDate.value && (props.card.tags || []).length === 0);
 })
 
 const isDescriptionEmpty = computed(() => {
