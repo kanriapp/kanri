@@ -134,7 +134,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <KanbanZoomAdjustment v-model="columnZoomLevel" />
 
                     <Dropdown
-                        :distance="2"
                         align="end"
                     >
                         <template #trigger>
@@ -149,28 +148,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         <template #content>
                             <div class="flex flex-col">
                                 <DropdownMenuItem
-                                    v-close-popper
                                     class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                     @click="renameBoardModal(getBoardIndex())"
                                 >
                                     Rename Board
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    v-close-popper
                                     class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                     @click="duplicateBoard"
                                 >
                                     Duplicate Board
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    v-close-popper
                                     class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                     @click="exportBoardToJson"
                                 >
                                     Export Board
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    v-close-popper
                                     class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
                                     @click="deleteBoardModal(getBoardIndex())"
                                 >
