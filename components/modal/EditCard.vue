@@ -26,8 +26,8 @@ limitations under the License.
         "
     >
         <template #content>
-            <div class="flex min-h-[40rem] w-[36rem] flex-col pl-2">
-                <div class="mb-6">
+            <div class="flex min-h-[40rem] w-[36rem] flex-col pl-2 overflow-auto">
+                <div class="mb-4">
                     <div class="flex flex-row items-start justify-between gap-12">
                         <div class="relative -left-8 top-0 flex flex-row items-center gap-2">
                             <div @blur="showCustomColorPopup = false">
@@ -255,7 +255,7 @@ limitations under the License.
                         v-model="description"
                         @editorBlurred="updateDescription"
                     />
-                    <div class="mb-1 mt-6 flex flex-row items-center gap-2">
+                    <div class="mb-1 mt-4 flex flex-row items-center gap-2">
                         <h2
                             class="text-lg font-semibold"
                         >
@@ -301,7 +301,7 @@ limitations under the License.
                                         <div class="flex w-full flex-row items-center justify-start gap-4">
                                             <CheckboxRoot
                                                 v-model:checked="task.finished"
-                                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
+                                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex flex-shrink-0 size-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
                                                 @update:checked="updateCardTasks()"
                                             >
                                                 <CheckboxIndicator class="flex size-full items-center justify-center rounded">
@@ -391,6 +391,20 @@ limitations under the License.
                         </button>
                     </div>
                 </div>
+
+                <div class="flex flex-col pr-6 mt-4">
+                    <h2
+                        class="text-lg font-semibold mb-1"
+                    >
+                        Tags
+                    </h2>
+                    <vue-tags-input
+                        v-model="tag"
+                        :tags="tags"
+                        placeholder="Add tag..."
+                        @tags-changed="newTags => tags = newTags"
+                    />
+                </div>
             </div>
         </template>
     </Modal>
@@ -408,6 +422,8 @@ import { PhCalendar, PhCheck, PhPencilSimple, PhTrash } from "@phosphor-icons/vu
 import { vOnClickOutside } from '@vueuse/components'
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
+//@ts-ignore
+import { VueTagsInput } from '@vojtechlanka/vue-tags-input';
 
 const props = defineProps<{
     card: Card | null,
@@ -432,6 +448,8 @@ const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([
 const selectedColor = ref("");
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
+const tag = ref("");
+const tags = ref([]);
 
 const isCustomColor = computed(() => selectedColor.value.startsWith('#'));
 const customColor = ref("#ffffff");
@@ -589,6 +607,51 @@ watch(props, (newVal) => {
 <style>
 .v-popper__popper {
     z-index: 9999999999 !important;
+}
+
+.vue-tags-input {
+    background-color: var(--elevation-1) !important;
+    max-width: none !important;
+}
+
+.vue-tags-input .ti-new-tag-input {
+    background: transparent;
+    color: var(--text-dim-1);
+}
+
+.vue-tags-input .ti-input {
+    padding: 8px 4px !important;
+    background: var(--elevation-1);
+
+    border: 1px solid var(--elevation-3) !important;
+    border-radius: 8px;
+}
+
+.vue-tags-input ::-webkit-input-placeholder {
+    color: var(--text-dim-3);
+}
+
+.vue-tags-input ::-moz-placeholder {
+    color: var(--text-dim-3);
+}
+
+.vue-tags-input :-ms-input-placeholder {
+    color: var(--text-dim-3);
+}
+
+.vue-tags-input :-moz-placeholder {
+    color: var(--text-dim-3);
+}
+
+.vue-tags-input .ti-autocomplete {
+    border: 1px solid #8b9396;
+    border-top: none;
+    color: var(--text-dim-1);
+}
+
+.vue-tags-input .ti-tag {
+    position: relative;
+    background: var(--elevation-3);
 }
 
 .vc-light {
