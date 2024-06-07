@@ -559,8 +559,6 @@ const setCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
 }
 
 const addGlobalTag = (tag: Tag) => {
-    // check if tag with same name already exists in board.value.globalTags
-
     const globalTags = board.value.globalTags || []
     if (globalTags.some((el) => el.text === tag.text)) {
         return;
@@ -571,7 +569,6 @@ const addGlobalTag = (tag: Tag) => {
     }
     board.value.globalTags.push(tag);
 
-    console.log(board.value.globalTags, "OAIJWODIAJWDOIAWJD");
     updateStorage();
 }
 

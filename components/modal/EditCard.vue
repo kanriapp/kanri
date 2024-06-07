@@ -507,7 +507,6 @@ const beforeTagAdd = ({tag, addTag}: any) => {
 }
 
 const updateTags = (newTags: any) => {
-    console.log(newTags);
     tags.value = newTags;
 
     emit("setCardTags", columnID.value, cardIndex.value, tags.value);
