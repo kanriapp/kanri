@@ -584,15 +584,7 @@ const removeTag = (tagId: string) => {
 }
 
 const setTagColor = (tagId: string, color: string) => {
-    console.log("we have arrived");
-
-    console.log(tagId);
-    console.log(board.value.globalTags);
-
-    // get Tag by ID
     const tag = findObjectById<Tag>(board.value.globalTags || [], tagId);
-
-    console.log(tag, "AYE");
 
     tag.color = color;
     tag.style = `background-color: ${color}`;

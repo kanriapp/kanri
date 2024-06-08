@@ -65,7 +65,6 @@ defineProps<{
 }>();
 
 const setTagColor = (tagId: string, color: string | null) => {
-    console.log("SHEESH");
     emit("setTagColor", tagId, color);
 };
 

@@ -27,7 +27,6 @@ const props = defineProps<{
 const tagColor = ref(props.tag.color);
 
 const setTagColor = () => {
-    console.log("YEEETUS");
     emit("setTagColor", props.tag.id, tagColor.value);
 }
 </script>

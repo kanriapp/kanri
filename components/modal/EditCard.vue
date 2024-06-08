@@ -502,7 +502,6 @@ const getTaskPercentage = computed(() => {
 const beforeTagAdd = ({tag, addTag}: any) => {
     // check if autocomplete items have a tag with the same name
     const existingTag = autocompleteItems.value.find((item) => item.text === tag.text);
-    console.log("YEEEEEEET existing", existingTag);
     if (!existingTag) {
         tag.id = generateUniqueID();
     }
@@ -615,8 +614,6 @@ watch(props, (newVal) => {
         tags.value = newVal.card.tags || [];
         tag.value = "";
         autocompleteItems.value = newVal.globalTags;
-
-        console.log(autocompleteItems.value);
 
         /**
          * Enforce adding IDs to all card tasks
