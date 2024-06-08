@@ -103,8 +103,6 @@ onMounted(() => {
         setTimeout(() => {
             if (boardNameInput.value == null) return;
             boardNameInput.value.focus();
-
-            console.log("FOCUS")
         }, 200);
     })
 });

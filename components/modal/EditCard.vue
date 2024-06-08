@@ -26,8 +26,8 @@ limitations under the License.
         "
     >
         <template #content>
-            <div class="flex min-h-[40rem] w-[36rem] flex-col pl-2">
-                <div class="mb-6">
+            <div class="flex min-h-[40rem] w-[36rem] flex-col pl-2 overflow-auto">
+                <div class="mb-4">
                     <div class="flex flex-row items-start justify-between gap-12">
                         <div class="relative -left-8 top-0 flex flex-row items-center gap-2">
                             <div @blur="showCustomColorPopup = false">
@@ -255,7 +255,7 @@ limitations under the License.
                         v-model="description"
                         @editorBlurred="updateDescription"
                     />
-                    <div class="mb-1 mt-6 flex flex-row items-center gap-2">
+                    <div class="mb-1 mt-4 flex flex-row items-center gap-2">
                         <h2
                             class="text-lg font-semibold"
                         >
@@ -301,7 +301,7 @@ limitations under the License.
                                         <div class="flex w-full flex-row items-center justify-start gap-4">
                                             <CheckboxRoot
                                                 v-model:checked="task.finished"
-                                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
+                                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex flex-shrink-0 size-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
                                                 @update:checked="updateCardTasks()"
                                             >
                                                 <CheckboxIndicator class="flex size-full items-center justify-center rounded">
@@ -391,13 +391,29 @@ limitations under the License.
                         </button>
                     </div>
                 </div>
+
+                <div class="flex flex-col pr-6 mt-4">
+                    <h2
+                        class="text-lg font-semibold mb-1"
+                    >
+                        Tags
+                    </h2>
+                    <vue-tags-input
+                        v-model="tag"
+                        :tags="tags"
+                        :autocomplete-items="filteredItems"
+                        placeholder="Add tag..."
+                        @tags-changed="updateTags"
+                        @before-adding-tag="beforeTagAdd"
+                    />
+                </div>
             </div>
         </template>
     </Modal>
 </template>
 
 <script setup lang="ts">
-import type { Card } from "@/types/kanban-types";
+import type { Card, Task, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter"
@@ -408,11 +424,14 @@ import { PhCalendar, PhCheck, PhPencilSimple, PhTrash } from "@phosphor-icons/vu
 import { vOnClickOutside } from '@vueuse/components'
 //@ts-ignore
 import { Container, Draggable } from 'vue3-smooth-dnd';
+//@ts-ignore
+import { VueTagsInput } from '@vojtechlanka/vue-tags-input';
 
 const props = defineProps<{
     card: Card | null,
     cardIndexProp: number,
     columnId: string,
+    globalTags: Array<Tag>
 }>();
 
 const emit = defineEmits<{
@@ -420,8 +439,10 @@ const emit = defineEmits<{
     (e: "setCardColor", columnID: string, cardIndex: number, color: string): void,
     (e: "setCardDescription", columnID: string, cardIndex: number, description: string): void,
     (e: "setCardDueDate", columnID: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean): void,
-    (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<{finished: boolean, name: string}>): void
+    (e: "setCardTags", columnID: string, cardIndex: number, tags: Array<Tag>): void,
+    (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<Task>): void,
     (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
+    (e: "addGlobalTag", tag: Tag): void,
 }>();
 
 const columnID = ref("");
@@ -432,6 +453,10 @@ const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([
 const selectedColor = ref("");
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
+
+const tag = ref("");
+const tags: Ref<Array<Tag>> = ref([]);
+const autocompleteItems: Ref<Array<Tag>> = ref([]);
 
 const isCustomColor = computed(() => selectedColor.value.startsWith('#'));
 const customColor = ref("#ffffff");
@@ -459,6 +484,11 @@ const enableTaskAddMode = () => {
     taskAddMode.value = true;
 }
 
+const filteredItems = computed(() => {
+  const currentInput = tag.value.trim().toLowerCase();
+  return autocompleteItems.value.filter((item) => item.text.toLowerCase().includes(currentInput));
+})
+
 const getCheckedTaskNumber = computed(() => {
     return tasks.value.filter(task => task.finished).length || 0;
 })
@@ -468,6 +498,24 @@ const getTaskPercentage = computed(() => {
 
     return (getCheckedTaskNumber.value / tasks.value.length) * 100;
 })
+
+const beforeTagAdd = ({tag, addTag}: any) => {
+    // check if autocomplete items have a tag with the same name
+    const existingTag = autocompleteItems.value.find((item) => item.text === tag.text);
+    if (!existingTag) {
+        tag.id = generateUniqueID();
+    }
+
+    addTag();
+
+    emit("addGlobalTag", tag);
+}
+
+const updateTags = (newTags: any) => {
+    tags.value = newTags;
+
+    emit("setCardTags", columnID.value, cardIndex.value, tags.value);
+}
 
 const createTask = () => {
     if (newTaskName.value == null || !(/\S/.test(newTaskName.value))) return;
@@ -563,6 +611,10 @@ watch(props, (newVal) => {
         dueDate.value = newVal.card.dueDate || null;
         isDueDateCounterRelative.value = newVal.card.isDueDateCounterRelative || false;
 
+        tags.value = newVal.card.tags || [];
+        tag.value = "";
+        autocompleteItems.value = newVal.globalTags;
+
         /**
          * Enforce adding IDs to all card tasks
          * TODO: Potentially remove later on in a version with breaking change to make ID non-optional
@@ -589,6 +641,52 @@ watch(props, (newVal) => {
 <style>
 .v-popper__popper {
     z-index: 9999999999 !important;
+}
+
+.vue-tags-input {
+    background-color: var(--elevation-1) !important;
+    max-width: none !important;
+}
+
+.vue-tags-input .ti-new-tag-input {
+    background: transparent;
+    color: var(--text-dim-1);
+}
+
+.vue-tags-input .ti-input {
+    padding: 8px 4px !important;
+    background: var(--elevation-1);
+
+    border: 1px solid var(--elevation-3) !important;
+    border-radius: 8px;
+}
+
+.vue-tags-input ::-webkit-input-placeholder {
+    color: var(--text-dim-3);
+}
+
+.vue-tags-input ::-moz-placeholder {
+    color: var(--text-dim-3);
+}
+
+.vue-tags-input :-ms-input-placeholder {
+    color: var(--text-dim-3);
+}
+
+.vue-tags-input :-moz-placeholder {
+    color: var(--text-dim-3);
+}
+
+.vue-tags-input .ti-autocomplete {
+    background: var(--elevation-2);
+    border: 1px solid var(--elevation-3);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.vue-tags-input .ti-tag {
+    position: relative;
+    background: var(--elevation-3);
 }
 
 .vc-light {

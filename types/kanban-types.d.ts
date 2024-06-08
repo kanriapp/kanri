@@ -25,6 +25,7 @@ export declare interface Board {
     id: string,
     lastEdited?: Date
     title: string,
+    globalTags?: Array<Tag>
 }
 
 export declare interface BackgroundSettings {
@@ -39,6 +40,19 @@ export declare interface Column {
     title: string,
 }
 
+export declare interface Task {
+    finished: boolean,
+    id?: string,
+    name: string,
+}
+
+export declare interface Tag {
+    id: string,
+    text: string,
+    style?: string,
+    color?: string | null
+}
+
 export declare interface Card {
     color?: string
     description?: string,
@@ -46,11 +60,8 @@ export declare interface Card {
     id?: string,
     isDueDateCounterRelative?: boolean
     name: string,
-    tasks?: Array<{
-        finished: boolean,
-        id?: string,
-        name: string,
-    }>,
+    tasks?: Array<Task>,
+    tags?: Array<Tag> | null,
 }
 
 export declare interface Theme {

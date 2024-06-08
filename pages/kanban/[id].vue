@@ -32,17 +32,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @setBlur="setBlur"
             @setBrightness="setBrightness"
         />
+        <ModalCardTags
+            :tags="board.globalTags || []"
+            v-show="editTagModalVisible"
+            @closeModal="editTagModalVisible = false"
+            @setTagColor="setTagColor"
+            @removeTag="removeTag"
+        />
         <ModalEditCard
             v-show="editCardModalVisible"
             :card="currentlyActiveCardInfo.card"
             :card-index-prop="currentlyActiveCardInfo.cardIndex"
             :column-id="currentlyActiveCardInfo.columnId"
+            :global-tags="board.globalTags || []"
             @closeModal="closeeditCardModal"
             @setCardColor="setCardColor"
             @setCardDescription="setCardDescription"
             @setCardTasks="setCardTasks"
             @setCardTitle="setCardTitle"
             @setCardDueDate="setCardDueDate"
+            @setCardTags="setCardTags"
+            @addGlobalTag="addGlobalTag"
         />
         <ModalRenameBoard
             v-show="renameBoardModalVisible"
@@ -106,20 +116,30 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
             <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
                 <div class="flex flex-row gap-2">
-                    <button
-                        class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-                        @click="showCustomBgModal = true"
-                    >
-                        <PhotoIcon class="my-auto size-6" />
-                        <span class="my-auto ml-0.5">Change Background</span>
-                    </button>
+                    <div class="flex flex-row gap-2">
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+                            @click="showCustomBgModal = true"
+                        >
+                            <PhotoIcon class="my-auto size-6" />
+                            <span class="my-auto ml-0.5">Change Background</span>
+                        </button>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+                            @click="editTagModalVisible = true"
+                        >
+                            <PhHashStraight class="my-auto size-6" />
+                            <span class="my-auto ml-0.5">Edit Tags</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="flex flex-row">
                     <KanbanZoomAdjustment v-model="columnZoomLevel" />
 
                     <Dropdown
-                        :distance="2"
                         align="end"
                     >
                         <template #trigger>
@@ -200,6 +220,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                     @removeColumnNoConfirmation="removeColumn"
                                     @setColumnEditIndex="setColumnEditIndex"
                                     @updateStorage="updateColumnProperties"
+                                    @updateCardTags="updateCardTags"
                                 />
                             </Draggable>
                             <div class="pr-8">
@@ -220,24 +241,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Board, Card, Column } from "@/types/kanban-types";
+import type { Board, Card, Column, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { default as KanbanColumn } from "@/components/kanban/Column.vue";
 import { useTauriStore } from "@/stores/tauriStore";
+
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator";
+import { getAverageColor } from "@/utils/colorUtils";
+
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
+import { PhHashStraight } from "@phosphor-icons/vue";
+
 import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { useConfirmDialog } from '@vueuse/core'
 //@ts-ignore
 import { Container, Draggable } from "vue3-smooth-dnd";
-
-import { getAverageColor } from "~/utils/colorUtils";
 
 const store = useTauriStore().store;
 const route = useRoute();
@@ -272,6 +296,8 @@ const removeColumnModalVisible = ref(false);
 const removeCardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const renameBoardModalVisible = ref(false);
+
+const editTagModalVisible = ref(false);
 
 const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
 const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
@@ -525,6 +551,51 @@ const setCardDueDate = (columnId: string, cardIndex: number, dueDate: Date | nul
     mutateCardData(columnId, cardIndex, (card) => {
         card.dueDate = dueDate;
         card.isDueDateCounterRelative = isCounterRelative;
+    })
+}
+
+const setCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tags = tags;
+    })
+}
+
+const addGlobalTag = (tag: Tag) => {
+    const globalTags = board.value.globalTags || []
+    if (globalTags.some((el) => el.text === tag.text)) {
+        return;
+    }
+
+    if (!board.value.globalTags) {
+        board.value.globalTags = [];
+    }
+    board.value.globalTags.push(tag);
+
+    updateStorage();
+}
+
+const removeTag = (tagId: string) => {
+    const globalTags = board.value.globalTags || [];
+    const index = globalTags.findIndex((el) => el.id === tagId);
+
+    if (index!== -1) {
+        board.value.globalTags?.splice(index, 1);
+    }
+}
+
+const setTagColor = (tagId: string, color: string) => {
+    const tag = findObjectById<Tag>(board.value.globalTags || [], tagId);
+
+    tag.color = color;
+    tag.style = `background-color: ${color}`;
+    updateStorage();
+
+    emitter.emit("globalTagsUpdated", {tags: board.value.globalTags});
+}
+
+const updateCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tags = tags;
     })
 }
 

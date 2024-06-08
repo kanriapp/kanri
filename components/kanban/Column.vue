@@ -88,6 +88,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     @remove-card="removeCard"
                     @remove-card-with-confirmation="removeCardWithConfirmation"
                     @set-card-title="setCardTitle"
+                    @update-card-tags="updateCardTags"
                 />
             </Draggable>
         </Container>
@@ -149,7 +150,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Card, Column } from "@/types/kanban-types";
+import type { Card, Column, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue"
 
 import { applyDrag } from "@/utils/drag-n-drop";
@@ -175,6 +176,7 @@ const emit = defineEmits<{
   (e: "removeColumnNoConfirmation", columnId: string): void,
   (e: "setColumnEditIndex", columnId: number, eventType: string): void,
   (e: "updateStorage", column: Column): void,
+  (e: "updateCardTags", columnId: string, cardIndex: number, tags: Array<Tag>): void,
 }>();
 
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
@@ -342,6 +344,10 @@ const updateColumnTitle = () => {
 
     titleEditing.value = false;
     updateStorage();
+}
+
+const updateCardTags = (cardIndex: number, tags: Array<Tag>) => {
+    emit("updateCardTags", props.id, cardIndex, tags);
 }
 
 const addCard = () => {
