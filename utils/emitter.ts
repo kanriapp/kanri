@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import type { Board, Column } from '@/types/kanban-types';
+import type { Board, Column, Tag } from '@/types/kanban-types';
 
 import mitt from 'mitt';
 
@@ -36,6 +36,8 @@ type Events = {
     enableColumnTitleEditing: string;
 
     hideSidebarBackArrow: void;
+
+    globalTagsUpdated: { tags: Array<Tag> | undefined };
 
     modalEnableClickOutsideClose: void;
     modalPreventClickOutsideClose: void;

@@ -47,9 +47,10 @@ export declare interface Task {
 }
 
 export declare interface Tag {
-    id?: string,
+    id: string,
     text: string,
-    tiClasses?: Array<string>,
+    style?: string,
+    color?: string | null
 }
 
 export declare interface Card {

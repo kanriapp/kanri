@@ -36,6 +36,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             :tags="board.globalTags || []"
             v-show="editTagModalVisible"
             @closeModal="editTagModalVisible = false"
+            @setTagColor="setTagColor"
             @removeTag="removeTag"
         />
         <ModalEditCard
@@ -219,6 +220,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                     @removeColumnNoConfirmation="removeColumn"
                                     @setColumnEditIndex="setColumnEditIndex"
                                     @updateStorage="updateColumnProperties"
+                                    @updateCardTags="updateCardTags"
                                 />
                             </Draggable>
                             <div class="pr-8">
@@ -579,6 +581,30 @@ const removeTag = (tagId: string) => {
     if (index!== -1) {
         board.value.globalTags?.splice(index, 1);
     }
+}
+
+const setTagColor = (tagId: string, color: string) => {
+    console.log("we have arrived");
+
+    console.log(tagId);
+    console.log(board.value.globalTags);
+
+    // get Tag by ID
+    const tag = findObjectById<Tag>(board.value.globalTags || [], tagId);
+
+    console.log(tag, "AYE");
+
+    tag.color = color;
+    tag.style = `background-color: ${color}`;
+    updateStorage();
+
+    emitter.emit("globalTagsUpdated", {tags: board.value.globalTags});
+}
+
+const updateCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tags = tags;
+    })
 }
 
 // Kanban card modal

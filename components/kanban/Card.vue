@@ -66,11 +66,11 @@ limitations under the License.
         </div>
 
         <div
-            v-if="card.tags && card.tags?.length > 0"
+            v-if="cardTags && cardTags?.length > 0"
             class="flex flex-row flex-wrap items-center gap-1 -ml-0.5 -mt-0.5 mb-1"
             @click="$emit('openEditCardModal', index, card)"
         >
-            <div v-for="tag in card.tags" class="text-xs text-normal bg-elevation-3 px-2 py-0.5 rounded-xl">{{ tag.text }}</div>
+            <div v-for="tag in cardTags" :style="tag.style" class="text-xs text-normal bg-elevation-3 px-2 py-0.5 rounded-xl">{{ tag.text }}</div>
         </div>
 
         <div
@@ -116,7 +116,7 @@ limitations under the License.
 </template>
 
 <script setup lang="ts">
-import type { Card } from '@/types/kanban-types';
+import type { Card, Tag } from '@/types/kanban-types';
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "@/utils/colorUtils"
@@ -135,7 +135,8 @@ const emit = defineEmits<{
     (e: "openEditCardModal", index: number, card: Card): void,
     (e: "removeCard", index: number): void,
     (e: "removeCardWithConfirmation", index: number, cardRef: Ref<HTMLDivElement | null>): void,
-    (e: "setCardTitle", index: number, name: string): void
+    (e: "setCardTitle", index: number, name: string): void,
+    (e: "updateCardTags", index: number, tags: Array<Tag>): void
 }>();
 
 const store = useTauriStore().store;
@@ -147,7 +148,8 @@ const name = ref(props.card.name);
 const description = ref(props.card.description);
 const tasks = ref(props.card.tasks);
 const dueDate = ref(props.card.dueDate);
-const isDueDateRelative = ref(props.card.isDueDateCounterRelative)
+const isDueDateRelative = ref(props.card.isDueDateCounterRelative);
+const cardTags = ref(props.card.tags);
 
 const cardNameEditMode = ref(false);
 const cardNameInput: Ref<HTMLTextAreaElement | null> = ref(null);
@@ -159,10 +161,26 @@ watch(props, (_, newData) => {
     tasks.value = newData.card.tasks;
     dueDate.value = newData.card.dueDate;
     isDueDateRelative.value = newData.card.isDueDateCounterRelative;
+    cardTags.value = newData.card.tags;
 });
 
 onMounted(async () => {
     savedColors.value = await store.get("colors");
+
+    emitter.on("globalTagsUpdated", ({tags}) => {
+        if (!tags) return;
+
+        tags.forEach(tag => {
+            const savedTag = cardTags.value?.find(cardTag => tag.id === cardTag.id);
+            if (savedTag) {
+                savedTag.text = tag.text;
+                savedTag.color = tag.color;
+                savedTag.style = tag.style;
+
+                emit("updateCardTags", props.index, cardTags.value ?? []);
+            }
+        });
+    });
 })
 
 const cardHasNoExtraProperties = computed(() => {

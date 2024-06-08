@@ -40,7 +40,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             Your tags:
                         </h2>
                         <div class="flex flex-col gap-2">
-                            <KanbanTagEdit v-for="tag in tags" :key="tag.id" :tag="tag" @removeTag="removeTag" />
+                            <KanbanTagEdit
+                                v-for="tag in tags" :key="tag.id"
+                                :tag="tag"
+                                @setTagColor="setTagColor"
+                                @removeTag="removeTag"
+                            />
                         </div>
                     </section>
                 </div>
@@ -53,11 +58,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import type { Tag } from "@/types/kanban-types";
 
-const emit = defineEmits(["closeModal", "removeTag"]);
+const emit = defineEmits(["closeModal", "setTagColor", "removeTag"]);
 
 defineProps<{
     tags: Array<Tag>;
 }>();
+
+const setTagColor = (tagId: string, color: string | null) => {
+    console.log("SHEESH");
+    emit("setTagColor", tagId, color);
+};
 
 const removeTag = (tagId: string) => {
     emit("removeTag", tagId);
