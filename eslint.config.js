@@ -12,7 +12,8 @@ export default withNuxt(
             "tailwindcss/no-custom-classname": "off",
             "vue/html-indent": ["warn", 4],
             "vue/multi-word-component-names": "off",
-            "vue/v-on-event-hyphenation": "off"
+            "vue/v-on-event-hyphenation": "off",
+            "@typescript-eslint/no-invalid-void-types": "off"
         }
     },
     {
