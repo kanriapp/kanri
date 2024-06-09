@@ -5,6 +5,7 @@
     "description": "Offline-first Kanban board desktop app",
     "author": "trobonox <hello@trobo.dev>",
     "license": "GPL-3.0+",
+    "type": "module",
     "scripts": {
         "init:armv7": "docker build . -t rust_cross_compile/armv7 -f Dockerfile.armv7",
         "init:arm64": "docker build . -t rust_cross_compile/arm64 -f Dockerfile.arm64",
@@ -16,6 +17,7 @@
         "lint": "eslint . --fix"
     },
     "devDependencies": {
+        "@nuxt/eslint": "^0.3.13",
         "@nuxt/eslint-config": "0.3.13",
         "@nuxtjs/tailwindcss": "6.12.0",
         "@tauri-apps/cli": "1.5.14",
@@ -28,9 +30,11 @@
         "nuxt": "^3.7.1",
         "nuxt-better-optimize-deps": "^0.1.0",
         "postcss-custom-properties": "13.3.10",
-        "rollup-plugin-license": "^3.0.1"
+        "rollup-plugin-license": "^3.0.1",
+        "typescript": "^5.4.5"
     },
     "dependencies": {
+        "@eslint/eslintrc": "^3.1.0",
         "@heroicons/vue": "2.1.3",
         "@paralleldrive/cuid2": "^2.1.0",
         "@phosphor-icons/vue": "^2.1.6",

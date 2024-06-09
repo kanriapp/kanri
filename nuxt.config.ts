@@ -15,7 +15,8 @@ export default defineNuxtConfig({
         "@pinia/nuxt",
         "@vueuse/nuxt",
         'radix-vue/nuxt',
-        "nuxt-better-optimize-deps"
+        "nuxt-better-optimize-deps",
+        "@nuxt/eslint"
     ],
     ssr: false,
     telemetry: false,
