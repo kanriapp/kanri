@@ -23,7 +23,7 @@ export declare interface Board {
     background?: BackgroundSettings,
     columns: Array<Column>,
     id: string,
-    lastEdited?: Date
+    lastEdited?: Date | string
     title: string,
     globalTags?: Array<Tag>
 }
