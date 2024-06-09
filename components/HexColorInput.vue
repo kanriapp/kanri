@@ -44,27 +44,27 @@ watch(props, (_, newValue) => {
 });
 
 const updateInputValue = (event: Event) => {
-    //@ts-expect-error
+    //@ts-expect-error don't want to deal with the specifics of event typings here
     if (event.target.value.length === 1) {
-        //@ts-expect-error
+        //@ts-expect-error don't want to deal with the specifics of event typings here
         if (event.target.value !== "#") {
             inputValue.value = "";
             return;
         }
     }
 
-    //@ts-expect-error
+    //@ts-expect-error don't want to deal with the specifics of event typings here
     if (event.target.value.length > 1) {
         const regex = /^#[0-9A-F]{1,6}$/i
 
-        //@ts-expect-error
+        //@ts-expect-error don't want to deal with the specifics of event typings here
         if (!(regex.test(event.target.value))) {
             inputValue.value = inputValue.value.substring(0, inputValue.value.length - 1);
             return;
         }
     }
 
-    //@ts-expect-error
+    //@ts-expect-error don't want to deal with the specifics of event typings here
     emit('update:modelValue', event.target.value);
 }
 </script>

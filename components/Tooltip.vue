@@ -35,7 +35,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
+withDefaults(
     defineProps<{
         direction?: "right" | "top" | "bottom" | "left";
     }>(),

@@ -43,10 +43,8 @@ export default {
         },
     },
 
-    // eslint-disable-next-line perfectionist/sort-objects
     emits: ['update:modelValue', 'editorBlurred'],
 
-    // eslint-disable-next-line perfectionist/sort-objects
     data() {
         return {
             editor: null,
@@ -69,15 +67,12 @@ export default {
         },
     },
 
-    // eslint-disable-next-line perfectionist/sort-objects
     beforeUnmount() {
         this.editor.destroy()
     },
 
-    // eslint-disable-next-line perfectionist/sort-objects
     mounted() {
         this.editor = new Editor({
-            // eslint-disable-next-line perfectionist/sort-objects
             content: this.modelValue,
             extensions: [
                 StarterKit,

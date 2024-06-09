@@ -70,7 +70,7 @@ limitations under the License.
             class="-ml-0.5 -mt-0.5 mb-1 flex flex-row flex-wrap items-center gap-1"
             @click="$emit('openEditCardModal', index, card)"
         >
-            <div v-for="tag in cardTags" :style="tag.style" class="text-normal bg-elevation-3 rounded-xl px-2 py-0.5 text-xs">{{ tag.text }}</div>
+            <div v-for="tag in cardTags" :key="tag.id" :style="tag.style" class="text-normal bg-elevation-3 rounded-xl px-2 py-0.5 text-xs">{{ tag.text }}</div>
         </div>
 
         <div
@@ -141,7 +141,9 @@ const emit = defineEmits<{
 
 const store = useTauriStore().store;
 
-const savedColors: Ref<any> = ref(null);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const savedColors: Ref<any> = ref(null); // TODO: add types for saved theme in board
 const cardRef: Ref<HTMLDivElement | null> = ref(null);
 
 const name = ref(props.card.name);
@@ -210,6 +212,8 @@ const allTasksCompleted = computed(() => {
     const completedTasks = tasks.value.filter(task => task.finished).length;
 
     if (totalTasks === completedTasks) return true;
+
+    return false; //default return
 })
 
 const cardTextClassZoom = computed(() => {
@@ -240,7 +244,6 @@ const cardBackgroundColor = computed(() => {
 const cardTextColor = computed(() => {
     if (cardBackgroundColor.value === "bg-elevation-2") {
         if (savedColors.value) {
-            //@ts-expect-error
             return getContrast(savedColors.value.elevation2);
         }
     }

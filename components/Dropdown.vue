@@ -44,7 +44,7 @@ import {
     DropdownMenuTrigger,
 } from 'radix-vue'
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
         align?: "start" | "center" | "end" | undefined
         sideOffset?: number

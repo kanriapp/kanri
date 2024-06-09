@@ -295,6 +295,8 @@ const keyDownListener = (e: { key: string; }) => {
     }
 };
 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onDrop = (dropResult: any) => {
     cards.value = applyDrag(cards.value, dropResult);
     updateStorage();
