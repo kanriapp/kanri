@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         @closeModal="$emit('closeModal')"
     >
         <template #content>
-            <main class="h-[36rem] min-w-[32rem] max-w-[48rem] overflow-auto">
+            <main class="h-[36rem] min-w-[32rem] max-w-3xl overflow-auto">
                 <div class="flex flex-row items-start justify-between">
                     <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
                         Edit card tags

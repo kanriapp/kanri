@@ -25,7 +25,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     >
         <template #content>
             <main
-                class="min-w-[32rem] max-w-[48rem]"
+                class="min-w-[32rem] max-w-3xl"
                 @keypress.enter="renameBoard()"
             >
                 <div class="flex flex-row items-start justify-between">

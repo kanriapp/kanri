@@ -1551,6 +1551,7 @@ dependencies = [
  "tauri-plugin-log",
  "tauri-plugin-persisted-scope",
  "tauri-plugin-store",
+ "tauri-plugin-window-state",
 ]
 
 [[package]]
@@ -3107,7 +3108,7 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-autostart"
 version = "0.0.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#5e3900e682e13f3759b439116ae2f77a6d389ca2"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#bd3d9ca152ee8b55e3e669dac68476ce6150c57f"
 dependencies = [
  "auto-launch",
  "log",
@@ -3120,7 +3121,7 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-log"
 version = "0.0.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#5e3900e682e13f3759b439116ae2f77a6d389ca2"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#bd3d9ca152ee8b55e3e669dac68476ce6150c57f"
 dependencies = [
  "byte-unit",
  "fern",
@@ -3135,7 +3136,7 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-persisted-scope"
 version = "0.1.3"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#5e3900e682e13f3759b439116ae2f77a6d389ca2"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#bd3d9ca152ee8b55e3e669dac68476ce6150c57f"
 dependencies = [
  "aho-corasick",
  "bincode",
@@ -3149,8 +3150,22 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-store"
 version = "0.0.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#5e3900e682e13f3759b439116ae2f77a6d389ca2"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#bd3d9ca152ee8b55e3e669dac68476ce6150c57f"
 dependencies = [
+ "log",
+ "serde",
+ "serde_json",
+ "tauri",
+ "thiserror",
+]
+
+[[package]]
+name = "tauri-plugin-window-state"
+version = "0.1.1"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#bd3d9ca152ee8b55e3e669dac68476ce6150c57f"
+dependencies = [
+ "bincode",
+ "bitflags 2.4.1",
  "log",
  "serde",
  "serde_json",

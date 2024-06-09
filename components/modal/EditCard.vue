@@ -26,7 +26,7 @@ limitations under the License.
         "
     >
         <template #content>
-            <div class="flex min-h-[40rem] w-[36rem] flex-col pl-2 overflow-auto">
+            <div class="flex min-h-[40rem] w-[36rem] flex-col overflow-auto pl-2">
                 <div class="mb-4">
                     <div class="flex flex-row items-start justify-between gap-12">
                         <div class="relative -left-8 top-0 flex flex-row items-center gap-2">
@@ -301,7 +301,7 @@ limitations under the License.
                                         <div class="flex w-full flex-row items-center justify-start gap-4">
                                             <CheckboxRoot
                                                 v-model:checked="task.finished"
-                                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex flex-shrink-0 size-5 appearance-none items-center justify-center rounded-[4px] border outline-none"
+                                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 shrink-0 appearance-none items-center justify-center rounded-[4px] border outline-none"
                                                 @update:checked="updateCardTasks()"
                                             >
                                                 <CheckboxIndicator class="flex size-full items-center justify-center rounded">
@@ -392,9 +392,9 @@ limitations under the License.
                     </div>
                 </div>
 
-                <div class="flex flex-col pr-6 mt-4">
+                <div class="mt-4 flex flex-col pr-6">
                     <h2
-                        class="text-lg font-semibold mb-1"
+                        class="mb-1 text-lg font-semibold"
                     >
                         Tags
                     </h2>
@@ -422,9 +422,9 @@ import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { PhCalendar, PhCheck, PhPencilSimple, PhTrash } from "@phosphor-icons/vue";
 import { vOnClickOutside } from '@vueuse/components'
-//@ts-ignore
+//@ts-expect-error
 import { Container, Draggable } from 'vue3-smooth-dnd';
-//@ts-ignore
+//@ts-expect-error
 import { VueTagsInput } from '@vojtechlanka/vue-tags-input';
 
 const props = defineProps<{
@@ -485,8 +485,8 @@ const enableTaskAddMode = () => {
 }
 
 const filteredItems = computed(() => {
-  const currentInput = tag.value.trim().toLowerCase();
-  return autocompleteItems.value.filter((item) => item.text.toLowerCase().includes(currentInput));
+    const currentInput = tag.value.trim().toLowerCase();
+    return autocompleteItems.value.filter((item) => item.text.toLowerCase().includes(currentInput));
 })
 
 const getCheckedTaskNumber = computed(() => {

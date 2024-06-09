@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <div class="flex flex-row items-center justify-between gap-3 w-full px-2 py-1 rounded-md bg-elevation-2">
+    <div class="bg-elevation-2 flex w-full flex-row items-center justify-between gap-3 rounded-md px-2 py-1">
 
         <div class="flex flex-row gap-2">
             <input
@@ -30,7 +30,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
             {{ tag.text }}
         </div>
-        <XMarkIcon @click="$emit('removeTag', tag.id)" class="size-4 cursor-pointer text-accent-hover" />
+        <XMarkIcon class="text-accent-hover size-4 cursor-pointer" @click="$emit('removeTag', tag.id)" />
     </div>
 </template>
 

@@ -9,7 +9,9 @@ import license from "rollup-plugin-license";
 export default defineNuxtConfig({
     app: { pageTransition: { mode: "out-in", name: "page" } },
     css: ["@/assets/css/scrollbars.css", "@/assets/css/global.css"],
-    devtools: false,
+    devtools: {
+        enabled: false
+    },
     modules: [
         "@nuxtjs/tailwindcss",
         "@pinia/nuxt",
@@ -21,7 +23,6 @@ export default defineNuxtConfig({
     ssr: false,
     telemetry: false,
     vite: {
-        //@ts-ignore
         plugins: [
             license({
                 thirdParty: {

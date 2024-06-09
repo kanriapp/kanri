@@ -6,10 +6,10 @@ SPDX-License-Identifier: Apache-2.0
 
 # Contributing to Kanri
 Thank you for showing interest into contributing to Kanri! First off, some general information:
-Kanri is written in TypeScript, Vue (Nuxt v3), and Rust; and is licensed under the Apache 2.0 license. The landing page and docs site uses Astro with Starlight and [can be found here](https://github.com/trobonox/kanri-website). The documentation is still a big work in progress and if you would like to help, please reach out!
+Kanri is written in TypeScript, Vue (Nuxt v3), and Rust; and is licensed under the GPLv3 license. The landing page and docs site uses Astro with Starlight and [can be found here](https://github.com/trobonox/kanri-website). The documentation is still a big work in progress and if you would like to help, please reach out!
 
 ## A few rules
-By contributing to Kanri, you confirm that the work you are submitting is yours and it will be licensed under the Apache 2.0 license of the project.
+By contributing to Kanri, you confirm that the work you are submitting is yours and it will be licensed under the GPLv3 license of the project.
 
 To ensure uniformity in Kanri's repository, every contributor must follow these set of rules:
 * Commits must use the commit convention. (e.g. `feat: add x feature`)

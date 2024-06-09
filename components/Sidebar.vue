@@ -150,8 +150,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
-import { PhArrowBendUpLeft, PhHouse } from "@phosphor-icons/vue";
-import { PhArrowsLeftRight, PhGearSix, PhQuestion } from "@phosphor-icons/vue";
+import { PhArrowBendUpLeft, PhHouse , PhArrowsLeftRight, PhGearSix, PhQuestion } from "@phosphor-icons/vue";
+
 
 const store = useTauriStore().store;
 

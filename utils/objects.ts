@@ -4,7 +4,7 @@
 
 export function findObjectById<Type> (objectArray: Array<Type>, objectId: string) {
     return objectArray.filter((object) => {
-        // @ts-ignore
+        // @ts-expect-error
         return object.id == objectId;
     })[0];
 }

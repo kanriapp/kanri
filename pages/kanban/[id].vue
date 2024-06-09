@@ -244,7 +244,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import type { Board, Card, Column, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
-import { default as KanbanColumn } from "@/components/kanban/Column.vue";
 import { useTauriStore } from "@/stores/tauriStore";
 
 import { applyDrag } from "@/utils/drag-n-drop";

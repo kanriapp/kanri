@@ -13,12 +13,12 @@
 <script setup>
 import { appWindow } from '@tauri-apps/api/window';
 import {
-  attachConsole,
-  trace,
-  debug,
-  info,
-  warn,
-  error,
+    attachConsole,
+    trace,
+    debug,
+    info,
+    warn,
+    error,
 } from "tauri-plugin-log-api";
 
 onMounted(async () => {

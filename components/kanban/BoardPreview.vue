@@ -30,7 +30,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <div
                     v-for="column in board.columns"
                     :key="column.id"
-                    class="bg-elevation-2 flex h-min w-10 shrink-0 flex-col gap-[1px] rounded-sm p-0.5 text-[3px] font-bold"
+                    class="bg-elevation-2 flex h-min w-10 shrink-0 flex-col gap-px rounded-sm p-0.5 text-[3px] font-bold"
                 >
                     {{ column.title }}
                     <div

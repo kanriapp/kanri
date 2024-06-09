@@ -147,7 +147,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </h2>
             <span class="text-dim-3 mb-2">Change the behaviour of your Kanban boards.</span>
 
-            <div class="flex w-[48rem] flex-row items-start justify-between mt-4">
+            <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
                 <div>
                     <h3 class="text-lg">
                         Zoom

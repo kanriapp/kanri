@@ -78,7 +78,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         <DropdownMenuRadioGroup v-model="sortingOptionRef" class="flex flex-col">
                             <DropdownMenuRadioItem
                                 value="alphabetically"
-                                class="px-4 py-1.5 pl-[25px] bg-elevation-2-hover rounded-md w-full flex flex-row items-center cursor-pointer"
+                                class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
                                 @click="sortBoardsAlphabetically()"
                             >
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
@@ -88,7 +88,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             </DropdownMenuRadioItem>
                             <DropdownMenuRadioItem
                                 value="default"
-                                class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center cursor-pointer"
+                                class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
                                 @click="sortBoardsByCreationDate()"
                             >
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
@@ -98,7 +98,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             </DropdownMenuRadioItem>
                             <DropdownMenuRadioItem
                                 value="edited"
-                                class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center cursor-pointer"
+                                class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
                                 @click="sortBoardsByEditDate()"
                             >
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
@@ -107,11 +107,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                 Sort by last edited
                             </DropdownMenuRadioItem>
                         </DropdownMenuRadioGroup>
-                        <DropdownMenuSeparator class="h-[1px] bg-elevation-2 m-[5px]" />
+                        <DropdownMenuSeparator class="bg-elevation-2 m-[5px] h-px" />
                         <DropdownMenuCheckboxItem
-                            @click="reverseCurrentSorting"
                             v-model:checked="reverseSortOrder"
-                            class="px-4 py-1.5 pl-[25px] text-left bg-elevation-2-hover rounded-md w-full flex flex-row items-center cursor-pointer"
+                            class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
+                            @click="reverseCurrentSorting"
                         >
                             <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                                 <CheckIcon class="size-4" />
@@ -199,13 +199,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                 >
                                     <div class="flex flex-col items-start">
                                         <DropdownMenuItem
-                                            class="py-1.5 px-2 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
+                                            class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-2 py-1.5 text-left"
                                             @click="renameBoardModal(index)"
                                         >
                                             Rename
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
-                                            class="py-1.5 px-2 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
+                                            class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-2 py-1.5 text-left"
                                             @click="deleteBoardModal(index)"
                                         >
                                             Delete

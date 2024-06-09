@@ -156,7 +156,7 @@ import type { Ref } from "vue"
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
-//@ts-ignore, sadly this library does not have ts typings
+//@ts-expect-error, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 const props = defineProps<{
