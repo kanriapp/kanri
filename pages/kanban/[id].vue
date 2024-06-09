@@ -33,8 +33,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @setBrightness="setBrightness"
         />
         <ModalCardTags
-            :tags="board.globalTags || []"
             v-show="editTagModalVisible"
+            :tags="board.globalTags || []"
             @closeModal="editTagModalVisible = false"
             @setTagColor="setTagColor"
             @removeTag="removeTag"
@@ -154,25 +154,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         <template #content>
                             <div class="flex flex-col">
                                 <DropdownMenuItem
-                                    class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
+                                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                                     @click="renameBoardModal(getBoardIndex())"
                                 >
                                     Rename Board
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
+                                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                                     @click="duplicateBoard"
                                 >
                                     Duplicate Board
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
+                                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                                     @click="exportBoardToJson"
                                 >
                                     Export Board
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
-                                    class="py-1.5 px-4 pr-6 text-left bg-elevation-2-hover rounded-md w-full cursor-pointer"
+                                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                                     @click="deleteBoardModal(getBoardIndex())"
                                 >
                                     Delete Board
@@ -260,7 +260,7 @@ import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { useConfirmDialog } from '@vueuse/core'
-//@ts-ignore
+//@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 const store = useTauriStore().store;
@@ -287,7 +287,6 @@ const bgImageLoaded = ref(false);
 const bgBlur = ref("8px");
 const bgBrightness = ref("100%");
 
-const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
 const editCardModalVisible = ref(false);
 
 const currentlyActiveCardInfo: { card: Card | null, cardIndex: number, columnId: string} = reactive({ card: null, cardIndex: -1, columnId: '' })
@@ -684,7 +683,6 @@ const removeColumn = (columnID: string) => {
     const columnIndex = board.value.columns.indexOf(column);
     board.value.columns.splice(columnIndex, 1);
     columnEditIndex.value--;
-    delete colRefs[columnID];
     updateStorage();
 };
 
