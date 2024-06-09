@@ -13,7 +13,8 @@ export default withNuxt(
             "vue/html-indent": ["warn", 4],
             "vue/multi-word-component-names": "off",
             "vue/v-on-event-hyphenation": "off",
-            "@typescript-eslint/no-invalid-void-type": "off"
+            "@typescript-eslint/no-invalid-void-type": "off",
+            "@typescript-eslint/unified-signatures": "off"
         }
     },
     {
