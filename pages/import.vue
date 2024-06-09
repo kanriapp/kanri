@@ -146,7 +146,8 @@ import { kanbanElectronJsonSchema, kanriBoardSchema, kanriJsonSchema, trelloJson
 import emitter from "@/utils/emitter";
 import { ask, message, open, save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
-import { z } from "zod";
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { ZodError, z } from "zod";
 
 const router = useRouter();
 
@@ -225,7 +226,7 @@ const importFromKanriFull = async () => {
     }
     catch (error) {
         console.error(error);
-        //@ts-ignore
+        //@ts-expect-error we do not know what type of error we will receive
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
             return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
         }
@@ -285,8 +286,11 @@ const importFromKanbanElectronFull = async () => {
         zodParsed = kanbanElectronJsonSchema.parse(parsedJson);
     }
     catch (error) {
-        console.error(error);
-        //@ts-ignore
+        if (!(error instanceof ZodError)) {
+            console.error(String(error));
+            return;
+        }
+
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
             return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
         }
@@ -409,8 +413,12 @@ const kanriParse = async (board: string) => {
         zodParsed = kanriBoardSchema.parse(parsedJson);
     }
     catch (error) {
+        if (!(error instanceof ZodError)) {
+            console.error(String(error));
+            return;
+        }
+
         console.error(error);
-        //@ts-ignore
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
             return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
         }
@@ -481,8 +489,12 @@ const trelloParse = async (board: string) => {
         zodParsed = trelloJsonSchema.parse(parsedJson);
     }
     catch (error) {
+        if (!(error instanceof ZodError)) {
+            console.error(String(error));
+            return;
+        }
+
         console.error(error);
-        //@ts-ignore
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
             await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
             return undefined;
