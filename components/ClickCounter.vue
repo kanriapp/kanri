@@ -33,12 +33,10 @@ const props = withDefaults(
     }
 );
 
-const emit = defineEmits<{
-    (e: "double-click"): void;
-    (e: "single-click"): void;
-}>();
+const emit = defineEmits(["single-click", "double-click"]);
 
 const clickCount = ref(0);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const clickTimer: Ref<any | null> = ref(null);
 
 const handleClick = (e: MouseEvent) => {
