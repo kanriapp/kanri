@@ -139,7 +139,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Column } from "@/types/kanban-types";
+import type { Board, Column } from "@/types/kanban-types";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanbanElectronJsonSchema, kanriBoardSchema, kanriJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
@@ -299,7 +299,8 @@ const importFromKanbanElectronFull = async () => {
     }
     if (zodParsed === null) return;
 
-    const convertedBoards: Array<any> = []
+
+    const convertedBoards: Array<Board> = []
     zodParsed.boards.forEach(board => {
         convertedBoards.push({
             columns: board.lists,
@@ -332,7 +333,7 @@ const importFromKanriBoard = async () => {
 
     if (selected === null) return;
 
-    const convertedBoards: Array<any> = await store.get("boards") || [];
+    const convertedBoards: Array<Board> = await store.get("boards") || [];
     if (typeof selected === "string") {
         const result = await kanriParse(selected);
 
@@ -441,7 +442,7 @@ const importFromTrelloBoard = async () => {
 
     if (selected === null || selected.length === 0) return;
 
-    const convertedBoards: Array<any> = await store.get("boards") || [];
+    const convertedBoards: Array<Board> = await store.get("boards") || [];
     if (typeof selected === "string") {
         const result = await trelloParse(selected);
 
