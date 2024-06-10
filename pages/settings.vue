@@ -305,6 +305,7 @@ onMounted(async () => {
     animationsEnabled.value = animationsEnabledSaved || false;
 
     addToTopCheckbox.value = await store.get("addToTopOfColumnButtonEnabled") || false;
+    displayCardCountCheckbox.value = await store.get("displayColumnCardCountEnabled") || false;
 
     activeTheme.value = await store.get("activeTheme");
     if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
