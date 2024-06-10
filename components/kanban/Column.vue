@@ -85,7 +85,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @drop="onDrop"
         >
             <Draggable
-                v-for="(card, index) in cards"
+                v-for="(card, index) in filteredCards"
                 :key="card.id"
                 :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
                 :index="index"
@@ -181,6 +181,7 @@ const props = defineProps<{
     zoomLevel: number;
     addToTopButtonShown?: boolean;
     cardCountDisplayEnabled?: boolean;
+    cardSearchQuery?: string;
 }>();
 
 const emit = defineEmits<{
@@ -298,6 +299,18 @@ const columnSizeClass = computed(() => {
     }
 })
 
+const filteredCards = computed(() => {
+    if (props.cardSearchQuery == null || !(/\S/.test(props.cardSearchQuery))) {
+        console.log("OOHHH");
+        return cards.value;
+    }
+
+    return cards.value.filter((card) => {
+        console.log(props.cardSearchQuery, "tf is going on here bruv");
+        return card.name.toLowerCase().includes((props.cardSearchQuery ?? "").toLowerCase());
+    });
+})
+
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
 });
@@ -311,7 +324,6 @@ const keyDownListener = (e: { key: string; }) => {
         emitter.emit("columnActionDone");
     }
 };
-
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onDrop = (dropResult: any) => {

@@ -122,7 +122,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             @click="showCustomBgModal = true"
                         >
                             <PhotoIcon class="my-auto size-6" />
-                            <span class="my-auto ml-0.5">Change Background</span>
+                            <span class="my-auto ml-0.5 hidden lg:block">Change Background</span>
                         </button>
                     </div>
                     <div class="flex flex-row gap-2">
@@ -131,12 +131,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             @click="editTagModalVisible = true"
                         >
                             <PhHashStraight class="my-auto size-6" />
-                            <span class="my-auto ml-0.5">Edit Tags</span>
+                            <span class="my-auto ml-0.5 hidden lg:block">Edit Tags</span>
                         </button>
                     </div>
+
+                    <KanbanSearchBar v-model="searchQuery" />
                 </div>
 
-                <div class="flex flex-row">
+                <div class="flex flex-row items-center gap-4">
                     <KanbanZoomAdjustment v-model="columnZoomLevel" />
 
                     <Dropdown
@@ -144,7 +146,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     >
                         <template #trigger>
                             <button
-                                class="bg-elevation-1 bg-elevation-2-hover transition-button ml-4 h-full rounded-md px-2"
+                                class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
                                 @click.prevent
                             >
                                 <EllipsisHorizontalIcon class="size-6" />
@@ -214,6 +216,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                     :zoom-level="columnZoomLevel"
                                     :add-to-top-button-shown="columnAddToTopButtonEnabled"
                                     :card-count-display-enabled="columnCardCountEnabled"
+                                    :card-search-query="searchQuery"
                                     @disableDragging="draggingEnabled = false"
                                     @enableDragging="draggingEnabled = true"
                                     @openEditCardModal="openEditCardModal"
@@ -271,6 +274,8 @@ const router = useRouter();
 const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
 const draggingEnabled = ref(true);
+
+const searchQuery = ref("");
 
 const boardTitleColor = ref("");
 const boardTitleEditing = ref(false);
