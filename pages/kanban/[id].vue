@@ -213,6 +213,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                     :title="column.title"
                                     :zoom-level="columnZoomLevel"
                                     :add-to-top-button-shown="columnAddToTopButtonEnabled"
+                                    :card-count-display-enabled="columnCardCountEnabled"
                                     @disableDragging="draggingEnabled = false"
                                     @enableDragging="draggingEnabled = true"
                                     @openEditCardModal="openEditCardModal"
@@ -280,6 +281,7 @@ const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
 const columnZoomLevel = ref(0);
 const columnAddToTopButtonEnabled = ref(false);
+const columnCardCountEnabled = ref(false);
 
 const bgCustom = ref("");
 const bgCustomNoResolution = ref("");
@@ -344,6 +346,7 @@ onMounted(async () => {
     }
 
     columnAddToTopButtonEnabled.value = await store.get("addToTopOfColumnButtonEnabled") || false;
+    columnCardCountEnabled.value = await store.get("displayColumnCardCountEnabled") || false;
 
     document.addEventListener("keydown", keyDownListener);
 

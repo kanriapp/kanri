@@ -178,6 +178,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     />
                 </SwitchRoot>
             </div>
+
+            <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
+                <div>
+                    <h3 class="text-lg">
+                        Display number of cards in column
+                    </h3>
+                    <span class="text-dim-2">
+                        Shows how many cards are in each column.
+                    </span>
+                </div>
+                <SwitchRoot
+                    v-model:checked="displayCardCountCheckbox"
+                    class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+                    @update:checked="toggleDisplayCardCount"
+                >
+                    <SwitchThumb
+                        class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                    />
+                </SwitchRoot>
+            </div>
         </section>
 
         <section id="miscellaneous-settings">
@@ -274,6 +294,7 @@ const columnZoomLevel = ref(0);
 const autostartCheckbox = ref(false);
 const addToTopCheckbox = ref(false);
 const animationsEnabled = ref(true);
+const displayCardCountCheckbox = ref(false);
 
 const deleteBoardModalVisible = ref(false);
 
@@ -371,6 +392,15 @@ const toggleAnimations = async (animationsToggled: boolean) => {
     else {
         emitter.emit("setAnimationsOff");
         await store.set("animationsEnabled", false);
+    }
+}
+
+const toggleDisplayCardCount = async (displayCardCountToggled: boolean) => {
+    if (displayCardCountToggled) {
+        await store.set("displayColumnCardCountEnabled", true);
+    }
+    else {
+        await store.set("displayColumnCardCountEnabled", false);
     }
 }
 

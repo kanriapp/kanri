@@ -29,13 +29,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             :class="titleTextClassZoom"
             class="flex flex-row items-start justify-between gap-4"
         >
-            <h1
-                v-if="!titleEditing"
-                class="text-no-overflow ml-1 font-bold"
-                @click="enableTitleEditing()"
-            >
-                {{ boardTitle }}
-            </h1>
+            <div class="flex flex-row items-center gap-1.5">
+                <h1
+                    v-if="!titleEditing"
+                    class="text-no-overflow ml-1 font-bold"
+                    @click="enableTitleEditing()"
+                >
+                    {{ boardTitle }}
+                </h1>
+                <span v-if="cardCountDisplayEnabled" class="bg-elevation-2 rounded-2xl px-2 py-0.5 align-baseline text-xs">{{ cards.length }}</span>
+            </div>
 
             <input
                 v-if="titleEditing"
@@ -55,7 +58,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <div class="flex flex-row items-center gap-2">
                 <Tooltip v-if="addToTopButtonShown" direction="top">
                     <template #trigger>
-                        <PlusIcon class="text-dim-4 text-accent-hover cursor-pointe mt-2 size-4 shrink-0 grow-0" @click="enableCardAddMode(true)" />
+                        <PlusIcon class="text-dim-4 text-accent-hover cursor-pointe mt-1.5 size-4 shrink-0 grow-0" @click="enableCardAddMode(true)" />
                     </template>
 
                     <template #content>Add card at the top of the column</template>
@@ -66,7 +69,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     @single-click="$emit('removeColumn', id)"
                 >
                     <XMarkIcon
-                        class="text-dim-4 text-accent-hover mt-2 size-4 shrink-0 grow-0 cursor-pointer"
+                        class="text-dim-4 text-accent-hover mt-1.5 size-4 shrink-0 grow-0 cursor-pointer"
                     />
                 </ClickCounter>
             </div>
@@ -177,6 +180,7 @@ const props = defineProps<{
     title: string;
     zoomLevel: number;
     addToTopButtonShown?: boolean;
+    cardCountDisplayEnabled?: boolean;
 }>();
 
 const emit = defineEmits<{
