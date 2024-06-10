@@ -299,15 +299,24 @@ const columnSizeClass = computed(() => {
     }
 })
 
+const escRegXp = (str: string) => {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+const fuzzyMatch = (input: string, str: string) => {
+    input = '.*' + input.split('').map(x => `${escRegXp(x)}.*`).join('');
+
+    const regexp = new RegExp(input);
+    return regexp.test(str);
+}
+
 const filteredCards = computed(() => {
     if (props.cardSearchQuery == null || !(/\S/.test(props.cardSearchQuery))) {
-        console.log("OOHHH");
         return cards.value;
     }
 
     return cards.value.filter((card) => {
-        console.log(props.cardSearchQuery, "tf is going on here bruv");
-        return card.name.toLowerCase().includes((props.cardSearchQuery ?? "").toLowerCase());
+        return fuzzyMatch(props.cardSearchQuery ?? "", card.name);
     });
 })
 
