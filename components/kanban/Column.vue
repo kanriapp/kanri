@@ -52,14 +52,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 "
             >
 
-            <ClickCounter
-                @double-click="$emit('removeColumnNoConfirmation', id)"
-                @single-click="$emit('removeColumn', id)"
-            >
-                <XMarkIcon
-                    class="text-dim-4 text-accent-hover mt-2 size-4 shrink-0 grow-0 cursor-pointer"
-                />
-            </ClickCounter>
+            <div class="flex flex-row items-center gap-2">
+                <Tooltip v-if="addToTopButtonShown" direction="top">
+                    <template #trigger>
+                        <PlusIcon class="text-dim-4 text-accent-hover cursor-pointe mt-2 size-4 shrink-0 grow-0" @click="enableCardAddMode(true)" />
+                    </template>
+
+                    <template #content>Add card at the top of the column</template>
+                </Tooltip>
+
+                <ClickCounter
+                    @double-click="$emit('removeColumnNoConfirmation', id)"
+                    @single-click="$emit('removeColumn', id)"
+                >
+                    <XMarkIcon
+                        class="text-dim-4 text-accent-hover mt-2 size-4 shrink-0 grow-0 cursor-pointer"
+                    />
+                </ClickCounter>
+            </div>
         </div>
 
         <Container
@@ -127,6 +137,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     class="bg-elevation-3-hover transition-button rounded-md px-2 py-1"
                     @click="
                         cardAddMode = !cardAddMode;
+                        cardAddModeAddToTopOfColumn = false;
                         newCardName = '';
                         draggingEnabled = true;
                         emit('enableDragging');
@@ -161,10 +172,11 @@ import { Container, Draggable } from "vue3-smooth-dnd";
 
 const props = defineProps<{
     cardsList: Array<Card>;
-    colIndex: number,
+    colIndex: number;
     id: string;
     title: string;
     zoomLevel: number;
+    addToTopButtonShown?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -185,6 +197,7 @@ const newCardInput: Ref<HTMLInputElement | null> = ref(null);
 const cards = ref<Card[]>(props.cardsList);
 const newCardName = ref("");
 const cardAddMode = ref(false);
+const cardAddModeAddToTopOfColumn = ref(false);
 
 const titleNew = ref(props.title);
 const titleEditing = ref(false);
@@ -324,12 +337,13 @@ const enableTitleEditing = () => {
     titleNew.value = boardTitle.value;
 }
 
-const enableCardAddMode = () => {
+const enableCardAddMode = (addToTopOfColumn?: boolean) => {
     emit("setColumnEditIndex", props.colIndex, "card-add");
     disableDragging();
 
     newCardName.value = "";
     cardAddMode.value = true;
+    cardAddModeAddToTopOfColumn.value = addToTopOfColumn || false;
 }
 
 const updateColumnTitle = () => {
@@ -357,10 +371,16 @@ const addCard = () => {
 
     if (newCardName.value == null || !(/\S/.test(newCardName.value))) return;
 
-    cards.value[cards.value.length] = { name: newCardName.value };
+    if (cardAddModeAddToTopOfColumn.value) {
+        cards.value = [{ id: generateUniqueID(), name: newCardName.value }, ...cards.value];
+    }
+    else {
+        cards.value[cards.value.length] = { id: generateUniqueID(), name: newCardName.value };
+    }
 
     newCardName.value = "";
     cardAddMode.value = false;
+    cardAddModeAddToTopOfColumn.value = false;
     updateStorage();
     scrollCardIntoView();
 };
