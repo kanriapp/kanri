@@ -188,7 +188,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </div>
                 <p class="mb-2 pt-2">
                     Copyright (c) 2022-2024 trobonox (hello@trobo.dev) <br>
-                    Kanri v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }} (INSIDER BETA) - <nuxt-link
+                    <span class="text-lg font-bold">Kanri</span> <span class="text-accent-lighter">v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{ versionInfo.buildRevision }}</span> - <nuxt-link
                         class="text-accent text-accent-darker-hover"
                         to="/licenses"
                         @click="$emit('closeModal')"
