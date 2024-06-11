@@ -686,6 +686,11 @@ watch(props, (newVal) => {
     border: 1px solid var(--elevation-3);
     border-top: none;
     border-radius: 0 0 8px 8px;
+
+    z-index: 9999999999 !important;
+    overflow: visible;
+
+    position: unset !important;
 }
 
 .vue-tags-input .ti-tag {
