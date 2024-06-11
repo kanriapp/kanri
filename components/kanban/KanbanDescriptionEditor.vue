@@ -97,6 +97,10 @@ export default {
 </script>
 
 <style>
+.tiptap:focus {
+    outline: none;
+}
+
 .tiptap h1 {
     font-size: larger;
     font-weight: bold;
