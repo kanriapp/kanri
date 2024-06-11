@@ -26,7 +26,7 @@ limitations under the License.
         "
     >
         <template #content>
-            <div class="flex min-h-[40rem] w-[36rem] flex-col overflow-auto pl-2">
+            <div class="flex h-[40rem] w-[36rem] flex-col pl-2">
                 <div class="mb-4">
                     <div class="flex flex-row items-start justify-between gap-12">
                         <div class="relative -left-8 top-0 flex flex-row items-center gap-2">
@@ -206,7 +206,7 @@ limitations under the License.
                             is24hr
                             @update:modelValue="updateDueDate"
                         >
-                            <template #default="{ togglePopover, inputValue}">
+                            <template #default="{ togglePopover }">
                                 <button
                                     class="bg-elevation-2 bg-elevation-3-hover mt-1 flex items-center justify-center gap-2 rounded-md px-2 py-1"
                                     @click="() => togglePopover()"
@@ -245,167 +245,168 @@ limitations under the License.
                     </div>
                 </div>
 
-                <div class="flex flex-col pr-6">
-                    <h2
-                        class="text-lg font-semibold"
-                    >
-                        Card Description
-                    </h2>
-                    <KanbanDescriptionEditor
-                        v-model="description"
-                        @editorBlurred="updateDescription"
-                    />
-                    <div class="mb-1 mt-4 flex flex-row items-center gap-2">
+                <div class="overflow-auto">
+                    <div class="flex flex-col pr-6">
                         <h2
                             class="text-lg font-semibold"
                         >
-                            Tasks
+                            Card Description
                         </h2>
-                        <span
-                            v-if="tasks.length !== 0"
-                            class="text-dim-1 text-sm"
-                        >({{ getCheckedTaskNumber }}/{{ tasks.length }})</span>
-                    </div>
-                    <ProgressRoot
-                        v-if="tasks"
-                        v-model="getTaskPercentage"
-                        class="bg-elevation-2 relative mb-4 h-2 w-full overflow-hidden rounded-full"
-                        style="transform: translateZ(0)"
-                    >
-                        <ProgressIndicator
-                            class="ease-[cubic-bezier(0.65, 0, 0.35, 1)] bg-accent-no-hover size-full rounded-full transition-transform duration-[660ms]"
-                            :style="`transform: translateX(-${100 - getTaskPercentage}%)`"
+                        <KanbanDescriptionEditor
+                            v-model="description"
+                            @editorBlurred="updateDescription"
                         />
-                    </ProgressRoot>
-                    <div
-                        class="flex w-full flex-col gap-1"
-                    >
-                        <div
-                            v-if="tasks && tasks.length !== 0"
-                            class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1"
-                        >
-                            <Container
-                                drag-class="cursor-grabbing"
-                                drag-handle-selector=".task-drag"
-                                lock-axis="y"
-                                orientation="vertical"
-                                @drop="onTaskDrop"
+                        <div class="mb-1 mt-4 flex flex-row items-center gap-2">
+                            <h2
+                                class="text-lg font-semibold"
                             >
-                                <Draggable
-                                    v-for="(task, index) in tasks"
-                                    :key="task.id"
-                                    :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
-                                    :index="index"
+                                Tasks
+                            </h2>
+                            <span
+                                v-if="tasks.length !== 0"
+                                class="text-dim-1 text-sm"
+                            >({{ getCheckedTaskNumber }}/{{ tasks.length }})</span>
+                        </div>
+                        <ProgressRoot
+                            v-if="tasks"
+                            v-model="getTaskPercentage"
+                            class="bg-elevation-2 relative mb-4 h-2 w-full overflow-hidden rounded-full"
+                            style="transform: translateZ(0)"
+                        >
+                            <ProgressIndicator
+                                class="ease-[cubic-bezier(0.65, 0, 0.35, 1)] bg-accent-no-hover size-full rounded-full transition-transform duration-[660ms]"
+                                :style="`transform: translateX(-${100 - getTaskPercentage}%)`"
+                            />
+                        </ProgressRoot>
+                        <div
+                            class="flex w-full flex-col gap-1"
+                        >
+                            <div
+                                v-if="tasks && tasks.length !== 0"
+                                class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1"
+                            >
+                                <Container
+                                    drag-class="cursor-grabbing"
+                                    drag-handle-selector=".task-drag"
+                                    lock-axis="y"
+                                    orientation="vertical"
+                                    @drop="onTaskDrop"
                                 >
-                                    <div class="mb-1 flex w-full flex-row items-center justify-between gap-4">
-                                        <div class="flex w-full flex-row items-center justify-start gap-4">
-                                            <CheckboxRoot
-                                                v-model:checked="task.finished"
-                                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 shrink-0 appearance-none items-center justify-center rounded-[4px] border outline-none"
-                                                @update:checked="updateCardTasks()"
-                                            >
-                                                <CheckboxIndicator class="flex size-full items-center justify-center rounded">
-                                                    <PhCheck
-                                                        weight="bold"
-                                                        class="text-accent-lighter size-4"
-                                                    />
-                                                </CheckboxIndicator>
-                                            </CheckboxRoot>
-                                            <input
-                                                v-if="taskEditMode && index === currentlyEditingTaskIndex"
-                                                v-model="currentlyEditingTaskName"
-                                                v-focus
-                                                class="bg-elevation-2 border-accent -mx-1.5 w-full rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
-                                                type="text"
-                                                @blur="updateTask(index)"
-                                                @keypress.enter="updateTask(index)"
-                                            >
-                                            <ClickCounter
-                                                v-else
-                                                @double-click="enableTaskEditMode(index, task)"
-                                            >
-                                                <span
-                                                    class="text-no-overflow-task w-full"
-                                                >{{ task.name }}</span>
-                                            </ClickCounter>
+                                    <Draggable
+                                        v-for="(task, index) in tasks"
+                                        :key="task.id"
+                                        :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
+                                        :index="index"
+                                    >
+                                        <div class="mb-1 flex w-full flex-row items-center justify-between gap-4">
+                                            <div class="flex w-full flex-row items-center justify-start gap-4">
+                                                <CheckboxRoot
+                                                    v-model:checked="task.finished"
+                                                    class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 shrink-0 appearance-none items-center justify-center rounded-[4px] border outline-none"
+                                                    @update:checked="updateCardTasks()"
+                                                >
+                                                    <CheckboxIndicator class="flex size-full items-center justify-center rounded">
+                                                        <PhCheck
+                                                            weight="bold"
+                                                            class="text-accent-lighter size-4"
+                                                        />
+                                                    </CheckboxIndicator>
+                                                </CheckboxRoot>
+                                                <input
+                                                    v-if="taskEditMode && index === currentlyEditingTaskIndex"
+                                                    v-model="currentlyEditingTaskName"
+                                                    v-focus
+                                                    class="bg-elevation-2 border-accent -mx-1.5 w-full rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
+                                                    type="text"
+                                                    @blur="updateTask(index)"
+                                                    @keypress.enter="updateTask(index)"
+                                                >
+                                                <ClickCounter
+                                                    v-else
+                                                    @double-click="enableTaskEditMode(index, task)"
+                                                >
+                                                    <span
+                                                        class="text-no-overflow-task w-full"
+                                                    >{{ task.name }}</span>
+                                                </ClickCounter>
+                                            </div>
+                                            <div class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center">
+                                                <button
+                                                    v-if="!taskEditMode"
+                                                    class="shrink-0"
+                                                    @click="enableTaskEditMode(index, task)"
+                                                >
+                                                    <PhPencilSimple class="text-dim-2 text-accent-hover size-4" />
+                                                </button>
+                                                <button
+                                                    v-if="taskEditMode && currentlyEditingTaskIndex === index"
+                                                    class="shrink-0"
+                                                    @click="updateTask(index)"
+                                                >
+                                                    <PhCheck class="text-dim-2 text-accent-hover size-4" />
+                                                </button>
+                                                <button
+                                                    v-if="!(taskEditMode && currentlyEditingTaskIndex === index)"
+                                                    class="shrink-0"
+                                                    @click="deleteTask(index)"
+                                                >
+                                                    <XMarkIcon class="text-dim-2 text-accent-hover size-4" />
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center">
-                                            <button
-                                                v-if="!taskEditMode"
-                                                class="shrink-0"
-                                                @click="enableTaskEditMode(index, task)"
-                                            >
-                                                <PhPencilSimple class="text-dim-2 text-accent-hover size-4" />
-                                            </button>
-                                            <button
-                                                v-if="taskEditMode && currentlyEditingTaskIndex === index"
-                                                class="shrink-0"
-                                                @click="updateTask(index)"
-                                            >
-                                                <PhCheck class="text-dim-2 text-accent-hover size-4" />
-                                            </button>
-                                            <button
-                                                v-if="!(taskEditMode && currentlyEditingTaskIndex === index)"
-                                                class="shrink-0"
-                                                @click="deleteTask(index)"
-                                            >
-                                                <XMarkIcon class="text-dim-2 text-accent-hover size-4" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </Draggable>
-                            </Container>
-                        </div>
-                        <input
-                            v-if="taskAddMode"
-                            ref="newTaskInput"
-                            v-model="newTaskName"
-                            v-focus
-                            class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
-                            maxlength="1000"
-                            placeholder="Enter a task name..."
-                            type="text"
-                            @keypress.enter="createTask"
-                        >
-                        <div
-                            v-if="taskAddMode"
-                            class="ml-0.5 mt-0.5 flex flex-row gap-4"
-                        >
-                            <button
-                                class="bg-accent text-buttons rounded-md px-4 py-1"
-                                @click="createTask"
+                                    </Draggable>
+                                </Container>
+                            </div>
+                            <input
+                                v-if="taskAddMode"
+                                ref="newTaskInput"
+                                v-model="newTaskName"
+                                v-focus
+                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+                                maxlength="1000"
+                                placeholder="Enter a task name..."
+                                type="text"
+                                @keypress.enter="createTask"
                             >
-                                Add
-                            </button>
-                            <button @click="taskAddMode = false; newTaskName = ''">
-                                Cancel
+                            <div
+                                v-if="taskAddMode"
+                                class="ml-0.5 mt-0.5 flex flex-row gap-4"
+                            >
+                                <button
+                                    class="bg-accent text-buttons rounded-md px-4 py-1"
+                                    @click="createTask"
+                                >
+                                    Add
+                                </button>
+                                <button @click="taskAddMode = false; newTaskName = ''">
+                                    Cancel
+                                </button>
+                            </div>
+                            <button
+                                v-if="!taskAddMode"
+                                class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-1 pr-2"
+                                @click="enableTaskAddMode"
+                            >
+                                <PlusIcon class="text-accent size-6" />
+                                <span>Add Task</span>
                             </button>
                         </div>
-                        <button
-                            v-if="!taskAddMode"
-                            class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-1 pr-2"
-                            @click="enableTaskAddMode"
-                        >
-                            <PlusIcon class="text-accent size-6" />
-                            <span>Add Task</span>
-                        </button>
                     </div>
-                </div>
-
-                <div class="mt-4 flex flex-col pr-6">
-                    <h2
-                        class="mb-1 text-lg font-semibold"
-                    >
-                        Tags
-                    </h2>
-                    <vue-tags-input
-                        v-model="tag"
-                        :tags="tags"
-                        :autocomplete-items="filteredItems"
-                        placeholder="Add tag..."
-                        @tags-changed="updateTags"
-                        @before-adding-tag="beforeTagAdd"
-                    />
+                    <div class="mt-4 flex flex-col pr-6">
+                        <h2
+                            class="mb-1 text-lg font-semibold"
+                        >
+                            Tags
+                        </h2>
+                        <vue-tags-input
+                            v-model="tag"
+                            :tags="tags"
+                            :autocomplete-items="filteredItems"
+                            placeholder="Add tag..."
+                            @tags-changed="updateTags"
+                            @before-adding-tag="beforeTagAdd"
+                        />
+                    </div>
                 </div>
             </div>
         </template>
@@ -422,9 +423,9 @@ import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { PhCalendar, PhCheck, PhPencilSimple, PhTrash } from "@phosphor-icons/vue";
 import { vOnClickOutside } from '@vueuse/components'
-//@ts-expect-error
+//@ts-expect-error library has no types
 import { Container, Draggable } from 'vue3-smooth-dnd';
-//@ts-expect-error
+//@ts-expect-error library has no types
 import { VueTagsInput } from '@vojtechlanka/vue-tags-input';
 
 const props = defineProps<{
@@ -499,6 +500,7 @@ const getTaskPercentage = computed(() => {
     return (getCheckedTaskNumber.value / tasks.value.length) * 100;
 })
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const beforeTagAdd = ({tag, addTag}: any) => {
     // check if autocomplete items have a tag with the same name
     const existingTag = autocompleteItems.value.find((item) => item.text === tag.text);
@@ -511,6 +513,7 @@ const beforeTagAdd = ({tag, addTag}: any) => {
     emit("addGlobalTag", tag);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const updateTags = (newTags: any) => {
     tags.value = newTags;
 
@@ -532,6 +535,7 @@ const deleteTask = (index: number) => {
     updateCardTasks();
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onTaskDrop = (dropResult: any) => {
     tasks.value = applyDrag(tasks.value, dropResult);
     updateCardTasks();
