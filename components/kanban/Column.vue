@@ -29,9 +29,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             :class="titleTextClassZoom"
             class="flex flex-row items-start justify-between gap-4"
         >
-            <div class="flex flex-row items-center gap-1.5">
+            <div v-if="!titleEditing" class="flex flex-row items-center gap-1.5">
                 <h1
-                    v-if="!titleEditing"
                     class="text-no-overflow ml-1 font-bold"
                     @click="enableTitleEditing()"
                 >
