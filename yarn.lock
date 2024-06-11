@@ -1242,12 +1242,12 @@
     pathe "^1.1.2"
     unimport "^3.7.1"
 
-"@nuxt/kit@3.12.0", "@nuxt/kit@^3.11.2":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.12.0.tgz#d73e35722c4d239a3431fccb657dbe59d9f83fa6"
-  integrity sha512-apR4MZWrjUtLEEyDLKoqlXoMNe9Ps7EmEaeEPl2lnxMH9s4W72OdbzCEQXaR85y8bH370ZQ3b9jVn6lQM2p1uQ==
+"@nuxt/kit@3.12.1", "@nuxt/kit@^3.11.2":
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.12.1.tgz#cdd083850da676cf90ff1629f253ed00198e5449"
+  integrity sha512-PHONuNCMqi3FYp0abgkhF3iH1j6CznJLMLpa8qxDGH532ALDcR1ThxbxytTA3fPiYulG2KenK8jloDfNdXOfCA==
   dependencies:
-    "@nuxt/schema" "3.12.0"
+    "@nuxt/schema" "3.12.1"
     c12 "^1.10.0"
     consola "^3.2.3"
     defu "^6.1.4"
@@ -1292,10 +1292,10 @@
     unimport "^3.5.0"
     untyped "^1.4.0"
 
-"@nuxt/schema@3.12.0", "@nuxt/schema@^3.11.2":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@nuxt/schema/-/schema-3.12.0.tgz#942e4526a183278c76b3d5413718716dd02c75ae"
-  integrity sha512-akHtDUse564CF+d5HADDdqD2awect621wIsMJhU3p876FaDb1bL7YjdhVgEaWp20BoXfBD+pVdZSbC/4zXmCcg==
+"@nuxt/schema@3.12.1", "@nuxt/schema@^3.11.2":
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@nuxt/schema/-/schema-3.12.1.tgz#27a05e9413771465e62600c9cc69495375285fa4"
+  integrity sha512-yPgZVczd0vKhG73E7N61+EZHZTjtCvh2LKVhvT7c69zLBnPPqJNK1oJfqsKUCOOHSm1o1rTG8Xaibp91q2I49w==
   dependencies:
     compatx "^0.1.3"
     consola "^3.2.3"
@@ -1355,12 +1355,12 @@
   resolved "https://registry.yarnpkg.com/@nuxt/ui-templates/-/ui-templates-1.3.4.tgz#daf9fb9e330a12eef56855abc3d14899bb13f532"
   integrity sha512-zjuslnkj5zboZGis5QpmR5gvRTx5N8Ha/Rll+RRT8YZhXVNBincifhZ9apUQ9f6T0xJE8IHPyVyPx6WokomdYw==
 
-"@nuxt/vite-builder@3.12.0":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@nuxt/vite-builder/-/vite-builder-3.12.0.tgz#e61dc94a1840dfb07959f13b8dd7eac3c7fc56da"
-  integrity sha512-V+0j1HyTjz1/5lbeSTsuIdHseAOFr18jmKRTws+eyx5j1em8O79qwQMLL9qGjpeD/wqLBTP23s5Et//qLW1QHg==
+"@nuxt/vite-builder@3.12.1":
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@nuxt/vite-builder/-/vite-builder-3.12.1.tgz#463d9ed5dc5a147ed15c7fae1d5760aaead58e8c"
+  integrity sha512-Op6m/jm0MMWgpD+evKZR7L5zATa2gQhWrP0uZJjZc8yuo3TutkUyfTR5GzbH/ujJgk0TnqED6vYhmjLsT6n8pA==
   dependencies:
-    "@nuxt/kit" "3.12.0"
+    "@nuxt/kit" "3.12.1"
     "@rollup/plugin-replace" "^5.0.7"
     "@vitejs/plugin-vue" "^5.0.4"
     "@vitejs/plugin-vue-jsx" "^4.0.0"
@@ -6210,10 +6210,10 @@ nth-check@^2.0.1, nth-check@^2.1.1:
   dependencies:
     boolbase "^1.0.0"
 
-nuxi@^3.11.1:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.11.1.tgz#a9c03333fde2200fd9f7d2965c33e93d3edeb378"
-  integrity sha512-AW71TpxRHNg8MplQVju9tEFvXPvX42e0wPYknutSStDuAjV99vWTWYed4jxr/grk2FtKAuv2KvdJxcn2W59qyg==
+nuxi@^3.12.0:
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.12.0.tgz#33ed391a636eca6f8ba2d6c8e47d5257598ff6db"
+  integrity sha512-6vRdiXTw9SajEQOUi6Ze/XaIXzy1q/sD5UqHQSv3yqTu7Pot5S7fEihNXV8LpcgLz+9HzjVt70r7jYe7R99c2w==
   optionalDependencies:
     fsevents "~2.3.3"
 
@@ -6225,16 +6225,16 @@ nuxt-better-optimize-deps@^0.1.0:
     "@nuxt/kit" "^3.11.2"
 
 nuxt@^3.7.1:
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-3.12.0.tgz#1835284db9ab5a52c4cbdbc3c8a7b0c650df975c"
-  integrity sha512-JlrgqqWx9GjhkP2QFjJ1cB4Fa/QVa9ZEfJueIYFerphoHlJTdoWO915k3Bt2OGBZXv319qPvJa3lK55UghUIhw==
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-3.12.1.tgz#88d0706f2374c11fb5cf156d941b738bbca0b8dd"
+  integrity sha512-J9TO/b0KSTpKn4yzknIPYRhcJ+UwR/uFM2j0G2FPHAWKxo513ty7Y2unHejWfkuQBL6Ergw6o0E7XsIT059VQw==
   dependencies:
     "@nuxt/devalue" "^2.0.2"
     "@nuxt/devtools" "^1.3.3"
-    "@nuxt/kit" "3.12.0"
-    "@nuxt/schema" "3.12.0"
+    "@nuxt/kit" "3.12.1"
+    "@nuxt/schema" "3.12.1"
     "@nuxt/telemetry" "^2.5.4"
-    "@nuxt/vite-builder" "3.12.0"
+    "@nuxt/vite-builder" "3.12.1"
     "@unhead/dom" "^1.9.12"
     "@unhead/ssr" "^1.9.12"
     "@unhead/vue" "^1.9.12"
@@ -6260,7 +6260,7 @@ nuxt@^3.7.1:
     magic-string "^0.30.10"
     mlly "^1.7.1"
     nitropack "^2.9.6"
-    nuxi "^3.11.1"
+    nuxi "^3.12.0"
     nypm "^0.3.8"
     ofetch "^1.3.4"
     ohash "^1.1.3"
