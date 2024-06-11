@@ -1,13 +1,13 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
+# SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
 #
 # SPDX-License-Identifier: Apache-2.0
 
 [package]
 name = "kanri"
-version = "0.6.1"
+version = "0.7.0"
 description = "Offline kanban board application"
 authors = ["trobonox"]
-license = "Apache-2.0"
+license = "GPL-3.0"
 repository = "https://github.com/trobonox/kanri"
 default-run = "kanri"
 edition = "2021"
@@ -16,16 +16,19 @@ rust-version = "1.57"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-tauri-build = { version = "1.5.0", features = [] }
+tauri-build = { version = "1.5.1", features = [] }
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.5.3", features = [ "window-show", "dialog-ask", "dialog-message", "dialog-open", "dialog-save", "fs-read-file", "fs-write-file", "protocol-asset", "shell-open"] }
+tauri = { version = "1.6.1", features = [ "os-all", "window-show", "dialog-ask", "dialog-message", "dialog-open", "dialog-save", "fs-read-file", "fs-write-file", "protocol-asset", "shell-open"] }
 tauri-plugin-persisted-scope = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1", features= ["protocol-asset"] }
-ignore = "=0.4.21"
+ignore = "=0.4.22"
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+
 
 [features]
 # by default Tauri runs in production mode

@@ -1,28 +1,45 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
 <!-- -->
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+Kanri is an offline Kanban board app made using Tauri and Nuxt.
+Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="overflow-auto">
-    <div
-      :style="cssVars"
-      :class="[animationsEnabled ? '' : 'disable-animations']"
-      class="default-layout custom-scrollbar-hidden overflow-auto"
-    >
-      <div v-if="mounted">
-        <Sidebar class="fixed left-0 w-8" />
-      </div>
-      <div class="min-h-screen pl-[4rem]">
-        <slot />
-      </div>
+    <div class="overflow-auto">
+        <div
+            :style="cssVars"
+            :class="[animationsEnabled ? '' : 'disable-animations']"
+            class="default-layout custom-scrollbar-hidden overflow-auto"
+        >
+            <div v-if="mounted">
+                <Sidebar class="fixed left-0 w-8" />
+            </div>
+            <div class="min-h-screen pl-16">
+                <slot />
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup>
 import { useTauriStore } from "@/stores/tauriStore";
+import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
-import { dark } from "@/utils/themes.js";
+import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json"
 
 const store = useTauriStore().store;
@@ -66,6 +83,23 @@ onMounted(async () => {
     });
 });
 
+const increaseSaturation = (hex) =>  {
+    if (hex == undefined) return;
+
+    const rgb = hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
+        ,(m, r, g, b) => '#' + r + r + g + g + b + b)
+        .substring(1).match(/.{2}/g)
+        .map(x => parseInt(x, 16))
+
+    const hslColor = rgbToHsl(...rgb);
+
+    hslColor[0] = Math.round(hslColor[0]);
+    hslColor[1] = Math.round(hslColor[1]) < 80 ? Math.round(hslColor[1] + 20) : Math.round(hslColor[1]);
+    hslColor[2] = Math.round(hslColor[2]);
+
+    return hslToHex(...hslColor);
+}
+
 const cssVars = computed(() => {
     if (!savedColors.value) {
         store.set("activeTheme", "dark");
@@ -78,6 +112,7 @@ const cssVars = computed(() => {
             "--elevation-1": dark.elevation1,
             "--elevation-2": dark.elevation2,
             "--elevation-3": dark.elevation3,
+            "--logo-accent": increaseSaturation(dark.accent),
             "--text": dark.text,
             "--text-buttons": dark.textButtons,
             "--text-dim-1": dark.textD1,
@@ -93,6 +128,7 @@ const cssVars = computed(() => {
             "--elevation-1": savedColors.value.elevation1,
             "--elevation-2": savedColors.value.elevation2,
             "--elevation-3": savedColors.value.elevation3,
+            "--logo-accent": increaseSaturation(savedColors.value.accent),
             "--text": savedColors.value.text,
             "--text-buttons": savedColors.value.textButtons,
             "--text-dim-1": savedColors.value.textD1,
@@ -119,6 +155,18 @@ const cssVars = computed(() => {
     transition: background-color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
+}
+
+.bg-primary {
+    background-color: var(--bg-primary);
+}
+
+.bg-primary-darker {
+    background-color: color-mix(in srgb, var(--bg-primary) 100%, black 10%);
+}
+
+.fill-bg-primary-darker {
+    fill: color-mix(in srgb, var(--bg-primary) 100%, black 10%);
 }
 
 .bg-elevation-1 {
@@ -161,6 +209,10 @@ const cssVars = computed(() => {
     background-color: var(--accent);
 }
 
+.border-b-bg-primary {
+    border-bottom-color: var(--bg-primary);
+}
+
 .border-elevation-1 {
     border-color: var(--elevation-1);
 }
@@ -187,6 +239,10 @@ const cssVars = computed(() => {
 
 .text-accent-lighter {
     color: color-mix(in srgb, var(--accent) 70%, white);
+}
+
+.text-accent-logo-icon {
+    color: var(--logo-accent);
 }
 
 .text-accent {

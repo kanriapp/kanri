@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
+# SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -31,7 +31,7 @@ jobs:
 
     runs-on: ${{ matrix.platform.os }}
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
 
       - name: Output info
         run: echo ${{ matrix.platform.os }} ${{ matrix.platform.rust_target }}
@@ -61,13 +61,13 @@ jobs:
       - name: Build Frontend
         run: yarn && yarn generate
 
-      - uses: JonasKruckenberg/tauri-build@v1.4.0
+      - uses: JonasKruckenberg/tauri-build@v1.5.11
         id: tauri_build
         with:
           target: ${{ matrix.platform.rust_target }}
 
       # The `artifacts` output can now be used by a different action to upload the artifacts
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: artifacts
           path: "${{ join(fromJSON(steps.tauri_build.outputs.artifacts), '\n') }}"
@@ -78,9 +78,9 @@ jobs:
     outputs:
       upload_url: ${{ steps.release.outputs.upload_url }}
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
       # Download the previously uploaded artifacts
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         id: download
         with:
           name: artifacts
@@ -104,7 +104,7 @@ jobs:
 
       runs-on: ubuntu-20.04
       steps:
-        - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
         - uses: actions/setup-node@v4
           with:
             node-version: 18

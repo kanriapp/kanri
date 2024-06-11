@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
+SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
 
 SPDX-License-Identifier: Apache-2.0
 -->
@@ -11,8 +11,8 @@ Since this app is constantly changing and previous versions are not receiving an
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.6.0   |   :white_check_mark:              |
-| < 0.6.0   | :x:                |
+| 0.6.1   |   :white_check_mark:              |
+| < 0.6.1   | :x:                |
 
 ## Reporting a Vulnerability
-If you find any vulnerability, please write an email at hello@trobo.tech with a short description, reproduction steps and possible attacks.
+If you find any vulnerability, please write an email at hello@trobo.dev with a short description, reproduction steps and possible attacks.

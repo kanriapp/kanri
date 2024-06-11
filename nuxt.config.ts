@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
+// SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -9,12 +9,20 @@ import license from "rollup-plugin-license";
 export default defineNuxtConfig({
     app: { pageTransition: { mode: "out-in", name: "page" } },
     css: ["@/assets/css/scrollbars.css", "@/assets/css/global.css"],
-    devtools: false,
-    modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "@vueuse/nuxt", 'radix-vue/nuxt'],
+    devtools: {
+        enabled: false
+    },
+    modules: [
+        "@nuxtjs/tailwindcss",
+        "@pinia/nuxt",
+        "@vueuse/nuxt",
+        'radix-vue/nuxt',
+        "nuxt-better-optimize-deps",
+        "@nuxt/eslint"
+    ],
     ssr: false,
     telemetry: false,
     vite: {
-        //@ts-ignore
         plugins: [
             license({
                 thirdParty: {

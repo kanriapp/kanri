@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: kanri
-Upstream-Contact: trobonox <hello@trobo.tech>
+Upstream-Contact: trobonox <hello@trobo.dev>
 Source: https://github.com/trobonox/kanri
 
 # Sample paragraph, commented out:

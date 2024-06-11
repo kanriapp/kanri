@@ -1,11 +1,11 @@
 <!--
-SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech>
+SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
 
 SPDX-License-Identifier: Apache-2.0
 -->
 
 <p align="center">
-    <img src="https://github.com/trobonox/kanri/assets/57040351/ea6e1c6b-3f1e-4a13-8382-224e2cfc4516" alt="Kanri banner" />
+    <img src="https://github.com/trobonox/kanri/assets/57040351/39aae8cf-f9bc-4e9e-821b-78c61a0fcb1d" alt="Kanri banner" />
     <b> Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you create Kanban boards easily, right from your desktop. No internet connection or account needed! </b>
     <br> <br>
     <img src="https://github.com/trobonox/kanri/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" />
@@ -15,7 +15,17 @@ SPDX-License-Identifier: Apache-2.0
     <br>
     <img src="https://img.shields.io/discord/965559337726656552" alt="Discord Status" />
     <img src="https://img.shields.io/github/v/release/trobonox/kanri" alt="Release Version Badge" />
+    <br>
+    <div align="center">
+        <a href="https://kanriapp.com/download">
+            <img width="180" src="https://github.com/trobonox/kanri/assets/57040351/f13c0cd7-6f6e-44e7-95ce-74282acdae51"/> 
+        </a>
+        <a href="https://discord.gg/J3TZzKAcCy">
+            <img width="180" src="https://github.com/trobonox/kanri/assets/57040351/837f5516-e996-456c-acbe-1c376b856c14"/> 
+        </a>
+    </div>
 </p>
+
 
 ## 🚀 Demo
 ![kanri_demo_gif](https://github.com/trobonox/kanri/assets/57040351/fa7a9d79-3847-47cb-8325-6715477879f4)
@@ -30,7 +40,7 @@ xattr -cr /Applications/kanri.app
 
 ## ✨ Why Kanri?
 - 🏙 Modern - featuring a clean design & new technologies like Tauri
-- 👓 Familiar - uses a Kanban board layout (inspired by Trello®)
+- 👓 Familiar - uses a Kanban board layout
 - 🧾 Offline - saves your data in a local `.json` file
 - 🛠 Customizable - allows for custom themes, background images and card colors
 - ⌨ With power users in mind - implements keyboard shortcuts to speed up board navigation
@@ -46,7 +56,7 @@ A granular list of priorities can be found [in the roadmap in the projects tab o
 
 This project is open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
 
-> [!NOTE]  
+> [!NOTE]
 > This project is still in active development and is provided "AS IS". Please make regular backups/exports to prevent any data loss.
 
 ## 🛠 Contributing & Build Setup
@@ -70,4 +80,4 @@ yarn tauri build
 ```
 
 ---
-**Copyright (c) 2022-2023 trobonox (trobo@kanriapp.com)**. Licensed under the Apache 2.0 License.
+**Copyright (c) 2022-2024 trobonox (trobo@kanriapp.com)**. Licensed under GPL v3 (with some files under Apache 2.0 or other licenses stated in the files themselves).

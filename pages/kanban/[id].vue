@@ -1,244 +1,271 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2023 trobonox <hello@trobo.tech> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
 <!-- -->
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+Kanri is an offline Kanban board app made using Tauri and Nuxt.
+Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div>
-    <ModalCustomBackground
-      v-if="bgImageLoaded"
-      v-show="showCustomBgModal"
-      :background="bgCustom"
-      :bg-blur-prop="bgBlur"
-      :bg-brightness-prop="bgBrightness"
-      @closeModal="showCustomBgModal = false"
-      @resetBackground="resetBackground"
-      @setBackground="setBackgroundImage"
-      @setBlur="setBlur"
-      @setBrightness="setBrightness"
-    />
-    <ModalKanban
-      v-show="kanbanModalVisible"
-      ref="kanbanModal"
-      @closeModal="closeKanbanModal"
-      @setCardColor="setCardColor"
-      @setCardDescription="setCardDescription"
-      @setCardTasks="setCardTasks"
-      @setCardTitle="setCardTitle"
-    />
-    <ModalRenameBoard
-      v-show="renameBoardModalVisible"
-      @closeModal="renameBoardModalVisible = false"
-      @renameBoard="renameBoard"
-    />
-    <ModalConfirmation
-      v-show="deleteBoardModalVisible"
-      close-button-text="Cancel"
-      confirm-button-text="Delete"
-      description="Are you sure you want to delete the board? This action is irreverisble."
-      title="Delete Board?"
-      @closeModal="deleteBoardModalVisible = false"
-      @confirmAction="deleteBoard"
-    />
-    <ModalConfirmation
-      v-show="removeColumnModalVisible"
-      close-button-text="Cancel"
-      confirm-button-text="Delete"
-      description="Are you sure you want to delete this column? This action is irreverisble."
-      title="Delete column?"
-      @closeModal="columnRemoveDialog.cancel()"
-      @confirmAction="columnRemoveDialog.confirm(true)"
-    />
-    <ModalConfirmation
-      v-show="removeCardModalVisible"
-      close-button-text="Cancel"
-      confirm-button-text="Delete"
-      description="Are you sure you want to delete this card? This action is irreverisble."
-      title="Delete card?"
-      @closeModal="cardRemoveDialog.cancel()"
-      @confirmAction="cardRemoveDialog.confirm(true)"
-    />
-    <div class="absolute top-8 z-50 ml-8 w-auto xl:w-[92vw]">
-      <h1
-        v-if="!boardTitleEditing"
-        class="mb-2 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
-        :class="[boardTitleColor]"
-        @click="enableBoardTitleEditing()"
-      >
-        {{ board.title }}
-      </h1>
-      <input
-        v-if="boardTitleEditing"
-        ref="boardTitleInput"
-        v-model="board.title"
-        v-focus
-        class="bg-elevation-2 border-accent text-no-overflow mb-2 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
-        maxlength="500"
-        type="text"
-        @blur="
-          boardTitleEditing = false;
-          updateStorage();
-        "
-        @keypress.enter="
-          boardTitleEditing = false;
-          updateStorage();
-        "
-      >
-      <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
-        <div class="flex flex-row gap-2">
-          <button
-            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-            @click="showCustomBgModal = true"
-          >
-            <PhotoIcon class="my-auto h-6 w-6" />
-            <span class="my-auto ml-0.5">Change Background</span>
-          </button>
-        </div>
-        <div class="flex flex-row">
-          <button
-            v-tooltip.top-center="'Increase zoom level'"
-            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
-            @click="increaseZoomLevel"
-          >
-            <MagnifyingGlassPlusIcon class="h-5 w-5" />
-          </button>
-          <button
-            v-tooltip.top-center="'Reset zoom level'"
-            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1"
-            @click="resetZoomLevel"
-          >
-            {{ (columnZoomLevel * 50) + 100 }}%
-          </button>
-          <button
-            v-tooltip.top-center="'Decrease zoom level'"
-            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
-            @click="decreaseZoomLevel"
-          >
-            <MagnifyingGlassMinusIcon class="h-5 w-5" />
-          </button>
-          <VDropdown
-            :distance="2"
-            placement="bottom-end"
-          >
-            <button
-              class="bg-elevation-1 bg-elevation-2-hover transition-button ml-4 h-full rounded-md px-2"
-              @click.prevent
+    <div>
+        <ModalCustomBackground
+            v-if="bgImageLoaded"
+            v-show="showCustomBgModal"
+            :background="bgCustom"
+            :bg-blur-prop="bgBlur"
+            :bg-brightness-prop="bgBrightness"
+            @closeModal="showCustomBgModal = false"
+            @resetBackground="resetBackground"
+            @setBackground="setBackgroundImage"
+            @setBlur="setBlur"
+            @setBrightness="setBrightness"
+        />
+        <ModalCardTags
+            v-show="editTagModalVisible"
+            :tags="board.globalTags || []"
+            @closeModal="editTagModalVisible = false"
+            @setTagColor="setTagColor"
+            @removeTag="removeTag"
+        />
+        <ModalEditCard
+            v-show="editCardModalVisible"
+            :card="currentlyActiveCardInfo.card"
+            :card-index-prop="currentlyActiveCardInfo.cardIndex"
+            :column-id="currentlyActiveCardInfo.columnId"
+            :global-tags="board.globalTags || []"
+            @closeModal="closeeditCardModal"
+            @setCardColor="setCardColor"
+            @setCardDescription="setCardDescription"
+            @setCardTasks="setCardTasks"
+            @setCardTitle="setCardTitle"
+            @setCardDueDate="setCardDueDate"
+            @setCardTags="setCardTags"
+            @addGlobalTag="addGlobalTag"
+        />
+        <ModalRenameBoard
+            v-show="renameBoardModalVisible"
+            @closeModal="renameBoardModalVisible = false"
+            @renameBoard="renameBoard"
+        />
+        <ModalConfirmation
+            v-show="deleteBoardModalVisible"
+            close-button-text="Cancel"
+            confirm-button-text="Delete"
+            description="Are you sure you want to delete the board? This action is irreverisble."
+            title="Delete Board?"
+            @closeModal="deleteBoardModalVisible = false"
+            @confirmAction="deleteBoard"
+        />
+        <ModalConfirmation
+            v-show="removeColumnModalVisible"
+            close-button-text="Cancel"
+            confirm-button-text="Delete"
+            description="Are you sure you want to delete this column? This action is irreverisble."
+            title="Delete column?"
+            @closeModal="columnRemoveDialog.cancel()"
+            @confirmAction="columnRemoveDialog.confirm(true)"
+        />
+        <ModalConfirmation
+            v-show="removeCardModalVisible"
+            close-button-text="Cancel"
+            confirm-button-text="Delete"
+            description="Are you sure you want to delete this card? This action is irreverisble."
+            title="Delete card?"
+            @closeModal="cardRemoveDialog.cancel()"
+            @confirmAction="cardRemoveDialog.confirm(true)"
+        />
+
+        <div class="absolute top-4 z-50 ml-8 w-[calc(100vw-112px)]">
+            <h1
+                v-if="!boardTitleEditing"
+                class="mb-1 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
+                :class="[boardTitleColor]"
+                @click="enableBoardTitleEditing()"
             >
-              <EllipsisHorizontalIcon class="h-6 w-6" />
-            </button>
-            <template
-              #popper
+                {{ board.title }}
+            </h1>
+            <input
+                v-if="boardTitleEditing"
+                ref="boardTitleInput"
+                v-model="board.title"
+                v-focus
+                class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+                maxlength="500"
+                type="text"
+                @blur="
+                    boardTitleEditing = false;
+                    updateStorage();
+                "
+                @keypress.enter="
+                    boardTitleEditing = false;
+                    updateStorage();
+                "
             >
-              <div class="flex flex-col">
-                <button
-                  v-close-popper
-                  class="px-4 py-1.5 hover:bg-gray-200"
-                  @click="renameBoardModal(getBoardIndex())"
-                >
-                  Rename Board
-                </button>
-                <button
-                  v-close-popper
-                  class="px-4 py-1.5 hover:bg-gray-200"
-                  @click="duplicateBoard"
-                >
-                  Duplicate Board
-                </button>
-                <button
-                  v-close-popper
-                  class="px-4 py-1.5 hover:bg-gray-200"
-                  @click="exportBoardToJson"
-                >
-                  Export Board
-                </button>
-                <button
-                  v-close-popper
-                  class="px-4 py-1.5 hover:bg-gray-200"
-                  @click="deleteBoardModal(getBoardIndex())"
-                >
-                  Delete Board
-                </button>
-              </div>
-            </template>
-          </VDropdown>
-        </div>
-      </div>
-    </div>
-    <div
-      id="kanban-cols-container"
-      v-dragscroll:nochilddrag
-      :style="cssVars"
-      class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
-    >
-      <div class="bg-effect-overlay h-full w-max min-w-full pt-[7.5rem]">
-        <div class="pointer-events-auto z-50 pl-8">
-          <div class="pt-4">
-            <Container
-              :non-drag-area-selector="'nodrag'"
-              :orientation="'horizontal'"
-              class="flex-row gap-4"
-              drag-handle-selector=".dragging-handle"
-              group-name="columns"
-              @drop="onDrop"
-            >
-              <Draggable
-                v-for="(column, index) in board.columns"
-                :key="column.id"
-              >
-                <KanbanColumn
-                  :id="column.id"
-                  :ref="(el) => saveColumnRef(el, column.id)"
-                  :cards-list="column.cards"
-                  :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-                  :col-index="index"
-                  :title="column.title"
-                  :zoom-level="columnZoomLevel"
-                  @disableDragging="draggingEnabled = false"
-                  @enableDragging="draggingEnabled = true"
-                  @openKanbanModal="openKanbanModal"
-                  @removeCardWithConfirmation="removeCardWithConfirmation"
-                  @removeColumn="openColumnRemoveDialog(column.id)"
-                  @removeColumnNoConfirmation="removeColumn"
-                  @setColumnEditIndex="setColumnEditIndex"
-                  @updateStorage="updateColumnProperties"
-                />
-              </Draggable>
-              <div class="pr-8">
-                <div
-                  class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
-                  @click="addColumn()"
-                >
-                  <PlusIcon class="text-accent h-6 w-6" />
-                  <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
+
+            <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
+                <div class="flex flex-row gap-2">
+                    <div class="flex flex-row gap-2">
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+                            @click="showCustomBgModal = true"
+                        >
+                            <PhotoIcon class="my-auto size-6" />
+                            <span class="my-auto ml-0.5 hidden lg:block">Change Background</span>
+                        </button>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+                            @click="editTagModalVisible = true"
+                        >
+                            <PhHashStraight class="my-auto size-6" />
+                            <span class="my-auto ml-0.5 hidden lg:block">Edit Tags</span>
+                        </button>
+                    </div>
+
+                    <KanbanSearchBar v-model="searchQuery" />
                 </div>
-              </div>
-            </Container>
-          </div>
+
+                <div class="flex flex-row items-center gap-4">
+                    <KanbanZoomAdjustment v-model="columnZoomLevel" />
+
+                    <Dropdown
+                        align="end"
+                    >
+                        <template #trigger>
+                            <button
+                                class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
+                                @click.prevent
+                            >
+                                <EllipsisHorizontalIcon class="size-6" />
+                            </button>
+                        </template>
+
+                        <template #content>
+                            <div class="flex flex-col">
+                                <DropdownMenuItem
+                                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                                    @click="renameBoardModal(getBoardIndex())"
+                                >
+                                    Rename Board
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                                    @click="duplicateBoard"
+                                >
+                                    Duplicate Board
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                                    @click="exportBoardToJson"
+                                >
+                                    Export Board
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                                    @click="deleteBoardModal(getBoardIndex())"
+                                >
+                                    Delete Board
+                                </DropdownMenuItem>
+                            </div>
+                        </template>
+                    </Dropdown>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div
+            id="kanban-cols-container"
+            v-dragscroll:nochilddrag
+            :style="cssVars"
+            class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
+        >
+            <div class="bg-effect-overlay h-full w-max min-w-full pt-28">
+                <div class="pointer-events-auto z-50 pl-8">
+                    <div class="pt-4">
+                        <Container
+                            :non-drag-area-selector="'nodrag'"
+                            :orientation="'horizontal'"
+                            class="flex-row gap-3.5"
+                            drag-handle-selector=".dragging-handle"
+                            group-name="columns"
+                            @drop="onDrop"
+                        >
+                            <Draggable
+                                v-for="(column, index) in board.columns"
+                                :key="column.id"
+                            >
+                                <KanbanColumn
+                                    :id="column.id"
+                                    :cards-list="column.cards"
+                                    :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+                                    :col-index="index"
+                                    :title="column.title"
+                                    :zoom-level="columnZoomLevel"
+                                    :add-to-top-button-shown="columnAddToTopButtonEnabled"
+                                    :card-count-display-enabled="columnCardCountEnabled"
+                                    :card-search-query="searchQuery"
+                                    @disableDragging="draggingEnabled = false"
+                                    @enableDragging="draggingEnabled = true"
+                                    @openEditCardModal="openEditCardModal"
+                                    @removeCardWithConfirmation="removeCardWithConfirmation"
+                                    @removeColumn="openColumnRemoveDialog(column.id)"
+                                    @removeColumnNoConfirmation="removeColumn"
+                                    @setColumnEditIndex="setColumnEditIndex"
+                                    @updateStorage="updateColumnProperties"
+                                    @updateCardTags="updateCardTags"
+                                />
+                            </Draggable>
+                            <div class="pr-8">
+                                <div
+                                    class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
+                                    @click="addColumn()"
+                                >
+                                    <PlusIcon class="text-accent size-6" />
+                                    <span :class="board.columns.length === 0 ? '' : 'hidden'">Add Column</span>
+                                </div>
+                            </div>
+                        </Container>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
-import type { Board, Card, Column } from "@/types/kanban-types";
+import type { Board, Card, Column, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
-import { default as KanbanColumn } from "@/components/kanban/Column.vue";
-import { default as KanbanModal } from "@/components/modal/Kanban.vue";
 import { useTauriStore } from "@/stores/tauriStore";
+
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator";
+import { getAverageColor } from "@/utils/colorUtils";
+
 import { PhotoIcon } from "@heroicons/vue/24/outline";
-import { EllipsisHorizontalIcon, MagnifyingGlassMinusIcon, MagnifyingGlassPlusIcon, PlusIcon } from "@heroicons/vue/24/solid";
+import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
+import { PhHashStraight } from "@phosphor-icons/vue";
+
 import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { useConfirmDialog } from '@vueuse/core'
-//@ts-ignore
+//@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
-
-import { getAverageColor } from "~/utils/colorUtils";
 
 const store = useTauriStore().store;
 const route = useRoute();
@@ -248,6 +275,9 @@ const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
 const draggingEnabled = ref(true);
 
+const searchQuery = ref("");
+
+const boardTitleColor = ref("");
 const boardTitleEditing = ref(false);
 const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 
@@ -255,6 +285,8 @@ const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
 const columnZoomLevel = ref(0);
+const columnAddToTopButtonEnabled = ref(false);
+const columnCardCountEnabled = ref(false);
 
 const bgCustom = ref("");
 const bgCustomNoResolution = ref("");
@@ -263,16 +295,16 @@ const bgImageLoaded = ref(false);
 const bgBlur = ref("8px");
 const bgBrightness = ref("100%");
 
-const colRefs: { [key: string]: InstanceType<typeof KanbanColumn>} = reactive({});
-const kanbanModalVisible = ref(false);
-const kanbanModal = ref<InstanceType<typeof KanbanModal> | null>(null);
+const editCardModalVisible = ref(false);
+
+const currentlyActiveCardInfo: { card: Card | null, cardIndex: number, columnId: string} = reactive({ card: null, cardIndex: -1, columnId: '' })
 
 const removeColumnModalVisible = ref(false);
 const removeCardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const renameBoardModalVisible = ref(false);
 
-const boardTitleColor = ref("");
+const editTagModalVisible = ref(false);
 
 const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
 const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
@@ -318,6 +350,9 @@ onMounted(async () => {
         columnZoomLevel.value = columnZoom;
     }
 
+    columnAddToTopButtonEnabled.value = await store.get("addToTopOfColumnButtonEnabled") || false;
+    columnCardCountEnabled.value = await store.get("displayColumnCardCountEnabled") || false;
+
     document.addEventListener("keydown", keyDownListener);
 
     emitter.emit("openKanbanPage");
@@ -346,6 +381,8 @@ enum shortcutKeys {
     "d",
     "n",
     "t",
+    "h",
+    "l",
     "+",
     "-"
 }
@@ -379,11 +416,6 @@ const decreaseZoomLevel = () => {
     store.set("columnZoomLevel", columnZoomLevel.value);
 }
 
-const resetZoomLevel = () => {
-    columnZoomLevel.value = 0;
-    store.set("columnZoomLevel", columnZoomLevel.value);
-}
-
 const keyDownListener = (e: KeyboardEvent) => {
     const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
     const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
@@ -395,17 +427,8 @@ const keyDownListener = (e: KeyboardEvent) => {
     // We do not want to override any shortcuts except the ones we mapped in the app
     if (!Object.keys(shortcutKeys).includes(e.key)) return;
 
-    emitter.emit("resetColumnInputs");
-
-    // Ctrl + B for new board
-    if (e.key === "b") {
-        addColumn();
-        scrollView();
-        return;
-    }
-
     // Arrow key left to decrease
-    if (e.key === "ArrowLeft") {
+    if ((e.key === "ArrowLeft" || e.key === "h") && e.altKey) {
         if (columnEditIndex.value === 0 && board.value.columns.length !== 0) {
             columnEditIndex.value = board.value.columns.length - 1;
         } else {
@@ -414,12 +437,20 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // Arrow key right to increase
-    if (e.key === "ArrowRight") {
+    if ((e.key === "ArrowRight" || e.key === "l") && e.altKey) {
         if (columnEditIndex.value == board.value.columns.length - 1 && board.value.columns.length !== 0) {
             columnEditIndex.value = 0;
         } else {
             columnEditIndex.value++;
         }
+    }
+
+
+    // Ctrl + B for new board
+    if (e.key === "b") {
+        addColumn();
+        scrollView();
+        return;
     }
 
     if (e.key === "+") {
@@ -447,14 +478,14 @@ const keyDownListener = (e: KeyboardEvent) => {
     }
 
     // ctrl + t for enabling title editing for the last column
-    if (e.key === "t" || columnTitleEditing.value === true) {
+    if (e.key === "t" || (columnTitleEditing.value === true && e.altKey)) {
         columnTitleEditing.value = true;
         emitter.emit("enableColumnTitleEditing", columnID);
         return;
     }
 
     // ctrl + n for new card in the last column
-    if (e.key === "n" || columnCardAddMode.value === true) {
+    if (e.key === "n" || (columnCardAddMode.value === true && e.altKey)) {
         columnCardAddMode.value = true;
         emitter.emit("enableColumnCardAddMode", columnID);
         return;
@@ -466,10 +497,10 @@ const keyDownListener = (e: KeyboardEvent) => {
  */
 
 const scrollView = () => {
-    const elem = document.getElementById("kanban-cols-container");
-    if (elem == null) return;
+    const columns = document.getElementsByClassName("kanban-column");
+    if (!columns || columns.length === 0) return;
 
-    elem.scrollLeft = elem.scrollWidth;
+    columns[columns.length - 1].scrollIntoView({ behavior: "smooth", inline: "end" });
 };
 
 const onDrop = (dropResult: object) => {
@@ -493,39 +524,107 @@ const getBoardTitleTextColor = async () => {
  * Kanban card utility methods for editing, deleting, etc.
  */
 
-const saveColumnRef = (ref: any, columnId: String) => {
-    colRefs[columnId.toString()] = ref;
+type CardMutateFunction = (card: Card) => void;
+
+const mutateCardData = (columnId: string, cardIndex: number, mutateCard: CardMutateFunction) => {
+    const column = findObjectById<Column>(board.value.columns, columnId);
+    const card = column.cards[cardIndex];
+    mutateCard(card);
+    updateColumnProperties(column);
 }
 
-const setCardTitle = (columnId: string, cardId: number, title: string) => {
-    colRefs[columnId].setCardTitle(cardId, title);
+const setCardTitle = (columnId: string, cardIndex: number, title: string) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.name = title;
+    })
 }
 
-const setCardDescription = (columnId: string, cardId: number, description: string) => {
-    colRefs[columnId].setCardDescription(cardId, description);
+const setCardDescription = (columnId: string, cardIndex: number, description: string) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.description = description;
+    })
 }
 
-const setCardColor = (columnId: string, cardId: number, color: string) => {
-    colRefs[columnId].setCardColor(cardId, color);
+const setCardColor = (columnId: string, cardIndex: number, color: string) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.color = color;
+    })
 }
 
-const setCardTasks = (columnId: string, cardId: number, tasks: Array<{finished: boolean, name: string}>) => {
-    colRefs[columnId].setCardTasks(cardId, tasks);
+const setCardTasks = (columnId: string, cardIndex: number, tasks: Card['tasks']) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tasks = tasks;
+    })
+}
+
+const setCardDueDate = (columnId: string, cardIndex: number, dueDate: Date | null, isCounterRelative: boolean) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.dueDate = dueDate;
+        card.isDueDateCounterRelative = isCounterRelative;
+    })
+}
+
+const setCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tags = tags;
+    })
+}
+
+const addGlobalTag = (tag: Tag) => {
+    const globalTags = board.value.globalTags || []
+    if (globalTags.some((el) => el.text === tag.text)) {
+        return;
+    }
+
+    if (!board.value.globalTags) {
+        board.value.globalTags = [];
+    }
+    board.value.globalTags.push(tag);
+
+    updateStorage();
+}
+
+const removeTag = (tagId: string) => {
+    const globalTags = board.value.globalTags || [];
+    const index = globalTags.findIndex((el) => el.id === tagId);
+
+    if (index!== -1) {
+        board.value.globalTags?.splice(index, 1);
+    }
+}
+
+const setTagColor = (tagId: string, color: string) => {
+    const tag = findObjectById<Tag>(board.value.globalTags || [], tagId);
+
+    tag.color = color;
+    tag.style = `background-color: ${color}`;
+    updateStorage();
+
+    emitter.emit("globalTagsUpdated", {tags: board.value.globalTags});
+}
+
+const updateCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
+    mutateCardData(columnId, cardIndex, (card) => {
+        card.tags = tags;
+    })
 }
 
 // Kanban card modal
-const openKanbanModal = (columnId: string, cardIndex: number, el: Card) => {
-    kanbanModalVisible.value = true;
-    draggingEnabled.value = false;
+const openEditCardModal = (columnId: string, cardIndex: number, el: Card) => {
+    currentlyActiveCardInfo.columnId = columnId;
+    currentlyActiveCardInfo.cardIndex = cardIndex;
+    currentlyActiveCardInfo.card = el;
 
-    if (kanbanModal.value == null) return;
-    kanbanModal.value.initModal(columnId, cardIndex, el.name, el.description, el.tasks, el.color);
+    nextTick(() => {
+        editCardModalVisible.value = true;
+        draggingEnabled.value = false;
+    });
 }
 
-const closeKanbanModal = (columnId: string) => {
-    kanbanModalVisible.value = false;
+const closeeditCardModal = () => {
+    editCardModalVisible.value = false;
     draggingEnabled.value = true;
-    colRefs[columnId].enableDragging();
+    emitter.emit("columnDraggingOn");
 }
 
 const removeCardWithConfirmation = async (columnId: string, cardIndex: number, cardRef: Ref<HTMLElement | null>) => {
@@ -542,7 +641,9 @@ const removeCardWithConfirmation = async (columnId: string, cardIndex: number, c
         cardRef.value.classList.value = oldClasses + " card-hidden";
 
         setTimeout(() => {
-            colRefs[columnId].removeCard(cardIndex);
+            const column = findObjectById<Column>(board.value.columns, columnId);
+            column.cards.splice(cardIndex, 1);
+            updateColumnProperties(column);
 
             if (!cardRef.value) return;
             cardRef.value.classList.value = oldClasses;
@@ -550,7 +651,7 @@ const removeCardWithConfirmation = async (columnId: string, cardIndex: number, c
     }
 
     draggingEnabled.value = true;
-    colRefs[columnId].enableDragging();
+    emitter.emit("columnDraggingOn");
 }
 
 /**
@@ -582,7 +683,7 @@ const openColumnRemoveDialog = async (columnID: string) => {
     }
 
     draggingEnabled.value = true;
-    colRefs[columnID].enableDragging();
+    emitter.emit("columnDraggingOn");
 }
 
 const removeColumn = (columnID: string) => {
@@ -593,7 +694,6 @@ const removeColumn = (columnID: string) => {
     const columnIndex = board.value.columns.indexOf(column);
     board.value.columns.splice(columnIndex, 1);
     columnEditIndex.value--;
-    delete colRefs[columnID];
     updateStorage();
 };
 
@@ -702,6 +802,18 @@ const deleteBoard = async (boardIndex: number | undefined) => {
     router.push("/");
 };
 
+const enableBoardTitleEditing = () => {
+    boardTitleEditing.value = true;
+}
+
+const getBoardIndex = () => {
+    return boards.value.indexOf(board.value);
+}
+
+/**
+ * Board background utilities
+ */
+
 const setBackgroundImage = async (img: string) => {
     bgCustomNoResolution.value = img;
     bgCustom.value = convertFileSrc(img);
@@ -731,14 +843,6 @@ const setBrightness = (brightnessAmount: string) => {
     bgBrightness.value = brightnessAmount;
     board.value.background = {blur: bgBlur.value, brightness: bgBrightness.value, src: bgCustomNoResolution.value};
     updateStorage();
-}
-
-const enableBoardTitleEditing = () => {
-    boardTitleEditing.value = true;
-}
-
-const getBoardIndex = () => {
-    return boards.value.indexOf(board.value);
 }
 </script>
 
