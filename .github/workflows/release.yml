@@ -97,5 +97,5 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            upload_url: ${{ needs.publish-tauri.outputs.releaseHtmlUrl }}
+            upload_url: ${{ needs.publish-tauri.outputs.releaseUploadUrl }}
             targets: ./src-tauri/target/*/release/bundle/deb/*.deb
