@@ -98,12 +98,12 @@ jobs:
           run: yarn run init:${{matrix.arch}} && yarn run build:${{matrix.arch}}
 
         - name: Output Tauri release url
-          run: echo ${{ needs.publish-kanri.outputs.releaseUploadUrl }}
+          run: echo ${{ needs.publish-kanri.outputs.upload_url }}
 
         - name: Upload Multiple Release Assets
           uses: NBTX/upload-release-assets@v1
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            upload_url: ${{ needs.publish-kanri.outputs.releaseUploadUrl }}
+            upload_url: ${{ needs.publish-kanri.outputs.upload_url }}
             targets: ./src-tauri/target/*/release/bundle/deb/*.deb
