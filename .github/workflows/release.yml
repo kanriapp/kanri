@@ -63,7 +63,7 @@ jobs:
 
       - name: Install Tauri CLI
         if: matrix.platform.rust_target == 'aarch64-apple-darwin'
-        run: yarn add -D @tauri-apps/cli-darwin-arm64
+        run: yarn add @tauri-apps/cli-darwin-arm64
 
       - uses: JonasKruckenberg/tauri-build@v1.4.0
         id: tauri_build
