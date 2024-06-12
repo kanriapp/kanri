@@ -21,9 +21,9 @@ jobs:
         platform:
           - os: ubuntu-22.04
             rust_target: x86_64-unknown-linux-gnu
-          - os: macos-latest
+          - os: macos-13
             rust_target: x86_64-apple-darwin
-          - os: macos-latest
+          - os: macos-14
             rust_target: aarch64-apple-darwin
           - os: windows-latest
             rust_target: x86_64-pc-windows-msvc
@@ -61,7 +61,7 @@ jobs:
       - name: Build Frontend
         run: yarn && yarn generate
 
-      - uses: JonasKruckenberg/tauri-build@v1.5.11
+      - uses: JonasKruckenberg/tauri-build@v1.4.0
         id: tauri_build
         with:
           target: ${{ matrix.platform.rust_target }}
