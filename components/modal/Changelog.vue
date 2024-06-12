@@ -34,14 +34,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         @click="$emit('closeModal')"
                     />
                 </div>
-                <p class="mr-8 mt-6">
-                    Welcome to Kanri! This is a beta pre-release for version 0.7, it is still unfinished and might contain bugs, so use with caution.
-                    To quickly get notified about fixes to important features like this, please join <a
+                <p class="mr-8 mt-2">
+                    Welcome to Kanri! After a long time, we are back with a big release featuring many new features and fixes.
+                    To quickly get notified about new releases and see the development progress, you can join <a
                         class="text-accent text-accent-darker-hover"
                         href="https://discord.gg/AVqHrvxB9C"
                         target="_blank"
                     >the official Discord server.</a>
                 </p>
+                <p>
+                    <br>
+                    <spam class="text-xl font-bold">New features:</spam>
+                    <ul>
+                        <li>
+                            New logo
+                        </li>
+                        <li>
+                            Card tags
+                        </li>
+                        <li>
+                            Due dates on cards (without reminders for now)
+                        </li>
+                        <li>
+                            Search bar for cards
+                        </li>
+                        <li>
+                            And much more... (full changelog on GitHub or the Discord announcement)
+                        </li>
+                    </ul>
+                </p>
+
                 <div class="mt-6 flex justify-between">
                     <button
                         class="bg-accent text-buttons mb-4 w-full rounded px-4 py-2"
