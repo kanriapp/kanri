@@ -65,7 +65,7 @@ jobs:
         if: matrix.platform.rust_target == 'aarch64-apple-darwin'
         run: yarn add @tauri-apps/cli-darwin-arm64
 
-      - uses: JonasKruckenberg/tauri-build@v1.4.0
+      - uses: JonasKruckenberg/tauri-build@v1.2.2
         id: tauri_build
         with:
           target: ${{ matrix.platform.rust_target }}
