@@ -315,7 +315,12 @@ const filteredCards = computed(() => {
     }
 
     return cards.value.filter((card) => {
-        return fuzzyMatch(props.cardSearchQuery ?? "", card.name);
+        const searchQuery = props.cardSearchQuery ?? "";
+        const cardName = card.name;
+        const cardTags = card.tags || [];
+
+        return fuzzyMatch(searchQuery, cardName) ||
+            cardTags.some(tag => tag.text.includes(searchQuery));
     });
 })
 
