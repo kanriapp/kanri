@@ -44,7 +44,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </p>
                 <p>
                     <br>
-                    <spam class="text-xl font-bold">New features:</spam>
+                    <span class="text-xl font-bold">New features:</span>
                     <ul>
                         <li>
                             New logo
