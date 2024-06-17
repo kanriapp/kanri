@@ -36,15 +36,25 @@ export const kanriThemeSchema = z.object({
     textD4: z.string()
 });
 
+const kanriTagSchema = z.object({
+    id: z.string(),
+    text: z.string(),
+    color: z.string().optional(),
+    style: z.string().optional()
+});
+
 const kanriCardSchema = z.object({
     color: z.string().optional(),
     description: z.string().optional(),
     id: z.string().optional(),
     name: z.string(),
     tasks: z.array(z.object({
+        id: z.string().optional(),
         finished: z.boolean(),
         name: z.string()
-    })).optional()
+    })).optional(),
+    dueDate: z.string().optional().nullable(),
+    tags: z.array(kanriTagSchema).optional().nullable()
 });
 
 const kanriColumnSchema = z.object({
@@ -81,7 +91,10 @@ export const kanriJsonSchema = z.object({
     colors: kanriThemeSchema,
     columnZoomLevel: z.number().optional().nullable(),
     lastInstalledVersion: z.string().optional().nullable(),
-    savedCustomTheme: kanriThemeSchema.optional().nullable()
+    savedCustomTheme: kanriThemeSchema.optional().nullable(),
+    reverseSorting: z.boolean().optional().nullable(),
+    addToTopOfColumnButtonEnabled: z.boolean().optional().nullable(),
+    displayColumnCardCountEnabled: z.boolean().optional().nullable(),
 });
 
 export const kanbanElectronJsonSchema = z.object({

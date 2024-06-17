@@ -171,22 +171,29 @@ const exportJSON = async () => {
 
     const savedBoards = await store.get("boards");
     const boardSortingOption = await store.get("boardSortingOption");
+    const reverseSorting = await store.get("reverseSorting");
     const activeTheme = await store.get("activeTheme");
     const colors = await store.get("colors");
     const savedCustomTheme = await store.get("savedCustomTheme");
     const columnZoomLevel = await store.get("columnZoomLevel");
     const lastInstalledVersion = await store.get("lastInstalledVersion");
-
+    const animationsEnabled = await store.get("animationsEnabled");
+    const addToTopOfColumnButtonEnabled = await store.get("addToTopOfColumnButtonEnabled");
+    const displayColumnCardCountEnabled = await store.get("displayColumnCardCountEnabled");
 
     const fileContents = JSON.stringify(
         {
-            activeTheme: activeTheme,
-            boardSortingOption: boardSortingOption,
+            activeTheme,
+            boardSortingOption,
             boards: savedBoards,
-            colors: colors,
-            columnZoomLevel: columnZoomLevel,
-            lastInstalledVersion: lastInstalledVersion,
-            savedCustomTheme: savedCustomTheme
+            colors,
+            columnZoomLevel,
+            lastInstalledVersion,
+            savedCustomTheme,
+            reverseSorting,
+            animationsEnabled,
+            addToTopOfColumnButtonEnabled,
+            displayColumnCardCountEnabled
         },
         null,
         2
@@ -238,18 +245,14 @@ const importFromKanriFull = async () => {
     store.set("boards", zodParsed.boards);
     store.set("colors", zodParsed.colors);
     store.set("activeTheme", zodParsed.activeTheme);
-    if (zodParsed.columnZoomLevel) {
-        store.set("columnZoomLevel", zodParsed.columnZoomLevel);
-    }
-    if (zodParsed.boardSortingOption) {
-        store.set("boardSortingOption", zodParsed.boardSortingOption);
-    }
-    if (zodParsed.savedCustomTheme) {
-        store.set("savedCustomTheme", zodParsed.savedCustomTheme);
-    }
-    if (zodParsed.lastInstalledVersion) {
-        store.set("lastInstalledVersion", zodParsed.lastInstalledVersion);
-    }
+    store.set("columnZoomLevel", zodParsed.columnZoomLevel);
+    store.set("boardSortingOption", zodParsed.boardSortingOption);
+    store.set("savedCustomTheme", zodParsed.savedCustomTheme);
+    store.set("lastInstalledVersion", zodParsed.lastInstalledVersion);
+    store.set("animationsEnabled", zodParsed.animationsEnabled);
+    store.set("reverseSorting", zodParsed.reverseSorting);
+    store.set("addToTopOfColumnButtonEnabled", zodParsed.addToTopOfColumnButtonEnabled);
+    store.set("displayColumnCardCountEnabled", zodParsed.displayColumnCardCountEnabled);
 
     // Manual refresh
     router.go(0);

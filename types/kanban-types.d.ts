@@ -56,7 +56,7 @@ export declare interface Tag {
 export declare interface Card {
     color?: string
     description?: string,
-    dueDate?: Date | null,
+    dueDate?: Date | string | null,
     id?: string,
     isDueDateCounterRelative?: boolean
     name: string,
