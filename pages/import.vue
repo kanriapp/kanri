@@ -139,7 +139,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Board, Column } from "@/types/kanban-types";
+import type { Board, Column, Tag } from "@/types/kanban-types";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanbanElectronJsonSchema, kanriBoardSchema, kanriJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
@@ -544,17 +544,44 @@ const trelloParse = async (board: string) => {
             })
         }
 
+        const tags: Array<Tag> = [];
+        if (card.labels.length > 0) {
+            card.labels.forEach((label) => {
+                tags.push({
+                    id: label.id,
+                    text: label.name,
+                    color: cssColorStringToHex(label.color),
+                    style: `background-color: ${cssColorStringToHex(label.color)}`
+                });
+            })
+        }
+
         const kanriCard = {
             description: card.desc,
             id: card.id,
             name: card.name,
-            tasks: tasks
+            tasks: tasks,
+            tags: tags,
+            dueDate: card.due
         }
 
         selectedCol[0].cards.push(kanriCard);
     });
 
+    const globalTags: Board["globalTags"] = [];
+    zodParsed.labels.forEach((label) => {
+        if (label.name.length === 0) return;
+
+        globalTags.push({
+            id: label.id,
+            text: label.name,
+            color: cssColorStringToHex(label.color),
+            style: `background-color: ${cssColorStringToHex(label.color)}`
+        });
+    });
+
     const kanriBoard = {
+        globalTags: globalTags,
         columns: columns,
         id: generateUniqueID(),
         lastEdited: new Date().toISOString(),

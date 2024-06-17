@@ -70,6 +70,7 @@ const kanriBoardBackgroundSchema = z.object({
 }).optional();
 
 export const kanriBoardSchema = z.object({
+    globalTags: z.array(kanriTagSchema),
     background: kanriBoardBackgroundSchema,
     columns: z.array(kanriColumnSchema),
     id: z.string(),
@@ -106,6 +107,14 @@ export const kanbanElectronJsonSchema = z.object({
 
 export const trelloJsonSchema = z.object({
     cards: z.array(z.object({
+        labels: z.array(z.object({
+            id: z.string(),
+            idBoard: z.string(),
+            name: z.string(),
+            color: z.string(),
+            uses: z.number()
+        })),
+        due: z.string().nullable(),
         closed: z.boolean(),
         desc: z.string(),
         id: z.string(),
@@ -122,6 +131,13 @@ export const trelloJsonSchema = z.object({
         id: z.string(),
         idBoard: z.string(),
         idCard: z.string()
+    })),
+    labels: z.array(z.object({
+        id: z.string(),
+        idBoard: z.string(),
+        name: z.string(),
+        color: z.string(),
+        uses: z.number()
     })),
     lists: z.array(z.object({
         closed: z.boolean(),
