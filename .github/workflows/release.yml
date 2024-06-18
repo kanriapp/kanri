@@ -61,7 +61,7 @@ jobs:
           yarn config delete proxy
           yarn config delete https-proxy
           yarn config delete registry
-          yarn install --network-timeout 1000000
+          yarn install --network-timeout 1000000 --frozen-lockfile
 
       - name: Build frontend
         run: yarn generate
