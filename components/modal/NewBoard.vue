@@ -45,17 +45,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         class="text-medium text-dim-1 mb-2 text-lg"
                         for="boardName"
                     >Board Name</label>
-                    <input
+                    <textarea
+                        rows="1"
+                        cols="45"
                         id="boardName"
                         ref="boardNameInput"
                         v-model="newBoardName"
-                        class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-80 rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
+                        class="textarea-autosize placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-80 rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
                         maxlength="500"
                         placeholder="Enter a board name..."
                         type="text"
                         @focus="boardNameEmptyError = false"
                         @blur="checkIfBoardNameEmpty"
-                    >
+                    ></textarea>
                     <p
                         v-if="boardNameEmptyError"
                         class="mt-0.5 text-red-500"
@@ -236,4 +238,14 @@ const closeModal = () => {
 .force-flex {
     display: flex !important;
 }
+.textarea-autosize {
+    
+    overflow: hidden;
+    resize: none;
+    min-height: 1em;
+    width: 100%; /* Initiale Breite auf 100% setzen oder eine andere anfängliche Breite */
+    font-size: 1rem; /* Beispiel für eine Schriftgröße, die angepasst werden kann */
+    padding: 0.5rem; /* Beispiel für Padding, das angepasst werden kann */
+    margin: 0; /* Beispiel für Margin, das angepasst werden kann */
+  }
 </style>
