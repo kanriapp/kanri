@@ -96,13 +96,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
                 {{ board.title }}
             </h1>
-            <input
+            <textarea
+                rows="1"
+                cols="50"
                 v-if="boardTitleEditing"
                 ref="boardTitleInput"
                 v-model="board.title"
                 v-focus
-                class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
-                maxlength="500"
+                class="textarea-autosize bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+                maxlength="1000"
                 type="text"
                 @blur="
                     boardTitleEditing = false;
@@ -112,7 +114,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     boardTitleEditing = false;
                     updateStorage();
                 "
-            >
+                @input="adjustSize"
+            ></textarea>
 
             <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
                 <div class="flex flex-row gap-2">
@@ -267,6 +270,12 @@ import { useConfirmDialog } from '@vueuse/core'
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
 
+import { ref, onMounted, nextTick } from 'vue';
+
+const titleEditing = ref(true);
+const title = ref('');
+const titleInput = ref<HTMLTextAreaElement | null>(null);
+
 const store = useTauriStore().store;
 const route = useRoute();
 const router = useRouter();
@@ -316,6 +325,30 @@ const cssVars = computed(() => {
         "--blur-intensity": bgBlur.value
     }
 })
+
+const adjustSize = () => {
+  nextTick(() => {
+    if (boardTitleInput.value) {
+      boardTitleInput.value.style.height = 'auto'; // Reset height
+      boardTitleInput.value.style.height = boardTitleInput.value.scrollHeight + 'px';
+      boardTitleInput.value.style.width = 'auto'; // Reset width
+      boardTitleInput.value.style.width = boardTitleInput.value.scrollWidth + 'px';
+    }
+  });
+};
+
+const initializeSize = () => {
+  if (boardTitleInput.value) {
+    boardTitleInput.value.style.height = '1em';
+    boardTitleInput.value.style.width = '100%';
+  }
+};
+
+initializeSize();
+
+onMounted(() => {
+  adjustSize();
+});
 
 onMounted(async () => {
     boards.value = await store.get("boards") || [];
@@ -868,4 +901,14 @@ const setBrightness = (brightnessAmount: string) => {
     backdrop-filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
     pointer-events: none;
 }
+
+.textarea-autosize {
+    
+    overflow: hidden;
+    resize: none;
+    min-height: 1em;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0; 
+  }
 </style>
