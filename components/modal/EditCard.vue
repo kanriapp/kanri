@@ -182,17 +182,19 @@ limitations under the License.
                             >
                                 {{ title }}
                             </h1>
-                            <input
+                            <textarea
+                                rows="1"
+                                cols="35"
                                 v-if="titleEditing"
                                 ref="titleInput"
                                 v-model="title"
                                 v-focus
-                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
+                                class="textarea-autosize bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
                                 maxlength="1000"
-                                type="text"
                                 @blur="updateTitle"
                                 @keypress.enter="updateTitle"
-                            >
+                                @input="adjustSize"
+                            />
                         </div>
                         <XMarkIcon
                             class="text-accent-hover size-6 shrink-0 cursor-pointer"
@@ -414,6 +416,46 @@ limitations under the License.
 </template>
 
 <script setup lang="ts">
+
+import { ref, onMounted, nextTick } from 'vue';
+
+const titleEditing = ref(true);
+const title = ref('');
+const titleInput = ref<HTMLTextAreaElement | null>(null);
+
+const updateTitle = () => {
+    emitter.emit("modalEnableClickOutsideClose");
+
+    if (title.value == null || !(/\S/.test(title.value))) return;
+
+    titleEditing.value = false;
+    emit("setCardTitle", columnID.value, cardIndex.value, title.value);
+}
+
+const adjustSize = () => {
+  nextTick(() => {
+    if (titleInput.value) {
+      titleInput.value.style.height = 'auto'; // Reset height
+      titleInput.value.style.height = titleInput.value.scrollHeight + 'px';
+      titleInput.value.style.width = 'auto'; // Reset width
+      titleInput.value.style.width = titleInput.value.scrollWidth + 'px';
+    }
+  });
+};
+
+const initializeSize = () => {
+  if (titleInput.value) {
+    titleInput.value.style.height = '1em';
+    titleInput.value.style.width = '100%';
+  }
+};
+
+initializeSize();
+
+onMounted(() => {
+  adjustSize();
+});
+
 import type { Card, Task, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
@@ -448,7 +490,7 @@ const emit = defineEmits<{
 
 const columnID = ref("");
 const cardIndex = ref(0);
-const title = ref("");
+
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
 const selectedColor = ref("");
@@ -462,9 +504,6 @@ const autocompleteItems: Ref<Array<Tag>> = ref([]);
 const isCustomColor = computed(() => selectedColor.value.startsWith('#'));
 const customColor = ref("#ffffff");
 const showCustomColorPopup = ref(false);
-
-const titleEditing = ref(false);
-const titleInput: Ref<HTMLInputElement | null> = ref(null);
 
 const newTaskName = ref("");
 const taskAddMode = ref(false);
@@ -580,14 +619,7 @@ const updateDescription = () => {
     emitter.emit("modalEnableClickOutsideClose");
 }
 
-const updateTitle = () => {
-    emitter.emit("modalEnableClickOutsideClose");
 
-    if (title.value == null || !(/\S/.test(title.value))) return;
-
-    titleEditing.value = false;
-    emit("setCardTitle", columnID.value, cardIndex.value, title.value);
-}
 
 const setCardColor = (columnID: string, cardIndex: number, color: string) => {
     selectedColor.value = color;
@@ -780,5 +812,14 @@ input[type="color"]::-webkit-color-swatch {
     border-width: 2px;
     border-style: solid;
     border-color: var(--text);
+}
+.textarea-autosize {
+    
+  overflow: hidden;
+  resize: none;
+  min-height: 1em;
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0; 
 }
 </style>
