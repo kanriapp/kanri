@@ -45,7 +45,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         class="text-medium text-dim-1 mb-2 text-lg"
                         for="boardName"
                     >Board Name</label>
-                    <input
+                    <textarea
+                        rows="1"
+                        cols="50"
                         id="boardName"
                         ref="boardNameInput"
                         v-model="newBoardName"
@@ -54,7 +56,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         placeholder="Board Name"
                         type="text"
                         autofocus
-                    >
+                        @input="adjustSize"
+                    ></textarea>
                 </section>
                 <section
                     id="buttons"
@@ -79,6 +82,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, nextTick } from 'vue';
+
+const titleEditing = ref(true);
+const title = ref('');
+const titleInput = ref<HTMLTextAreaElement | null>(null);
+
+const adjustSize = () => {
+  nextTick(() => {
+    if (boardNameInput.value) {
+        boardNameInput.value.style.height = 'auto'; // Reset height
+        boardNameInput.value.style.height = boardNameInput.value.scrollHeight + 'px';
+        boardNameInput.value.style.width = 'auto'; // Reset width
+        boardNameInput.value.style.width = boardNameInput.value.scrollWidth + 'px';
+    }
+  });
+};
+
+const initializeSize = () => {
+  if (titleInput.value) {
+    titleInput.value.style.height = '1em';
+    titleInput.value.style.width = '100%';
+  }
+};
+
+initializeSize();
+
+onMounted(() => {
+  adjustSize();
+});
+
 import type { Board } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
@@ -126,3 +159,15 @@ const closeModal = () => {
     emit("closeModal");
 }
 </script>
+
+<style scoped>
+.textarea-autosize {
+    
+    overflow: hidden;
+    resize: none;
+    min-height: 1em;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0; 
+  }
+</style>
