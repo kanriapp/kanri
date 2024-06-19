@@ -177,22 +177,22 @@ limitations under the License.
                             <h1
                                 v-if="!titleEditing"
                                 :v-model="title"
-                                class="text-no-overflow pointer-events-auto min-w-[64px] pr-5 text-2xl font-bold"
+                                class="text-no-overflow pointer-events-auto min-w-[64px] max-w-[475px] pr-5 text-2xl font-bold"
                                 @click="enableTitleEditing()"
                             >
                                 {{ title }}
                             </h1>
-                            <input
+                            <textarea
                                 v-if="titleEditing"
-                                ref="titleInput"
+                                ref="titleTextArea"
                                 v-model="title"
                                 v-focus
-                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
+                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-[450px] text-xl focus:border-2 focus:border-dotted focus:outline-none"
                                 maxlength="1000"
                                 type="text"
                                 @blur="updateTitle"
                                 @keypress.enter="updateTitle"
-                            >
+                            />
                         </div>
                         <XMarkIcon
                             class="text-accent-hover size-6 shrink-0 cursor-pointer"
@@ -448,7 +448,7 @@ const emit = defineEmits<{
 
 const columnID = ref("");
 const cardIndex = ref(0);
-const title = ref("");
+const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
 const selectedColor = ref("");
@@ -464,7 +464,6 @@ const customColor = ref("#ffffff");
 const showCustomColorPopup = ref(false);
 
 const titleEditing = ref(false);
-const titleInput: Ref<HTMLInputElement | null> = ref(null);
 
 const newTaskName = ref("");
 const taskAddMode = ref(false);
@@ -765,6 +764,15 @@ watch(props, (newVal) => {
 </style>
 
 <style scoped>
+textarea {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
 input[type="color"] {
     -webkit-appearance: none;
     appearance: none;
