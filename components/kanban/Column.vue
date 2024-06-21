@@ -405,13 +405,13 @@ const addCard = () => {
     }
     else {
         cards.value[cards.value.length] = { id: generateUniqueID(), name: newCardName.value };
+        scrollCardIntoView();
     }
 
     newCardName.value = "";
     cardAddMode.value = false;
     cardAddModeAddToTopOfColumn.value = false;
     updateStorage();
-    scrollCardIntoView();
 };
 
 const scrollCardIntoView = () => {
