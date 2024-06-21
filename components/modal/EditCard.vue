@@ -256,6 +256,8 @@ limitations under the License.
                             v-model="description"
                             @editorBlurred="updateDescription"
                         />
+                    </div>
+                    <div>
                         <div class="mb-1 mt-4 flex flex-row items-center gap-2">
                             <h2
                                 class="text-lg font-semibold"
@@ -270,7 +272,7 @@ limitations under the License.
                         <ProgressRoot
                             v-if="tasks"
                             v-model="getTaskPercentage"
-                            class="bg-elevation-2 relative mb-4 h-2 w-full overflow-hidden rounded-full"
+                            class="bg-elevation-2 relative mb-4 h-2 w-[96%] overflow-hidden rounded-full"
                             style="transform: translateZ(0)"
                         >
                             <ProgressIndicator
@@ -283,7 +285,7 @@ limitations under the License.
                         >
                             <div
                                 v-if="tasks && tasks.length !== 0"
-                                class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1"
+                                class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1 pr-6"
                             >
                                 <Container
                                     drag-class="cursor-grabbing"
@@ -362,7 +364,7 @@ limitations under the License.
                                 ref="newTaskInput"
                                 v-model="newTaskName"
                                 v-focus
-                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-[96%] rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
                                 maxlength="1000"
                                 placeholder="Enter a task name..."
                                 type="text"
@@ -384,7 +386,7 @@ limitations under the License.
                             </div>
                             <button
                                 v-if="!taskAddMode"
-                                class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-1 pr-2"
+                                class="bg-elevation-1 bg-elevation-2-hover mr-8 mt-1 flex h-min w-[96%] cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-0.5 pr-2"
                                 @click="enableTaskAddMode"
                             >
                                 <PlusIcon class="text-accent size-6" />
