@@ -4353,9 +4353,9 @@ eslint-plugin-regexp@^2.5.0:
     scslre "^0.3.0"
 
 eslint-plugin-tailwindcss@^3.8.0:
-  version "3.17.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-3.17.3.tgz#0cb4cf03a4415dca10389459cae34ecdbc84511b"
-  integrity sha512-DVMVVUFQ+lPraRSuUk2I41XMnusXT6b3WaQZYlUHduULnERaqe9sNfmpRY1IyxlzmKoQxSbZ8IHRhl9ePo8PeA==
+  version "3.17.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-3.17.4.tgz#363d2a5d15e80b4cb1bb67054430a8a6e562c014"
+  integrity sha512-gJAEHmCq2XFfUP/+vwEfEJ9igrPeZFg+skeMtsxquSQdxba9XRk5bn0Bp9jxG1VV9/wwPKi1g3ZjItu6MIjhNg==
   dependencies:
     fast-glob "^3.2.5"
     postcss "^8.4.4"
