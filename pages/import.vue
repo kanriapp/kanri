@@ -201,6 +201,8 @@ const exportJSON = async () => {
 
     if (filePath == null) return;
     await writeTextFile(filePath, fileContents);
+
+    await message("Successfully exported your data.", {type: 'info'});
 };
 
 const importFromKanriFull = async () => {
@@ -254,10 +256,10 @@ const importFromKanriFull = async () => {
     store.set("addToTopOfColumnButtonEnabled", zodParsed.addToTopOfColumnButtonEnabled);
     store.set("displayColumnCardCountEnabled", zodParsed.displayColumnCardCountEnabled);
 
+    await message("Successfully imported your data.", {type: 'info'});
+
     // Manual refresh
     router.go(0);
-
-    // TODO: Add toast indicating success
 }
 
 const importFromKanbanElectronFull = async () => {
@@ -319,10 +321,10 @@ const importFromKanbanElectronFull = async () => {
         store.set("columnZoomLevel", zodParsed.columnZoomLevel);
     }
 
+    await message("Successfully imported your board.", {type: 'info'});
+
     // Manual refresh
     router.go(0);
-
-    // TODO: Add toast indicating success
 }
 
 const importFromKanriBoard = async () => {
@@ -395,7 +397,7 @@ const importFromKanriBoard = async () => {
 
     await store.set("boards", convertedBoards);
 
-    // TODO: Add toast indicating success
+    await message("Successfully imported your board.", {type: 'info'});
 }
 
 const kanriParse = async (board: string) => {
@@ -467,10 +469,10 @@ const importFromTrelloBoard = async () => {
 
     await store.set("boards", convertedBoards);
 
+    await message("Successfully imported your board.", {type: 'info'});
+
     // Manual refresh
     router.go(0);
-
-    // TODO: Add toast indicating success
 }
 
 const trelloParse = async (board: string) => {
