@@ -70,7 +70,9 @@ limitations under the License.
             class="-ml-0.5 -mt-0.5 mb-1 flex flex-row flex-wrap items-center gap-1"
             @click="$emit('openEditCardModal', index, card)"
         >
-            <div v-for="tag in cardTags" :key="tag.id" :style="tag.style" class="text-normal bg-elevation-3 rounded-xl px-2 py-0.5 text-xs">{{ tag.text }}</div>
+            <div v-for="tag in cardTags" :key="tag.id">
+                <KanbanTagDisplay :tag="tag"/>
+            </div>
         </div>
 
         <div
