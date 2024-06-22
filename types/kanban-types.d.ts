@@ -20,12 +20,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 export declare interface Board {
-    background?: BackgroundSettings,
+    background?: BackgroundSettings | null,
     columns: Array<Column>,
     id: string,
     lastEdited?: Date | string
     title: string,
-    globalTags?: Array<Tag>
+    globalTags?: Array<Tag> | null
 }
 
 export declare interface BackgroundSettings {
