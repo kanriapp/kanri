@@ -67,10 +67,10 @@ const kanriBoardBackgroundSchema = z.object({
     blur: z.string(),
     brightness: z.string(),
     src: z.string()
-}).optional();
+}).optional().nullable();
 
 export const kanriBoardSchema = z.object({
-    globalTags: z.array(kanriTagSchema),
+    globalTags: z.array(kanriTagSchema).optional().nullable(),
     background: kanriBoardBackgroundSchema,
     columns: z.array(kanriColumnSchema),
     id: z.string(),
