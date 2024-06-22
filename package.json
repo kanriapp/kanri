@@ -21,7 +21,7 @@
         "@nuxt/eslint-config": "0.3.13",
         "@nuxtjs/tailwindcss": "6.12.0",
         "@tauri-apps/cli": "1.5.14",
-        "@types/node": "^18.11.18",
+        "@types/node": "^20.14.7",
         "@vueuse/core": "^10.2.1",
         "@vueuse/nuxt": "^10.2.1",
         "eslint": "9.5.0",
