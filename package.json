@@ -1,7 +1,7 @@
 {
     "name": "kanri",
     "private": true,
-    "version": "0.7.0",
+    "version": "0.7.1",
     "description": "Offline-first Kanban board desktop app",
     "author": "trobonox <hello@trobo.dev>",
     "license": "GPL-3.0",
