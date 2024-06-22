@@ -50,7 +50,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
         <pre>
 Name: @vue/shared
-Version: 3.4.27
+Version: 3.4.29
 License: MIT
 Private: false
 Description: internal utils shared across @vue packages
@@ -85,7 +85,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/reactivity
-Version: 3.4.27
+Version: 3.4.29
 License: MIT
 Private: false
 Description: @vue/reactivity
@@ -120,7 +120,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-core
-Version: 3.4.27
+Version: 3.4.29
 License: MIT
 Private: false
 Description: @vue/runtime-core
@@ -155,7 +155,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-dom
-Version: 3.4.27
+Version: 3.4.29
 License: MIT
 Private: false
 Description: @vue/runtime-dom
@@ -355,7 +355,7 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.12.1
+Version: 3.12.2
 License: MIT
 Private: false
 Description: Nuxt is a free and open-source framework with an intuitive and extendable way to create type-safe, performant and production-grade full-stack web applications and websites with Vue.js.
@@ -507,7 +507,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 Name: @unhead/shared
-Version: 1.9.12
+Version: 1.9.13
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -541,7 +541,7 @@ SOFTWARE.
 ---
 
 Name: @unhead/dom
-Version: 1.9.12
+Version: 1.9.13
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -575,7 +575,7 @@ SOFTWARE.
 ---
 
 Name: unhead
-Version: 1.9.12
+Version: 1.9.13
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -609,7 +609,7 @@ SOFTWARE.
 ---
 
 Name: @unhead/vue
-Version: 1.9.12
+Version: 1.9.13
 License: MIT
 Private: false
 Repository: git+https://github.com/unjs/unhead.git
@@ -1218,7 +1218,7 @@ SOFTWARE.
 ---
 
 Name: @heroicons/vue
-Version: 2.1.3
+Version: 2.1.4
 License: MIT
 Private: false
 Repository: https://github.com/tailwindlabs/heroicons.git
@@ -1284,7 +1284,7 @@ SOFTWARE.
 ---
 
 Name: vue
-Version: 3.4.27
+Version: 3.4.29
 License: MIT
 Private: false
 Description: The progressive JavaScript framework for building modern web UI.
@@ -1319,7 +1319,7 @@ THE SOFTWARE.
 ---
 
 Name: @vueuse/shared
-Version: 10.10.1
+Version: 10.11.0
 License: MIT
 Private: false
 Repository: git+https://github.com/vueuse/vueuse.git
@@ -1353,7 +1353,7 @@ SOFTWARE.
 ---
 
 Name: @vueuse/core
-Version: 10.10.1
+Version: 10.11.0
 License: MIT
 Private: false
 Description: Collection of essential Vue Composition Utilities
@@ -2016,7 +2016,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @vueuse/components
-Version: 10.10.0
+Version: 10.11.0
 License: MIT
 Private: false
 Description: Renderless components for VueUse
@@ -2623,7 +2623,7 @@ SOFTWARE.
 ---
 
 Name: radix-vue
-Version: 1.8.3
+Version: 1.8.4
 License: MIT
 Private: false
 Description: Vue port for Radix UI Primitives.
@@ -2876,6 +2876,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
         </pre>
     </div>
 </template>
