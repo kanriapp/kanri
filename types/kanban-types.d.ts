@@ -20,12 +20,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 export declare interface Board {
-    background?: BackgroundSettings,
+    background?: BackgroundSettings | null,
     columns: Array<Column>,
     id: string,
     lastEdited?: Date | string
     title: string,
-    globalTags?: Array<Tag>
+    globalTags?: Array<Tag> | null
 }
 
 export declare interface BackgroundSettings {
@@ -56,7 +56,7 @@ export declare interface Tag {
 export declare interface Card {
     color?: string
     description?: string,
-    dueDate?: Date | null,
+    dueDate?: Date | string | null,
     id?: string,
     isDueDateCounterRelative?: boolean
     name: string,

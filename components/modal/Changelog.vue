@@ -44,22 +44,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </p>
                 <p>
                     <br>
-                    <spam class="text-xl font-bold">New features:</spam>
+                    <span class="text-xl font-bold">Changes:</span>
                     <ul>
                         <li>
-                            New logo
+                            Improved text contrast for card tags
                         </li>
                         <li>
-                            Card tags
+                            Import tags and due date from Trello® boards
                         </li>
                         <li>
-                            Due dates on cards (without reminders for now)
+                            Search bar now also includes card tags in search
                         </li>
                         <li>
-                            Search bar for cards
-                        </li>
-                        <li>
-                            And much more... (full changelog on GitHub or the Discord announcement)
+                            Remove scrolling to the bottom of a column when adding cards at the top
                         </li>
                     </ul>
                 </p>

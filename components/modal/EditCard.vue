@@ -177,22 +177,22 @@ limitations under the License.
                             <h1
                                 v-if="!titleEditing"
                                 :v-model="title"
-                                class="text-no-overflow pointer-events-auto min-w-[64px] pr-5 text-2xl font-bold"
+                                class="text-no-overflow pointer-events-auto min-w-[64px] max-w-[475px] pr-5 text-2xl font-bold"
                                 @click="enableTitleEditing()"
                             >
                                 {{ title }}
                             </h1>
-                            <input
+                            <textarea
                                 v-if="titleEditing"
-                                ref="titleInput"
+                                ref="titleTextArea"
                                 v-model="title"
                                 v-focus
-                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto text-xl focus:border-2 focus:border-dotted focus:outline-none"
+                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-[450px] text-xl focus:border-2 focus:border-dotted focus:outline-none"
                                 maxlength="1000"
                                 type="text"
                                 @blur="updateTitle"
                                 @keypress.enter="updateTitle"
-                            >
+                            />
                         </div>
                         <XMarkIcon
                             class="text-accent-hover size-6 shrink-0 cursor-pointer"
@@ -256,6 +256,8 @@ limitations under the License.
                             v-model="description"
                             @editorBlurred="updateDescription"
                         />
+                    </div>
+                    <div>
                         <div class="mb-1 mt-4 flex flex-row items-center gap-2">
                             <h2
                                 class="text-lg font-semibold"
@@ -270,7 +272,7 @@ limitations under the License.
                         <ProgressRoot
                             v-if="tasks"
                             v-model="getTaskPercentage"
-                            class="bg-elevation-2 relative mb-4 h-2 w-full overflow-hidden rounded-full"
+                            class="bg-elevation-2 relative mb-4 h-2 w-[96%] overflow-hidden rounded-full"
                             style="transform: translateZ(0)"
                         >
                             <ProgressIndicator
@@ -283,7 +285,7 @@ limitations under the License.
                         >
                             <div
                                 v-if="tasks && tasks.length !== 0"
-                                class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1"
+                                class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1 pr-6"
                             >
                                 <Container
                                     drag-class="cursor-grabbing"
@@ -362,7 +364,7 @@ limitations under the License.
                                 ref="newTaskInput"
                                 v-model="newTaskName"
                                 v-focus
-                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+                                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-[96%] rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
                                 maxlength="1000"
                                 placeholder="Enter a task name..."
                                 type="text"
@@ -384,7 +386,7 @@ limitations under the License.
                             </div>
                             <button
                                 v-if="!taskAddMode"
-                                class="bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-1 pr-2"
+                                class="bg-elevation-1 bg-elevation-2-hover mr-8 mt-1 flex h-min w-[96%] cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-0.5 pr-2"
                                 @click="enableTaskAddMode"
                             >
                                 <PlusIcon class="text-accent size-6" />
@@ -448,7 +450,7 @@ const emit = defineEmits<{
 
 const columnID = ref("");
 const cardIndex = ref(0);
-const title = ref("");
+const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
 const selectedColor = ref("");
@@ -464,7 +466,6 @@ const customColor = ref("#ffffff");
 const showCustomColorPopup = ref(false);
 
 const titleEditing = ref(false);
-const titleInput: Ref<HTMLInputElement | null> = ref(null);
 
 const newTaskName = ref("");
 const taskAddMode = ref(false);
@@ -765,6 +766,15 @@ watch(props, (newVal) => {
 </style>
 
 <style scoped>
+textarea {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
 input[type="color"] {
     -webkit-appearance: none;
     appearance: none;

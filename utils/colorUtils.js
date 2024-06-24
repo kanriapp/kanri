@@ -2,6 +2,23 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+let colorMap = new Map()
+                .set("green", "#16a34a")
+                .set("purple", "#9333ea")
+                .set("blue", "#2563eb")
+                .set("sky", "#0284c7")
+                .set("red", "#dc2626")
+                .set("black", "#333338")
+                .set("orange", "#ea580c")
+                .set("yellow", "#eab308")
+                .set("pink", "#db2777")
+                .set("lime", "#65a30d")
+
+
+export const cssColorStringToHex = (colorString) => {
+    return colorMap.get(colorString);
+}
+
 export const lightenColor = (col, amt) => {
     col = col.replace(/^#/, "");
     if (col.length === 3) col = col[0] + col[0] + col[1] + col[1] + col[2] + col[2];

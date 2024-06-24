@@ -116,6 +116,7 @@ export default {
     height: 148px;
     overflow: auto;
     padding: 4px;
+    resize: vertical;
 }
 
  .tiptap ul, .tiptap ol {
@@ -160,5 +161,4 @@ export default {
 .tiptap ul {
     list-style-type: disc;
 }
-
 </style>

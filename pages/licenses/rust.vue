@@ -34,10 +34,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             Overview of licenses:
         </h2>
         <ul class="licenses-overview mb-8">
-            <li><a href="#MIT">MIT License</a> (57)</li>
-            <li><a href="#Apache-2.0">Apache License 2.0</a> (41)</li>
+            <li><a href="#Apache-2.0">Apache License 2.0</a> (278)</li>
+            <li><a href="#MIT">MIT License</a> (130)</li>
+            <li><a href="#MPL-2.0">Mozilla Public License 2.0</a> (5)</li>
             <li><a href="#BSD-3-Clause">BSD 3-Clause &quot;New&quot; or &quot;Revised&quot; License</a> (4)</li>
-            <li><a href="#MPL-2.0">Mozilla Public License 2.0</a> (3)</li>
             <li><a href="#GPL-3.0">GNU General Public License v3.0 only</a> (1)</li>
             <li><a href="#Unicode-DFS-2016">Unicode License Agreement - Data Files and Software (2016)</a> (1)</li>
         </ul>
@@ -242,13 +242,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <li><a href=" https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide ">miniz_oxide 0.7.1</a></li>
                     <li><a href=" https://github.com/taiki-e/pin-project-lite ">pin-project-lite 0.2.13</a></li>
                     <li><a href=" https://github.com/rust-windowing/raw-window-handle ">raw-window-handle 0.5.2</a></li>
-                    <li><a href=" https://github.com/tauri-apps/tauri ">tauri 1.6.8</a></li>
                     <li><a href=" https://github.com/tauri-apps/tauri/tree/dev/core/tauri-build ">tauri-build 1.5.2</a></li>
                     <li><a href=" https://github.com/tauri-apps/tauri/tree/dev/core/tauri-codegen ">tauri-codegen 1.4.3</a></li>
                     <li><a href=" https://github.com/tauri-apps/tauri ">tauri-macros 1.4.4</a></li>
-                    <li><a href=" https://github.com/tauri-apps/tauri ">tauri-runtime 0.14.3</a></li>
                     <li><a href=" https://github.com/tauri-apps/tauri ">tauri-runtime-wry 0.14.8</a></li>
+                    <li><a href=" https://github.com/tauri-apps/tauri ">tauri-runtime 0.14.3</a></li>
                     <li><a href=" https://github.com/tauri-apps/tauri ">tauri-utils 1.5.4</a></li>
+                    <li><a href=" https://github.com/tauri-apps/tauri ">tauri 1.6.8</a></li>
                 </ul>
                 <pre class="license-text">
                                  Apache License
@@ -644,8 +644,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
                     <li><a href=" https://github.com/jhpratt/deranged ">deranged 0.3.10</a></li>
-                    <li><a href=" https://github.com/time-rs/time ">time 0.3.30</a></li>
                     <li><a href=" https://github.com/time-rs/time ">time-core 0.1.2</a></li>
+                    <li><a href=" https://github.com/time-rs/time ">time 0.3.30</a></li>
                 </ul>
                 <pre class="license-text">
                                  Apache License
@@ -1671,9 +1671,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <h3 id="Apache-2.0">Apache License 2.0</h3>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
-                    <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.37.0</a></li>
-                    <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.39.0</a></li>
-                    <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.48.0</a></li>
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.42.0</a></li>
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.45.0</a></li>
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows-sys 0.48.0</a></li>
@@ -1682,6 +1679,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows-targets 0.48.5</a></li>
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows-targets 0.52.0</a></li>
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows-version 0.1.0</a></li>
+                    <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.37.0</a></li>
+                    <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.39.0</a></li>
+                    <li><a href=" https://github.com/microsoft/windows-rs ">windows 0.48.0</a></li>
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_gnullvm 0.42.2</a></li>
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_gnullvm 0.48.5</a></li>
                     <li><a href=" https://github.com/microsoft/windows-rs ">windows_aarch64_gnullvm 0.52.0</a></li>
@@ -2121,8 +2121,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <h3 id="Apache-2.0">Apache License 2.0</h3>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
-                    <li><a href=" https://github.com/chippers/serialize-to-javascript ">serialize-to-javascript 0.1.1</a></li>
                     <li><a href=" https://github.com/chippers/serialize-to-javascript ">serialize-to-javascript-impl 0.1.1</a></li>
+                    <li><a href=" https://github.com/chippers/serialize-to-javascript ">serialize-to-javascript 0.1.1</a></li>
                     <li><a href=" https://github.com/1Password/sys-locale ">sys-locale 0.2.4</a></li>
                 </ul>
                 <pre class="license-text">                                 Apache License
@@ -2543,8 +2543,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
                     <li><a href=" https://github.com/srijs/rust-crc32fast ">crc32fast 1.3.2</a></li>
-                    <li><a href=" https://github.com/sfackler/foreign-types ">foreign-types 0.3.2</a></li>
                     <li><a href=" https://github.com/sfackler/foreign-types ">foreign-types-shared 0.1.1</a></li>
+                    <li><a href=" https://github.com/sfackler/foreign-types ">foreign-types 0.3.2</a></li>
                     <li><a href=" https://github.com/sfackler/rust-jni-sys ">jni-sys 0.3.0</a></li>
                     <li><a href=" https://github.com/toml-rs/toml ">serde_spanned 0.6.4</a></li>
                     <li><a href=" https://github.com/toml-rs/toml ">toml 0.7.8</a></li>
@@ -2970,10 +2970,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <h3 id="Apache-2.0">Apache License 2.0</h3>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
-                    <li><a href=" https://github.com/soc/dirs-rs ">dirs 4.0.0</a></li>
                     <li><a href=" https://github.com/xdg-rs/dirs ">dirs-next 2.0.0</a></li>
-                    <li><a href=" https://github.com/dirs-dev/dirs-sys-rs ">dirs-sys 0.3.7</a></li>
                     <li><a href=" https://github.com/xdg-rs/dirs/tree/master/dirs-sys ">dirs-sys-next 0.1.2</a></li>
+                    <li><a href=" https://github.com/dirs-dev/dirs-sys-rs ">dirs-sys 0.3.7</a></li>
+                    <li><a href=" https://github.com/soc/dirs-rs ">dirs 4.0.0</a></li>
                 </ul>
                 <pre class="license-text">                              Apache License
                         Version 2.0, January 2004
@@ -3171,8 +3171,8 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
                     <li><a href=" https://github.com/serde-rs/json ">serde_json 1.0.117</a></li>
                     <li><a href=" https://github.com/dtolnay/serde-repr ">serde_repr 0.1.17</a></li>
                     <li><a href=" https://github.com/dtolnay/syn ">syn 2.0.66</a></li>
-                    <li><a href=" https://github.com/dtolnay/thiserror ">thiserror 1.0.50</a></li>
                     <li><a href=" https://github.com/dtolnay/thiserror ">thiserror-impl 1.0.50</a></li>
+                    <li><a href=" https://github.com/dtolnay/thiserror ">thiserror 1.0.50</a></li>
                     <li><a href=" https://github.com/dtolnay/unicode-ident ">unicode-ident 1.0.12</a></li>
                     <li><a href=" https://github.com/SimonSapin/rust-utf8 ">utf-8 0.7.6</a></li>
                 </ul>
@@ -4828,7 +4828,6 @@ limitations under the License.
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
                     <li><a href=" https://github.com/gimli-rs/addr2line ">addr2line 0.21.0</a></li>
-                    <li><a href=" https://github.com/tkaitchuck/ahash ">ahash 0.7.8</a></li>
                     <li><a href=" https://github.com/bluss/arrayvec ">arrayvec 0.7.4</a></li>
                     <li><a href=" https://github.com/cuviper/autocfg ">autocfg 1.1.0</a></li>
                     <li><a href=" https://github.com/rust-lang/backtrace-rs ">backtrace 0.3.69</a></li>
@@ -4840,17 +4839,18 @@ limitations under the License.
                     <li><a href=" https://github.com/fitzgen/bumpalo ">bumpalo 3.14.0</a></li>
                     <li><a href=" https://github.com/rust-lang/cc-rs ">cc 1.0.83</a></li>
                     <li><a href=" https://github.com/alexcrichton/cfg-if ">cfg-if 1.0.0</a></li>
-                    <li><a href=" https://github.com/servo/core-foundation-rs ">cocoa 0.24.1</a></li>
                     <li><a href=" https://github.com/servo/core-foundation-rs ">cocoa-foundation 0.1.2</a></li>
-                    <li><a href=" https://github.com/servo/core-foundation-rs ">core-foundation 0.9.4</a></li>
+                    <li><a href=" https://github.com/servo/core-foundation-rs ">cocoa 0.24.1</a></li>
                     <li><a href=" https://github.com/servo/core-foundation-rs ">core-foundation-sys 0.8.6</a></li>
-                    <li><a href=" https://github.com/servo/core-foundation-rs ">core-graphics 0.22.3</a></li>
+                    <li><a href=" https://github.com/servo/core-foundation-rs ">core-foundation 0.9.4</a></li>
                     <li><a href=" https://github.com/servo/core-foundation-rs ">core-graphics-types 0.1.3</a></li>
+                    <li><a href=" https://github.com/servo/core-foundation-rs ">core-graphics 0.22.3</a></li>
                     <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-channel 0.5.8</a></li>
                     <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-deque 0.8.3</a></li>
                     <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-epoch 0.9.15</a></li>
                     <li><a href=" https://github.com/crossbeam-rs/crossbeam ">crossbeam-utils 0.8.16</a></li>
                     <li><a href=" https://github.com/cuviper/equivalent ">equivalent 1.0.1</a></li>
+                    <li><a href=" https://github.com/lambda-fairy/rust-errno ">errno 0.3.8</a></li>
                     <li><a href=" https://github.com/smol-rs/fastrand ">fastrand 2.0.1</a></li>
                     <li><a href=" https://github.com/alexcrichton/filetime ">filetime 0.2.23</a></li>
                     <li><a href=" https://github.com/rust-lang/flate2-rs ">flate2 1.0.28</a></li>
@@ -4890,10 +4890,10 @@ limitations under the License.
                     <li><a href=" https://github.com/rust-lang/pkg-config-rs ">pkg-config 0.3.27</a></li>
                     <li><a href=" https://github.com/image-rs/image-png.git ">png 0.17.10</a></li>
                     <li><a href=" https://github.com/dtolnay/proc-macro-hack ">proc-macro-hack 0.5.20+deprecated</a></li>
-                    <li><a href=" https://github.com/rust-lang/regex ">regex 1.10.2</a></li>
                     <li><a href=" https://github.com/rust-lang/regex/tree/master/regex-automata ">regex-automata 0.4.3</a></li>
                     <li><a href=" https://github.com/rust-lang/regex ">regex-syntax 0.6.29</a></li>
                     <li><a href=" https://github.com/rust-lang/regex/tree/master/regex-syntax ">regex-syntax 0.8.2</a></li>
+                    <li><a href=" https://github.com/rust-lang/regex ">regex 1.10.2</a></li>
                     <li><a href=" https://github.com/alexcrichton/rustc-demangle ">rustc-demangle 0.1.23</a></li>
                     <li><a href=" https://github.com/Kimundi/rustc-version-rs ">rustc_version 0.4.0</a></li>
                     <li><a href=" https://github.com/bytecodealliance/rustix ">rustix 0.38.27</a></li>
@@ -4925,12 +4925,12 @@ limitations under the License.
                     <li><a href=" https://github.com/SergioBenitez/version_check ">version_check 0.9.4</a></li>
                     <li><a href=" https://github.com/bytecodealliance/wasi ">wasi 0.11.0+wasi-snapshot-preview1</a></li>
                     <li><a href=" https://github.com/bytecodealliance/wasi ">wasi 0.9.0+wasi-snapshot-preview1</a></li>
-                    <li><a href=" https://github.com/rustwasm/wasm-bindgen ">wasm-bindgen 0.2.89</a></li>
                     <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/backend ">wasm-bindgen-backend 0.2.89</a></li>
                     <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/futures ">wasm-bindgen-futures 0.4.39</a></li>
-                    <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/macro ">wasm-bindgen-macro 0.2.89</a></li>
                     <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/macro-support ">wasm-bindgen-macro-support 0.2.89</a></li>
+                    <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/macro ">wasm-bindgen-macro 0.2.89</a></li>
                     <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/shared ">wasm-bindgen-shared 0.2.89</a></li>
+                    <li><a href=" https://github.com/rustwasm/wasm-bindgen ">wasm-bindgen 0.2.89</a></li>
                     <li><a href=" https://github.com/rustwasm/wasm-bindgen/tree/master/crates/web-sys ">web-sys 0.3.66</a></li>
                     <li><a href=" https://github.com/tauri-apps/wry ">wry 0.24.10</a></li>
                     <li><a href=" https://github.com/Stebalien/xattr ">xattr 1.0.1</a></li>
@@ -7248,9 +7248,9 @@ additional terms or conditions.
                     <li><a href=" https://github.com/cbreeden/fxhash ">fxhash 0.2.1</a></li>
                     <li><a href=" https://github.com/TedDriggs/ident_case ">ident_case 1.0.1</a></li>
                     <li><a href=" https://github.com/reem/rust-mac.git ">mac 0.1.1</a></li>
-                    <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk 0.6.0</a></li>
                     <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk-context 0.1.1</a></li>
                     <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk-sys 0.3.0</a></li>
+                    <li><a href=" https://github.com/rust-windowing/android-ndk-rs ">ndk 0.6.0</a></li>
                     <li><a href=" https://github.com/servo/servo ">servo_arc 0.1.1</a></li>
                     <li><a href=" https://github.com/jedisct1/rust-siphash ">siphasher 0.3.11</a></li>
                     <li><a href=" https://github.com/tauri-apps/tao ">tao-macros 0.1.2</a></li>
@@ -8200,11 +8200,11 @@ SOFTWARE.
                 <h3 id="MIT">MIT License</h3>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
-                    <li><a href=" https://github.com/tokio-rs/tracing ">tracing 0.1.40</a></li>
                     <li><a href=" https://github.com/tokio-rs/tracing ">tracing-attributes 0.1.27</a></li>
                     <li><a href=" https://github.com/tokio-rs/tracing ">tracing-core 0.1.32</a></li>
                     <li><a href=" https://github.com/tokio-rs/tracing ">tracing-log 0.2.0</a></li>
                     <li><a href=" https://github.com/tokio-rs/tracing ">tracing-subscriber 0.3.18</a></li>
+                    <li><a href=" https://github.com/tokio-rs/tracing ">tracing 0.1.40</a></li>
                 </ul>
                 <pre class="license-text">Copyright (c) 2019 Tokio Contributors
 
@@ -8621,8 +8621,8 @@ SOFTWARE.
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
                     <li><a href=" http://github.com/SSheldon/rust-block ">block 0.1.6</a></li>
-                    <li><a href=" https://github.com/dropbox/rust-brotli ">brotli 3.4.0</a></li>
                     <li><a href=" https://github.com/dropbox/rust-brotli-decompressor ">brotli-decompressor 2.5.1</a></li>
+                    <li><a href=" https://github.com/dropbox/rust-brotli ">brotli 3.4.0</a></li>
                     <li><a href=" https://github.com/rutrum/convert-case ">convert_case 0.4.0</a></li>
                     <li><a href=" http://github.com/SSheldon/rust-dispatch ">dispatch 0.2.0</a></li>
                     <li><a href=" https://github.com/SSheldon/malloc_buf ">malloc_buf 0.0.6</a></li>
@@ -8641,9 +8641,9 @@ SOFTWARE.
                     <li><a href=" https://github.com/sfackler/rust-phf ">phf_shared 0.8.0</a></li>
                     <li><a href=" https://crates.io/crates/soup2-sys ">soup2-sys 0.2.0</a></li>
                     <li><a href=" https://github.com/tokio-rs/valuable ">valuable 0.1.0</a></li>
-                    <li><a href=" https://github.com/wravery/webview2-rs ">webview2-com 0.19.1</a></li>
                     <li><a href=" https://github.com/wravery/webview2-rs ">webview2-com-macros 0.6.0</a></li>
                     <li><a href=" https://github.com/wravery/webview2-rs ">webview2-com-sys 0.19.0</a></li>
+                    <li><a href=" https://github.com/wravery/webview2-rs ">webview2-com 0.19.1</a></li>
                 </ul>
                 <pre class="license-text">MIT License
 
@@ -8747,8 +8747,8 @@ SOFTWARE.</pre>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
                     <li><a href=" https://github.com/brave/kuchikiki ">kuchikiki 0.8.2</a></li>
-                    <li><a href=" https://github.com/AltF02/x11-rs.git ">x11 2.21.0</a></li>
                     <li><a href=" https://github.com/AltF02/x11-rs.git ">x11-dl 2.21.0</a></li>
+                    <li><a href=" https://github.com/AltF02/x11-rs.git ">x11 2.21.0</a></li>
                 </ul>
                 <pre class="license-text">Permission is hereby granted, free of charge, to any
 person obtaining a copy of this software and associated
@@ -8805,27 +8805,27 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 <h3 id="MIT">MIT License</h3>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
-                    <li><a href=" https://github.com/gtk-rs/gtk3-rs ">atk 0.15.1</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk3-rs ">atk-sys 0.15.1</a></li>
+                    <li><a href=" https://github.com/gtk-rs/gtk3-rs ">atk 0.15.1</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">cairo-rs 0.15.12</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">cairo-sys-rs 0.15.1</a></li>
-                    <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gdk 0.15.4</a></li>
-                    <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gdk-pixbuf 0.15.11</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gdk-pixbuf-sys 0.15.10</a></li>
+                    <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gdk-pixbuf 0.15.11</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gdk-sys 0.15.1</a></li>
+                    <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gdk 0.15.4</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gdkwayland-sys 0.15.3</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gdkx11-sys 0.15.1</a></li>
-                    <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gio 0.15.12</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gio-sys 0.15.10</a></li>
-                    <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">glib 0.15.12</a></li>
+                    <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gio 0.15.12</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">glib-macros 0.15.13</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">glib-sys 0.15.10</a></li>
+                    <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">glib 0.15.12</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">gobject-sys 0.15.10</a></li>
-                    <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gtk 0.15.5</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gtk-sys 0.15.3</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gtk3-macros 0.15.6</a></li>
-                    <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">pango 0.15.10</a></li>
+                    <li><a href=" https://github.com/gtk-rs/gtk3-rs ">gtk 0.15.5</a></li>
                     <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">pango-sys 0.15.10</a></li>
+                    <li><a href=" https://github.com/gtk-rs/gtk-rs-core ">pango 0.15.10</a></li>
                 </ul>
                 <pre class="license-text">Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &quot;Software&quot;), to deal
@@ -9302,8 +9302,8 @@ SOFTWARE.
                 <h3 id="MIT">MIT License</h3>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
-                    <li><a href=" https://github.com/nabijaczleweli/vswhom.rs ">vswhom 0.1.0</a></li>
                     <li><a href=" https://github.com/nabijaczleweli/vswhom-sys.rs ">vswhom-sys 0.1.2</a></li>
+                    <li><a href=" https://github.com/nabijaczleweli/vswhom.rs ">vswhom 0.1.0</a></li>
                 </ul>
                 <pre class="license-text">The MIT License (MIT)
 
@@ -9890,8 +9890,8 @@ Exhibit B - &quot;Incompatible With Secondary Licenses&quot; Notice
                 <h3 id="MPL-2.0">Mozilla Public License 2.0</h3>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
-                    <li><a href=" https://github.com/servo/rust-cssparser ">cssparser 0.27.2</a></li>
                     <li><a href=" https://github.com/servo/rust-cssparser ">cssparser-macros 0.6.1</a></li>
+                    <li><a href=" https://github.com/servo/rust-cssparser ">cssparser 0.27.2</a></li>
                 </ul>
                 <pre class="license-text">Mozilla Public License Version 2.0
 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;

@@ -315,7 +315,12 @@ const filteredCards = computed(() => {
     }
 
     return cards.value.filter((card) => {
-        return fuzzyMatch(props.cardSearchQuery ?? "", card.name);
+        const searchQuery = props.cardSearchQuery ?? "";
+        const cardName = card.name;
+        const cardTags = card.tags || [];
+
+        return fuzzyMatch(searchQuery, cardName) ||
+            cardTags.some(tag => tag.text.includes(searchQuery));
     });
 })
 
@@ -400,13 +405,13 @@ const addCard = () => {
     }
     else {
         cards.value[cards.value.length] = { id: generateUniqueID(), name: newCardName.value };
+        scrollCardIntoView();
     }
 
     newCardName.value = "";
     cardAddMode.value = false;
     cardAddModeAddToTopOfColumn.value = false;
     updateStorage();
-    scrollCardIntoView();
 };
 
 const scrollCardIntoView = () => {

@@ -419,7 +419,12 @@ const decreaseZoomLevel = () => {
 const keyDownListener = (e: KeyboardEvent) => {
     const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
     const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
-    const metaIsOnlyKeyPressed: boolean = e.key == "Meta"
+    const metaIsOnlyKeyPressed: boolean = e.key == "Meta";
+
+    // Disable reloads to prevent unintended data loss
+    if (e.key === "F5" || (controlOrMetaPressed && e.key === "R")) {
+        e.preventDefault();
+    }
 
     // All shortcuts need control as a required key, but we don't want only control to trigger something
     if (!controlOrMetaPressed || controlIsOnlyKeyPressed || metaIsOnlyKeyPressed) return;

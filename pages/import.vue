@@ -139,7 +139,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Board, Column } from "@/types/kanban-types";
+import type { Board, Column, Tag } from "@/types/kanban-types";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanbanElectronJsonSchema, kanriBoardSchema, kanriJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
@@ -171,22 +171,29 @@ const exportJSON = async () => {
 
     const savedBoards = await store.get("boards");
     const boardSortingOption = await store.get("boardSortingOption");
+    const reverseSorting = await store.get("reverseSorting");
     const activeTheme = await store.get("activeTheme");
     const colors = await store.get("colors");
     const savedCustomTheme = await store.get("savedCustomTheme");
     const columnZoomLevel = await store.get("columnZoomLevel");
     const lastInstalledVersion = await store.get("lastInstalledVersion");
-
+    const animationsEnabled = await store.get("animationsEnabled");
+    const addToTopOfColumnButtonEnabled = await store.get("addToTopOfColumnButtonEnabled");
+    const displayColumnCardCountEnabled = await store.get("displayColumnCardCountEnabled");
 
     const fileContents = JSON.stringify(
         {
-            activeTheme: activeTheme,
-            boardSortingOption: boardSortingOption,
+            activeTheme,
+            boardSortingOption,
             boards: savedBoards,
-            colors: colors,
-            columnZoomLevel: columnZoomLevel,
-            lastInstalledVersion: lastInstalledVersion,
-            savedCustomTheme: savedCustomTheme
+            colors,
+            columnZoomLevel,
+            lastInstalledVersion,
+            savedCustomTheme,
+            reverseSorting,
+            animationsEnabled,
+            addToTopOfColumnButtonEnabled,
+            displayColumnCardCountEnabled
         },
         null,
         2
@@ -194,6 +201,8 @@ const exportJSON = async () => {
 
     if (filePath == null) return;
     await writeTextFile(filePath, fileContents);
+
+    await message("Successfully exported your data.", {type: 'info'});
 };
 
 const importFromKanriFull = async () => {
@@ -238,23 +247,19 @@ const importFromKanriFull = async () => {
     store.set("boards", zodParsed.boards);
     store.set("colors", zodParsed.colors);
     store.set("activeTheme", zodParsed.activeTheme);
-    if (zodParsed.columnZoomLevel) {
-        store.set("columnZoomLevel", zodParsed.columnZoomLevel);
-    }
-    if (zodParsed.boardSortingOption) {
-        store.set("boardSortingOption", zodParsed.boardSortingOption);
-    }
-    if (zodParsed.savedCustomTheme) {
-        store.set("savedCustomTheme", zodParsed.savedCustomTheme);
-    }
-    if (zodParsed.lastInstalledVersion) {
-        store.set("lastInstalledVersion", zodParsed.lastInstalledVersion);
-    }
+    store.set("columnZoomLevel", zodParsed.columnZoomLevel);
+    store.set("boardSortingOption", zodParsed.boardSortingOption);
+    store.set("savedCustomTheme", zodParsed.savedCustomTheme);
+    store.set("lastInstalledVersion", zodParsed.lastInstalledVersion);
+    store.set("animationsEnabled", zodParsed.animationsEnabled);
+    store.set("reverseSorting", zodParsed.reverseSorting);
+    store.set("addToTopOfColumnButtonEnabled", zodParsed.addToTopOfColumnButtonEnabled);
+    store.set("displayColumnCardCountEnabled", zodParsed.displayColumnCardCountEnabled);
+
+    await message("Successfully imported your data.", {type: 'info'});
 
     // Manual refresh
     router.go(0);
-
-    // TODO: Add toast indicating success
 }
 
 const importFromKanbanElectronFull = async () => {
@@ -316,10 +321,10 @@ const importFromKanbanElectronFull = async () => {
         store.set("columnZoomLevel", zodParsed.columnZoomLevel);
     }
 
+    await message("Successfully imported your board.", {type: 'info'});
+
     // Manual refresh
     router.go(0);
-
-    // TODO: Add toast indicating success
 }
 
 const importFromKanriBoard = async () => {
@@ -392,7 +397,7 @@ const importFromKanriBoard = async () => {
 
     await store.set("boards", convertedBoards);
 
-    // TODO: Add toast indicating success
+    await message("Successfully imported your board.", {type: 'info'});
 }
 
 const kanriParse = async (board: string) => {
@@ -464,10 +469,10 @@ const importFromTrelloBoard = async () => {
 
     await store.set("boards", convertedBoards);
 
+    await message("Successfully imported your board.", {type: 'info'});
+
     // Manual refresh
     router.go(0);
-
-    // TODO: Add toast indicating success
 }
 
 const trelloParse = async (board: string) => {
@@ -541,17 +546,44 @@ const trelloParse = async (board: string) => {
             })
         }
 
+        const tags: Array<Tag> = [];
+        if (card.labels.length > 0) {
+            card.labels.forEach((label) => {
+                tags.push({
+                    id: label.id,
+                    text: label.name,
+                    color: cssColorStringToHex(label.color),
+                    style: `background-color: ${cssColorStringToHex(label.color)}`
+                });
+            })
+        }
+
         const kanriCard = {
             description: card.desc,
             id: card.id,
             name: card.name,
-            tasks: tasks
+            tasks: tasks,
+            tags: tags,
+            dueDate: card.due
         }
 
         selectedCol[0].cards.push(kanriCard);
     });
 
+    const globalTags: Board["globalTags"] = [];
+    zodParsed.labels.forEach((label) => {
+        if (label.name.length === 0) return;
+
+        globalTags.push({
+            id: label.id,
+            text: label.name,
+            color: cssColorStringToHex(label.color),
+            style: `background-color: ${cssColorStringToHex(label.color)}`
+        });
+    });
+
     const kanriBoard = {
+        globalTags: globalTags,
         columns: columns,
         id: generateUniqueID(),
         lastEdited: new Date().toISOString(),
