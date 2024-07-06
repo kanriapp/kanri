@@ -29,7 +29,7 @@
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
         "nuxt-better-optimize-deps": "^0.1.0",
-        "postcss-custom-properties": "13.3.11",
+        "postcss-custom-properties": "13.3.12",
         "rollup-plugin-license": "^3.0.1",
         "typescript": "^5.4.5"
     },
