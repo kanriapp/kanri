@@ -357,6 +357,8 @@ const themeIconClass = (theme: string) => {
 };
 
 const deleteAllData = async () => {
+    if (!deleteBoardModalVisible.value) return;
+
     await store.reset();
 
     activeTheme.value = "dark";
