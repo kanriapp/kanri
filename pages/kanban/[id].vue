@@ -601,8 +601,10 @@ const removeTag = (tagId: string) => {
 const setTagColor = (tagId: string, color: string) => {
     const tag = findObjectById<Tag>(board.value.globalTags || [], tagId);
 
+    const textColor = getContrast(color) === "text-gray-50" ? "#f4f4f5" : "#1e293b";
+
     tag.color = color;
-    tag.style = `background-color: ${color}`;
+    tag.style = `background-color: ${color}; color: ${textColor}`;
     updateStorage();
 
     emitter.emit("globalTagsUpdated", {tags: board.value.globalTags});
