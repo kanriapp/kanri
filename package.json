@@ -19,12 +19,12 @@
     "devDependencies": {
         "@nuxt/eslint": "^0.3.13",
         "@nuxt/eslint-config": "0.3.13",
-        "@nuxtjs/tailwindcss": "6.12.0",
+        "@nuxtjs/tailwindcss": "6.12.1",
         "@tauri-apps/cli": "1.6.0",
         "@types/node": "^20.14.7",
         "@vueuse/core": "^10.2.1",
         "@vueuse/nuxt": "^10.2.1",
-        "eslint": "9.6.0",
+        "eslint": "9.7.0",
         "eslint-plugin-perfectionist": "^2.2.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
@@ -35,16 +35,16 @@
     },
     "dependencies": {
         "@eslint/eslintrc": "^3.1.0",
-        "@heroicons/vue": "2.1.4",
+        "@heroicons/vue": "2.1.5",
         "@paralleldrive/cuid2": "^2.1.0",
         "@phosphor-icons/vue": "^2.1.6",
         "@pinia/nuxt": "0.5.1",
         "@popperjs/core": "^2.11.8",
         "@tauri-apps/api": "1.6.0",
-        "@tiptap/extension-typography": "2.4.0",
-        "@tiptap/pm": "2.4.0",
-        "@tiptap/starter-kit": "2.4.0",
-        "@tiptap/vue-3": "2.4.0",
+        "@tiptap/extension-typography": "2.5.4",
+        "@tiptap/pm": "2.5.4",
+        "@tiptap/starter-kit": "2.5.4",
+        "@tiptap/vue-3": "2.5.4",
         "@vojtechlanka/vue-tags-input": "^3",
         "mitt": "3.0.1",
         "pinia": "2.1.7",
@@ -58,9 +58,9 @@
         "zod": "^3.20.6"
     },
     "resolutions": {
-        "terser": "5.31.1",
+        "terser": "5.31.3",
         "undici": "6.19.2",
         "json5": "2.2.3",
-        "semver": "7.6.2"
+        "semver": "7.6.3"
     }
 }
