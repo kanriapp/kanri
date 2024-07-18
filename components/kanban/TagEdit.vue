@@ -46,10 +46,6 @@ const props = defineProps<{
 
 const tagColor = ref(props.tag.color);
 
-onMounted(() => {
-    console.log(props.tag.color);
-})
-
 const setTagColor = () => {
     console.log(tagColor.value);
     emit("setTagColor", props.tag.id, tagColor.value);
