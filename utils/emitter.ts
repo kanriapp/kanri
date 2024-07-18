@@ -37,7 +37,7 @@ type Events = {
 
     hideSidebarBackArrow: void;
 
-    globalTagsUpdated: { tags: Array<Tag> | undefined };
+    globalTagsUpdated: { tags: Array<Tag> | null | undefined };
 
     modalEnableClickOutsideClose: void;
     modalPreventClickOutsideClose: void;
