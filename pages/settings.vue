@@ -198,6 +198,40 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     />
                 </SwitchRoot>
             </div>
+
+            <div class="mt-4 flex w-[48rem] flex-col">
+                <div class="flex flex-row items-start justify-between">
+                    <div>
+                        <h3 class="text-lg">
+                            Custom storage [EXPERIMENTAL]
+                        </h3>
+                        <span class="text-dim-2 block max-w-xl">
+                            Change the location and the way your boards are stored. <span class="text-red-500">WARNING:</span> Using this option might result in data loss. Please make regular backups!
+                        </span>
+                    </div>
+                    <SwitchRoot
+                        v-model:checked="customStorageEnabled"
+                        class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+                        @update:checked="toggleCustomStorageEnabled"
+                    >
+                        <SwitchThumb
+                            class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                        />
+                    </SwitchRoot>
+                </div>
+
+                <div v-if="customStorageEnabled" class="mt-4">
+                    <h4 class="mb-1 text-xl font-bold">Custom storage settings</h4>
+                    <span class="text-dim-1">Storage path:</span>
+                    <div class="mt-1.5 flex flex-row items-center gap-2">
+                        <input v-model="customStoragePath" placeholder="e.g. C:\Documents\kanri" type="text" class="bg-elevation-1 w-full rounded-md px-4 py-1.5">
+                        <button class="bg-elevation-1 border-elevation-2 flex flex-row items-center gap-2 rounded-md border px-4 py-1" @click="selectCustomStoragePath">
+                            <FolderOpenIcon class="size-4"/>
+                            Select
+                        </button>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="miscellaneous-settings">
@@ -277,7 +311,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas"
 import emitter from "@/utils/emitter";
 import { catppuccin, dark, light } from "@/utils/themes";
-import { ArrowDownTrayIcon, ArrowUpTrayIcon, MoonIcon, SunIcon, SwatchIcon } from "@heroicons/vue/24/outline";
+import { ArrowDownTrayIcon, ArrowUpTrayIcon, MoonIcon, SunIcon, SwatchIcon, FolderOpenIcon } from "@heroicons/vue/24/outline";
 import { message, open, save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { disable, enable, isEnabled } from 'tauri-plugin-autostart-api';
@@ -296,6 +330,9 @@ const addToTopCheckbox = ref(false);
 const animationsEnabled = ref(true);
 const displayCardCountCheckbox = ref(false);
 
+const customStorageEnabled = ref(false);
+const customStoragePath = ref("");
+
 const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
@@ -309,6 +346,9 @@ onMounted(async () => {
 
     activeTheme.value = await store.get("activeTheme");
     if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
+
+    customStorageEnabled.value = await store.get("customStorageEnabled") || false;
+    customStoragePath.value = await store.get("customStoragePath") || "";
 
     const columnZoom: null | number = await store.get("columnZoomLevel");
 
@@ -405,6 +445,30 @@ const toggleDisplayCardCount = async (displayCardCountToggled: boolean) => {
     else {
         await store.set("displayColumnCardCountEnabled", false);
     }
+}
+
+const toggleCustomStorageEnabled = async (customStorageEnabled: boolean) => {
+    if (customStorageEnabled) {
+        await store.set("customStorageEnabled", true);
+    }
+    else {
+        await store.set("customStorageEnabled", false);
+    }
+}
+
+const selectCustomStoragePath = async () => {
+    console.log("YEEETETET");
+
+    const selected = await open({
+        directory: true,
+        multiple: false
+    });
+
+    customStoragePath.value = selected as string;
+    await store.set("customStoragePath", customStoragePath.value);
+
+    console.log("POGPOGPOGPOG");
+    console.log(selected);
 }
 
 const exportThemeToJson = async () => {
