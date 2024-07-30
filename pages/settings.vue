@@ -457,8 +457,6 @@ const toggleCustomStorageEnabled = async (customStorageEnabled: boolean) => {
 }
 
 const selectCustomStoragePath = async () => {
-    console.log("YEEETETET");
-
     const selected = await open({
         directory: true,
         multiple: false
@@ -467,8 +465,7 @@ const selectCustomStoragePath = async () => {
     customStoragePath.value = selected as string;
     await store.set("customStoragePath", customStoragePath.value);
 
-    console.log("POGPOGPOGPOG");
-    console.log(selected);
+    await store.save(); // this is an important operation so it makes sense to save the store in advance
 }
 
 const exportThemeToJson = async () => {

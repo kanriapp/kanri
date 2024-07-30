@@ -260,16 +260,22 @@ import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight } from "@phosphor-icons/vue";
 
-import { save } from "@tauri-apps/api/dialog";
+import { save, message } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
-import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { invoke, convertFileSrc } from '@tauri-apps/api/tauri';
+import { watchImmediate } from "tauri-plugin-fs-watch-api";
 import { useConfirmDialog } from '@vueuse/core'
+import { join } from "pathe";
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 const store = useTauriStore().store;
 const route = useRoute();
 const router = useRouter();
+
+const customBoardStorageEnabled = ref(false);
+const customBoardSaveLocation = ref("");
+let externalConfigWatcher: Awaited<ReturnType<typeof watchImmediate>> | null = null;
 
 const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
@@ -318,16 +324,10 @@ const cssVars = computed(() => {
 })
 
 onMounted(async () => {
-    boards.value = await store.get("boards") || [];
+    customBoardStorageEnabled.value = await store.get("customStorageEnabled") || false;
+    customBoardSaveLocation.value = await store.get("customStoragePath") || "";
 
-    board.value = boards.value.filter((board) => {
-        return board.id === route.params.id;
-    })[0];
-
-    if(!board.value) {
-        console.error("Could not resolve board!");
-        return;
-    }
+    await loadCurrentBoard();
 
     if (board.value.background) {
         bgCustomNoResolution.value = board.value.background.src;
@@ -372,7 +372,59 @@ onMounted(async () => {
 onBeforeUnmount(async () => {
     document.removeEventListener("keydown", keyDownListener);
     emitter.emit("closeKanbanPage");
+
+    if (externalConfigWatcher) {
+        await externalConfigWatcher(); // Closes the file watcher when the board is closed
+    }
 });
+
+/**
+ * Loads board: tries to use file from custom storage first, otherwise uses board stored in Tauri store
+ */
+const loadCurrentBoard = async () => {
+    if (customBoardStorageEnabled.value) {
+        const filePathFull = join(customBoardSaveLocation.value, `${route.params.id}.json`);
+        console.log(filePathFull);
+
+        // check if file exists, if not we can assume that it is an old internal-only board and it is safe to make a copy in the save location
+        // TODO: create copy of the internally saved board in the save location
+
+        await loadBoardFromCustomStorage(filePathFull);
+
+        externalConfigWatcher = await watchImmediate(
+            filePathFull,
+            async () => {
+                await loadBoardFromCustomStorage(filePathFull);
+            },
+        );
+    }
+    else { // use tauri-plugin-store for retrieving board if custom storage is disabled
+        boards.value = await store.get("boards") || [];
+
+        board.value = boards.value.filter((board) => {
+            return board.id === route.params.id;
+        })[0];
+
+        if(!board.value) {
+            console.error("Could not resolve board!");
+            return;
+        }
+    }
+}
+
+const loadBoardFromCustomStorage = async (filePathFull: string) => {
+    const data = await invoke("load_board_from_file", { boardPath: filePathFull });
+    console.log("LOADED EXTERNAL BOARD SUCCESSFULLY");
+
+    if (data === "error reading file") {
+        await message('Could not your externally saved board! Please make sure it exists. (If you sync the save file with cloud storage, this could also mean a corrupted file.)', { title: 'Kanri', type: 'error' });
+
+        router.push("/");
+        return;
+    }
+
+    board.value = JSON.parse(data as string) as Board;
+}
 
 enum shortcutKeys {
     "ArrowLeft",
@@ -721,6 +773,13 @@ const updateColumnProperties = (columnObj: Column) => {
  * Main method for updating the persistent storage, overrides old board with new one and saves to tauri store
  */
 const updateStorage = () => {
+    // TODO!!!: add safety measures to prevent potential overrides of the global boards with the empty array which is a fallback value for the vue ref
+
+    if (customBoardStorageEnabled.value) {
+        // save custom board with rust method here
+        return;
+    }
+
     const currentBoard = boards.value.filter((obj: Board) => {
         return obj.id === board.value.id;
     })[0];
