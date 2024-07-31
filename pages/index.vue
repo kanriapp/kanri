@@ -264,6 +264,9 @@ onMounted(async () => {
     emitter.emit("hideSidebarBackArrow");
 
     if (customBoardStorageEnabled.value) {
+        // TODO: Check if it makes sense to add a watcher for new files added into the folder
+        // TODO: add a badge somewhere in the app to indicate that external storage is enabled and is an experimental feature
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const externalBoards: any = await invoke("get_boards_to_display", { savePath: customBoardSaveLocation.value });
 
