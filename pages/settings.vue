@@ -495,6 +495,8 @@ const copyBoardsToExternalStorage = async () => {
             return;
         }
     }
+
+    await message("Copied your boards to the external storage location successfully.", { title: "Kanri", type: "info" });
 }
 
 const exportThemeToJson = async () => {
