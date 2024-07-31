@@ -203,10 +203,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <div class="flex flex-row items-start justify-between">
                     <div>
                         <h3 class="text-lg">
-                            Custom storage [EXPERIMENTAL]
+                            External storage [EXPERIMENTAL]
                         </h3>
                         <span class="text-dim-2 block max-w-xl">
-                            Change the location and the way your boards are stored. <span class="text-red-500">WARNING:</span> Using this option might result in data loss. Please make regular backups!
+                            Stores your boards in a custom location. <span class="text-red-500">WARNING:</span> Using this option might result in data loss. Please make regular backups!
                         </span>
                     </div>
                     <SwitchRoot
@@ -221,15 +221,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </div>
 
                 <div v-if="customStorageEnabled" class="mt-4">
-                    <h4 class="mb-1 text-xl font-bold">Custom storage settings</h4>
+                    <h4 class="mb-1 text-xl font-bold">External storage settings</h4>
                     <span class="text-dim-1">Storage path:</span>
-                    <div class="mt-1.5 flex flex-row items-center gap-2">
+                    <div class="mb-3 mt-1.5 flex flex-row items-center gap-2">
                         <input v-model="customStoragePath" placeholder="e.g. C:\Documents\kanri" type="text" class="bg-elevation-1 w-full rounded-md px-4 py-1.5">
                         <button class="bg-elevation-1 border-elevation-2 flex flex-row items-center gap-2 rounded-md border px-4 py-1" @click="selectCustomStoragePath">
                             <FolderOpenIcon class="size-4"/>
                             Select
                         </button>
                     </div>
+
+                    <span class="text-dim-1">Copy internal storage:</span>
+                    <p class="text-dim-3 mb-1">If you created any boards with the "external storage" option disabled, they are stored in the Kanri internal storage. Use the button below to copy everything from internal storage to the external save location.</p>
+                    <p class="text-dim-3 mb-2"><span class="text-red-500">WARNING: THIS IS A DESTRUCTIVE ACTION!</span> If you have already copied once, this will override boards which are already externally saved with an older version of your board from the internal storage!</p>
+                    <button class="text-buttons bg-accent transition-button rounded-md px-4 py-2" @click="copyBoardsToExternalStorage">
+                        Copy (internal -> external)
+                    </button>
                 </div>
             </div>
         </section>
@@ -304,7 +311,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { ThemeIdentifiers } from "@/types/kanban-types";
+import type { ThemeIdentifiers, Board } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { useTauriStore } from "@/stores/tauriStore";
@@ -312,6 +319,9 @@ import { kanriThemeSchema } from "@/types/json-schemas"
 import emitter from "@/utils/emitter";
 import { catppuccin, dark, light } from "@/utils/themes";
 import { ArrowDownTrayIcon, ArrowUpTrayIcon, MoonIcon, SunIcon, SwatchIcon, FolderOpenIcon } from "@heroicons/vue/24/outline";
+
+import { join } from "pathe";
+import { invoke } from '@tauri-apps/api/tauri';
 import { message, open, save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { disable, enable, isEnabled } from 'tauri-plugin-autostart-api';
@@ -466,6 +476,25 @@ const selectCustomStoragePath = async () => {
     await store.set("customStoragePath", customStoragePath.value);
 
     await store.save(); // this is an important operation so it makes sense to save the store in advance
+}
+
+const copyBoardsToExternalStorage = async () => {
+    const internalBoards: Array<Board> | null = await store.get("boards") || null;
+
+    if (!internalBoards) {
+        await message("You have no internally saved boards, so nothing was copied.", { title: "Kanri", type: "error" });
+        return;
+    }
+
+    for (const board of internalBoards) {
+        const filePathFull = join(customStoragePath.value, `${board.id}.json`);
+        const err = await invoke("write_to_board_file", { boardPath: filePathFull, boardContent: board });
+
+        if (err === "error writing to file") {
+            await message(`Failed saving your board "${board.title}" to your custom save location! This should not happen, please report this issue to the developer.`, { title: 'Kanri', type: 'error' });
+            return;
+        }
+    }
 }
 
 const exportThemeToJson = async () => {
