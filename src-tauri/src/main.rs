@@ -11,6 +11,7 @@ all(not(debug_assertions), target_os = "windows"),
 
 use std::fs;
 
+use tauri::api::file;
 use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_log::LogTarget;
 
@@ -71,10 +72,14 @@ fn get_boards_to_display(save_path: String) -> Vec<String> {
     for file in files {
         let file = file.ok().unwrap();
         let file_path = file.path();
-        let file_extension = file_path.extension().unwrap().to_str().unwrap();
+        let file_extension = file_path.extension();
 
-        if file_extension == "json" {
-            boards.push(fs::read_to_string(file_path).unwrap());
+        if let Some(file_extension) = file_extension {
+            if file_extension.to_str().unwrap() == "json" {
+                boards.push(file_path.to_str().
+                    unwrap().
+                    to_string());
+            }
         }
     }
 
