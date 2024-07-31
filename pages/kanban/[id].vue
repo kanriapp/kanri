@@ -769,11 +769,20 @@ const updateColumnProperties = (columnObj: Column) => {
 /**
  * Main method for updating the persistent storage, overrides old board with new one and saves to tauri store
  */
-const updateStorage = () => {
+const updateStorage = async () => {
     // TODO!!!: add safety measures to prevent potential overrides of the global boards with the empty array which is a fallback value for the vue ref
 
     if (customBoardStorageEnabled.value) {
         // save custom board with rust method here
+        const filePathFull = join(customBoardSaveLocation.value, `${route.params.id}.json`);
+        const err = await invoke("write_to_board_file", { boardPath: filePathFull, boardContent: board.value });
+
+        if (err === "error writing to file") {
+            await message(`Failed saving your board "${board.value.title}" to your custom save location! This should not happen, please report this issue to the developer. To prevent any (further) data loss, please make a copy of the board manually.`, { title: 'Kanri', type: 'error' });
+            router.push("/");
+            return;
+        }
+
         return;
     }
 
