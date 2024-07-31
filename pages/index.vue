@@ -233,8 +233,13 @@ import { ChevronDownIcon } from "@heroicons/vue/24/outline"
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel } from "@phosphor-icons/vue";
 
+import { invoke } from '@tauri-apps/api/tauri';
+
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
+
+const customBoardStorageEnabled = ref(false);
+const customBoardSaveLocation = ref("");
 
 const loading = ref(true);
 const editSortWarning = ref(false);
@@ -247,6 +252,9 @@ const reverseSortOrder = ref(false);
 const sortingOptionText = ref("Sort by creation date");
 
 onMounted(async () => {
+    customBoardStorageEnabled.value = await store.get("customStorageEnabled") || false;
+    customBoardSaveLocation.value = await store.get("customStoragePath") || "";
+
     emitter.on("createBoard", ({columns, title}) => {
         createNewBoard(title, columns);
     });
@@ -255,7 +263,25 @@ onMounted(async () => {
 
     emitter.emit("hideSidebarBackArrow");
 
-    boards.value = (await store.get("boards")) || [];
+    if (customBoardStorageEnabled.value) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const externalBoards: any = await invoke("get_boards_to_display", { savePath: customBoardSaveLocation.value });
+
+        for (const board of externalBoards) {
+            let parsedBoard = undefined;
+            try {
+                parsedBoard = JSON.parse(board);
+            }
+            catch {
+                console.error("Failed to load one of your external boards. The file might be corrupted or is not a valid JSON file.");
+            }
+
+            if (parsedBoard) boards.value.push(parsedBoard)
+        }
+    }
+    else {
+        boards.value = (await store.get("boards")) || [];
+    }
 
     await setSorting();
 
