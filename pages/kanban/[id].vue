@@ -261,7 +261,7 @@ import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight } from "@phosphor-icons/vue";
 
 import { save, message } from "@tauri-apps/api/dialog";
-import { writeTextFile } from "@tauri-apps/api/fs";
+import { writeTextFile, exists } from "@tauri-apps/api/fs";
 import { invoke, convertFileSrc } from '@tauri-apps/api/tauri';
 import { watchImmediate } from "tauri-plugin-fs-watch-api";
 import { useConfirmDialog } from '@vueuse/core'
@@ -382,12 +382,27 @@ onBeforeUnmount(async () => {
  * Loads board: tries to use file from custom storage first, otherwise uses board stored in Tauri store
  */
 const loadCurrentBoard = async () => {
+    boards.value = await store.get("boards") || [];
+
     if (customBoardStorageEnabled.value) {
         const filePathFull = join(customBoardSaveLocation.value, `${route.params.id}.json`);
         console.log(filePathFull);
 
         // check if file exists, if not we can assume that it is an old internal-only board and it is safe to make a copy in the save location
-        // TODO: create copy of the internally saved board in the save location
+        if (!(await exists(filePathFull))) {
+            const boardFromTauriStore = boards.value.filter((board) => {
+                return board.id === route.params.id;
+            })[0];
+
+            const err = await invoke("write_to_board_file", { boardPath: filePathFull, boardContent: boardFromTauriStore });
+
+            if (err === "error writing to file") {
+                await message("Failed saving your board to your custom save location! This should not happen, please report this issue to the developer.", { title: 'Kanri', type: 'error' });
+
+                router.push("/");
+                return;
+            }
+        }
 
         await loadBoardFromCustomStorage(filePathFull);
 
@@ -399,8 +414,6 @@ const loadCurrentBoard = async () => {
         );
     }
     else { // use tauri-plugin-store for retrieving board if custom storage is disabled
-        boards.value = await store.get("boards") || [];
-
         board.value = boards.value.filter((board) => {
             return board.id === route.params.id;
         })[0];
