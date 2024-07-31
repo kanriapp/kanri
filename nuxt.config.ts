@@ -27,7 +27,7 @@ export default defineNuxtConfig({
             license({
                 thirdParty: {
                     includePrivate: true,
-                    output: "LICENSES_3RD_PARTY.txt",
+                    output: "./LICENSES_3RD_PARTY.txt",
                 },
             }),
         ]
