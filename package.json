@@ -40,10 +40,10 @@
         "@pinia/nuxt": "0.5.2",
         "@popperjs/core": "^2.11.8",
         "@tauri-apps/api": "1.6.0",
-        "@tiptap/extension-typography": "2.5.7",
-        "@tiptap/pm": "2.5.7",
-        "@tiptap/starter-kit": "2.5.7",
-        "@tiptap/vue-3": "2.5.7",
+        "@tiptap/extension-typography": "2.5.8",
+        "@tiptap/pm": "2.5.8",
+        "@tiptap/starter-kit": "2.5.8",
+        "@tiptap/vue-3": "2.5.8",
         "@vojtechlanka/vue-tags-input": "^3",
         "@vueuse/components": "^10.11.0",
         "mitt": "3.0.1",
@@ -61,7 +61,7 @@
     },
     "resolutions": {
         "terser": "5.31.3",
-        "undici": "6.19.4",
+        "undici": "6.19.5",
         "json5": "2.2.3",
         "semver": "7.6.3"
     }
