@@ -93,6 +93,11 @@ onMounted(() => {
     })
 });
 
+onUnmounted(() => {
+    emitter.off("openBoardDeleteModal");
+    emitter.off("openModalWithCustomDescription");
+});
+
 const closeModal = () => {
     emit("closeModal");
 }

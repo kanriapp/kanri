@@ -255,8 +255,8 @@ onMounted(async () => {
     customBoardStorageEnabled.value = await store.get("customStorageEnabled") || false;
     customBoardSaveLocation.value = await store.get("customStoragePath") || "";
 
-    emitter.on("createBoard", ({columns, title}) => {
-        createNewBoard(title, columns);
+    emitter.on("createBoard", async ({columns, title}) => {
+        await createNewBoard(title, columns);
     });
 
     emitter.on("openChangelogModal", () => changelogModalVisible.value = true);
@@ -291,6 +291,11 @@ onMounted(async () => {
     loading.value = false;
 });
 
+onBeforeUnmount(() => {
+    // Make sure we properly remove our event listeners
+    emitter.off("createBoard");
+    emitter.off("openChangelogModal");
+});
 
 const setSorting = async () => {
     const sortingOption = await store.get("boardSortingOption");
@@ -372,8 +377,8 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
         title: title
     };
 
-    boards.value = [...boards.value, board];
-    store.set("boards", boards.value);
+        boards.value = [...boards.value, board];
+        store.set("boards", boards.value);
 
     await setSorting();
 };

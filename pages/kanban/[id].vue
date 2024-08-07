@@ -373,6 +373,8 @@ onBeforeUnmount(async () => {
     document.removeEventListener("keydown", keyDownListener);
     emitter.emit("closeKanbanPage");
 
+    emitter.off("columnActionDone");
+
     if (externalConfigWatcher) {
         await externalConfigWatcher(); // Closes the file watcher when the board is closed
     }

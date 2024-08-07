@@ -326,6 +326,12 @@ const filteredCards = computed(() => {
 
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
+
+    emitter.off("enableColumnTitleEditing");
+    emitter.off("enableColumnCardAddMode");
+    emitter.off("resetColumnInputs");
+    emitter.off("columnDraggingOn");
+    emitter.off("columnDraggingOff");
 });
 
 const keyDownListener = (e: { key: string; }) => {

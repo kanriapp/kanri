@@ -187,6 +187,10 @@ onMounted(async () => {
     });
 })
 
+onUnmounted(() => {
+    emitter.off("globalTagsUpdated");
+});
+
 const cardHasNoExtraProperties = computed(() => {
     return ((!tasks.value || tasks.value.length === 0) && isDescriptionEmpty && !dueDate.value && (props.card.tags || []).length === 0);
 })

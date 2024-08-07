@@ -72,6 +72,9 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
+
+    emitter.off("modalPreventClickOutsideClose");
+    emitter.off("modalEnableClickOutsideClose");
 });
 
 watch(props, (_, newData) => {

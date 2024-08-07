@@ -83,6 +83,12 @@ onMounted(async () => {
     });
 });
 
+onUnmounted(() => {
+    emitter.off("updateColors");
+    emitter.off("setAnimationsOn");
+    emitter.off("setAnimationsOff");
+});
+
 const increaseSaturation = (hex) =>  {
     if (hex == undefined) return;
 

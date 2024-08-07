@@ -199,6 +199,14 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
     document.removeEventListener("keydown", keyDownListener);
+
+    emitter.off("updateColors");
+    emitter.off("zIndexDown");
+    emitter.off("zIndexBack");
+    emitter.off("openKanbanPage");
+    emitter.off("closeKanbanPage");
+    emitter.off("showSidebarBackArrow");
+    emitter.off("hideSidebarBackArrow");
 });
 
 const keyDownListener = (e: KeyboardEvent) => {
