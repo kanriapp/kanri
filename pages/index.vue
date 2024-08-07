@@ -234,6 +234,8 @@ import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel } from "@phosphor-icons/vue";
 
 import { invoke } from '@tauri-apps/api/tauri';
+import { message } from "@tauri-apps/api/dialog";
+import { join } from "pathe";
 
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
@@ -377,8 +379,22 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
         title: title
     };
 
+    if (customBoardStorageEnabled.value) {
+        // save custom board with rust method here
+        const filePathFull = join(customBoardSaveLocation.value, `${board.id}.json`);
+        const err = await invoke("write_to_board_file", { boardPath: filePathFull, boardContent: board });
+
+        if (err === "error writing to fie") {
+            await message(`Failed saving your board "${board.title}" to your custom save location! This should not happen, please report this issue to the developer. To prevent any (further) data loss, please make a copy of the board manually.`, { title: 'Kanri', type: 'error' });
+            return;
+        }
+
+        boards.value = [...boards.value, board];
+    }
+    else {
         boards.value = [...boards.value, board];
         store.set("boards", boards.value);
+    }
 
     await setSorting();
 };
