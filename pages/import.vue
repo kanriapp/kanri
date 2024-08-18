@@ -29,24 +29,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <span class="text-dim-3"> Manage your data by exporting and importing it from and to Kanri. </span>
 
         <TabsRoot
-            class="mt-4 flex w-2/3 flex-col"
+            class="mt-4 flex w-1/2 flex-col"
             default-value="tab1"
         >
             <TabsList
-                class="border-elevation-2 relative flex shrink-0 border-b"
+                class="bg-elevation-1 relative flex shrink-0 rounded-md"
                 aria-label="Manage your account"
             >
-                <TabsIndicator class="absolute bottom-0 left-0 h-[2px] w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-full px-8 transition-[width,transform] duration-300">
-                    <div class="bg-accent size-full" />
-                </TabsIndicator>
+                <TabsIndicator class="bg-elevation-2 absolute bottom-0 left-0 h-full w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-md transition-[width,transform] duration-300" />
                 <TabsTrigger
-                    class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tl-md text-[15px] leading-none outline-none"
+                    class="tab-active-text z-10 flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-md px-2 text-[16px] leading-none outline-none transition-colors duration-300"
                     value="tab1"
                 >
                     Import
                 </TabsTrigger>
                 <TabsTrigger
-                    class="tab-active-text flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-tr-md text-[15px] leading-none outline-none"
+                    class="tab-active-text z-10 flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-md px-2 text-[16px] leading-none outline-none transition-colors duration-300"
                     value="tab2"
                 >
                     Export
@@ -607,6 +605,6 @@ const trelloParse = async (board: string) => {
 
 <style>
 .tab-active-text[data-state=active] {
-    color: var(--accent);
+    color: color-mix(in srgb, var(--accent) 80%, white);
 }
 </style>
