@@ -1210,7 +1210,7 @@
     pathe "^1.1.2"
     unimport "^3.10.0"
 
-"@nuxt/kit@3.12.4", "@nuxt/kit@^3.11.2", "@nuxt/kit@^3.12.1", "@nuxt/kit@^3.12.2", "@nuxt/kit@^3.12.4", "@nuxt/kit@^3.9.0":
+"@nuxt/kit@3.12.4", "@nuxt/kit@^3.11.2", "@nuxt/kit@^3.12.2", "@nuxt/kit@^3.12.4", "@nuxt/kit@^3.9.0":
   version "3.12.4"
   resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.12.4.tgz#b7073611d533ac32b504d95664074be3587046b3"
   integrity sha512-aNRD1ylzijY0oYolldNcZJXVyxdGzNTl+Xd0UYyFQCu9f4wqUZqQ9l+b7arCEzchr96pMK0xdpvLcS3xo1wDcw==
@@ -2673,16 +2673,16 @@
   resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-11.0.0.tgz#a23cd3ce64c9b7b3575b7b900c209234f5e37c6c"
   integrity sha512-0TKsAVT0iUOAPWyc9N79xWYfovJVPATiOPVKByG6jmAYdDiwvMVm9xXJ5hp4I8nZDxpCcYlLq/Rg9w1Z/jrGcg==
 
-"@vueuse/nuxt@^10.11.0":
-  version "10.11.1"
-  resolved "https://registry.yarnpkg.com/@vueuse/nuxt/-/nuxt-10.11.1.tgz#d68ec690d4bf78a2f862ab3ec5f36afbaf396567"
-  integrity sha512-UiaYSIwOkmUVn8Gl1AqtLWYR12flO+8sEu9X0Y1fNjSR7EWy9jMuiCvOGqwtoeTsqfHrivl0d5HfMzr11GFnMA==
+"@vueuse/nuxt@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/nuxt/-/nuxt-11.0.0.tgz#96ce8319d676503aacc2f0edfc362c0049f574d2"
+  integrity sha512-mkfB2ZCMQqkMvMm2apV9K0stU937b3rC7/S5dw9i4b87e5mTLbGshKLa7ASP+55mRxbbKp7YkU1Y5+P8zFWhuQ==
   dependencies:
-    "@nuxt/kit" "^3.12.1"
-    "@vueuse/core" "10.11.1"
-    "@vueuse/metadata" "10.11.1"
+    "@nuxt/kit" "^3.12.4"
+    "@vueuse/core" "11.0.0"
+    "@vueuse/metadata" "11.0.0"
     local-pkg "^0.5.0"
-    vue-demi ">=0.14.8"
+    vue-demi ">=0.14.10"
 
 "@vueuse/shared@10.11.1", "@vueuse/shared@^10.11.0":
   version "10.11.1"

@@ -23,7 +23,7 @@
         "@tauri-apps/cli": "1.6.0",
         "@types/node": "^20.14.7",
         "@vueuse/core": "^11.0.0",
-        "@vueuse/nuxt": "^10.11.0",
+        "@vueuse/nuxt": "^11.0.0",
         "eslint": "9.9.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
