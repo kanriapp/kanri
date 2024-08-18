@@ -45,7 +45,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             :card-index-prop="currentlyActiveCardInfo.cardIndex"
             :column-id="currentlyActiveCardInfo.columnId"
             :global-tags="board.globalTags || []"
-            @closeModal="closeeditCardModal"
+            @closeModal="closeEditCardModal"
             @setCardColor="setCardColor"
             @setCardDescription="setCardDescription"
             @setCardTasks="setCardTasks"
@@ -679,7 +679,7 @@ const openEditCardModal = (columnId: string, cardIndex: number, el: Card) => {
     });
 }
 
-const closeeditCardModal = () => {
+const closeEditCardModal = () => {
     editCardModalVisible.value = false;
     draggingEnabled.value = true;
     emitter.emit("columnDraggingOn");
