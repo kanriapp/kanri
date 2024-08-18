@@ -109,12 +109,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     </h2>
                     <div>
                         <h3 class="text-lg font-semibold tracking-tight">
-                            Partial Export
+                            Partial Export (individual board)
                         </h3>
                         <p class="text-dim-1">
                             A partial export means that you receive one .json file for one individual board.
                         </p>
-                        <p>To generate an individual export, use the three dot menu inside a board.</p>
+                        <DropdownMenuRoot>
+                            <DropdownMenuTrigger class="bg-elevation-1 bg-elevation-2-hover border-accent mt-4 cursor-pointer rounded-md border border-dotted p-2 px-8 font-semibold">
+                                Export individual board
+                            </DropdownMenuTrigger>
+                            <DropdownMenuPortal to=".default-layout">
+                                <DropdownMenuContent align="start" :side-offset="5" class="bg-elevation-1 border-elevation-2 w-96 rounded-md border p-2">
+                                    <DropdownMenuLabel class="text-dim-3 mb-1 px-2 text-sm">
+                                        Select a board to export
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem v-for="board in boards" :key="board.id" class="bg-elevation-3-hover cursor-pointer rounded-md px-2 py-0.5" @select="exportSingleBoard(board.id)">
+                                        {{ board.title }}
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenuPortal>
+                        </DropdownMenuRoot>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold tracking-tight">
@@ -150,9 +165,11 @@ import { ZodError, z } from "zod";
 const router = useRouter();
 
 const store = useTauriStore().store;
+const boards: Ref<Board[]> = ref([]);
 
-onMounted(() => {
+onMounted(async () => {
     emitter.emit("showSidebarBackArrow");
+    boards.value = (await store.get("boards") as Board[]) || [];
 });
 
 const exportJSON = async () => {
@@ -202,6 +219,35 @@ const exportJSON = async () => {
 
     await message("Successfully exported your data.", {type: 'info'});
 };
+
+const exportSingleBoard = async (boardId: string) => {
+    const filePath = await save({
+        defaultPath: `./kanri_board_export_${boardId}.json`,
+        filters: [
+            {
+                extensions: ["json"],
+                name: "JSON File",
+            },
+        ],
+        title: "Select file to export board to",
+    });
+
+    if (filePath == null) return;
+
+    const boardToExport = boards.value.find(board => board.id === boardId);
+
+    if (!boardToExport) {
+        await message("Board not found.", {type: 'error'});
+        return;
+    }
+
+    const fileContents = JSON.stringify(boardToExport, null, 2);
+
+    await writeTextFile(filePath, fileContents);
+
+    await message("Successfully exported the board.", {type: 'info'});
+};
+
 
 const importFromKanriFull = async () => {
     const selected = await open({
@@ -608,3 +654,4 @@ const trelloParse = async (board: string) => {
     color: color-mix(in srgb, var(--accent) 80%, white);
 }
 </style>
+
