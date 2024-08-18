@@ -45,7 +45,7 @@
         "@tiptap/starter-kit": "2.6.4",
         "@tiptap/vue-3": "2.6.4",
         "@vojtechlanka/vue-tags-input": "^3",
-        "@vueuse/components": "^10.11.0",
+        "@vueuse/components": "^11.0.0",
         "mitt": "3.0.1",
         "pathe": "^1.1.2",
         "pinia": "2.2.2",
