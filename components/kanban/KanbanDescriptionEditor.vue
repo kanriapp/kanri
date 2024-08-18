@@ -119,17 +119,25 @@ export default {
     resize: vertical;
 }
 
- .tiptap ul, .tiptap ol {
-    padding: 0 1rem;
+.tiptap ul {
+    padding: 0 1.3rem;
 }
- .tiptap h1, .tiptap h2, .tiptap h3, .tiptap h4, .tiptap h5, .tiptap h6 {
+
+.tiptap ol {
+    list-style: decimal;
+    padding: 0 1.6rem;
+}
+
+.tiptap h1, .tiptap h2, .tiptap h3, .tiptap h4, .tiptap h5, .tiptap h6 {
     line-height: 1.1;
 }
- .tiptap code {
+
+.tiptap code {
     background-color: rgba(0, 0, 0, 0.1);
     color: color-mix(in srgb, var(--accent) 50%, white);
 }
- .tiptap pre {
+
+.tiptap pre {
     background: #0d0d0d;
     color: #fff;
     font-family: 'JetBrainsMono', monospace;
@@ -137,23 +145,28 @@ export default {
     margin: 1rem 0;
     border-radius: 0.5rem;
 }
- .tiptap pre code {
+
+.tiptap pre code {
     color: inherit;
     padding: 0;
     background: none;
     font-size: 0.8rem;
 }
- .tiptap img {
+
+.tiptap img {
     max-width: 100%;
     height: auto;
 }
- .tiptap hr {
+
+.tiptap hr {
     margin: 1rem 0;
 }
- .tiptap blockquote {
+
+.tiptap blockquote {
     padding-left: 1rem;
     border-left: 2px solid var(--text-dim-2);
 }
+
 .tiptap ul::marker {
     color: var(-text-normal);
 }
