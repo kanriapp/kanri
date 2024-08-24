@@ -204,6 +204,7 @@ limitations under the License.
                             v-model="dueDate"
                             mode="dateTime"
                             is24hr
+                            :attrs="attrs"
                             @update:modelValue="updateDueDate"
                         >
                             <template #default="{ togglePopover }">
@@ -454,8 +455,19 @@ const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
 const tasks: Ref<Array<{finished: boolean; id?: string, name: string }>> = ref([]);
 const selectedColor = ref("");
+
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
+const attrs = ref([
+    {
+        key: 'today',
+        highlight: {
+            color: 'green',
+            fillMode: 'solid'
+        },
+        dates: new Date()
+    }
+])
 
 const tag = ref("");
 const tags: Ref<Array<Tag>> = ref([]);
@@ -753,15 +765,20 @@ watch(props, (newVal) => {
   & .vc-attr {
     --vc-content-color: var(--vc-accent-600);
     --vc-highlight-outline-bg: var(--vc-white);
-    --vc-highlight-outline-border: var(--vc-accent-600);
+    --vc-highlight-outline-border: var(--accent);
     --vc-highlight-outline-content-color: var(--vc-accent-700);
     --vc-highlight-light-bg: var(--vc-accent-200);
     --vc-highlight-light-content-color: var(--vc-accent-900);
     --vc-highlight-solid-bg: var(--accent);
     --vc-highlight-solid-content-color: var(--vc-white);
-    --vc-dot-bg: var(--vc-accent-600);
-    --vc-bar-bg: var(--vc-accent-600);
+    --vc-dot-bg: var(--accent);
+    --vc-bar-bg: var(--accent);
   }
+}
+
+.vc-day.is-today .vc-day-content {
+    border: 1.5px solid var(--accent);
+    border-radius: 100%;
 }
 </style>
 
