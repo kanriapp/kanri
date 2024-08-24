@@ -25,7 +25,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         :editor="editor"
         :tippy-options="{ duration: 100 }"
     >
-        <div class="bg-primary border-elevation-1 flex flex-row items-center gap-1 rounded-md border px-2 py-1">
+        <div class="bg-primary border-elevation-1 -mb-1.5 flex flex-row items-center gap-1 rounded-md border px-2 py-1">
             <button :class="{ 'is-active': editor.isActive('bold') }" class="bg-elevation-2-hover rounded-md p-1" title="Bold" @click="editor.chain().focus().toggleBold().run()">
                 <ph-text-b class="size-5" />
             </button>
