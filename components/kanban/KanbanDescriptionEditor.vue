@@ -20,6 +20,44 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <!-- eslint-disable perfectionist/sort-objects -->
 <template>
+    <bubble-menu
+        v-if="editor"
+        :editor="editor"
+        :tippy-options="{ duration: 100 }"
+    >
+        <div class="bg-primary border-elevation-1 flex flex-row items-center gap-1 rounded-md border px-2 py-1">
+            <button :class="{ 'is-active': editor.isActive('bold') }" class="bg-elevation-2-hover rounded-md p-1" title="Bold" @click="editor.chain().focus().toggleBold().run()">
+                <ph-text-b class="size-5" />
+            </button>
+            <button :class="{ 'is-active': editor.isActive('italic') }" class="bg-elevation-2-hover rounded-md p-1" title="Italic" @click="editor.chain().focus().toggleItalic().run()">
+                <ph-text-italic class="size-5" />
+            </button>
+            <button :class="{ 'is-active': editor.isActive('strike') }" class="bg-elevation-2-hover rounded-md p-1" title="Strikethrough" @click="editor.chain().focus().toggleStrike().run()">
+                <ph-text-strikethrough class="size-5" />
+            </button>
+            <button :class="{ 'is-active': editor.isActive('code') }" class="bg-elevation-2-hover rounded-md p-1" title="Code" @click="editor.chain().focus().toggleCode().run()">
+                <ph-code class="size-5" />
+            </button>
+            <button :class="{ 'is-active': editor.isActive('codeBlock') }" class="bg-elevation-2-hover rounded-md p-1" title="Code Block" @click="editor.chain().focus().toggleCodeBlock().run()">
+                <ph-file-code class="size-5" />
+            </button>
+
+            <div class="bg-elevation-3 mx-1 h-6 w-px"/>
+
+            <button :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }" class="bg-elevation-2-hover rounded-md p-1" title="Align Left" @click="editor.chain().focus().setTextAlign('left').run()">
+                <ph-text-align-left class="size-5" />
+            </button>
+            <button :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }" class="bg-elevation-2-hover rounded-md p-1" title="Align Center" @click="editor.chain().focus().setTextAlign('center').run()">
+                <ph-text-align-center class="size-5" />
+            </button>
+            <button :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }" class="bg-elevation-2-hover rounded-md p-1" title="Align Right" @click="editor.chain().focus().setTextAlign('right').run()">
+                <ph-text-align-right class="size-5" />
+            </button>
+            <button :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }" class="bg-elevation-2-hover rounded-md p-1" title="Justify" @click="editor.chain().focus().setTextAlign('justify').run()">
+                <ph-text-align-justify class="size-5" />
+            </button>
+        </div>
+    </bubble-menu>
     <editor-content
         class="bg-elevation-2 mt-1 rounded-sm"
         :editor="editor"
@@ -29,11 +67,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script>
 import Typography from '@tiptap/extension-typography'
 import StarterKit from '@tiptap/starter-kit'
-import { Editor, EditorContent } from '@tiptap/vue-3'
+import TextAlign from '@tiptap/extension-text-align'
+import { BubbleMenu, Editor, EditorContent } from '@tiptap/vue-3'
+import { PhTextB, PhTextItalic, PhTextStrikethrough, PhCode, PhFileCode, PhTextAlignLeft, PhTextAlignCenter, PhTextAlignRight, PhTextAlignJustify } from '@phosphor-icons/vue'
 
 export default {
     components: {
+        PhTextB,
+        PhTextItalic,
         EditorContent,
+        BubbleMenu,
+        PhTextStrikethrough,
+        PhCode,
+        PhFileCode,
+        PhTextAlignLeft,
+        PhTextAlignCenter,
+        PhTextAlignRight,
+        PhTextAlignJustify
     },
 
     props: {
@@ -53,11 +103,7 @@ export default {
 
     watch: {
         modelValue(value) {
-        // HTML
             const isSame = this.editor.getHTML() === value
-
-            // JSON
-            // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
 
             if (isSame) {
                 return
@@ -76,7 +122,10 @@ export default {
             content: this.modelValue,
             extensions: [
                 StarterKit,
-                Typography
+                Typography,
+                TextAlign.configure({
+                    types: ['heading', 'paragraph'],
+                }),
             ],
             onBlur: () => {
                 this.$emit('editorBlurred');
@@ -85,13 +134,27 @@ export default {
                 emitter.emit('modalPreventClickOutsideClose');
             },
             onUpdate: () => {
-                // HTML
                 this.$emit('update:modelValue', this.editor.getHTML())
-
-                // JSON
-                // this.$emit('update:modelValue', this.editor.getJSON())
             }
         })
+    },
+
+    methods: {
+        setLink() {
+            const previousUrl = this.editor.getAttributes('link').href
+            const url = window.prompt('URL', previousUrl)
+
+            if (url === null) {
+                return
+            }
+
+            if (url === '') {
+                this.editor.chain().focus().extendMarkRange('link').unsetLink().run()
+                return
+            }
+
+            this.editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+        },
     },
 }
 </script>

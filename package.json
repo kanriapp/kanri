@@ -39,6 +39,8 @@
         "@pinia/nuxt": "0.5.3",
         "@popperjs/core": "^2.11.8",
         "@tauri-apps/api": "1.6.0",
+        "@tiptap/extension-bubble-menu": "^2.6.6",
+        "@tiptap/extension-text-align": "^2.6.6",
         "@tiptap/extension-typography": "2.6.4",
         "@tiptap/pm": "2.6.4",
         "@tiptap/starter-kit": "2.6.4",

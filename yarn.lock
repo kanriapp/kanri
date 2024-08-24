@@ -1605,6 +1605,11 @@
   dependencies:
     "@tanstack/virtual-core" "3.9.0"
 
+"@tauri-apps/api@1.5.6":
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.5.6.tgz#7496d79f6586659a59bc6e9d6666eed8d24dc6da"
+  integrity sha512-LH5ToovAHnDVe5Qa9f/+jW28I6DeMhos8bNDtBOmmnaDpPmJmYLyHdeDblAWWWYc7KKRDg9/66vMuKyq0WIeFA==
+
 "@tauri-apps/api@1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.6.0.tgz#745b7e4e26782c3b2ad9510d558fa5bb2cf29186"
@@ -1698,6 +1703,13 @@
   dependencies:
     tippy.js "^6.3.7"
 
+"@tiptap/extension-bubble-menu@^2.6.6":
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-bubble-menu/-/extension-bubble-menu-2.6.6.tgz#6e2b745fd10262258ce51562963694bfc8178ef1"
+  integrity sha512-IkfmlZq67aaegym5sBddBc/xXWCArxn5WJEl1oxKEayjQhybKSaqI7tk0lOx/x7fa5Ml1WlGpCFh+KKXbQTG0g==
+  dependencies:
+    tippy.js "^6.3.7"
+
 "@tiptap/extension-bullet-list@^2.6.4":
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-bullet-list/-/extension-bullet-list-2.6.4.tgz#92bf05100b72d491ff1db21b752a42f34fe66878"
@@ -1779,6 +1791,11 @@
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-strike/-/extension-strike-2.6.4.tgz#aeb6253a996e74a1cb245b2688019a230b446d2e"
   integrity sha512-EV4hEA5qnRtKViaLKcucFvXP9xEUJOFgpFeOrp2xIgSXJLSmutkaDfz7nxJ2RLzwwYvPfWUL7ay97JSCzSuaIA==
+
+"@tiptap/extension-text-align@^2.6.6":
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-text-align/-/extension-text-align-2.6.6.tgz#fadb8f77d8927eee668667e1244ee17de1f0f828"
+  integrity sha512-WdyxULEEHfI3hRDHAFOUoeP84h9myabadfjtZrub7/zO2PKKPAZLBN2vWat5PowH8E8GYX8vqKr9vaX+slfh5g==
 
 "@tiptap/extension-text@^2.6.4":
   version "2.6.4"
@@ -7091,7 +7108,7 @@ tar@^6.1.11, tar@^6.2.0:
   version "0.0.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/1e02acce1b4bb5ee461f7670012d7d105a13be4c"
   dependencies:
-    "@tauri-apps/api" "1.6.0"
+    "@tauri-apps/api" "1.5.6"
 
 "tauri-plugin-fs-watch-api@https://github.com/tauri-apps/tauri-plugin-fs-watch#v1":
   version "0.0.0"
@@ -7109,7 +7126,7 @@ tar@^6.1.11, tar@^6.2.0:
   version "0.0.0"
   resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/5f5404feea43b6cddd65e4171f52e92ca161a2aa"
   dependencies:
-    "@tauri-apps/api" "1.6.0"
+    "@tauri-apps/api" "1.5.6"
 
 terser@5.31.6, terser@^5.17.4:
   version "5.31.6"
