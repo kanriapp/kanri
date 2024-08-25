@@ -1114,7 +1114,7 @@
     pathe "^1.1.2"
     unimport "^3.10.0"
 
-"@nuxt/kit@3.13.0", "@nuxt/kit@^3.11.2", "@nuxt/kit@^3.12.4":
+"@nuxt/kit@3.13.0", "@nuxt/kit@^3.11.2", "@nuxt/kit@^3.12.4", "@nuxt/kit@^3.13.0":
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.13.0.tgz#95d56b7eb2c54ad7873b4e3a9cd7c6fe3bbd3c81"
   integrity sha512-gbhSbDvYfkGQ0R2ztqTLQLHRMv+7g50kAKKuN6mbF4tL9jg7NPnQ8bAarn2I4Qx8xtmwO+qY1ABkmYMn5S1CpA==
@@ -2371,22 +2371,22 @@
   integrity sha512-q0xCiLkuWWQLzVrecPb0RMsNWyxICOjPrcrwxTUEHb1fsnvni4dcuyG7RT/Ie7VPTvnjzIaWzRMUBsrqNj/hhw==
 
 "@vueuse/components@^11.0.0":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@vueuse/components/-/components-11.0.1.tgz#9d0808acf29825de9d5a2d47692e216cf96853b7"
-  integrity sha512-iZYHc7XcZ2NqpEaSiDXF6qcVcCzAwnA74s+ZV8aHJhdxO61BFpACGuT32Jb5oR+pVc6dfrUUspcCoYzLcFtOOA==
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/components/-/components-11.0.3.tgz#d2ff9f761ec58efdb360bcdde471f84477f69d69"
+  integrity sha512-/mbv4R1ody3rYz42U14SQ6GkAKHCAHhFIBdR6nKJbEJeFMoiB93dzX0sT2S05CpYCJJgv3JLAwEHeehYqqmbyQ==
   dependencies:
-    "@vueuse/core" "11.0.1"
-    "@vueuse/shared" "11.0.1"
+    "@vueuse/core" "11.0.3"
+    "@vueuse/shared" "11.0.3"
     vue-demi ">=0.14.10"
 
-"@vueuse/core@11.0.1", "@vueuse/core@^11.0.0":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-11.0.1.tgz#cffaf8824a1b3b3c3cbe5d7d6de21000f43fab23"
-  integrity sha512-YTrekI18WwEyP3h168Fir94G/HNC27wvXJI21Alm0sPOwvhihfkrvHIe+5PNJq+MpgWdRcsjvE/38JaoKrgZhQ==
+"@vueuse/core@11.0.3", "@vueuse/core@^11.0.0":
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-11.0.3.tgz#e5fb5aa6580c6e505cecea43518fcb66cb56a3ef"
+  integrity sha512-RENlh64+SYA9XMExmmH1a3TPqeIuJBNNB/63GT35MZI+zpru3oMRUA6cEFr9HmGqEgUisurwGwnIieF6qu3aXw==
   dependencies:
     "@types/web-bluetooth" "^0.0.20"
-    "@vueuse/metadata" "11.0.1"
-    "@vueuse/shared" "11.0.1"
+    "@vueuse/metadata" "11.0.3"
+    "@vueuse/shared" "11.0.3"
     vue-demi ">=0.14.10"
 
 "@vueuse/core@^10.11.0":
@@ -2404,19 +2404,19 @@
   resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-10.11.1.tgz#209db7bb5915aa172a87510b6de2ca01cadbd2a7"
   integrity sha512-IGa5FXd003Ug1qAZmyE8wF3sJ81xGLSqTqtQ6jaVfkeZ4i5kS2mwQF61yhVqojRnenVew5PldLyRgvdl4YYuSw==
 
-"@vueuse/metadata@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-11.0.1.tgz#b78fee96948896f1663c8da1f4a94839aa7627d7"
-  integrity sha512-dTFvuHFAjLYOiSd+t9Sk7xUiuL6jbfay/eX+g+jaipXXlwKur2VCqBCZX+jfu+2vROUGcUsdn3fJR9KkpadIOg==
+"@vueuse/metadata@11.0.3":
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-11.0.3.tgz#f3f20066fb5217df24614de92162b65c24475e1b"
+  integrity sha512-+FtbO4SD5WpsOcQTcC0hAhNlOid6QNLzqedtquTtQ+CRNBoAt9GuV07c6KNHK1wCmlq8DFPwgiLF2rXwgSHX5Q==
 
 "@vueuse/nuxt@^11.0.0":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@vueuse/nuxt/-/nuxt-11.0.1.tgz#a53181626522731b314d2091d60a8f8b87ba0703"
-  integrity sha512-2utGiRItdFV6/ED39YMyVl/mWFg/Hfx21sVTpo/uv+ZVwg38bLP79Ziqy21WXow18t1E9NEOirU9KhB655ERug==
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/nuxt/-/nuxt-11.0.3.tgz#0b7c013516333f39bbe35f39e5f96e55b3b448ad"
+  integrity sha512-1tZGM9lvFl6HqmSQNM6hsHbAzLkBitoh8RsVC8kIG/93d3Pb5dEqUdt1k+OfHyR8V2rfSOwCfJx+wlUTlY0A2g==
   dependencies:
-    "@nuxt/kit" "^3.12.4"
-    "@vueuse/core" "11.0.1"
-    "@vueuse/metadata" "11.0.1"
+    "@nuxt/kit" "^3.13.0"
+    "@vueuse/core" "11.0.3"
+    "@vueuse/metadata" "11.0.3"
     local-pkg "^0.5.0"
     vue-demi ">=0.14.10"
 
@@ -2427,10 +2427,10 @@
   dependencies:
     vue-demi ">=0.14.8"
 
-"@vueuse/shared@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-11.0.1.tgz#50c34d3d20a889bfa36db87fd7208be29e5448c7"
-  integrity sha512-eAPf5CQB3HR0S76HqrhjBqFYstZfiHWZq8xF9EQmobGBkrhPfErJEhr8aMNQMqd6MkENIx2pblIEfJGlHpClug==
+"@vueuse/shared@11.0.3":
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-11.0.3.tgz#0e5519dcdc9ac0c6fc831c105a9e7ba7bda98628"
+  integrity sha512-0rY2m6HS5t27n/Vp5cTDsKTlNnimCqsbh/fmT2LgE+aaU42EMfXo8+bNX91W9I7DDmxfuACXMmrd7d79JxkqWA==
   dependencies:
     vue-demi ">=0.14.10"
 
