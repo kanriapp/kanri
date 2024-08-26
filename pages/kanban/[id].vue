@@ -468,6 +468,8 @@ const decreaseZoomLevel = () => {
 }
 
 const keyDownListener = (e: KeyboardEvent) => {
+    if (editCardModalVisible.value) return; // we don't want to trigger any shortcuts when editing cards
+
     const controlOrMetaPressed: boolean = e.ctrlKey || e.metaKey;
     const controlIsOnlyKeyPressed: boolean = e.key == "Control" && e.location == 1;
     const metaIsOnlyKeyPressed: boolean = e.key == "Meta";
