@@ -50,7 +50,7 @@ Long term vision for the project:
 - 🚚 Work towards 1.0 release with features from the backlog like internationalization or a widget panel
 - 🔍 After 1.0: Assess what direction to take (focus on offline-only features or add support for cloud sync and collaboration)
 
-A granular list of priorities can be found [in the roadmap in the projects tab of this GitHub repo](https://github.com/trobonox/kanri/projects).
+A granular list of priorities can be found [in the roadmap](https://github.com/orgs/kanriapp/projects/2).
 
 This project is open for any contributions or feature requests as long as they are polite, provide enough context and remain patient (replies might take a few days).
 
