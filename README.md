@@ -52,7 +52,7 @@ Long term vision for the project:
 
 A granular list of priorities can be found [in the roadmap in the projects tab of this GitHub repo](https://github.com/trobonox/kanri/projects).
 
-This project is open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
+This project is open for any contributions or feature requests as long as they are polite, provide enough context and remain patient (replies might take a few days).
 
 > [!NOTE]
 > This project is still in active development and is provided "AS IS". Please make regular backups/exports to prevent any data loss.
