@@ -81,6 +81,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             drag-handle-selector=".kanbancard-drag"
             group-name="cards"
             orientation="vertical"
+            :get-ghost-parent="getGhostParent"
             @drop="onDrop"
         >
             <Draggable
@@ -459,6 +460,10 @@ const updateStorage = () => {
 
     emit("updateStorage", column);
 };
+
+const getGhostParent = () => {
+    return document.getElementById("kanban-cols-container");
+}
 </script>
 
 <style scoped>
