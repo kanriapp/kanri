@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div
         ref="columnDOMElement"
         :class="columnSizeClass"
-        class="kanban-column bg-elevation-1 max-h-column flex flex-col rounded-lg p-2 shadow-lg"
+        class="kanban-column bg-elevation-1 max-h-column flex flex-col rounded-lg p-2"
     >
         <div
             id="board-title"

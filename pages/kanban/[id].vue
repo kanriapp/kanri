@@ -196,11 +196,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <div class="pointer-events-auto z-50 pl-8">
                     <div class="pt-4">
                         <Container
-                            :non-drag-area-selector="'nodrag'"
-                            :orientation="'horizontal'"
+                            non-drag-area-selector="nodrag"
+                            orientation="horizontal"
                             class="flex-row gap-3.5"
                             drag-handle-selector=".dragging-handle"
                             group-name="columns"
+                            :get-ghost-parent="getGhostParent"
                             @drop="onDrop"
                         >
                             <Draggable
@@ -919,6 +920,10 @@ const setBrightness = (brightnessAmount: string) => {
     bgBrightness.value = brightnessAmount;
     board.value.background = {blur: bgBlur.value, brightness: bgBrightness.value, src: bgCustomNoResolution.value};
     updateStorage();
+}
+
+const getGhostParent = () => {
+    return document.getElementById("kanban-cols-container");
 }
 </script>
 
