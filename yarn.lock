@@ -7093,11 +7093,12 @@ tar@^6.1.11, tar@^6.2.0:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-"tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#1e02acce1b4bb5ee461f7670012d7d105a13be4c":
+"tauri-plugin-autostart-api@github:tauri-apps/tauri-plugin-autostart#6e4666fe3462f0534e90ed6bc075394dff1a1bde":
   version "0.0.0"
-  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/1e02acce1b4bb5ee461f7670012d7d105a13be4c"
+  uid "6e4666fe3462f0534e90ed6bc075394dff1a1bde"
+  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/6e4666fe3462f0534e90ed6bc075394dff1a1bde"
   dependencies:
-    "@tauri-apps/api" "1.5.6"
+    "@tauri-apps/api" "1.6.0"
 
 "tauri-plugin-fs-watch-api@https://github.com/tauri-apps/tauri-plugin-fs-watch#v1":
   version "0.0.0"
