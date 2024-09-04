@@ -50,7 +50,7 @@
         "pathe": "^1.1.2",
         "pinia": "2.2.2",
         "radix-vue": "^1.2.2",
-        "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#1e02acce1b4bb5ee461f7670012d7d105a13be4c",
+        "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#6e4666fe3462f0534e90ed6bc075394dff1a1bde",
         "tauri-plugin-fs-watch-api": "https://github.com/tauri-apps/tauri-plugin-fs-watch#v1",
         "tauri-plugin-log-api": "https://github.com/tauri-apps/tauri-plugin-log#v1",
         "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#2352f0bda53b4725ef1d2f51cd5774e4396a20d1",
