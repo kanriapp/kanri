@@ -19,6 +19,7 @@
     "devDependencies": {
         "@nuxt/eslint": "^0.5.0",
         "@nuxt/eslint-config": "0.5.3",
+        "@eslint/eslintrc": "^3.1.0",
         "@nuxtjs/tailwindcss": "6.12.1",
         "@tauri-apps/cli": "1.6.1",
         "@types/node": "^20.14.7",
@@ -27,12 +28,10 @@
         "eslint": "9.9.1",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
-        "nuxt-better-optimize-deps": "^0.1.0",
         "rollup-plugin-license": "^3.0.1",
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "@eslint/eslintrc": "^3.1.0",
         "@heroicons/vue": "2.1.5",
         "@paralleldrive/cuid2": "^2.1.0",
         "@phosphor-icons/vue": "^2.1.6",
@@ -59,12 +58,6 @@
         "vue-dragscroll": "^4.0.5",
         "vue3-smooth-dnd": "0.0.6",
         "zod": "^3.20.6"
-    },
-    "resolutions": {
-        "terser": "5.31.6",
-        "undici": "6.19.8",
-        "json5": "2.2.3",
-        "semver": "7.6.3"
     },
     "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
