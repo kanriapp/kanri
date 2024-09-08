@@ -25,7 +25,7 @@
         "@types/node": "^20.14.7",
         "@vueuse/core": "^11.0.0",
         "@vueuse/nuxt": "^11.0.0",
-        "eslint": "9.9.1",
+        "eslint": "9.10.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "^3.7.1",
         "rollup-plugin-license": "^3.0.1",
