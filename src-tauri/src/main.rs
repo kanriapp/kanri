@@ -28,60 +28,6 @@ fn main() {
         MacosLauncher::LaunchAgent,
         None,
         ))
-        .invoke_handler(tauri::generate_handler![load_board_from_file, write_to_board_file, get_boards_to_display])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-}
-
-#[tauri::command]
-fn load_board_from_file(board_path: String) -> String {
-    //load file at location
-    let data = match fs::read_to_string(board_path) {
-        Ok(data) => data,
-        Err(e) => {
-            println!("error reading file: {}", e);
-            return String::from("error reading file");
-        }
-    };
-
-    return data;
-}
-
-#[tauri::command]
-fn write_to_board_file(board_path: String, board_content: serde_json::Value) -> String {
-    // write to specified board file
-    match fs::write(&board_path, board_content.to_string()) {
-        Ok(_) => {},
-        Err(e) => {
-            println!("Error writing to file {} : {:?}", board_path, e);
-            return String::from("error writing to file");
-        }
-    };
-
-    return String::from("success");
-}
-
-#[tauri::command]
-fn get_boards_to_display(save_path: String) -> Vec<String> {
-    // get all files in save_path and put all json files into an array
-    let mut boards: Vec<String> = Vec::new();
-    let files = fs::read_dir(save_path).unwrap();
-
-    // loop through the files and add them to the boards vector
-    for file in files {
-        let file = file.ok().unwrap();
-        let file_path = file.path();
-        let file_extension = file_path.extension();
-
-        if let Some(file_extension) = file_extension {
-            if file_extension.to_str().unwrap() == "json" {
-                boards.push(fs::read_to_string(file_path.to_str().
-                    unwrap().
-                    to_string()).unwrap());
-            }
-        }
-    }
-
-    // return the boards vector
-    return boards;
 }

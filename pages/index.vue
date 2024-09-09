@@ -240,9 +240,6 @@ import { join } from "pathe";
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
 
-const customBoardStorageEnabled = ref(false);
-const customBoardSaveLocation = ref("");
-
 const loading = ref(true);
 const editSortWarning = ref(false);
 const renameBoardModalVisible = ref(false);
@@ -254,9 +251,6 @@ const reverseSortOrder = ref(false);
 const sortingOptionText = ref("Sort by creation date");
 
 onMounted(async () => {
-    customBoardStorageEnabled.value = await store.get("customStorageEnabled") || false;
-    customBoardSaveLocation.value = await store.get("customStoragePath") || "";
-
     emitter.on("createBoard", async ({columns, title}) => {
         await createNewBoard(title, columns);
     });
@@ -265,28 +259,7 @@ onMounted(async () => {
 
     emitter.emit("hideSidebarBackArrow");
 
-    if (customBoardStorageEnabled.value) {
-        // TODO: Check if it makes sense to add a watcher for new files added into the folder
-        // TODO: add a badge somewhere in the app to indicate that external storage is enabled and is an experimental feature
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const externalBoards: any = await invoke("get_boards_to_display", { savePath: customBoardSaveLocation.value });
-
-        for (const board of externalBoards) {
-            let parsedBoard = undefined;
-            try {
-                parsedBoard = JSON.parse(board);
-            }
-            catch {
-                console.error("Failed to load one of your external boards. The file might be corrupted or is not a valid JSON file.");
-            }
-
-            if (parsedBoard) boards.value.push(parsedBoard)
-        }
-    }
-    else {
-        boards.value = (await store.get("boards")) || [];
-    }
+    boards.value = (await store.get("boards")) || [];
 
     await setSorting();
 
@@ -379,22 +352,8 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
         title: title
     };
 
-    if (customBoardStorageEnabled.value) {
-        // save custom board with rust method here
-        const filePathFull = join(customBoardSaveLocation.value, `${board.id}.json`);
-        const err = await invoke("write_to_board_file", { boardPath: filePathFull, boardContent: board });
-
-        if (err === "error writing to fie") {
-            await message(`Failed saving your board "${board.title}" to your custom save location! This should not happen, please report this issue to the developer. To prevent any (further) data loss, please make a copy of the board manually.`, { title: 'Kanri', type: 'error' });
-            return;
-        }
-
-        boards.value = [...boards.value, board];
-    }
-    else {
-        boards.value = [...boards.value, board];
-        store.set("boards", boards.value);
-    }
+    boards.value = [...boards.value, board];
+    store.set("boards", boards.value);
 
     await setSorting();
 };

@@ -261,22 +261,16 @@ import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight } from "@phosphor-icons/vue";
 
-import { save, message } from "@tauri-apps/api/dialog";
+import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
-import { invoke, convertFileSrc } from '@tauri-apps/api/tauri';
-import { watchImmediate } from "tauri-plugin-fs-watch-api";
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { useConfirmDialog } from '@vueuse/core'
-import { join } from "pathe";
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
 
 const store = useTauriStore().store;
 const route = useRoute();
 const router = useRouter();
-
-const customBoardStorageEnabled = ref(false);
-const customBoardSaveLocation = ref("");
-let externalConfigWatcher: Awaited<ReturnType<typeof watchImmediate>> | null = null;
 
 const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
@@ -325,9 +319,6 @@ const cssVars = computed(() => {
 })
 
 onMounted(async () => {
-    customBoardStorageEnabled.value = await store.get("customStorageEnabled") || false;
-    customBoardSaveLocation.value = await store.get("customStoragePath") || "";
-
     await loadCurrentBoard();
 
     if (board.value.background) {
@@ -375,55 +366,23 @@ onBeforeUnmount(async () => {
     emitter.emit("closeKanbanPage");
 
     emitter.off("columnActionDone");
-
-    if (externalConfigWatcher) {
-        await externalConfigWatcher(); // Closes the file watcher when the board is closed
-    }
 });
 
 /**
- * Loads board: tries to use file from custom storage first, otherwise uses board stored in Tauri store
+ * Loads board: loads board from storage and sets it as the current board. (can be extended with custom storage functionality later on)
  */
 const loadCurrentBoard = async () => {
-    if (customBoardStorageEnabled.value) {
-        const filePathFull = join(customBoardSaveLocation.value, `${route.params.id}.json`);
+    boards.value = await store.get("boards") || [];
 
-        await loadBoardFromCustomStorage(filePathFull);
+    board.value = boards.value.filter((board) => {
+        return board.id === route.params.id;
+    })[0];
 
-        externalConfigWatcher = await watchImmediate(
-            filePathFull,
-            async () => {
-                await loadBoardFromCustomStorage(filePathFull);
-            },
-        );
-    }
-    else { // use tauri-plugin-store for retrieving board if custom storage is disabled
-        boards.value = await store.get("boards") || [];
-
-        board.value = boards.value.filter((board) => {
-            return board.id === route.params.id;
-        })[0];
-
-        if(!board.value) {
-            console.error("Could not resolve board!");
-            return;
-        }
-    }
-}
-
-const loadBoardFromCustomStorage = async (filePathFull: string) => {
-    const data = await invoke("load_board_from_file", { boardPath: filePathFull });
-
-    if (data === "error reading file") {
-        await message('Could not your externally saved board! Please make sure it exists. (If you sync the save file with cloud storage, this could also mean a corrupted file.)', { title: 'Kanri', type: 'error' });
-
+    if(!board.value) {
+        console.error("Could not resolve board!");
         router.push("/");
         return;
     }
-
-    console.log("LOADED EXTERNAL BOARD SUCCESSFULLY");
-
-    board.value = JSON.parse(data as string) as Board;
 }
 
 enum shortcutKeys {
@@ -776,20 +735,6 @@ const updateColumnProperties = (columnObj: Column) => {
  */
 const updateStorage = async () => {
     // TODO!!!: add safety measures to prevent potential overrides of the global boards with the empty array which is a fallback value for the vue ref
-
-    if (customBoardStorageEnabled.value) {
-        // save custom board with rust method here
-        const filePathFull = join(customBoardSaveLocation.value, `${route.params.id}.json`);
-        const err = await invoke("write_to_board_file", { boardPath: filePathFull, boardContent: board.value });
-
-        if (err === "error writing to file") {
-            await message(`Failed saving your board "${board.value.title}" to your custom save location! This should not happen, please report this issue to the developer. To prevent any (further) data loss, please make a copy of the board manually.`, { title: 'Kanri', type: 'error' });
-            router.push("/");
-            return;
-        }
-
-        return;
-    }
 
     const currentBoard = boards.value.filter((obj: Board) => {
         return obj.id === board.value.id;
