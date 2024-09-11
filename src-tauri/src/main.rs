@@ -9,8 +9,6 @@ all(not(debug_assertions), target_os = "windows"),
   windows_subsystem = "windows"
 )]
 
-use std::fs;
-
 use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_log::LogTarget;
 
