@@ -29,14 +29,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             :class="titleTextClassZoom"
             class="flex flex-row items-start justify-between gap-4"
         >
-            <div v-if="!titleEditing" class="flex flex-row items-center gap-1.5">
+            <div v-if="!titleEditing" class="flex flex-row items-start gap-1.5">
                 <h1
                     class="text-no-overflow ml-1 font-bold"
                     @click="enableTitleEditing()"
                 >
                     {{ boardTitle }}
                 </h1>
-                <span v-if="cardCountDisplayEnabled" class="bg-elevation-2 rounded-2xl px-2 py-0.5 align-baseline text-xs">{{ cards.length }}</span>
+                <span v-if="cardCountDisplayEnabled" class="bg-elevation-2 rounded-2xl px-2 py-0.5 mt-1 text-xs">{{ cards.length }}</span>
             </div>
 
             <input
