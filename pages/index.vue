@@ -233,10 +233,6 @@ import { ChevronDownIcon } from "@heroicons/vue/24/outline"
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel } from "@phosphor-icons/vue";
 
-import { invoke } from '@tauri-apps/api/tauri';
-import { message } from "@tauri-apps/api/dialog";
-import { join } from "pathe";
-
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
 

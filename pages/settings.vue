@@ -277,10 +277,8 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas"
 import emitter from "@/utils/emitter";
 import { catppuccin, dark, light } from "@/utils/themes";
-import { ArrowDownTrayIcon, ArrowUpTrayIcon, MoonIcon, SunIcon, SwatchIcon, FolderOpenIcon } from "@heroicons/vue/24/outline";
+import { ArrowDownTrayIcon, ArrowUpTrayIcon, MoonIcon, SunIcon, SwatchIcon } from "@heroicons/vue/24/outline";
 
-import { join } from "pathe";
-import { invoke } from '@tauri-apps/api/tauri';
 import { message, open, save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { disable, enable, isEnabled } from 'tauri-plugin-autostart-api';
