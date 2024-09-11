@@ -78,6 +78,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         >
                             Import from Trello®
                         </button>
+                        <button
+                            class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
+                            @click="importFromGithubProject"
+                        >
+                            Import from GitHub Project
+                        </button>
                     </div>
                     <h3 class="mt-4 text-lg font-semibold tracking-tight">
                         Full import
@@ -152,7 +158,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Board, Column, Tag } from "@/types/kanban-types";
+import type { Board, Column, Tag, Card } from "@/types/kanban-types";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanbanElectronJsonSchema, kanriBoardSchema, kanriJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
@@ -304,6 +310,72 @@ const importFromKanriFull = async () => {
 
     // Manual refresh
     router.go(0);
+}
+
+const importFromGithubProject = async () => {
+    const selected = await open({
+        filters: [{
+            extensions: ['tsv'],
+            name: 'TSV File'
+        }],
+        multiple: false
+    });
+
+    const convertedBoards: Array<Board> = await store.get("boards") || [];
+
+    // make sure the file always starts with this: "Title	URL	Assignees	Status	Labels"
+    if (selected === null) return;
+
+    const textFile = await readTextFile(selected as string);
+    if (!textFile) return;
+
+    const lines = textFile.split("\n");
+    if (lines[0] !== "Title	URL	Assignees	Status	Labels") {
+        await message("The file is not a valid board exported from GitHub projects. If you believe this is a bug, please open a GitHub issue or email support@kanriapp.com", {type: 'error'});
+        console.error(`Invalid GH Projects board file:  ${selected as string}`);
+        return;
+    }
+
+    const board: Board = {
+        id: generateUniqueID(),
+        title: selected.split('\\').pop() || selected,
+        columns: []
+    };
+
+    console.log(board);
+
+    // Skip the header row
+    for (let i = 1; i < lines.length; i++) {
+        const [title, url, , status, labels] = lines[i].split("\t");
+
+        if (!title.trim()) continue;
+
+        let column = board.columns.find(col => col.title === status);
+        if (!column) {
+            column = {
+                id: generateUniqueID(),
+                title: status,
+                cards: []
+            };
+            board.columns.push(column);
+        }
+
+        const card: Card = {
+            id: generateUniqueID(),
+            name: title.trim(),
+            description: url ? url.trim() : "",
+            tags: labels ? labels.split(",").map(label => ({
+                id: generateUniqueID(),
+                text: label.trim()
+            })) : []
+        };
+
+        column.cards.push(card);
+    }
+
+    convertedBoards.push(board);
+    await store.set("boards", convertedBoards);
+    await message("Successfully imported GitHub Projects board.", {type: 'info'});
 }
 
 const importFromKanbanElectronFull = async () => {
