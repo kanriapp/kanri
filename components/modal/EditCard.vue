@@ -204,7 +204,6 @@ limitations under the License.
                             v-model="dueDate"
                             mode="dateTime"
                             is24hr
-                            :attrs="attrs"
                             @update:modelValue="updateDueDate"
                         >
                             <template #default="{ togglePopover }">
@@ -458,16 +457,6 @@ const selectedColor = ref("");
 
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
-const attrs = ref([
-    {
-        key: 'today',
-        highlight: {
-            color: 'green',
-            fillMode: 'solid'
-        },
-        dates: new Date()
-    }
-])
 
 const tag = ref("");
 const tags: Ref<Array<Tag>> = ref([]);
