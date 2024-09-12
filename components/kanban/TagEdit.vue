@@ -20,33 +20,38 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
     <div class="bg-elevation-2 flex w-full flex-row items-center justify-between gap-3 rounded-md px-2 py-1">
-        <div class="flex flex-row gap-2">
+        <div class="flex flex-row gap-2 items-center">
             <input
                 ref="colorInput"
+                class="flex-shrink-0"
                 v-model="tagColor"
                 type="color"
                 @change="setTagColor"
             >
             <template v-if="!isEditing">
-                {{ tag.text }}
+                <ClickCounter @double-click="startEditing">
+                    {{ tag.text }}
+                </ClickCounter>
             </template>
-            <input
-                v-else
-                v-model="editedTagName"
-                type="text"
-                class="bg-elevation-2 border-accent -mx-1.5 w-full rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
-                @keyup.enter="saveTagName"
-                @blur="saveTagName"
-            >
+            <template v-else class="flex flex-row items-center w-full">
+                <input
+                    v-model="editedTagName"
+                    v-focus
+                    type="text"
+                    class="bg-elevation-3 w-full rounded-md px-1 py-0.5 outline-none"
+                    @keyup.enter="saveTagName"
+                    @blur="saveTagName"
+                >
+            </template>
         </div>
         <div class="flex flex-row items-center gap-2">
             <template v-if="!isEditing">
                 <PhPencilSimple class="text-accent-hover size-4 cursor-pointer" @click="startEditing" />
+                <XMarkIcon class="text-accent-hover size-4 cursor-pointer" @click="$emit('removeTag', tag.id)" />
             </template>
             <template v-else>
                 <PhCheck class="text-accent-hover size-4 cursor-pointer" @click="saveTagName" />
             </template>
-            <XMarkIcon class="text-accent-hover size-4 cursor-pointer" @click="$emit('removeTag', tag.id)" />
         </div>
     </div>
 </template>
@@ -81,6 +86,11 @@ const startEditing = () => {
             input.focus();
         }
     });
+}
+
+const cancelEditing = () => {
+    isEditing.value = false;
+    editedTagName.value = props.tag.text;
 }
 
 const saveTagName = () => {
