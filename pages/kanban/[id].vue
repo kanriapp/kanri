@@ -198,7 +198,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         <Container
                             non-drag-area-selector="nodrag"
                             orientation="horizontal"
-                            class="flex-row gap-3.5"
+                            class="flex-row gap-2"
                             drag-handle-selector=".dragging-handle"
                             group-name="columns"
                             :get-ghost-parent="getGhostParent"

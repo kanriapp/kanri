@@ -28,7 +28,7 @@ limitations under the License.
             class="flex w-full flex-row items-start justify-between"
         >
             <p
-                class="text-no-overflow mr-2 w-full min-w-[24px]"
+                class="text-no-overflow mr-2 w-full min-w-[28px]"
             >
                 <ClickCounter
                     v-if="!cardNameEditMode"
