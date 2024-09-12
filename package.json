@@ -26,7 +26,7 @@
         "@vueuse/nuxt": "^10.2.1",
         "eslint": "9.5.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
-        "nuxt": "3.12.2",
+        "nuxt": "3.12.4",
         "nuxt-better-optimize-deps": "^0.1.0",
         "postcss-custom-properties": "13.3.10",
         "rollup-plugin-license": "^3.0.1",
