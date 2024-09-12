@@ -17,9 +17,9 @@
         "lint": "eslint . --fix"
     },
     "devDependencies": {
-        "@nuxt/eslint": "^0.5.0",
-        "@nuxt/eslint-config": "0.5.7",
         "@eslint/eslintrc": "^3.1.0",
+        "@nuxt/eslint": "^0.5.0",
+        "@nuxt/eslint-config": "0.5.6",
         "@nuxtjs/tailwindcss": "6.12.1",
         "@tauri-apps/cli": "1.6.1",
         "@types/node": "^20.14.7",
@@ -27,7 +27,7 @@
         "@vueuse/nuxt": "^11.0.0",
         "eslint": "9.10.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
-        "nuxt": "^3.7.1",
+        "nuxt": "^3.13.1",
         "rollup-plugin-license": "^3.0.1",
         "typescript": "^5.4.5"
     },
