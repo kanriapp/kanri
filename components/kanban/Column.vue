@@ -31,7 +31,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         >
             <div v-if="!titleEditing" class="flex flex-row items-start gap-1.5">
                 <h1
-                    class="text-no-overflow ml-1 font-bold"
+                    class="stop-text-overflow ml-1 font-bold"
                     @click="enableTitleEditing()"
                 >
                     {{ boardTitle }}
@@ -468,6 +468,24 @@ const getGhostParent = () => {
 
 <style scoped>
 .max-h-column {
-   max-height: calc(90vh - 100px);
+    max-height: calc(90vh - 100px);
+}
+
+.stop-text-overflow {
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 </style>
