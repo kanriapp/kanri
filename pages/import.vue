@@ -312,72 +312,6 @@ const importFromKanriFull = async () => {
     router.go(0);
 }
 
-const importFromGithubProject = async () => {
-    const selected = await open({
-        filters: [{
-            extensions: ['tsv'],
-            name: 'TSV File'
-        }],
-        multiple: false
-    });
-
-    const convertedBoards: Array<Board> = await store.get("boards") || [];
-
-    // make sure the file always starts with this: "Title	URL	Assignees	Status	Labels"
-    if (selected === null) return;
-
-    const textFile = await readTextFile(selected as string);
-    if (!textFile) return;
-
-    const lines = textFile.split("\n");
-    if (lines[0] !== "Title	URL	Assignees	Status	Labels") {
-        await message("The file is not a valid board exported from GitHub projects. If you believe this is a bug, please open a GitHub issue or email support@kanriapp.com", {type: 'error'});
-        console.error(`Invalid GH Projects board file:  ${selected as string}`);
-        return;
-    }
-
-    const board: Board = {
-        id: generateUniqueID(),
-        title: selected.split('\\').pop() || selected,
-        columns: []
-    };
-
-    console.log(board);
-
-    // Skip the header row
-    for (let i = 1; i < lines.length; i++) {
-        const [title, url, , status, labels] = lines[i].split("\t");
-
-        if (!title.trim()) continue;
-
-        let column = board.columns.find(col => col.title === status);
-        if (!column) {
-            column = {
-                id: generateUniqueID(),
-                title: status,
-                cards: []
-            };
-            board.columns.push(column);
-        }
-
-        const card: Card = {
-            id: generateUniqueID(),
-            name: title.trim(),
-            description: url ? url.trim() : "",
-            tags: labels ? labels.split(",").map(label => ({
-                id: generateUniqueID(),
-                text: label.trim()
-            })) : []
-        };
-
-        column.cards.push(card);
-    }
-
-    convertedBoards.push(board);
-    await store.set("boards", convertedBoards);
-    await message("Successfully imported GitHub Projects board.", {type: 'info'});
-}
-
 const importFromKanbanElectronFull = async () => {
     const selected = await open({
         filters: [{
@@ -718,6 +652,93 @@ const trelloParse = async (board: string) => {
     if (kanriConvertedParsed === null) return undefined;
 
     return kanriConvertedParsed;
+}
+
+const importFromGithubProject = async () => {
+    const selected = await open({
+        filters: [{
+            extensions: ['tsv'],
+            name: 'TSV File'
+        }],
+        multiple: true
+    });
+
+    const convertedBoards: Array<Board> = await store.get("boards") || [];
+
+    if (selected === null) return;
+
+    const selectedFiles = Array.isArray(selected) ? selected : [selected];
+
+    for (const file of selectedFiles) {
+        const textFile = await readTextFile(file);
+        if (!textFile) continue;
+
+        const lines = textFile.split("\n");
+        if (lines[0] !== "Title	URL	Assignees	Status	Labels") {
+            await message(`The file ${file} is not a valid board exported from GitHub projects. If you believe this is a bug, please open a GitHub issue or email support@kanriapp.com`, {type: 'error'});
+            console.error(`Invalid GH Projects board file: ${file}`);
+            continue;
+        }
+
+        const board: Board = {
+            id: generateUniqueID(),
+            title: (file.split(/[\/\\]/).pop() || file).replace(/\.tsv$/, ''),
+            columns: [],
+            globalTags: [],
+            lastEdited: new Date()
+        };
+
+        // Skip the header row
+        for (let i = 1; i < lines.length; i++) {
+            const [title, url, , status, labels] = lines[i].split("\t");
+
+            if (!title.trim()) continue;
+
+            let column = board.columns.find(col => col.title === status);
+            if (!column) {
+                column = {
+                    id: generateUniqueID(),
+                    title: status,
+                    cards: []
+                };
+                board.columns.push(column);
+            }
+
+            const cardTags: Array<Tag> = [];
+            if (labels) {
+                const labelArray = labels.split(",");
+                for (const label of labelArray) {
+                    const trimmedLabel = label.trim();
+
+                    if (!board.globalTags) board.globalTags = [];
+                    let tag = board.globalTags.find(t => t.text === trimmedLabel);
+
+                    if (!tag) {
+                        tag = {
+                            id: generateUniqueID(),
+                            text: trimmedLabel
+                        };
+                        board.globalTags.push(tag);
+                    }
+                    cardTags.push(tag);
+                }
+            }
+
+            const card: Card = {
+                id: generateUniqueID(),
+                name: title.trim(),
+                description: url ? url.trim() : "",
+                tags: cardTags
+            };
+
+            column.cards.push(card);
+        }
+
+        convertedBoards.push(board);
+    }
+
+    await store.set("boards", convertedBoards);
+    await message("Successfully imported GitHub Projects board(s).", {type: 'info'});
 }
 </script>
 
