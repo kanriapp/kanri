@@ -26,9 +26,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <template #content>
             <main class="h-[36rem] min-w-[32rem] max-w-3xl overflow-auto">
                 <div class="flex flex-row items-start justify-between">
-                    <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
-                        Edit card tags
-                    </h1>
+                    <div class="flex flex-col gap-1">
+                        <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
+                            Edit card tags
+                        </h1>
+                        <p class="text-dim-3 inline-block max-w-xl text-sm">Here you can edit your global tags, which are available for the entire board. Note: Deleting a global tag does not remove them from cards, but only makes it unavailable for new cards.</p>
+                    </div>
                     <XMarkIcon
                         class="text-accent-hover size-6 cursor-pointer"
                         @click="$emit('closeModal')"
