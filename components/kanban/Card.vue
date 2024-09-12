@@ -291,9 +291,9 @@ const getFormattedDueDate = computed(() => {
         const timeDifference = dueDateTimestamp - now.getTime();
 
         if (timeDifference <= 0) {
-            const secondsPast = Math.ceil(-timeDifference / 1000);
-            const minutesPast = Math.ceil(secondsPast / 60);
-            const hoursPast = Math.ceil(minutesPast / 60);
+            const secondsPast = Math.floor(-timeDifference / 1000);
+            const minutesPast = Math.floor(secondsPast / 60);
+            const hoursPast = Math.floor(minutesPast / 60);
             const daysPast = Math.ceil(hoursPast / 24);
 
             const seconds = secondsPast % 60;
@@ -309,9 +309,9 @@ const getFormattedDueDate = computed(() => {
             return daysAgo || hoursAgo || minutesAgo || secondsAgo;
         }
 
-        const seconds = Math.ceil(timeDifference / 1000);
-        const minutes = Math.ceil(seconds / 60);
-        const hours = Math.ceil(minutes / 60);
+        const seconds = Math.floor(timeDifference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
         const days = Math.ceil(hours / 24);
 
         if (days > 0) {
@@ -321,12 +321,12 @@ const getFormattedDueDate = computed(() => {
         } else if (minutes > 0) {
             return `in ${minutes}min${minutes > 1 ? 's' : ''}`;
         } else {
-            return `in ${seconds}s`;
+            return `in ${seconds}s}`;
         }
     }
 
     return new Date(dueDate.value).toLocaleDateString();
-})
+});
 
 const dueDateOverdue = computed(() => {
     if (!dueDate.value) return false;
