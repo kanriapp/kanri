@@ -143,7 +143,6 @@ const emit = defineEmits<{
 
 const store = useTauriStore().store;
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const savedColors: Ref<any> = ref(null); // TODO: add types for saved theme in board
 const cardRef: Ref<HTMLDivElement | null> = ref(null);
@@ -166,7 +165,7 @@ watch(props, (_, newData) => {
     dueDate.value = newData.card.dueDate;
     isDueDateRelative.value = newData.card.isDueDateCounterRelative;
     cardTags.value = newData.card.tags;
-});
+}, {deep: true});
 
 onMounted(async () => {
     savedColors.value = await store.get("colors");
