@@ -560,7 +560,6 @@ const setCardTitle = (columnId: string, cardIndex: number, title: string) => {
 }
 
 const setCardDescription = (columnId: string, cardIndex: number, description: string) => {
-    console.log("updating thingy");
     mutateCardData(columnId, cardIndex, (card) => {
         card.description = description;
     })
