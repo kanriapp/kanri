@@ -20,7 +20,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
     <div class="bg-elevation-2 flex w-full flex-row items-center justify-between gap-3 rounded-md px-2 py-1">
-
         <div class="flex flex-row gap-2">
             <input
                 ref="colorInput"
@@ -28,27 +27,67 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 type="color"
                 @change="setTagColor"
             >
-            {{ tag.text }}
+            <template v-if="!isEditing">
+                {{ tag.text }}
+            </template>
+            <input
+                v-else
+                v-model="editedTagName"
+                type="text"
+                class="bg-elevation-2 border-accent -mx-1.5 w-full rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
+                @keyup.enter="saveTagName"
+                @blur="saveTagName"
+            >
         </div>
-        <XMarkIcon class="text-accent-hover size-4 cursor-pointer" @click="$emit('removeTag', tag.id)" />
+        <div class="flex flex-row items-center gap-2">
+            <template v-if="!isEditing">
+                <PhPencilSimple class="text-accent-hover size-4 cursor-pointer" @click="startEditing" />
+            </template>
+            <template v-else>
+                <PhCheck class="text-accent-hover size-4 cursor-pointer" @click="saveTagName" />
+            </template>
+            <XMarkIcon class="text-accent-hover size-4 cursor-pointer" @click="$emit('removeTag', tag.id)" />
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { Tag } from '@/types/kanban-types';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
+import { PhPencilSimple, PhCheck } from "@phosphor-icons/vue";
 
-const emit = defineEmits(["setTagColor", "removeTag"]);
+const emit = defineEmits(["setTagColor", "removeTag", "updateTagName"]);
 
 const props = defineProps<{
     tag: Tag;
 }>()
 
 const tagColor = ref(props.tag.color);
+const isEditing = ref(false);
+const editedTagName = ref(props.tag.text);
 
 const setTagColor = () => {
     console.log(tagColor.value);
     emit("setTagColor", props.tag.id, tagColor.value);
+}
+
+const startEditing = () => {
+    isEditing.value = true;
+    editedTagName.value = props.tag.text;
+    nextTick(() => {
+        const input = document.querySelector('input[type="text"]');
+        if (input) {
+            //@ts-ignore
+            input.focus();
+        }
+    });
+}
+
+const saveTagName = () => {
+    if (editedTagName.value.trim() !== '') {
+        emit("updateTagName", props.tag.id, editedTagName.value.trim());
+    }
+    isEditing.value = false;
 }
 </script>
 

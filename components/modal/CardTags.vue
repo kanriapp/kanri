@@ -45,6 +45,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                 :tag="tag"
                                 @setTagColor="setTagColor"
                                 @removeTag="removeTag"
+                                @updateTagName="updateTagName"
                             />
                         </div>
                     </section>
@@ -58,7 +59,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import type { Tag } from "@/types/kanban-types";
 
-const emit = defineEmits(["closeModal", "setTagColor", "removeTag"]);
+const emit = defineEmits(["closeModal", "setTagColor", "removeTag", "updateTagName"]);
 
 defineProps<{
     tags: Array<Tag>;
@@ -70,5 +71,9 @@ const setTagColor = (tagId: string, color: string | null) => {
 
 const removeTag = (tagId: string) => {
     emit("removeTag", tagId);
+};
+
+const updateTagName = (tagId: string, newName: string) => {
+    emit("updateTagName", tagId, newName);
 };
 </script>

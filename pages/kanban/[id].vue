@@ -38,6 +38,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @closeModal="editTagModalVisible = false"
             @setTagColor="setTagColor"
             @removeTag="removeTag"
+            @updateTagName="updateTagName"
         />
         <ModalEditCard
             v-show="editCardModalVisible"
@@ -558,6 +559,7 @@ const setCardTitle = (columnId: string, cardIndex: number, title: string) => {
 }
 
 const setCardDescription = (columnId: string, cardIndex: number, description: string) => {
+    console.log("updating thingy");
     mutateCardData(columnId, cardIndex, (card) => {
         card.description = description;
     })
@@ -618,6 +620,15 @@ const setTagColor = (tagId: string, color: string) => {
 
     tag.color = color;
     tag.style = `background-color: ${color}; color: ${textColor}`;
+    updateStorage();
+
+    emitter.emit("globalTagsUpdated", {tags: board.value.globalTags});
+}
+
+const updateTagName = (tagId: string, newName: string) => {
+    const tag = findObjectById<Tag>(board.value.globalTags || [], tagId);
+
+    tag.text = newName;
     updateStorage();
 
     emitter.emit("globalTagsUpdated", {tags: board.value.globalTags});
@@ -733,7 +744,7 @@ const updateColumnProperties = (columnObj: Column) => {
 /**
  * Main method for updating the persistent storage, overrides old board with new one and saves to tauri store
  */
-const updateStorage = async () => {
+const updateStorage = () => {
     // TODO!!!: add safety measures to prevent potential overrides of the global boards with the empty array which is a fallback value for the vue ref
 
     const currentBoard = boards.value.filter((obj: Board) => {
