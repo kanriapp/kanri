@@ -527,6 +527,10 @@ const updateTags = (newTags: any) => {
 
 const closeModalAndOpenTagEdit = () => {
     emit("closeModal", columnID.value);
+    titleEditing.value = false;
+    taskAddMode.value = false;
+    showCustomColorPopup.value = false;
+
     nextTick(() => {
         emit("openTagEdit");
     });
