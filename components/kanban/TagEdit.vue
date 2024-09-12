@@ -72,7 +72,6 @@ const isEditing = ref(false);
 const editedTagName = ref(props.tag.text);
 
 const setTagColor = () => {
-    console.log(tagColor.value);
     emit("setTagColor", props.tag.id, tagColor.value);
 }
 
