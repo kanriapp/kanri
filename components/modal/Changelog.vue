@@ -42,24 +42,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                         target="_blank"
                     >the official Discord server.</a>
                 </p>
-                <p>
-                    <br>
-                    <span class="text-xl font-bold">Changes:</span>
-                    <ul>
-                        <li>
-                            Improved text contrast for card tags
-                        </li>
-                        <li>
-                            Import tags and due date from Trello® boards
-                        </li>
-                        <li>
-                            Search bar now also includes card tags in search
-                        </li>
-                        <li>
-                            Remove scrolling to the bottom of a column when adding cards at the top
-                        </li>
-                    </ul>
-                </p>
+
+                <br>
+                <span class="text-xl font-bold">Changes:</span>
+                <ul>
+                    <li>
+                        Improved text contrast for card tags
+                    </li>
+                    <li>
+                        Import tags and due date from Trello® boards
+                    </li>
+                    <li>
+                        Search bar now also includes card tags in search
+                    </li>
+                    <li>
+                        Remove scrolling to the bottom of a column when adding cards at the top
+                    </li>
+                </ul>
 
                 <div class="mt-6 flex justify-between">
                     <button
