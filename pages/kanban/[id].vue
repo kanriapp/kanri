@@ -54,6 +54,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             @setCardDueDate="setCardDueDate"
             @setCardTags="setCardTags"
             @addGlobalTag="addGlobalTag"
+            @openTagEdit="editTagModalVisible = true"
         />
         <ModalRenameBoard
             v-show="renameBoardModalVisible"

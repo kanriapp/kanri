@@ -395,11 +395,7 @@ limitations under the License.
                         </div>
                     </div>
                     <div class="mt-4 flex flex-col pr-6">
-                        <h2
-                            class="mb-1 text-lg font-semibold"
-                        >
-                            Tags
-                        </h2>
+                        <h2 class="text-lg font-semibold">Tags</h2>
                         <vue-tags-input
                             v-model="tag"
                             :tags="tags"
@@ -408,6 +404,12 @@ limitations under the License.
                             @tags-changed="updateTags"
                             @before-adding-tag="beforeTagAdd"
                         />
+                        <button
+                            class="bg-elevation-3 text-sm rounded-md px-2 py-0.5 w-fit mt-2"
+                            @click="closeModalAndOpenTagEdit"
+                        >
+                            Edit Global Tags
+                        </button>
                     </div>
                 </div>
             </div>
@@ -446,6 +448,7 @@ const emit = defineEmits<{
     (e: "setCardTasks", columnID: string, cardIndex: number, tasks: Array<Task>): void,
     (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void,
     (e: "addGlobalTag", tag: Tag): void,
+    (e: "openTagEdit"): void,
 }>();
 
 const columnID = ref("");
@@ -520,6 +523,13 @@ const updateTags = (newTags: any) => {
     tags.value = newTags;
 
     emit("setCardTags", columnID.value, cardIndex.value, tags.value);
+}
+
+const closeModalAndOpenTagEdit = () => {
+    emit("closeModal", columnID.value);
+    nextTick(() => {
+        emit("openTagEdit");
+    });
 }
 
 const createTask = () => {
