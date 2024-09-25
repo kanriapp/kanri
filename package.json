@@ -25,7 +25,7 @@
         "@vueuse/core": "^11.0.3",
         "@vueuse/nuxt": "^11.0.3",
         "@vueuse/components": "^11.0.3",
-        "eslint": "9.11.0",
+        "eslint": "9.11.1",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "3.13.2",
         "nuxt-better-optimize-deps": "^0.1.0",
