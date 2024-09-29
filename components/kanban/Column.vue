@@ -304,9 +304,9 @@ const escRegXp = (str: string) => {
 }
 
 const fuzzyMatch = (input: string, str: string) => {
-    input = '.*' + input.split('').map(x => `${escRegXp(x)}.*`).join('');
+    input = '.*' + input.toLowerCase().split('').map(x => `${escRegXp(x)}.*`).join('');
 
-    const regexp = new RegExp(input);
+    const regexp = new RegExp(input, 'i');
     return regexp.test(str);
 }
 
