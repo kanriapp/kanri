@@ -1,24 +1,3 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
-<!-- -->
-<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
-<!--
-Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
-
-<!-- eslint-disable perfectionist/sort-objects -->
 <template>
     <bubble-menu
         v-if="editor"
@@ -95,67 +74,47 @@ export default {
 
     emits: ['update:modelValue', 'editorBlurred'],
 
-    data() {
-        return {
-            editor: null,
-        }
-    },
+    setup(props, { emit }) {
+        const editor = ref(null)
 
-    watch: {
-        modelValue(value) {
-            const isSame = this.editor.getHTML() === value
-
-            if (isSame) {
-                return
-            }
-
-            this.editor.commands.setContent(value, false)
-        },
-    },
-
-    beforeUnmount() {
-        this.editor.destroy()
-    },
-
-    mounted() {
-        this.editor = new Editor({
-            content: this.modelValue,
-            extensions: [
-                StarterKit,
-                Typography,
-                TextAlign.configure({
-                    types: ['heading', 'paragraph'],
-                }),
-            ],
-            onBlur: () => {
-                this.$emit('editorBlurred');
-            },
-            onFocus: () => {
-                emitter.emit('modalPreventClickOutsideClose');
-            },
-            onUpdate: () => {
-                this.$emit('update:modelValue', this.editor.getHTML())
+        watch(() => props.modelValue, (value) => {
+            if (editor.value && editor.value.getHTML() !== value) {
+                editor.value.commands.setContent(value, false)
             }
         })
-    },
 
-    methods: {
-        setLink() {
-            const previousUrl = this.editor.getAttributes('link').href
-            const url = window.prompt('URL', previousUrl)
+        onMounted(() => {
+            editor.value = new Editor({
+                content: props.modelValue,
+                extensions: [
+                    StarterKit,
+                    Typography,
+                    TextAlign.configure({
+                        types: ['heading', 'paragraph'],
+                    }),
+                ],
+                onBlur: () => {
+                    emit('editorBlurred')
+                },
+                onFocus: () => {
+                    emitter.emit('modalPreventClickOutsideClose')
+                },
+                onUpdate: () => {
+                    emit('update:modelValue', editor.value.getHTML())
+                }
+            })
+        })
 
-            if (url === null) {
-                return
+        onBeforeUnmount(() => {
+            if (editor.value) {
+                editor.value.destroy()
             }
+        })
 
-            if (url === '') {
-                this.editor.chain().focus().extendMarkRange('link').unsetLink().run()
-                return
-            }
-
-            this.editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
-        },
-    },
+        return {
+            editor
+        }
+    }
 }
 </script>
 
