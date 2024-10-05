@@ -1,0 +1,5 @@
+version = 1
+SPDX-PackageName = "kanri"
+SPDX-PackageSupplier = "trobonox <hello@trobo.dev>"
+SPDX-PackageDownloadLocation = "https://github.com/kanriapp/kanri"
+annotations = []
