@@ -28,7 +28,6 @@
         "eslint": "9.11.1",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "nuxt": "3.13.2",
-        "nuxt-better-optimize-deps": "^0.1.0",
         "postcss-custom-properties": "14.0.1",
         "rollup-plugin-license": "^3.0.1",
         "typescript": "^5.4.5"
@@ -51,7 +50,7 @@
         "@vojtechlanka/vue-tags-input": "^3",
         "mitt": "3.0.1",
         "pinia": "2.2.4",
-        "radix-vue": "^1.2.2",
+        "radix-vue": "1.9.6",
         "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart#6e4666fe3462f0534e90ed6bc075394dff1a1bde",
         "tauri-plugin-log-api": "https://github.com/tauri-apps/tauri-plugin-log#v1",
         "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#0b7079b8c55bf25f6d9d9e8c57812d03b48a9788",
@@ -59,5 +58,8 @@
         "vue-dragscroll": "^4.0.5",
         "vue3-smooth-dnd": "0.0.6",
         "zod": "^3.20.6"
+    },
+    "resolutions": {
+        "vite": "^5.4.8"
     }
 }
