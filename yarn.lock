@@ -6230,10 +6230,10 @@ queue-tick@^1.0.1:
   resolved "https://registry.yarnpkg.com/queue-tick/-/queue-tick-1.0.1.tgz#f6f07ac82c1fd60f82e098b417a80e52f1f4c142"
   integrity sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==
 
-radix-vue@1.9.6:
-  version "1.9.6"
-  resolved "https://registry.yarnpkg.com/radix-vue/-/radix-vue-1.9.6.tgz#594729fd3103c40c04d1b60355916c844788f1fb"
-  integrity sha512-legrn9jHbEpbJS4QYrA0VmIafj1bmc4MSVzN55WZatGiXMJg3oFrQL5QxpiURJciS+OlATbKA2KAGkMuuLA0LA==
+radix-vue@1.9.7:
+  version "1.9.7"
+  resolved "https://registry.yarnpkg.com/radix-vue/-/radix-vue-1.9.7.tgz#3fa03c49154684288088c494912a70ef86f2b619"
+  integrity sha512-1xleWzWNFPfAMmb81gu/4/MV8dXMvc7j2EIjutBpBcKwxdJfeIcQg4k9De18L2rL1/GZg5wA9KykeKTM4MjWow==
   dependencies:
     "@floating-ui/dom" "^1.6.7"
     "@floating-ui/vue" "^1.1.0"
