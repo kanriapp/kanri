@@ -28,8 +28,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
         <ModalConfirmation
             v-show="deleteBoardModalVisible"
-            :close-button-text="$t('pages.index.cancelAction')"
-            :confirm-button-text="$t('pages.index.deleteAction')"
+            :close-button-text="$t('general.cancelAction')"
+            :confirm-button-text="$t('general.deleteAction')"
             :description="$t('pages.index.deleteActionConfirmationText', { boardName: boards[boardToBeDeletedIndex]?.title })"
             :title="$t('pages.index.deleteActionConfirmationHeading')"
             @closeModal="deleteBoardModalVisible = false; boardToBeDeletedIndex = -1"
@@ -202,13 +202,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                             class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-2 py-1.5 text-left"
                                             @click="renameBoardModal(index)"
                                         >
-                                            {{ $t("pages.index.renameAction") }}
+                                            {{ $t("general.renameAction") }}
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
                                             class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-2 py-1.5 text-left"
                                             @click="deleteBoardModal(index)"
                                         >
-                                            {{ $t("pages.index.deleteAction") }}
+                                            {{ $t("general.deleteAction") }}
                                         </DropdownMenuItem>
                                     </div>
                                     <DropdownMenuArrow class="fill-bg-primary-darker" :width="10" />

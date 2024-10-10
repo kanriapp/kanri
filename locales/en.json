@@ -1,4 +1,9 @@
 {
+    "general": {
+        "deleteAction": "Delete",
+        "renameAction": "Rename",
+        "cancelAction": "Cancel"
+    },
     "pages": {
         "index": {
             "welcome": "Welcome back to Kanri!",
@@ -15,9 +20,6 @@
             "importDataButton": "Open Import/Export menu",
             "getUpdatesHeading": "Want to get the latest updates and chat with the creator?",
             "joinDiscordButton": "Join the Discord community!",
-            "deleteAction": "Delete",
-            "renameAction": "Rename",
-            "cancelAction": "Cancel",
             "deleteActionConfirmationHeading": "Delete Board?",
             "deleteActionConfirmationText": "Are you sure you want to delete the board {boardName}? This action is irreversible."
         }
