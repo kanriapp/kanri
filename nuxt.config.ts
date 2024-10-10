@@ -32,5 +32,13 @@ export default defineNuxtConfig({
             }),
         ]
     },
+    i18n: {
+        locales: [
+            { code: "en", name: "English", file: "en.json" },
+            { code: "de", name: "Deutsch", file: "de.json" },
+        ],
+        defaultLocale: "en",
+        langDir: "locales/",
+    },
     compatibilityDate: "2024-07-29"
 });
