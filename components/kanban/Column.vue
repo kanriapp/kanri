@@ -333,7 +333,6 @@ onBeforeUnmount(() => {
     emitter.off("resetColumnInputs");
     emitter.off("columnDraggingOn");
     emitter.off("columnDraggingOff");
-    emitter.off("duplicateCard");
 });
 
 const keyDownListener = (e: { key: string; }) => {
