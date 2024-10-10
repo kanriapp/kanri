@@ -28,11 +28,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
         <ModalConfirmation
             v-show="deleteBoardModalVisible"
-            close-button-text="Cancel"
-            confirm-button-text="Delete"
-            description="Are you sure you want to delete the board? This action is irreverisble."
-            title="Delete Board?"
-            @closeModal="deleteBoardModalVisible = false"
+            :close-button-text="$t('pages.index.cancelAction')"
+            :confirm-button-text="$t('pages.index.deleteAction')"
+            :description="$t('pages.index.deleteActionConfirmationText', { boardName: boards[boardToBeDeletedIndex]?.title })"
+            :title="$t('pages.index.deleteActionConfirmationHeading')"
+            @closeModal="deleteBoardModalVisible = false; boardToBeDeletedIndex = -1"
             @confirmAction="deleteBoard"
         />
 
@@ -43,19 +43,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
         <section id="welcome-text">
             <h1 class="text-4xl font-bold">
-                Welcome back to Kanri!
+                {{ $t("pages.index.welcome") }}
             </h1>
             <h2
                 v-if="boards.length !== 0"
                 class="text-dim-3 ml-1"
             >
-                Your boards are ready and waiting for you.
+                {{ $t("pages.index.welcomeSubtext") }}
             </h2>
             <p
                 v-if="editSortWarning"
                 class="mt-1 text-red-500"
             >
-                Warning: there is at least one board which does not have a valid last edited date. This is probably a remainder from a board created in an old version of Kanri. <br> Please edit all boards at least once to mitigate this behaviour.
+                {{ $t("pages.index.editSortWarning") }}
             </p>
         </section>
 
@@ -84,7 +84,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                                     <CheckIcon class="size-4" />
                                 </DropdownMenuItemIndicator>
-                                Sort Alphabetically
+                                {{ $t("pages.index.sortAlphabetically") }}
                             </DropdownMenuRadioItem>
                             <DropdownMenuRadioItem
                                 value="default"
@@ -94,7 +94,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                                     <CheckIcon class="size-4" />
                                 </DropdownMenuItemIndicator>
-                                Sort by creation date
+                                {{ $t("pages.index.sortByCreationDate") }}
                             </DropdownMenuRadioItem>
                             <DropdownMenuRadioItem
                                 value="edited"
@@ -104,7 +104,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                 <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                                     <CheckIcon class="size-4" />
                                 </DropdownMenuItemIndicator>
-                                Sort by last edited
+                                {{ $t("pages.index.sortByLastEdited") }}
                             </DropdownMenuRadioItem>
                         </DropdownMenuRadioGroup>
                         <DropdownMenuSeparator class="bg-elevation-2 m-[5px] h-px" />
@@ -116,7 +116,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                             <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                                 <CheckIcon class="size-4" />
                             </DropdownMenuItemIndicator>
-                            Reversed sort order
+                            {{ $t("pages.index.reversedSortOrder") }}
                         </DropdownMenuCheckboxItem>
                     </template>
                 </Dropdown>
@@ -129,33 +129,33 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 class="items-left mt-2 flex w-fit flex-col justify-center rounded-md p-2"
             >
                 <h3 class="text-xl font-bold">
-                    So empty here!
+                    {{ $t("pages.index.noBoardsHeading") }}
                 </h3>
-                <span>Create a board to get started with tracking your tasks better.</span>
+                <span>{{ $t("pages.index.createBoardPrompt") }}</span>
                 <IconArrow />
 
                 <h3 class="mb-0.5 mt-8 text-xl font-bold">
-                    Have some data already?
+                    {{ $t("pages.index.importDataHeading") }}
                 </h3>
                 <p class="mb-4">
-                    You can import data from other sources using the import/export menu:
+                    {{ $t("pages.index.importDataPrompt") }}
                 </p>
                 <nuxt-link
                     class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 text-center font-semibold"
                     to="/import"
                 >
-                    Open Import/Export menu
+                    {{ $t("pages.index.importDataButton") }}
                 </nuxt-link>
 
                 <div class="flex w-full flex-col items-start">
                     <h3 class="mb-4 mt-10 text-xl font-bold">
-                        Want to get the latest updates and chat with the creator?
+                        {{ $t("pages.index.getUpdatesHeading") }}
                     </h3>
                     <a
                         href="https://discord.gg/AVqHrvxB9C"
                         target="_blank"
                         class="bg-accent cursor-pointer rounded-md px-6 py-2 text-center font-semibold transition-colors"
-                    >Join the Discord community!</a>
+                    >{{ $t("pages.index.joinDiscordButton") }}</a>
                 </div>
             </div>
 
@@ -202,13 +202,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                                             class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-2 py-1.5 text-left"
                                             @click="renameBoardModal(index)"
                                         >
-                                            Rename
+                                            {{ $t("pages.index.renameAction") }}
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
                                             class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-2 py-1.5 text-left"
                                             @click="deleteBoardModal(index)"
                                         >
-                                            Delete
+                                            {{ $t("pages.index.deleteAction") }}
                                         </DropdownMenuItem>
                                     </div>
                                     <DropdownMenuArrow class="fill-bg-primary-darker" :width="10" />
@@ -232,6 +232,8 @@ import { generateUniqueID } from "@/utils/idGenerator.js";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel } from "@phosphor-icons/vue";
+import { useI18n } from 'vue-i18n'
+
 
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
@@ -245,6 +247,9 @@ const changelogModalVisible = ref(false);
 const sortingOptionRef = ref("");
 const reverseSortOrder = ref(false);
 const sortingOptionText = ref("Sort by creation date");
+
+const boardToBeDeletedIndex = ref(-1);
+const { t } = useI18n();
 
 onMounted(async () => {
     emitter.on("createBoard", async ({columns, title}) => {
@@ -379,12 +384,14 @@ const renameBoard = async (index: number, name: string) => {
 const deleteBoardModal = (index: number | undefined) => {
     if (index == undefined) return console.error("Undefined board to delete, this should not happen!");
 
+    boardToBeDeletedIndex.value = index;
+
     const selectedBoard = boards.value[index];
     if (selectedBoard == null) {
         return console.error("Could not find board with index: ", index);
     }
 
-    emitter.emit("openBoardDeleteModal", { description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.`, index: index });
+    emitter.emit("openBoardDeleteModal", { description: t("pages.index.deleteActionConfirmationText", { boardName: selectedBoard.title }), index: index });
     deleteBoardModalVisible.value = true;
 }
 
@@ -407,7 +414,7 @@ const sortBoardsAlphabetically = () => {
     }
 
     store.set("boardSortingOption", "alphabetically");
-    sortingOptionText.value = "Sort alphabetically";
+    sortingOptionText.value = t("pages.index.sortAlphabetically");
 }
 
 const sortBoardsByCreationDate = async () => {
@@ -419,7 +426,7 @@ const sortBoardsByCreationDate = async () => {
     }
 
     store.set("boardSortingOption", "default");
-    sortingOptionText.value = "Sort by creation date";
+    sortingOptionText.value = t("pages.index.sortByCreationDate");
 }
 
 const sortBoardsByEditDate = () => {
@@ -437,7 +444,7 @@ const sortBoardsByEditDate = () => {
     }
 
     store.set("boardSortingOption", "edited");
-    sortingOptionText.value = "Sort by edit date";
+    sortingOptionText.value = t("pages.index.sortByLastEdited");
 }
 </script>
 

@@ -1,0 +1,24 @@
+{
+    "pages": {
+        "index": {
+            "welcome": "Willkommen zurück bei Kanri!",
+            "welcomeSubtext": "Deine Boards sind bereit und warten auf dich.",
+            "editSortWarning": "Warnung: Es gibt mindestens ein Board, das kein gültiges Datum der letzten Bearbeitung hat. Dies ist wahrscheinlich ein Überbleibsel eines Boards, das in einer alten Version von Kanri erstellt wurde. Bitte bearbeite alle Boards mindestens einmal, um dieses Verhalten zu vermeiden.",
+            "sortAlphabetically": "Alphabetisch sortieren",
+            "sortByCreationDate": "Nach Erstellungsdatum sortieren",
+            "sortByLastEdited": "Nach letztem Bearbeitungsdatum sortieren",
+            "reversedSortOrder": "Umgekehrte Sortierreihenfolge",
+            "noBoardsHeading": "Hier ist es so leer!",
+            "createBoardPrompt": "Erstelle ein Board, um deine Aufgaben besser zu verfolgen.",
+            "importDataHeading": "Hast du bereits Daten?",
+            "importDataPrompt": "Du kannst Daten aus anderen Quellen über das Import-/Export-Menü importieren:",
+            "importDataButton": "Import-/Export-Menü öffnen",
+            "getUpdatesHeading": "Möchtest du die neuesten Updates erhalten und mit dem Ersteller chatten?",
+            "joinDiscordButton": "Tritt der Discord-Community bei!",
+            "deleteAction": "Löschen",
+            "renameAction": "Umbenennen",
+            "deleteActionConfirmationHeading": "Board löschen?",
+            "deleteActionConfirmationText": "Bist du sicher, dass du das Board löschen möchtest? Diese Aktion ist irreversibel."
+        }
+    }
+}
