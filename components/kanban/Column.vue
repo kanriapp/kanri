@@ -36,7 +36,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 >
                     {{ boardTitle }}
                 </h1>
-                <span v-if="cardCountDisplayEnabled" class="bg-elevation-2 rounded-2xl px-2 py-0.5 mt-1 text-xs">{{ cards.length }}</span>
+                <span v-if="cardCountDisplayEnabled" class="bg-elevation-2 mt-1 rounded-2xl px-2 py-0.5 text-xs">{{ cards.length }}</span>
             </div>
 
             <input
@@ -94,7 +94,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     :card="card"
                     :index="index"
                     :zoom-level="zoomLevel"
-                    class="mb-3 min-h-[30px] cursor-grab rounded-[3px] p-3"
                     @disable-dragging="disableDragging"
                     @enable-dragging="enableDragging"
                     @open-edit-card-modal="openEditCardModal"
@@ -102,6 +101,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     @remove-card-with-confirmation="removeCardWithConfirmation"
                     @set-card-title="setCardTitle"
                     @update-card-tags="updateCardTags"
+                    @duplicate-card="duplicateCard"
                 />
             </Draggable>
         </Container>
@@ -333,6 +333,7 @@ onBeforeUnmount(() => {
     emitter.off("resetColumnInputs");
     emitter.off("columnDraggingOn");
     emitter.off("columnDraggingOff");
+    emitter.off("duplicateCard");
 });
 
 const keyDownListener = (e: { key: string; }) => {
@@ -418,6 +419,16 @@ const addCard = () => {
     newCardName.value = "";
     cardAddMode.value = false;
     cardAddModeAddToTopOfColumn.value = false;
+    updateStorage();
+};
+
+const duplicateCard = (index: number) => {
+    const cardDuplicate = JSON.parse(JSON.stringify(cards.value[index]));
+    cardDuplicate.id = generateUniqueID();
+    cardDuplicate.name = `${cardDuplicate.name} - Copy`;
+
+    cards.value.splice(index + 1, 0, cardDuplicate);
+
     updateStorage();
 };
 
