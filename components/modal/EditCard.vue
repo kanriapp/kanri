@@ -23,6 +23,7 @@ limitations under the License.
             titleEditing = false;
             taskAddMode = false;
             showCustomColorPopup = false;
+            emitter.emit('columnDraggingOn');
         "
     >
         <template #content>
@@ -196,7 +197,13 @@ limitations under the License.
                         </div>
                         <XMarkIcon
                             class="text-accent-hover size-6 shrink-0 cursor-pointer"
-                            @click="$emit('closeModal', columnID)"
+                            @click="
+                                $emit('closeModal', columnID);
+                                titleEditing = false;
+                                taskAddMode = false;
+                                showCustomColorPopup = false;
+                                emitter.emit('columnDraggingOn');
+                            "
                         />
                     </div>
                     <div class="flex flex-row items-center gap-2">
