@@ -17,7 +17,8 @@ export default defineNuxtConfig({
         "@pinia/nuxt",
         "@vueuse/nuxt",
         'radix-vue/nuxt',
-        "@nuxt/eslint"
+        "@nuxt/eslint",
+        "@nuxtjs/i18n",
     ],
     ssr: false,
     telemetry: false,
