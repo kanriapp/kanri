@@ -98,11 +98,6 @@ const startEditing = () => {
   });
 };
 
-const cancelEditing = () => {
-  isEditing.value = false;
-  editedTagName.value = props.tag.text;
-};
-
 const saveTagName = () => {
   if (editedTagName.value.trim() !== "") {
     emit("updateTagName", props.tag.id, editedTagName.value.trim());
