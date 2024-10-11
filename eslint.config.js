@@ -9,18 +9,24 @@ export default withNuxt(
     ...tailwind.configs["flat/recommended"],
     {
         files: ['**/*.ts', '**/*.vue'],
+        extends: [
+            'eslint:recommended',
+            'plugin:nuxt/recommended',
+            'plugin:prettier/recommended'
+        ],
+        plugins: ['prettier'],
         rules: {
-            "indent": ["warn", 4],
             "no-undef": "off",
             "tailwindcss/no-custom-classname": "off",
             "vue/html-indent": ["warn", 4],
             "vue/multi-word-component-names": "off",
             "vue/v-on-event-hyphenation": "off",
             "@typescript-eslint/no-invalid-void-type": "off",
-            "@typescript-eslint/unified-signatures": "off"
-        }
+            "@typescript-eslint/unified-signatures": "off",
+            "prettier/prettier": "error"  // Treat Prettier issues as ESLint errors
+        },
     },
     {
         ignores: ["src-tauri/**/*", "dist/**/*"]
     }
-)
+);
