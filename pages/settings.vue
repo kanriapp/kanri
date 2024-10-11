@@ -262,7 +262,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { ThemeIdentifiers, Board } from "@/types/kanban-types";
+import type { ThemeIdentifiers } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { useTauriStore } from "@/stores/tauriStore";
