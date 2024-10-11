@@ -12,7 +12,7 @@
       "welcome": "Welcome back to Kanri!",
       "welcomeSubtext": "Your boards are ready and waiting for you.",
       "editSortWarning": "Warning: there is at least one board which does not have a valid last edited date. This is probably a remainder from a board created in an old version of Kanri. Please edit all boards at least once to mitigate this behaviour.",
-      "sortAlphabetically": "Sort Alphabetically",
+      "sortAlphabetically": "Sort alphabetically",
       "sortByCreationDate": "Sort by creation date",
       "sortByLastEdited": "Sort by last edited",
       "reversedSortOrder": "Reversed sort order",
