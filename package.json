@@ -14,23 +14,31 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "lint": "eslint . --fix"
+        "lint": "eslint . --fix",
+        "test:unit": "vitest",
+        "test:unit:watch": "vitest --watch",
+        "test": "yarn test:unit"
     },
     "devDependencies": {
         "@nuxt/eslint": "^0.5.0",
         "@nuxt/eslint-config": "0.5.7",
+        "@nuxt/test-utils": "^3.14.3",
         "@nuxtjs/tailwindcss": "6.12.1",
         "@tauri-apps/cli": "1.6.2",
         "@types/node": "^20.14.7",
+        "@vue/test-utils": "^2.4.6",
         "@vueuse/components": "^11.0.3",
         "@vueuse/core": "^11.0.3",
         "@vueuse/nuxt": "^11.0.3",
         "eslint": "9.12.0",
         "eslint-plugin-tailwindcss": "^3.8.0",
+        "happy-dom": "^15.7.4",
         "nuxt": "3.13.2",
+        "playwright-core": "^1.48.0",
         "postcss-custom-properties": "14.0.2",
         "rollup-plugin-license": "^3.0.1",
-        "typescript": "^5.4.5"
+        "typescript": "^5.4.5",
+        "vitest": "^2.1.2"
     },
     "dependencies": {
         "@eslint/eslintrc": "^3.1.0",
