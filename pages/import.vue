@@ -24,9 +24,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         class="overflow-auto pl-8 pt-6"
     >
         <h1 class="text-4xl font-bold">
-            Import & Export
+            {{ $t("pages.import.importExportHeading") }}
         </h1>
-        <span class="text-dim-3"> Manage your data by exporting and importing it from and to Kanri. </span>
+        <span class="text-dim-3">{{ $t("pages.import.importExportSubtext") }}</span>
 
         <TabsRoot
             class="mt-4 flex w-1/2 flex-col"
@@ -41,13 +41,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     class="tab-active-text z-10 flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-md px-2 text-[16px] leading-none outline-none transition-colors duration-300"
                     value="tab1"
                 >
-                    Import
+                    {{ $t("general.importAction") }}
                 </TabsTrigger>
                 <TabsTrigger
                     class="tab-active-text z-10 flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-md px-2 text-[16px] leading-none outline-none transition-colors duration-300"
                     value="tab2"
                 >
-                    Export
+                    {{ $t("general.exportAction") }}
                 </TabsTrigger>
             </TabsList>
             <TabsContent
@@ -56,51 +56,51 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
                 <div>
                     <h2 class="mb-0.5 text-2xl font-bold">
-                        Import Data
+                        {{ $t("pages.import.importTabHeading") }}
                     </h2>
                     <p class="text-dim-2 mb-2">
-                        Import full data or individual boards from Kanri, KanbanElectron or Trello®
+                        {{ $t("pages.import.importTabSubtext") }}
                     </p>
                     <h3 class="mt-4 text-lg font-semibold tracking-tight">
-                        Partial import (individual board)
+                        {{ $t("pages.import.importTabPartialHeading") }}
                     </h3>
-                    <span class="text-dim-2">One file equals one board to import. Note: you can select multiple files/boards to import at once.</span>
+                    <span class="text-dim-2">{{ $t("pages.import.importTabPartialSubtext") }}</span>
                     <div class="mt-2 flex flex-row gap-4">
                         <button
                             class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
                             @click="importFromKanriBoard"
                         >
-                            Import from Kanri
+                            {{ $t("pages.import.importOptionKanri") }}
                         </button>
                         <button
                             class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
                             @click="importFromTrelloBoard"
                         >
-                            Import from Trello®
+                            {{ $t("pages.import.importOptionTrello") }}
                         </button>
                         <button
                             class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
                             @click="importFromGithubProject"
                         >
-                            Import from GitHub Project
+                            {{ $t("pages.import.importOptionGithub") }}
                         </button>
                     </div>
                     <h3 class="mt-4 text-lg font-semibold tracking-tight">
-                        Full import
+                        {{ $t("pages.import.importTabFullHeading") }}
                     </h3>
-                    <span class="text-red-500">Imports complete data from one file. WARNING: This overrides all of your data with what you import!</span>
+                    <span class="text-red-500">{{ $t("pages.import.importTabFullSubtext") }}</span>
                     <div class="mt-2 flex flex-row gap-4">
                         <button
                             class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
                             @click="importFromKanriFull"
                         >
-                            Import from Kanri
+                            {{ $t("pages.import.importOptionKanri") }}
                         </button>
                         <button
                             class="bg-elevation-1 bg-elevation-2-hover border-accent cursor-pointer rounded-md border border-dotted p-4 font-semibold"
                             @click="importFromKanbanElectronFull"
                         >
-                            Import from KanbanElectron
+                            {{ $t("pages.import.importOptionKanbanElectron") }}
                         </button>
                     </div>
                 </div>
@@ -111,23 +111,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
                 <div class="flex flex-col gap-4">
                     <h2 class="mb-2 text-2xl font-bold">
-                        Export Data
+                        {{ $t("pages.import.exportTabHeading") }}
                     </h2>
                     <div>
                         <h3 class="text-lg font-semibold tracking-tight">
-                            Partial Export (individual board)
+                            {{ $t("pages.import.exportTabPartialHeading") }}
                         </h3>
                         <p class="text-dim-1">
-                            A partial export means that you receive one .json file for one individual board.
+                            {{ $t("pages.import.exportTabPartialSubtext") }}
                         </p>
                         <DropdownMenuRoot>
                             <DropdownMenuTrigger class="bg-elevation-1 bg-elevation-2-hover border-accent mt-4 cursor-pointer rounded-md border border-dotted p-2 px-8 font-semibold">
-                                Export individual board
+                                {{ $t("pages.import.exportTabPartialSelectButton") }}
                             </DropdownMenuTrigger>
                             <DropdownMenuPortal to=".default-layout">
                                 <DropdownMenuContent align="start" :side-offset="5" class="bg-elevation-1 border-elevation-2 w-96 rounded-md border p-2">
                                     <DropdownMenuLabel class="text-dim-3 mb-1 px-2 text-sm">
-                                        Select a board to export
+                                        {{ $t("pages.import.exportTabPartialSelectPrompt") }}
                                     </DropdownMenuLabel>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem v-for="board in boards" :key="board.id" class="bg-elevation-3-hover cursor-pointer rounded-md px-2 py-0.5" @select="exportSingleBoard(board.id)">
@@ -139,16 +139,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold tracking-tight">
-                            Full Export
+                            {{ $t("pages.import.exportTabFullHeading") }}
                         </h3>
                         <p class="text-dim-1">
-                            Exports all of your data (boards, themes, other preferences like zoom) into one full .json file
+                            {{ $t("pages.import.exportTabFullSubtext") }}
                         </p>
                         <button
                             class="bg-elevation-1 bg-elevation-2-hover border-accent mt-4 cursor-pointer rounded-md border border-dotted p-2 px-8 font-semibold"
                             @click="exportJSON()"
                         >
-                            Export all data
+                            {{ $t("pages.import.exportTabFullButton") }}
                         </button>
                     </div>
                 </div>
@@ -165,12 +165,16 @@ import { kanbanElectronJsonSchema, kanriBoardSchema, kanriJsonSchema, trelloJson
 import emitter from "@/utils/emitter";
 import { ask, message, open, save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
+import { useI18n } from "vue-i18n";
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ZodError, z } from "zod";
 
 const router = useRouter();
 
 const store = useTauriStore().store;
+
+const { t } = useI18n();
+
 const boards: Ref<Board[]> = ref([]);
 
 onMounted(async () => {
@@ -187,7 +191,7 @@ const exportJSON = async () => {
                 name: "JSON File",
             },
         ],
-        title: "Select file to export data to",
+        title: t("pages.import.exportFullJsonDialogTitle"),
     });
 
     const savedBoards = await store.get("boards");
@@ -223,7 +227,7 @@ const exportJSON = async () => {
     if (filePath == null) return;
     await writeTextFile(filePath, fileContents);
 
-    await message("Successfully exported your data.", {type: 'info'});
+    await message(t("pages.import.exportFullJsonSuccessMessage"), {type: 'info'});
 };
 
 const exportSingleBoard = async (boardId: string) => {
@@ -235,7 +239,7 @@ const exportSingleBoard = async (boardId: string) => {
                 name: "JSON File",
             },
         ],
-        title: "Select file to export board to",
+        title: t("pages.import.exportPartialJsonDialogTitle"),
     });
 
     if (filePath == null) return;
@@ -243,7 +247,7 @@ const exportSingleBoard = async (boardId: string) => {
     const boardToExport = boards.value.find(board => board.id === boardId);
 
     if (!boardToExport) {
-        await message("Board not found.", {type: 'error'});
+        await message(t("pages.import.exportPartialJsonErrorBoardNotFound"), {type: 'error'});
         return;
     }
 
@@ -251,7 +255,7 @@ const exportSingleBoard = async (boardId: string) => {
 
     await writeTextFile(filePath, fileContents);
 
-    await message("Successfully exported the board.", {type: 'info'});
+    await message(t("pages.import.exportPartialJsonSuccessMessage"), {type: 'info'});
 };
 
 
@@ -275,7 +279,7 @@ const importFromKanriFull = async () => {
     }
     catch (error) {
         console.error("Could not parse imported JSON;", error);
-        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorBadJson"), { title: 'Kanri', type: 'error' });
     }
     if (parsedJson === null) return;
 
@@ -287,10 +291,10 @@ const importFromKanriFull = async () => {
         console.error(error);
         //@ts-expect-error we do not know what type of error we will receive
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
-            return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
+            return await message(t("pages.import.importErrorNoBoards"), { title: 'Kanri', type: 'error' });
         }
 
-        await message('Could not load JSON file! Please check the file is formatted correctly and not from an old version of Kanri.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorGoodJsonFaultyData"), { title: 'Kanri', type: 'error' });
     }
     if (zodParsed === null) return;
 
@@ -306,7 +310,7 @@ const importFromKanriFull = async () => {
     store.set("addToTopOfColumnButtonEnabled", zodParsed.addToTopOfColumnButtonEnabled);
     store.set("displayColumnCardCountEnabled", zodParsed.displayColumnCardCountEnabled);
 
-    await message("Successfully imported your data.", {type: 'info'});
+    await message(t("pages.import.importSuccessFull"), {type: 'info'});
 
     // Manual refresh
     router.go(0);
@@ -332,7 +336,7 @@ const importFromKanbanElectronFull = async () => {
     }
     catch (error) {
         console.error("Could not parse imported JSON;", error);
-        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorBadJson"), { title: 'Kanri', type: 'error' });
     }
     if (parsedJson === null) return;
 
@@ -347,10 +351,10 @@ const importFromKanbanElectronFull = async () => {
         }
 
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
-            return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
+            return await message(t("pages.import.importErrorNoBoards"), { title: 'Kanri', type: 'error' });
         }
 
-        await message('Could not load JSON file! Please check the file is formatted correctly and exported from the lastest version of KanbanElectron.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorKanbanElectron"), { title: 'Kanri', type: 'error' });
     }
     if (zodParsed === null) return;
 
@@ -371,7 +375,7 @@ const importFromKanbanElectronFull = async () => {
         store.set("columnZoomLevel", zodParsed.columnZoomLevel);
     }
 
-    await message("Successfully imported your board.", {type: 'info'});
+    await message(t("pages.import.importSuccessPartial"), {type: 'info'});
 
     // Manual refresh
     router.go(0);
@@ -399,7 +403,7 @@ const importFromKanriBoard = async () => {
         });
 
         if (checkForDuplicates.length !== 0) {
-            const confirmation = await ask(`The board ${result.title} already exists (board with the same ID). Do you want to import as a duplicate?`, { title: 'Kanri', type: 'info' });
+            const confirmation = await ask(t("pages.import.importDuplicateBoard", { boardName: result.title }), { title: 'Kanri', type: 'info' });
             if (!confirmation) {
                 return;
             }
@@ -408,7 +412,7 @@ const importFromKanriBoard = async () => {
                 while (convertedBoards.some(board => board.id === result.id)) {
                     result.id = generateUniqueID();
                 }
-                result.title = result.title + " (duplicate)";
+                result.title = result.title + t("pages.import.duplicateSuffix");
             }
         }
 
@@ -425,7 +429,7 @@ const importFromKanriBoard = async () => {
             });
 
             if (checkForDuplicates.length !== 0) {
-                const confirmation = await ask(`The board ${result.title} already exists (board with the same ID). Do you want to import as a duplicate?`, { title: 'Kanri', type: 'info' });
+                const confirmation = await ask(t("pages.import.importDuplicateBoard", { boardName: result.title }), { title: 'Kanri', type: 'info' });
 
                 if (!confirmation) {
                     return;
@@ -435,7 +439,7 @@ const importFromKanriBoard = async () => {
                     while (convertedBoards.some(board => board.id === result.id)) {
                         result.id = generateUniqueID();
                     }
-                    result.title = result.title + " (duplicate)";
+                    result.title = result.title + t("pages.import.duplicateSuffix");
                 }
             }
 
@@ -447,7 +451,7 @@ const importFromKanriBoard = async () => {
 
     await store.set("boards", convertedBoards);
 
-    await message("Successfully imported your board.", {type: 'info'});
+    await message(t("pages.import.importSuccessPartial"), {type: 'info'});
 }
 
 const kanriParse = async (board: string) => {
@@ -460,7 +464,7 @@ const kanriParse = async (board: string) => {
     }
     catch (error) {
         console.error("Could not parse imported JSON;", error);
-        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorBadJson"), { title: 'Kanri', type: 'error' });
     }
     if (parsedJson === null) return;
 
@@ -476,10 +480,10 @@ const kanriParse = async (board: string) => {
 
         console.error(error);
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
-            return await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
+            return await message(t("pages.import.importErrorNoBoards"), { title: 'Kanri', type: 'error' });
         }
 
-        await message('Could not load JSON file! Please check the file is formatted correctly and not from an old version of Kanri.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorGoodJsonFaultyData"), { title: 'Kanri', type: 'error' });
     }
     if (zodParsed === null) return;
 
@@ -519,7 +523,7 @@ const importFromTrelloBoard = async () => {
 
     await store.set("boards", convertedBoards);
 
-    await message("Successfully imported your board.", {type: 'info'});
+    await message(t("pages.import.importSuccessPartial"), {type: 'info'});
 
     // Manual refresh
     router.go(0);
@@ -535,7 +539,7 @@ const trelloParse = async (board: string) => {
     }
     catch (error) {
         console.error("Could not parse imported JSON;", error);
-        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorBadJson"), { title: 'Kanri', type: 'error' });
         return undefined;
     }
     if (parsedJson === null) return undefined;
@@ -552,11 +556,11 @@ const trelloParse = async (board: string) => {
 
         console.error(error);
         if (error.issues[0].code === "invalid_type" && error.issues[0].path[0] === "boards" && error.issues[0].received === "null") {
-            await message('Cannot load files with no boards. Please import a file with at least one board.', { title: 'Kanri', type: 'error' });
+            await message(t("pages.import.importErrorNoBoards"), { title: 'Kanri', type: 'error' });
             return undefined;
         }
 
-        await message('Could not load JSON file! Please check the file is formatted correctly.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorTrello"), { title: 'Kanri', type: 'error' });
         return undefined;
     }
     if (zodParsed === null) return undefined;
@@ -646,7 +650,7 @@ const trelloParse = async (board: string) => {
     }
     catch (error) {
         console.error(error);
-        await message('Could not convert your Trello board. Please try again and report this bug to the developer if it happens again.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.import.importErrorTrelloConversion"), { title: 'Kanri', type: 'error' });
         return undefined;
     }
     if (kanriConvertedParsed === null) return undefined;
@@ -675,7 +679,7 @@ const importFromGithubProject = async () => {
 
         const lines = textFile.split("\n");
         if (lines[0] !== "Title	URL	Assignees	Status	Labels") {
-            await message(`The file ${file} is not a valid board exported from GitHub projects. If you believe this is a bug, please open a GitHub issue or email support@kanriapp.com`, {type: 'error'});
+            await message(t("pages.import.importErrorGithub", { file, email: "support@kanriapp.com" }), {type: 'error'});
             console.error(`Invalid GH Projects board file: ${file}`);
             continue;
         }
@@ -738,7 +742,7 @@ const importFromGithubProject = async () => {
     }
 
     await store.set("boards", convertedBoards);
-    await message("Successfully imported GitHub Projects board(s).", {type: 'info'});
+    await message(t("pages.import.importSuccessGithub"), {type: 'info'});
 }
 </script>
 
