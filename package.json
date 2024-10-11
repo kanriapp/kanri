@@ -15,7 +15,7 @@
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "lint": "eslint \"**/*.{js,ts,vue}\"",
-        "lint:fix": "eslint \"**/*.{js,ts,vue}\\ --fix .",
+        "lint:fix": "eslint --fix \"**/*.{js,ts,vue}\\",
         "format": "prettier --write \\\"**/*.{ts,vue,css}\\\"",
         "test:unit": "vitest",
         "test:unit:watch": "vitest --watch",
