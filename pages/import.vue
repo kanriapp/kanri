@@ -311,10 +311,12 @@ const importFromKanriFull = async () => {
     zodParsed = kanriJsonSchema.parse(parsedJson);
   } catch (error) {
     console.error(error);
-    //@ts-expect-error we do not know what type of error we will receive
     if (
+      //@ts-expect-error we do not know what type of error we will receive
       error.issues[0].code === "invalid_type" &&
+      //@ts-expect-error we do not know what type of error we will receive
       error.issues[0].path[0] === "boards" &&
+      //@ts-expect-error we do not know what type of error we will receive
       error.issues[0].received === "null"
     ) {
       return await message(t("pages.import.importErrorNoBoards"), {

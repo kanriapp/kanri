@@ -261,7 +261,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator";
-import { getAverageColor } from "@/utils/colorUtils";
+import { getAverageColor } from "~/utils/colorUtils";
 
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";

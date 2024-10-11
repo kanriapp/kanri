@@ -36,6 +36,7 @@ const props = defineProps<{
 }>();
 
 const getTagTextColor = computed(() => {
+  if (!props.tag.color) return "text-normal";
   return getContrast(props.tag.color);
 });
 </script>

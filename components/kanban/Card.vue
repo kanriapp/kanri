@@ -156,7 +156,7 @@ limitations under the License.
 import type { Card, Tag } from "@/types/kanban-types";
 
 import { useTauriStore } from "@/stores/tauriStore";
-import { getContrast } from "@/utils/colorUtils";
+import { getContrast } from "~/utils/colorUtils";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import {
   PhChecks,
