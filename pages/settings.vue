@@ -196,6 +196,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <div class="flex w-[48rem] flex-row items-start justify-between">
           <div>
             <h3 class="text-lg">
+              {{ $t("pages.settings.languageSelectorHeading") }}
+            </h3>
+            <span class="text-dim-2">
+              {{ $t("pages.settings.languageSelectorSubtext") }}
+            </span>
+          </div>
+          <LanguageSelector />
+        </div>
+
+        <div class="flex w-[48rem] flex-row items-start justify-between">
+          <div>
+            <h3 class="text-lg">
               {{ $t("pages.settings.miscellaneousAnimationsHeading") }}
             </h3>
             <span class="text-dim-2">
