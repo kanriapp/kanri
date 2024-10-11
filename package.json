@@ -14,12 +14,15 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "lint": "eslint . --fix",
+        "lint": "eslint \"**/*.{js,ts,vue}\"",
+        "lint:fix": "eslint --fix \"**/*.{js,ts,vue}\\",
+        "format": "prettier --write \\\"**/*.{ts,vue,css}\\\"",
         "test:unit": "vitest",
         "test:unit:watch": "vitest --watch",
         "test": "yarn test:unit"
     },
     "devDependencies": {
+        "@eslint/js": "^9.12.0",
         "@nuxt/eslint": "^0.5.0",
         "@nuxt/eslint-config": "0.5.7",
         "@nuxt/test-utils": "^3.14.3",
@@ -31,13 +34,15 @@
         "@vueuse/core": "^11.0.3",
         "@vueuse/nuxt": "^11.0.3",
         "eslint": "9.12.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
         "eslint-plugin-tailwindcss": "^3.8.0",
         "happy-dom": "^15.7.4",
         "nuxt": "3.13.2",
         "playwright-core": "^1.48.0",
         "postcss-custom-properties": "14.0.2",
+        "prettier": "^3.3.3",
         "rollup-plugin-license": "^3.0.1",
-        "typescript": "^5.4.5",
         "vitest": "^2.1.2"
     },
     "dependencies": {
