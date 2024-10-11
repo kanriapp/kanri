@@ -2,7 +2,10 @@
     "general": {
         "deleteAction": "Löschen",
         "renameAction": "Umbenennen",
-        "cancelAction": "Abbrechen"
+        "cancelAction": "Abbrechen",
+        "saveAction": "Speichern",
+        "importAction": "Importieren",
+        "exportAction": "Exportieren"
     },
     "pages": {
         "index": {
@@ -22,6 +25,53 @@
             "joinDiscordButton": "Tritt der Discord-Community bei!",
             "deleteActionConfirmationHeading": "Board löschen?",
             "deleteActionConfirmationText": "Bist du sicher, dass du das Board löschen möchtest? Diese Aktion ist irreversibel."
+        },
+        "settings": {
+            "deleteAllDataConfirmationAction": "Daten löschen",
+            "deleteAllDataConfirmationDescription": "Alle Daten löschen?",
+            "deleteAllDataConfirmationHeading": "ALLE Daten löschen?",
+            "settingsHeading": "Einstellungen",
+            "settingsHeadingSubtext": "Ändere hier das Verhalten der Anwendung.",
+            "sectionThemeHeading": "Design",
+            "darkThemeOption": "Dunkel",
+            "lightThemeOption": "Hell",
+            "catppuccinThemeOption": "Catppuccin",
+            "customThemeOption": "Benutzerdefiniert",
+            "customThemeEditorHeading": "Wähle die Farben für dein benutzerdefiniertes Design aus:",
+            "customThemeImportHeading": "Oder importiere/exportiere ein benutzerdefiniertes Design:",
+            "customThemeImportHeadingSubtext": "Hinweis: Importe überschreiben dein aktuelles Design, daher exportiere vorher jedes benutzerdefinierte Design, das du nicht verlieren möchtest!",
+            "colorResetText": "Wenn die Farben nicht aktualisieren, klicke bitte ",
+            "colorResetLink": "hier",
+            "preferencesHeading": "Board-Einstellungen",
+            "preferencesSubtext": "Ändere das Verhalten deiner Kanban-Boards.",
+            "preferencesZoomHeading": "Zoom",
+            "preferencesZoomSubtext": "Passe die globale Zoomstufe für deine Boards an.",
+            "preferencesAddToTopButtonHeading": "Button zum Hinzufügen oben anzeigen",
+            "preferencesAddToTopButtonSubtext": "Zeigt einen Button an, mit dem du neue Karten oben in einer Spalte hinzufügen kannst.",
+            "preferencesDisplayNumberOfCardsHeading": "Anzahl der Karten in der Spalte anzeigen",
+            "preferencesDisplayNumberOfCardsSubtext": "Zeigt an, wie viele Karten sich in jeder Spalte befinden.",
+            "miscellaneousHeading": "Verschiedenes",
+            "miscellaneousAnimationsHeading": "Animationen",
+            "miscellaneousAnimationsSubtext": "Deaktiviere diese Option, um alle Animationen in der App zu entfernen.",
+            "miscellaneousAutostartHeading": "Automatischer Start beim Hochfahren",
+            "miscellaneousAutostartSubtext": "Startet Kanri automatisch beim Hochfahren.",
+            "miscellaneousDeleteAllDataHeading": "Alle Daten löschen (Designs und Boards)",
+            "miscellaneousDeleteAllDataSubtextRed": "Vorsicht!",
+            "miscellaneousDeleteAllDataSubtext": " Dies wird unwiderruflich alle deine Daten löschen!",
+            "exportThemeDialogTitle": "Datei zum Exportieren der Daten auswählen",
+            "loadJsonErrorMessage": "Konnte die JSON-Datei nicht laden! Bitte überprüfe, ob die Datei korrektes JSON ist.",
+            "parseJsonErrorMessage": "Konnte die JSON-Datei nicht laden! Bitte überprüfe, ob die Datei richtig formatiert ist und nicht aus einer alten Version von Kanri stammt."
+        }
+    },
+    "components": {
+        "customThemeEditor": {
+            "optionAccentColor": "Akzentfarbe",
+            "optionPrimaryTextColor": "Primäre Textfarbe",
+            "optionButtonTextColor": "Button-Textfarbe",
+            "optionPrimaryBackgroundColor": "Primäre Hintergrundfarbe",
+            "option1stElevationColor": "1. Erhöhungsstufe",
+            "option2ndElevationColor": "2. Erhöhungsstufe",
+            "option3rdElevationColor": "3. Erhöhungsstufe"
         }
     }
 }

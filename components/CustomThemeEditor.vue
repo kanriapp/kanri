@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             id="color-row"
             class="flex flex-row items-center justify-between"
         >
-            <label for="color-picker">Accent color</label>
+            <label for="color-picker">{{ $t("components.customThemeEditor.optionAccentColor") }}</label>
             <div class="flex flex-row gap-4">
                 <HexColorInput
                     v-model="customTheme.accent"
@@ -38,7 +38,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div class="flex flex-row items-center justify-between">
-            <label for="color-picker">Primary text color</label>
+            <label for="color-picker">{{ $t("components.customThemeEditor.optionPrimaryTextColor") }}</label>
             <div class="flex flex-row gap-4">
                 <HexColorInput
                     v-model="customTheme.text"
@@ -52,7 +52,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div class="flex flex-row items-center justify-between">
-            <label for="color-picker">Button text</label>
+            <label for="color-picker">{{ $t("components.customThemeEditor.optionButtonTextColor") }}</label>
             <div class="flex flex-row gap-4">
                 <HexColorInput
                     v-model="customTheme.textButtons"
@@ -66,7 +66,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div class="flex flex-row items-center justify-between">
-            <label for="color-picker">Primary background color</label>
+            <label for="color-picker">{{ $t("components.customThemeEditor.optionPrimaryBackgroundColor") }}</label>
             <div class="flex flex-row gap-4">
                 <HexColorInput
                     v-model="customTheme.bgPrimary"
@@ -80,7 +80,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div class="flex flex-row items-center justify-between">
-            <label for="color-picker">1st level of elevation</label>
+            <label for="color-picker">{{ $t("components.customThemeEditor.option1stElevationColor") }}</label>
             <div class="flex flex-row gap-4">
                 <HexColorInput
                     v-model="customTheme.elevation1"
@@ -94,7 +94,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div class="flex flex-row items-center justify-between">
-            <label for="color-picker">2nd level of elevation</label>
+            <label for="color-picker">{{ $t("components.customThemeEditor.option2ndElevationColor") }}</label>
             <div class="flex flex-row gap-4">
                 <HexColorInput
                     v-model="customTheme.elevation2"
@@ -108,7 +108,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div class="flex flex-row items-center justify-between">
-            <label for="color-picker">3rd level of elevation</label>
+            <label for="color-picker">{{ $t("components.customThemeEditor.option3rdElevationColor") }}</label>
             <div class="flex flex-row gap-4">
                 <HexColorInput
                     v-model="customTheme.elevation3"
@@ -126,7 +126,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 class="text-buttons transition-button bg-accent rounded-md px-6 py-1"
                 @click="setCustomTheme"
             >
-                Save
+                {{ $t("general.saveAction") }}
             </button>
         </div>
     </div>

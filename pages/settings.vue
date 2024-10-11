@@ -25,22 +25,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     >
         <ModalConfirmation
             v-show="deleteBoardModalVisible"
-            close-button-text="Cancel"
-            confirm-button-text="Delete Data"
-            description="This action will irreversibly delete all of your boards, custom themes and revert all settings to default. Are you sure?"
-            title="Delete ALL Data?"
+            :close-button-text="$t('general.cancelAction')"
+            :confirm-button-text="$t('pages.settings.deleteAllDataConfirmationAction')"
+            :description="$t('pages.settings.deleteAllDataConfirmationDescription')"
+            :title="$t('pages.settings.deleteAllDataConfirmationHeading')"
             @closeModal="deleteBoardModalVisible = false"
             @confirmAction="deleteAllData"
         />
 
         <h1 class="text-4xl font-bold">
-            Settings
+            {{ $t("pages.settings.settingsHeading") }}
         </h1>
-        <span class="text-dim-3"> Change the behaviour of the application here. </span>
+        <span class="text-dim-3">{{ $t("pages.settings.settingsHeadingSubtext") }}</span>
 
         <section id="theme-settings">
             <h2 class="mb-2 mt-6 text-2xl font-bold">
-                Theme
+                {{ $t("pages.settings.sectionThemeHeading") }}
             </h2>
             <div
                 id="theme-selection"
@@ -57,7 +57,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <label
                         class="cursor-pointer"
                         for="light-mode-icon"
-                    >Light</label>
+                    >{{ $t("pages.settings.lightThemeOption") }}</label>
                 </div>
 
                 <div
@@ -71,7 +71,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <label
                         class="cursor-pointer"
                         for="dark-mode-icon"
-                    >Dark</label>
+                    >{{ $t("pages.settings.darkThemeOption") }}</label>
                 </div>
 
                 <div
@@ -85,7 +85,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <label
                         class="cursor-pointer"
                         for="catppuccin-mode-icon"
-                    >Catppuccin</label>
+                    >{{ $t("pages.settings.catppuccinThemeOption") }}</label>
                 </div>
 
                 <div
@@ -99,7 +99,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <label
                         class="cursor-pointer"
                         for="custom-mode-icon"
-                    >Custom</label>
+                    >{{ $t("pages.settings.customThemeOption") }}</label>
                 </div>
             </div>
 
@@ -108,27 +108,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 class="mt-6 text-lg"
             >
                 <h3 class="mb-2 font-semibold">
-                    Select the colors for your custom theme:
+                    {{ $t("pages.settings.customThemeEditorHeading") }}
                 </h3>
                 <CustomThemeEditor />
                 <h3 class="font-semibold">
-                    Or import/export a custom theme:
+                    {{ $t("pages.settings.customThemeImportHeading") }}
                 </h3>
-                <span class="text-dim-2 text-base">Note: imports override your current theme so export any custom theme which you don't want to lose in advance!</span>
+                <span class="text-dim-2 text-base">{{ $t("pages.settings.customThemeImportHeadingSubtext") }}</span>
                 <div class="my-2 flex flex-row gap-2">
                     <button
                         class="bg-elevation-1 bg-elevation-2-hover border-accent flex cursor-pointer flex-row items-center gap-2 rounded-md border border-dotted px-4 py-1"
                         @click="importThemeFromJson"
                     >
                         <ArrowDownTrayIcon class="size-4" />
-                        Import
+                        {{ $t("general.importAction") }}
                     </button>
                     <button
                         class="bg-elevation-1 bg-elevation-2-hover border-accent flex cursor-pointer flex-row items-center gap-2 rounded-md border border-dotted px-4 py-1"
                         @click="exportThemeToJson"
                     >
                         <ArrowUpTrayIcon class="size-4" />
-                        Export
+                        {{ $t("general.exportAction") }}
                     </button>
                 </div>
             </div>
@@ -137,23 +137,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 class="text-dim-3 transition-button mt-2"
                 @click="$router.go(0)"
             >
-                If the colors do not update, please click <span class="underline">here</span>.
+                {{ $t("pages.settings.colorResetText") }}<span class="underline">{{ $t("pages.settings.colorResetLink") }}</span>.
             </button>
         </section>
 
         <section id="kanban-settings">
             <h2 class="mt-8 text-2xl font-bold">
-                Board Preferences
+                {{ $t("pages.settings.preferencesHeading") }}
             </h2>
-            <span class="text-dim-3 mb-2">Change the behaviour of your Kanban boards.</span>
+            <span class="text-dim-3 mb-2">{{ $t("pages.settings.preferencesSubtext") }}</span>
 
             <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
                 <div>
                     <h3 class="text-lg">
-                        Zoom
+                        {{ $t("pages.settings.preferencesZoomHeading") }}
                     </h3>
                     <span class="text-dim-2">
-                        Adjust the global zoom level for your boards.
+                        {{ $t("pages.settings.preferencesZoomSubtext") }}
                     </span>
                 </div>
                 <KanbanZoomAdjustment v-model="columnZoomLevel" />
@@ -162,10 +162,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
                 <div>
                     <h3 class="text-lg">
-                        Show add to top button
+                        {{ $t("pages.settings.preferencesAddToTopButtonHeading") }}
                     </h3>
                     <span class="text-dim-2">
-                        Displays a button which allows you to add new cards to the top of a column.
+                        {{ $t("pages.settings.preferencesAddToTopButtonSubtext") }}
                     </span>
                 </div>
                 <SwitchRoot
@@ -182,10 +182,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
                 <div>
                     <h3 class="text-lg">
-                        Display number of cards in column
+                        {{ $t("pages.settings.preferencesDisplayNumberOfCardsHeading") }}
                     </h3>
                     <span class="text-dim-2">
-                        Shows how many cards are in each column.
+                        {{ $t("pages.settings.preferencesDisplayNumberOfCardsSubtext") }}
                     </span>
                 </div>
                 <SwitchRoot
@@ -202,17 +202,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
         <section id="miscellaneous-settings">
             <h2 class="mb-2 mt-8 text-2xl font-bold">
-                Miscellaneous
+                {{ $t("pages.settings.miscellaneousHeading") }}
             </h2>
 
             <div class="flex flex-col gap-4">
                 <div class="flex w-[48rem] flex-row items-start justify-between">
                     <div>
                         <h3 class="text-lg">
-                            Animations
+                            {{ $t("pages.settings.miscellaneousAnimationsHeading") }}
                         </h3>
                         <span class="text-dim-2">
-                            Disable this option to remove all animations in the app.
+                            {{ $t("pages.settings.miscellaneousAnimationsSubtext") }}
                         </span>
                     </div>
                     <SwitchRoot
@@ -229,10 +229,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <div class="flex w-[48rem] flex-row items-start justify-between">
                     <div>
                         <h3 class="text-lg">
-                            Autostart on startup
+                            {{ $t("pages.settings.miscellaneousAutostartHeading") }}
                         </h3>
                         <span class="text-dim-2">
-                            Automatically starts Kanri at startup.
+                            {{ $t("pages.settings.miscellaneousAutostartSubtext") }}
                         </span>
                     </div>
                     <SwitchRoot
@@ -250,11 +250,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <div class="mb-8 flex w-[48rem] flex-row items-start justify-between">
                         <div>
                             <h3 class="text-lg">
-                                Delete all data (themes and boards)
+                                {{ $t("pages.settings.miscellaneousDeleteAllDataHeading") }}
                             </h3>
-                            <span class="text-dim-2"><span class="text-red-500">Caution!</span> This will irreversibly
-                                delete all of your data!
-                            </span>
+                            <span class="text-dim-2"><span class="text-red-500">{{ $t("pages.settings.miscellaneousDeleteAllDataSubtextRed") }}</span> {{ $t("pages.settings.miscellaneousDeleteAllDataSubtext") }}</span>
                         </div>
                         <button
                             class="text-buttons bg-accent transition-button rounded-md px-4 py-2"
@@ -283,9 +281,13 @@ import { message, open, save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { disable, enable, isEnabled } from 'tauri-plugin-autostart-api';
 
+import { useI18n } from "vue-i18n";
+
 const router = useRouter();
 
 const store = useTauriStore().store;
+
+const { t } = useI18n();
 
 const activeTheme: Ref<null | string> = ref("");
 const themeEditorDisplayed = ref(false);
@@ -417,7 +419,7 @@ const exportThemeToJson = async () => {
                 name: "JSON File",
             },
         ],
-        title: "Select file to export data to",
+        title: t("pages.settings.exportThemeDialogTitle"),
     });
 
     const colors = await store.get("colors");
@@ -452,7 +454,7 @@ const importThemeFromJson = async () => {
     }
     catch (error) {
         console.error("Could not parse imported JSON;", error);
-        await message('Could not load JSON file! Please check the file is correct.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.settings.loadJsonErrorMessage"), { title: 'Kanri', type: 'error' });
     }
     if (parsedJson === null) return;
 
@@ -462,7 +464,7 @@ const importThemeFromJson = async () => {
     }
     catch (error) {
         console.error(error);
-        await message('Could not load JSON file! Please check the file is formatted correctly and not from an old version of Kanri.', { title: 'Kanri', type: 'error' });
+        await message(t("pages.settings.parseJsonErrorMessage"), { title: 'Kanri', type: 'error' });
     }
     if (zodParsed === null) return;
 
