@@ -206,7 +206,7 @@ import Modal from "@/components/Modal.vue";
 import versionInfo from "@/version_info.json"
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { BookOpenIcon } from "@heroicons/vue/24/outline";
-import { platform } from '@tauri-apps/api/os';
+import { platform } from '@tauri-apps/plugin-os';
 
 const osType = ref("");
 

@@ -1,0 +1,19 @@
+{
+    "$schema": "../gen/schemas/desktop-schema.json",
+    "identifier": "main-capability",
+    "description": "Capability for the main window",
+    "windows": [
+        "main"
+    ],
+    "permissions": [
+        "core:default",
+        "core:image:default",
+        "core:window:allow-show",
+        "core:window:allow-hide",
+        "store:default",
+        "dialog:allow-open",
+        "dialog:default",
+        "autostart:default",
+        "log:default"
+    ]
+}

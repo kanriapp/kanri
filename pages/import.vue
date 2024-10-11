@@ -163,8 +163,8 @@ import type { Board, Column, Tag, Card } from "@/types/kanban-types";
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanbanElectronJsonSchema, kanriBoardSchema, kanriJsonSchema, trelloJsonSchema } from "@/types/json-schemas"
 import emitter from "@/utils/emitter";
-import { ask, message, open, save } from "@tauri-apps/api/dialog";
-import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
+import { ask, message, open, save } from "@tauri-apps/plugin-dialog";
+import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ZodError, z } from "zod";
 

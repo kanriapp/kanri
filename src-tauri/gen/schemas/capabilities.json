@@ -1,0 +1,1 @@
+{"main-capability":{"identifier":"main-capability","description":"Capability for the main window","local":true,"windows":["main"],"permissions":["core:default","core:image:default","core:window:allow-show","core:window:allow-hide","store:default","dialog:allow-open","dialog:default","autostart:default","log:default"]}}

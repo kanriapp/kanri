@@ -1,102 +1,69 @@
 {
-    "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
-    "build": {
-        "beforeDevCommand": "yarn dev",
-        "devPath": "http://localhost:3000",
-        "distDir": "../.output/public"
+  "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "frontendDist": "../.output/public",
+    "devUrl": "http://localhost:3000"
+  },
+  "bundle": {
+    "active": true,
+    "category": "Productivity",
+    "copyright": "© 2022-2024 Trobonox (hello@trobo.dev)",
+    "targets": "all",
+    "externalBin": [],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
     },
-    "package": {
-        "productName": "kanri",
-        "version": "0.8.0"
+    "longDescription": "Kanban board application made for offline usage",
+    "macOS": {
+      "entitlements": null,
+      "exceptionDomain": "",
+      "frameworks": [],
+      "providerShortName": null,
+      "signingIdentity": null
     },
-    "tauri": {
-        "allowlist": {
-            "fs": {
-                "readFile": true,
-                "writeFile": true,
-                "exists" : true,
-                "scope": [
-                    "$HOME/*",
-                    "$APPDATA/*",
-                    "$APPCONFIG/*",
-                    "$RESOURCE/*"
-                ]
-            },
-            "dialog": {
-                "save": true,
-                "open": true,
-                "message": true,
-                "ask": true
-            },
-            "shell": {
-                "all": false,
-                "execute": false,
-                "open": "https://github.com/trobonox/kanri/issues|https://discord.gg/AVqHrvxB9C|https://www.kanriapp.com/getting-started/faq",
-                "scope": [],
-                "sidecar": false
-            },
-            "protocol": {
-                "asset": true,
-                "assetScope": [
-                    "/**/*"
-                ]
-            },
-            "window": {
-                "show": true
-            },
-            "os": {
-                "all": true
-            }
-        },
-        "bundle": {
-            "active": true,
-            "category": "Productivity",
-            "copyright": "© 2022-2024 Trobonox (hello@trobo.dev)",
-            "deb": {
-                "depends": []
-            },
-            "externalBin": [],
-            "icon": [
-                "icons/32x32.png",
-                "icons/128x128.png",
-                "icons/128x128@2x.png",
-                "icons/icon.icns",
-                "icons/icon.ico"
-            ],
-            "identifier": "tech.trobonox.kanri",
-            "longDescription": "Kanban board application made for offline usage",
-            "macOS": {
-                "entitlements": null,
-                "exceptionDomain": "",
-                "frameworks": [],
-                "providerShortName": null,
-                "signingIdentity": null
-            },
-            "resources": [],
-            "shortDescription": "Kanri",
-            "targets": "all",
-            "windows": {
-                "certificateThumbprint": null,
-                "digestAlgorithm": "sha256",
-                "timestampUrl": ""
-            }
-        },
-        "security": {
-            "csp": "default-src 'self' blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost; style-src 'unsafe-inline' 'self'; style-src-elem 'unsafe-inline' 'self'; style-src-attr 'unsafe-inline' 'self'"
-        },
-        "updater": {
-            "active": false
-        },
-        "windows": [
-            {
-                "fullscreen": false,
-                "height": 800,
-                "resizable": true,
-                "title": "Kanri",
-                "width": 1400,
-                "center": true,
-                "visible": false
-            }
-        ]
+    "resources": [],
+    "shortDescription": "Kanri",
+    "linux": {
+      "deb": {
+        "depends": []
+      }
     }
+  },
+  "productName": "kanri",
+  "mainBinaryName": "kanri",
+  "version": "0.8.0",
+  "identifier": "tech.trobonox.kanri",
+  "plugins": {},
+  "app": {
+    "windows": [
+      {
+        "fullscreen": false,
+        "height": 800,
+        "resizable": true,
+        "title": "Kanri",
+        "width": 1400,
+        "center": true,
+        "visible": false
+      }
+    ],
+    "security": {
+      "assetProtocol": {
+        "scope": [
+          "/**/*"
+        ],
+        "enable": true
+      },
+      "csp": "default-src 'self' blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost; style-src 'unsafe-inline' 'self'; style-src-elem 'unsafe-inline' 'self'; style-src-attr 'unsafe-inline' 'self'; connect-src ipc: http://ipc.localhost"
+    }
+  }
 }

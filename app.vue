@@ -10,28 +10,14 @@
     </div>
 </template>
 
-<script setup>
-import { appWindow } from '@tauri-apps/api/window';
-import {
-    attachConsole,
-    trace,
-    debug,
-    info,
-    warn,
-    error,
-} from "tauri-plugin-log-api";
+<script setup lang="ts">
+import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+
+const appWindow = getCurrentWebviewWindow();
 
 onMounted(async () => {
     setTimeout(() => {
         appWindow.show();
     }, 50);
-
-    await attachConsole();
-
-    console.trace = trace
-    console.log = debug
-    console.info = info
-    console.warn = warn
-    console.error = error
 })
 </script>

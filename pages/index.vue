@@ -233,7 +233,7 @@ import { ChevronDownIcon } from "@heroicons/vue/24/outline"
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel } from "@phosphor-icons/vue";
 
-const store = useTauriStore().store;
+const store: any = useTauriStore();
 const boards: Ref<Array<Board>> = ref([]);
 
 const loading = ref(true);
@@ -246,6 +246,7 @@ const sortingOptionRef = ref("");
 const reverseSortOrder = ref(false);
 const sortingOptionText = ref("Sort by creation date");
 
+
 onMounted(async () => {
     emitter.on("createBoard", async ({columns, title}) => {
         await createNewBoard(title, columns);
@@ -255,7 +256,11 @@ onMounted(async () => {
 
     emitter.emit("hideSidebarBackArrow");
 
-    boards.value = (await store.get("boards")) || [];
+    if (store.store == null) {
+        return console.error("Store is not initialized yet!");
+    }
+
+    boards.value = (await store.store.get("boards")) || [];
 
     await setSorting();
 
@@ -269,12 +274,12 @@ onBeforeUnmount(() => {
 });
 
 const setSorting = async () => {
-    const sortingOption = await store.get("boardSortingOption");
+    const sortingOption = await store.store.get("boardSortingOption");
     if (sortingOption == null) {
-        await store.set("boardSortingOption", "default");
+        await store.store.set("boardSortingOption", "default");
     }
 
-    let savedSortPreference = await store.get("reverseSorting");
+    let savedSortPreference = await store.store.get("reverseSorting");
     if (savedSortPreference == null) {
         savedSortPreference = "false";
     }
@@ -301,14 +306,14 @@ const setSorting = async () => {
 }
 
 const reverseCurrentSorting = async () => {
-    let savedSortPreference = await store.get("reverseSorting");
+    let savedSortPreference = await store.store.get("reverseSorting");
     if (savedSortPreference == null) {
         savedSortPreference = "false";
     }
     savedSortPreference = Boolean(savedSortPreference as string).valueOf();
 
     reverseSortOrder.value = !savedSortPreference;
-    await store.set("reverseSorting", !savedSortPreference);
+    await store.store.set("reverseSorting", !savedSortPreference);
 
     boards.value.reverse();
 }
@@ -349,7 +354,7 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
     };
 
     boards.value = [...boards.value, board];
-    store.set("boards", boards.value);
+    store.store.set("boards", boards.value);
 
     await setSorting();
 };
@@ -371,7 +376,7 @@ const renameBoard = async (index: number, name: string) => {
 
     boards.value[index].title = name;
     boards.value[index].lastEdited = new Date();
-    store.set("boards", boards.value);
+    store.store.set("boards", boards.value);
 
     await setSorting();
 }
@@ -392,7 +397,7 @@ const deleteBoard = async (boardIndex: number | undefined) => {
     if (boardIndex === -1 || boardIndex == undefined) return;
 
     boards.value.splice(boardIndex, 1);
-    store.set("boards", boards.value);
+    store.store.set("boards", boards.value);
 };
 
 const sortBoardsAlphabetically = () => {
@@ -406,19 +411,19 @@ const sortBoardsAlphabetically = () => {
         boards.value.reverse();
     }
 
-    store.set("boardSortingOption", "alphabetically");
+    store.store.set("boardSortingOption", "alphabetically");
     sortingOptionText.value = "Sort alphabetically";
 }
 
 const sortBoardsByCreationDate = async () => {
     editSortWarning.value = false;
 
-    boards.value = (await store.get("boards")) || [];
+    boards.value = (await store.store.get("boards")) || [];
     if (reverseSortOrder.value) {
         boards.value.reverse();
     }
 
-    store.set("boardSortingOption", "default");
+    store.store.set("boardSortingOption", "default");
     sortingOptionText.value = "Sort by creation date";
 }
 
@@ -436,7 +441,7 @@ const sortBoardsByEditDate = () => {
         boards.value.reverse();
     }
 
-    store.set("boardSortingOption", "edited");
+    store.store.set("boardSortingOption", "edited");
     sortingOptionText.value = "Sort by edit date";
 }
 </script>

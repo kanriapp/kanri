@@ -67,7 +67,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import type { Board } from "@/types/kanban-types";
 
-import { convertFileSrc } from "@tauri-apps/api/tauri";
+import { convertFileSrc } from "@tauri-apps/api/core";
 
 const props = defineProps<{
     board: Board;

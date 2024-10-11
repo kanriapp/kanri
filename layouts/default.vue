@@ -43,6 +43,7 @@ import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json"
 
 const store = useTauriStore().store;
+
 const savedColors = ref({});
 const mounted = ref(false);
 
