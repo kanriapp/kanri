@@ -20,18 +20,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 body {
-    overscroll-behavior: none;
-    scroll-behavior: smooth;
-    background-color: #111112;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+  background-color: #111112;
 }
 
 .smooth-dnd-container {
-    min-height: 40px !important;
+  min-height: 40px !important;
 }
 
 body:has(> .disable-animations) * {
-    -webkit-transition: none !important;
-    -moz-transition: none !important;
-    -o-transition: none !important;
-    transition: none !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
 }

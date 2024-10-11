@@ -19,13 +19,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import {it, expect, describe} from 'vitest';
-import {mountSuspended} from "@nuxt/test-utils/runtime";
+import { it, expect, describe } from "vitest";
+import { mountSuspended } from "@nuxt/test-utils/runtime";
 import Index from "@/pages/index.vue";
 
-describe('Index', () => {
-    it('should render', async () => {
-        const page = await mountSuspended(Index)
-        expect(page.html()).toContain('Welcome back to Kanri!')
-    });
+describe("Index", () => {
+  it("should render", async () => {
+    const page = await mountSuspended(Index);
+    expect(page.html()).toContain("Welcome back to Kanri!");
+  });
 });

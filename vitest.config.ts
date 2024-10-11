@@ -2,16 +2,16 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-import {defineVitestConfig} from "@nuxt/test-utils/config";
+import { defineVitestConfig } from "@nuxt/test-utils/config";
 
 export default defineVitestConfig({
-    test: {
-        environment: "nuxt",
-        setupFiles: ["./test/setup.ts"],
-        environmentOptions: {
-            nuxt: {
-                domEnvironment: "jsdom"
-            }
-        }
+  test: {
+    environment: "nuxt",
+    setupFiles: ["./test/setup.ts"],
+    environmentOptions: {
+      nuxt: {
+        domEnvironment: "jsdom",
+      },
     },
-})
+  },
+});

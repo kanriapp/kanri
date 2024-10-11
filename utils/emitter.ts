@@ -19,45 +19,45 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import type { Board, Column, Tag } from '@/types/kanban-types';
+import type { Board, Column, Tag } from "@/types/kanban-types";
 
-import mitt from 'mitt';
+import mitt from "mitt";
 
 type Events = {
-    closeKanbanPage: void;
+  closeKanbanPage: void;
 
-    columnActionDone: void;
-    columnDraggingOff: void;
-    columnDraggingOn: void;
+  columnActionDone: void;
+  columnDraggingOff: void;
+  columnDraggingOn: void;
 
-    createBoard: { columns?: Array<Column>, title: string };
+  createBoard: { columns?: Array<Column>; title: string };
 
-    enableColumnCardAddMode: string;
-    enableColumnTitleEditing: string;
+  enableColumnCardAddMode: string;
+  enableColumnTitleEditing: string;
 
-    hideSidebarBackArrow: void;
+  hideSidebarBackArrow: void;
 
-    globalTagsUpdated: { tags: Array<Tag> | null | undefined };
+  globalTagsUpdated: { tags: Array<Tag> | null | undefined };
 
-    modalEnableClickOutsideClose: void;
-    modalPreventClickOutsideClose: void;
+  modalEnableClickOutsideClose: void;
+  modalPreventClickOutsideClose: void;
 
-    openBoardDeleteModal: { description: string, index: number };
-    openBoardRenameModal: { board: Board, index: number };
-    openChangelogModal: void;
-    openKanbanPage: void;
-    openModalWithCustomDescription: { description: string };
+  openBoardDeleteModal: { description: string; index: number };
+  openBoardRenameModal: { board: Board; index: number };
+  openChangelogModal: void;
+  openKanbanPage: void;
+  openModalWithCustomDescription: { description: string };
 
-    resetColumnInputs: void;
+  resetColumnInputs: void;
 
-    setAnimationsOff: void;
-    setAnimationsOn: void;
+  setAnimationsOff: void;
+  setAnimationsOn: void;
 
-    showSidebarBackArrow: void;
-    updateColors: void;
+  showSidebarBackArrow: void;
+  updateColors: void;
 
-    zIndexBack: void;
-    zIndexDown: void;
+  zIndexBack: void;
+  zIndexDown: void;
 };
 
 const emitter = mitt<Events>();

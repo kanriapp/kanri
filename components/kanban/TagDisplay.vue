@@ -19,23 +19,23 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <div
-        class="bg-elevation-3 rounded-xl px-2 py-0.5 text-xs"
-        :class="getTagTextColor"
-        :style="props.tag.style"
-    >
-        {{ props.tag.text }}
-    </div>
+  <div
+    class="bg-elevation-3 rounded-xl px-2 py-0.5 text-xs"
+    :class="getTagTextColor"
+    :style="props.tag.style"
+  >
+    {{ props.tag.text }}
+  </div>
 </template>
 
 <script setup lang="ts">
-import type { Tag } from '~/types/kanban-types';
+import type { Tag } from "~/types/kanban-types";
 
 const props = defineProps<{
-    tag: Tag;
+  tag: Tag;
 }>();
 
 const getTagTextColor = computed(() => {
-    return getContrast(props.tag.color);
+  return getContrast(props.tag.color);
 });
 </script>

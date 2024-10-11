@@ -20,46 +20,46 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 .custom-scrollbar-hidden::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-    width: 12px;
-    height: 16px;
+  width: 12px;
+  height: 16px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: var(--elevation-1);
-    box-shadow: inset 0 0 10px 0 var(--elevation-1);
-    border-left: solid 6px var(--elevation-1);
+  background: var(--elevation-1);
+  box-shadow: inset 0 0 10px 0 var(--elevation-1);
+  border-left: solid 6px var(--elevation-1);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: var(--elevation-2);
-    box-shadow: inset 0 0 10px 0 var(-elevation-1);
-    border-left: solid 6px var(--elevation-1);
+  background: var(--elevation-2);
+  box-shadow: inset 0 0 10px 0 var(-elevation-1);
+  border-left: solid 6px var(--elevation-1);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var(--elevation-3);
+  background: var(--elevation-3);
 }
 
 .custom-scrollbar-horizontal::-webkit-scrollbar {
-    width: 6px;
-    height: 16px;
+  width: 6px;
+  height: 16px;
 }
 
 .custom-scrollbar-horizontal::-webkit-scrollbar-track {
-    background: var(--elevation-1);
-    border-radius: 8px;
+  background: var(--elevation-1);
+  border-radius: 8px;
 }
 
 .custom-scrollbar-horizontal::-webkit-scrollbar-thumb {
-    background: var(--elevation-2);
-    border-radius: 8px;
+  background: var(--elevation-2);
+  border-radius: 8px;
 }
 
 .custom-scrollbar-horizontal::-webkit-scrollbar-thumb:hover {
-    background: var(--elevation-3);
+  background: var(--elevation-3);
 }

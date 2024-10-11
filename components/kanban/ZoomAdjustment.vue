@@ -19,79 +19,77 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <div class="flex flex-row items-center">
-        <Tooltip direction="top">
-            <template #trigger>
-                <button
-                    class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
-                    @click="increaseZoomLevel"
-                >
-                    <MagnifyingGlassPlusIcon class="size-5" />
-                </button>
-            </template>
-            <template #content>
-                Increase zoom level
-            </template>
-        </Tooltip>
-        <Tooltip direction="top">
-            <template #trigger>
-                <button
-                    class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1.5"
-                    @click="resetZoomLevel"
-                >
-                    {{ (columnZoomLevel * 50) + 100 }}%
-                </button>
-            </template>
-            <template #content>
-                Reset zoom level
-            </template>
-        </Tooltip>
-        <Tooltip direction="top">
-            <template #trigger>
-                <button
-                    class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
-                    @click="decreaseZoomLevel"
-                >
-                    <MagnifyingGlassMinusIcon class="size-5" />
-                </button>
-            </template>
-            <template #content>
-                Decrease zoom level
-            </template>
-        </Tooltip>
-    </div>
+  <div class="flex flex-row items-center">
+    <Tooltip direction="top">
+      <template #trigger>
+        <button
+          class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
+          @click="increaseZoomLevel"
+        >
+          <MagnifyingGlassPlusIcon class="size-5" />
+        </button>
+      </template>
+      <template #content> Increase zoom level </template>
+    </Tooltip>
+    <Tooltip direction="top">
+      <template #trigger>
+        <button
+          class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1.5"
+          @click="resetZoomLevel"
+        >
+          {{ columnZoomLevel * 50 + 100 }}%
+        </button>
+      </template>
+      <template #content> Reset zoom level </template>
+    </Tooltip>
+    <Tooltip direction="top">
+      <template #trigger>
+        <button
+          class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
+          @click="decreaseZoomLevel"
+        >
+          <MagnifyingGlassMinusIcon class="size-5" />
+        </button>
+      </template>
+      <template #content> Decrease zoom level </template>
+    </Tooltip>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { useTauriStore } from "@/stores/tauriStore";
-import { MagnifyingGlassMinusIcon, MagnifyingGlassPlusIcon } from "@heroicons/vue/24/solid";
+import {
+  MagnifyingGlassMinusIcon,
+  MagnifyingGlassPlusIcon,
+} from "@heroicons/vue/24/solid";
 
 const store = useTauriStore().store;
 const columnZoomLevel = defineModel({ type: Number, required: true });
 
 const increaseZoomLevel = () => {
-    if (columnZoomLevel.value + 1 > 2) return;
-    columnZoomLevel.value++;
+  if (columnZoomLevel.value + 1 > 2) return;
+  columnZoomLevel.value++;
 
-    nextTick(() => { // nextTick required for the model value to update properly before saving
-        store.set("columnZoomLevel", columnZoomLevel.value);
-    });
-}
+  nextTick(() => {
+    // nextTick required for the model value to update properly before saving
+    store.set("columnZoomLevel", columnZoomLevel.value);
+  });
+};
 
 const decreaseZoomLevel = () => {
-    if (columnZoomLevel.value - 1 < -1) return;
-    columnZoomLevel.value--;
+  if (columnZoomLevel.value - 1 < -1) return;
+  columnZoomLevel.value--;
 
-    nextTick(() => {
-        store.set("columnZoomLevel", columnZoomLevel.value);
-    });
-}
+  nextTick(() => {
+    store.set("columnZoomLevel", columnZoomLevel.value);
+  });
+};
 
 const resetZoomLevel = () => {
-    columnZoomLevel.value = 0;
+  columnZoomLevel.value = 0;
 
-    nextTick(() => {
-        store.set("columnZoomLevel", columnZoomLevel.value);
-    });
-}
+  nextTick(() => {
+    store.set("columnZoomLevel", columnZoomLevel.value);
+  });
+};
 </script>

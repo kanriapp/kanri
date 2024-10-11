@@ -19,36 +19,40 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <!-- eslint-disable -->
 <template>
-    <div class="overflow-auto scroll-auto px-8 pt-8">
-        <h1 class="mb-2 text-4xl font-bold">
-            3rd-Party Software Report for Kanri
-        </h1>
-        <p class="mb-2">
-            The following 3rd-party software packages may be used by or distributed with
-            <b>Kanri</b>. Any information relevant to third-party vendors listed below are collected using common, reasonable means.
-        </p>
-        <p>
-            This page only lists JavaScript dependencies which are included in the final bundle. This report is being automatically generated using rollup-plugin-license, please write an email to hello@trobo.tech if you believe there is a mistake or something missing.
-        </p>
-        <p class="mb-4">
-            For more licenses for Rust and extended JavaScript deps, see the links below.
-        </p>
-        <div class="mb-8 flex flex-row gap-4">
-            <nuxt-link
-                class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
-                to="/licenses/dev_js"
-            >
-                More JavaScript dependencies (includes dev deps)
-            </nuxt-link>
-            <nuxt-link
-                class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
-                to="/licenses/rust"
-            >
-                Rust dependencies
-            </nuxt-link>
-        </div>
+  <div class="overflow-auto scroll-auto px-8 pt-8">
+    <h1 class="mb-2 text-4xl font-bold">3rd-Party Software Report for Kanri</h1>
+    <p class="mb-2">
+      The following 3rd-party software packages may be used by or distributed
+      with
+      <b>Kanri</b>. Any information relevant to third-party vendors listed below
+      are collected using common, reasonable means.
+    </p>
+    <p>
+      This page only lists JavaScript dependencies which are included in the
+      final bundle. This report is being automatically generated using
+      rollup-plugin-license, please write an email to hello@trobo.tech if you
+      believe there is a mistake or something missing.
+    </p>
+    <p class="mb-4">
+      For more licenses for Rust and extended JavaScript deps, see the links
+      below.
+    </p>
+    <div class="mb-8 flex flex-row gap-4">
+      <nuxt-link
+        class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
+        to="/licenses/dev_js"
+      >
+        More JavaScript dependencies (includes dev deps)
+      </nuxt-link>
+      <nuxt-link
+        class="bg-elevation-1 bg-elevation-2-hover rounded-md p-2"
+        to="/licenses/rust"
+      >
+        Rust dependencies
+      </nuxt-link>
+    </div>
 
-        <pre>
+    <pre>
 Name: @vue/shared
 Version: 3.4.29
 License: MIT
@@ -2877,14 +2881,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-        </pre>
-    </div>
+        </pre
+    >
+  </div>
 </template>
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
 
 onMounted(() => {
-    emitter.emit("showSidebarBackArrow");
-})
+  emitter.emit("showSidebarBackArrow");
+});
 </script>

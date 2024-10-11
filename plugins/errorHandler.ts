@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { error } from "tauri-plugin-log-api";
 
 export default defineNuxtPlugin((nuxtApp) => {
-    nuxtApp.hook('vue:error', (err, instance, info) => {
-        error("Vue error: " + err + " ; " + info);
-    })
-})
+  nuxtApp.hook("vue:error", (err, instance, info) => {
+    error("Vue error: " + err + " ; " + info);
+  });
+});
