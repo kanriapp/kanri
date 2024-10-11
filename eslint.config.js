@@ -2,19 +2,17 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-import withNuxt from './.nuxt/eslint.config.mjs'
+import withNuxt from './.nuxt/eslint.config.mjs';
 import tailwind from "eslint-plugin-tailwindcss";
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import js from "@eslint/js"
 
 export default withNuxt(
     ...tailwind.configs["flat/recommended"],
+    js.configs.recommended,
+    eslintPluginPrettierRecommended,
     {
         files: ['**/*.ts', '**/*.vue'],
-        extends: [
-            'eslint:recommended',
-            'plugin:nuxt/recommended',
-            'plugin:prettier/recommended'
-        ],
-        plugins: ['prettier'],
         rules: {
             "no-undef": "off",
             "tailwindcss/no-custom-classname": "off",
