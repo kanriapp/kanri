@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
+// SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak
 //
 // SPDX-License-Identifier: CC0-1.0
 
