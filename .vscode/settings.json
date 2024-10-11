@@ -1,7 +1,7 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "never",
-        "source.fixAll.eslint": "always"
-    },
-    "eslint.experimental.useFlatConfig": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never",
+    "source.fixAll.eslint": "always"
+  },
+  "eslint.useFlatConfig": true
 }
