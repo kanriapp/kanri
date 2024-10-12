@@ -6,7 +6,8 @@
     "saveAction": "Save",
     "importAction": "Import",
     "exportAction": "Export",
-    "closeAction": "Close"
+    "closeAction": "Close",
+    "addAction": "Add",
   },
   "pages": {
     "index": {
@@ -153,6 +154,20 @@
       "imageBlur": "Background blur strength:",
       "brightnessTitle": "Background brightness:",
       "reset": "Reset Background Image"
+    },
+    "editCard": {
+      "tooltip": " Set card color ",
+      "colorTitle": "Card Color",
+      "colorCustom": "Select a custom color:",
+      "dueDate": "Due: ",
+      "dateSet": "Set due date",
+      "countdown": "Relative countdown",
+      "dateRemove": "Remove due date",
+      "descriptionTitle": "Card Description",
+      "taskTitle": "Tasks",
+      "taskAdd": "Add Task",
+      "tagsTitle": "Tags",
+      "tagsEdit": "Edit Global Tags"
     }
   }
 }
