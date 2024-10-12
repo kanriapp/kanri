@@ -455,7 +455,7 @@ limitations under the License.
               @before-adding-tag="beforeTagAdd"
             />
             <button
-              class="bg-elevation-3 text-sm rounded-md px-2 py-0.5 w-fit mt-2"
+              class="bg-elevation-3 mt-2 w-fit rounded-md px-2 py-0.5 text-sm"
               @click="closeModalAndOpenTagEdit"
             >
               Edit Global Tags

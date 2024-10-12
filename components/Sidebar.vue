@@ -133,24 +133,14 @@ import {
   PhQuestion,
 } from "@phosphor-icons/vue";
 
-const store = useTauriStore().store;
-
 const helpModalVisible = ref(false);
 const newBoardModalVisible = ref(false);
 
 const zIndexDown = ref(false);
 const showAddButton = ref(true);
 
-const savedColors: Ref<any> = ref(null);
-
 onMounted(async () => {
   document.addEventListener("keydown", keyDownListener);
-
-  savedColors.value = await store.get("colors");
-
-  emitter.on("updateColors", async () => {
-    savedColors.value = await store.get("colors");
-  });
 
   emitter.on("zIndexDown", () => {
     zIndexDown.value = true;

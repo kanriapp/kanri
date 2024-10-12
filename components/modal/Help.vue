@@ -332,7 +332,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
         <p class="mb-2 pt-2">
           Copyright (c) 2022-2024 trobonox (hello@trobo.dev) <br />
-          <span class="text-lg font-bold">Kanri</span>
+          <span class="text-lg font-bold">Kanri </span>
           <span class="text-accent-lighter"
             >v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{
               versionInfo.buildRevision

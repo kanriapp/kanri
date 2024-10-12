@@ -45,7 +45,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </h2>
       <div id="theme-selection" class="flex flex-row gap-4">
         <div
-          class="bg-elevation-1 bg-elevation-2-hover flex w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('light')"
         >
           <SunIcon :class="themeIconClass('light')" class="size-8" />
@@ -55,7 +55,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div
-          class="bg-elevation-1 bg-elevation-2-hover flex w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('dark')"
         >
           <MoonIcon :class="themeIconClass('dark')" class="size-8" />
@@ -65,7 +65,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div
-          class="bg-elevation-1 bg-elevation-2-hover flex w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('catppuccin')"
         >
           <IconCatppuccin
@@ -78,7 +78,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div
-          class="bg-elevation-1 bg-elevation-2-hover flex w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('custom')"
         >
           <SwatchIcon :class="themeIconClass('custom')" class="size-8" />
@@ -196,6 +196,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <div class="flex w-[48rem] flex-row items-start justify-between">
           <div>
             <h3 class="text-lg">
+              {{ $t("pages.settings.languageSelectorHeading") }}
+            </h3>
+            <span class="text-dim-2">
+              {{ $t("pages.settings.languageSelectorSubtext") }}
+            </span>
+          </div>
+          <LanguageSelector />
+        </div>
+
+        <div class="flex w-[48rem] flex-row items-start justify-between">
+          <div>
+            <h3 class="text-lg">
               {{ $t("pages.settings.miscellaneousAnimationsHeading") }}
             </h3>
             <span class="text-dim-2">
@@ -262,7 +274,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { ThemeIdentifiers, Board } from "@/types/kanban-types";
+import type { ThemeIdentifiers } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { useTauriStore } from "@/stores/tauriStore";

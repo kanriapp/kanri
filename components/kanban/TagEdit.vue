@@ -22,11 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   <div
     class="bg-elevation-2 flex w-full flex-row items-center justify-between gap-3 rounded-md px-2 py-1"
   >
-    <div class="flex flex-row gap-2 items-center">
+    <div class="flex flex-row items-center gap-2">
       <input
         ref="colorInput"
-        class="flex-shrink-0"
         v-model="tagColor"
+        class="shrink-0"
         type="color"
         @change="setTagColor"
       />
@@ -35,7 +35,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           {{ tag.text }}
         </ClickCounter>
       </template>
-      <template v-else class="flex flex-row items-center w-full">
+      <template v-else>
         <input
           v-model="editedTagName"
           v-focus
@@ -92,15 +92,10 @@ const startEditing = () => {
   nextTick(() => {
     const input = document.querySelector('input[type="text"]');
     if (input) {
-      //@ts-ignore
+      //@ts-expect-error input is not typed
       input.focus();
     }
   });
-};
-
-const cancelEditing = () => {
-  isEditing.value = false;
-  editedTagName.value = props.tag.text;
 };
 
 const saveTagName = () => {
