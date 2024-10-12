@@ -10,9 +10,9 @@ import js from "@eslint/js";
 
 export default withNuxt(
   ...tailwind.configs["flat/recommended"],
-  js.configs.recommended,
   eslintPluginPrettierRecommended,
   ...tseslint.configs.recommended,
+  js.configs.recommended,
   {
     files: ["**/*.ts", "**/*.vue"],
     rules: {
