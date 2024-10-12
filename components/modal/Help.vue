@@ -334,7 +334,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </p>
         </div>
         <p class="mb-2 pt-2">
-          {{ $t("modals.help.copyright", { email: "hello@trobo.dev" }) }}<br />
+          {{ $t("modals.help.copyrights", { email: "hello@trobo.dev" }) }}<br />
           <span class="text-lg font-bold">Kanri </span>
           <span class="text-accent-lighter">
             {{
