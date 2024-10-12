@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -24,9 +24,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <main class="max-w-3xl">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
-            What's new in Kanri {{ versionInfo.buildMajor }}.{{
-              versionInfo.buildMinor
-            }}.{{ versionInfo.buildRevision }}
+            {{
+              $t("modals.changelog.title", {
+                major: versionInfo.buildMajor,
+                minor: versionInfo.buildMinor,
+                revision: versionInfo.buildRevision,
+              })
+            }}
           </h1>
           <XMarkIcon
             class="text-accent-hover size-6 cursor-pointer"
@@ -34,27 +38,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           />
         </div>
         <p class="mr-8 mt-2">
-          Welcome to Kanri! After a long time, we are back with a big release
-          featuring many new features and fixes. To quickly get notified about
-          new releases and see the development progress, you can join
+          {{ $t("modals.changelog.welcome") }}
           <a
             class="text-accent text-accent-darker-hover"
             href="https://discord.gg/AVqHrvxB9C"
             target="_blank"
-            >the official Discord server.</a
+            >{{ $t("modals.changelog.welcomeLink") }}</a
           >
         </p>
 
         <br />
-        <span class="text-xl font-bold">Changes:</span>
+        <span class="text-xl font-bold">{{
+          $t("modals.changelog.changes")
+        }}</span>
         <ul>
-          <li>Improved text contrast for card tags</li>
-          <li>Import tags and due date from Trello® boards</li>
-          <li>Search bar now also includes card tags in search</li>
-          <li>
-            Remove scrolling to the bottom of a column when adding cards at the
-            top
-          </li>
+          <li>{{ $t("modals.changelog.changeItem1") }}</li>
+          <li>{{ $t("modals.changelog.changeItem2") }}</li>
+          <li>{{ $t("modals.changelog.changeItem3") }}</li>
+          <li>{{ $t("modals.changelog.changeItem4") }}</li>
         </ul>
 
         <div class="mt-6 flex justify-between">
@@ -62,7 +63,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="bg-accent text-buttons mb-4 w-full rounded px-4 py-2"
             @click="$emit('closeModal')"
           >
-            Close
+            {{ $t("general.closeAction") }}
           </button>
         </div>
       </main>

@@ -5,7 +5,8 @@
     "cancelAction": "Cancel",
     "saveAction": "Save",
     "importAction": "Import",
-    "exportAction": "Export"
+    "exportAction": "Export",
+    "closeAction": "Close"
   },
   "pages": {
     "index": {
@@ -128,6 +129,16 @@
       "title": "Edit card tags",
       "description": "Here you can edit your global tags, which are available for the entire board. Note: Deleting a global tag does not remove them from cards, but only makes it unavailable for new cards.",
       "tagListTitle": "Your tags:"
+    },
+    "changelog": {
+      "title": "What's new in Kanri {major}.{minor}.{revision}?",
+      "welcome": "Welcome to Kanri! After a long time, we are back with a big release featuring many new features and fixes. To quickly get notified about new releases and see the development progress, you can join",
+      "welcomeLink": "the official Discord server.",
+      "changes": "Changes:",
+      "changeItem1": "Improved text contrast for card tags",
+      "changeItem2": "Import tags and due date from Trello® boards",
+      "changeItem3": "Search bar now also includes card tags in search",
+      "changeItem4": "Remove scrolling to the bottom of a column when adding cards at the top"
     }
   }
 }
