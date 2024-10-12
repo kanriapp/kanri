@@ -37,7 +37,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup>
 import { useTauriStore } from "@/stores/tauriStore";
-import { hslToHex, rgbToHsl } from "~/utils/colorUtils.js";
+import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json";
