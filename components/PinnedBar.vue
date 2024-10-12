@@ -20,9 +20,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
   <nav
-    class="border-elevation-1 bg-sidebar flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
+    class="flex h-screen flex-col items-center justify-between overflow-x-hidden overflow-y-auto px-8 pb-6 pt-4 my-2"
   >
-    <section id="tabitem-list" class="flex flex-col items-center gap-4">
+    <section id="tabitem-list" class="flex flex-col items-center gap-3">
       <PinnedItem
         v-for="board in pins"
         id="tabitem"
