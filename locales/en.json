@@ -121,6 +121,11 @@
       "importExport": "Import/Export",
       "help": "Help",
       "settings": "Settings"
+    },
+    "cardTags": {
+      "title": "Edit card tags",
+      "description": "Here you can edit your global tags, which are available for the entire board. Note: Deleting a global tag does not remove them from cards, but only makes it unavailable for new cards.",
+      "tagListTitle": "Your tags:"
     }
   }
 }

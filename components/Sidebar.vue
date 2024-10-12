@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -78,7 +78,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </button>
         </template>
 
-        <template #content>{{ $t("components.sidebar.createNewBoard") }}</template>
+        <template #content>{{
+          $t("components.sidebar.createNewBoard")
+        }}</template>
       </Tooltip>
     </section>
 
@@ -92,7 +94,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </nuxt-link>
         </template>
 
-        <template #content>{{ $t("components.sidebar.importExport") }}</template>
+        <template #content>{{
+          $t("components.sidebar.importExport")
+        }}</template>
       </Tooltip>
 
       <Tooltip>
