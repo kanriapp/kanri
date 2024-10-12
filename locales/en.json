@@ -190,6 +190,15 @@
       "copyrights": "Copyright (c) 2022-2024 trobonox ({email}) ",
       "version": "v{major}.{minor}.{revision}",
       "thirdPartyLicenseNotices": "Third-party license notices"
+    },
+    "newBoard": {
+      "title": "Create a new board",
+      "name": "Board name",
+      "exampleColumns": "Create example columns and cards",
+      "columns": "Columns",
+      "newColumn": "New Column",
+      "createBoardAction": "Create Board",
+      "boardNameEmptyError": "Board name cannot be empty"
     }
   }
 }
