@@ -55,7 +55,7 @@ limitations under the License.
                   </template>
 
                   <template #content>{{
-                    $t("modal.editCard.tooltip")
+                    $t("modals.editCard.tooltip")
                   }}</template>
                 </Tooltip>
                 <div
@@ -70,7 +70,7 @@ limitations under the License.
                     class="bg-primary border-elevation-1 absolute -left-4 top-8 z-20 flex flex-col gap-1 rounded-md border p-3"
                   >
                     <h2 class="mb-1 text-lg font-semibold">
-                      {{ $t("modal.editCard.colorTitle") }}
+                      {{ $t("modals.editCard.colorTitle") }}
                     </h2>
                     <div class="flex w-full flex-row gap-3">
                       <button
@@ -192,7 +192,7 @@ limitations under the License.
                     </div>
                     <div v-if="isCustomColor">
                       <h3 class="mb-1 mt-2 font-semibold">
-                        {{ $t("modal.editCard.colorCustom") }}
+                        {{ $t("modals.editCard.colorCustom") }}
                       </h3>
                       <div class="flex w-full flex-row gap-4">
                         <input
@@ -251,10 +251,10 @@ limitations under the License.
                 >
                   <PhCalendar class="size-5" />
                   <span v-if="dueDate"
-                    >{{ $t("modal.editCard.dueDate")
+                    >{{ $t("modals.editCard.dueDate")
                     }}{{ dueDate.toLocaleDateString() }}</span
                   >
-                  <span v-else>{{ $t("modal.editCard.dateSet") }}</span>
+                  <span v-else>{{ $t("modals.editCard.dateSet") }}</span>
                 </button>
               </template>
               <template #footer>
@@ -270,14 +270,14 @@ limitations under the License.
                           class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
                         />
                       </SwitchRoot>
-                      <p>{{ $t("modal.editCard.countdown") }}</p>
+                      <p>{{ $t("modals.editCard.countdown") }}</p>
                     </div>
                     <button
                       class="bg-elevation-1 bg-elevation-2-hover flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
                       @click="resetDueDate"
                     >
                       <PhTrash class="mt-0.5 size-5" />
-                      {{ $t("modal.editCard.dateRemove") }}
+                      {{ $t("modals.editCard.dateRemove") }}
                     </button>
                   </div>
                 </div>
@@ -289,7 +289,7 @@ limitations under the License.
         <div class="overflow-auto">
           <div class="flex flex-col pr-6">
             <h2 class="text-lg font-semibold">
-              {{ $t("modal.editCard.descriptionTitle") }}
+              {{ $t("modals.editCard.descriptionTitle") }}
             </h2>
             <KanbanDescriptionEditor
               v-model="description"
@@ -299,7 +299,7 @@ limitations under the License.
           <div>
             <div class="mb-1 mt-4 flex flex-row items-center gap-2">
               <h2 class="text-lg font-semibold">
-                {{ $t("modal.editCard.taskTitle") }}
+                {{ $t("modals.editCard.taskTitle") }}
               </h2>
               <span v-if="tasks.length !== 0" class="text-dim-1 text-sm"
                 >({{ getCheckedTaskNumber }}/{{ tasks.length }})</span
@@ -440,7 +440,7 @@ limitations under the License.
                     newTaskName = '';
                   "
                 >
-                  {{ $t("modal.editCard.cancelAction") }}
+                  {{ $t("modals.editCard.cancelAction") }}
                 </button>
               </div>
               <button
@@ -449,13 +449,13 @@ limitations under the License.
                 @click="enableTaskAddMode"
               >
                 <PlusIcon class="text-accent size-6" />
-                <span>{{ $t("modal.editCard.taskAdd") }}</span>
+                <span>{{ $t("modals.editCard.taskAdd") }}</span>
               </button>
             </div>
           </div>
           <div class="mt-4 flex flex-col pr-6">
             <h2 class="text-lg font-semibold">
-              {{ $t("modal.editCard.tagsTitle") }}
+              {{ $t("modals.editCard.tagsTitle") }}
             </h2>
             <vue-tags-input
               v-model="tag"
@@ -469,7 +469,7 @@ limitations under the License.
               class="bg-elevation-3 mt-2 w-fit rounded-md px-2 py-0.5 text-sm"
               @click="closeModalAndOpenTagEdit"
             >
-              {{ $t("modal.editCard.tagsEdit") }}
+              {{ $t("modals.editCard.tagsEdit") }}
             </button>
           </div>
         </div>
