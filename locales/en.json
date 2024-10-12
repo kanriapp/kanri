@@ -113,6 +113,14 @@
       "option1stElevationColor": "1st level of elevation",
       "option2ndElevationColor": "2nd level of elevation",
       "option3rdElevationColor": "3rd level of elevation"
+    },
+    "sidebar": {
+      "home": "Home",
+      "back": "Back",
+      "createNewBoard": "Create a new board",
+      "importExport": "Import/Export",
+      "help": "Help",
+      "settings": "Settings"
     }
   }
 }
