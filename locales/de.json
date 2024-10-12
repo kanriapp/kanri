@@ -5,7 +5,9 @@
     "cancelAction": "Abbrechen",
     "saveAction": "Speichern",
     "importAction": "Importieren",
-    "exportAction": "Exportieren"
+    "exportAction": "Exportieren",
+    "closeAction": "Schließen",
+    "addAction": "Hinzufügen"
   },
   "pages": {
     "index": {

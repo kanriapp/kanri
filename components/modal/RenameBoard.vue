@@ -60,7 +60,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="bg-accent text-buttons transition-button rounded-md px-4 py-2"
             @click="renameBoard()"
           >
-            {{ $t("modals.renameBoard.renameAction") }}
+            {{ $t("general.renameAction") }}
           </button>
         </section>
       </main>
