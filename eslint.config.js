@@ -5,10 +5,14 @@
 import withNuxt from "./.nuxt/eslint.config.mjs";
 import tailwind from "eslint-plugin-tailwindcss";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import tseslint from "typescript-eslint";
+import js from "@eslint/js";
 
 export default withNuxt(
   ...tailwind.configs["flat/recommended"],
   eslintPluginPrettierRecommended,
+  ...tseslint.configs.recommended,
+  js.configs.recommended,
   {
     files: ["**/*.ts", "**/*.vue"],
     rules: {
