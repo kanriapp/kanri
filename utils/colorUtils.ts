@@ -176,9 +176,9 @@ export const lightenColor = (col: string, amt: number): string => {
   const gS = Math.max(Math.min(255, g), 0).toString(16);
   const bS = Math.max(Math.min(255, b), 0).toString(16);
 
-  const rr = rS.length < 2 ? "0" + r : r;
-  const gg = gS.length < 2 ? "0" + g : g;
-  const bb = bS.length < 2 ? "0" + b : b;
+  const rr = rS.length < 2 ? "0" + rS : rS;
+  const gg = gS.length < 2 ? "0" + gS : gS;
+  const bb = bS.length < 2 ? "0" + bS : bS;
 
   return `#${rr}${gg}${bb}`.toUpperCase();
 };
@@ -238,7 +238,7 @@ export const rgbToHsl = (
   g: number,
   b: number
 ): [number, number, number] => {
-  // Validate inputs
+  // eslint-disable-next-line no-unused-vars
   const _ = validateInput(RgbToHslSchema, { r, g, b });
 
   r /= 255;
@@ -287,7 +287,7 @@ export const hslToHex = (h: number, s: number, l: number): string => {
   const a = (s * Math.min(l, 1 - l)) / 100;
   const f = (n: number): string => {
     const k = (n + parsed.h / 30) % 12;
-    const color = parsed.l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1); // Corrected line
     const value = Math.round(255 * color);
     const hex = value.toString(16);
     return hex.length === 1 ? "0" + hex : hex;
@@ -324,47 +324,56 @@ export const getContrast = (hexcolor: string): string => {
 export const getAverageColor = async (
   imgSrc: string
 ): Promise<[number, number, number]> => {
-  // Validate input
   const parsedImgSrc = validateInput(GetAverageColorSchema, imgSrc);
 
-  return new Promise<[number, number, number]>((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
+  const img = new Image();
+  img.crossOrigin = "Anonymous";
+
+  await new Promise<void>((resolve, reject) => {
+    img.onload = () => resolve();
+    img.onerror = () => reject(new Error("Failed to load image."));
     img.src = parsedImgSrc;
-
-    img.onload = () => {
-      try {
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        if (!context) throw new Error("Failed to get canvas context.");
-
-        canvas.width = img.width;
-        canvas.height = img.height;
-        context.drawImage(img, 0, 0, img.width, img.height);
-        const imageData = context.getImageData(0, 0, img.width, img.height);
-        let r = 0,
-          g = 0,
-          b = 0;
-        const pixelCount = imageData.data.length / 4;
-
-        for (let i = 0; i < imageData.data.length; i += 4) {
-          r += imageData.data[i];
-          g += imageData.data[i + 1];
-          b += imageData.data[i + 2];
-        }
-
-        r = Math.round(r / pixelCount);
-        g = Math.round(g / pixelCount);
-        b = Math.round(b / pixelCount);
-
-        resolve([r, g, b]);
-      } catch (error) {
-        reject(error);
-      }
-    };
-
-    img.onerror = () => {
-      reject(new Error("Failed to load image."));
-    };
   });
+
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("Failed to get canvas context.");
+
+  const width = img.width;
+  const height = img.height;
+  canvas.width = width;
+  canvas.height = height;
+
+  context.imageSmoothingEnabled = false;
+
+  context.drawImage(img, 0, 0, width, height);
+
+  const imageData = context.getImageData(0, 0, width, height);
+
+  let r = 0,
+    g = 0,
+    b = 0,
+    a = 0;
+
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    const alpha = imageData.data[i + 3] / 255;
+    // Skip fully transparent pixels
+    if (alpha === 0) continue;
+
+    r += imageData.data[i] * alpha;
+    g += imageData.data[i + 1] * alpha;
+    b += imageData.data[i + 2] * alpha;
+    a += alpha;
+  }
+
+  // Avoid division by zero
+  if (a === 0) {
+    return [0, 0, 0];
+  }
+
+  r = Math.round(r / a);
+  g = Math.round(g / a);
+  b = Math.round(b / a);
+
+  return [r, g, b];
 };
