@@ -139,6 +139,11 @@
       "changeItem2": "Import tags and due date from Trello® boards",
       "changeItem3": "Search bar now also includes card tags in search",
       "changeItem4": "Remove scrolling to the bottom of a column when adding cards at the top"
+    },
+    "confirmation": {
+      "sure": "Are you sure?",
+      "negative": "No",
+      "positive": "Yes"
     }
   }
 }
