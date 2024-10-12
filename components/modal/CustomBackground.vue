@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <main class="min-h-[36rem] min-w-[32rem] max-w-3xl">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
-            Set a custom background
+            {{ $t("modals.customBackground.title") }}
           </h1>
           <XMarkIcon
             class="text-accent-hover size-6 cursor-pointer"
@@ -33,7 +33,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
         <div class="mt-4 flex flex-col gap-4">
           <section id="bg-selection">
-            <h2 class="mb-2 text-lg font-semibold">Background image:</h2>
+            <h2 class="mb-2 text-lg font-semibold">
+              {{ $t("modals.customBackground.imageTitle") }}
+            </h2>
             <div
               v-if="background.length > 0"
               class="img-container relative inline-block max-w-56"
@@ -44,21 +46,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 alt="bg image preview"
                 class="aspect-[16/10] h-auto w-56 rounded-md"
               />
-              <div class="img-overlay">Edit background image</div>
+              <div class="img-overlay">
+                {{ $t("modals.customBackground.imageEdit") }}
+              </div>
             </div>
             <button
               v-else
               class="bg-elevation-2 bg-elevation-3-hover transition-button aspect-[16/10] w-56 rounded-md"
               @click="getCustomBg"
             >
-              Add background image
+              {{ $t("modals.customBackground.imageAdd") }}
             </button>
           </section>
           <section v-if="background.length > 0" id="bg-blur" class="w-full">
             <h2 class="mb-2">
-              <span class="text-lg font-semibold"
-                >Background blur strength:</span
-              >
+              <span class="text-lg font-semibold">{{
+                $t("modals.customBackground.imageBlur")
+              }}</span>
               {{ bgBlurString }}
             </h2>
             <div class="slider">
@@ -78,7 +82,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="w-full"
           >
             <h2 class="mb-2">
-              <span class="text-lg font-semibold">Background brightness:</span>
+              <span class="text-lg font-semibold">{{
+                $t("modals.customBackground.brightnessTitle")
+              }}</span>
               {{ bgBrightnessString }}%
             </h2>
             <div class="slider">
@@ -99,7 +105,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           @click="resetSettings()"
         >
           <XMarkIcon class="size-6" />
-          Reset Background Image
+          {{ $t("modals.customBackground.reset") }}
         </button>
       </main>
     </template>

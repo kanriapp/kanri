@@ -144,6 +144,15 @@
       "sure": "Are you sure?",
       "negative": "No",
       "positive": "Yes"
+    },
+    "customBackground": {
+      "title": "Set a custom background",
+      "imageTitle": "Background image:",
+      "imageEdit": "Edit background image",
+      "imageAdd": "Add background image",
+      "imageBlur": "Background blur strength:",
+      "brightnessTitle": "Background brightness:",
+      "reset": "Reset Background Image"
     }
   }
 }
