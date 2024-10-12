@@ -67,11 +67,6 @@ onMounted(async () => {
   onNavigation();
 });
 
-onBeforeUnmount(() => {
-  // emitter.off("openKanbanPage");
-  // emitter.off("closeKanbanPage");
-});
-
 const onNavigation = () => {
   isActivePin.value = false;
 
@@ -80,5 +75,3 @@ const onNavigation = () => {
   }
 };
 </script>
-
-<style scoped></style>

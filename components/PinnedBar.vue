@@ -50,11 +50,6 @@ onMounted(async () => {
   emitter.on("boardDeletion", onKanbanDelete);
 });
 
-onBeforeUnmount(() => {
-  // emitter.off("openKanbanPage");
-  // emitter.off("boardDeletion");
-});
-
 const onPinToggle = async (board: Board) => {
   const boardIsPinned = findObjectById(pins.value, board.id) ? true : false;
   if (boardIsPinned) pins.value = pins.value.filter((x) => x.id !== board.id);
@@ -68,5 +63,3 @@ const onKanbanDelete = async (board: Board) => {
   store.set("pins", pins.value);
 };
 </script>
-
-<style scoped></style>
