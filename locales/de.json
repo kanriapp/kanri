@@ -110,9 +110,97 @@
       "optionPrimaryTextColor": "Primäre Textfarbe",
       "optionButtonTextColor": "Button-Textfarbe",
       "optionPrimaryBackgroundColor": "Primäre Hintergrundfarbe",
-      "option1stElevationColor": "1. Erhöhungsstufe",
-      "option2ndElevationColor": "2. Erhöhungsstufe",
-      "option3rdElevationColor": "3. Erhöhungsstufe"
+      "option1stElevationColor": "1. Erhebungsstufe",
+      "option2ndElevationColor": "2. Erhebungsstufe",
+      "option3rdElevationColor": "3. Erhebungsstufe"
+    },
+    "sidebar": {
+      "home": "Startseite",
+      "back": "Zurück",
+      "createNewBoard": "Neues Board erstellen",
+      "importExport": "Importieren/Exportieren",
+      "help": "Hilfe",
+      "settings": "Einstellungen"
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "Karten-Tags bearbeiten",
+      "description": "Hier kannst du deine globalen Tags bearbeiten, die für das gesamte Board verfügbar sind. Hinweis: Das Löschen eines globalen Tags entfernt es nicht von den Karten, sondern macht es nur für neue Karten nicht verfügbar.",
+      "tagListTitle": "Deine Tags:"
+    },
+    "changelog": {
+      "title": "Was gibt es Neues in Kanri {major}.{minor}.{revision}?",
+      "welcome": "Willkommen bei Kanri! Nach langer Zeit sind wir mit einer großen Veröffentlichung zurück, die viele neue Funktionen und Fehlerbehebungen enthält. Um schnell über neue Versionen informiert zu werden und den Entwicklungsfortschritt zu sehen, kannst du",
+      "welcomeLink": "dem offiziellen Discord-Server beitreten.",
+      "changes": "Änderungen:",
+      "changeItem1": "Verbesserter Textkontrast für Karten-Tags",
+      "changeItem2": "Tags und Fälligkeitsdatum von Trello®-Boards importieren",
+      "changeItem3": "Suchleiste umfasst jetzt auch Karten-Tags in der Suche",
+      "changeItem4": "Entfernen des Scrollens zum Ende einer Spalte beim Hinzufügen von Karten oben"
+    },
+    "confirmation": {
+      "sure": "Bist du sicher?",
+      "negative": "Nein",
+      "positive": "Ja"
+    },
+    "customBackground": {
+      "title": "Benutzerdefinierten Hintergrund festlegen",
+      "imageTitle": "Hintergrundbild:",
+      "imageEdit": "Hintergrundbild bearbeiten",
+      "imageAdd": "Hintergrundbild hinzufügen",
+      "imageBlur": "Hintergrundunschärfe Stärke:",
+      "brightnessTitle": "Hintergrundhelligkeit:",
+      "reset": "Hintergrundbild zurücksetzen"
+    },
+    "editCard": {
+      "tooltip": "Kartenfarbe festlegen",
+      "colorTitle": "Kartenfarbe",
+      "colorCustom": "Benutzerdefinierte Farbe auswählen:",
+      "dueDate": "Fällig: ",
+      "dateSet": "Fälligkeitsdatum festlegen",
+      "countdown": "Relativer Countdown",
+      "dateRemove": "Fälligkeitsdatum entfernen",
+      "descriptionTitle": "Kartenbeschreibung",
+      "taskTitle": "Aufgaben",
+      "taskAdd": "Aufgabe hinzufügen",
+      "tagsTitle": "Tags",
+      "tagsEdit": "Globale Tags bearbeiten"
+    },
+    "help": {
+      "title": "Hilfe & Ressourcen",
+      "resources": "Hier sind einige nützliche Ressourcen, die dir helfen können.",
+      "shortcuts": "Tastenkombinationen",
+      "ctrlKey": "Strg",
+      "ctrl+b": "- Neue Spalte in der Board-Ansicht erstellen",
+      "ctrl+d": "- Letzte Spalte in der Board-Ansicht löschen",
+      "ctrl+t": "- Titel der letzten Spalte in der Board-Ansicht bearbeiten",
+      "ctrl+n": "- Neue Karte in der letzten Spalte in der Board-Ansicht erstellen",
+      "ctrl+alt+<>": "(Pfeiltasten) - Spalten für Titelbearbeitung und Kartenerstellung wechseln",
+      "ctrl++-": "- Zoom der Board-Spalten vergrößern/verkleinern (globale Einstellung)",
+      "support": "Support-Ressourcen",
+      "docs": "Dokumentation",
+      "github": "GitHub-Issues",
+      "discord": "Discord-Server",
+      "creditsTitle": "Danksagungen",
+      "creditsText1": "App lizenziert unter der GPLv3-Lizenz (außer einige Dateien mit anderen Lizenzen, die in ihren entsprechenden Lizenzheadern/-dateien angegeben sind). Verwendete Icons stammen von Heroicons und Phosphor Icons.",
+      "creditsText2": "Wir sind nicht verbunden, assoziiert, autorisiert, unterstützt oder in irgendeiner Weise offiziell mit Trello, Inc. (www.trello.com) verbunden.",
+      "copyrights": "Copyright (c) 2022-2024 trobonox ({email})",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "Hinweise zu Drittanbieter-Lizenzen"
+    },
+    "newBoard": {
+      "title": "Neues Board erstellen",
+      "name": "Board-Name",
+      "exampleColumns": "Beispielspalten und -karten erstellen",
+      "columns": "Spalten",
+      "newColumn": "Neue Spalte",
+      "createBoardAction": "Board erstellen",
+      "boardNameEmptyError": "Der Board-Name darf nicht leer sein"
+    },
+    "renameBoard": {
+      "title": "Board umbenennen",
+      "name": "Board-Name"
     }
   }
 }
