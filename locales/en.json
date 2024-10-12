@@ -199,6 +199,10 @@
       "newColumn": "New Column",
       "createBoardAction": "Create Board",
       "boardNameEmptyError": "Board name cannot be empty"
+    },
+    "renameBoard": {
+      "title": "Rename board",
+      "name": "Board Name"
     }
   }
 }
