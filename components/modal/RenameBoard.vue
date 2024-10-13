@@ -100,10 +100,6 @@ onMounted(() => {
   );
 });
 
-onUnmounted(() => {
-  emitter.off("openBoardRenameModal");
-});
-
 onUpdated(() => {
   nextTick(() => {
     if (boardNameInput.value == null) return;
