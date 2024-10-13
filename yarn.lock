@@ -6167,11 +6167,11 @@ parse-url@^8.1.0:
     parse-path "^7.0.0"
 
 parse5@^7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-7.1.2.tgz#0736bebbfd77793823240a23b7fc5e010b7f8e32"
-  integrity sha512-Czj1WaSVpaoj0wbhMzLmWD69anp2WH7FXMB9n1Sy8/ZFF9jolSQVMu1Ij5WIyGmcBmhk7EOndpO4mIpihVqAXw==
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-7.2.0.tgz#8a0591ce9b7c5e2027173ab737d4d3fc3d826fab"
+  integrity sha512-ZkDsAOcxsUMZ4Lz5fVciOehNcJ+Gb8gTzcA4yl3wnc273BAybYWrQ+Ks/OjCjSEpjvQkDSeZbybK9qj2VHHdGA==
   dependencies:
-    entities "^4.4.0"
+    entities "^4.5.0"
 
 parseurl@^1.3.2, parseurl@~1.3.3:
   version "1.3.3"
@@ -7767,17 +7767,17 @@ tippy.js@^6.3.7:
   dependencies:
     "@popperjs/core" "^2.9.0"
 
-tldts-core@^6.1.50:
-  version "6.1.50"
-  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-6.1.50.tgz#8f8f87928adde862b8bc8ce6954c463e2dded790"
-  integrity sha512-na2EcZqmdA2iV9zHV7OHQDxxdciEpxrjbkp+aHmZgnZKHzoElLajP59np5/4+sare9fQBfixgvXKx8ev1d7ytw==
+tldts-core@^6.1.51:
+  version "6.1.51"
+  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-6.1.51.tgz#abbb005cccc1c469ed7ddf1ec472acd91efda4d0"
+  integrity sha512-bu9oCYYWC1iRjx+3UnAjqCsfrWNZV1ghNQf49b3w5xE8J/tNShHTzp5syWJfwGH+pxUgTTLUnzHnfuydW7wmbg==
 
 tldts@^6.1.32:
-  version "6.1.50"
-  resolved "https://registry.yarnpkg.com/tldts/-/tldts-6.1.50.tgz#3b259a65bb11978a2a3d1b3c37660e542dbf9896"
-  integrity sha512-q9GOap6q3KCsLMdOjXhWU5jVZ8/1dIib898JBRLsN+tBhENpBDcAVQbE0epADOjw11FhQQy9AcbqKGBQPUfTQA==
+  version "6.1.51"
+  resolved "https://registry.yarnpkg.com/tldts/-/tldts-6.1.51.tgz#ee5b35a939e733515f8cbfc882791ec87962e12c"
+  integrity sha512-33lfQoL0JsDogIbZ8fgRyvv77GnRtwkNE/MOKocwUgPO1WrSfsq7+vQRKxRQZai5zd+zg97Iv9fpFQSzHyWdLA==
   dependencies:
-    tldts-core "^6.1.50"
+    tldts-core "^6.1.51"
 
 to-fast-properties@^2.0.0:
   version "2.0.0"
