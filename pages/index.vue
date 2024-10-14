@@ -277,7 +277,6 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   // Make sure we properly remove our event listeners
-  emitter.off("createBoard");
   emitter.off("openChangelogModal");
 });
 
