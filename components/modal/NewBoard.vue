@@ -41,7 +41,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             v-model="newBoardName"
             class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-80 rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
             maxlength="500"
-            placeholder="Enter a board name..."
+            :placeholder="$t('modals.newBoard.placeholder')"
             type="text"
             @focus="boardNameEmptyError = false"
             @blur="checkIfBoardNameEmpty"

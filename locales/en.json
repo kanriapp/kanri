@@ -198,11 +198,13 @@
       "columns": "Columns",
       "newColumn": "New Column",
       "createBoardAction": "Create Board",
-      "boardNameEmptyError": "Board name cannot be empty"
+      "boardNameEmptyError": "Board name cannot be empty",
+      "placeholder": "Enter a name for the board"
     },
     "renameBoard": {
       "title": "Rename board",
-      "name": "Board Name"
+      "name": "Board Name",
+      "placeholder": "Enter a new name for the board"
     }
   }
 }

@@ -198,11 +198,13 @@
       "columns": "Spalten",
       "newColumn": "Neue Spalte",
       "createBoardAction": "Board erstellen",
-      "boardNameEmptyError": "Der Board-Name darf nicht leer sein"
+      "boardNameEmptyError": "Der Board-Name darf nicht leer sein",
+      "placeholder": "Gib den Namen deines Boards ein"
     },
     "renameBoard": {
       "title": "Board umbenennen",
-      "name": "Board-Name"
+      "name": "Board-Name",
+      "placeholder": "Gib den neuen Namen deines Boards ein"
     }
   }
 }
