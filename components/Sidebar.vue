@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, PwshLab -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, PwshLab, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -52,7 +52,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </button>
         </template>
 
-        <template #content> Home </template>
+        <template #content>{{ $t("components.sidebar.home") }}</template>
       </Tooltip>
 
       <Tooltip v-if="!showAddButton">
@@ -65,7 +65,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </button>
         </template>
 
-        <template #content> Back </template>
+        <template #content>{{ $t("components.sidebar.back") }}</template>
       </Tooltip>
 
       <Tooltip v-if="showAddButton">
@@ -78,7 +78,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </button>
         </template>
 
-        <template #content> Create a new board </template>
+        <template #content>{{
+          $t("components.sidebar.createNewBoard")
+        }}</template>
       </Tooltip>
     </section>
 
@@ -94,7 +96,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </nuxt-link>
         </template>
 
-        <template #content> Import/Export </template>
+        <template #content>{{
+          $t("components.sidebar.importExport")
+        }}</template>
       </Tooltip>
 
       <Tooltip>
@@ -107,7 +111,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </button>
         </template>
 
-        <template #content> Help </template>
+        <template #content>{{ $t("components.sidebar.help") }}</template>
       </Tooltip>
 
       <Tooltip>
@@ -119,7 +123,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </nuxt-link>
         </template>
 
-        <template #content> Settings </template>
+        <template #content>{{ $t("components.sidebar.settings") }}</template>
       </Tooltip>
     </section>
   </nav>

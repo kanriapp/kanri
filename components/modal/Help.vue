@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <main class="h-38 max-w-3xl">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
-            Help & Resources
+            {{ $t("modals.help.title") }}
           </h1>
           <XMarkIcon
             class="text-accent-hover size-6 cursor-pointer"
@@ -32,9 +32,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           />
         </div>
         <h2 class="text-md text-dim-3 mb-4">
-          Here are some useful resources to assist you.
+          {{ $t("modals.help.resources") }}
         </h2>
-        <h3 class="mb-2 text-xl font-bold">Keyboard shortcuts</h3>
+        <h3 class="mb-2 text-xl font-bold">
+          {{ $t("modals.help.shortcuts") }}
+        </h3>
         <ul class="ml-2 flex flex-col gap-2">
           <li>
             <kbd
@@ -62,7 +64,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               v-else
               class="inline-flex min-h-[30px] items-center justify-center rounded-md border border-gray-200 bg-white px-1.5 py-1 font-mono text-sm text-gray-800 shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
             >
-              ctrl
+              {{ $t("modals.help.ctrlKey") }}
             </kbd>
             +
             <kbd
@@ -70,7 +72,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
               b
             </kbd>
-            - Create new column in board view
+            {{ $t("modals.help.ctrl+b") }}
           </li>
           <li>
             <kbd
@@ -98,7 +100,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               v-else
               class="inline-flex min-h-[30px] items-center justify-center rounded-md border border-gray-200 bg-white px-1.5 py-1 font-mono text-sm text-gray-800 shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
             >
-              ctrl
+              {{ $t("modals.help.ctrlKey") }}
             </kbd>
             +
             <kbd
@@ -106,7 +108,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
               d
             </kbd>
-            - Delete last column in board view
+            {{ $t("modals.help.ctrl+d") }}
           </li>
           <li>
             <kbd
@@ -134,7 +136,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               v-else
               class="inline-flex min-h-[30px] items-center justify-center rounded-md border border-gray-200 bg-white px-1.5 py-1 font-mono text-sm text-gray-800 shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
             >
-              ctrl
+              {{ $t("modals.help.ctrlKey") }}
             </kbd>
             +
             <kbd
@@ -142,7 +144,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
               t
             </kbd>
-            - Edit title of last column in board view
+            {{ $t("modals.help.ctrl+t") }}
           </li>
           <li>
             <kbd
@@ -170,7 +172,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               v-else
               class="inline-flex min-h-[30px] items-center justify-center rounded-md border border-gray-200 bg-white px-1.5 py-1 font-mono text-sm text-gray-800 shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
             >
-              ctrl
+              {{ $t("modals.help.ctrlKey") }}
             </kbd>
             +
             <kbd
@@ -178,7 +180,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
               n
             </kbd>
-            - Create new card inside last column in board view
+            {{ $t("modals.help.ctrl+n") }}
           </li>
           <li>
             <kbd
@@ -206,7 +208,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               v-else
               class="inline-flex min-h-[30px] items-center justify-center rounded-md border border-gray-200 bg-white px-1.5 py-1 font-mono text-sm text-gray-800 shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
             >
-              ctrl
+              {{ $t("modals.help.ctrlKey") }}
             </kbd>
             +
             <kbd
@@ -246,7 +248,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
               &gt;
             </kbd>
-            (Arrow keys) - Switch columns for title editing and card adding
+            {{ $t("modals.help.ctrl+alt+<>") }}
           </li>
           <li>
             <kbd
@@ -274,7 +276,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               v-else
               class="inline-flex min-h-[30px] items-center justify-center rounded-md border border-gray-200 bg-white px-1.5 py-1 font-mono text-sm text-gray-800 shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)]"
             >
-              ctrl
+              {{ $t("modals.help.ctrlKey") }}
             </kbd>
             +
             <kbd
@@ -287,10 +289,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             >
               -
             </kbd>
-            - Increase/decrease board column zoom (global preference)
+            {{ $t("modals.help.ctrl++-") }}
           </li>
         </ul>
-        <h3 class="mb-2 mt-4 text-xl font-bold">Support resouces</h3>
+        <h3 class="mb-2 mt-4 text-xl font-bold">
+          {{ $t("modals.help.support") }}
+        </h3>
         <div class="flex flex-row gap-3">
           <a
             href="https://www.kanriapp.com/getting-started/faq"
@@ -298,7 +302,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="border-elevation-3 bg-elevation-3-hover flex flex-row items-center gap-2 rounded-md border px-4 py-1.5 transition-colors duration-300"
           >
             <BookOpenIcon class="size-6" />
-            Docs
+            {{ $t("modals.help.docs") }}
           </a>
           <a
             href="https://github.com/trobonox/kanri/issues"
@@ -306,7 +310,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="border-elevation-3 bg-elevation-3-hover flex flex-row items-center gap-2 rounded-md border px-4 py-1.5 transition-colors duration-300"
           >
             <IconGithub class="size-6" />
-            GitHub issues
+            {{ $t("modals.help.github") }}
           </a>
           <a
             href="https://discord.gg/AVqHrvxB9C"
@@ -314,37 +318,40 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="border-elevation-3 bg-elevation-3-hover flex flex-row items-center gap-2 rounded-md border px-4 py-1.5 transition-colors duration-300"
           >
             <IconDiscord class="size-6" />
-            Discord server
+            {{ $t("modals.help.discord") }}
           </a>
         </div>
-        <h3 class="mb-1 mt-4 text-xl font-bold">Credits</h3>
+        <h3 class="mb-1 mt-4 text-xl font-bold">
+          {{ $t("modals.help.creditsTitle") }}
+        </h3>
         <div class="block max-w-2xl">
           <p class="text-dim-2 text-sm">
-            App licensed under the GPLv3 license (except some files with
-            different licenses designated in their appropriate license
-            headers/files). Icons used are from Heroicons and Phosphor Icons.
+            {{ $t("modals.help.creditsText1") }}
             <br />
           </p>
           <p class="text-dim-2 text-sm">
-            We are not affiliated, associated, authorized, endorsed by or in any
-            way officially connected to Trello, Inc. (www.trello.com).
+            {{ $t("modals.help.creditsText2") }}
           </p>
         </div>
         <p class="mb-2 pt-2">
-          Copyright (c) 2022-2024 trobonox (hello@trobo.dev) <br />
+          {{ $t("modals.help.copyrights", { email: "hello@trobo.dev" }) }}<br />
           <span class="text-lg font-bold">Kanri </span>
-          <span class="text-accent-lighter"
-            >v{{ versionInfo.buildMajor }}.{{ versionInfo.buildMinor }}.{{
-              versionInfo.buildRevision
-            }}</span
-          >
+          <span class="text-accent-lighter">
+            {{
+              $t("modals.help.version", {
+                major: versionInfo.buildMajor,
+                minor: versionInfo.buildMinor,
+                revision: versionInfo.buildRevision,
+              })
+            }}
+          </span>
           -
           <nuxt-link
             class="text-accent text-accent-darker-hover"
             to="/licenses"
             @click="$emit('closeModal')"
           >
-            Third-party license notices
+            {{ $t("modals.help.thirdPartyLicenseNotices") }}
           </nuxt-link>
         </p>
       </main>

@@ -5,7 +5,9 @@
     "cancelAction": "Cancel",
     "saveAction": "Save",
     "importAction": "Import",
-    "exportAction": "Export"
+    "exportAction": "Export",
+    "closeAction": "Close",
+    "addAction": "Add"
   },
   "pages": {
     "index": {
@@ -113,6 +115,96 @@
       "option1stElevationColor": "1st level of elevation",
       "option2ndElevationColor": "2nd level of elevation",
       "option3rdElevationColor": "3rd level of elevation"
+    },
+    "sidebar": {
+      "home": "Home",
+      "back": "Back",
+      "createNewBoard": "Create a new board",
+      "importExport": "Import/Export",
+      "help": "Help",
+      "settings": "Settings"
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "Edit card tags",
+      "description": "Here you can edit your global tags, which are available for the entire board. Note: Deleting a global tag does not remove them from cards, but only makes it unavailable for new cards.",
+      "tagListTitle": "Your tags:"
+    },
+    "changelog": {
+      "title": "What's new in Kanri {major}.{minor}.{revision}?",
+      "welcome": "Welcome to Kanri! After a long time, we are back with a big release featuring many new features and fixes. To quickly get notified about new releases and see the development progress, you can join",
+      "welcomeLink": "the official Discord server.",
+      "changes": "Changes:",
+      "changeItem1": "Improved text contrast for card tags",
+      "changeItem2": "Import tags and due date from Trello® boards",
+      "changeItem3": "Search bar now also includes card tags in search",
+      "changeItem4": "Remove scrolling to the bottom of a column when adding cards at the top"
+    },
+    "confirmation": {
+      "sure": "Are you sure?",
+      "negative": "No",
+      "positive": "Yes"
+    },
+    "customBackground": {
+      "title": "Set a custom background",
+      "imageTitle": "Background image:",
+      "imageEdit": "Edit background image",
+      "imageAdd": "Add background image",
+      "imageBlur": "Background blur strength:",
+      "brightnessTitle": "Background brightness:",
+      "reset": "Reset Background Image"
+    },
+    "editCard": {
+      "tooltip": " Set card color ",
+      "colorTitle": "Card Color",
+      "colorCustom": "Select a custom color:",
+      "dueDate": "Due: ",
+      "dateSet": "Set due date",
+      "countdown": "Relative countdown",
+      "dateRemove": "Remove due date",
+      "descriptionTitle": "Card Description",
+      "taskTitle": "Tasks",
+      "taskAdd": "Add Task",
+      "tagsTitle": "Tags",
+      "tagsEdit": "Edit Global Tags"
+    },
+    "help": {
+      "title": "Help & Resources",
+      "resources": "Here are some useful resources to assist you.",
+      "shortcuts": "Keyboard Shortcuts",
+      "ctrlKey": "ctrl",
+      "ctrl+b": "- Create new column in board view",
+      "ctrl+d": "- Delete last column in board view",
+      "ctrl+t": "- Edit title of last column in board view",
+      "ctrl+n": "- Create new card inside last column in board view",
+      "ctrl+alt+<>": "(Arrow keys) - Switch columns for title editing and card adding",
+      "ctrl++-": "- Increase/decrease board column zoom (global preference)",
+      "support": "Support resources",
+      "docs": "Docs",
+      "github": "GitHub issues",
+      "discord": "Discord server",
+      "creditsTitle": "Credits",
+      "creditsText1": "App licensed under the GPLv3 license (except some files with different licenses designated in their appropriate license headers/files). Icons used are from Heroicons and Phosphor Icons.",
+      "creditsText2": "We are not affiliated, associated, authorized, endorsed by or in any way officially connected to Trello, Inc. (www.trello.com).",
+      "copyrights": "Copyright (c) 2022-2024 trobonox ({email}) ",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "Third-party license notices"
+    },
+    "newBoard": {
+      "title": "Create a new board",
+      "name": "Board name",
+      "exampleColumns": "Create example columns and cards",
+      "columns": "Columns",
+      "newColumn": "New Column",
+      "createBoardAction": "Create Board",
+      "boardNameEmptyError": "Board name cannot be empty",
+      "placeholder": "Enter a name for the board"
+    },
+    "renameBoard": {
+      "title": "Rename board",
+      "name": "Board Name",
+      "placeholder": "Enter a new name for the board"
     }
   }
 }

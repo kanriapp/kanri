@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <main class="min-w-[32rem] max-w-3xl" @keypress.enter="createNewBoard()">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
-            Create a new board
+            {{ $t("modals.newBoard.title") }}
           </h1>
           <XMarkIcon
             class="text-accent-hover size-6 cursor-pointer"
@@ -32,22 +32,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           />
         </div>
         <section id="inputs" class="mt-4 flex flex-col">
-          <label class="text-medium text-dim-1 mb-2 text-lg" for="boardName"
-            >Board Name</label
-          >
+          <label class="text-medium text-dim-1 mb-2 text-lg" for="boardName">{{
+            $t("modals.newBoard.name")
+          }}</label>
           <input
             id="boardName"
             ref="boardNameInput"
             v-model="newBoardName"
             class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-80 rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
             maxlength="500"
-            placeholder="Enter a board name..."
+            :placeholder="$t('modals.newBoard.placeholder')"
             type="text"
             @focus="boardNameEmptyError = false"
             @blur="checkIfBoardNameEmpty"
           />
           <p v-if="boardNameEmptyError" class="mt-0.5 text-red-500">
-            Board name cannot be empty
+            {{ $t("modals.newBoard.boardNameEmptyError") }}
           </p>
 
           <div class="mt-3 flex flex-row gap-4">
@@ -59,12 +59,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
               />
             </SwitchRoot>
-            <p>Create example columns and cards</p>
+            <p>{{ $t("modals.newBoard.exampleColumns") }}</p>
           </div>
         </section>
         <section v-if="!exampleColumns" class="mt-6">
           <div class="mb-2 flex items-center gap-2">
-            <h2 class="text-medium text-dim-1 text-lg">Columns</h2>
+            <h2 class="text-medium text-dim-1 text-lg">
+              {{ $t("modals.newBoard.columns") }}
+            </h2>
             <div
               class="bg-accent text-buttons flex cursor-pointer items-center justify-center rounded-full p-1 text-center transition-colors"
               @click="addColumnAndScrollToEnd()"
@@ -98,13 +100,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="text-accent-hover transition-button"
             @click="closeModal()"
           >
-            Cancel
+            {{ $t("general.cancelAction") }}
           </button>
           <button
             class="bg-accent text-buttons transition-button rounded-md px-4 py-2"
             @click="createNewBoard()"
           >
-            Create Board
+            {{ $t("modals.newBoard.createBoardAction") }}
           </button>
         </section>
       </main>
@@ -119,10 +121,13 @@ import type { Ref } from "vue";
 import emitter from "@/utils/emitter";
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { PhPlus, PhTrash } from "@phosphor-icons/vue";
+import { useI18n } from "vue-i18n";
 
 const emit = defineEmits<{
   (e: "closeModal"): void;
 }>();
+
+const { t } = useI18n();
 
 const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
 const boardNameEmptyError = ref(false);
@@ -168,7 +173,7 @@ const addColumnAndScrollToEnd = () => {
   columns.value.push({
     cards: [],
     id: generateUniqueID(),
-    title: "New Column",
+    title: t("modals.newBoard.newColumn"),
   });
   nextTick(() => {
     const columnElements = document.querySelectorAll(".column");

@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -25,12 +25,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <div class="flex flex-row items-start justify-between">
           <div class="flex flex-col gap-1">
             <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
-              Edit card tags
+              {{ $t("modals.cardTags.title") }}
             </h1>
             <p class="text-dim-3 inline-block max-w-xl text-sm">
-              Here you can edit your global tags, which are available for the
-              entire board. Note: Deleting a global tag does not remove them
-              from cards, but only makes it unavailable for new cards.
+              {{ $t("modals.cardTags.description") }}
             </p>
           </div>
           <XMarkIcon
@@ -40,7 +38,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
         <div class="mt-4 flex flex-col gap-4">
           <section id="bg-selection">
-            <h2 class="mb-2 text-lg font-semibold">Your tags:</h2>
+            <h2 class="mb-2 text-lg font-semibold">
+              {{ $t("modals.cardTags.tagListTitle") }}
+            </h2>
             <div class="flex flex-col gap-2">
               <KanbanTagEdit
                 v-for="tag in tags"

@@ -31,7 +31,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <main class="min-w-[28rem] max-w-[30rem]">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
-            {{ title || "Are you sure?" }}
+            {{ title || $t("modal.confirmation.sure") }}
           </h1>
           <XMarkIcon
             class="text-accent-hover size-6 cursor-pointer"
@@ -49,7 +49,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             class="text-accent-hover transition-button"
             @click="closeModal()"
           >
-            {{ closeButtonText || "No" }}
+            {{ closeButtonText || $t("modal.confirmation.negative") }}
           </button>
           <button
             class="bg-accent text-buttons transition-button rounded-md px-4 py-2"
@@ -58,7 +58,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               closeModal();
             "
           >
-            {{ confirmButtonText || "Yes" }}
+            {{ confirmButtonText || $t("modal.confirmation.positive") }}
           </button>
         </section>
       </main>
