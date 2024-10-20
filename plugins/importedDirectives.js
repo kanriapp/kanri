@@ -19,12 +19,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { defineNuxtPlugin } from '#imports'
-import VCalendar from 'v-calendar';
-import 'v-calendar/style.css';
+import { defineNuxtPlugin } from "#imports";
+import VCalendar from "v-calendar";
+import "v-calendar/style.css";
 import VueDragscroll from "vue-dragscroll";
 
 export default defineNuxtPlugin(({ vueApp }) => {
-    vueApp.use(VueDragscroll);
-    vueApp.use(VCalendar);
-})
+  vueApp.use(VueDragscroll);
+  vueApp.use(VCalendar);
+});

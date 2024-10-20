@@ -19,40 +19,33 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <div class="max-w-full px-8 pt-8">
-        <div class="cover">
-            <div class="cover__heading">
-                <h1 class="text-4xl font-bold">
-                    More JavaScript dependencies
-                </h1>
-            </div>
+  <div class="max-w-full px-8 pt-8">
+    <div class="cover">
+      <div class="cover__heading">
+        <h1 class="text-4xl font-bold">More JavaScript dependencies</h1>
+      </div>
 
-            <div class="cover__footer">
-                <p class="cover__footer__description">
-                    The following 3rd-party software packages may be used by or distributed with
-                    <b>Kanri</b>. Any information relevant to third-party vendors listed below are collected using common, reasonable means.
-                </p>
-            </div>
-        </div>
-        <!-- Declared Licenses: -->
-        <!-- Dependency Summary -->
-        <div
-            id="floating-vue"
-            class="card"
-        >
-            <h3>
-                <a href="https://www.npmjs.com/package/floating-vue">floating-vue</a>
-            </h3>
+      <div class="cover__footer">
+        <p class="cover__footer__description">
+          The following 3rd-party software packages may be used by or
+          distributed with
+          <b>Kanri</b>. Any information relevant to third-party vendors listed
+          below are collected using common, reasonable means.
+        </p>
+      </div>
+    </div>
+    <!-- Declared Licenses: -->
+    <!-- Dependency Summary -->
+    <div id="floating-vue" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/floating-vue">floating-vue</a>
+      </h3>
 
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-            <div class="show-more direct-attribution-notice-0-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-0-0">
+        <pre>
 
                     MIT License
 
@@ -76,48 +69,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="%40heroicons%2Fvue"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/@heroicons/vue">@heroicons/vue</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="%40heroicons%2Fvue" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/@heroicons/vue"
+          >@heroicons/vue</a
+        >
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-1-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-1-0">
+        <pre>
 
                     Copyright (c) 2022, @heroicons/vue Contributors
     Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -137,48 +107,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
-                  </pre>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="mitt"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/mitt">mitt</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="mitt" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/mitt">mitt</a>
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-2-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-2-0">
+        <pre>
 
                     MIT License
 
@@ -202,48 +147,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="nuxt"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/nuxt">nuxt</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="nuxt" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/nuxt">nuxt</a>
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-3-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-3-0">
+        <pre>
 
                     MIT License
 
@@ -267,48 +187,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="%40nuxtjs%2Ftailwindcss"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/@nuxtjs/tailwindcss">@nuxtjs/tailwindcss</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="%40nuxtjs%2Ftailwindcss" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/@nuxtjs/tailwindcss"
+          >@nuxtjs/tailwindcss</a
+        >
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-4-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-4-0">
+        <pre>
 
                     MIT License
 
@@ -332,48 +229,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="pinia"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/pinia">pinia</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="pinia" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/pinia">pinia</a>
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-5-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-5-0">
+        <pre>
                     The MIT License (MIT)
 
     Copyright (c) 2019-present Eduardo San Martin Morote
@@ -396,48 +268,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="%40pinia%2Fnuxt"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/@pinia/nuxt">@pinia/nuxt</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="%40pinia%2Fnuxt" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/@pinia/nuxt">@pinia/nuxt</a>
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-6-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-6-0">
+        <pre>
                     The MIT License (MIT)
 
     Copyright (c) 2019-present Eduardo San Martin Morote
@@ -460,48 +307,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="postcss-custom-properties"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/postcss-custom-properties">postcss-custom-properties</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="postcss-custom-properties" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/postcss-custom-properties"
+          >postcss-custom-properties</a
+        >
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-7-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-7-0">
+        <pre>
                     # The MIT License (MIT)
 
     Copyright © PostCSS
@@ -524,49 +348,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="%40tauri-apps%2Fapi"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/@tauri-apps/api">@tauri-apps/api</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="%40tauri-apps%2Fapi" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/@tauri-apps/api"
+          >@tauri-apps/api</a
+        >
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">Apache-2.0, MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                Apache-2.0,
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-8-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-8-0">
+        <pre>
 
                                      Apache License
                                Version 2.0, January 2004
@@ -745,16 +545,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
        END OF TERMS AND CONDITIONS
 
-                  </pre>
-            </div>
+                  </pre
+        >
+      </div>
 
-
-
-
-
-
-            <div class="show-more direct-attribution-notice-8-1">
-                <pre>
+      <div class="show-more direct-attribution-notice-8-1">
+        <pre>
                     MIT License
 
     Copyright (c) 2017 - Present Tauri Apps Contributors
@@ -777,31 +573,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
+                  </pre
+        >
+      </div>
 
+      <h4 class="dependency__heading">Other Licenses</h4>
+      <div class="dependency__discovered-licenses">Apache-2.0 OR MIT</div>
 
-
-
-
-
-
-
-
-
-            <h4 class="dependency__heading">
-                Other Licenses
-            </h4>
-            <div class="dependency__discovered-licenses">
-                Apache-2.0 OR MIT
-            </div>
-
-
-
-
-
-            <div class="show-more direct-other-attribution-notice-8-0">
-                <pre>
+      <div class="show-more direct-other-attribution-notice-8-0">
+        <pre>
 
                                      Apache License
                                Version 2.0, January 2004
@@ -1003,43 +783,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                    </pre>
-            </div>
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="%40tauri-apps%2Fcli"
-            class="card"
+                    </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/@tauri-apps/cli">@tauri-apps/cli</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="%40tauri-apps%2Fcli" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/@tauri-apps/cli"
+          >@tauri-apps/cli</a
+        >
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT, Apache-2.0</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT,
-                Apache-2.0
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-9-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-9-0">
+        <pre>
                     MIT License
 
     Copyright (c) 2017 - Present Tauri Apps Contributors
@@ -1062,16 +824,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                  </pre>
-            </div>
+                  </pre
+        >
+      </div>
 
-
-
-
-
-
-            <div class="show-more direct-attribution-notice-9-1">
-                <pre>
+      <div class="show-more direct-attribution-notice-9-1">
+        <pre>
 
                                      Apache License
                                Version 2.0, January 2004
@@ -1250,31 +1008,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
        END OF TERMS AND CONDITIONS
 
-                  </pre>
-            </div>
+                  </pre
+        >
+      </div>
 
+      <h4 class="dependency__heading">Other Licenses</h4>
+      <div class="dependency__discovered-licenses">Apache-2.0 OR MIT</div>
 
-
-
-
-
-
-
-
-
-            <h4 class="dependency__heading">
-                Other Licenses
-            </h4>
-            <div class="dependency__discovered-licenses">
-                Apache-2.0 OR MIT
-            </div>
-
-
-
-
-
-            <div class="show-more direct-other-attribution-notice-9-0">
-                <pre>
+      <div class="show-more direct-other-attribution-notice-9-0">
+        <pre>
 
                                      Apache License
                                Version 2.0, January 2004
@@ -1476,42 +1218,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-                    </pre>
-            </div>
-
-
-
-
-
-
-
-            <div />
-        </div>
-
-        <div
-            id="vue3-smooth-dnd"
-            class="card"
+                    </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/vue3-smooth-dnd">vue3-smooth-dnd</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="vue3-smooth-dnd" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/vue3-smooth-dnd"
+          >vue3-smooth-dnd</a
+        >
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-10-0">
-                <pre>
+      <div class="show-more direct-attribution-notice-10-0">
+        <pre>
 
                     The MIT License (MIT)
 
@@ -1534,36 +1259,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
-                  </pre>
-            </div>
-
-            <div />
-        </div>
-
-        <div
-            id="@nuxt/ui-templates"
-            class="card"
+                  </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/@nuxt/ui-templates">@nuxt/ui-templates</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="@nuxt/ui-templates" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/@nuxt/ui-templates"
+          >@nuxt/ui-templates</a
+        >
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">CC-BY-ND-4.0</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                CC-BY-ND-4.0
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-10-0">
-                <pre class=" whitespace-pre-wrap">
+      <div class="show-more direct-attribution-notice-10-0">
+        <pre class="whitespace-pre-wrap">
 
 
                 Creative Commons Attribution-NoDerivatives 4.0 International
@@ -1644,36 +1358,23 @@ Section 8 – Interpretation.
    d. Nothing in this Public License constitutes or may be interpreted as a limitation upon, or waiver of, any privileges and immunities that apply to the Licensor or You, including from the legal processes of any jurisdiction or authority.
 Creative Commons is not a party to its public licenses. Notwithstanding, Creative Commons may elect to apply one of its public licenses to material it publishes and in those instances will be considered the "Licensor." The text of the Creative Commons public licenses is dedicated to the public domain under the CC0 Public Domain Dedication. Except for the limited purpose of indicating that material is shared under a Creative Commons public license or as otherwise permitted by the Creative Commons policies published at creativecommons.org/policies, Creative Commons does not authorize the use of the trademark "Creative Commons" or any other trademark or logo of Creative Commons without its prior written consent including, without limitation, in connection with any unauthorized modifications to any of its public licenses or any other arrangements, understandings, or agreements concerning use of licensed material. For the avoidance of doubt, this paragraph does not form part of the public licenses.
 Creative Commons may be contacted at creativecommons.org.
-            </pre>
-            </div>
-
-            <div />
-        </div>
-
-        <div
-            id="tslib"
-            class="card"
+            </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/tslib">tslib</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="tslib" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/tslib">tslib</a>
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">OBSD</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                OBSD
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-10-0">
-                <pre class=" whitespace-pre-wrap">
+      <div class="show-more direct-attribution-notice-10-0">
+        <pre class="whitespace-pre-wrap">
 
 
                 Copyright (c) Microsoft Corporation.
@@ -1688,36 +1389,25 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
 LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
-            </pre>
-            </div>
-
-            <div />
-        </div>
-
-        <div
-            id="@babel/helper-module-transforms"
-            class="card"
+            </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/@babel/helper-module-transforms">@babel/helper-module-transforms</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="@babel/helper-module-transforms" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/@babel/helper-module-transforms"
+          >@babel/helper-module-transforms</a
+        >
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">MIT, libgd-2018</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                MIT, libgd-2018
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-10-0">
-                <pre class=" whitespace-pre-wrap">
+      <div class="show-more direct-attribution-notice-10-0">
+        <pre class="whitespace-pre-wrap">
 
 
                 MIT License
@@ -1817,36 +1507,25 @@ documentation.
 Although their code does not appear in the current release, the
 authors wish to thank David Koblas, David Rowley, and Hutchison
 Avenue Software Corporation for their prior contributions.
-            </pre>
-            </div>
-
-            <div />
-        </div>
-
-        <div
-            id="node-forge"
-            class="card"
+            </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/node-forge">node-forge</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="node-forge" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/node-forge">node-forge</a>
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">
+        BSD-3-CLAUSE, MIT-ADDITION
+      </div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                BSD-3-CLAUSE, MIT-ADDITION
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-10-0">
-                <pre class=" whitespace-pre-wrap">
+      <div class="show-more direct-attribution-notice-10-0">
+        <pre class="whitespace-pre-wrap">
 
 
                 New BSD License (3-clause)
@@ -1904,36 +1583,23 @@ In addition, the following condition applies:
 
 All redistributions must retain an intact copy of this copyright notice
 and disclaimer.
-            </pre>
-            </div>
-
-            <div />
-        </div>
-
-        <div
-            id="rxjs"
-            class="card"
+            </pre
         >
-            <h3>
-                <a href="https://www.npmjs.com/package/rxjs">rxjs</a>
-            </h3>
+      </div>
 
+      <div />
+    </div>
 
+    <div id="rxjs" class="card">
+      <h3>
+        <a href="https://www.npmjs.com/package/rxjs">rxjs</a>
+      </h3>
 
+      <h4 class="dependency__heading">Declared Licenses:</h4>
+      <div class="dependency__declared-licenses">APACHE-2.0, OBSD</div>
 
-
-            <h4 class="dependency__heading">
-                Declared Licenses:
-            </h4>
-            <div class="dependency__declared-licenses">
-                APACHE-2.0, OBSD
-            </div>
-
-
-
-
-            <div class="show-more direct-attribution-notice-10-0">
-                <pre class=" whitespace-pre-wrap">
+      <div class="show-more direct-attribution-notice-10-0">
+        <pre class="whitespace-pre-wrap">
 
 
  Copyright (c) 2015-2018 Google, Inc., Netflix, Inc., Microsoft Corp. and contributors
@@ -2127,25 +1793,25 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
 LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
-            </pre>
-            </div>
+            </pre
+        >
+      </div>
 
-            <div />
-        </div>
+      <div />
     </div>
+  </div>
 </template>
-
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
 
 onMounted(() => {
-    emitter.emit("showSidebarBackArrow");
-})
+  emitter.emit("showSidebarBackArrow");
+});
 </script>
 
 <style scoped>
 h3 {
-    @apply font-bold text-2xl my-6
+  @apply font-bold text-2xl my-6;
 }
 </style>

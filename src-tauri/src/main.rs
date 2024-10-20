@@ -14,6 +14,7 @@ use tauri_plugin_log::LogTarget;
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs_watch::init())
         .plugin(tauri_plugin_log::Builder::default().targets([
             LogTarget::LogDir,
             LogTarget::Stdout

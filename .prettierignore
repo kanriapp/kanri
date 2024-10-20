@@ -1,0 +1,11 @@
+src-tauri
+dist
+.nuxt
+.output
+node_modules
+coverage
+build
+logs
+*.log
+*.min.js
+*.min.css

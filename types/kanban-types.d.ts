@@ -20,70 +20,74 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 export declare interface Board {
-    background?: BackgroundSettings | null,
-    columns: Array<Column>,
-    id: string,
-    lastEdited?: Date | string
-    title: string,
-    globalTags?: Array<Tag> | null
+  background?: BackgroundSettings | null;
+  columns: Array<Column>;
+  id: string;
+  lastEdited?: Date | string;
+  title: string;
+  globalTags?: Array<Tag> | null;
 }
 
 export declare interface BackgroundSettings {
-    blur: string,
-    brightness: string
-    src: string,
+  blur: string;
+  brightness: string;
+  src: string;
 }
 
 export declare interface Column {
-    cards: Array<Card>
-    id: string,
-    title: string,
+  cards: Array<Card>;
+  id: string;
+  title: string;
 }
 
 export declare interface Task {
-    finished: boolean,
-    id?: string,
-    name: string,
+  finished: boolean;
+  id?: string;
+  name: string;
 }
 
 export declare interface Tag {
-    id: string,
-    text: string,
-    style?: string,
-    color?: string | null
+  id: string;
+  text: string;
+  style?: string;
+  color?: string | null;
 }
 
 export declare interface Card {
-    color?: string
-    description?: string,
-    dueDate?: Date | string | null,
-    id?: string,
-    isDueDateCounterRelative?: boolean
-    name: string,
-    tasks?: Array<Task>,
-    tags?: Array<Tag> | null,
+  color?: string;
+  description?: string;
+  dueDate?: Date | string | null;
+  id?: string;
+  isDueDateCounterRelative?: boolean;
+  name: string;
+  tasks?: Array<Task>;
+  tags?: Array<Tag> | null;
 }
 
 export declare interface Theme {
-    accent: string,
-    accentDarker: string,
-    bgPrimary: string,
-    elevation1: string,
-    elevation2: string,
-    elevation3: string,
-    text: string,
-    textButtons: string,
-    textD1: string,
-    textD2: string,
-    textD3: string,
-    textD4: string,
+  accent: string;
+  accentDarker: string;
+  bgPrimary: string;
+  elevation1: string;
+  elevation2: string;
+  elevation3: string;
+  text: string;
+  textButtons: string;
+  textD1: string;
+  textD2: string;
+  textD3: string;
+  textD4: string;
 }
 
-export declare type ThemeIdentifiers = "catppuccin" | "custom" | "dark" | "light";
+export declare type ThemeIdentifiers =
+  | "catppuccin"
+  | "custom"
+  | "dark"
+  | "light";
 
 export default {
-    Board,
-    Card,
-    Column,
-    ThemeIdentifiers
-}
+  Board,
+  Card,
+  Column,
+  ThemeIdentifiers,
+};

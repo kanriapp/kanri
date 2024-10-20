@@ -11,5 +11,6 @@ accepted = [
     "Unicode-DFS-2016",
     "CC0-1.0",
     "MIT-0",
-    "GPL-3.0" # this is for Kanri itself
+    "GPL-3.0", # this is for Kanri itself
+    "ISC"
 ]

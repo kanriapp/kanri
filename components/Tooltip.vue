@@ -19,28 +19,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <TooltipProvider>
-        <TooltipRoot :delay-duration="200">
-            <TooltipTrigger>
-                <slot name="trigger"/>
-            </TooltipTrigger>
-            <TooltipPortal to=".default-layout">
-                <TooltipContent :side="direction" class="border-elevation-1 bg-primary-darker z-[999999999] select-none rounded-[4px] border px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity] data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade">
-                    <slot name="content"/>
-                    <TooltipArrow class="fill-bg-primary-darker" :width="10" />
-                </TooltipContent>
-            </TooltipPortal>
-        </TooltipRoot>
-    </TooltipProvider>
+  <TooltipProvider>
+    <TooltipRoot :delay-duration="200">
+      <TooltipTrigger>
+        <slot name="trigger" />
+      </TooltipTrigger>
+      <TooltipPortal to=".default-layout">
+        <TooltipContent
+          :side="direction"
+          class="border-elevation-1 bg-primary-darker z-[999999999] select-none rounded-[4px] border px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity] data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade"
+        >
+          <slot name="content" />
+          <TooltipArrow class="fill-bg-primary-darker" :width="10" />
+        </TooltipContent>
+      </TooltipPortal>
+    </TooltipRoot>
+  </TooltipProvider>
 </template>
 
 <script setup lang="ts">
 withDefaults(
-    defineProps<{
-        direction?: "right" | "top" | "bottom" | "left";
-    }>(),
-    {
-        direction: "right"
-    }
+  defineProps<{
+    direction?: "right" | "top" | "bottom" | "left";
+  }>(),
+  {
+    direction: "right",
+  }
 );
 </script>

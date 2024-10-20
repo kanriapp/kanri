@@ -5,7 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 -->
 
 <p align="center">
-    <img src="https://github.com/trobonox/kanri/assets/57040351/39aae8cf-f9bc-4e9e-821b-78c61a0fcb1d" alt="Kanri banner" />
+    <img src="https://github.com/user-attachments/assets/14750ad4-a273-4779-972c-71868c2bbaa3" alt="Kanri banner" width="100%" /> <br>
     <b> Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you create Kanban boards easily, right from your desktop. No internet connection or account needed! </b>
     <br> <br>
     <img src="https://img.shields.io/github/v/release/trobonox/kanri" alt="Release Version Badge" />
@@ -48,11 +48,11 @@ Long term vision for the project:
 - 👷‍♂️ Improve current features and refactor to avoid tech debt
 - ➕ Add additional small/mid-sized features with high impact (reminders, sub-tasks, etc.)
 - 🚚 Work towards 1.0 release with features from the backlog like internationalization or a widget panel
-- 🔍 After 1.0: Possibility of cloud sync with collaboration (could be self-hosted or managed by me)
+- 🔍 After 1.0: Assess what direction to take (focus on offline-only features or add support for cloud sync and collaboration)
 
-A granular list of priorities can be found [in the roadmap in the projects tab of this GitHub repo](https://github.com/trobonox/kanri/projects).
+A granular list of priorities can be found [in the roadmap](https://github.com/orgs/kanriapp/projects/2).
 
-This project is open for any contributions or feature requests, though always keep in mind that I am still a student with limited time and I might not be able to process every request immediately.
+This project is open for any contributions or feature requests as long as they are polite, provide enough context and remain patient (replies might take a few days).
 
 > [!NOTE]
 > This project is still in active development and is provided "AS IS". Please make regular backups/exports to prevent any data loss.
@@ -79,3 +79,4 @@ yarn tauri build
 
 ---
 **Copyright (c) 2022-2024 trobonox (trobo@kanriapp.com)**. Licensed under GPL v3 (with some files under Apache 2.0 or other licenses stated in the files themselves).
+The Kanri logo, name and other branding are **NOT** open source, full copyright belongs to trobonox.
