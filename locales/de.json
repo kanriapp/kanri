@@ -171,10 +171,10 @@
       "welcome": "Willkommen bei Kanri! Nach langer Zeit sind wir mit einer großen Veröffentlichung zurück, die viele neue Funktionen und Fehlerbehebungen enthält. Um schnell über neue Versionen informiert zu werden und den Entwicklungsfortschritt zu sehen, kannst du",
       "welcomeLink": "dem offiziellen Discord-Server beitreten.",
       "changes": "Änderungen:",
-      "changeItem1": "Verbesserter Textkontrast für Karten-Tags",
-      "changeItem2": "Tags und Fälligkeitsdatum von Trello®-Boards importieren",
-      "changeItem3": "Suchleiste umfasst jetzt auch Karten-Tags in der Suche",
-      "changeItem4": "Entfernen des Scrollens zum Ende einer Spalte beim Hinzufügen von Karten oben"
+      "changeItem1": "Übersetzngen für Deutsch und Englisch hinzugefügt",
+      "changeItem2": "Bug behoben, bei dem das Drücken der Enter-Taste Boards unerwartet gelöscht hat",
+      "changeItem3": "Die Suchleiste ist jetzt nicht mehr groß- und kleinschreibungsempfindlich",
+      "changeItem4": "Ein Rechtsklick auf eine Karte zeigt jetzt ein Kontextmenü mit Optionen zum Editieren an"
     },
     "confirmation": {
       "sure": "Bist du sicher?",

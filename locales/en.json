@@ -171,10 +171,10 @@
       "welcome": "Welcome to Kanri! After a long time, we are back with a big release featuring many new features and fixes. To quickly get notified about new releases and see the development progress, you can join",
       "welcomeLink": "the official Discord server.",
       "changes": "Changes:",
-      "changeItem1": "Improved text contrast for card tags",
-      "changeItem2": "Import tags and due date from Trello® boards",
-      "changeItem3": "Search bar now also includes card tags in search",
-      "changeItem4": "Remove scrolling to the bottom of a column when adding cards at the top"
+      "changeItem1": "Ability to change the app language. Currently English and German are supported.",
+      "changeItem2": "Fixed a bug where pressing enter would delete boards without any confirmation.",
+      "changeItem3": "Search bar now is no longer case-sensitive",
+      "changeItem4": "Right click on cards now opens a context menu with options to edit the card"
     },
     "confirmation": {
       "sure": "Are you sure?",
