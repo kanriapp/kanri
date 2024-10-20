@@ -142,8 +142,13 @@
       "column": {
         "addCard": "Add card",
         "addCardTop": "Add card to the top",
+        "deleteColumnAction": "Delete column",
         "deleteColumnConfirmation": "Are you sure you want to delete the column '{columnName}'? This action is irreversible.",
         "addCardPlaceholder": "Enter a card name..."
+      },
+      "card": {
+        "deleteCardAction": "Delete card",
+        "deleteCardConfirmation": "Are you sure you want to delete the card '{cardName}'? This action is irreversible."
       },
       "searchBar": {
         "placeholder": "Search for cards..."

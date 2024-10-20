@@ -142,8 +142,13 @@
       "column": {
         "addCard": "Karte hinzufügen",
         "addCardTop": "Karte oben hinzufügen",
+        "deleteColumnAction": "Spalte löschen",
         "deleteColumnConfirmation": "Bist du sicher, dass du die Spalte '{columnName}' löschen möchtest? Diese Aktion ist irreversibel.",
         "addCardPlaceholder": "Name der Karte..."
+      },
+      "card": {
+        "deleteCardAction": "Karte löschen",
+        "deleteCardConfirmation": "Bist du sicher, dass du die Karte '{cardName}' löschen möchtest? Diese Aktion ist irreversibel."
       },
       "searchBar": {
         "placeholder": "Suche nach Karten..."

@@ -66,7 +66,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       close-button-text="Cancel"
       confirm-button-text="Delete"
       description="Are you sure you want to delete the board? This action is irreverisble."
-      title="Delete Board?"
+      :title="$t('pages.kanban.deleteBoardAction') + '?'"
       @closeModal="deleteBoardModalVisible = false"
       @confirmAction="deleteBoard"
     />
@@ -75,7 +75,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       close-button-text="Cancel"
       confirm-button-text="Delete"
       description="Are you sure you want to delete this column? This action is irreverisble."
-      title="Delete column?"
+      :title="$t('components.kanban.column.deleteColumnAction') + '?'"
       @closeModal="columnRemoveDialog.cancel()"
       @confirmAction="columnRemoveDialog.confirm(true)"
     />
@@ -84,7 +84,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       close-button-text="Cancel"
       confirm-button-text="Delete"
       description="Are you sure you want to delete this card? This action is irreverisble."
-      title="Delete card?"
+      :title="$t('components.kanban.card.deleteCardAction') + '?'"
       @closeModal="cardRemoveDialog.cancel()"
       @confirmAction="cardRemoveDialog.confirm(true)"
     />
@@ -728,7 +728,9 @@ const removeCardWithConfirmation = async (
     return obj.id === columnId;
   })[0].cards[cardIndex];
   emitter.emit("openModalWithCustomDescription", {
-    description: `Are you sure you want to delete the card "${card.name}"? This action cannot be undone.`,
+    description: t("components.kanban.card.deleteCardConfirmation", {
+      cardName: card.name,
+    }), 
   });
 
   const { isCanceled } = await cardRemoveDialog.reveal();
