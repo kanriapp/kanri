@@ -131,21 +131,21 @@ limitations under the License.
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
           @click="enableCardEditMode()"
         >
-          Edit Name
+          {{ $t("general.editNameAction") }}
         </ContextMenuItem>
         <ContextMenuItem
           value="Duplicate"
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
           @click="$emit('duplicateCard', index)"
         >
-          Duplicate
+          {{ $t("general.duplicateAction") }}
         </ContextMenuItem>
         <ContextMenuItem
           value="Delete"
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
           @click="deleteCardWithConfirmation(index)"
         >
-          Delete
+          {{ $t("general.deleteAction") }}
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenuPortal>

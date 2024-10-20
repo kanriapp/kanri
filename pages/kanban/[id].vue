@@ -124,9 +124,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               @click="showCustomBgModal = true"
             >
               <PhotoIcon class="my-auto size-6" />
-              <span class="my-auto ml-0.5 hidden lg:block"
-                >Change Background</span
-              >
+              <span class="my-auto ml-0.5 hidden lg:block">
+                {{ $t("pages.kanban.changeBackground") }}
+              </span>
             </button>
           </div>
           <div class="flex flex-row gap-2">
@@ -135,7 +135,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               @click="editTagModalVisible = true"
             >
               <PhHashStraight class="my-auto size-6" />
-              <span class="my-auto ml-0.5 hidden lg:block">Edit Tags</span>
+              <span class="my-auto ml-0.5 hidden lg:block">
+                {{ $t("pages.kanban.editTags") }}
+              </span>
             </button>
           </div>
 
@@ -161,32 +163,32 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                   @click="renameBoardModal(getBoardIndex())"
                 >
-                  Rename Board
+                  {{ $t("pages.kanban.renameBoardAction") }}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                   @click="duplicateBoard"
                 >
-                  Duplicate Board
+                  {{ $t("pages.kanban.duplicateBoardAction") }}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                   @click="exportBoardToJson"
                 >
-                  Export Board
+                  {{ $t("pages.kanban.exportBoardAction") }}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                   @click="toggleBoardPin"
                 >
-                  <span v-if="!isPinned">Pin Board</span>
-                  <span v-else>Unpin Board</span>
+                  <span v-if="!isPinned">{{ $t("pages.kanban.pinBoardAction") }}</span>
+                  <span v-else>{{ $t("pages.kanban.unpinBoardAction") }}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                   @click="deleteBoardModal(getBoardIndex())"
                 >
-                  Delete Board
+                  {{ $t("pages.kanban.deleteBoardAction") }}
                 </DropdownMenuItem>
               </div>
             </template>
@@ -280,10 +282,13 @@ import { convertFileSrc } from "@tauri-apps/api/tauri";
 import { useConfirmDialog } from "@vueuse/core";
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
+import { useI18n } from "vue-i18n";
 
 const store = useTauriStore().store;
 const route = useRoute();
 const router = useRouter();
+
+const { t } = useI18n();
 
 const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
@@ -769,7 +774,9 @@ const openColumnRemoveDialog = async (columnID: string) => {
     return obj.id === columnID;
   })[0];
   emitter.emit("openModalWithCustomDescription", {
-    description: `Are you sure you want to delete the column "${column.title}"? This action cannot be undone.`,
+    description: t("components.kanban.column.deleteColumnConfirmation", {
+      columnName: column.title,
+    }),
   });
 
   const { isCanceled } = await columnRemoveDialog.reveal();
@@ -884,7 +891,9 @@ const deleteBoardModal = (index: number | undefined) => {
   }
 
   emitter.emit("openBoardDeleteModal", {
-    description: `Are you sure you want to delete the board "${selectedBoard.title}"? This action cannot be undone.`,
+    description: t("pages.kanban.deleteBoardConfirmation", {
+      boardName: selectedBoard.title,
+    }),
     index: index,
   });
   deleteBoardModalVisible.value = true;

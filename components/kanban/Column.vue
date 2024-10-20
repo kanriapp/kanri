@@ -67,7 +67,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             />
           </template>
 
-          <template #content>Add card at the top of the column</template>
+          <template #content>{{ $t("components.kanban.column.addCardTop") }}</template>
         </Tooltip>
 
         <ClickCounter
@@ -122,7 +122,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         v-resizable
         class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
         maxlength="5000"
-        placeholder="Enter a card title..."
+        :placeholder="$t('components.kanban.column.addCardPlaceholder')"
         type="text"
         @keypress.enter="
           addCard();
@@ -138,7 +138,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             emitter.emit('columnActionDone');
           "
         >
-          Add Card
+          {{ $t("general.addAction") }}
         </button>
         <button
           class="bg-elevation-3-hover transition-button rounded-md px-2 py-1"
@@ -151,7 +151,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             emitter.emit('columnActionDone');
           "
         >
-          Cancel
+          {{ $t("general.cancelAction") }}
         </button>
       </div>
     </div>
@@ -162,7 +162,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @click="enableCardAddMode()"
     >
       <PlusIcon class="size-6 p-0.5" />
-      <h2>Add Card</h2>
+      <h2>{{ $t("components.kanban.column.addCard") }}</h2>
     </div>
   </div>
 </template>
@@ -176,6 +176,7 @@ import emitter from "@/utils/emitter";
 import { PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 //@ts-expect-error, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   cardsList: Array<Card>;
@@ -209,6 +210,8 @@ const emit = defineEmits<{
     tags: Array<Tag>
   ): void;
 }>();
+
+const { t } = useI18n();
 
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
 const newCardInput: Ref<HTMLInputElement | null> = ref(null);
@@ -450,7 +453,7 @@ const addCard = () => {
 const duplicateCard = (index: number) => {
   const cardDuplicate = JSON.parse(JSON.stringify(cards.value[index]));
   cardDuplicate.id = generateUniqueID();
-  cardDuplicate.name = `${cardDuplicate.name} - Copy`;
+  cardDuplicate.name = `${cardDuplicate.name} - ${t("general.copyNoun")}`;
 
   cards.value.splice(index + 1, 0, cardDuplicate);
 

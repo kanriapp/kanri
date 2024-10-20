@@ -423,7 +423,7 @@ limitations under the License.
                 v-focus
                 class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-[96%] rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
                 maxlength="1000"
-                placeholder="Enter a task name..."
+                :placeholder="$t('modals.editCard.newTaskPlaceholder')"
                 type="text"
                 @keypress.enter="createTask"
               />
@@ -440,7 +440,7 @@ limitations under the License.
                     newTaskName = '';
                   "
                 >
-                  {{ $t("modals.editCard.cancelAction") }}
+                  {{ $t("general.cancelAction") }}
                 </button>
               </div>
               <button

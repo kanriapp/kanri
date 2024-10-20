@@ -7,7 +7,10 @@
     "importAction": "Import",
     "exportAction": "Export",
     "closeAction": "Close",
-    "addAction": "Add"
+    "addAction": "Add",
+    "duplicateAction": "Duplicate",
+    "editNameAction": "Edit Name",
+    "copyNoun": "Copy"
   },
   "pages": {
     "index": {
@@ -27,6 +30,17 @@
       "joinDiscordButton": "Join the Discord community!",
       "deleteActionConfirmationHeading": "Delete Board?",
       "deleteActionConfirmationText": "Are you sure you want to delete the board {boardName}? This action is irreversible."
+    },
+    "kanban": {
+      "changeBackground": "Change Background",
+      "editTags": "Edit Tags",
+      "renameBoardAction": "Rename Board",
+      "duplicateBoardAction": "Duplicate Board",
+      "exportBoardAction": "Export Board",
+      "pinBoardAction": "Pin Board",
+      "unpinBoardAction": "Unpin Board",
+      "deleteBoardAction": "Delete Board",
+      "deleteBoardConfirmation": "Are you sure you want to delete the board '{boardName}'? This action is irreversible."
     },
     "settings": {
       "deleteAllDataConfirmationAction": "Delete Data",
@@ -123,6 +137,22 @@
       "importExport": "Import/Export",
       "help": "Help",
       "settings": "Settings"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "Add card",
+        "addCardTop": "Add card to the top",
+        "deleteColumnConfirmation": "Are you sure you want to delete the column '{columnName}'? This action is irreversible.",
+        "addCardPlaceholder": "Enter a card name..."
+      },
+      "searchBar": {
+        "placeholder": "Search for cards..."
+      },
+      "zoomAdjustment": {
+        "reset": "Reset zoom level",
+        "increaseLevel": "Increase zoom level",
+        "decreaseLevel": "Decrease zoom level"
+      }
     }
   },
   "modals": {
@@ -166,6 +196,7 @@
       "descriptionTitle": "Card Description",
       "taskTitle": "Tasks",
       "taskAdd": "Add Task",
+      "newTaskPlaceholder": "Enter a task...",
       "tagsTitle": "Tags",
       "tagsEdit": "Edit Global Tags"
     },

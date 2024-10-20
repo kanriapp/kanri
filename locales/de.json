@@ -7,7 +7,10 @@
     "importAction": "Importieren",
     "exportAction": "Exportieren",
     "closeAction": "Schließen",
-    "addAction": "Hinzufügen"
+    "addAction": "Hinzufügen",
+    "duplicateAction": "Duplizieren",
+    "editNameAction": "Namen bearbeiten",
+    "copyNoun": "Kopie"
   },
   "pages": {
     "index": {
@@ -27,6 +30,17 @@
       "joinDiscordButton": "Tritt der Discord-Community bei!",
       "deleteActionConfirmationHeading": "Board löschen?",
       "deleteActionConfirmationText": "Bist du sicher, dass du das Board löschen möchtest? Diese Aktion ist irreversibel."
+    },
+    "kanban": {
+      "changeBackground": "Hintergrundbild ändern",
+      "editTags": "Tags bearbeiten",
+      "renameBoardAction": "Board umbenennen",
+      "duplicateBoardAction": "Board duplizieren",
+      "exportBoardAction": "Board exportieren",
+      "pinBoardAction": "Board anpinnen",
+      "unpinBoardAction": "Board lösen",
+      "deleteBoardAction": "Board löschen",
+      "deleteBoardConfirmation": "Bist du sicher, dass du das Board '{boardName}' löschen möchtest? Diese Aktion ist irreversibel."
     },
     "settings": {
       "deleteAllDataConfirmationAction": "Daten löschen",
@@ -123,6 +137,22 @@
       "importExport": "Importieren/Exportieren",
       "help": "Hilfe",
       "settings": "Einstellungen"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "Karte hinzufügen",
+        "addCardTop": "Karte oben hinzufügen",
+        "deleteColumnConfirmation": "Bist du sicher, dass du die Spalte '{columnName}' löschen möchtest? Diese Aktion ist irreversibel.",
+        "addCardPlaceholder": "Name der Karte..."
+      },
+      "searchBar": {
+        "placeholder": "Suche nach Karten..."
+      },
+      "zoomAdjustment": {
+        "reset": "Zoom zurücksetzen",
+        "increaseLevel": "Vergrößern",
+        "decreaseLevel": "Verkleinern"
+      }
     }
   },
   "modals": {
@@ -166,6 +196,7 @@
       "descriptionTitle": "Kartenbeschreibung",
       "taskTitle": "Aufgaben",
       "taskAdd": "Aufgabe hinzufügen",
+      "newTaskPlaceholder": "Name der Aufgabe...",
       "tagsTitle": "Tags",
       "tagsEdit": "Globale Tags bearbeiten"
     },

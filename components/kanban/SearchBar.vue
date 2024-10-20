@@ -25,7 +25,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <PhMagnifyingGlass class="size-4" />
     <input
       v-model="model"
-      placeholder="Search for cards..."
+      :placeholder="$t('components.kanban.searchBar.placeholder')"
       class="bg-elevation-1 py-1 focus:outline-none"
       type="text"
     />
