@@ -28,7 +28,7 @@
     "@nuxtjs/tailwindcss": "6.12.2",
     "@tauri-apps/cli": "1.6.3",
     "@types/eslint__js": "^8.42.3",
-    "@types/node": "^20.14.7",
+    "@types/node": "^22.0.0",
     "@vue/test-utils": "^2.4.6",
     "@vueuse/components": "^11.0.3",
     "@vueuse/core": "^11.0.3",
