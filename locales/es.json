@@ -1,0 +1,246 @@
+{
+  "general": {
+    "deleteAction": "Borrar",
+    "renameAction": "Renombrar",
+    "cancelAction": "Cancelar",
+    "saveAction": "Guardar",
+    "importAction": "Importar",
+    "exportAction": "Exportar",
+    "closeAction": "Cerrar",
+    "addAction": "Añadir",
+    "duplicateAction": "Duplicar",
+    "editNameAction": "Editar Nombre",
+    "copyNoun": "Copiar"
+  },
+  "pages": {
+    "index": {
+      "welcome": "¡Le damos la bienvenida de vuelta a Kanri!",
+      "welcomeSubtext": "Tus tableros están listos y esperándote.",
+      "editSortWarning": "Advertencia: hay por lo menos un tablero que no tiene una fecha de última edición válida. Esto es probablemente un remanente de un tablero creado en una versión antigua de Kanri. Por favor, edita todos los tableros una vez para mitigar este comportamiento.",
+      "sortAlphabetically": "Ordenar alfabéticamente",
+      "sortByCreationDate": "Ordenar por fecha de creación",
+      "sortByLastEdited": "Ordenar por fecha de edición",
+      "reversedSortOrder": "Orden inverso",
+      "noBoardsHeading": "¡Qué vacío que está aquí!",
+      "createBoardPrompt": "Crea un tablero para empezar a ordenar tus tareas.",
+      "importDataHeading": "¿Tienes datos que importar?",
+      "importDataPrompt": "Puedes importar datos de otras fuentes usando el menú de importación/exportación:",
+      "importDataButton": "Abrir el menú de importación/exportación",
+      "getUpdatesHeading": "¿Quieres obtener las últimas noticias y hablar con el desarrollador?",
+      "joinDiscordButton": "¡Únete a la comunidad de Discord!",
+      "deleteActionConfirmationHeading": "¿Borrar tablero?",
+      "deleteActionConfirmationText": "¿Está seguro de querer borrar el tablero {boardName}? Esta acción es irreversible."
+    },
+    "kanban": {
+      "changeBackground": "Cambiar Fondo",
+      "editTags": "Editar Etiquetas",
+      "renameBoardAction": "Renombrar Tablero",
+      "duplicateBoardAction": "Duplicar Tablero",
+      "exportBoardAction": "Exportar Tablero",
+      "pinBoardAction": "Pegar Tablero",
+      "unpinBoardAction": "Despegar Tablero",
+      "deleteBoardAction": "Borrar Tablero",
+      "deleteBoardConfirmation": "¿Está seguro de querer borrar el tablero '{boardName}'? Esta acción es irreversible."
+    },
+    "settings": {
+      "deleteAllDataConfirmationAction": "Borrar Datos",
+      "deleteAllDataConfirmationDescription": "¿Borrar todos los datos?",
+      "deleteAllDataConfirmationHeading": "¿Borrar TODOS los datos?",
+      "settingsHeading": "Preferencias",
+      "settingsHeadingSubtext": "Cambia el comportamiento de la aplicación aquí.",
+      "sectionThemeHeading": "Tema",
+      "darkThemeOption": "Oscuro",
+      "lightThemeOption": "Claro",
+      "catppuccinThemeOption": "Catppuccin",
+      "customThemeOption": "Personalizado",
+      "customThemeEditorHeading": "Selecciona los colores para tu tema personalizado:",
+      "customThemeImportHeading": "O importa/exporta un tema personalizado:",
+      "customThemeImportHeadingSubtext": "Nota: las importaciones sobrescriben el tema actual, ¡así que exporta tu tema personalizado para no perderlo!",
+      "colorResetText": "Si los colores no se actualizan, por favor cliquea ",
+      "colorResetLink": "aquí",
+      "preferencesHeading": "Preferencias de Tableros",
+      "preferencesSubtext": "Cambia el comportamiento de tus tableros Kanban.",
+      "preferencesZoomHeading": "Zoom",
+      "preferencesZoomSubtext": "Ajusta el nivel global de zoom para tus tableros.",
+      "preferencesAddToTopButtonHeading": "Mostrar el botón añadir arriba",
+      "preferencesAddToTopButtonSubtext": "Muestra un botón que te permite añadir nuevas cartas arriba de una columna.",
+      "preferencesDisplayNumberOfCardsHeading": "Mostrar número de cartas en la columna",
+      "preferencesDisplayNumberOfCardsSubtext": "Muestra cuantas cartas hay en cada columna.",
+      "languageSelectorHeading": "Idioma",
+      "languageSelectorSubtext": "Cambia el idioma de la aplicación.",
+      "miscellaneousHeading": "Otros",
+      "miscellaneousAnimationsHeading": "Animaciones",
+      "miscellaneousAnimationsSubtext": "Desactiva esta opción para remover todas las animaciones en la aplicación.",
+      "miscellaneousAutostartHeading": "Autoiniciar",
+      "miscellaneousAutostartSubtext": "Automáticamente inicia Kanri al arrancar.",
+      "miscellaneousDeleteAllDataHeading": "Borrar todos los datos (temas y tableros)",
+      "miscellaneousDeleteAllDataSubtextRed": "¡Precaución!",
+      "miscellaneousDeleteAllDataSubtext": " ¡Esto va a irreversiblemente borrar todos sus datos!",
+      "exportThemeDialogTitle": "Selecciona archivo al cual exportar los datos",
+      "loadJsonErrorMessage": "¡No se pudo abrir el archivo JSON! Por favor, asegúrese que el archivo sea JSON.",
+      "parseJsonErrorMessage": "¡No se pudo abrir el archivo JSON! Por favor, asegúrese que el archivo tenga el formato correcto y que no sea de una versión antigua de Kanri."
+    },
+    "import": {
+      "importExportHeading": "Importa y Exporta",
+      "importExportSubtext": "Administra tus datos exportando e importando desde y hacia Kanri.",
+      "importTabHeading": "Importar Datos",
+      "importTabSubtext": "Importa datos completos o tableros individuales desde Kanri, KanbanElectron o Trello®",
+      "importTabPartialHeading": "Importe parcial (tablero individual)",
+      "importTabPartialSubtext": "Un archivo equivale a un tablero que importar. Nota: puedes seleccionar múltiples archivos/tableros para importar al mismo tiempo.",
+      "importOptionKanri": "Importar de Kanri",
+      "importOptionTrello": "Importar de Trello®",
+      "importOptionGithub": "Importar de GitHub Project",
+      "importOptionKanbanElectron": "Importar de KanbanElectron",
+      "importTabFullHeading": "Importacion Completa",
+      "importTabFullSubtext": "Importa los datos completos de un archivo. ADVERTENCIA: ¡Esto sobrescribirá todos tus datos con los importados! Es posible que quieras exportar tus datos previos antes.",
+      "exportTabHeading": "Exportar Datos",
+      "exportTabPartialHeading": "Exportación Parcial (tablero individual)",
+      "exportTabPartialSubtext": "Una exportación parcial significa que recibirás un archivo .json por cada tablero.",
+      "exportTabPartialSelectButton": "Exporta tablero individual",
+      "exportTabPartialSelectPrompt": "Selecciona tablero a exportar",
+      "exportTabFullHeading": "Exportacion Completa",
+      "exportTabFullSubtext": "Exporta todos sus datos (tableros, temas, y otras preferencias como el zoom) a un archivo .json.",
+      "exportTabFullButton": "Exportar todos los datos",
+      "exportFullJsonDialogTitle": "Selecciona el archivo al cual exportar los datos",
+      "exportFullJsonSuccessMessage": "Se ha exportado sus datos exitosamente.",
+      "exportPartialJsonDialogTitle": "Selecciona el archivo al cual exportar el tablero",
+      "exportPartialJsonErrorBoardNotFound": "Tablero no encontrado.",
+      "exportPartialJsonSuccessMessage": "Se ha exportado el tablero exitosamente.",
+      "importErrorBadJson": "¡No se pudo abrir el archivo JSON! Por favor, asegúrese que el archivo sea JSON.",
+      "importErrorGoodJsonFaultyData": "¡No se pudo abrir el archivo JSON! Por favor, asegúrese que el archivo tenga el formato correcto y que no sea de una versión antigua de Kanri.",
+      "importErrorNoBoards": "No se puede abrir archivos sin tableros. Por favor importa un archivo que contenga por lo menos un tablero.",
+      "importErrorTrello": "¡No se pudo abrir el archivo JSON! Por favor, asegúrese que el archivo sea JSON.",
+      "importErrorTrelloConversion": "No se pudo convertir tu tablero de Trello. Por favor, intenta de nuevo y reporta este bug al desarrollador si el problema persiste.",
+      "importErrorKanbanElectron": "¡No se pudo abrir el archivo JSON! Por favor, asegúrese que el archivo tenga el formato correcto y que haya sido exportado desde la última versión de KanbanElectron.",
+      "importErrorGithub": "El archivo {file} no es un tablero válido exportado desde GitHub Projects. Si crees que esto es un bug, por favor abre una issue en GitHub o envía un email a {email}",
+      "importSuccessFull": "Se han importado tus datos exitosamente.",
+      "importSuccessPartial": "Se ha importado tu tablero exitosamente.",
+      "importDuplicateBoard": "El tablero {boardName} ya existe (tablero con la misma ID). ¿Quieres importarlo como un duplicado?",
+      "duplicateSuffix": " (duplicado)",
+      "importSuccessGithub": "Tablero(s) de GitHub Projects importados exitosamente."
+    }
+  },
+  "components": {
+    "customThemeEditor": {
+      "optionAccentColor": "Color de acento",
+      "optionPrimaryTextColor": "Color del texto primario",
+      "optionButtonTextColor": "Color de texto del botón",
+      "optionPrimaryBackgroundColor": "Color de fondo primario",
+      "option1stElevationColor": "1er nivel de elevación",
+      "option2ndElevationColor": "2do nivel de elevación",
+      "option3rdElevationColor": "3er nivel de elevación"
+    },
+    "sidebar": {
+      "home": "Inicio",
+      "back": "Atras",
+      "createNewBoard": "Crear un tablero nuevo",
+      "importExport": "Importar/Exportar",
+      "help": "Ayuda",
+      "settings": "Preferencias"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "Añadir carta",
+        "addCardTop": "Añadir carta arriba",
+        "deleteColumnAction": "Borrar columna",
+        "deleteColumnConfirmation": "¿Estás seguro de querer borrar la columna '{columnName}? Esta acción es irreversible.",
+        "addCardPlaceholder": "Introduzca un nombre para la carta..."
+      },
+      "card": {
+        "deleteCardAction": "Borrar carta",
+        "deleteCardConfirmation": "¿Estás seguro de querer borrar la carta '{cardName}? Esta acción es irreversible."
+      },
+      "searchBar": {
+        "placeholder": "Buscar cartas..."
+      },
+      "zoomAdjustment": {
+        "reset": "Restablecer nivel de zoom",
+        "increaseLevel": "Aumentar nivel de zoom",
+        "decreaseLevel": "Disminuir nivel de zoom"
+      }
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "Editar etiquetas de la carta",
+      "description": "Aquí puedes editar tus etiquetas globales, las cuales están disponibles para el tablero completo. Nota: borrar una etiqueta global no la remueve de las cartas, solo la hace indisponible para nuevas cartas.",
+      "tagListTitle": "Tus etiquetas:"
+    },
+    "changelog": {
+      "title": "¿Que hay de nuevo en Kanri {major}.{minor}.{revision}?",
+      "welcome": "¡Bienvenido a Kanri! Luego de un largo rato, estamos de vuelta con un gran lanzamiento ofreciendo muchas nuevas funciones y arreglos. Para ser notificado rápidamente de nuevos lanzamientos y ver el progreso del desarrollo, puedes unirte",
+      "welcomeLink": "al servidor de Discord oficial.",
+      "changes": "Cambios:",
+      "changeItem1": "Posibilidad de cambiar el idioma de la app. Actualmente Inglés y Alemán están disponibles.",
+      "changeItem2": "Arreglado un bug el cual al presionar la tecla enter borraría tableros completos sin confirmación.",
+      "changeItem3": "La barra de búsqueda ya no distingue entre mayúsculas y minúsculas",
+      "changeItem4": "Clic derecho en las cartas ahora abre un menú contextual con opciones para editar la carta"
+    },
+    "confirmation": {
+      "sure": "¿Está seguro?",
+      "negative": "No",
+      "positive": "Si"
+    },
+    "customBackground": {
+      "title": "Establece un fondo personalizado",
+      "imageTitle": "Imagen de fondo:",
+      "imageEdit": "Editar imagen de fondo",
+      "imageAdd": "Añadir imagen de fondo",
+      "imageBlur": "Fuerza de desenfoque del fondo:",
+      "brightnessTitle": "Brillo del fondo:",
+      "reset": "Restablecer Imagen del Fondo"
+    },
+    "editCard": {
+      "tooltip": " Establecer color de carta ",
+      "colorTitle": "Color de Carta",
+      "colorCustom": "Selecciona un color personalizado:",
+      "dueDate": "Vencimiento: ",
+      "dateSet": "Establecer fecha de vencimiento",
+      "countdown": "Conteo relativo",
+      "dateRemove": "Remover fecha de vencimiento",
+      "descriptionTitle": "Descripción de la carta",
+      "taskTitle": "Tareas",
+      "taskAdd": "Añadir Tarea",
+      "newTaskPlaceholder": "Introduzca una tarea...",
+      "tagsTitle": "Etiquetas",
+      "tagsEdit": "Editar Etiquetas Globales"
+    },
+    "help": {
+      "title": "Ayuda & Recursos",
+      "resources": "Aquí hay algunos recursos útiles para asistirte.",
+      "shortcuts": "Atajos de Teclado",
+      "ctrlKey": "Control",
+      "ctrl+b": "- Crea una nueva columna en la vista de tablero",
+      "ctrl+d": "- Borra la última columna en la vista de tablero",
+      "ctrl+t": "- Edita el título de la última columna seleccionada en la vista de tablero",
+      "ctrl+n": "- Crea una nueva carta dentro de la última columna seleccionada en la vista de tablero",
+      "ctrl+alt+<>": "(Teclas de dirección) - Cambia columnas por edición de título y adición de cartas",
+      "ctrl++-": "- Aumenta/disminuye el zoom de la columna del tablero (preferencia global)",
+      "support": "Recursos de soporte",
+      "docs": "Documentación",
+      "github": "GitHub issues",
+      "discord": "Servidor de Discord",
+      "creditsTitle": "Créditos",
+      "creditsText1": "App bajo la licencia GPLv3 (excepto algunos archivos con diferentes licencias designadas en sus encabezados/archivos apropiados). Iconos usados provenientes de Heroicons y Phosphor Icons.",
+      "creditsText2": "No estamos afiliados, asociados, autorizados, respaldados por o conectados en alguna manera oficial con Trello, Inc. (www.trello.com).",
+      "copyrights": "Copyright (c) 2022-2024 trobonox ({email}) ",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "Licencias de terceros"
+    },
+    "newBoard": {
+      "title": "Crear un nuevo tablero",
+      "name": "Nombre del tablero",
+      "exampleColumns": "Crear columnas y cartas de ejemplo",
+      "columns": "Columnas",
+      "newColumn": "Nueva Columna",
+      "createBoardAction": "Crear Tablero",
+      "boardNameEmptyError": "El nombre del tablero no puede estar vacío",
+      "placeholder": "Introduzca un nombre para el tablero"
+    },
+    "renameBoard": {
+      "title": "Renombrar tablero",
+      "name": "Nombre del Tablero",
+      "placeholder": "Introduzca un nuevo nombre para el tablero"
+    }
+  }
+}
