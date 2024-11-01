@@ -93,7 +93,7 @@
       "importOptionKanbanElectron": "Importar de KanbanElectron",
       "importTabFullHeading": "Importacion Completa",
       "importTabFullSubtext": "Importa los datos completos de un archivo. ADVERTENCIA: ¡Esto sobrescribirá todos tus datos con los importados! Es posible que quieras exportar tus datos previos antes.",
-      "exportTabHeading": "Exporta Datos",
+      "exportTabHeading": "Exportar Datos",
       "exportTabPartialHeading": "Exportación Parcial (tablero individual)",
       "exportTabPartialSubtext": "Una exportación parcial significa que recibirás un archivo .json por cada tablero.",
       "exportTabPartialSelectButton": "Exporta tablero individual",
