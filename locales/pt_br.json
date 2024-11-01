@@ -1,0 +1,246 @@
+{
+  "general": {
+    "deleteAction": "Apagar",
+    "renameAction": "Renomear",
+    "cancelAction": "Cancelar",
+    "saveAction": "Salvar",
+    "importAction": "Importar",
+    "exportAction": "Exportar",
+    "closeAction": "Fechar",
+    "addAction": "Adicionar",
+    "duplicateAction": "Duplicar",
+    "editNameAction": "Editar Nome",
+    "copyNoun": "Copiar"
+  },
+  "pages": {
+    "index": {
+      "welcome": "Bem vindo de novo ao Kanri!",
+      "welcomeSubtext": "Seus quadros estão prontos e esperando por você.",
+      "editSortWarning": "Aviso: há pelo menos um quadro que não tem uma data de última edição válida. provavelmente é uma parte de um quadro criado em uma versão antiga do Kanri. Edite todos os quadros pelo menos uma vez para corrigir esse problema.",
+      "sortAlphabetically": "Classificar em ordem alfabética",
+      "sortByCreationDate": "Classificar pela data de criação",
+      "sortByLastEdited": "Classificar pela edição mais recente",
+      "reversedSortOrder": "Inverter a ordem de classificação",
+      "noBoardsHeading": "Está tão vazio aqui!",
+      "createBoardPrompt": "Crie um quadro para começar a acompanhar melhor suas tarefas.",
+      "importDataHeading": "Já tem alguns dados?",
+      "importDataPrompt": "Você pode importar dados de outras fontes usando o menu de importar/exportar:",
+      "importDataButton": "Abrir menu de importar/exportar",
+      "getUpdatesHeading": "Deseja obter as atualizações mais recentes e conversar com o criador?",
+      "joinDiscordButton": "Junte-se à comunidade Discord!",
+      "deleteActionConfirmationHeading": "Apagar o quadro?",
+      "deleteActionConfirmationText": "Tem certeza de que deseja excluir o quadro {boardname}? Esta ação é irreversível."
+    },
+    "kanban": {
+      "changeBackground": "Alterar plano de fundo",
+      "editTags": "Editar Tags",
+      "renameBoardAction": "Renomear Quadro",
+      "duplicateBoardAction": "Duplicar Quadro",
+      "exportBoardAction": "Exportar Quadro",
+      "pinBoardAction": "Fixar Quadro",
+      "unpinBoardAction": "Desafixar Quadro",
+      "deleteBoardAction": "Apagar Quadro",
+      "deleteBoardConfirmation": "Tem certeza de que deseja excluir o quadro '{boardname}'? Esta ação é irreversível."
+    },
+    "settings": {
+      "deleteAllDataConfirmationAction": "Apagar dados",
+      "deleteAllDataConfirmationDescription": "Apagar todos os dados?",
+      "deleteAllDataConfirmationHeading": "Apagar TODOS os dados?",
+      "settingsHeading": "Ajustes",
+      "settingsHeadingSubtext": "Altere o comportamento do aplicativo aqui.",
+      "sectionThemeHeading": "Tema",
+      "darkThemeOption": "Escuro",
+      "lightThemeOption": "Claro",
+      "catppuccinThemeOption": "Catppuccin",
+      "customThemeOption": "Personalizado",
+      "customThemeEditorHeading": "Selecione as cores para o seu tema personalizado:",
+      "customThemeImportHeading": "Ou importe/exporte um tema personalizado:",
+      "customThemeImportHeadingSubtext": "Nota: as importações substituem seu tema atual, portanto exporte antes qualquer tema personalizado que você não deseja perder!",
+      "colorResetText": "Se as cores não atualizarem, clique",
+      "colorResetLink": "aqui",
+      "preferencesHeading": "Preferências do Quadro",
+      "preferencesSubtext": "Mude o comportamento de seus quadros Kanban.",
+      "preferencesZoomHeading": "Zoom",
+      "preferencesZoomSubtext": "Ajuste o nível de zoom global para seus quadros.",
+      "preferencesAddToTopButtonHeading": "Mostrar botão adicionar no topo",
+      "preferencesAddToTopButtonSubtext": "Exibe um botão que permite adicionar novos cartões à parte superior de uma coluna.",
+      "preferencesDisplayNumberOfCardsHeading": "Exibir número de cartões na coluna",
+      "preferencesDisplayNumberOfCardsSubtext": "Mostra quantos cartões existem em cada coluna.",
+      "languageSelectorHeading": "Idioma",
+      "languageSelectorSubtext": "Altere o idioma do aplicativo.",
+      "miscellaneousHeading": "Outros ajustes",
+      "miscellaneousAnimationsHeading": "Animações",
+      "miscellaneousAnimationsSubtext": "Desative esta opção para remover todas as animações no aplicativo.",
+      "miscellaneousAutostartHeading": "Executar na inicialização",
+      "miscellaneousAutostartSubtext": "Executa automaticamente Kanri na inicialização.",
+      "miscellaneousDeleteAllDataHeading": "Exclua todos os dados (temas e quadros",
+      "miscellaneousDeleteAllDataSubtextRed": "Cuidado!",
+      "miscellaneousDeleteAllDataSubtext": " Isso excluirá irreversivelmente todos os seus dados!",
+      "exportThemeDialogTitle": "Selecione o arquivo para exportar os dados",
+      "loadJsonErrorMessage": "Não foi possível carregar o arquivo JSON! Verifique se o arquivo é o JSON adequado.",
+      "parseJsonErrorMessage": "Não foi possível carregar o arquivo json! Verifique se o arquivo está formatado corretamente e se não é de uma versão antiga do Kanri."
+    },
+    "import": {
+      "importExportHeading": "Importar & Exportar",
+      "importExportSubtext": "Gerencie seus dados exportando e importando-os para o Kanri.",
+      "importTabHeading": "Importar Dados",
+      "importTabSubtext": "Importar dados completos ou quadros individuais de Kanri, KanbanElectron or Trello®",
+      "importTabPartialHeading": "Importação parcial (quadro individual)",
+      "importTabPartialSubtext": "Cada arquivo é um quadro para importar. Nota: Você pode selecionar vários arquivos/quadros para importar de uma só vez.",
+      "importOptionKanri": "Importar do Kanri",
+      "importOptionTrello": "Importar do TrelloÂ®",
+      "importOptionGithub": "Importar projeto do GitHub",
+      "importOptionKanbanElectron": "Importar do KanbanElectron",
+      "importTabFullHeading": "Importação completa",
+      "importTabFullSubtext": "Importa dados completos de um arquivo. Aviso: isso substitui todos os seus dados com o que você importa! Você pode exportar seus dados primeiro.",
+      "exportTabHeading": "Exportar Dados",
+      "exportTabPartialHeading": "Exportação parcial (quadro individual)",
+      "exportTabPartialSubtext": "Uma exportação parcial significa que você obtem um arquivo .json para um quadro particular.",
+      "exportTabPartialSelectButton": "Exportar quadro individual",
+      "exportTabPartialSelectPrompt": "Selecione um quadro para exportar",
+      "exportTabFullHeading": "Exportação completa",
+      "exportTabFullSubtext": "Exporta todos os seus dados (quadros, temas, outras preferências como o Zoom) para um arquivo .json.",
+      "exportTabFullButton": "Exportar todos os dados",
+      "exportFullJsonDialogTitle": "Selecione o arquivo para exportar os dados",
+      "exportFullJsonSuccessMessage": "Exportação de dados bem-sucedida",
+      "exportPartialJsonDialogTitle": "Selecione o arquivo para exportar o quadro",
+      "exportPartialJsonErrorBoardNotFound": "Quadro não encontrado.",
+      "exportPartialJsonSuccessMessage": "Exportação de quadro bem-sucedida",
+      "importErrorBadJson": "Não foi possível carregar o arquivo JSON! Verifique se o arquivo está correto.",
+      "importErrorGoodJsonFaultyData": "Não foi possível carregar o arquivo JSON! Verifique se o arquivo está formatado corretamente e se não é de uma versão antiga do Kanri.",
+      "importErrorNoBoards": "Não é possível carregar arquivos sem quadros. Importe um arquivo com pelo menos um quadro.",
+      "importErrorTrello": "Não foi possível carregar o arquivo JSON! Verifique se o arquivo está formatado corretamente.",
+      "importErrorTrelloConversion": "Não foi possível converter seu quadro do Trello. Tente novamente e relate esse bug ao desenvolvedor se isso acontecer novamente.",
+      "importErrorKanbanElectron": "Não foi possível carregar o arquivo JSON! Verifique se o arquivo está formatado corretamente e se foi exportado da última versão do KanbanElectron.",
+      "importErrorGithub": "O arquivo {file} não é um quadro válido exportado dos projetos do GitHub. Se você acredita que isso é um bug, abra um chamado no GitHub ou envie um e-mail {email}",
+      "importSuccessFull": "Importação de dados bem-sucedida.",
+      "importSuccessPartial": "Exportação de quadro bem-sucedida.",
+      "importDuplicateBoard": "O quadro{boardName} já existe (quadro com o mesmo ID). Você quer importar como duplicata?",
+      "duplicateSuffix": " (duplicata)",
+      "importSuccessGithub": "Importação de quadro(s) de projeto GitHub bem-sucedida."
+    }
+  },
+  "components": {
+    "customThemeEditor": {
+      "optionAccentColor": "Cor de destaque",
+      "optionPrimaryTextColor": "Cor do texto primária",
+      "optionButtonTextColor": "Cor do texto do botão",
+      "optionPrimaryBackgroundColor": "Cor de fundo primária",
+      "option1stElevationColor": "1º nível de elevação",
+      "option2ndElevationColor": "2º nível de elevação",
+      "option3rdElevationColor": "3º nível de elevação"
+    },
+    "sidebar": {
+      "home": "Início",
+      "back": "Voltar",
+      "createNewBoard": "Criar um novo quadro",
+      "importExport": "Importar/Exportar",
+      "help": "Ajuda",
+      "settings": "Ajustes"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "Adicionar cartão",
+        "addCardTop": "Adicionar cartão no topo",
+        "deleteColumnAction": "Apagar coluna",
+        "deleteColumnConfirmation": "Tem certeza de que deseja excluir a coluna '{columnName}'? Esta ação é irreversível.",
+        "addCardPlaceholder": "Digite o nome do cartão..."
+      },
+      "card": {
+        "deleteCardAction": "Apagar cartão",
+        "deleteCardConfirmation": "Tem certeza de que deseja excluir o cartão '{cardName}'? Esta ação é irreversível."
+      },
+      "searchBar": {
+        "placeholder": "Localizar cartões..."
+      },
+      "zoomAdjustment": {
+        "reset": "Redefinir o nível de zoom",
+        "increaseLevel": "Aumentar o nível de zoom",
+        "decreaseLevel": "Diminuir o nível de zoom"
+      }
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "Editar tags dos cartões",
+      "description": "Aqui você pode editar suas tags globais, disponíveis para todo o quadro. Nota: Excluir uma tag global não os remove dos cartões, mas apenas o torna indisponível para novos cartões.",
+      "tagListTitle": "Suas tags:"
+    },
+    "changelog": {
+      "title": "O que há de novo no Kanri {major}.{minor}.{revision}?",
+      "welcome": "Bem-vindo ao Kanri! Após muito tempo, estamos de volta com um grande lançamento, com muitos novos recursos e correções. Para ser prontamente notificado sobre lançamentos e ver o progresso do desenvolvimento, você pode se juntar",
+      "welcomeLink": "à comunidade oficial no Discord.",
+      "changes": "Mudanças:",
+      "changeItem1": "Capacidade de alterar a linguagem do aplicativo. Atualmente, inglês, alemão e português brasileiro estão disponíveis.",
+      "changeItem2": "Corrigido um bug em que pressionar Enter excluiria quadros sem qualquer confirmação.",
+      "changeItem3": "Barra de pesquisa agora não diferencia mais maiúsculas e minúsculas",
+      "changeItem4": "Clicar com o botão direito nos cartões agora abre um menu de contexto com opções para editar o cartão"
+    },
+    "confirmation": {
+      "sure": "Você tem certeza?",
+      "negative": "Não",
+      "positive": "Sim"
+    },
+    "customBackground": {
+      "title": "Defina um fundo personalizado",
+      "imageTitle": "Imagem de fundo:",
+      "imageEdit": "Editar imagem do fundo",
+      "imageAdd": "Adicionar imagem do fundo",
+      "imageBlur": "Taxa de desfoque do fundo:",
+      "brightnessTitle": "Brilho do fundo:",
+      "reset": "Redefinir Imagem de Fundo"
+    },
+    "editCard": {
+      "tooltip": " Definir cor do cartão ",
+      "colorTitle": "Cor do Cartão",
+      "colorCustom": "Selecione uma cor personalizada:",
+      "dueDate": "Vencimento: ",
+      "dateSet": "Defina a data de vencimento",
+      "countdown": "Contagem regressiva relativa",
+      "dateRemove": "Remover data de vencimento",
+      "descriptionTitle": "Descrição do Cartão",
+      "taskTitle": "Tarefas",
+      "taskAdd": "Adicionar Tarefa",
+      "newTaskPlaceholder": "Digite uma tarefa...",
+      "tagsTitle": "Tags",
+      "tagsEdit": "Editar Tags Globais"
+    },
+    "help": {
+      "title": "Ajuda & Recursos",
+      "resources": "Aqui estão alguns recursos úteis para ajudá -lo.",
+      "shortcuts": "Atalhos de Teclado",
+      "ctrlKey": "ctrl",
+      "ctrl+b": "- Cria nova coluna na visão do quadro",
+      "ctrl+d": "- Apaga a última coluna na visão do quadro",
+      "ctrl+t": "- Edita o título da última coluna na visão do quadro",
+      "ctrl+n": "- Cria novo cartão dentro da última coluna  na visão do quadro",
+      "ctrl+alt+<>": "(setas) - Alterna colunas para edição de título e adição de cartões",
+      "ctrl++-": "- Aumenta/diminui o zoom da coluna no quadro (preferência global)",
+      "support": "Recursos de suporte",
+      "docs": "Documentos",
+      "github": "Chamado no GitHub",
+      "discord": "Servidor Discord",
+      "creditsTitle": "Créditos",
+      "creditsText1": "Aplicativo licenciado sob a licença GPLV3 (exceto alguns arquivos com diferentes licenças designadas em seus cabeçalhos/arquivos de licença apropriados). Os ícones usados são de Heroicons and Phosphor Icons.",
+      "creditsText2": "Não somos afiliados, associados, autorizados, endossados ou de qualquer forma oficialmente conectada à Trello, Inc. (www.trello.com).",
+      "copyrights": "Copyright (c) 2022-2024 trobonox ({email}) ",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "Informações sobre licença de terceiros"
+    },
+    "newBoard": {
+      "title": "Criar um novo quadro",
+      "name": "Nome do quadro",
+      "exampleColumns": "Crie colunas e cartões de exemplo",
+      "columns": "Colunas",
+      "newColumn": "Nova Coluna",
+      "createBoardAction": "Criar Quadro",
+      "boardNameEmptyError": "O nome do quadro não pode estar em branco",
+      "placeholder": "Digite um nome para o quadro"
+    },
+    "renameBoard": {
+      "title": "Renomear quadro",
+      "name": "Nome do quadro",
+      "placeholder": "Digite um nome para o quadro"
+    }
+  }
+}
