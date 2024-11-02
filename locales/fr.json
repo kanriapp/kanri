@@ -32,14 +32,14 @@
       "deleteActionConfirmationText": "Etes-vous sur de vouloir supprimer le tableau {boardName} ? Cette action est irréversible."
     },
     "kanban": {
-      "changeBackground": "Change Background",
-      "editTags": "Edit Tags",
-      "renameBoardAction": "Rename Board",
-      "duplicateBoardAction": "Duplicate Board",
-      "exportBoardAction": "Export Board",
+      "changeBackground": "Changer l'arrière plan",
+      "editTags": "Editer les étiquettes",
+      "renameBoardAction": "Renommer le tableau",
+      "duplicateBoardAction": "Duppliquer le tableau",
+      "exportBoardAction": "Exporter le tableau",
       "pinBoardAction": "Pin Board",
       "unpinBoardAction": "Unpin Board",
-      "deleteBoardAction": "Delete Board",
+      "deleteBoardAction": "Supprimer le tableau",
       "deleteBoardConfirmation": "Are you sure you want to delete the board '{boardName}'? This action is irreversible."
     },
     "settings": {
