@@ -162,24 +162,16 @@
   },
   "modals": {
     "cardTags": {
-      "title": "Edit card tags",
-      "description": "Here you can edit your global tags, which are available for the entire board. Note: Deleting a global tag does not remove them from cards, but only makes it unavailable for new cards.",
-      "tagListTitle": "Your tags:"
+      "title": "Editer les étiquettes de cartes",
+      "description": "Ici vous pouvez éditer l'ensemble de vos étiquettes, qui sont disponibles pour la totalité du tableau. Note : La suppression d'une étiquette ne la supprime pas des cartes, mais la rend uniquement indisponible pour les nouvelles cartes...",
+      "tagListTitle": "Vos étiquettes :"
     },
     "changelog": {
-      "title": "What's new in Kanri {major}.{minor}.{revision}?",
-      "welcome": "Welcome to Kanri! After a long time, we are back with a big release featuring many new features and fixes. To quickly get notified about new releases and see the development progress, you can join",
-      "welcomeLink": "the official Discord server.",
-      "changes": "Changes:",
-      "changeItem1": "Ability to change the app language. Currently English and German are supported.",
-      "changeItem2": "Fixed a bug where pressing enter would delete boards without any confirmation.",
-      "changeItem3": "Search bar now is no longer case-sensitive",
-      "changeItem4": "Right click on cards now opens a context menu with options to edit the card"
-    },
+      "title": "Nouveautés
     "confirmation": {
-      "sure": "Are you sure?",
-      "negative": "No",
-      "positive": "Yes"
+      "sure": "Êtes-vous sûr ?",
+      "negative": "Non",
+      "positive": "Oui"
     },
     "customBackground": {
       "title": "Set a custom background",
