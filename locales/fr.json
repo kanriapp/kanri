@@ -8,7 +8,7 @@
     "exportAction": "Exporter",
     "closeAction": "Fermer",
     "addAction": "Ajouter",
-    "duplicateAction": "Duppliquer",
+    "duplicateAction": "Dupliquer",
     "editNameAction": "Editer le nom",
     "copyNoun": "Copier"
   },
@@ -29,23 +29,23 @@
       "getUpdatesHeading": "Souhaitez-vous recevoir les dernières mises à jour et discuter avec le créateur ?",
       "joinDiscordButton": "Rejoignez la communauté Discord !",
       "deleteActionConfirmationHeading": "Supprimer le tableau ?",
-      "deleteActionConfirmationText": "Êtes-vous sur de vouloir supprimer le tableau {boardName} ? Cette action ne peut être annulée."
+      "deleteActionConfirmationText": "Êtes-vous sûr de vouloir supprimer le tableau {boardName} ? Cette action ne peut être annulée."
     },
     "kanban": {
       "changeBackground": "Changer l'arrière plan",
       "editTags": "Editer les étiquettes",
       "renameBoardAction": "Renommer le tableau",
-      "duplicateBoardAction": "Duppliquer le tableau",
+      "duplicateBoardAction": "Dupliquer le tableau",
       "exportBoardAction": "Exporter le tableau",
       "pinBoardAction": "Epingler le tableau dans la barre latérale",
       "unpinBoardAction": "Désépingler le tableau de la barre latérale",
       "deleteBoardAction": "Supprimer le tableau",
-      "deleteBoardConfirmation": "Êtes-vous sur de vouloir supprimer le tableau '{boardName}' ? Cette action ne peut être annulée."
+      "deleteBoardConfirmation": "Êtes-vous sûr de vouloir supprimer le tableau '{boardName}' ? Cette action ne peut être annulée."
     },
     "settings": {
-      "deleteAllDataConfirmationAction": "Delete Data",
-      "deleteAllDataConfirmationDescription": "Delete all data?",
-      "deleteAllDataConfirmationHeading": "Delete ALL Data?",
+      "deleteAllDataConfirmationAction": "Supprimer les données",
+      "deleteAllDataConfirmationDescription": "Êtes-vous sûr ?",
+      "deleteAllDataConfirmationHeading": "Supprimer toutes les données de Kanri ?",
       "settingsHeading": "Paramètres",
       "settingsHeadingSubtext": "Ici, changez le comportement de Kanri.",
       "sectionThemeHeading": "Thème",
