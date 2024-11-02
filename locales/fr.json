@@ -1,0 +1,246 @@
+{
+  "general": {
+    "deleteAction": "Supprimer",
+    "renameAction": "Renommer",
+    "cancelAction": "Annuler",
+    "saveAction": "Sauvegarder",
+    "importAction": "Importer",
+    "exportAction": "Exporter",
+    "closeAction": "Fermer",
+    "addAction": "Ajouter",
+    "duplicateAction": "Dupliquer",
+    "editNameAction": "Editer le nom",
+    "copyNoun": "Copier"
+  },
+  "pages": {
+    "index": {
+      "welcome": "Bienvenue dans Kanri !",
+      "welcomeSubtext": "Vos tableaux sont prêts et vous attendent.",
+      "editSortWarning": "Attention : il y a au moins un tableau qui n'a pas de date de dernière édition valide. Il s'agit probablement d'un reste de tableau créé dans une ancienne version de Kanri. Veuillez modifier tous les tableaux au moins une fois pour résoudre ce problème.",
+      "sortAlphabetically": "Trier par ordre alphabétique",
+      "sortByCreationDate": "Trier par date de création",
+      "sortByLastEdited": "Trier par date d'édition",
+      "reversedSortOrder": "Ordre de tri inversé",
+      "noBoardsHeading": "Tellement vide ici !",
+      "createBoardPrompt": "Créez un tableau pour commencer à mieux suivre vos tâches.",
+      "importDataHeading": "Avez-vous déjà des données ?",
+      "importDataPrompt": "Vous pouvez importer des données d'autres sources en utilisant le menu importer/exporter :",
+      "importDataButton": "Ouvrir le menu Importer/Exporter",
+      "getUpdatesHeading": "Souhaitez-vous recevoir les dernières mises à jour et discuter avec le créateur ?",
+      "joinDiscordButton": "Rejoignez la communauté Discord !",
+      "deleteActionConfirmationHeading": "Supprimer le tableau ?",
+      "deleteActionConfirmationText": "Êtes-vous sûr de vouloir supprimer le tableau {boardName} ? Cette action ne peut être annulée."
+    },
+    "kanban": {
+      "changeBackground": "Changer l'arrière plan",
+      "editTags": "Editer les étiquettes",
+      "renameBoardAction": "Renommer le tableau",
+      "duplicateBoardAction": "Dupliquer le tableau",
+      "exportBoardAction": "Exporter le tableau",
+      "pinBoardAction": "Epingler le tableau dans la barre latérale",
+      "unpinBoardAction": "Désépingler le tableau de la barre latérale",
+      "deleteBoardAction": "Supprimer le tableau",
+      "deleteBoardConfirmation": "Êtes-vous sûr de vouloir supprimer le tableau '{boardName}' ? Cette action ne peut être annulée."
+    },
+    "settings": {
+      "deleteAllDataConfirmationAction": "Supprimer les données",
+      "deleteAllDataConfirmationDescription": "Êtes-vous sûr ?",
+      "deleteAllDataConfirmationHeading": "Supprimer toutes les données de Kanri ?",
+      "settingsHeading": "Paramètres",
+      "settingsHeadingSubtext": "Ici, changez le comportement de Kanri.",
+      "sectionThemeHeading": "Thème",
+      "darkThemeOption": "Sombre",
+      "lightThemeOption": "Clair",
+      "catppuccinThemeOption": "Catppuccin",
+      "customThemeOption": "Personnalisé",
+      "customThemeEditorHeading": "Sélectionnez les couleurs pour votre thème personnalisé :",
+      "customThemeImportHeading": "Ou importez/exportez un thème personnalisé :",
+      "customThemeImportHeadingSubtext": "Note : les importations remplacent votre thème actuel donc exportez au préalable tout thème personnalisé que vous ne voulez pas perdre !",
+      "colorResetText": "Si les couleurs ne s'actualisent pas, merci de bien vouloir cliquer ",
+      "colorResetLink": "ici",
+      "preferencesHeading": "Préférences des tableaux",
+      "preferencesSubtext": "Changez le comportement de vos tableaux Kanban.",
+      "preferencesZoomHeading": "Zoom",
+      "preferencesZoomSubtext": "Ajustez le niveau de zoom global de vos tableaux.",
+      "preferencesAddToTopButtonHeading": "Bouton d'ajout de carte en haut de colonne",
+      "preferencesAddToTopButtonSubtext": "Affiche un bouton qui vous permet d'ajouter de nouvelles cartes en haut d'une colonne.",
+      "preferencesDisplayNumberOfCardsHeading": "Nombre de cartes par colonne",
+      "preferencesDisplayNumberOfCardsSubtext": "Affiche le nombre de cartes contenues dans chaque colonne.",
+      "languageSelectorHeading": "Langage",
+      "languageSelectorSubtext": "Changez le langage de Kanri.",
+      "miscellaneousHeading": "Divers",
+      "miscellaneousAnimationsHeading": "Animations",
+      "miscellaneousAnimationsSubtext": "Désactivez cette option pour supprimer toutes les animations de Kanri.",
+      "miscellaneousAutostartHeading": "Lancement au démarrage",
+      "miscellaneousAutostartSubtext": "Lance automatiquement Kanri au démarrage de l'ordinateur.",
+      "miscellaneousDeleteAllDataHeading": "Supprimer toutes les données (thèmes et tableaux)",
+      "miscellaneousDeleteAllDataSubtextRed": "Attention !",
+      "miscellaneousDeleteAllDataSubtext": "Toutes vos données seront irrémédiablement supprimées !",
+      "exportThemeDialogTitle": "Sélectionnez le fichier vers lequel exporter les données",
+      "loadJsonErrorMessage": "Impossible de charger le fichier JSON ! Veuillez vérifier si le fichier est un JSON correct.",
+      "parseJsonErrorMessage": "Impossible de charger le fichier JSON ! Veuillez vérifier si le fichier est correctement formaté et ne provient pas d'une ancienne version de Kanri."
+    },
+    "import": {
+      "importExportHeading": "Import et Export",
+      "importExportSubtext": "Gérez vos données en les exportant et en les important depuis et vers Kanri.",
+      "importTabHeading": "Importer des données",
+      "importTabSubtext": "Importez des données complètes ou des tableaux individuels depuis Kanri, KanbanElectron ou Trello®",
+      "importTabPartialHeading": "Import partiel (tableau individuel)",
+      "importTabPartialSubtext": "Un fichier équivaut à un tableau à importer. Remarque : vous pouvez sélectionner plusieurs fichiers/tableaux à importer en même temps.",
+      "importOptionKanri": "Importer depuis Kanri",
+      "importOptionTrello": "Importer depuis Trello®",
+      "importOptionGithub": "Importer depuis GitHub Project",
+      "importOptionKanbanElectron": "Importer depuis KanbanElectron",
+      "importTabFullHeading": "Import complet",
+      "importTabFullSubtext": "Importe les données complètes à partir d’un seul fichier. AVERTISSEMENT : cela remplace toutes vos données par celles que vous importez ! Vous souhaiterez peut-être d'abord exporter vos données actuelles.",
+      "exportTabHeading": "Exporter des données",
+      "exportTabPartialHeading": "Export partiel (tableau individuel)",
+      "exportTabPartialSubtext": "Une exportation partielle signifie que vous allez obtenir un fichier .json pour un tableau individuel.",
+      "exportTabPartialSelectButton": "Exporter un tableau individuel",
+      "exportTabPartialSelectPrompt": "Sélectionnez un tableau à exporter",
+      "exportTabFullHeading": "Export total",
+      "exportTabFullSubtext": "Exporte toutes vos données (Tableaux, thèmes, autres préférences comme le zoom) dans un seul fichier .json.",
+      "exportTabFullButton": "Exporter toutes les données",
+      "exportFullJsonDialogTitle": "Sélectionnez le fichier vers lequel exporter les données",
+      "exportFullJsonSuccessMessage": "Données exportées avec succès.",
+      "exportPartialJsonDialogTitle": "Sélectionnez le fichier vers lequel exporter le tableau",
+      "exportPartialJsonErrorBoardNotFound": "Tableau introuvable.",
+      "exportPartialJsonSuccessMessage": "Tableau exporté avec succès.",
+      "importErrorBadJson": "Impossible de charger le fichier JSON ! Veuillez vérifier si le fichier est correct.",
+      "importErrorGoodJsonFaultyData": "Impossible de charger le fichier JSON ! Veuillez vérifier que le fichier est correctement formaté et qu'il ne provient pas d'une ancienne version de Kanri.",
+      "importErrorNoBoards": "Impossible de charger des fichiers sans tableaux. Veuillez importer un fichier avec au moins un tableau.",
+      "importErrorTrello": "Impossible de charger le fichier JSON ! Veuillez vérifier que le fichier est correctement formaté.",
+      "importErrorTrelloConversion": "Impossible de convertir votre tableau Trello. Veuillez réessayer et signaler ce bug au développeur si cela se reproduit.",
+      "importErrorKanbanElectron": "Impossible de charger le fichier JSON ! Veuillez vérifier que le fichier est correctement formaté et exporté à partir de la dernière version de KanbanElectron.",
+      "importErrorGithub": "Le fichier {file} n'est pas un tableau valide exporté à partir de projets GitHub. Si vous pensez qu'il s'agit d'un bug, veuillez ouvrir un problème GitHub ou envoyer un e-mail {email}",
+      "importSuccessFull": "Vos données ont été importées avec succès.",
+      "importSuccessPartial": "Votre tableau a été importé avec succès.",
+      "importDuplicateBoard": "Le tableau {boardName} existe déjà (tableau avec le même ID). Souhaitez-vous l'importer en doublon ?",
+      "duplicateSuffix": " (dupliquer)",
+      "importSuccessGithub": "Tableau(x) de projets GitHub importé(s) avec succès."
+    }
+  },
+  "components": {
+    "customThemeEditor": {
+      "optionAccentColor": "Couleur d'accentuation",
+      "optionPrimaryTextColor": "Couleur du texte",
+      "optionButtonTextColor": "Couleur du texte des boutons",
+      "optionPrimaryBackgroundColor": "Couleur d'arrière-plan",
+      "option1stElevationColor": "Couleur de premier niveau d'élévation",
+      "option2ndElevationColor": "Couleur de second niveau d'élévation",
+      "option3rdElevationColor": "Couleur de troisième niveau d'élévation"
+    },
+    "sidebar": {
+      "home": "Accueil",
+      "back": "Retour",
+      "createNewBoard": "Créer un nouveau tableau",
+      "importExport": "Import/Export",
+      "help": "Aide",
+      "settings": "Paramètres"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "Ajouter une carte",
+        "addCardTop": "Ajouter une carte en haut",
+        "deleteColumnAction": "Supprimer la colonne",
+        "deleteColumnConfirmation": "Êtes-vous sûr de vouloir supprimer la colonne '{columnName}'? Cette action est irréversible.",
+        "addCardPlaceholder": "Saisir l'intitulé de la carte..."
+      },
+      "card": {
+        "deleteCardAction": "Supprimer la carte",
+        "deleteCardConfirmation": "Êtes-vous sûr de vouloir supprimer la carte '{cardName}'? Cette action est irréversible."
+      },
+      "searchBar": {
+        "placeholder": "Rechercher des cartes..."
+      },
+      "zoomAdjustment": {
+        "reset": "Réinitialiser le niveau de zoom",
+        "increaseLevel": "Augmenter le niveau de zoom",
+        "decreaseLevel": "Diminuer le niveau de zoom"
+      }
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "Editer les étiquettes de cartes",
+      "description": "Ici vous pouvez éditer l'ensemble de vos étiquettes, qui sont disponibles pour la totalité du tableau. Note : La suppression d'une étiquette ne la supprime pas des cartes, mais la rend uniquement indisponible pour les nouvelles cartes...",
+      "tagListTitle": "Vos étiquettes :"
+    },
+    "changelog": {
+     "title": "Nouveautés dans Kanri {major}.{minor}.{revision}?",
+      "welcome": "Bienvenue dans Kanri ! Après une longue période, nous sommes de retour avec une grosse version contenant de nombreuses nouvelles fonctionnalités et correctifs. Pour être rapidement informé des nouvelles versions et voir la progression du développement, vous pouvez rejoindre",
+      "welcomeLink": "le serveur officiel Discord.",
+      "changes": "Changements :",
+      "changeItem1": "Possibilité de changer la langue de l'application. Actuellement, l'anglais, le français et l'allemand sont pris en charge.",
+      "changeItem2": "Correction d'un bug où appuyer sur Entrée supprimait les tableaux sans aucune confirmation.",
+      "changeItem3": "La barre de recherche n'est plus sensible à la casse",
+      "changeItem4": "Un clic droit sur les cartes ouvre désormais un menu contextuel avec des options pour modifier la carte"
+    },
+    "confirmation": {
+      "sure": "Êtes-vous sûr ?",
+      "negative": "Non",
+      "positive": "Oui"
+    },
+    "customBackground": {
+      "title": "Définir un arrière-plan personnalisé",
+      "imageTitle": "Image d'arrière-plan :",
+      "imageEdit": "Modifier l'image d'arrière-plan",
+      "imageAdd": "Ajouter une image d'arrière-plan",
+      "imageBlur": "Niveau du flou d’arrière-plan :",
+      "brightnessTitle": "Luminosité de l'arrière-plan :",
+      "reset": "Réinitialiser l'image d'arrière-plan"
+    },
+    "editCard": {
+      "tooltip": " Définir la couleur de la carte ",
+      "colorTitle": "Couleur de la carte",
+      "colorCustom": "Sélectionnez une couleur personnalisée :",
+      "dueDate": "Date d'échéance : ",
+      "dateSet": "Fixer la date d'échéance",
+      "countdown": "Compte à rebours relatif",
+      "dateRemove": "Supprimer la date d'échéance",
+      "descriptionTitle": "Description de la carte",
+      "taskTitle": "Tâches",
+      "taskAdd": "Ajouter une tâche",
+      "newTaskPlaceholder": "Ajouter une tâche...",
+      "tagsTitle": "Etiquettes",
+      "tagsEdit": "Editer les étiquettes"
+    },
+    "help": {
+      "title": "Aide et ressources",
+      "resources": "Voici quelques ressources utiles pour vous aider.",
+      "shortcuts": "Raccourcis clavier",
+      "ctrlKey": "ctrl",
+      "ctrl+b": "- Créer une nouvelle colonne dans la vue Tableau",
+      "ctrl+d": "- Supprimer la dernière colonne de la vue Tableau",
+      "ctrl+t": "- Modifier le titre de la dernière colonne dans la vue Tableau",
+      "ctrl+n": "- Créer une nouvelle carte dans la dernière colonne de la vue Tableau",
+      "ctrl+alt+<>": "(Touches fléchées) - Changer de colonne pour l'édition du titre et l'ajout de cartes",
+      "ctrl++-": "- Augmenter/diminuer le zoom des colonnes du tableau (préférence globale)",
+      "support": "Ressources d'assistance",
+      "docs": "Documents",
+      "github": "Problèmes GitHub",
+      "discord": "Serveur Discord",
+      "creditsTitle": "Crédits",
+      "creditsText1": "Application sous licence GPLv3 (à l'exception de certains fichiers avec des licences différentes désignées dans leurs en-têtes/fichiers de licence appropriés). Les icônes utilisées proviennent des Heroicons et des Phosphor Icons.",
+      "creditsText2": "Nous ne sommes pas affiliés, associés, autorisés, approuvés ou officiellement connectés de quelque manière que ce soit à Trello, Inc. (www.trello.com).",
+      "copyrights": "Copyright (c) 2022-2024 trobonox ({email}) ",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "Third-party license notices"
+    },
+    "newBoard": {
+      "title": "Créer un nouveau tableau",
+      "name": "Nom du tableau",
+      "exampleColumns": "Insérer des exemples de colonnes et de cartes",
+      "columns": "Colonnes",
+      "newColumn": "Nouvelle colonne",
+      "createBoardAction": "Créer un tableau",
+      "boardNameEmptyError": "Le nom du tableau ne peut pas être vide",
+      "placeholder": "Entrez un nom pour le tableau"
+    },
+    "renameBoard": {
+      "title": "Renommer le tableau",
+      "name": "Nom du tableau",
+      "placeholder": "Entrez un nouveau nom pour le tableau"
+    }
+  }
+}
