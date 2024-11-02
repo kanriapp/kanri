@@ -29,7 +29,7 @@
       "getUpdatesHeading": "Vous souhaitez recevoir les dernières mises à jour et discuter avec le créateur ?",
       "joinDiscordButton": "Rejoignez la communauté Discord !",
       "deleteActionConfirmationHeading": "Supprimer le tableau ?",
-      "deleteActionConfirmationText": "Etes-vous sur de vouloir supprimer le tableau {boardName} ? Cette action est irréversible."
+      "deleteActionConfirmationText": "Etes-vous sur de vouloir supprimer le tableau {boardName} ? Cette action ne peut être annulée."
     },
     "kanban": {
       "changeBackground": "Changer l'arrière plan",
@@ -40,17 +40,17 @@
       "pinBoardAction": "Pin Board",
       "unpinBoardAction": "Unpin Board",
       "deleteBoardAction": "Supprimer le tableau",
-      "deleteBoardConfirmation": "Are you sure you want to delete the board '{boardName}'? This action is irreversible."
+      "deleteBoardConfirmation": "Êtes-vous sur de vouloir supprimer le tableau '{boardName}' ? Cette action ne peut être annulée."
     },
     "settings": {
       "deleteAllDataConfirmationAction": "Delete Data",
       "deleteAllDataConfirmationDescription": "Delete all data?",
       "deleteAllDataConfirmationHeading": "Delete ALL Data?",
-      "settingsHeading": "Settings",
+      "settingsHeading": "Paramètres",
       "settingsHeadingSubtext": "Change the behaviour of the application here.",
       "sectionThemeHeading": "Theme",
-      "darkThemeOption": "Dark",
-      "lightThemeOption": "Light",
+      "darkThemeOption": "Sombre",
+      "lightThemeOption": "Clair",
       "catppuccinThemeOption": "Catppuccin",
       "customThemeOption": "Custom",
       "customThemeEditorHeading": "Select the colors for your custom theme:",
@@ -231,8 +231,8 @@
       "title": "Create a new board",
       "name": "Board name",
       "exampleColumns": "Create example columns and cards",
-      "columns": "Columns",
-      "newColumn": "New Column",
+      "columns": "Colonnes",
+      "newColumn": "Nouvelle colonne",
       "createBoardAction": "Create Board",
       "boardNameEmptyError": "Board name cannot be empty",
       "placeholder": "Enter a name for the board"
