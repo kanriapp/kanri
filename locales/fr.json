@@ -122,13 +122,13 @@
   },
   "components": {
     "customThemeEditor": {
-      "optionAccentColor": "Accent color",
-      "optionPrimaryTextColor": "Primary text color",
-      "optionButtonTextColor": "Button text color",
-      "optionPrimaryBackgroundColor": "Primary background color",
-      "option1stElevationColor": "1st level of elevation",
-      "option2ndElevationColor": "2nd level of elevation",
-      "option3rdElevationColor": "3rd level of elevation"
+      "optionAccentColor": "Couleur d'accentuation",
+      "optionPrimaryTextColor": "Couleur du texte",
+      "optionButtonTextColor": "Couleur du texte des boutons",
+      "optionPrimaryBackgroundColor": "Couleur d'arrière-plan",
+      "option1stElevationColor": "Couleur de premier niveau d'élévation",
+      "option2ndElevationColor": "Couleur de second niveau d'élévation",
+      "option3rdElevationColor": "Couleur de troisième niveau d'élévation"
     },
     "sidebar": {
       "home": "Accueil",
@@ -140,23 +140,23 @@
     },
     "kanban": {
       "column": {
-        "addCard": "Add card",
-        "addCardTop": "Add card to the top",
-        "deleteColumnAction": "Delete column",
-        "deleteColumnConfirmation": "Are you sure you want to delete the column '{columnName}'? This action is irreversible.",
-        "addCardPlaceholder": "Enter a card name..."
+        "addCard": "Ajouter une carte",
+        "addCardTop": "Ajouter une carte en haut",
+        "deleteColumnAction": "Supprimer la colonne",
+        "deleteColumnConfirmation": "Êtes-vous sûr de vouloir supprimer la colonne '{columnName}'? Cette action est irréversible.",
+        "addCardPlaceholder": "Saisir l'intitulé de la carte..."
       },
       "card": {
-        "deleteCardAction": "Delete card",
-        "deleteCardConfirmation": "Are you sure you want to delete the card '{cardName}'? This action is irreversible."
+        "deleteCardAction": "Supprimer la carte",
+        "deleteCardConfirmation": "Êtes-vous sûr de vouloir supprimer la carte '{cardName}'? Cette action est irréversible."
       },
       "searchBar": {
-        "placeholder": "Search for cards..."
+        "placeholder": "Rechercher des cartes..."
       },
       "zoomAdjustment": {
-        "reset": "Reset zoom level",
-        "increaseLevel": "Increase zoom level",
-        "decreaseLevel": "Decrease zoom level"
+        "reset": "Réinitialiser le niveau de zoom",
+        "increaseLevel": "Augmenter le niveau de zoom",
+        "decreaseLevel": "Diminuer le niveau de zoom"
       }
     }
   },
