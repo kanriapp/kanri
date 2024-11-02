@@ -167,7 +167,14 @@
       "tagListTitle": "Vos étiquettes :"
     },
     "changelog": {
-      "title": "Nouveautés
+     "title": "What's new in Kanri {major}.{minor}.{revision}?",
+      "welcome": "Welcome to Kanri! After a long time, we are back with a big release featuring many new features and fixes. To quickly get notified about new releases and see the development progress, you can join",
+      "welcomeLink": "the official Discord server.",
+      "changes": "Changes:",
+      "changeItem1": "Ability to change the app language. Currently English and German are supported.",
+      "changeItem2": "Fixed a bug where pressing enter would delete boards without any confirmation.",
+      "changeItem3": "Search bar now is no longer case-sensitive",
+      "changeItem4": "Right click on cards now opens a context menu with options to edit the card" "title": "Nouveautés
     "confirmation": {
       "sure": "Êtes-vous sûr ?",
       "negative": "Non",
