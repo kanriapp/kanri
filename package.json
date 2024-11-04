@@ -37,7 +37,6 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-tailwindcss": "^3.8.0",
-    "happy-dom": "^15.7.4",
     "jsdom": "^25.0.1",
     "nuxt": "3.13.2",
     "postcss-custom-properties": "14.0.3",
