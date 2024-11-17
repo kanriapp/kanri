@@ -181,7 +181,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                   @click="toggleBoardPin"
                 >
-                  <span v-if="!isPinned">{{ $t("pages.kanban.pinBoardAction") }}</span>
+                  <span v-if="!isPinned">{{
+                    $t("pages.kanban.pinBoardAction")
+                  }}</span>
                   <span v-else>{{ $t("pages.kanban.unpinBoardAction") }}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -730,7 +732,7 @@ const removeCardWithConfirmation = async (
   emitter.emit("openModalWithCustomDescription", {
     description: t("components.kanban.card.deleteCardConfirmation", {
       cardName: card.name,
-    }), 
+    }),
   });
 
   const { isCanceled } = await cardRemoveDialog.reveal();
@@ -902,7 +904,7 @@ const deleteBoardModal = (index: number | undefined) => {
 };
 
 const deleteBoard = async (boardIndex: number | undefined) => {
-  if(!deleteBoardModalVisible.value) return;
+  if (!deleteBoardModalVisible.value) return;
   if (boardIndex === -1 || boardIndex == undefined) return;
 
   boards.value.splice(boardIndex, 1);

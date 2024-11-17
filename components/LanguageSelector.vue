@@ -45,7 +45,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <ComboboxItem
             v-for="locale in locales"
             :key="locale.code"
-            class="text-primary-light data-[disabled]:text-elevation-3 data-[highlighted]:bg-primary-dark data-[highlighted]:text-primary-light relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[35px] leading-none data-[disabled]:pointer-events-none data-[highlighted]:outline-none bg-elevation-2-hover cursor-pointer"
+            class="text-primary-light data-[disabled]:text-elevation-3 data-[highlighted]:bg-primary-dark data-[highlighted]:text-primary-light bg-elevation-2-hover relative flex h-[25px] cursor-pointer select-none items-center rounded-[3px] pl-[25px] pr-[35px] leading-none data-[disabled]:pointer-events-none data-[highlighted]:outline-none"
             :value="locale.code"
           >
             <ComboboxItemIndicator

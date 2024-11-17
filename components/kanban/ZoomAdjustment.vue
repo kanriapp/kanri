@@ -29,7 +29,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <MagnifyingGlassMinusIcon class="size-5" />
         </button>
       </template>
-      <template #content> {{ $t("components.kanban.zoomAdjustment.decreaseLevel") }} </template>
+      <template #content>
+        {{ $t("components.kanban.zoomAdjustment.decreaseLevel") }}
+      </template>
     </Tooltip>
     <Tooltip direction="top">
       <template #trigger>
@@ -40,7 +42,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           {{ columnZoomLevel * 50 + 100 }}%
         </button>
       </template>
-      <template #content> {{ $t("components.kanban.zoomAdjustment.reset") }} </template>
+      <template #content>
+        {{ $t("components.kanban.zoomAdjustment.reset") }}
+      </template>
     </Tooltip>
     <Tooltip direction="top">
       <template #trigger>
@@ -51,7 +55,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <MagnifyingGlassPlusIcon class="size-5" />
         </button>
       </template>
-      <template #content> {{ $t("components.kanban.zoomAdjustment.increaseLevel") }} </template>
+      <template #content>
+        {{ $t("components.kanban.zoomAdjustment.increaseLevel") }}
+      </template>
     </Tooltip>
   </div>
 </template>

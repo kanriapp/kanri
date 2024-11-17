@@ -409,7 +409,7 @@ const deleteBoardModal = (index: number | undefined) => {
 };
 
 const deleteBoard = async (boardIndex: number | undefined) => {
-  if(!deleteBoardModalVisible.value) return;
+  if (!deleteBoardModalVisible.value) return;
   if (boardIndex === -1 || boardIndex == undefined) return;
 
   const deletedBoard = boards.value.splice(boardIndex, 1);

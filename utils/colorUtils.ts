@@ -238,7 +238,6 @@ export const rgbToHsl = (
   g: number,
   b: number
 ): [number, number, number] => {
-  // eslint-disable-next-line no-unused-vars
   const _ = validateInput(RgbToHslSchema, { r, g, b });
 
   r /= 255;

@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
   <nav
-    class="flex h-screen flex-col items-center justify-between overflow-x-hidden overflow-y-auto px-8 pb-6 pt-4 my-2"
+    class="my-2 flex h-screen flex-col items-center justify-between overflow-y-auto overflow-x-hidden px-8 pb-6 pt-4"
   >
     <section id="tabitem-list" class="flex flex-col items-center gap-3">
       <PinnedItem

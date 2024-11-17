@@ -67,7 +67,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             />
           </template>
 
-          <template #content>{{ $t("components.kanban.column.addCardTop") }}</template>
+          <template #content>{{
+            $t("components.kanban.column.addCardTop")
+          }}</template>
         </Tooltip>
 
         <ClickCounter
