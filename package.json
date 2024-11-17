@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@nuxt/eslint": "^0.6.0",
+    "@nuxt/eslint": "^0.7.0",
     "@nuxt/test-utils": "^3.14.3",
     "@nuxtjs/tailwindcss": "6.12.2",
     "@tauri-apps/cli": "1.6.3",
@@ -33,7 +33,7 @@
     "@vueuse/components": "^11.0.3",
     "@vueuse/core": "^11.0.3",
     "@vueuse/nuxt": "^11.0.3",
-    "eslint": "^9.12.0",
+    "eslint": "9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-tailwindcss": "^3.8.0",
@@ -43,7 +43,6 @@
     "prettier": "^3.3.3",
     "rollup-plugin-license": "^3.0.1",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.8.1",
     "vitest": "^2.1.2"
   },
   "dependencies": {
