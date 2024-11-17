@@ -53,7 +53,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </template>
       <template #content> {{ $t("components.kanban.zoomAdjustment.increaseLevel") }} </template>
     </Tooltip>
-    
   </div>
 </template>
 
