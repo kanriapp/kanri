@@ -778,7 +778,7 @@ const importFromGithubProject = async () => {
 
     const board: Board = {
       id: generateUniqueID(),
-      title: (file.split(/[\/\\]/).pop() || file).replace(/\.tsv$/, ""),
+      title: (file.split(/[/\\]/).pop() || file).replace(/\.tsv$/, ""),
       columns: [],
       globalTags: [],
       lastEdited: new Date(),
