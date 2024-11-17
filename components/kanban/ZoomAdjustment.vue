@@ -24,12 +24,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <template #trigger>
         <button
           class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
-          @click="increaseZoomLevel"
+          @click="decreaseZoomLevel"
         >
-          <MagnifyingGlassPlusIcon class="size-5" />
+          <MagnifyingGlassMinusIcon class="size-5" />
         </button>
       </template>
-      <template #content> {{ $t("components.kanban.zoomAdjustment.increaseLevel") }} </template>
+      <template #content> {{ $t("components.kanban.zoomAdjustment.decreaseLevel") }} </template>
     </Tooltip>
     <Tooltip direction="top">
       <template #trigger>
@@ -46,13 +46,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <template #trigger>
         <button
           class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
-          @click="decreaseZoomLevel"
+          @click="increaseZoomLevel"
         >
-          <MagnifyingGlassMinusIcon class="size-5" />
+          <MagnifyingGlassPlusIcon class="size-5" />
         </button>
       </template>
-      <template #content> {{ $t("components.kanban.zoomAdjustment.decreaseLevel") }} </template>
+      <template #content> {{ $t("components.kanban.zoomAdjustment.increaseLevel") }} </template>
     </Tooltip>
+    
   </div>
 </template>
 
