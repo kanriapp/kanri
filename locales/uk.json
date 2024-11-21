@@ -1,0 +1,246 @@
+{
+  "general": {
+    "deleteAction": "Видалити",
+    "renameAction": "Перейменувати",
+    "cancelAction": "Скасувати",
+    "saveAction": "Зберегти",
+    "importAction": "Імпортувати",
+    "exportAction": "Експортувати",
+    "closeAction": "Закрити",
+    "addAction": "Додати",
+    "duplicateAction": "Дублювати",
+    "editNameAction": "Редагувати назву",
+    "copyNoun": "Копіювати"
+  },
+  "pages": {
+    "index": {
+      "welcome": "Знову раді вас бачити в Kanri!",
+      "welcomeSubtext": "Ваші дошки готові та чекають на вас.",
+      "editSortWarning": "Попередження: є хоча б одна дошка, у якої відсутня дійсна дата останнього редагування. Це, ймовірно, залишок від дошки, створеної в старій версії Kanri. Будь ласка, відредагуйте всі дошки хоча б один раз, щоб уникнути цієї проблеми.",
+      "sortAlphabetically": "Сортувати за алфавітом",
+      "sortByCreationDate": "Сортувати за датою створення",
+      "sortByLastEdited": "Сортувати за останнім редагуванням",
+      "reversedSortOrder": "Зворотний порядок сортування",
+      "noBoardsHeading": "Тут ще немає дошок!",
+      "createBoardPrompt": "Створіть дошку, щоб почати краще відстежувати свої завдання.",
+      "importDataHeading": "У вас вже є дані?",
+      "importDataPrompt": "Ви можете імпортувати дані з інших джерел через меню імпорту/експорту:",
+      "importDataButton": "Відкрити меню Імпорт/Експорт",
+      "getUpdatesHeading": "Хочете отримувати останні новини та спілкуватися з розробником?",
+      "joinDiscordButton": "Приєднатися до спільноти в Discord!",
+      "deleteActionConfirmationHeading": "Видалити дошку?",
+      "deleteActionConfirmationText": "Ви впевнені, що хочете видалити дошку {boardName}? Цю дію неможливо скасувати."
+    },
+    "kanban": {
+      "changeBackground": "Змінити фон",
+      "editTags": "Редагувати теги",
+      "renameBoardAction": "Перейменувати дошку",
+      "duplicateBoardAction": "Дублювати дошку",
+      "exportBoardAction": "Експортувати дошку",
+      "pinBoardAction": "Закріпити дошку",
+      "unpinBoardAction": "Відкріпити дошку",
+      "deleteBoardAction": "Видалити дошку",
+      "deleteBoardConfirmation": "Ви впевнені, що хочете видалити дошку '{boardName}'? Цю дію неможливо скасувати."
+    },
+   "settings": {
+      "deleteAllDataConfirmationAction": "Видалити дані",
+      "deleteAllDataConfirmationDescription": "Видалити всі дані?",
+      "deleteAllDataConfirmationHeading": "Видалити ВСІ дані?",
+      "settingsHeading": "Налаштування",
+      "settingsHeadingSubtext": "Змініть поведінку програми тут.",
+      "sectionThemeHeading": "Тема",
+      "darkThemeOption": "Темна",
+      "lightThemeOption": "Світла",
+      "catppuccinThemeOption": "Catppuccin",
+      "customThemeOption": "Користувацька",
+      "customThemeEditorHeading": "Виберіть кольори для вашої користувацької теми:",
+      "customThemeImportHeading": "Або імпортуйте/експортуйте користувацьку тему:",
+      "customThemeImportHeadingSubtext": "Примітка: імпорт замінить вашу поточну тему, тому заздалегідь експортуйте будь-які теми, які не хочете втратити!",
+      "colorResetText": "Якщо кольори не оновлюються, натисніть ",
+      "colorResetLink": "тут",
+      "preferencesHeading": "Налаштування дошки",
+      "preferencesSubtext": "Змініть поведінку ваших дошок Kanban.",
+      "preferencesZoomHeading": "Масштаб",
+      "preferencesZoomSubtext": "Налаштуйте глобальний рівень масштабування для ваших дошок.",
+      "preferencesAddToTopButtonHeading": "Показувати кнопку додавання зверху",
+      "preferencesAddToTopButtonSubtext": "Відображає кнопку, яка дозволяє додавати нові картки на верх колонки.",
+      "preferencesDisplayNumberOfCardsHeading": "Показувати кількість карток у колонці",
+      "preferencesDisplayNumberOfCardsSubtext": "Показує, скільки карток знаходиться в кожній колонці.",
+      "languageSelectorHeading": "Мова",
+      "languageSelectorSubtext": "Змініть мову програми.",
+      "miscellaneousHeading": "Різне",
+      "miscellaneousAnimationsHeading": "Анімації",
+      "miscellaneousAnimationsSubtext": "Вимкніть цю опцію, щоб прибрати всі анімації в додатку.",
+      "miscellaneousAutostartHeading": "Автоматичний запуск при старті",
+      "miscellaneousAutostartSubtext": "Автоматично запускає Kanri під час старту системи.",
+      "miscellaneousDeleteAllDataHeading": "Видалити всі дані (теми та дошки)",
+      "miscellaneousDeleteAllDataSubtextRed": "Увага!",
+      "miscellaneousDeleteAllDataSubtext": " Це незворотно видалить всі ваші дані!",
+      "exportThemeDialogTitle": "Виберіть файл для експорту даних",
+      "loadJsonErrorMessage": "Не вдалося завантажити файл JSON! Перевірте, чи файл є коректним JSON.",
+      "parseJsonErrorMessage": "Не вдалося завантажити файл JSON! Перевірте, чи файл правильно відформатований і не належить до старої версії Kanri."
+    },
+    "import": {
+      "importExportHeading": "Імпорт та експорт",
+      "importExportSubtext": "Керуйте своїми даними, експортуйте та імпортуйте їх у Kanri.",
+      "importTabHeading": "Імпорт даних",
+      "importTabSubtext": "Імпортуйте повні дані або окремі дошки з Kanri, KanbanElectron або Trello®.",
+      "importTabPartialHeading": "Частковий імпорт (окрема дошка)",
+      "importTabPartialSubtext": "Один файл відповідає одній дошці для імпорту. Примітка: ви можете вибрати кілька файлів/дощок для імпорту одночасно.",
+      "importOptionKanri": "Імпортувати з Kanri",
+      "importOptionTrello": "Імпортувати з Trello®",
+      "importOptionGithub": "Імпортувати з GitHub Project",
+      "importOptionKanbanElectron": "Імпортувати з KanbanElectron",
+      "importTabFullHeading": "Повний імпорт",
+      "importTabFullSubtext": "Імпортує повні дані з одного файлу. УВАГА: це замінить всі ваші дані на імпортовані! Рекомендується спочатку експортувати ваші дані.",
+      "exportTabHeading": "Експорт даних",
+      "exportTabPartialHeading": "Частковий експорт (окрема дошка)",
+      "exportTabPartialSubtext": "Частковий експорт означає, що ви отримаєте один файл .json для однієї окремої дошки.",
+      "exportTabPartialSelectButton": "Експортувати окрему дошку",
+      "exportTabPartialSelectPrompt": "Виберіть дошку для експорту",
+      "exportTabFullHeading": "Повний експорт",
+      "exportTabFullSubtext": "Експортує всі ваші дані (дошки, теми, інші налаштування, наприклад масштаб) в один файл .json.",
+      "exportTabFullButton": "Експортувати всі дані",
+      "exportFullJsonDialogTitle": "Виберіть файл для експорту даних",
+      "exportFullJsonSuccessMessage": "Дані успішно експортовано.",
+      "exportPartialJsonDialogTitle": "Виберіть файл для експорту дошки",
+      "exportPartialJsonErrorBoardNotFound": "Дошку не знайдено.",
+      "exportPartialJsonSuccessMessage": "Дошка успішно експортована.",
+      "importErrorBadJson": "Не вдалося завантажити файл JSON! Перевірте, чи файл є коректним.",
+      "importErrorGoodJsonFaultyData": "Не вдалося завантажити файл JSON! Перевірте, чи файл правильно відформатований і не належить до старої версії Kanri.",
+      "importErrorNoBoards": "Не можна завантажити файли без дощок. Будь ласка, імпортуйте файл, який містить хоча б одну дошку.",
+      "importErrorTrello": "Не вдалося завантажити файл JSON! Перевірте, чи файл правильно відформатований.",
+      "importErrorTrelloConversion": "Не вдалося конвертувати вашу дошку Trello. Будь ласка, спробуйте знову та повідомте про цю помилку розробнику, якщо вона повториться.",
+      "importErrorKanbanElectron": "Не вдалося завантажити файл JSON! Перевірте, чи файл правильно відформатований і експортувався з останньої версії KanbanElectron.",
+      "importErrorGithub": "Файл {file} не є валідною дошкою, експортованою з GitHub Projects. Якщо ви вважаєте, що це помилка, будь ласка, відкрийте GitHub issue або напишіть на {email}.",
+      "importSuccessFull": "Ваші дані успішно імпортовані.",
+      "importSuccessPartial": "Ваша дошка успішно імпортована.",
+      "importDuplicateBoard": "Дошка {boardName} вже існує (дошка з таким самим ID). Бажаєте імпортувати як дублікат?",
+      "duplicateSuffix": " (дублікат)",
+      "importSuccessGithub": "Дошка(и) GitHub Projects успішно імпортовано."
+    }
+},
+  "components": {
+    "customThemeEditor": {
+      "optionAccentColor": "Акцентний колір",
+      "optionPrimaryTextColor": "Основний колір тексту",
+      "optionButtonTextColor": "Колір тексту кнопок",
+      "optionPrimaryBackgroundColor": "Основний колір фону",
+      "option1stElevationColor": "Колір першого рівня",
+      "option2ndElevationColor": "Колір другого рівня",
+      "option3rdElevationColor": "Колір третього рівня"
+    },
+    "sidebar": {
+      "home": "Головна",
+      "back": "Назад",
+      "createNewBoard": "Створити нову дошку",
+      "importExport": "Імпорт/Експорт",
+      "help": "Допомога",
+      "settings": "Налаштування"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "Додати картку",
+        "addCardTop": "Додати картку вгорі",
+        "deleteColumnAction": "Видалити колонку",
+        "deleteColumnConfirmation": "Ви впевнені, що хочете видалити колонку '{columnName}'? Ця дія є незворотною.",
+        "addCardPlaceholder": "Введіть назву картки..."
+      },
+      "card": {
+        "deleteCardAction": "Видалити картку",
+        "deleteCardConfirmation": "Ви впевнені, що хочете видалити картку '{cardName}'? Ця дія є незворотною."
+      },
+      "searchBar": {
+        "placeholder": "Пошук карток..."
+      },
+      "zoomAdjustment": {
+        "reset": "Скинути рівень масштабу",
+        "increaseLevel": "Збільшити рівень масштабу",
+        "decreaseLevel": "Зменшити рівень масштабу"
+      }
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "Редагувати теги карток",
+      "description": "Тут ви можете редагувати глобальні теги, які доступні для всієї дошки. Примітка: Видалення глобального тегу не видаляє його з карток, але робить недоступним для нових карток.",
+      "tagListTitle": "Ваші теги:"
+    },
+    "changelog": {
+      "title": "Що нового у Kanri {major}.{minor}.{revision}?",
+      "welcome": "Ласкаво просимо до Kanri! Після тривалої перерви ми повертаємось із великим оновленням, яке включає багато нових функцій та виправлень. Щоб швидко отримувати сповіщення про нові релізи та стежити за процесом розробки, ви можете приєднатися до",
+      "welcomeLink": "офіційного сервера Discord.",
+      "changes": "Зміни:",
+      "changeItem1": "Можливість змінювати мову додатка. Наразі підтримуються англійська та німецька.",
+      "changeItem2": "Виправлено помилку, через яку натискання Enter видаляло дошки без підтвердження.",
+      "changeItem3": "Рядок пошуку тепер не враховує регістр символів.",
+      "changeItem4": "Клацання правою кнопкою миші на картці тепер відкриває контекстне меню з опціями редагування картки."
+    },
+    "confirmation": {
+      "sure": "Ви впевнені?",
+      "negative": "Ні",
+      "positive": "Так"
+    },
+    "customBackground": {
+      "title": "Встановити користувацький фон",
+      "imageTitle": "Фонове зображення:",
+      "imageEdit": "Редагувати фонове зображення",
+      "imageAdd": "Додати фонове зображення",
+      "imageBlur": "Сила розмиття фону:",
+      "brightnessTitle": "Яскравість фону:",
+      "reset": "Скинути фонове зображення"
+    },
+    "editCard": {
+      "tooltip": "Встановити колір картки",
+      "colorTitle": "Колір картки",
+      "colorCustom": "Виберіть користувацький колір:",
+      "dueDate": "Термін: ",
+      "dateSet": "Встановити термін виконання",
+      "countdown": "Зворотний відлік",
+      "dateRemove": "Видалити термін виконання",
+      "descriptionTitle": "Опис картки",
+      "taskTitle": "Завдання",
+      "taskAdd": "Додати завдання",
+      "newTaskPlaceholder": "Введіть завдання...",
+      "tagsTitle": "Теги",
+      "tagsEdit": "Редагувати глобальні теги"
+    },
+    "help": {
+      "title": "Допомога та ресурси",
+      "resources": "Ось кілька корисних ресурсів, які можуть вам допомогти.",
+      "shortcuts": "Комбінації клавіш",
+      "ctrlKey": "ctrl",
+      "ctrl+b": "- Створити нову колонку у вигляді дошки",
+      "ctrl+d": "- Видалити останню колонку у вигляді дошки",
+      "ctrl+t": "- Редагувати назву останньої колонки у вигляді дошки",
+      "ctrl+n": "- Створити нову картку в останній колонці у вигляді дошки",
+      "ctrl+alt+<>": "(Стрілки) - Перемикання між колонками для редагування назв та додавання карток",
+      "ctrl++-": "- Збільшити/зменшити масштаб колонок дошки (глобальні налаштування)",
+      "support": "Ресурси підтримки",
+      "docs": "Документація",
+      "github": "GitHub проблеми",
+      "discord": "Сервер Discord",
+      "creditsTitle": "Автори",
+      "creditsText1": "Додаток ліцензований за ліцензією GPLv3 (за винятком деяких файлів з іншими ліцензіями, зазначеними у відповідних заголовках/файлах ліцензій). Використовуються іконки Heroicons та Phosphor Icons.",
+      "creditsText2": "Ми не є афілійованими, пов'язаними, авторизованими чи підтриманими Trello, Inc. (www.trello.com).",
+      "copyrights": "Авторське право (c) 2022-2024 trobonox ({email}) ",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "Повідомлення про ліцензії третіх сторін"
+    },
+    "newBoard": {
+      "title": "Створити нову дошку",
+      "name": "Назва дошки",
+      "exampleColumns": "Створити приклад колонок та карток",
+      "columns": "Колонки",
+      "newColumn": "Нова колонка",
+      "createBoardAction": "Створити дошку",
+      "boardNameEmptyError": "Назва дошки не може бути порожньою",
+      "placeholder": "Введіть назву для дошки"
+    },
+    "renameBoard": {
+      "title": "Перейменувати дошку",
+      "name": "Назва дошки",
+      "placeholder": "Введіть нову назву для дошки"
+    }
+  }
+}
