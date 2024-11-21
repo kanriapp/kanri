@@ -461,7 +461,7 @@ limitations under the License.
               v-model="tag"
               :tags="tags"
               :autocomplete-items="filteredItems"
-              :placeholder="$t('modals.editCard.tagInputPlaceholder')"
+              placeholder="Add tag..."
               @tags-changed="updateTags"
               @before-adding-tag="beforeTagAdd"
             />
