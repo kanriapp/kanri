@@ -203,6 +203,7 @@
       "taskAdd": "Add Task",
       "newTaskPlaceholder": "Enter a task...",
       "tagsTitle": "Tags",
+      "tagInputPlaceholder": "Add tag...",
       "tagsEdit": "Edit Global Tags"
     },
     "help": {
