@@ -40,6 +40,7 @@ export default defineNuxtConfig({
       { code: "pt_br", name: "Português (Brasil)", file: "pt_br.json" },
       { code: "zh_cn", name: "简体中文", file: "zh_cn.json" },
       { code: "ru", name: "Русский", file: "ru.json" },
+      { code: "uk", name: "українська", file: "uk.json" },
     ],
     defaultLocale: "en",
     langDir: "locales/",
