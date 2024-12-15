@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, PwshLab, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -19,141 +19,127 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-    <nav
-        :class="zIndexDown ? '' : 'z-50'"
-        class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
-    >
-        <ModalNewBoard
-            v-show="newBoardModalVisible"
-            @closeModal="newBoardModalVisible = false"
+  <nav
+    :class="zIndexDown ? '' : 'z-50'"
+    class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
+  >
+    <ModalNewBoard
+      v-show="newBoardModalVisible"
+      @closeModal="newBoardModalVisible = false"
+    />
+    <Teleport to=".default-layout">
+      <ModalHelp
+        v-show="helpModalVisible"
+        @closeModal="helpModalVisible = false"
+      />
+    </Teleport>
+
+    <section id="items-top" class="flex flex-col items-center gap-4">
+      <div id="logo" class="flex flex-row rounded-md">
+        <IconKanri
+          class="text-accent-logo-icon size-9 pl-1"
+          @click="$router.push('/')"
         />
-        <Teleport to=".default-layout">
-            <ModalHelp
-                v-show="helpModalVisible"
-                @closeModal="helpModalVisible = false"
-            />
-        </Teleport>
+      </div>
 
-        <section
-            id="items-top"
-            class="flex flex-col items-center gap-4"
-        >
-            <div
-                id="logo"
-                class="flex flex-row rounded-md"
-            >
-                <IconKanri
-                    class="text-accent-logo-icon size-9 pl-1"
-                    @click="$router.push('/')"
-                />
+      <Tooltip>
+        <template #trigger>
+          <button
+            class="bg-elevation-2-hover transition-button rounded-md p-2"
+            @click="$router.push('/')"
+          >
+            <PhHouse class="size-7" />
+          </button>
+        </template>
+
+        <template #content>{{ $t("components.sidebar.home") }}</template>
+      </Tooltip>
+
+      <Tooltip v-if="!showAddButton">
+        <template #trigger>
+          <button
+            class="bg-elevation-2-hover transition-button rounded-md p-2"
+            @click="$router.go(-1)"
+          >
+            <PhArrowBendUpLeft class="size-7" />
+          </button>
+        </template>
+
+        <template #content>{{ $t("components.sidebar.back") }}</template>
+      </Tooltip>
+
+      <Tooltip v-if="showAddButton">
+        <template #trigger>
+          <button
+            class="bg-elevation-2-hover transition-button rounded-md p-2"
+            @click="newBoardModalVisible = true"
+          >
+            <IconPhPlusCircleDuotone class="text-accent size-7" />
+          </button>
+        </template>
+
+        <template #content>{{
+          $t("components.sidebar.createNewBoard")
+        }}</template>
+      </Tooltip>
+    </section>
+
+    <PinnedBar />
+
+    <section id="icons-bottom" class="flex flex-col items-center gap-4">
+      <Tooltip>
+        <template #trigger>
+          <nuxt-link to="/import">
+            <div class="bg-elevation-2-hover transition-button rounded-md p-2">
+              <PhArrowsLeftRight class="size-7" />
             </div>
+          </nuxt-link>
+        </template>
 
-            <Tooltip v-if="showAddButton">
-                <template #trigger>
-                    <button
-                        class="bg-elevation-2-hover transition-button rounded-md p-2"
-                        @click="$router.push('/')"
-                    >
-                        <PhHouse class="size-7" />
-                    </button>
-                </template>
+        <template #content>{{
+          $t("components.sidebar.importExport")
+        }}</template>
+      </Tooltip>
 
-                <template #content>
-                    Home
-                </template>
-            </Tooltip>
+      <Tooltip>
+        <template #trigger>
+          <button
+            class="bg-elevation-2-hover transition-button rounded-md p-2"
+            @click="helpModalVisible = true"
+          >
+            <PhQuestion class="size-7" />
+          </button>
+        </template>
 
-            <Tooltip v-else>
-                <template #trigger>
-                    <button
-                        class="bg-elevation-2-hover transition-button rounded-md p-2"
-                        @click="$router.go(-1)"
-                    >
-                        <PhArrowBendUpLeft class="size-7" />
-                    </button>
-                </template>
+        <template #content>{{ $t("components.sidebar.help") }}</template>
+      </Tooltip>
 
-                <template #content>
-                    Back
-                </template>
-            </Tooltip>
+      <Tooltip>
+        <template #trigger>
+          <nuxt-link to="/settings">
+            <div class="bg-elevation-2-hover transition-button rounded-md p-2">
+              <PhGearSix class="size-7" />
+            </div>
+          </nuxt-link>
+        </template>
 
-            <Tooltip v-if="showAddButton">
-                <template #trigger>
-                    <button
-                        class="bg-elevation-2-hover transition-button rounded-md p-2"
-                        @click="newBoardModalVisible = true"
-                    >
-                        <IconPhPlusCircleDuotone class="text-accent size-7" />
-                    </button>
-                </template>
-
-                <template #content>
-                    Create a new board
-                </template>
-            </Tooltip>
-        </section>
-
-        <section
-            id="icons-bottom"
-            class="flex flex-col items-center gap-4"
-        >
-            <Tooltip>
-                <template #trigger>
-                    <nuxt-link
-                        to="/import"
-                    >
-                        <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-                            <PhArrowsLeftRight class="size-7" />
-                        </div>
-                    </nuxt-link>
-                </template>
-
-                <template #content>
-                    Import/Export
-                </template>
-            </Tooltip>
-
-            <Tooltip>
-                <template #trigger>
-                    <button
-                        class="bg-elevation-2-hover transition-button rounded-md p-2"
-                        @click="helpModalVisible = true"
-                    >
-                        <PhQuestion class="size-7" />
-                    </button>
-                </template>
-
-                <template #content>
-                    Help
-                </template>
-            </Tooltip>
-
-            <Tooltip>
-                <template #trigger>
-                    <nuxt-link
-                        to="/settings"
-                    >
-                        <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-                            <PhGearSix class="size-7" />
-                        </div>
-                    </nuxt-link>
-                </template>
-
-                <template #content>
-                    Settings
-                </template>
-            </Tooltip>
-        </section>
-    </nav>
+        <template #content>{{ $t("components.sidebar.settings") }}</template>
+      </Tooltip>
+    </section>
+  </nav>
 </template>
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
-import { PhArrowBendUpLeft, PhHouse , PhArrowsLeftRight, PhGearSix, PhQuestion } from "@phosphor-icons/vue";
+import {
+  PhArrowBendUpLeft,
+  PhHouse,
+  PhArrowsLeftRight,
+  PhGearSix,
+  PhQuestion,
+} from "@phosphor-icons/vue";
 
-
-const store = useTauriStore().store;
+const router = useRouter();
 
 const helpModalVisible = ref(false);
 const newBoardModalVisible = ref(false);
@@ -161,64 +147,67 @@ const newBoardModalVisible = ref(false);
 const zIndexDown = ref(false);
 const showAddButton = ref(true);
 
-const savedColors: Ref<any> = ref(null);
-
 onMounted(async () => {
-    document.addEventListener("keydown", keyDownListener);
+  document.addEventListener("keydown", keyDownListener);
 
-    savedColors.value = await store.get("colors");
+  emitter.on("zIndexDown", () => {
+    zIndexDown.value = true;
+  });
 
-    emitter.on("updateColors", async () => {
-        savedColors.value = await store.get("colors");
-    })
+  emitter.on("zIndexBack", () => {
+    zIndexDown.value = false;
+  });
 
-    emitter.on("zIndexDown", () => {
-        zIndexDown.value = true;
-    });
+  emitter.on("openKanbanPage", () => {
+    updateAddButton();
+  });
 
-    emitter.on("zIndexBack", () => {
-        zIndexDown.value = false;
-    });
+  emitter.on("closeKanbanPage", () => {
+    updateAddButton();
+  });
 
-    emitter.on("openKanbanPage", () => {
-        showAddButton.value = false;
-    });
+  emitter.on("showSidebarBackArrow", () => {
+    showAddButton.value = false;
+  });
 
-    emitter.on("closeKanbanPage", () => {
-        showAddButton.value = true;
-    });
-
-    emitter.on("showSidebarBackArrow", () => {
-        showAddButton.value = false;
-    });
-
-    emitter.on("hideSidebarBackArrow", () => {
-        showAddButton.value = true;
-    });
+  emitter.on("hideSidebarBackArrow", () => {
+    showAddButton.value = true;
+  });
 });
 
 onBeforeUnmount(() => {
-    document.removeEventListener("keydown", keyDownListener);
+  document.removeEventListener("keydown", keyDownListener);
 
-    emitter.off("updateColors");
-    emitter.off("zIndexDown");
-    emitter.off("zIndexBack");
-    emitter.off("openKanbanPage");
-    emitter.off("closeKanbanPage");
-    emitter.off("showSidebarBackArrow");
-    emitter.off("hideSidebarBackArrow");
+  emitter.off("updateColors");
+  emitter.off("zIndexDown");
+  emitter.off("zIndexBack");
+  emitter.off("openKanbanPage");
+  emitter.off("closeKanbanPage");
+  emitter.off("showSidebarBackArrow");
+  emitter.off("hideSidebarBackArrow");
 });
 
 const keyDownListener = (e: KeyboardEvent) => {
-    if (e.key === "F1") {
-        helpModalVisible.value = true;
-        return;
-    }
-}
+  if (e.key === "F1") {
+    helpModalVisible.value = true;
+    return;
+  }
+};
+
+const updateAddButton = () => {
+  const currentPath = router.currentRoute.value.path;
+
+  if (currentPath.endsWith("/")) showAddButton.value = true;
+  else showAddButton.value = false;
+};
 </script>
 
 <style scoped>
 .bg-sidebar {
-    background: radial-gradient(circle at top left, var(--elevation-1) 10%, transparent);
+  background: radial-gradient(
+    circle at top left,
+    var(--elevation-1) 10%,
+    transparent
+  );
 }
 </style>

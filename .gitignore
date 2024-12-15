@@ -13,3 +13,4 @@ node_modules
 dist/*
 dist
 src-tauri/license.html
+LICENSES_3RD_PARTY.txt
