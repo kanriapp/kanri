@@ -11,7 +11,7 @@ license = "GPL-3.0"
 repository = "https://github.com/trobonox/kanri"
 default-run = "kanri"
 edition = "2021"
-rust-version = "1.57"
+rust-version = "1.83"
 
 [lib]
 name = "app_lib"
@@ -29,7 +29,7 @@ tauri = { version = "2", features = [ "protocol-asset"] }
 tauri-plugin-persisted-scope = { features= ["protocol-asset"] , version = "2" }
 ignore = "=0.4.23"
 tauri-plugin-autostart = { version = "2" }
-tauri-plugin-store = { git = "https://github.com/Legend-Master/plugins-workspace", branch = "store-rework-2" }
+tauri-plugin-store = "2.0.0"
 tauri-plugin-log = { version = "2" }
 tauri-plugin-window-state = { version = "2" }
 tauri-plugin-dialog = "2"
