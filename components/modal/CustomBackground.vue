@@ -71,7 +71,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 class="w-full"
                 max="20"
                 min="0"
-                oninput="rangeValue.innerText = this.value"
                 type="range"
               />
             </div>
@@ -93,7 +92,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 class="w-full"
                 max="100"
                 min="0"
-                oninput="rangeValue.innerText = this.value"
                 type="range"
               />
             </div>
