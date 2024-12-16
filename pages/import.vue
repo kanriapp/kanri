@@ -173,8 +173,8 @@ import {
   trelloJsonSchema,
 } from "@/types/json-schemas";
 import emitter from "@/utils/emitter";
-import { ask, message, open, save } from "@tauri-apps/api/dialog";
-import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
+import { ask, message, open, save } from "@tauri-apps/plugin-dialog";
+import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { useI18n } from "vue-i18n";
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ZodError, z } from "zod";

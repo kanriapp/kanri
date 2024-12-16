@@ -114,8 +114,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-import { open } from "@tauri-apps/api/dialog";
-import { convertFileSrc } from "@tauri-apps/api/tauri";
+import { open } from "@tauri-apps/plugin-dialog";
+import { convertFileSrc } from "@tauri-apps/api/core";
 import { ref } from "vue";
 
 const emit = defineEmits([
