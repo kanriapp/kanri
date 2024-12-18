@@ -37,7 +37,7 @@
   ],
   "definitions": {
     "Capability": {
-      "description": "A grouping and boundary mechanism developers can use to isolate access to the IPC layer.\n\nIt controls application windows fine grained access to the Tauri core, application, or plugin commands. If a window is not matching any capability then it has no access to the IPC layer at all.\n\nThis can be done to create groups of windows, based on their required system access, which can reduce impact of frontend vulnerabilities in less privileged windows. Windows can be added to a capability by exact name (e.g. `main-window`) or glob patterns like `*` or `admin-*`. A Window can have none, one, or multiple associated capabilities.\n\n## Example\n\n```json { \"identifier\": \"main-user-files-write\", \"description\": \"This capability allows the `main` window on macOS and Windows access to `filesystem` write related commands and `dialog` commands to enable programatic access to files selected by the user.\", \"windows\": [ \"main\" ], \"permissions\": [ \"core:default\", \"dialog:open\", { \"identifier\": \"fs:allow-write-text-file\", \"allow\": [{ \"path\": \"$HOME/test.txt\" }] }, \"platforms\": [\"macOS\",\"windows\"] } ```",
+      "description": "A grouping and boundary mechanism developers can use to isolate access to the IPC layer.\n\nIt controls application windows fine grained access to the Tauri core, application, or plugin commands. If a window is not matching any capability then it has no access to the IPC layer at all.\n\nThis can be done to create groups of windows, based on their required system access, which can reduce impact of frontend vulnerabilities in less privileged windows. Windows can be added to a capability by exact name (e.g. `main-window`) or glob patterns like `*` or `admin-*`. A Window can have none, one, or multiple associated capabilities.\n\n## Example\n\n```json { \"identifier\": \"main-user-files-write\", \"description\": \"This capability allows the `main` window on macOS and Windows access to `filesystem` write related commands and `dialog` commands to enable programatic access to files selected by the user.\", \"windows\": [ \"main\" ], \"permissions\": [ \"core:default\", \"dialog:open\", { \"identifier\": \"fs:allow-write-text-file\", \"allow\": [{ \"path\": \"$HOME/test.txt\" }] }, ], \"platforms\": [\"macOS\",\"windows\"] } ```",
       "type": "object",
       "required": [
         "identifier",
@@ -84,7 +84,7 @@
           }
         },
         "permissions": {
-          "description": "List of permissions attached to this capability.\n\nMust include the plugin name as prefix in the form of `${plugin-name}:${permission-name}`. For commands directly implemented in the application itself only `${permission-name}` is required.\n\n## Example\n\n```json [ \"core:default\", \"shell:allow-open\", \"dialog:open\", { \"identifier\": \"fs:allow-write-text-file\", \"allow\": [{ \"path\": \"$HOME/test.txt\" }] } ```",
+          "description": "List of permissions attached to this capability.\n\nMust include the plugin name as prefix in the form of `${plugin-name}:${permission-name}`. For commands directly implemented in the application itself only `${permission-name}` is required.\n\n## Example\n\n```json [ \"core:default\", \"shell:allow-open\", \"dialog:open\", { \"identifier\": \"fs:allow-write-text-file\", \"allow\": [{ \"path\": \"$HOME/test.txt\" }] } ] ```",
           "type": "array",
           "items": {
             "$ref": "#/definitions/PermissionEntry"
@@ -1772,21 +1772,6 @@
           "const": "store:allow-clear"
         },
         {
-          "description": "Enables the close_store command without any pre-configured scope.",
-          "type": "string",
-          "const": "store:allow-close-store"
-        },
-        {
-          "description": "Enables the create_or_existing_store command without any pre-configured scope.",
-          "type": "string",
-          "const": "store:allow-create-or-existing-store"
-        },
-        {
-          "description": "Enables the create_store command without any pre-configured scope.",
-          "type": "string",
-          "const": "store:allow-create-store"
-        },
-        {
           "description": "Enables the delete command without any pre-configured scope.",
           "type": "string",
           "const": "store:allow-delete"
@@ -1827,6 +1812,11 @@
           "const": "store:allow-load"
         },
         {
+          "description": "Enables the reload command without any pre-configured scope.",
+          "type": "string",
+          "const": "store:allow-reload"
+        },
+        {
           "description": "Enables the reset command without any pre-configured scope.",
           "type": "string",
           "const": "store:allow-reset"
@@ -1850,21 +1840,6 @@
           "description": "Denies the clear command without any pre-configured scope.",
           "type": "string",
           "const": "store:deny-clear"
-        },
-        {
-          "description": "Denies the close_store command without any pre-configured scope.",
-          "type": "string",
-          "const": "store:deny-close-store"
-        },
-        {
-          "description": "Denies the create_or_existing_store command without any pre-configured scope.",
-          "type": "string",
-          "const": "store:deny-create-or-existing-store"
-        },
-        {
-          "description": "Denies the create_store command without any pre-configured scope.",
-          "type": "string",
-          "const": "store:deny-create-store"
         },
         {
           "description": "Denies the delete command without any pre-configured scope.",
@@ -1905,6 +1880,11 @@
           "description": "Denies the load command without any pre-configured scope.",
           "type": "string",
           "const": "store:deny-load"
+        },
+        {
+          "description": "Denies the reload command without any pre-configured scope.",
+          "type": "string",
+          "const": "store:deny-reload"
         },
         {
           "description": "Denies the reset command without any pre-configured scope.",
