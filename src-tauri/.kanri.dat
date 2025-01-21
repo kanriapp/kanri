@@ -1,0 +1,83 @@
+{
+  "colors": {
+    "accent": "#2150c0",
+    "accentDarker": "#17367d",
+    "bgPrimary": "#111112",
+    "elevation1": "#1b1b1d",
+    "elevation2": "#27272a",
+    "elevation3": "#333338",
+    "text": "#f4f4f5",
+    "textButtons": "#f1f5f9",
+    "textD1": "#e4e4e7",
+    "textD2": "#d4d4d8",
+    "textD3": "#a1a1aa",
+    "textD4": "#71717a"
+  },
+  "animationsEnabled": true,
+  "columnZoomLevel": 0,
+  "displayColumnCardCountEnabled": true,
+  "activeTheme": "dark",
+  "boardSortingOption": "default",
+  "boards": [
+    {
+      "columns": [
+        {
+          "cards": [
+            {
+              "id": "izky9tk3tavdabrkfxcva29q",
+              "name": "awfawf"
+            },
+            {
+              "id": "js3pfbqqie0d0aacdelix07e",
+              "name": "awd"
+            }
+          ],
+          "id": "kpntde037vd378amsmuitn4c",
+          "title": "Todo"
+        },
+        {
+          "cards": [],
+          "id": "np0fvjvccgoi1ic3jhgzvs71",
+          "title": "Work in progressawf"
+        },
+        {
+          "cards": [
+            {
+              "color": "bg-red-600",
+              "id": "cpe1g4m1e82ymtab4m6ac59n",
+              "name": "awawfwa"
+            }
+          ],
+          "id": "w34i8matswzbza5l576exgbw",
+          "title": "Done"
+        }
+      ],
+      "id": "z6c0gws1bcqa4yba124jypux",
+      "lastEdited": "2024-10-11T08:49:06.538Z",
+      "title": "paowkd"
+    },
+    {
+      "columns": [
+        {
+          "cards": [],
+          "id": "a7euqct5eherubt5jcf95rfz",
+          "title": "Todo"
+        },
+        {
+          "cards": [],
+          "id": "sftyanfqerv63c5ijkq52tfz",
+          "title": "Work in progress"
+        },
+        {
+          "cards": [],
+          "id": "biz35b7hzlet4uyg1mnwxb5y",
+          "title": "Done"
+        }
+      ],
+      "id": "kwtzu8ez7eb97f61egjjaf3u",
+      "lastEdited": "2024-10-11T08:48:46.004Z",
+      "title": "aawwdw"
+    }
+  ],
+  "lastInstalledVersion": "0.8.0"
+}
