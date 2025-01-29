@@ -17,12 +17,12 @@ jobs:
     strategy:
       fail-fast: false
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
     - name: setup node
       uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 22
     - name: install app dependencies and build it
       run: yarn && yarn generate
