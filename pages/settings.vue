@@ -292,9 +292,9 @@ import {
   SwatchIcon,
 } from "@heroicons/vue/24/outline";
 
-import { message, open, save } from "@tauri-apps/api/dialog";
-import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
-import { disable, enable, isEnabled } from "tauri-plugin-autostart-api";
+import { message, open, save } from "@tauri-apps/plugin-dialog";
+import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
+import { disable, enable, isEnabled } from "@tauri-apps/plugin-autostart";
 
 import { useI18n } from "vue-i18n";
 

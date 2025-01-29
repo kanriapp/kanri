@@ -278,9 +278,9 @@ import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight } from "@phosphor-icons/vue";
 
-import { save } from "@tauri-apps/api/dialog";
-import { writeTextFile } from "@tauri-apps/api/fs";
-import { convertFileSrc } from "@tauri-apps/api/tauri";
+import { save } from "@tauri-apps/plugin-dialog";
+import { writeTextFile } from "@tauri-apps/plugin-fs";
+import { convertFileSrc } from "@tauri-apps/api/core";
 import { useConfirmDialog } from "@vueuse/core";
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";

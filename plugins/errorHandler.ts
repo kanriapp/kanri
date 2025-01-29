@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { error } from "tauri-plugin-log-api";
+import { error } from "@tauri-apps/plugin-log";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook("vue:error", (err, instance, info) => {
