@@ -1762,6 +1762,91 @@
           "const": "log:deny-log"
         },
         {
+          "description": "This permission set configures which\noperating system information are available\nto gather from the frontend.\n\n#### Granted Permissions\n\nAll information except the host name are available.\n\n",
+          "type": "string",
+          "const": "os:default"
+        },
+        {
+          "description": "Enables the arch command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:allow-arch"
+        },
+        {
+          "description": "Enables the exe_extension command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:allow-exe-extension"
+        },
+        {
+          "description": "Enables the family command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:allow-family"
+        },
+        {
+          "description": "Enables the hostname command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:allow-hostname"
+        },
+        {
+          "description": "Enables the locale command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:allow-locale"
+        },
+        {
+          "description": "Enables the os_type command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:allow-os-type"
+        },
+        {
+          "description": "Enables the platform command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:allow-platform"
+        },
+        {
+          "description": "Enables the version command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:allow-version"
+        },
+        {
+          "description": "Denies the arch command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:deny-arch"
+        },
+        {
+          "description": "Denies the exe_extension command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:deny-exe-extension"
+        },
+        {
+          "description": "Denies the family command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:deny-family"
+        },
+        {
+          "description": "Denies the hostname command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:deny-hostname"
+        },
+        {
+          "description": "Denies the locale command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:deny-locale"
+        },
+        {
+          "description": "Denies the os_type command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:deny-os-type"
+        },
+        {
+          "description": "Denies the platform command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:deny-platform"
+        },
+        {
+          "description": "Denies the version command without any pre-configured scope.",
+          "type": "string",
+          "const": "os:deny-version"
+        },
+        {
           "description": "This permission set configures what kind of\noperations are available from the store plugin.\n\n#### Granted Permissions\n\nAll operations are enabled by default.\n\n",
           "type": "string",
           "const": "store:default"
