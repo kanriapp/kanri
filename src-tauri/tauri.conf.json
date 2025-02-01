@@ -63,7 +63,13 @@
         ],
         "enable": true
       },
-      "csp": "default-src 'self' blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self' asset: https://asset.localhost; style-src 'unsafe-inline' 'self'; style-src-elem 'unsafe-inline' 'self'; style-src-attr 'unsafe-inline' 'self'; connect-src ipc: http://ipc.localhost"
+      "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "'self' ipc: http://ipc.localhost",
+        "img-src": "'self' asset: http://asset.localhost blob: data:",
+        "style-src": "'unsafe-inline' 'self'",
+        "style-scr-elem": "'unsafe-inline' 'self'"
+      }
     }
   }
 }
