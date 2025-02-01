@@ -223,7 +223,7 @@
       "creditsTitle": "鸣谢",
       "creditsText1": "本应用根据GPLv3许可证授权（除非某些文件指定了不同的许可证）。使用的图标来自 Heroicons 和 Phosphor Icons。",
       "creditsText2": "我们与 Trello, Inc.（www.trello.com）没有任何附属、关联、授权、认可或任何官方联系。",
-      "copyrights": "版权所有 © 2022-2024 trobonox ({email})",
+      "copyrights": "版权所有 © 2022-2025 trobonox ({email})",
       "version": "v{major}.{minor}.{revision}",
       "thirdPartyLicenseNotices": "第三方许可声明"
     },

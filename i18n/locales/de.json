@@ -223,7 +223,7 @@
       "creditsTitle": "Danksagungen",
       "creditsText1": "App lizenziert unter der GPLv3-Lizenz (außer einige Dateien mit anderen Lizenzen, die in ihren entsprechenden Lizenzheadern/-dateien angegeben sind). Verwendete Icons stammen von Heroicons und Phosphor Icons.",
       "creditsText2": "Wir sind nicht verbunden, assoziiert, autorisiert, unterstützt oder in irgendeiner Weise offiziell mit Trello, Inc. (www.trello.com) verbunden.",
-      "copyrights": "Copyright (c) 2022-2024 trobonox ({email})",
+      "copyrights": "Copyright (c) 2022-2025 trobonox ({email})",
       "version": "v{major}.{minor}.{revision}",
       "thirdPartyLicenseNotices": "Hinweise zu Drittanbieter-Lizenzen"
     },

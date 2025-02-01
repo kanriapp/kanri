@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
+SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>
 
 SPDX-License-Identifier: Apache-2.0
 -->
@@ -78,5 +78,5 @@ yarn tauri build
 ```
 
 ---
-**Copyright (c) 2022-2024 trobonox (trobo@kanriapp.com)**. Licensed under GPL v3 (with some files under Apache 2.0 or other licenses stated in the files themselves).
+**Copyright (c) 2022-2025 trobonox (trobo@kanriapp.com)**. Licensed under GPL v3 (with some files under Apache 2.0 or other licenses stated in the files themselves).
 The Kanri logo, name and other branding are **NOT** open source, full copyright belongs to trobonox.

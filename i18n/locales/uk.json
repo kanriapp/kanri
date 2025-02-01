@@ -223,7 +223,7 @@
       "creditsTitle": "Автори",
       "creditsText1": "Додаток ліцензований за ліцензією GPLv3 (за винятком деяких файлів з іншими ліцензіями, зазначеними у відповідних заголовках/файлах ліцензій). Використовуються іконки Heroicons та Phosphor Icons.",
       "creditsText2": "Ми не є афілійованими, пов'язаними, авторизованими чи підтриманими Trello, Inc. (www.trello.com).",
-      "copyrights": "Авторське право (c) 2022-2024 trobonox ({email}) ",
+      "copyrights": "Авторське право (c) 2022-2025 trobonox ({email}) ",
       "version": "v{major}.{minor}.{revision}",
       "thirdPartyLicenseNotices": "Повідомлення про ліцензії третіх сторін"
     },
