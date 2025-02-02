@@ -25,7 +25,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     class="bg-custom flex aspect-video h-32 flex-row gap-1.5 overflow-hidden rounded-t-md"
   >
     <div
-      class="bg-effect-overlay flex h-full w-max min-w-full flex-col rounded-t-md p-2"
+      class="flex h-full w-max min-w-full flex-col rounded-t-md p-2"
+      :style="{
+        '-webkit-backdrop-filter':
+          'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
+        'backdrop-filter':
+          'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
+      }"
     >
       <span class="mb-0.5 text-[4px] font-bold"> {{ board.title }}</span>
       <div class="flex w-full flex-row gap-1.5">
@@ -118,10 +124,5 @@ onMounted(() => {
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.bg-effect-overlay {
-  z-index: 2;
-  backdrop-filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
 }
 </style>
