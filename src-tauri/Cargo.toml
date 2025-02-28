@@ -34,6 +34,7 @@ tauri-plugin-log = "2.0.0"
 tauri-plugin-window-state = { version = "2" }
 tauri-plugin-dialog = "2"
 tauri-plugin-os = "2.2.0"
+tauri-plugin-fs = "2.2.0"
 
 [features]
 # by default Tauri runs in production mode

@@ -16,6 +16,11 @@
         "dialog:allow-open",
         "dialog:default",
         "autostart:default",
-        "log:default"
+        "log:default",
+        "fs:default",
+        "fs:allow-read",
+        "fs:allow-write",
+        "fs:allow-read-text-file",
+        "fs:allow-write-text-file"
     ]
 }
