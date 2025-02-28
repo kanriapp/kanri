@@ -41,6 +41,7 @@ export default defineNuxtConfig({
       { code: "zh_cn", name: "简体中文", file: "zh_cn.json" },
       { code: "ru", name: "Русский", file: "ru.json" },
       { code: "uk", name: "українська", file: "uk.json" },
+      { code: "fr", name: "Français", file: "fr.json" },
     ],
     defaultLocale: "en",
     langDir: "locales/",
