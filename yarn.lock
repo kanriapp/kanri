@@ -8008,9 +8008,10 @@ tar@^6.1.11, tar@^6.2.1:
   dependencies:
     "@tauri-apps/api" "1.6.0"
 
-"tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#0b7079b8c55bf25f6d9d9e8c57812d03b48a9788":
+"tauri-plugin-store-api@github:tauri-apps/tauri-plugin-store#8adc771354df0a99bc55893525676433f0f4d646":
   version "0.0.0"
-  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/0b7079b8c55bf25f6d9d9e8c57812d03b48a9788"
+  uid "8adc771354df0a99bc55893525676433f0f4d646"
+  resolved "https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/8adc771354df0a99bc55893525676433f0f4d646"
   dependencies:
     "@tauri-apps/api" "1.6.0"
 
