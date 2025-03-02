@@ -20,10 +20,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { defineStore } from "pinia";
-import { Store } from "tauri-plugin-store-api";
+import { LazyStore } from "@tauri-apps/plugin-store";
 
 export const useTauriStore = defineStore("tauriStore", {
   state: () => {
-    return { store: new Store(".kanri.dat") };
+    return { store: new LazyStore(".kanri.dat") };
   },
 });

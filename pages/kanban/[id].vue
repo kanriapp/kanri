@@ -205,7 +205,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       :style="cssVars"
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
     >
-      <div class="bg-effect-overlay h-full w-max min-w-full pt-28">
+      <div
+        class="h-full w-max min-w-full pt-28"
+        :style="{
+          '-webkit-backdrop-filter':
+            'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
+          'backdrop-filter':
+            'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
+          'pointer-events': 'none',
+        }"
+      >
         <div class="pointer-events-auto z-50 pl-8">
           <div class="pt-4">
             <Container
@@ -278,9 +287,9 @@ import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight } from "@phosphor-icons/vue";
 
-import { save } from "@tauri-apps/api/dialog";
-import { writeTextFile } from "@tauri-apps/api/fs";
-import { convertFileSrc } from "@tauri-apps/api/tauri";
+import { save } from "@tauri-apps/plugin-dialog";
+import { writeTextFile } from "@tauri-apps/plugin-fs";
+import { convertFileSrc } from "@tauri-apps/api/core";
 import { useConfirmDialog } from "@vueuse/core";
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
@@ -993,11 +1002,5 @@ const getGhostParent = () => {
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.bg-effect-overlay {
-  z-index: 2;
-  backdrop-filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
-  pointer-events: none;
 }
 </style>
