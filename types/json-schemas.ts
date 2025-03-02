@@ -37,7 +37,7 @@ export const kanriThemeSchema = z.object({
 });
 
 const kanriTagSchema = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   text: z.string(),
   color: z.string().optional(),
   style: z.string().optional(),
@@ -103,7 +103,15 @@ export const kanriJsonSchema = z.object({
   reverseSorting: z.boolean().optional().nullable(),
   addToTopOfColumnButtonEnabled: z.boolean().optional().nullable(),
   displayColumnCardCountEnabled: z.boolean().optional().nullable(),
-  pins: z.array(kanriBoardSchema).optional().nullable()
+  pins: z
+    .array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+      })
+    )
+    .optional()
+    .nullable(),
 });
 
 export const kanbanElectronJsonSchema = z.object({

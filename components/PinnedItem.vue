@@ -51,10 +51,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
 import { PhArticle } from "@phosphor-icons/vue";
-import type { Board } from "@/types/kanban-types";
 
 const props = defineProps<{
-  board: Board;
+  board: { id: string; title: string };
 }>();
 
 const isActivePin = ref(false);

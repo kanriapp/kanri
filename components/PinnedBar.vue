@@ -39,7 +39,7 @@ import type { Board } from "@/types/kanban-types";
 import PinnedItem from "./PinnedItem.vue";
 
 const store = useTauriStore().store;
-const pins: Ref<Array<Board>> = ref([]);
+const pins: Ref<Array<{ id: string; title: string }>> = ref([]);
 const boards: Ref<Array<Board>> = ref([]);
 
 onMounted(async () => {
@@ -47,30 +47,34 @@ onMounted(async () => {
   pins.value = (await store.get("pins")) || [];
 
   emitter.on("toggleBoardPin", onPinToggle);
-  emitter.on("updateBoardPin", updatePin)
+  emitter.on("updateBoardPin", updatePin);
   emitter.on("boardDeletion", onKanbanDelete);
 });
 
 const onPinToggle = async (board: Board) => {
   const boardIsPinned = findObjectById(pins.value, board.id) ? true : false;
   if (boardIsPinned) pins.value = pins.value.filter((x) => x.id !== board.id);
-  else pins.value = [board, ...pins.value];
+  else pins.value = [filterBoardToNameAndId(board), ...pins.value];
 
   store.set("pins", pins.value);
 };
 
 const updatePin = async (board: Board) => {
   const boardIsPinned = findObjectById(pins.value, board.id) ? true : false;
-  if (!boardIsPinned) return; 
+  if (!boardIsPinned) return;
 
   pins.value = pins.value.map((x) => {
     if (x.id === board.id) {
-      x = board;
+      x = filterBoardToNameAndId(board);
     }
     return x;
   });
 
   store.set("pins", pins.value);
+};
+
+const filterBoardToNameAndId = (board: Board) => {
+  return { id: board.id, title: board.title };
 };
 
 const onKanbanDelete = async (board: Board) => {
