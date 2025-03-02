@@ -50,6 +50,7 @@ type Events = {
   boardDeletion: Board;
 
   toggleBoardPin: Board;
+  updateBoardPin: Board;
 
   resetColumnInputs: void;
 

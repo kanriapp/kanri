@@ -385,6 +385,9 @@ const renameBoard = async (index: number, name: string) => {
   boards.value[index].lastEdited = new Date();
   store.set("boards", boards.value);
 
+  // update board name in pinned bar
+  emitter.emit("updateBoardPin", boards.value[index]);
+
   await setSorting();
 };
 

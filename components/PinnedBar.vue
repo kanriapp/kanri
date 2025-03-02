@@ -47,6 +47,7 @@ onMounted(async () => {
   pins.value = (await store.get("pins")) || [];
 
   emitter.on("toggleBoardPin", onPinToggle);
+  emitter.on("updateBoardPin", updatePin)
   emitter.on("boardDeletion", onKanbanDelete);
 });
 
@@ -54,6 +55,20 @@ const onPinToggle = async (board: Board) => {
   const boardIsPinned = findObjectById(pins.value, board.id) ? true : false;
   if (boardIsPinned) pins.value = pins.value.filter((x) => x.id !== board.id);
   else pins.value = [board, ...pins.value];
+
+  store.set("pins", pins.value);
+};
+
+const updatePin = async (board: Board) => {
+  const boardIsPinned = findObjectById(pins.value, board.id) ? true : false;
+  if (!boardIsPinned) return; 
+
+  pins.value = pins.value.map((x) => {
+    if (x.id === board.id) {
+      x = board;
+    }
+    return x;
+  });
 
   store.set("pins", pins.value);
 };

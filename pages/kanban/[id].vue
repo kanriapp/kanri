@@ -108,10 +108,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         type="text"
         @blur="
           boardTitleEditing = false;
+          emitter.emit('updateBoardPin', board);
           updateStorage();
         "
         @keypress.enter="
           boardTitleEditing = false;
+          emitter.emit('updateBoardPin', board);
           updateStorage();
         "
       />
@@ -882,6 +884,9 @@ const renameBoard = (index: number, name: string) => {
   boards.value[index].title = name;
   boards.value[index].lastEdited = new Date();
   store.set("boards", boards.value);
+
+  // update board pin (to reflect new name)
+  emitter.emit("updateBoardPin", boards.value[index]);
 };
 
 const duplicateBoard = () => {
