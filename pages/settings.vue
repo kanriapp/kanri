@@ -386,7 +386,7 @@ const deleteAllData = async () => {
 
   router.go(0);
 
-  await message("Successfully deleted data.", { title: "Kanri", type: "info" });
+  await message("Successfully deleted data.", { title: "Kanri", kind: "info" });
 };
 
 const toggleAutostart = async (autostartToggled: boolean) => {
@@ -466,7 +466,7 @@ const importThemeFromJson = async () => {
     console.error("Could not parse imported JSON;", error);
     await message(t("pages.settings.loadJsonErrorMessage"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (parsedJson === null) return;
@@ -478,7 +478,7 @@ const importThemeFromJson = async () => {
     console.error(error);
     await message(t("pages.settings.parseJsonErrorMessage"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (zodParsed === null) return;
