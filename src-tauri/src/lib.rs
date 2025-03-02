@@ -9,6 +9,7 @@
     windows_subsystem = "windows"
 )]
 
+use tauri::Manager;
 use tauri_plugin_autostart::MacosLauncher;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -25,6 +26,15 @@ pub fn run() {
             MacosLauncher::LaunchAgent,
             None,
         ))
+        .setup(|app| {
+            #[cfg(desktop)]
+            let _ = app.handle().plugin(tauri_plugin_single_instance::init(|app, _args,_cwd| {
+                let _ = app.get_webview_window("main")
+                       .expect("no main window")
+                       .set_focus();
+            }));
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

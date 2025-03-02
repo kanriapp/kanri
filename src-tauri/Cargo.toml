@@ -28,10 +28,8 @@ serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "2", features = ["protocol-asset"] }
 tauri-plugin-persisted-scope = { features = ["protocol-asset"], version = "2" }
 ignore = "=0.4.23"
-tauri-plugin-autostart = { version = "2" }
 tauri-plugin-store = "2.0.0"
 tauri-plugin-log = "2.0.0"
-tauri-plugin-window-state = { version = "2" }
 tauri-plugin-dialog = "2"
 tauri-plugin-os = "2.2.0"
 tauri-plugin-fs = "2.2.0"
@@ -46,3 +44,5 @@ custom-protocol = ["tauri/custom-protocol"]
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-autostart = "2"
+tauri-plugin-single-instance = "2"
+tauri-plugin-window-state = { version = "2" }
