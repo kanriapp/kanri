@@ -206,6 +206,7 @@ const exportJSON = async () => {
 
   const savedBoards = await store.get("boards");
   const boardSortingOption = await store.get("boardSortingOption");
+  const pins = await store.get("pins");
   const reverseSorting = await store.get("reverseSorting");
   const activeTheme = await store.get("activeTheme");
   const colors = await store.get("colors");
@@ -225,6 +226,7 @@ const exportJSON = async () => {
       activeTheme,
       boardSortingOption,
       boards: savedBoards,
+      pins,
       colors,
       columnZoomLevel,
       lastInstalledVersion,
@@ -333,6 +335,7 @@ const importFromKanriFull = async () => {
   if (zodParsed === null) return;
 
   store.set("boards", zodParsed.boards);
+  store.set("pins", zodParsed.pins);
   store.set("colors", zodParsed.colors);
   store.set("activeTheme", zodParsed.activeTheme);
   store.set("columnZoomLevel", zodParsed.columnZoomLevel);
