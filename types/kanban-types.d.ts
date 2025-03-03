@@ -47,7 +47,7 @@ export declare interface Task {
 }
 
 export declare interface Tag {
-  id: string;
+  id?: string;
   text: string;
   style?: string;
   color?: string | null;
