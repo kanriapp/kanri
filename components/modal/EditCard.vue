@@ -598,12 +598,24 @@ const getTaskPercentage = computed(() => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const beforeTagAdd = ({ tag, addTag }: any) => {
+  // get all matches from autocomplete items (starts with), if it is only one, select it
+  const matches = autocompleteItems.value.filter((item) =>
+    item.text.toLowerCase().startsWith(tag.text.toLowerCase())
+  );
+
   // check if autocomplete items have a tag with the same name
   const existingTag = autocompleteItems.value.find(
     (item) => item.text === tag.text
   );
   if (!existingTag) {
-    tag.id = generateUniqueID();
+    if (matches.length === 1) {
+      tag.text = matches[0].text;
+      tag.id = matches[0].id;
+      tag.color = matches[0].color;
+      tag.style = matches[0].style;
+    } else {
+      tag.id = generateUniqueID();
+    }
   }
 
   addTag();
