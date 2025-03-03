@@ -6,3 +6,5 @@
 # will have compiled files and executables
 /target/
 WixTools
+/gen/schemas/*
+/gen/*
