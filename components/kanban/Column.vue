@@ -317,21 +317,35 @@ const columnSizeClass = computed(() => {
   }
 });
 
-const escRegXp = (str: string) => {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-};
-
 const fuzzyMatch = (input: string, str: string) => {
-  input =
-    ".*" +
-    input
-      .toLowerCase()
-      .split("")
-      .map((x) => `${escRegXp(x)}.*`)
-      .join("");
+  const inputWords = input.toLowerCase().split(/\s+/);
+  const strWords = str.toLowerCase().split(/\s+/);
 
-  const regexp = new RegExp(input, "i");
-  return regexp.test(str);
+  let matches = 0;
+
+  inputWords.forEach((inputWord) => {
+    strWords.forEach((strWord) => {
+      let inputIndex = 0;
+      let strIndex = 0;
+      let wordMatches = 0;
+
+      while (inputIndex < inputWord.length && strIndex < strWord.length) {
+        if (inputWord[inputIndex] === strWord[strIndex]) {
+          wordMatches++;
+          inputIndex++;
+        }
+        strIndex++;
+      }
+
+      const matchRatio = wordMatches / inputWord.length;
+      if (matchRatio >= 0.6) {
+        // Adjust the threshold as needed
+        matches++;
+      }
+    });
+  });
+
+  return matches === inputWords.length;
 };
 
 const filteredCards = computed(() => {
