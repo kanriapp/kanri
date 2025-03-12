@@ -28,6 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         id="tabitem"
         :key="board.id"
         :board="board"
+        @setPinIcon="setPinIcon"
       />
     </section>
   </nav>
@@ -39,7 +40,9 @@ import type { Board } from "@/types/kanban-types";
 import PinnedItem from "./PinnedItem.vue";
 
 const store = useTauriStore().store;
-const pins: Ref<Array<{ id: string; title: string }>> = ref([]);
+const pins: Ref<Array<{ id: string; title: string; pinIcon?: string }>> = ref(
+  []
+);
 const boards: Ref<Array<Board>> = ref([]);
 
 onMounted(async () => {
@@ -69,6 +72,22 @@ const updatePin = async (board: Board) => {
     }
     return x;
   });
+
+  store.set("pins", pins.value);
+};
+
+const setPinIcon = async (id: string, pinIcon: string) => {
+  console.log(id, pinIcon);
+
+  pins.value = pins.value.map((x) => {
+    if (x.id === id) {
+      x = { ...x, pinIcon: pinIcon };
+      console.log(x, "YEEEET");
+    }
+    return x;
+  });
+
+  console.log(pins.value);
 
   store.set("pins", pins.value);
 };

@@ -118,7 +118,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import emitter from "@/utils/emitter";
-import { useTauriStore } from "@/stores/tauriStore";
 import {
   ContextMenuContent,
   ContextMenuItem,
@@ -136,22 +135,18 @@ import {
   searchIcons,
 } from "@/utils/iconManager";
 
-interface PinnedIcons {
-  [key: string]: string;
-}
-
-
 const props = defineProps<{
-  board: { id: string; title: string };
+  board: { id: string; title: string; pinIcon?: string };
 }>();
 
-const store = useTauriStore().store;
+const emit = defineEmits(["setPinIcon"]);
+
 const isActivePin = ref(false);
 const router = useRouter();
 const searchQuery = ref("");
 
 const selectedIconName = ref("article");
-const selectedIcon = ref<Component>(availableIcons[0].component);
+const selectedIcon = shallowRef<Component>(availableIcons[0].component);
 
 const searchResults = computed(() => {
   if (!searchQuery.value) return [];
@@ -162,10 +157,9 @@ onMounted(async () => {
   emitter.on("openKanbanPage", onNavigation);
   emitter.on("closeKanbanPage", onNavigation);
 
-  const savedIcons = ((await store.get("pinnedIcons")) as PinnedIcons) || {};
-  if (savedIcons[props.board.id]) {
+  if (props.board.pinIcon) {
     const savedIcon = availableIcons.find(
-      (icon) => icon.name === savedIcons[props.board.id]
+      (icon) => icon.name === props.board.pinIcon
     );
     if (savedIcon) {
       selectedIcon.value = savedIcon.component;
@@ -185,9 +179,7 @@ const selectIcon = async (icon: Component, name: string) => {
   selectedIcon.value = icon;
   selectedIconName.value = name;
 
-  const savedIcons = ((await store.get("pinnedIcons")) as PinnedIcons) || {};
-  savedIcons[props.board.id] = name;
-  await store.set("pinnedIcons", savedIcons);
+  emit("setPinIcon", props.board.id, name);
 };
 
 const onNavigation = () => {
