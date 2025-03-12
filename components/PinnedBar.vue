@@ -77,16 +77,12 @@ const updatePin = async (board: Board) => {
 };
 
 const setPinIcon = async (id: string, pinIcon: string) => {
-  console.log(id, pinIcon);
-
   pins.value = pins.value.map((x) => {
     if (x.id === id) {
       x = { ...x, pinIcon: pinIcon };
     }
     return x;
   });
-
-  console.log(pins.value);
 
   store.set("pins", pins.value);
 };
