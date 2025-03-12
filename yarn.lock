@@ -1852,9 +1852,9 @@
     "@tauri-apps/api" "^2.0.0"
 
 "@tauri-apps/plugin-log@^2.2.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/plugin-log/-/plugin-log-2.3.0.tgz#b4bd5edd82aa26c07552f57b9787fdf04f91262a"
-  integrity sha512-OhXv6WwumSIPW+pyzoaBm81Lo+hkglNIu9TTlo49l1pms1Rfg/qzRJE0HNOcsgqTGQ0xcMFMqhwMtPlCNUn2+Q==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/plugin-log/-/plugin-log-2.3.1.tgz#90017ad88b23cab2e05a010e875758b52c58e83d"
+  integrity sha512-nnKGHENWt7teqvUlIKxd6bp2wCUrrLvCvajN6CWbyrHBNKPi/pyKELzD511siEMDEdndbiZ/GEhiK0xBtZopRg==
   dependencies:
     "@tauri-apps/api" "^2.0.0"
 
