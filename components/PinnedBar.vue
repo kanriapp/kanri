@@ -82,7 +82,6 @@ const setPinIcon = async (id: string, pinIcon: string) => {
   pins.value = pins.value.map((x) => {
     if (x.id === id) {
       x = { ...x, pinIcon: pinIcon };
-      console.log(x, "YEEEET");
     }
     return x;
   });
