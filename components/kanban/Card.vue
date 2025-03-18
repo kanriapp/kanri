@@ -408,7 +408,13 @@ const dueDateOverdue = computed(() => {
 });
 
 const deleteCardWithConfirmation = (index: number) => {
-  emit("removeCardWithConfirmation", index, cardRef.value);
+  /*
+    TODO: rewrite this, we are passing a ref through an emit which works for this usecase of DOM manipulation but might break reactivity
+    need to figure out a better way to handle this, especially because we go back and forth between the card component and the parent
+    (how this works at the moment: click x -> emit removeCardWithConfirmation -> parent component opens confirmation modal and checks if we actually want the deletion -> if yes, manipulate the DOM of the card component and then delete the card)
+  */
+  // eslint-disable-next-line vue/no-ref-as-operand
+  emit("removeCardWithConfirmation", index, cardRef);
 };
 
 const deleteCardWithAnimation = (index: number) => {
