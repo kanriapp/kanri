@@ -356,7 +356,10 @@ const getFormattedDueDate = computed(() => {
       const secondsPast = Math.floor(-timeDifference / 1000);
       const minutesPast = Math.floor(secondsPast / 60);
       const hoursPast = Math.floor(minutesPast / 60);
-      const daysPast = Math.ceil(hoursPast / 24);
+      const daysPast =
+        hoursPast % 24 > 12
+          ? Math.ceil(hoursPast / 24)
+          : Math.floor(hoursPast / 24);
 
       const seconds = secondsPast % 60;
       const minutes = minutesPast % 60;
@@ -375,7 +378,8 @@ const getFormattedDueDate = computed(() => {
     const seconds = Math.floor(timeDifference / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
-    const days = Math.ceil(hours / 24);
+    const days =
+      hours % 24 > 12 ? Math.ceil(hours / 24) : Math.floor(hours / 24);
 
     if (days > 0) {
       return `in ${days} day${days > 1 ? "s" : ""}`;
@@ -404,7 +408,7 @@ const dueDateOverdue = computed(() => {
 });
 
 const deleteCardWithConfirmation = (index: number) => {
-  emit("removeCardWithConfirmation", index, cardRef);
+  emit("removeCardWithConfirmation", index, cardRef.value);
 };
 
 const deleteCardWithAnimation = (index: number) => {
