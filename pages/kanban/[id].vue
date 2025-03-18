@@ -850,7 +850,7 @@ const updateStorage = () => {
 
 const exportBoardToJson = async () => {
   const filePath = await save({
-    defaultPath: `./kanri_board_${board.value.id}_export.json`,
+    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_board_${board.value.id}_export.json`,
     filters: [
       {
         extensions: ["json"],

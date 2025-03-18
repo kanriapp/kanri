@@ -194,7 +194,7 @@ onMounted(async () => {
 
 const exportJSON = async () => {
   const filePath = await save({
-    defaultPath: "./kanri_data_export.json",
+    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_data_export.json`,
     filters: [
       {
         extensions: ["json"],
@@ -203,6 +203,8 @@ const exportJSON = async () => {
     ],
     title: t("pages.import.exportFullJsonDialogTitle"),
   });
+
+  console.log(new Date().toLocaleDateString());
 
   const savedBoards = await store.get("boards");
   const boardSortingOption = await store.get("boardSortingOption");
@@ -250,7 +252,7 @@ const exportJSON = async () => {
 
 const exportSingleBoard = async (boardId: string) => {
   const filePath = await save({
-    defaultPath: `./kanri_board_export_${boardId}.json`,
+    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_board_export_${boardId}.json`,
     filters: [
       {
         extensions: ["json"],
