@@ -384,6 +384,9 @@ const deleteAllData = async () => {
   activeTheme.value = "dark";
   themeEditorDisplayed.value = false;
 
+  animationsEnabled.value = true;
+  store.set("animationsEnabled", true); // Reset animations to true
+
   router.go(0);
 
   await message("Successfully deleted data.", { title: "Kanri", kind: "info" });
