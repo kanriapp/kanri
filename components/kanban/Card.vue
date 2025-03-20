@@ -507,13 +507,13 @@ const updateCardName = () => {
 /* Zoom level classes for scaling */
 .zoom-down {
   padding: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.45rem !important;
   gap: 0.25rem !important;
 }
 
 .zoom-normal {
   padding: 0.75rem !important;
-  margin-bottom: 0.3rem !important;
+  margin-bottom: 0.1rem !important;
   gap: 0.25rem !important;
 }
 
