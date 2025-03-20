@@ -21,7 +21,7 @@ limitations under the License.
       <div
         ref="cardRef"
         :class="[
-          cardTextClassZoom,
+          zoomClass,
           cardBackgroundColor.startsWith('#') ? '' : cardBackgroundColor,
           cardTextColor,
         ]"
@@ -67,8 +67,8 @@ limitations under the License.
             @single-click="deleteCardWithConfirmation(index)"
           >
             <XMarkIcon
-              class="text-accent-hover mt-[3px] size-4"
-              :class="cardTextColor"
+              class="mt-[3px] size-4"
+              :class="[cardTextColor, iconSizeClass]"
             />
           </ClickCounter>
         </div>
@@ -79,7 +79,7 @@ limitations under the License.
           @click="$emit('openEditCardModal', index, card)"
         >
           <div v-for="tag in cardTags" :key="tag.id">
-            <KanbanTagDisplay :tag="tag" />
+            <KanbanTagDisplay :tag="tag" :zoomLevel="zoomLevel" />
           </div>
         </div>
 
@@ -89,8 +89,7 @@ limitations under the License.
         >
           <PhTextAlignLeft
             v-if="!isDescriptionEmpty"
-            :class="[cardTextColorDim]"
-            class="size-5"
+            :class="[cardTextColorDim, iconSizeClass]"
           />
 
           <div
@@ -100,13 +99,11 @@ limitations under the License.
             }"
             class="flex flex-row items-center gap-1"
           >
-            <PhChecks v-if="allTasksCompleted" class="text-buttons size-5" />
-            <PhListChecks v-else :class="[cardTextColorDim]" class="size-5" />
+            <PhChecks v-if="allTasksCompleted" class="text-buttons" :class="iconSizeClass" />
+            <PhListChecks v-else :class="[cardTextColorDim, iconSizeClass]" />
             <span
-              :class="allTasksCompleted ? 'text-buttons' : cardTextColorDim"
-              class="text-sm"
-              >{{ taskCompletionStatus }}</span
-            >
+              :class="[allTasksCompleted ? 'text-buttons' : cardTextColorDim, taskTextClass]"
+            >{{ taskCompletionStatus }}</span>
           </div>
 
           <div
@@ -116,8 +113,8 @@ limitations under the License.
               'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue,
             }"
           >
-            <PhClock class="size-4" />
-            <span class="text-sm">{{ getFormattedDueDate }}</span>
+            <PhClock :class="iconSizeClass" />
+            <span :class="taskTextClass">{{ getFormattedDueDate }}</span>
           </div>
         </div>
       </div>
@@ -284,22 +281,49 @@ const allTasksCompleted = computed(() => {
   return false; //default return
 });
 
-const cardTextClassZoom = computed(() => {
+// New computed properties for scaling elements
+const zoomClass = computed(() => {
   switch (props.zoomLevel) {
-    case 0:
-      return "";
-
     case -1:
-      return "text-sm";
-
+      return "zoom-down text-sm";
+    case 0:
+      return "zoom-normal";
     case 1:
-      return "text-xl";
-
+      return "zoom-up text-xl";
     case 2:
-      return "text-2xl";
-
+      return "zoom-up-2x text-2xl";
     default:
-      return "";
+      return "zoom-normal";
+  }
+});
+
+const iconSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "size-3";
+    case 0:
+      return "size-5";
+    case 1:
+      return "size-6";
+    case 2:
+      return "size-8";
+    default:
+      return "size-5";
+  }
+});
+
+const taskTextClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "text-xs";
+    case 0:
+      return "text-sm";
+    case 1:
+      return "text-base";
+    case 2:
+      return "text-lg";
+    default:
+      return "text-sm";
   }
 });
 
@@ -461,14 +485,36 @@ const updateCardName = () => {
 
 <style scoped>
 .kanban-card {
-  transition-duration: 550ms;
-  transition-timing-function: ease-out;
-  transition-property: opacity, text-decoration;
   opacity: 100%;
 }
 
 .kanban-card.card-hidden {
   opacity: 0%;
   text-decoration: line-through;
+}
+
+/* Zoom level classes for scaling */
+.zoom-down {
+  padding: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  gap: 0.25rem !important;
+}
+
+.zoom-normal {
+  padding: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+  gap: 0.25rem !important;
+}
+
+.zoom-up {
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+  gap: 0.375rem !important;
+}
+
+.zoom-up-2x {
+  padding: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+  gap: 0.5rem !important;
 }
 </style>

@@ -21,13 +21,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <div
     ref="columnDOMElement"
-    :class="columnSizeClass"
-    class="kanban-column bg-elevation-1 max-h-column flex flex-col rounded-lg p-2"
+    :class="['kanban-column bg-elevation-1 max-h-column flex flex-col rounded-lg p-2', columnSizeClass, columnSpacingClass]"
   >
     <div
       id="board-title"
-      :class="titleTextClassZoom"
-      class="flex flex-row items-start justify-between gap-4"
+      :class="['flex flex-row items-start justify-between gap-4', titleTextClassZoom]"
     >
       <div v-if="!titleEditing" class="flex flex-row items-start gap-1.5">
         <h1
@@ -38,7 +36,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </h1>
         <span
           v-if="cardCountDisplayEnabled"
-          class="bg-elevation-2 mt-1 rounded-2xl px-2 py-0.5 text-xs"
+          :class="['bg-elevation-2 mt-1 rounded-2xl px-2 py-0.5', badgeSizeClass]"
           >{{ cards.length }}</span
         >
       </div>
@@ -48,7 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         ref="titleInput"
         v-model="titleNew"
         v-focus
-        class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none"
+        :class="['bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none', inputSizeClass]"
         maxlength="1000"
         type="text"
         @blur="updateColumnTitle"
@@ -62,7 +60,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <Tooltip v-if="addToTopButtonShown" direction="top">
           <template #trigger>
             <PlusIcon
-              class="text-dim-4 text-accent-hover cursor-pointe mt-1.5 size-4 shrink-0 grow-0"
+              :class="['text-dim-4 text-accent-hover cursor-pointe mt-1.5 shrink-0 grow-0', iconSizeClass]"
               @click="enableCardAddMode(true)"
             />
           </template>
@@ -77,7 +75,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           @single-click="$emit('removeColumn', id)"
         >
           <XMarkIcon
-            class="text-dim-4 text-accent-hover mt-1.5 size-4 shrink-0 grow-0 cursor-pointer"
+            :class="['text-dim-4 text-accent-hover mt-1.5 shrink-0 grow-0 cursor-pointer', iconSizeClass]"
           />
         </ClickCounter>
       </div>
@@ -85,7 +83,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <Container
       :get-child-payload="getChildPayload"
-      class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm"
+      :class="['max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm', containerSpacingClass]"
       drag-class="cursor-grabbing"
       drag-handle-selector=".kanbancard-drag"
       group-name="cards"
@@ -96,7 +94,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Draggable
         v-for="(card, index) in filteredCards"
         :key="card.id"
-        :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
+        :class="[draggingEnabled ? 'kanbancard-drag' : 'nomoredragging', cardSpacingClass]"
         :index="index"
       >
         <KanbanCard
@@ -115,14 +113,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </Draggable>
     </Container>
 
-    <div v-if="cardAddMode" class="mt-2 flex flex-col">
+    <div v-if="cardAddMode" :class="['mt-2 flex flex-col', addCardFormSpacingClass]">
       <textarea
         id="newCardInput"
         ref="newCardInput"
         v-model="newCardName"
         v-focus
         v-resizable
-        class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
+        :class="['bg-elevation-2 border-accent-focus mb-2 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none', textAreaSizeClass]"
         maxlength="5000"
         :placeholder="$t('components.kanban.column.addCardPlaceholder')"
         type="text"
@@ -134,7 +132,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <div class="flex w-full flex-row justify-start gap-2">
         <button
           id="submitButton"
-          class="text-buttons transition-button bg-accent rounded-md px-2 py-1"
+          :class="['text-buttons transition-button bg-accent rounded-md px-2 py-1', buttonSizeClass]"
           @click="
             addCard();
             emitter.emit('columnActionDone');
@@ -143,7 +141,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           {{ $t("general.addAction") }}
         </button>
         <button
-          class="bg-elevation-3-hover transition-button rounded-md px-2 py-1"
+          :class="['bg-elevation-3-hover transition-button rounded-md px-2 py-1', buttonSizeClass]"
           @click="
             cardAddMode = !cardAddMode;
             cardAddModeAddToTopOfColumn = false;
@@ -160,11 +158,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <div
       v-if="!cardAddMode"
-      class="text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row gap-1 rounded-md py-1 font-medium"
+      :class="['text-dim-1 items-center bg-elevation-3-hover mt-2 flex cursor-pointer flex-row gap-1 rounded-md py-1 font-medium', addCardButtonSpacingClass]"
       @click="enableCardAddMode()"
     >
-      <PlusIcon class="size-6 p-0.5" />
-      <h2>{{ $t("components.kanban.column.addCard") }}</h2>
+      <PlusIcon :class="['p-0.5', addCardIconSizeClass]" />
+      <h2 :class="addCardTextSizeClass">{{ $t("components.kanban.column.addCard") }}</h2>
     </div>
   </div>
 </template>
@@ -279,41 +277,145 @@ onMounted(() => {
   }
 });
 
+// enhanced scaling classes based on zoom level
 const titleTextClassZoom = computed(() => {
   switch (props.zoomLevel) {
-    case 0:
-      return ["text-lg"];
-
-    case -1:
-      return ["text-md"];
-
-    case 1:
-      return ["text-xl"];
-
-    case 2:
-      return ["text-2xl"];
-
-    default:
-      return [""];
+    case -1: return "text-md";
+    case 0: return "text-lg";
+    case 1: return "text-xl";
+    case 2: return "text-2xl";
+    default: return "";
   }
 });
 
 const columnSizeClass = computed(() => {
   switch (props.zoomLevel) {
-    case 0:
-      return ["w-64"];
+    case -1: return "w-48";
+    case 0: return "w-64";
+    case 1: return "w-96";
+    case 2: return "w-[560px]";
+    default: return "";
+  }
+});
 
-    case -1:
-      return ["w-48"];
+// new scaled classes for other elements
+const badgeSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "text-xs";
+    case 0: return "text-xs";
+    case 1: return "text-sm";
+    case 2: return "text-base";
+    default: return "text-xs";
+  }
+});
 
-    case 1:
-      return ["w-96"];
+const inputSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "text-sm py-0.5";
+    case 0: return "text-base py-1";
+    case 1: return "text-lg py-1.5";
+    case 2: return "text-xl py-2";
+    default: return "text-base py-1";
+  }
+});
 
-    case 2:
-      return ["w-[560px]"];
+const iconSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "size-3";
+    case 0: return "size-4";
+    case 1: return "size-5";
+    case 2: return "size-6";
+    default: return "size-4";
+  }
+});
 
-    default:
-      return [""];
+const columnSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "p-1.5";
+    case 0: return "p-2";
+    case 1: return "p-3";
+    case 2: return "p-4";
+    default: return "p-2";
+  }
+});
+
+const containerSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "mt-1.5";
+    case 0: return "mt-2";
+    case 1: return "mt-3";
+    case 2: return "mt-4";
+    default: return "mt-2";
+  }
+});
+
+const cardSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "mb-1.5";
+    case 0: return "mb-2";
+    case 1: return "mb-3";
+    case 2: return "mb-4";
+    default: return "mb-2";
+  }
+});
+
+const textAreaSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "h-10 text-sm";
+    case 0: return "h-12 text-base";
+    case 1: return "h-16 text-lg";
+    case 2: return "h-20 text-xl";
+    default: return "h-12 text-base";
+  }
+});
+
+const buttonSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "text-sm px-1.5 py-0.5";
+    case 0: return "text-base px-2 py-1";
+    case 1: return "text-lg px-3 py-1.5";
+    case 2: return "text-xl px-4 py-2";
+    default: return "text-base px-2 py-1";
+  }
+});
+
+const addCardFormSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "mt-1.5";
+    case 0: return "mt-2";
+    case 1: return "mt-3";
+    case 2: return "mt-4";
+    default: return "mt-2";
+  }
+});
+
+const addCardButtonSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "mt-1.5 py-0.5";
+    case 0: return "mt-2 py-1";
+    case 1: return "mt-3 py-1.5";
+    case 2: return "mt-4 py-2";
+    default: return "mt-2 py-1";
+  }
+});
+
+const addCardIconSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "size-4";
+    case 0: return "size-6";
+    case 1: return "size-8";
+    case 2: return "size-10";
+    default: return "size-6";
+  }
+});
+
+const addCardTextSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1: return "text-sm";
+    case 0: return "text-base";
+    case 1: return "text-lg";
+    case 2: return "text-xl";
+    default: return "text-base";
   }
 });
 
