@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, PwshLab -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!--
@@ -79,7 +79,7 @@ limitations under the License.
           @click="$emit('openEditCardModal', index, card)"
         >
           <div v-for="tag in cardTags" :key="tag.id">
-            <KanbanTagDisplay :tag="tag" :zoomLevel="zoomLevel" />
+            <KanbanTagDisplay :tag="tag" :zoom-level="zoomLevel" />
           </div>
         </div>
 
@@ -99,11 +99,19 @@ limitations under the License.
             }"
             class="flex flex-row items-center gap-1"
           >
-            <PhChecks v-if="allTasksCompleted" class="text-buttons" :class="iconSizeClass" />
+            <PhChecks
+              v-if="allTasksCompleted"
+              class="text-buttons"
+              :class="iconSizeClass"
+            />
             <PhListChecks v-else :class="[cardTextColorDim, iconSizeClass]" />
             <span
-              :class="[allTasksCompleted ? 'text-buttons' : cardTextColorDim, taskTextClass]"
-            >{{ taskCompletionStatus }}</span>
+              :class="[
+                allTasksCompleted ? 'text-buttons' : cardTextColorDim,
+                taskTextClass,
+              ]"
+              >{{ taskCompletionStatus }}</span
+            >
           </div>
 
           <div
