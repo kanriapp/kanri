@@ -30,7 +30,7 @@ limitations under the License.
             ? { 'background-color': cardBackgroundColor }
             : {},
         ]"
-        class="kanban-card border-elevation-3 mb-3 flex min-h-[30px] w-full cursor-pointer flex-col items-start gap-1 rounded-[3px] border p-3"
+        class="kanban-card border-elevation-3 flex min-h-[30px] w-full cursor-pointer flex-col items-start gap-1 rounded-[3px] border p-3"
         @click.self="$emit('openEditCardModal', index, card)"
       >
         <div
@@ -67,7 +67,7 @@ limitations under the License.
             @single-click="deleteCardWithConfirmation(index)"
           >
             <XMarkIcon
-              class="mt-[3px] size-4"
+              class="text-accent-hover mt-[3px] size-4"
               :class="[cardTextColor, iconSizeClass]"
             />
           </ClickCounter>
@@ -310,13 +310,13 @@ const iconSizeClass = computed(() => {
     case -1:
       return "size-3";
     case 0:
-      return "size-5";
+      return "size-4";
     case 1:
-      return "size-6";
+      return "size-5";
     case 2:
       return "size-8";
     default:
-      return "size-5";
+      return "size-4";
   }
 });
 
@@ -493,6 +493,9 @@ const updateCardName = () => {
 
 <style scoped>
 .kanban-card {
+  transition-duration: 550ms;
+  transition-timing-function: ease-out;
+  transition-property: opacity, text-decoration;
   opacity: 100%;
 }
 
@@ -510,7 +513,7 @@ const updateCardName = () => {
 
 .zoom-normal {
   padding: 0.75rem !important;
-  margin-bottom: 0.75rem !important;
+  margin-bottom: 0.3rem !important;
   gap: 0.25rem !important;
 }
 

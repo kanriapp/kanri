@@ -34,7 +34,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         titleTextClassZoom,
       ]"
     >
-      <div v-if="!titleEditing" class="flex flex-row items-start gap-1.5">
+      <div v-if="!titleEditing" class="flex flex-row items-center gap-1.5">
         <h1
           class="stop-text-overflow ml-1 font-bold"
           @click="enableTitleEditing()"
@@ -43,10 +43,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </h1>
         <span
           v-if="cardCountDisplayEnabled"
-          :class="[
-            'bg-elevation-2 mt-1 rounded-2xl px-2 py-0.5',
-            badgeSizeClass,
-          ]"
+          :class="['bg-elevation-2 rounded-2xl px-2 py-0.5', badgeSizeClass]"
           >{{ cards.length }}</span
         >
       </div>
@@ -384,7 +381,7 @@ const inputSizeClass = computed(() => {
 const iconSizeClass = computed(() => {
   switch (props.zoomLevel) {
     case -1:
-      return "size-3";
+      return "size-4";
     case 0:
       return "size-4";
     case 1:
@@ -412,6 +409,10 @@ const columnSpacingClass = computed(() => {
 });
 
 const containerSpacingClass = computed(() => {
+  if (cards.value.length === 0) {
+    return "p-6";
+  }
+
   switch (props.zoomLevel) {
     case -1:
       return "mt-1.5";
