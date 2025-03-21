@@ -21,7 +21,7 @@ limitations under the License.
       <div
         ref="cardRef"
         :class="[
-          zoomClass,
+          name === '---' ? 'separator-card' : zoomClass,
           cardBackgroundColor.startsWith('#') ? '' : cardBackgroundColor,
           cardTextColor,
         ]"
@@ -35,7 +35,7 @@ limitations under the License.
       >
         <div
           :class="{ 'pb-1': cardHasNoExtraProperties }"
-          class="flex w-full flex-row items-start justify-between"
+          class="flex w-full flex-row items-center justify-between"
         >
           <p class="text-no-overflow mr-2 w-full min-w-[28px]">
             <ClickCounter
@@ -43,7 +43,8 @@ limitations under the License.
               @double-click="enableCardEditMode"
               @single-click="$emit('openEditCardModal', index, card)"
             >
-              <p ref="cardNameText">
+              <hr v-if="name === '---'" class="mt-0.5" />
+              <p v-else ref="cardNameText">
                 {{ name }}
               </p>
             </ClickCounter>
@@ -62,6 +63,7 @@ limitations under the License.
           </p>
 
           <ClickCounter
+            v-if="name !== '---'"
             class="cursor-pointer"
             @double-click="deleteCardWithAnimation(index)"
             @single-click="deleteCardWithConfirmation(index)"
@@ -178,11 +180,7 @@ import {
   ContextMenuTrigger,
 } from "radix-vue";
 
-const props = defineProps<{
-  card: Card;
-  index: number;
-  zoomLevel: number;
-}>();
+const props = defineProps<{ card: Card; index: number; zoomLevel: number }>();
 
 const emit = defineEmits<{
   (e: "disableDragging"): void;
@@ -257,7 +255,8 @@ const cardHasNoExtraProperties = computed(() => {
     (!tasks.value || tasks.value.length === 0) &&
     isDescriptionEmpty &&
     !dueDate.value &&
-    (props.card.tags || []).length === 0
+    (props.card.tags || []).length === 0 &&
+    !props.card.name.startsWith("---")
   );
 });
 
@@ -445,7 +444,7 @@ const deleteCardWithConfirmation = (index: number) => {
     need to figure out a better way to handle this, especially because we go back and forth between the card component and the parent
     (how this works at the moment: click x -> emit removeCardWithConfirmation -> parent component opens confirmation modal and checks if we actually want the deletion -> if yes, manipulate the DOM of the card component and then delete the card)
   */
-  // eslint-disable-next-line vue/no-ref-as-operand
+
   emit("removeCardWithConfirmation", index, cardRef);
 };
 
@@ -502,6 +501,11 @@ const updateCardName = () => {
 .kanban-card.card-hidden {
   opacity: 0%;
   text-decoration: line-through;
+}
+
+.separator-card {
+  margin-bottom: 0 !important;
+  gap: 0.25rem !important;
 }
 
 /* Zoom level classes for scaling */
