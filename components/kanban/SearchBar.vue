@@ -98,7 +98,7 @@ const handleInput = () => {
     displayModel.value = displayModel.value.replace("name:", "");
   } else if (displayModel.value.includes("tag:")) {
     activeFilter.value = "tag:";
-    displayModel.value = displayModel.value.replace("description:", "");
+    displayModel.value = displayModel.value.replace("tag:", "");
   } else if (displayModel.value.includes("description:")) {
     activeFilter.value = "description:";
     displayModel.value = displayModel.value.replace("description:", "");
