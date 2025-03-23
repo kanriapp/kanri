@@ -44,31 +44,31 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <PhMagnifyingGlass v-else class="size-4" />
     <div
       v-if="showSuggestions"
-      class="bg-elevation-1 border-elevation-2 absolute left-1 top-12 z-10 w-full rounded-md border p-2"
+      class="bg-elevation-1 border-elevation-2 absolute left-0 top-10 z-10 -mr-2 w-full rounded-md border p-2"
     >
       <div>
-        <span>search options</span>
+        <span class="text-dim-3 text-sm">search options</span>
       </div>
-      <ul class="text-sm">
+      <ul class="mt-0.5 text-sm">
         <li
-          class="group/item bg-elevation-2-hover my-2 flex cursor-pointer items-center justify-between rounded-sm p-1"
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('name:')"
         >
-          <span>name: card name</span>
+          <span>name: search by name</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
-          class="group/item bg-elevation-2-hover my-2 flex cursor-pointer items-center justify-between rounded-sm p-1"
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('tag:')"
         >
-          <span>tag: card tag</span>
+          <span>tag: search by tag name</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
-          class="group/item bg-elevation-2-hover my-2 flex cursor-pointer items-center justify-between rounded-sm p-1"
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('description:')"
         >
-          <span>description: card description</span>
+          <span>description: search by description</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
       </ul>
