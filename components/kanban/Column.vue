@@ -568,8 +568,43 @@ const filteredCards = computed(() => {
     return cards.value;
   }
 
+  const searchQuery = props.cardSearchQuery.trim();
+
+  // check for name: filter
+  if (searchQuery.startsWith("name:")) {
+    const nameQuery = searchQuery.substring(5).trim().toLowerCase();
+    if (!nameQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      const cardName = card.name || "";
+      return cardName.toLowerCase().includes(nameQuery);
+    });
+  }
+
+  // check for tag: filter
+  if (searchQuery.startsWith("tag:")) {
+    const tagQuery = searchQuery.substring(4).trim().toLowerCase();
+    if (!tagQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      const cardTags = card.tags || [];
+      return cardTags.some((tag) => tag.text.toLowerCase().includes(tagQuery));
+    });
+  }
+
+  // check for description: filter
+  if (searchQuery.startsWith("description:")) {
+    const descriptionQuery = searchQuery.substring(12).trim().toLowerCase();
+    if (!descriptionQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      const cardDescription = card.description || "";
+      return cardDescription.toLowerCase().includes(descriptionQuery);
+    });
+  }
+
+  // default search (name or tags)
   return cards.value.filter((card) => {
-    const searchQuery = props.cardSearchQuery ?? "";
     const cardName = card.name;
     const cardTags = card.tags || [];
 
