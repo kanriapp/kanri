@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { ZodSchema } from "zod";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 const colorMap: Map<string, string> = new Map([
   ["green", "#34D399"],
@@ -16,6 +16,26 @@ const colorMap: Map<string, string> = new Map([
   ["yellow", "#F59E0B"],
   ["pink", "#EC4899"],
   ["lime", "#84CC16"],
+  ["green_dark", "#166534"],
+  ["yellow_dark", "#854D0E"],
+  ["orange_dark", "#7C2D12"],
+  ["red_dark", "#7F1D1D"],
+  ["purple_dark", "#4C1D95"],
+  ["blue_dark", "#1E3A8A"],
+  ["sky_dark", "#075985"],
+  ["lime_dark", "#365314"],
+  ["pink_dark", "#831843"],
+  ["black_dark", "#000000"],
+  ["green_light", "#BBF7D0"],
+  ["yellow_light", "#FEF3C7"],
+  ["orange_light", "#FFEDD5"],
+  ["red_light", "#FEE2E2"],
+  ["purple_light", "#EDE9FE"],
+  ["blue_light", "#DBEAFE"],
+  ["sky_light", "#E0F2FE"],
+  ["lime_light", "#ECFCCB"],
+  ["pink_light", "#FCE7F3"],
+  ["black_light", "#374151"],
 ]);
 
 /**
@@ -33,6 +53,26 @@ const cssColorNames = [
   "yellow",
   "pink",
   "lime",
+  "green_dark",
+  "yellow_dark",
+  "orange_dark",
+  "red_dark",
+  "purple_dark",
+  "blue_dark",
+  "sky_dark",
+  "lime_dark",
+  "pink_dark",
+  "black_dark",
+  "green_light",
+  "yellow_light",
+  "orange_light",
+  "red_light",
+  "purple_light",
+  "blue_light",
+  "sky_light",
+  "lime_light",
+  "pink_light",
+  "black_light",
 ] as const;
 
 const CssColorStringToHexSchema = z.union([
@@ -138,7 +178,14 @@ const validateInput = <T>(schema: ZodSchema<T>, input: unknown): T => {
  */
 export const cssColorStringToHex = (colorString: string): string => {
   // Validate input
-  validateInput(CssColorStringToHexSchema, colorString);
+  try {
+    validateInput(CssColorStringToHexSchema, colorString);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid color string:", error.errors);
+    }
+    return "#000000"; // Default to black on error
+  }
 
   // If colorString is a named color, retrieve its hex value from colorMap
   if (colorMap.has(colorString.toLowerCase())) {
