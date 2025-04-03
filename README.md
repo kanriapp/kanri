@@ -39,7 +39,7 @@ xattr -cr /Applications/kanri.app
 
 ## ✨ Why Kanri?
 - 🏙 Modern - featuring a clean design & new technologies like Tauri
-- 👓 Familiar - uses a Kanban board layout
+- 👓 Familiar - uses a Kanban board layout (with unlimited boards, columns and tasks, including rich-text descriptions, sub-tasks, due-dates and tags)
 - 🧾 Offline - saves your data in a local `.json` file
 - 🛠 Customizable - allows for custom themes, background images and card colors
 - ⌨ With power users in mind - implements keyboard shortcuts to speed up board navigation
