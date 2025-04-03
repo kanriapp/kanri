@@ -290,8 +290,9 @@ import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight } from "@phosphor-icons/vue";
 
 import { save } from "@tauri-apps/plugin-dialog";
-import { writeTextFile } from "@tauri-apps/plugin-fs";
+import { writeTextFile, exists } from "@tauri-apps/plugin-fs";
 import { convertFileSrc } from "@tauri-apps/api/core";
+import { normalize } from "@tauri-apps/api/path";
 import { useConfirmDialog } from "@vueuse/core";
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
@@ -357,17 +358,6 @@ const cssVars = computed(() => {
 onMounted(async () => {
   await loadCurrentBoard();
 
-  if (board.value.background) {
-    bgCustomNoResolution.value = board.value.background.src;
-    bgCustom.value = convertFileSrc(board.value.background.src);
-
-    bgBlur.value = board.value.background.blur;
-    bgBrightness.value = board.value.background.brightness;
-  }
-  nextTick(() => (bgImageLoaded.value = true));
-
-  await getBoardTitleTextColor();
-
   const columnZoom: null | number = await store.get("columnZoomLevel");
 
   if (columnZoom == null) {
@@ -384,6 +374,45 @@ onMounted(async () => {
 
   const pinned = ((await store.get("pins")) as Board[]) || [];
   isPinned.value = findObjectById(pinned, board.value.id) ? true : false;
+
+  if (board.value.background) {
+    bgCustomNoResolution.value = board.value.background.src;
+
+    const pathTauriObject = await normalize(board.value.background.src);
+    let bgImageExists = false;
+    try {
+      bgImageExists = await exists(pathTauriObject);
+    } catch (e) {
+      console.warn(
+        "Background image might not exist, might be from an imported board from another device"
+      );
+      console.info(e);
+      bgImageExists = false;
+    }
+
+    if (!bgImageExists) {
+      console.warn(
+        "Background image does not exist, removing background image from board"
+      );
+      board.value.background = null; // completely remove leftover traces of the background image
+      updateStorage();
+
+      return; // don't set any more values regarding background
+    }
+
+    try {
+      bgCustom.value = convertFileSrc(board.value.background.src);
+    } catch (e) {
+      console.error("Error converting file src: ", e);
+      bgCustom.value = "";
+    }
+
+    bgBlur.value = board.value.background.blur;
+    bgBrightness.value = board.value.background.brightness;
+  }
+  nextTick(() => (bgImageLoaded.value = true));
+
+  await getBoardTitleTextColor();
 
   document.addEventListener("keydown", keyDownListener);
 
@@ -580,7 +609,9 @@ const onDrop = (dropResult: object) => {
  * Get the text color with the correct contrast if a background image is set
  */
 const getBoardTitleTextColor = async () => {
-  if (bgCustom.value == "") return;
+  if (bgCustom.value == null || !/\S/.test(bgCustom.value)) return;
+
+  console.log("bgCustom.value: ", bgCustom.value);
 
   const averageColorFromBackground = await getAverageColor(bgCustom.value);
   const hexColor = rgbToHex(
