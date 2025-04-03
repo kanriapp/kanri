@@ -26,7 +26,8 @@ SPDX-License-Identifier: Apache-2.0
 
 
 ## 🚀 Demo
-![kanri_demo_gif](https://github.com/trobonox/kanri/assets/57040351/fa7a9d79-3847-47cb-8325-6715477879f4)
+![showcase_gif_kanri](https://github.com/user-attachments/assets/14d26751-cb5e-4164-a2f9-84e2b7dc200c)
+
 
 ## ⬇️ Download
 You can download Kanri for Windows, Mac and Linux at [kanriapp.com](https://kanriapp.com), it's free!
