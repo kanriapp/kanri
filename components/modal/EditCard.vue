@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, Khusyasy, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!--
@@ -75,9 +75,7 @@ limitations under the License.
                     <div class="flex w-full flex-row gap-3">
                       <button
                         class="size-7 rounded-full bg-pink-600 py-1 pl-1.5 pr-1 hover:bg-pink-700"
-                        @click="
-                          setCardColor(columnID, cardIndex, 'bg-pink-600')
-                        "
+                        @click="setCardColor(columnID, card?.id, 'bg-pink-600')"
                       >
                         <CheckIcon
                           v-if="selectedColor === 'bg-pink-600'"
@@ -86,7 +84,7 @@ limitations under the License.
                       </button>
                       <button
                         class="size-7 rounded-full bg-red-600 py-1 pl-1.5 pr-1 hover:bg-red-700"
-                        @click="setCardColor(columnID, cardIndex, 'bg-red-600')"
+                        @click="setCardColor(columnID, card?.id, 'bg-red-600')"
                       >
                         <CheckIcon
                           v-if="selectedColor === 'bg-red-600'"
@@ -96,7 +94,7 @@ limitations under the License.
                       <button
                         class="size-7 rounded-full bg-orange-600 py-1 pl-1.5 pr-1 hover:bg-orange-700"
                         @click="
-                          setCardColor(columnID, cardIndex, 'bg-orange-600')
+                          setCardColor(columnID, card?.id, 'bg-orange-600')
                         "
                       >
                         <CheckIcon
@@ -107,7 +105,7 @@ limitations under the License.
                       <button
                         class="size-7 rounded-full bg-yellow-600 py-1 pl-1.5 pr-1 hover:bg-yellow-700"
                         @click="
-                          setCardColor(columnID, cardIndex, 'bg-yellow-600')
+                          setCardColor(columnID, card?.id, 'bg-yellow-600')
                         "
                       >
                         <CheckIcon
@@ -118,7 +116,7 @@ limitations under the License.
                       <button
                         class="size-7 rounded-full bg-green-600 py-1 pl-1.5 pr-1 hover:bg-green-700"
                         @click="
-                          setCardColor(columnID, cardIndex, 'bg-green-600')
+                          setCardColor(columnID, card?.id, 'bg-green-600')
                         "
                       >
                         <CheckIcon
@@ -128,9 +126,7 @@ limitations under the License.
                       </button>
                       <button
                         class="size-7 rounded-full bg-teal-600 py-1 pl-1.5 pr-1 hover:bg-teal-700"
-                        @click="
-                          setCardColor(columnID, cardIndex, 'bg-teal-600')
-                        "
+                        @click="setCardColor(columnID, card?.id, 'bg-teal-600')"
                       >
                         <CheckIcon
                           v-if="selectedColor === 'bg-teal-600'"
@@ -139,9 +135,7 @@ limitations under the License.
                       </button>
                       <button
                         class="size-7 rounded-full bg-blue-600 py-1 pl-1.5 pr-1 hover:bg-blue-700"
-                        @click="
-                          setCardColor(columnID, cardIndex, 'bg-blue-600')
-                        "
+                        @click="setCardColor(columnID, card?.id, 'bg-blue-600')"
                       >
                         <CheckIcon
                           v-if="selectedColor === 'bg-blue-600'"
@@ -151,7 +145,7 @@ limitations under the License.
                       <button
                         class="size-7 rounded-full bg-purple-600 py-1 pl-1.5 pr-1 hover:bg-purple-700"
                         @click="
-                          setCardColor(columnID, cardIndex, 'bg-purple-600')
+                          setCardColor(columnID, card?.id, 'bg-purple-600')
                         "
                       >
                         <CheckIcon
@@ -162,7 +156,7 @@ limitations under the License.
                       <button
                         class="bg-elevation-2 bg-elevation-3-hover size-7 rounded-full py-1 pl-1.5 pr-1"
                         @click="
-                          setCardColor(columnID, cardIndex, 'bg-elevation-2')
+                          setCardColor(columnID, card?.id, 'bg-elevation-2')
                         "
                       >
                         <CheckIcon
@@ -173,7 +167,7 @@ limitations under the License.
                       <button
                         :class="`h-7 w-7 rounded-full py-1 pl-1.5 pr-1`"
                         :style="{ 'background-color': customColor }"
-                        @click="setCardColor(columnID, cardIndex, customColor)"
+                        @click="setCardColor(columnID, card?.id, customColor)"
                       >
                         <CheckIcon
                           v-if="isCustomColor"
@@ -252,7 +246,7 @@ limitations under the License.
                   <PhCalendar class="size-5" />
                   <span v-if="dueDate"
                     >{{ $t("modals.editCard.dueDate")
-                    }}{{ dueDate.toLocaleDateString() }}</span
+                    }}{{ dateToLocalFormat(dueDate) }}</span
                   >
                   <span v-else>{{ $t("modals.editCard.dateSet") }}</span>
                 </button>
@@ -500,46 +494,54 @@ import { VueTagsInput } from "@vojtechlanka/vue-tags-input";
 
 const props = defineProps<{
   card: Card | null;
-  cardIndexProp: number;
   columnId: string;
   globalTags: Array<Tag>;
 }>();
 
 const emit = defineEmits<{
   (e: "closeModal", columnID: string): void;
-  (e: "setCardColor", columnID: string, cardIndex: number, color: string): void;
+  (
+    e: "setCardColor",
+    columnID: string,
+    cardId: string | undefined,
+    color: string
+  ): void;
   (
     e: "setCardDescription",
     columnID: string,
-    cardIndex: number,
+    cardId: string | undefined,
     description: string
   ): void;
   (
     e: "setCardDueDate",
     columnID: string,
-    cardIndex: number,
+    cardId: string | undefined,
     dueDate: Date | null,
     isCounterRelative: boolean
   ): void;
   (
     e: "setCardTags",
     columnID: string,
-    cardIndex: number,
+    cardId: string | undefined,
     tags: Array<Tag>
   ): void;
   (
     e: "setCardTasks",
     columnID: string,
-    cardIndex: number,
+    cardId: string | undefined,
     tasks: Array<Task>
   ): void;
-  (e: "setCardTitle", columnID: string, cardIndex: number, title: string): void;
+  (
+    e: "setCardTitle",
+    columnID: string,
+    cardId: string | undefined,
+    title: string
+  ): void;
   (e: "addGlobalTag", tag: Tag): void;
   (e: "openTagEdit"): void;
 }>();
 
 const columnID = ref("");
-const cardIndex = ref(0);
 const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
 const tasks: Ref<Array<{ finished: boolean; id?: string; name: string }>> = ref(
@@ -598,12 +600,24 @@ const getTaskPercentage = computed(() => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const beforeTagAdd = ({ tag, addTag }: any) => {
+  // get all matches from autocomplete items (starts with), if it is only one, select it
+  const matches = autocompleteItems.value.filter((item) =>
+    item.text.toLowerCase().startsWith(tag.text.toLowerCase())
+  );
+
   // check if autocomplete items have a tag with the same name
   const existingTag = autocompleteItems.value.find(
     (item) => item.text === tag.text
   );
   if (!existingTag) {
-    tag.id = generateUniqueID();
+    if (matches.length === 1) {
+      tag.text = matches[0].text;
+      tag.id = matches[0].id;
+      tag.color = matches[0].color;
+      tag.style = matches[0].style;
+    } else {
+      tag.id = generateUniqueID();
+    }
   }
 
   addTag();
@@ -615,7 +629,7 @@ const beforeTagAdd = ({ tag, addTag }: any) => {
 const updateTags = (newTags: any) => {
   tags.value = newTags;
 
-  emit("setCardTags", columnID.value, cardIndex.value, tags.value);
+  emit("setCardTags", columnID.value, props.card?.id, tags.value);
 };
 
 const closeModalAndOpenTagEdit = () => {
@@ -681,7 +695,7 @@ const updateTask = (index: number) => {
 };
 
 const updateCardTasks = () => {
-  emit("setCardTasks", columnID.value, cardIndex.value, tasks.value);
+  emit("setCardTasks", columnID.value, props.card?.id, tasks.value);
 };
 
 const resetDueDate = () => {
@@ -689,7 +703,7 @@ const resetDueDate = () => {
   emit(
     "setCardDueDate",
     columnID.value,
-    cardIndex.value,
+    props.card?.id,
     null,
     isDueDateCounterRelative.value
   );
@@ -699,19 +713,14 @@ const updateDueDate = () => {
   emit(
     "setCardDueDate",
     columnID.value,
-    cardIndex.value,
+    props.card?.id,
     dueDate.value,
     isDueDateCounterRelative.value
   );
 };
 
 const updateDescription = () => {
-  emit(
-    "setCardDescription",
-    columnID.value,
-    cardIndex.value,
-    description.value
-  );
+  emit("setCardDescription", columnID.value, props.card?.id, description.value);
   emitter.emit("modalEnableClickOutsideClose");
 };
 
@@ -721,17 +730,28 @@ const updateTitle = () => {
   if (title.value == null || !/\S/.test(title.value)) return;
 
   titleEditing.value = false;
-  emit("setCardTitle", columnID.value, cardIndex.value, title.value);
+  emit("setCardTitle", columnID.value, props.card?.id, title.value);
 };
 
-const setCardColor = (columnID: string, cardIndex: number, color: string) => {
+const setCardColor = (
+  columnID: string,
+  cardId: string | undefined,
+  color: string
+) => {
   selectedColor.value = color;
-  emit("setCardColor", columnID, cardIndex, color);
+  emit("setCardColor", columnID, props.card?.id, color);
+};
+
+const dateToLocalFormat = (date: Date | string) => {
+  if (typeof date === "string") {
+    return new Date(date).toLocaleDateString();
+  }
+  return date.toLocaleDateString();
 };
 
 watch(customColor, (newVal, oldVal) => {
   if (newVal !== oldVal) {
-    setCardColor(columnID.value, cardIndex.value, newVal);
+    setCardColor(columnID.value, props.card?.id, newVal);
   }
 });
 
@@ -742,11 +762,11 @@ watch(props, (newVal) => {
     newTaskName.value = "";
 
     columnID.value = newVal.columnId;
-    cardIndex.value = newVal.cardIndexProp;
 
     title.value = newVal.card.name;
     description.value = newVal.card.description || "";
 
+    //@ts-expect-error TODO: improve due date handling/types
     dueDate.value = newVal.card.dueDate || null;
     isDueDateCounterRelative.value =
       newVal.card.isDueDateCounterRelative || false;

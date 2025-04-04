@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, PwshLab -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, PwshLab, jynxbt, tareqdayya -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,15 +21,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <div
     ref="columnDOMElement"
-    :class="columnSizeClass"
-    class="kanban-column bg-elevation-1 max-h-column flex flex-col rounded-lg p-2"
+    :class="[
+      'kanban-column bg-elevation-1 max-h-column flex flex-col rounded-lg p-2',
+      columnSizeClass,
+      columnSpacingClass,
+    ]"
   >
     <div
       id="board-title"
-      :class="titleTextClassZoom"
-      class="flex flex-row items-start justify-between gap-4"
+      :class="[
+        'flex flex-row items-start justify-between gap-4',
+        titleTextClassZoom,
+      ]"
     >
-      <div v-if="!titleEditing" class="flex flex-row items-start gap-1.5">
+      <div v-if="!titleEditing" class="flex flex-row items-center gap-1.5">
         <h1
           class="stop-text-overflow ml-1 font-bold"
           @click="enableTitleEditing()"
@@ -38,7 +43,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </h1>
         <span
           v-if="cardCountDisplayEnabled"
-          class="bg-elevation-2 mt-1 rounded-2xl px-2 py-0.5 text-xs"
+          :class="['bg-elevation-2 rounded-2xl px-2 py-0.5', badgeSizeClass]"
           >{{ cards.length }}</span
         >
       </div>
@@ -48,7 +53,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         ref="titleInput"
         v-model="titleNew"
         v-focus
-        class="bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none"
+        :class="[
+          'bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none',
+          inputSizeClass,
+        ]"
         maxlength="1000"
         type="text"
         @blur="updateColumnTitle"
@@ -62,12 +70,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <Tooltip v-if="addToTopButtonShown" direction="top">
           <template #trigger>
             <PlusIcon
-              class="text-dim-4 text-accent-hover cursor-pointe mt-1.5 size-4 shrink-0 grow-0"
+              :class="[
+                'text-dim-4 text-accent-hover cursor-pointe mt-1.5 shrink-0 grow-0',
+                iconSizeClass,
+              ]"
               @click="enableCardAddMode(true)"
             />
           </template>
 
-          <template #content>{{ $t("components.kanban.column.addCardTop") }}</template>
+          <template #content>{{
+            $t("components.kanban.column.addCardTop")
+          }}</template>
         </Tooltip>
 
         <ClickCounter
@@ -75,7 +88,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           @single-click="$emit('removeColumn', id)"
         >
           <XMarkIcon
-            class="text-dim-4 text-accent-hover mt-1.5 size-4 shrink-0 grow-0 cursor-pointer"
+            :class="[
+              'text-dim-4 text-accent-hover mt-1.5 shrink-0 grow-0 cursor-pointer',
+              iconSizeClass,
+            ]"
           />
         </ClickCounter>
       </div>
@@ -83,7 +99,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <Container
       :get-child-payload="getChildPayload"
-      class="max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm"
+      :class="[
+        'max-h-65vh custom-scrollbar mt-2 overflow-y-auto rounded-sm',
+        containerSpacingClass,
+      ]"
       drag-class="cursor-grabbing"
       drag-handle-selector=".kanbancard-drag"
       group-name="cards"
@@ -94,7 +113,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Draggable
         v-for="(card, index) in filteredCards"
         :key="card.id"
-        :class="draggingEnabled ? 'kanbancard-drag' : 'nomoredragging'"
+        :class="[
+          draggingEnabled ? 'kanbancard-drag' : 'nomoredragging',
+          cardSpacingClass,
+        ]"
         :index="index"
       >
         <KanbanCard
@@ -113,14 +135,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </Draggable>
     </Container>
 
-    <div v-if="cardAddMode" class="mt-2 flex flex-col">
+    <div
+      v-if="cardAddMode"
+      :class="['mt-2 flex flex-col', addCardFormSpacingClass]"
+    >
       <textarea
         id="newCardInput"
         ref="newCardInput"
         v-model="newCardName"
         v-focus
         v-resizable
-        class="bg-elevation-2 border-accent-focus mb-2 h-12 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none"
+        :class="[
+          'bg-elevation-2 border-accent-focus mb-2 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none',
+          textAreaSizeClass,
+        ]"
         maxlength="5000"
         :placeholder="$t('components.kanban.column.addCardPlaceholder')"
         type="text"
@@ -132,7 +160,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <div class="flex w-full flex-row justify-start gap-2">
         <button
           id="submitButton"
-          class="text-buttons transition-button bg-accent rounded-md px-2 py-1"
+          :class="[
+            'text-buttons transition-button bg-accent rounded-md px-2 py-1',
+            buttonSizeClass,
+          ]"
           @click="
             addCard();
             emitter.emit('columnActionDone');
@@ -141,7 +172,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           {{ $t("general.addAction") }}
         </button>
         <button
-          class="bg-elevation-3-hover transition-button rounded-md px-2 py-1"
+          :class="[
+            'bg-elevation-3-hover transition-button rounded-md px-2 py-1',
+            buttonSizeClass,
+          ]"
           @click="
             cardAddMode = !cardAddMode;
             cardAddModeAddToTopOfColumn = false;
@@ -158,11 +192,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <div
       v-if="!cardAddMode"
-      class="text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row gap-1 rounded-md py-1 font-medium"
+      :class="[
+        'text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row items-center gap-1 rounded-md py-1 font-medium',
+        addCardButtonSpacingClass,
+      ]"
       @click="enableCardAddMode()"
     >
-      <PlusIcon class="size-6 p-0.5" />
-      <h2>{{ $t("components.kanban.column.addCard") }}</h2>
+      <PlusIcon :class="['p-0.5', addCardIconSizeClass]" />
+      <h2 :class="addCardTextSizeClass">
+        {{ $t("components.kanban.column.addCard") }}
+      </h2>
     </div>
   </div>
 </template>
@@ -192,11 +231,11 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "disableDragging"): void;
   (e: "enableDragging"): void;
-  (e: "openEditCardModal", columnId: string, cardIndex: number, el: Card): void;
+  (e: "openEditCardModal", columnId: string, el: Card): void;
   (
     e: "removeCardWithConfirmation",
     columnId: string,
-    cardIndex: number,
+    cardId: string | undefined,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
   (e: "removeColumn", columnId: string): void;
@@ -206,7 +245,7 @@ const emit = defineEmits<{
   (
     e: "updateCardTags",
     columnId: string,
-    cardIndex: number,
+    cardId: string | undefined,
     tags: Array<Tag>
   ): void;
 }>();
@@ -277,59 +316,251 @@ onMounted(() => {
   }
 });
 
+// enhanced scaling classes based on zoom level
 const titleTextClassZoom = computed(() => {
   switch (props.zoomLevel) {
-    case 0:
-      return ["text-lg"];
-
     case -1:
-      return ["text-md"];
-
+      return "text-md";
+    case 0:
+      return "text-lg";
     case 1:
-      return ["text-xl"];
-
+      return "text-xl";
     case 2:
-      return ["text-2xl"];
-
+      return "text-2xl";
     default:
-      return [""];
+      return "";
   }
 });
 
 const columnSizeClass = computed(() => {
   switch (props.zoomLevel) {
-    case 0:
-      return ["w-64"];
-
     case -1:
-      return ["w-48"];
-
+      return "w-48";
+    case 0:
+      return "w-64";
     case 1:
-      return ["w-96"];
-
+      return "w-96";
     case 2:
-      return ["w-[560px]"];
-
+      return "w-[560px]";
     default:
-      return [""];
+      return "";
   }
 });
 
-const escRegXp = (str: string) => {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-};
+// new scaled classes for other elements
+const badgeSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "text-xs";
+    case 0:
+      return "text-xs";
+    case 1:
+      return "text-sm";
+    case 2:
+      return "text-base";
+    default:
+      return "text-xs";
+  }
+});
+
+const inputSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "text-sm py-0.5";
+    case 0:
+      return "text-base py-1";
+    case 1:
+      return "text-lg py-1.5";
+    case 2:
+      return "text-xl py-2";
+    default:
+      return "text-base py-1";
+  }
+});
+
+const iconSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "size-4";
+    case 0:
+      return "size-4";
+    case 1:
+      return "size-5";
+    case 2:
+      return "size-6";
+    default:
+      return "size-4";
+  }
+});
+
+const columnSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "p-1.5";
+    case 0:
+      return "p-2";
+    case 1:
+      return "p-3";
+    case 2:
+      return "p-4";
+    default:
+      return "p-2";
+  }
+});
+
+const containerSpacingClass = computed(() => {
+  if (cards.value.length === 0) {
+    return "p-6";
+  }
+
+  switch (props.zoomLevel) {
+    case -1:
+      return "mt-1.5";
+    case 0:
+      return "mt-2";
+    case 1:
+      return "mt-3";
+    case 2:
+      return "mt-4";
+    default:
+      return "mt-2";
+  }
+});
+
+const cardSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "mb-1.5";
+    case 0:
+      return "mb-2";
+    case 1:
+      return "mb-3";
+    case 2:
+      return "mb-4";
+    default:
+      return "mb-2";
+  }
+});
+
+const textAreaSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "h-10 text-sm";
+    case 0:
+      return "h-12 text-base";
+    case 1:
+      return "h-16 text-lg";
+    case 2:
+      return "h-20 text-xl";
+    default:
+      return "h-12 text-base";
+  }
+});
+
+const buttonSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "text-sm px-1.5 py-0.5";
+    case 0:
+      return "text-base px-2 py-1";
+    case 1:
+      return "text-lg px-3 py-1.5";
+    case 2:
+      return "text-xl px-4 py-2";
+    default:
+      return "text-base px-2 py-1";
+  }
+});
+
+const addCardFormSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "mt-1.5";
+    case 0:
+      return "mt-2";
+    case 1:
+      return "mt-3";
+    case 2:
+      return "mt-4";
+    default:
+      return "mt-2";
+  }
+});
+
+const addCardButtonSpacingClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "mt-1.5 py-0.5";
+    case 0:
+      return "mt-2 py-1";
+    case 1:
+      return "mt-3 py-1.5";
+    case 2:
+      return "mt-4 py-2";
+    default:
+      return "mt-2 py-1";
+  }
+});
+
+const addCardIconSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "size-4";
+    case 0:
+      return "size-6";
+    case 1:
+      return "size-8";
+    case 2:
+      return "size-10";
+    default:
+      return "size-6";
+  }
+});
+
+const addCardTextSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "text-sm";
+    case 0:
+      return "text-base";
+    case 1:
+      return "text-lg";
+    case 2:
+      return "text-xl";
+    default:
+      return "text-base";
+  }
+});
 
 const fuzzyMatch = (input: string, str: string) => {
-  input =
-    ".*" +
-    input
-      .toLowerCase()
-      .split("")
-      .map((x) => `${escRegXp(x)}.*`)
-      .join("");
+  const inputWords = input.toLowerCase().split(/\s+/);
+  const strWords = str.toLowerCase().split(/\s+/);
 
-  const regexp = new RegExp(input, "i");
-  return regexp.test(str);
+  let matches = 0;
+
+  inputWords.forEach((inputWord) => {
+    strWords.forEach((strWord) => {
+      let inputIndex = 0;
+      let strIndex = 0;
+      let wordMatches = 0;
+
+      while (inputIndex < inputWord.length && strIndex < strWord.length) {
+        if (inputWord[inputIndex] === strWord[strIndex]) {
+          wordMatches++;
+          inputIndex++;
+        }
+        strIndex++;
+      }
+
+      const matchRatio = wordMatches / inputWord.length;
+      if (matchRatio >= 0.6) {
+        // Adjust the threshold as needed
+        matches++;
+      }
+    });
+  });
+
+  return matches === inputWords.length;
 };
 
 const filteredCards = computed(() => {
@@ -337,8 +568,43 @@ const filteredCards = computed(() => {
     return cards.value;
   }
 
+  const searchQuery = props.cardSearchQuery.trim();
+
+  // check for name: filter
+  if (searchQuery.startsWith("name:")) {
+    const nameQuery = searchQuery.substring(5).trim().toLowerCase();
+    if (!nameQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      const cardName = card.name || "";
+      return cardName.toLowerCase().includes(nameQuery);
+    });
+  }
+
+  // check for tag: filter
+  if (searchQuery.startsWith("tag:")) {
+    const tagQuery = searchQuery.substring(4).trim().toLowerCase();
+    if (!tagQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      const cardTags = card.tags || [];
+      return cardTags.some((tag) => tag.text.toLowerCase().includes(tagQuery));
+    });
+  }
+
+  // check for description: filter
+  if (searchQuery.startsWith("description:")) {
+    const descriptionQuery = searchQuery.substring(12).trim().toLowerCase();
+    if (!descriptionQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      const cardDescription = card.description || "";
+      return cardDescription.toLowerCase().includes(descriptionQuery);
+    });
+  }
+
+  // default search (name or tags)
   return cards.value.filter((card) => {
-    const searchQuery = props.cardSearchQuery ?? "";
     const cardName = card.name;
     const cardTags = card.tags || [];
 
@@ -422,8 +688,8 @@ const updateColumnTitle = () => {
   updateStorage();
 };
 
-const updateCardTags = (cardIndex: number, tags: Array<Tag>) => {
-  emit("updateCardTags", props.id, cardIndex, tags);
+const updateCardTags = (cardId: string | undefined, tags: Array<Tag>) => {
+  emit("updateCardTags", props.id, cardId, tags);
 };
 
 const addCard = () => {
@@ -450,7 +716,11 @@ const addCard = () => {
   updateStorage();
 };
 
-const duplicateCard = (index: number) => {
+const duplicateCard = (cardId: string | undefined) => {
+  if (!cardId) return;
+  const index = cards.value.findIndex((card) => card.id === cardId);
+  if (index === -1) return;
+
   const cardDuplicate = JSON.parse(JSON.stringify(cards.value[index]));
   cardDuplicate.id = generateUniqueID();
   cardDuplicate.name = `${cardDuplicate.name} - ${t("general.copyNoun")}`;
@@ -471,26 +741,34 @@ const scrollCardIntoView = () => {
 };
 
 const removeCardWithConfirmation = (
-  cardIndex: number,
+  cardId: string | undefined,
   cardRef: Ref<HTMLDivElement | null>
 ) => {
-  emit("removeCardWithConfirmation", props.id, cardIndex, cardRef);
+  emit("removeCardWithConfirmation", props.id, cardId, cardRef);
 };
 
-const removeCard = (index: number) => {
-  cards.value.splice(index, 1);
-  updateStorage();
+const removeCard = (id: string | undefined) => {
+  const index = cards.value.findIndex((card) => card.id === id);
+
+  if (index !== -1) {
+    cards.value.splice(index, 1);
+    updateStorage();
+  }
 };
 
-const setCardTitle = (cardIndex: number, name: string) => {
+const setCardTitle = (cardId: string | undefined, name: string) => {
+  if (!cardId) return;
+
+  const cardIndex = cards.value.findIndex((card) => card.id === cardId);
   cards.value[cardIndex].name = name;
+
   updateStorage();
 };
 
-const openEditCardModal = (index: number, el: Card) => {
+const openEditCardModal = (el: Card) => {
   disableDragging();
 
-  emit("openEditCardModal", props.id, index, el);
+  emit("openEditCardModal", props.id, el);
 };
 
 const updateStorage = () => {

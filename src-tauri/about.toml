@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2022-2024 trobonox <hello@trobo.dev>
+# SPDX-FileCopyrightText: 2022-2025 trobonox <hello@trobo.dev>
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -9,6 +9,7 @@ accepted = [
     "BSD-3-Clause",
     "MPL-2.0",
     "Unicode-DFS-2016",
+    "Unicode-3.0",
     "CC0-1.0",
     "MIT-0",
     "GPL-3.0", # this is for Kanri itself

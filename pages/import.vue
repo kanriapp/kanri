@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -173,8 +173,8 @@ import {
   trelloJsonSchema,
 } from "@/types/json-schemas";
 import emitter from "@/utils/emitter";
-import { ask, message, open, save } from "@tauri-apps/api/dialog";
-import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
+import { ask, message, open, save } from "@tauri-apps/plugin-dialog";
+import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { useI18n } from "vue-i18n";
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ZodError, z } from "zod";
@@ -194,7 +194,7 @@ onMounted(async () => {
 
 const exportJSON = async () => {
   const filePath = await save({
-    defaultPath: "./kanri_data_export.json",
+    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_data_export.json`,
     filters: [
       {
         extensions: ["json"],
@@ -204,8 +204,11 @@ const exportJSON = async () => {
     title: t("pages.import.exportFullJsonDialogTitle"),
   });
 
+  console.log(new Date().toLocaleDateString());
+
   const savedBoards = await store.get("boards");
   const boardSortingOption = await store.get("boardSortingOption");
+  const pins = await store.get("pins");
   const reverseSorting = await store.get("reverseSorting");
   const activeTheme = await store.get("activeTheme");
   const colors = await store.get("colors");
@@ -225,6 +228,7 @@ const exportJSON = async () => {
       activeTheme,
       boardSortingOption,
       boards: savedBoards,
+      pins,
       colors,
       columnZoomLevel,
       lastInstalledVersion,
@@ -242,13 +246,13 @@ const exportJSON = async () => {
   await writeTextFile(filePath, fileContents);
 
   await message(t("pages.import.exportFullJsonSuccessMessage"), {
-    type: "info",
+    kind: "info",
   });
 };
 
 const exportSingleBoard = async (boardId: string) => {
   const filePath = await save({
-    defaultPath: `./kanri_board_export_${boardId}.json`,
+    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_board_export_${boardId}.json`,
     filters: [
       {
         extensions: ["json"],
@@ -264,7 +268,7 @@ const exportSingleBoard = async (boardId: string) => {
 
   if (!boardToExport) {
     await message(t("pages.import.exportPartialJsonErrorBoardNotFound"), {
-      type: "error",
+      kind: "error",
     });
     return;
   }
@@ -274,7 +278,7 @@ const exportSingleBoard = async (boardId: string) => {
   await writeTextFile(filePath, fileContents);
 
   await message(t("pages.import.exportPartialJsonSuccessMessage"), {
-    type: "info",
+    kind: "info",
   });
 };
 
@@ -301,7 +305,7 @@ const importFromKanriFull = async () => {
     console.error("Could not parse imported JSON;", error);
     await message(t("pages.import.importErrorBadJson"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (parsedJson === null) return;
@@ -321,18 +325,19 @@ const importFromKanriFull = async () => {
     ) {
       return await message(t("pages.import.importErrorNoBoards"), {
         title: "Kanri",
-        type: "error",
+        kind: "error",
       });
     }
 
     await message(t("pages.import.importErrorGoodJsonFaultyData"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (zodParsed === null) return;
 
   store.set("boards", zodParsed.boards);
+  store.set("pins", zodParsed.pins);
   store.set("colors", zodParsed.colors);
   store.set("activeTheme", zodParsed.activeTheme);
   store.set("columnZoomLevel", zodParsed.columnZoomLevel);
@@ -350,7 +355,7 @@ const importFromKanriFull = async () => {
     zodParsed.displayColumnCardCountEnabled
   );
 
-  await message(t("pages.import.importSuccessFull"), { type: "info" });
+  await message(t("pages.import.importSuccessFull"), { kind: "info" });
 
   // Manual refresh
   router.go(0);
@@ -379,7 +384,7 @@ const importFromKanbanElectronFull = async () => {
     console.error("Could not parse imported JSON;", error);
     await message(t("pages.import.importErrorBadJson"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (parsedJson === null) return;
@@ -400,13 +405,13 @@ const importFromKanbanElectronFull = async () => {
     ) {
       return await message(t("pages.import.importErrorNoBoards"), {
         title: "Kanri",
-        type: "error",
+        kind: "error",
       });
     }
 
     await message(t("pages.import.importErrorKanbanElectron"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (zodParsed === null) return;
@@ -427,7 +432,7 @@ const importFromKanbanElectronFull = async () => {
     store.set("columnZoomLevel", zodParsed.columnZoomLevel);
   }
 
-  await message(t("pages.import.importSuccessPartial"), { type: "info" });
+  await message(t("pages.import.importSuccessPartial"), { kind: "info" });
 
   // Manual refresh
   router.go(0);
@@ -459,7 +464,7 @@ const importFromKanriBoard = async () => {
     if (checkForDuplicates.length !== 0) {
       const confirmation = await ask(
         t("pages.import.importDuplicateBoard", { boardName: result.title }),
-        { title: "Kanri", type: "info" }
+        { title: "Kanri", kind: "info" }
       );
       if (!confirmation) {
         return;
@@ -486,7 +491,7 @@ const importFromKanriBoard = async () => {
       if (checkForDuplicates.length !== 0) {
         const confirmation = await ask(
           t("pages.import.importDuplicateBoard", { boardName: result.title }),
-          { title: "Kanri", type: "info" }
+          { title: "Kanri", kind: "info" }
         );
 
         if (!confirmation) {
@@ -508,7 +513,7 @@ const importFromKanriBoard = async () => {
 
   await store.set("boards", convertedBoards);
 
-  await message(t("pages.import.importSuccessPartial"), { type: "info" });
+  await message(t("pages.import.importSuccessPartial"), { kind: "info" });
 };
 
 const kanriParse = async (board: string) => {
@@ -522,7 +527,7 @@ const kanriParse = async (board: string) => {
     console.error("Could not parse imported JSON;", error);
     await message(t("pages.import.importErrorBadJson"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (parsedJson === null) return;
@@ -544,13 +549,13 @@ const kanriParse = async (board: string) => {
     ) {
       return await message(t("pages.import.importErrorNoBoards"), {
         title: "Kanri",
-        type: "error",
+        kind: "error",
       });
     }
 
     await message(t("pages.import.importErrorGoodJsonFaultyData"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (zodParsed === null) return;
@@ -592,7 +597,7 @@ const importFromTrelloBoard = async () => {
 
   await store.set("boards", convertedBoards);
 
-  await message(t("pages.import.importSuccessPartial"), { type: "info" });
+  await message(t("pages.import.importSuccessPartial"), { kind: "info" });
 
   // Manual refresh
   router.go(0);
@@ -609,7 +614,7 @@ const trelloParse = async (board: string) => {
     console.error("Could not parse imported JSON;", error);
     await message(t("pages.import.importErrorBadJson"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
     return undefined;
   }
@@ -632,14 +637,14 @@ const trelloParse = async (board: string) => {
     ) {
       await message(t("pages.import.importErrorNoBoards"), {
         title: "Kanri",
-        type: "error",
+        kind: "error",
       });
       return undefined;
     }
 
     await message(t("pages.import.importErrorTrello"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
     return undefined;
   }
@@ -733,7 +738,7 @@ const trelloParse = async (board: string) => {
     console.error(error);
     await message(t("pages.import.importErrorTrelloConversion"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
     return undefined;
   }
@@ -770,7 +775,7 @@ const importFromGithubProject = async () => {
           file,
           email: "support@kanriapp.com",
         }),
-        { type: "error" }
+        { kind: "error" }
       );
       console.error(`Invalid GH Projects board file: ${file}`);
       continue;
@@ -778,7 +783,7 @@ const importFromGithubProject = async () => {
 
     const board: Board = {
       id: generateUniqueID(),
-      title: (file.split(/[\/\\]/).pop() || file).replace(/\.tsv$/, ""),
+      title: (file.split(/[/\\]/).pop() || file).replace(/\.tsv$/, ""),
       columns: [],
       globalTags: [],
       lastEdited: new Date(),
@@ -834,7 +839,7 @@ const importFromGithubProject = async () => {
   }
 
   await store.set("boards", convertedBoards);
-  await message(t("pages.import.importSuccessGithub"), { type: "info" });
+  await message(t("pages.import.importSuccessGithub"), { kind: "info" });
 };
 </script>
 

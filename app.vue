@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev> -->
 <!-- -->
 <!-- SPDX-License-Identifier: CC0-1.0 -->
 
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { appWindow } from "@tauri-apps/api/window";
+import { show } from "@tauri-apps/api/app";
 import {
   attachConsole,
   trace,
@@ -19,11 +19,11 @@ import {
   info,
   warn,
   error,
-} from "tauri-plugin-log-api";
+} from "@tauri-apps/plugin-log";
 
 onMounted(async () => {
   setTimeout(() => {
-    appWindow.show();
+    show();
   }, 50);
 
   await attachConsole();

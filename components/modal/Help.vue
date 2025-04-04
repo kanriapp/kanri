@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -364,12 +364,12 @@ import Modal from "@/components/Modal.vue";
 import versionInfo from "@/version_info.json";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { BookOpenIcon } from "@heroicons/vue/24/outline";
-import { platform } from "@tauri-apps/api/os";
+import { platform } from "@tauri-apps/plugin-os";
 
 const osType = ref("");
 
 onMounted(async () => {
-  osType.value = await platform();
+  osType.value = platform();
 });
 
 defineEmits<{

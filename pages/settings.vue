@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -197,6 +197,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <div>
             <h3 class="text-lg">
               {{ $t("pages.settings.languageSelectorHeading") }}
+              <span class="text-dim-3 text-sm">{{
+                locale != "en" ? "(Language)" : ""
+              }}</span>
             </h3>
             <span class="text-dim-2">
               {{ $t("pages.settings.languageSelectorSubtext") }}
@@ -289,9 +292,9 @@ import {
   SwatchIcon,
 } from "@heroicons/vue/24/outline";
 
-import { message, open, save } from "@tauri-apps/api/dialog";
-import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
-import { disable, enable, isEnabled } from "tauri-plugin-autostart-api";
+import { message, open, save } from "@tauri-apps/plugin-dialog";
+import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
+import { disable, enable, isEnabled } from "@tauri-apps/plugin-autostart";
 
 import { useI18n } from "vue-i18n";
 
@@ -299,7 +302,7 @@ const router = useRouter();
 
 const store = useTauriStore().store;
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const activeTheme: Ref<null | string> = ref("");
 const themeEditorDisplayed = ref(false);
@@ -381,9 +384,12 @@ const deleteAllData = async () => {
   activeTheme.value = "dark";
   themeEditorDisplayed.value = false;
 
+  animationsEnabled.value = true;
+  store.set("animationsEnabled", true); // Reset animations to true
+
   router.go(0);
 
-  await message("Successfully deleted data.", { title: "Kanri", type: "info" });
+  await message("Successfully deleted data.", { title: "Kanri", kind: "info" });
 };
 
 const toggleAutostart = async (autostartToggled: boolean) => {
@@ -463,7 +469,7 @@ const importThemeFromJson = async () => {
     console.error("Could not parse imported JSON;", error);
     await message(t("pages.settings.loadJsonErrorMessage"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (parsedJson === null) return;
@@ -475,7 +481,7 @@ const importThemeFromJson = async () => {
     console.error(error);
     await message(t("pages.settings.parseJsonErrorMessage"), {
       title: "Kanri",
-      type: "error",
+      kind: "error",
     });
   }
   if (zodParsed === null) return;

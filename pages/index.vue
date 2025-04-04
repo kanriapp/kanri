@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak, PwshLab -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak, PwshLab -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -385,6 +385,9 @@ const renameBoard = async (index: number, name: string) => {
   boards.value[index].lastEdited = new Date();
   store.set("boards", boards.value);
 
+  // update board name in pinned bar
+  emitter.emit("updateBoardPin", boards.value[index]);
+
   await setSorting();
 };
 
@@ -409,7 +412,7 @@ const deleteBoardModal = (index: number | undefined) => {
 };
 
 const deleteBoard = async (boardIndex: number | undefined) => {
-  if(!deleteBoardModalVisible.value) return;
+  if (!deleteBoardModalVisible.value) return;
   if (boardIndex === -1 || boardIndex == undefined) return;
 
   const deletedBoard = boards.value.splice(boardIndex, 1);

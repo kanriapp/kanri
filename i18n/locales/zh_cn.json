@@ -1,0 +1,246 @@
+{
+  "general": {
+    "deleteAction": "删除",
+    "renameAction": "重命名",
+    "cancelAction": "取消",
+    "saveAction": "保存",
+    "importAction": "导入",
+    "exportAction": "导出",
+    "closeAction": "关闭",
+    "addAction": "添加",
+    "duplicateAction": "复制",
+    "editNameAction": "编辑名称",
+    "copyNoun": "复制"
+  },
+  "pages": {
+    "index": {
+      "welcome": "欢迎回到 Kanri！",
+      "welcomeSubtext": "您的看板已准备就绪，等待您的使用。",
+      "editSortWarning": "警告：至少有一个看板没有有效的最后编辑日期。这可能是由旧版本 Kanri 创建的面板的遗留问题。请至少编辑一次所有面板，以解决此问题。",
+      "sortAlphabetically": "按字母顺序排序",
+      "sortByCreationDate": "按创建日期排序",
+      "sortByLastEdited": "按最后编辑时间排序",
+      "reversedSortOrder": "反向排序",
+      "noBoardsHeading": "这里空荡荡的！",
+      "createBoardPrompt": "创建一个看板，以便更好地跟踪您的任务。",
+      "importDataHeading": "已有一些数据？",
+      "importDataPrompt": "您可以使用导入/导出菜单从其他来源导入数据：",
+      "importDataButton": "打开导入/导出菜单",
+      "getUpdatesHeading": "想获取最新更新并与创作者交流吗？",
+      "joinDiscordButton": "加入Discord社区！",
+      "deleteActionConfirmationHeading": "删除看板？",
+      "deleteActionConfirmationText": "您确定要删除看板 {boardName} 吗？此操作不可逆。"
+    },
+    "kanban": {
+      "changeBackground": "更改背景",
+      "editTags": "编辑标签",
+      "renameBoardAction": "重命名看板",
+      "duplicateBoardAction": "复制看板",
+      "exportBoardAction": "导出看板",
+      "pinBoardAction": "固定看板",
+      "unpinBoardAction": "取消固定看板",
+      "deleteBoardAction": "删除看板",
+      "deleteBoardConfirmation": "您确定要删除看板 '{boardName}' 吗？此操作不可逆。"
+    },
+    "settings": {
+      "deleteAllDataConfirmationAction": "删除数据",
+      "deleteAllDataConfirmationDescription": "删除所有数据？",
+      "deleteAllDataConfirmationHeading": "删除所有数据？",
+      "settingsHeading": "设置",
+      "settingsHeadingSubtext": "在此处更改应用程序的行为。",
+      "sectionThemeHeading": "主题",
+      "darkThemeOption": "深色",
+      "lightThemeOption": "浅色",
+      "catppuccinThemeOption": "卡布奇诺",
+      "customThemeOption": "自定义",
+      "customThemeEditorHeading": "选择自定义主题的颜色：",
+      "customThemeImportHeading": "或导入/导出自定义主题：",
+      "customThemeImportHeadingSubtext": "注意：导入会覆盖您当前的主题，因此请先导出任何不想丢失的自定义主题！",
+      "colorResetText": "如果颜色没有更新，请点击",
+      "colorResetLink": "此处",
+      "preferencesHeading": "看板偏好设置",
+      "preferencesSubtext": "更改您的看板的行为。",
+      "preferencesZoomHeading": "缩放",
+      "preferencesZoomSubtext": "调整看板的全局缩放级别。",
+      "preferencesAddToTopButtonHeading": "显示添加到顶部按钮",
+      "preferencesAddToTopButtonSubtext": "显示一个按钮，允许您将新卡片添加到列表的顶部。",
+      "preferencesDisplayNumberOfCardsHeading": "显示列表中的卡片数量",
+      "preferencesDisplayNumberOfCardsSubtext": "显示每列中有多少张卡片。",
+      "languageSelectorHeading": "语言",
+      "languageSelectorSubtext": "更改应用程序的语言。",
+      "miscellaneousHeading": "其他设置",
+      "miscellaneousAnimationsHeading": "动画",
+      "miscellaneousAnimationsSubtext": "禁用此选项以移除应用中的所有动画。",
+      "miscellaneousAutostartHeading": "开机自启",
+      "miscellaneousAutostartSubtext": "在开机时自动运行 Kanri。",
+      "miscellaneousDeleteAllDataHeading": "删除所有数据（主题和看板）",
+      "miscellaneousDeleteAllDataSubtextRed": "警告！",
+      "miscellaneousDeleteAllDataSubtext": " 这将不可逆地删除您的所有数据！",
+      "exportThemeDialogTitle": "选择文件以导出数据",
+      "loadJsonErrorMessage": "无法加载JSON文件！请检查文件是否为正确的JSON格式。",
+      "parseJsonErrorMessage": "无法加载JSON文件！请检查文件格式是否正确且不是来自旧版本的 Kanri。"
+    },
+    "import": {
+      "importExportHeading": "导入与导出",
+      "importExportSubtext": "通过导入和导出管理您的 Kanri 数据。",
+      "importTabHeading": "导入数据",
+      "importTabSubtext": "从Kanri、KanbanElectron或Trello® 导入完整数据或单个看板。",
+      "importTabPartialHeading": "部分导入（单个看板）",
+      "importTabPartialSubtext": "一个文件等于一个要导入的看板。注意：您可以一次选择多个文件/看板进行导入。",
+      "importOptionKanri": "从 Kanri 导入",
+      "importOptionTrello": "从 Trello® 导入",
+      "importOptionGithub": "从 GitHub 项目导入",
+      "importOptionKanbanElectron": "从 KanbanElectron 导入",
+      "importTabFullHeading": "完整导入",
+      "importTabFullSubtext": "从一个文件中导入完整数据。警告：这将用您导入的数据覆盖所有现有数据！您可能需要先导出现有数据。",
+      "exportTabHeading": "导出数据",
+      "exportTabPartialHeading": "部分导出（单个看板）",
+      "exportTabPartialSubtext": "部分导出意味着您将获得一个针对单个看板的.json文件。",
+      "exportTabPartialSelectButton": "导出单个看板",
+      "exportTabPartialSelectPrompt": "选择一个要导出的板",
+      "exportTabFullHeading": "完整导出",
+      "exportTabFullSubtext": "将所有数据（看板、主题、其他偏好设置如缩放等）导出到一个.json文件中。",
+      "exportTabFullButton": "导出所有数据",
+      "exportFullJsonDialogTitle": "选择导出数据的文件",
+      "exportFullJsonSuccessMessage": "成功导出您的数据。",
+      "exportPartialJsonDialogTitle": "选择导出看板的文件",
+      "exportPartialJsonErrorBoardNotFound": "未找到看板。",
+      "exportPartialJsonSuccessMessage": "成功导出看板。",
+      "importErrorBadJson": "无法加载JSON文件！请检查文件是否正确。",
+      "importErrorGoodJsonFaultyData": "无法加载JSON文件！请检查文件格式是否正确且不是来自旧版本的 Kanri。",
+      "importErrorNoBoards": "无法加载没有看板的文件。请导入至少包含一个看板文件。",
+      "importErrorTrello": "无法加载JSON文件！请检查文件格式是否正确。",
+      "importErrorTrelloConversion": "无法转换您的 Trello 面板。请重试，如果再次发生，请向开发人员报告此错误。",
+      "importErrorKanbanElectron": "无法加载JSON文件！请检查文件是否格式正确且是从最新版本的 KanbanElectron 导出的。",
+      "importErrorGithub": "文件 {file} 不是有效的从 GitHub 项目导出的看板。如果您认为这是错误，请打开 GitHub 问题或发送邮件至 {email}",
+      "importSuccessFull": "成功导入您的数据。",
+      "importSuccessPartial": "成功导入您的看板。",
+      "importDuplicateBoard": "看板 {boardName} 已存在（具有相同ID的看板）。您要作为副本导入吗？",
+      "duplicateSuffix": " (副本)",
+      "importSuccessGithub": "GitHub 项目看板导入成功。"
+    }
+  },
+  "components": {
+    "customThemeEditor": {
+      "optionAccentColor": "强调色",
+      "optionPrimaryTextColor": "主要文本颜色",
+      "optionButtonTextColor": "按钮文本颜色",
+      "optionPrimaryBackgroundColor": "主要背景颜色",
+      "option1stElevationColor": "第一级阴影颜色",
+      "option2ndElevationColor": "第二级阴影颜色",
+      "option3rdElevationColor": "第三级阴影颜色"
+    },
+    "sidebar": {
+      "home": "主页",
+      "back": "返回",
+      "createNewBoard": "创建新的看板",
+      "importExport": "导入/导出",
+      "help": "帮助",
+      "settings": "设置"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "添加卡片",
+        "addCardTop": "添加卡片到顶部",
+        "deleteColumnAction": "删除列表",
+        "deleteColumnConfirmation": "您确定要删除列表 '{columnName}' 吗？此操作不可逆。",
+        "addCardPlaceholder": "输入卡片名称..."
+      },
+      "card": {
+        "deleteCardAction": "删除卡片",
+        "deleteCardConfirmation": "您确定要删除卡片 '{cardName}' 吗？此操作不可逆。"
+      },
+      "searchBar": {
+        "placeholder": "搜索卡片..."
+      },
+      "zoomAdjustment": {
+        "reset": "重置缩放级别",
+        "increaseLevel": "增加缩放级别",
+        "decreaseLevel": "减少缩放级别"
+      }
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "编辑卡片标签",
+      "description": "在这里您可以编辑全局标签，这些标签适用于整个看板。注意：删除全局标签不会从卡片中移除它们，但会使它们在新卡片中不可用。",
+      "tagListTitle": "您的标签："
+    },
+    "changelog": {
+      "title": "Kanri {major}.{minor}.{revision} 新增功能？",
+      "welcome": "欢迎来到 Kanri！经过一段时间的等待，我们带着包含众多修复、改进和一些小功能的更新回归了。为了及时获取新版本通知并了解开发进度，您可以加入",
+      "welcomeLink": "官方 Discord 服务器。",
+      "changes": "变更内容：（阅读更新日志以了解所有更改）",
+      "changeItem1": "添加了分隔卡片，用于在列中分隔卡片（通过将卡片命名为 --- 创建）。",
+      "changeItem2": "改进了搜索栏，现在可以按单个属性（名称、描述、标签）进行筛选。",
+      "changeItem3": "修复了在搜索栏中输入文本时编辑功能工作不正确的错误。",
+      "changeItem4": "添加了一个功能，允许更改看板的固定状态。"
+    },
+    "confirmation": {
+      "sure": "您确定吗？",
+      "negative": "否",
+      "positive": "是"
+    },
+    "customBackground": {
+      "title": "设置自定义背景",
+      "imageTitle": "背景图像：",
+      "imageEdit": "编辑背景图像",
+      "imageAdd": "添加背景图像",
+      "imageBlur": "背景模糊强度：",
+      "brightnessTitle": "背景亮度：",
+      "reset": "重置背景图像"
+    },
+    "editCard": {
+      "tooltip": " 设置卡片颜色 ",
+      "colorTitle": "卡片颜色",
+      "colorCustom": "选择自定义颜色：",
+      "dueDate": "截止日期：",
+      "dateSet": "设置截止日期",
+      "countdown": "相对倒计时",
+      "dateRemove": "移除截止日期",
+      "descriptionTitle": "卡片描述",
+      "taskTitle": "任务",
+      "taskAdd": "添加任务",
+      "newTaskPlaceholder": "输入任务...",
+      "tagsTitle": "标签",
+      "tagsEdit": "编辑全局标签"
+    },
+    "help": {
+      "title": "帮助与资源",
+      "resources": "以下是一些有用的资源，可以帮助您。",
+      "shortcuts": "键盘快捷键",
+      "ctrlKey": "ctrl",
+      "ctrl+b": "- 在看板视图中创建新列",
+      "ctrl+d": "- 在看板视图中删除最后一列",
+      "ctrl+t": "- 在看板视图中编辑最后一列的标题",
+      "ctrl+n": "- 在看板视图中最后一列内创建新卡片",
+      "ctrl+alt+<>": "(方向键) - 切换列以编辑标题和添加卡片",
+      "ctrl++-": "- 增加/减少看板列的缩放（全局偏好设置）",
+      "support": "支持资源",
+      "docs": "文档",
+      "github": "GitHub 问题",
+      "discord": "Discord 服务器",
+      "creditsTitle": "鸣谢",
+      "creditsText1": "本应用根据GPLv3许可证授权（除非某些文件指定了不同的许可证）。使用的图标来自 Heroicons 和 Phosphor Icons。",
+      "creditsText2": "我们与 Trello, Inc.（www.trello.com）没有任何附属、关联、授权、认可或任何官方联系。",
+      "copyrights": "版权所有 © 2022-2025 trobonox ({email})",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "第三方许可声明"
+    },
+    "newBoard": {
+      "title": "创建新的看板",
+      "name": "看板名称",
+      "exampleColumns": "创建示例列表和卡片",
+      "columns": "列表",
+      "newColumn": "新建列表",
+      "createBoardAction": "创建看板",
+      "boardNameEmptyError": "看板名称不能为空",
+      "placeholder": "输入看板名称"
+    },
+    "renameBoard": {
+      "title": "重命名看板",
+      "name": "看板名称",
+      "placeholder": "输入新的看板名称"
+    }
+  }
+}

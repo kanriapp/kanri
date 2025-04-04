@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
+SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>
 
 SPDX-License-Identifier: Apache-2.0
 -->
@@ -26,7 +26,8 @@ SPDX-License-Identifier: Apache-2.0
 
 
 ## 🚀 Demo
-![kanri_demo_gif](https://github.com/trobonox/kanri/assets/57040351/fa7a9d79-3847-47cb-8325-6715477879f4)
+![showcase_gif_kanri](https://github.com/user-attachments/assets/14d26751-cb5e-4164-a2f9-84e2b7dc200c)
+
 
 ## ⬇️ Download
 You can download Kanri for Windows, Mac and Linux at [kanriapp.com](https://kanriapp.com), it's free!
@@ -38,7 +39,7 @@ xattr -cr /Applications/kanri.app
 
 ## ✨ Why Kanri?
 - 🏙 Modern - featuring a clean design & new technologies like Tauri
-- 👓 Familiar - uses a Kanban board layout
+- 👓 Familiar - uses a Kanban board layout (with unlimited boards, columns and tasks, including rich-text descriptions, sub-tasks, due-dates and tags)
 - 🧾 Offline - saves your data in a local `.json` file
 - 🛠 Customizable - allows for custom themes, background images and card colors
 - ⌨ With power users in mind - implements keyboard shortcuts to speed up board navigation
@@ -62,7 +63,7 @@ If you want to contribute, please take a look at the [Contribution Guidelines](h
 The `main` branch is equivalent to a `dev` branch where development is done on - submit PRs here. The `release` branch is similar to a `stable` branch with the code of latest release.
 
 **Build Setup**:
-If you want to build the app, you need to install Node.js (latest LTS version recommended), a package manager like yarn and the [Tauri development environment](https://tauri.app/v1/guides/getting-started/prerequisites).
+If you want to build the app, you need to install Node.js (latest LTS version recommended), a package manager like yarn and the [&nearr;&nbsp;Tauri development environment](https://tauri.app/start/prerequisites/).
 Then, depending on your use case you can run the commands below:
 
 ```bash
@@ -78,5 +79,5 @@ yarn tauri build
 ```
 
 ---
-**Copyright (c) 2022-2024 trobonox (trobo@kanriapp.com)**. Licensed under GPL v3 (with some files under Apache 2.0 or other licenses stated in the files themselves).
+**Copyright (c) 2022-2025 trobonox (trobo@kanriapp.com)**. Licensed under GPL v3 (with some files under Apache 2.0 or other licenses stated in the files themselves).
 The Kanri logo, name and other branding are **NOT** open source, full copyright belongs to trobonox.

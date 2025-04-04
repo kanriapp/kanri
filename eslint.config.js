@@ -1,18 +1,14 @@
-// SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, gitoak
+// SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak
 //
 // SPDX-License-Identifier: CC0-1.0
 
 import withNuxt from "./.nuxt/eslint.config.mjs";
 import tailwind from "eslint-plugin-tailwindcss";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
-import tseslint from "typescript-eslint";
-import js from "@eslint/js";
 
 export default withNuxt(
   ...tailwind.configs["flat/recommended"],
   eslintPluginPrettierRecommended,
-  ...tseslint.configs.recommended,
-  js.configs.recommended,
   {
     files: ["**/*.ts", "**/*.vue"],
     rules: {
@@ -27,6 +23,6 @@ export default withNuxt(
     },
   },
   {
-    ignores: ["src-tauri/**/*", "dist/**/*"],
+    ignores: ["src-tauri/**/*", "dist/**/*", "pages/licenses/**/*"],
   }
 );

@@ -1,9 +1,9 @@
-/* SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
+/* SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>
 
 SPDX-License-Identifier: GPL-3.0-or-later
 
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { error } from "tauri-plugin-log-api";
+import { error } from "@tauri-apps/plugin-log";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook("vue:error", (err, instance, info) => {

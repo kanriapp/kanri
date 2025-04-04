@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev> -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <ComboboxRoot v-model="selectedLocale" class="relative">
     <ComboboxAnchor
-      class="bg-elevation-1 border-elevation-1 hover:bg-elevation-2 data-[placeholder]:text-primary-light inline-flex h-[35px] min-w-[160px] cursor-pointer items-center justify-between gap-[5px] rounded px-[15px]"
+      class="bg-elevation-1 border-elevation-1 hover:bg-elevation-2 data-[placeholder]:text-primary-light inline-flex h-[35px] min-w-[240px] cursor-pointer items-center justify-between gap-[5px] rounded px-[15px]"
     >
       <ComboboxTrigger
         class="flex w-full flex-row items-center justify-between"
@@ -45,7 +45,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <ComboboxItem
             v-for="locale in locales"
             :key="locale.code"
-            class="text-primary-light data-[disabled]:text-elevation-3 data-[highlighted]:bg-primary-dark data-[highlighted]:text-primary-light relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[35px] leading-none data-[disabled]:pointer-events-none data-[highlighted]:outline-none"
+            class="text-primary-light data-[disabled]:text-elevation-3 data-[highlighted]:bg-primary-dark data-[highlighted]:text-primary-light bg-elevation-2-hover relative flex h-[25px] cursor-pointer select-none items-center rounded-[3px] pl-[25px] pr-[35px] leading-none data-[disabled]:pointer-events-none data-[highlighted]:outline-none"
             :value="locale.code"
           >
             <ComboboxItemIndicator

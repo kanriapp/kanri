@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev> -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,12 +24,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <template #trigger>
         <button
           class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
-          @click="increaseZoomLevel"
+          @click="decreaseZoomLevel"
         >
-          <MagnifyingGlassPlusIcon class="size-5" />
+          <MagnifyingGlassMinusIcon class="size-5" />
         </button>
       </template>
-      <template #content> {{ $t("components.kanban.zoomAdjustment.increaseLevel") }} </template>
+      <template #content>
+        {{ $t("components.kanban.zoomAdjustment.decreaseLevel") }}
+      </template>
     </Tooltip>
     <Tooltip direction="top">
       <template #trigger>
@@ -40,18 +42,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           {{ columnZoomLevel * 50 + 100 }}%
         </button>
       </template>
-      <template #content> {{ $t("components.kanban.zoomAdjustment.reset") }} </template>
+      <template #content>
+        {{ $t("components.kanban.zoomAdjustment.reset") }}
+      </template>
     </Tooltip>
     <Tooltip direction="top">
       <template #trigger>
         <button
           class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
-          @click="decreaseZoomLevel"
+          @click="increaseZoomLevel"
         >
-          <MagnifyingGlassMinusIcon class="size-5" />
+          <MagnifyingGlassPlusIcon class="size-5" />
         </button>
       </template>
-      <template #content> {{ $t("components.kanban.zoomAdjustment.decreaseLevel") }} </template>
+      <template #content>
+        {{ $t("components.kanban.zoomAdjustment.increaseLevel") }}
+      </template>
     </Tooltip>
   </div>
 </template>

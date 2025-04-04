@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, PwshLab -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, PwshLab, tareqdayya -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2024 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,7 +43,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <ModalEditCard
       v-show="editCardModalVisible"
       :card="currentlyActiveCardInfo.card"
-      :card-index-prop="currentlyActiveCardInfo.cardIndex"
       :column-id="currentlyActiveCardInfo.columnId"
       :global-tags="board.globalTags || []"
       @closeModal="closeEditCardModal"
@@ -108,10 +107,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         type="text"
         @blur="
           boardTitleEditing = false;
+          emitter.emit('updateBoardPin', board);
           updateStorage();
         "
         @keypress.enter="
           boardTitleEditing = false;
+          emitter.emit('updateBoardPin', board);
           updateStorage();
         "
       />
@@ -181,7 +182,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
                   @click="toggleBoardPin"
                 >
-                  <span v-if="!isPinned">{{ $t("pages.kanban.pinBoardAction") }}</span>
+                  <span v-if="!isPinned">{{
+                    $t("pages.kanban.pinBoardAction")
+                  }}</span>
                   <span v-else>{{ $t("pages.kanban.unpinBoardAction") }}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -203,7 +206,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       :style="cssVars"
       class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
     >
-      <div class="bg-effect-overlay h-full w-max min-w-full pt-28">
+      <div
+        class="h-full w-max min-w-full pt-28"
+        :style="{
+          '-webkit-backdrop-filter':
+            'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
+          'backdrop-filter':
+            'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
+          'pointer-events': 'none',
+        }"
+      >
         <div class="pointer-events-auto z-50 pl-8">
           <div class="pt-4">
             <Container
@@ -276,9 +288,10 @@ import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight } from "@phosphor-icons/vue";
 
-import { save } from "@tauri-apps/api/dialog";
-import { writeTextFile } from "@tauri-apps/api/fs";
-import { convertFileSrc } from "@tauri-apps/api/tauri";
+import { save } from "@tauri-apps/plugin-dialog";
+import { writeTextFile, exists } from "@tauri-apps/plugin-fs";
+import { convertFileSrc } from "@tauri-apps/api/core";
+import { normalize } from "@tauri-apps/api/path";
 import { useConfirmDialog } from "@vueuse/core";
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
@@ -319,9 +332,8 @@ const editCardModalVisible = ref(false);
 
 const currentlyActiveCardInfo: {
   card: Card | null;
-  cardIndex: number;
   columnId: string;
-} = reactive({ card: null, cardIndex: -1, columnId: "" });
+} = reactive({ card: null, columnId: "" });
 
 const removeColumnModalVisible = ref(false);
 const removeCardModalVisible = ref(false);
@@ -344,17 +356,7 @@ const cssVars = computed(() => {
 onMounted(async () => {
   await loadCurrentBoard();
 
-  if (board.value.background) {
-    bgCustomNoResolution.value = board.value.background.src;
-    bgCustom.value = convertFileSrc(board.value.background.src);
-
-    bgBlur.value = board.value.background.blur;
-    bgBrightness.value = board.value.background.brightness;
-  }
-  nextTick(() => (bgImageLoaded.value = true));
-
-  await getBoardTitleTextColor();
-
+  //@ts-expect-error TODO: fix types for column zoom parameter
   const columnZoom: null | number = await store.get("columnZoomLevel");
 
   if (columnZoom == null) {
@@ -371,6 +373,45 @@ onMounted(async () => {
 
   const pinned = ((await store.get("pins")) as Board[]) || [];
   isPinned.value = findObjectById(pinned, board.value.id) ? true : false;
+
+  if (board.value.background) {
+    bgCustomNoResolution.value = board.value.background.src;
+
+    const pathTauriObject = await normalize(board.value.background.src);
+    let bgImageExists = false;
+    try {
+      bgImageExists = await exists(pathTauriObject);
+    } catch (e) {
+      console.warn(
+        "Background image might not exist, might be from an imported board from another device"
+      );
+      console.info(e);
+      bgImageExists = false;
+    }
+
+    if (!bgImageExists) {
+      console.warn(
+        "Background image does not exist, removing background image from board"
+      );
+      board.value.background = null; // completely remove leftover traces of the background image
+      updateStorage();
+
+      return; // don't set any more values regarding background
+    }
+
+    try {
+      bgCustom.value = convertFileSrc(board.value.background.src);
+    } catch (e) {
+      console.error("Error converting file src: ", e);
+      bgCustom.value = "";
+    }
+
+    bgBlur.value = board.value.background.blur;
+    bgBrightness.value = board.value.background.brightness;
+  }
+  nextTick(() => (bgImageLoaded.value = true));
+
+  await getBoardTitleTextColor();
 
   document.addEventListener("keydown", keyDownListener);
 
@@ -567,7 +608,7 @@ const onDrop = (dropResult: object) => {
  * Get the text color with the correct contrast if a background image is set
  */
 const getBoardTitleTextColor = async () => {
-  if (bgCustom.value == "") return;
+  if (bgCustom.value == null || !/\S/.test(bgCustom.value)) return;
 
   const averageColorFromBackground = await getAverageColor(bgCustom.value);
   const hexColor = rgbToHex(
@@ -587,61 +628,92 @@ type CardMutateFunction = (card: Card) => void;
 
 const mutateCardData = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   mutateCard: CardMutateFunction
 ) => {
   const column = findObjectById<Column>(board.value.columns, columnId);
-  const card = column.cards[cardIndex];
+  if (!column) {
+    console.error(`Column with ID ${columnId} not found`);
+    return;
+  }
+  if (column.cards.length === 0) {
+    console.error(`No cards in column with ID ${columnId}`);
+    return;
+  }
+
+  if (!cardId) {
+    console.error(`Card ID is undefined`);
+    return;
+  }
+
+  const card = findObjectById<Card>(column.cards, cardId);
+  if (!card) {
+    console.error(`Card with ID ${cardId} not found`);
+    return;
+  }
+
   mutateCard(card);
   updateColumnProperties(column);
 };
 
-const setCardTitle = (columnId: string, cardIndex: number, title: string) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+const setCardTitle = (
+  columnId: string,
+  cardId: string | undefined,
+  title: string
+) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.name = title;
   });
 };
 
 const setCardDescription = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   description: string
 ) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.description = description;
   });
 };
 
-const setCardColor = (columnId: string, cardIndex: number, color: string) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+const setCardColor = (
+  columnId: string,
+  cardId: string | undefined,
+  color: string
+) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.color = color;
   });
 };
 
 const setCardTasks = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   tasks: Card["tasks"]
 ) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.tasks = tasks;
   });
 };
 
 const setCardDueDate = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   dueDate: Date | null,
   isCounterRelative: boolean
 ) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.dueDate = dueDate;
     card.isDueDateCounterRelative = isCounterRelative;
   });
 };
 
-const setCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+const setCardTags = (
+  columnId: string,
+  cardId: string | undefined,
+  tags: Array<Tag>
+) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.tags = tags;
   });
 };
@@ -693,18 +765,17 @@ const updateTagName = (tagId: string, newName: string) => {
 
 const updateCardTags = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   tags: Array<Tag>
 ) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.tags = tags;
   });
 };
 
 // Kanban card modal
-const openEditCardModal = (columnId: string, cardIndex: number, el: Card) => {
+const openEditCardModal = (columnId: string, el: Card) => {
   currentlyActiveCardInfo.columnId = columnId;
-  currentlyActiveCardInfo.cardIndex = cardIndex;
   currentlyActiveCardInfo.card = el;
 
   nextTick(() => {
@@ -721,16 +792,24 @@ const closeEditCardModal = () => {
 
 const removeCardWithConfirmation = async (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   cardRef: Ref<HTMLElement | null>
 ) => {
-  const card = board.value.columns.filter((obj: Column) => {
+  const cards = board.value.columns.filter((obj: Column) => {
     return obj.id === columnId;
-  })[0].cards[cardIndex];
+  })[0].cards;
+
+  const cardIndex = cards.findIndex((c) => c.id === cardId);
+  if (cardIndex === -1) {
+    return;
+  }
+
+  const card = cards[cardIndex];
+
   emitter.emit("openModalWithCustomDescription", {
     description: t("components.kanban.card.deleteCardConfirmation", {
       cardName: card.name,
-    }), 
+    }),
   });
 
   const { isCanceled } = await cardRemoveDialog.reveal();
@@ -795,6 +874,7 @@ const removeColumn = (columnID: string) => {
     return obj.id === columnID;
   })[0];
 
+  // TODO: check if using an index instead of the ID is an issue here
   const columnIndex = board.value.columns.indexOf(column);
   board.value.columns.splice(columnIndex, 1);
   columnEditIndex.value--;
@@ -807,6 +887,7 @@ const updateColumnProperties = (columnObj: Column) => {
     return obj.id === columnObj.id;
   })[0];
 
+  // TODO: check if using an index instead of the ID is an issue here
   const columnIndex = boardSaved.columns.indexOf(column);
   boardSaved.columns[columnIndex] = columnObj;
 
@@ -837,7 +918,7 @@ const updateStorage = () => {
 
 const exportBoardToJson = async () => {
   const filePath = await save({
-    defaultPath: `./kanri_board_${board.value.id}_export.json`,
+    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_board_${board.value.id}_export.json`,
     filters: [
       {
         extensions: ["json"],
@@ -871,6 +952,9 @@ const renameBoard = (index: number, name: string) => {
   boards.value[index].title = name;
   boards.value[index].lastEdited = new Date();
   store.set("boards", boards.value);
+
+  // update board pin (to reflect new name)
+  emitter.emit("updateBoardPin", boards.value[index]);
 };
 
 const duplicateBoard = () => {
@@ -902,7 +986,7 @@ const deleteBoardModal = (index: number | undefined) => {
 };
 
 const deleteBoard = async (boardIndex: number | undefined) => {
-  if(!deleteBoardModalVisible.value) return;
+  if (!deleteBoardModalVisible.value) return;
   if (boardIndex === -1 || boardIndex == undefined) return;
 
   boards.value.splice(boardIndex, 1);
@@ -991,11 +1075,5 @@ const getGhostParent = () => {
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.bg-effect-overlay {
-  z-index: 2;
-  backdrop-filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
-  pointer-events: none;
 }
 </style>

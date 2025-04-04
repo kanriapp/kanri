@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -18,24 +18,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu-20.04]
+        platform: [ubuntu-22.04]
 
     runs-on: ${{ matrix.platform }}
     steps:
-    - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
     - name: setup node
       uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 22
     - name: install Rust stable
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
     - name: install dependencies (ubuntu only)
-      if: matrix.platform == 'ubuntu-20.04'
+      if: matrix.platform == 'ubuntu-22.04'
       run: |
         sudo apt-get update
-        sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+        sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev
     - name: install app dependencies and build it
       run: yarn && yarn generate
     - uses: tauri-apps/tauri-action@v0

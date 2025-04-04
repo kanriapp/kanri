@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2024 trobonox <hello@trobo.dev>, Khusyasy, PwshLab -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt, tareqdayya -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!--
@@ -21,7 +21,7 @@ limitations under the License.
       <div
         ref="cardRef"
         :class="[
-          cardTextClassZoom,
+          name === '---' ? 'separator-card' : zoomClass,
           cardBackgroundColor.startsWith('#') ? '' : cardBackgroundColor,
           cardTextColor,
         ]"
@@ -30,20 +30,21 @@ limitations under the License.
             ? { 'background-color': cardBackgroundColor }
             : {},
         ]"
-        class="kanban-card border-elevation-3 mb-3 flex min-h-[30px] w-full cursor-pointer flex-col items-start gap-1 rounded-[3px] border p-3"
-        @click.self="$emit('openEditCardModal', index, card)"
+        class="kanban-card border-elevation-3 flex min-h-[30px] w-full cursor-pointer flex-col items-start gap-1 rounded-[3px] border p-3"
+        @click.self="$emit('openEditCardModal', card)"
       >
         <div
           :class="{ 'pb-1': cardHasNoExtraProperties }"
-          class="flex w-full flex-row items-start justify-between"
+          class="flex w-full flex-row items-center justify-between"
         >
           <p class="text-no-overflow mr-2 w-full min-w-[28px]">
             <ClickCounter
               v-if="!cardNameEditMode"
               @double-click="enableCardEditMode"
-              @single-click="$emit('openEditCardModal', index, card)"
+              @single-click="$emit('openEditCardModal', card)"
             >
-              <p ref="cardNameText">
+              <hr v-if="name === '---'" class="mt-0.5" />
+              <p v-else ref="cardNameText">
                 {{ name }}
               </p>
             </ClickCounter>
@@ -62,13 +63,14 @@ limitations under the License.
           </p>
 
           <ClickCounter
+            v-if="name !== '---'"
             class="cursor-pointer"
-            @double-click="deleteCardWithAnimation(index)"
-            @single-click="deleteCardWithConfirmation(index)"
+            @double-click="deleteCardWithAnimation(card.id)"
+            @single-click="deleteCardWithConfirmation(card.id)"
           >
             <XMarkIcon
               class="text-accent-hover mt-[3px] size-4"
-              :class="cardTextColor"
+              :class="[cardTextColor, iconSizeClass]"
             />
           </ClickCounter>
         </div>
@@ -76,21 +78,20 @@ limitations under the License.
         <div
           v-if="cardTags && cardTags?.length > 0"
           class="-ml-0.5 -mt-0.5 mb-1 flex flex-row flex-wrap items-center gap-1"
-          @click="$emit('openEditCardModal', index, card)"
+          @click="$emit('openEditCardModal', card)"
         >
           <div v-for="tag in cardTags" :key="tag.id">
-            <KanbanTagDisplay :tag="tag" />
+            <KanbanTagDisplay :tag="tag" :zoom-level="zoomLevel" />
           </div>
         </div>
 
         <div
           class="flex flex-row flex-wrap items-center gap-2"
-          @click="$emit('openEditCardModal', index, card)"
+          @click="$emit('openEditCardModal', card)"
         >
           <PhTextAlignLeft
             v-if="!isDescriptionEmpty"
-            :class="[cardTextColorDim]"
-            class="size-5"
+            :class="[cardTextColorDim, iconSizeClass]"
           />
 
           <div
@@ -100,11 +101,17 @@ limitations under the License.
             }"
             class="flex flex-row items-center gap-1"
           >
-            <PhChecks v-if="allTasksCompleted" class="text-buttons size-5" />
-            <PhListChecks v-else :class="[cardTextColorDim]" class="size-5" />
+            <PhChecks
+              v-if="allTasksCompleted"
+              class="text-buttons"
+              :class="iconSizeClass"
+            />
+            <PhListChecks v-else :class="[cardTextColorDim, iconSizeClass]" />
             <span
-              :class="allTasksCompleted ? 'text-buttons' : cardTextColorDim"
-              class="text-sm"
+              :class="[
+                allTasksCompleted ? 'text-buttons' : cardTextColorDim,
+                taskTextClass,
+              ]"
               >{{ taskCompletionStatus }}</span
             >
           </div>
@@ -116,8 +123,8 @@ limitations under the License.
               'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue,
             }"
           >
-            <PhClock class="size-4" />
-            <span class="text-sm">{{ getFormattedDueDate }}</span>
+            <PhClock :class="iconSizeClass" />
+            <span :class="taskTextClass">{{ getFormattedDueDate }}</span>
           </div>
         </div>
       </div>
@@ -136,14 +143,14 @@ limitations under the License.
         <ContextMenuItem
           value="Duplicate"
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
-          @click="$emit('duplicateCard', index)"
+          @click="$emit('duplicateCard', card.id)"
         >
           {{ $t("general.duplicateAction") }}
         </ContextMenuItem>
         <ContextMenuItem
           value="Delete"
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
-          @click="deleteCardWithConfirmation(index)"
+          @click="deleteCardWithConfirmation(card.id)"
         >
           {{ $t("general.deleteAction") }}
         </ContextMenuItem>
@@ -173,25 +180,21 @@ import {
   ContextMenuTrigger,
 } from "radix-vue";
 
-const props = defineProps<{
-  card: Card;
-  index: number;
-  zoomLevel: number;
-}>();
+const props = defineProps<{ card: Card; zoomLevel: number }>();
 
 const emit = defineEmits<{
   (e: "disableDragging"): void;
   (e: "enableDragging"): void;
-  (e: "openEditCardModal", index: number, card: Card): void;
-  (e: "removeCard", index: number): void;
+  (e: "openEditCardModal", card: Card): void;
+  (e: "removeCard", id: string | undefined): void;
   (
     e: "removeCardWithConfirmation",
-    index: number,
+    cardId: string | undefined,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
-  (e: "setCardTitle", index: number, name: string): void;
-  (e: "updateCardTags", index: number, tags: Array<Tag>): void;
-  (e: "duplicateCard", index: number): void;
+  (e: "setCardTitle", cardId: string | undefined, name: string): void;
+  (e: "updateCardTags", cardId: string | undefined, tags: Array<Tag>): void;
+  (e: "duplicateCard", cardId: string | undefined): void;
 }>();
 
 const store = useTauriStore().store;
@@ -237,7 +240,7 @@ onMounted(async () => {
         savedTag.color = tag.color;
         savedTag.style = tag.style;
 
-        emit("updateCardTags", props.index, cardTags.value ?? []);
+        emit("updateCardTags", props.card?.id, cardTags.value ?? []);
       }
     });
   });
@@ -252,7 +255,8 @@ const cardHasNoExtraProperties = computed(() => {
     (!tasks.value || tasks.value.length === 0) &&
     isDescriptionEmpty &&
     !dueDate.value &&
-    (props.card.tags || []).length === 0
+    (props.card.tags || []).length === 0 &&
+    !props.card.name.startsWith("---")
   );
 });
 
@@ -284,22 +288,49 @@ const allTasksCompleted = computed(() => {
   return false; //default return
 });
 
-const cardTextClassZoom = computed(() => {
+// New computed properties for scaling elements
+const zoomClass = computed(() => {
   switch (props.zoomLevel) {
-    case 0:
-      return "";
-
     case -1:
-      return "text-sm";
-
+      return "zoom-down text-sm";
+    case 0:
+      return "zoom-normal";
     case 1:
-      return "text-xl";
-
+      return "zoom-up text-xl";
     case 2:
-      return "text-2xl";
-
+      return "zoom-up-2x text-2xl";
     default:
-      return "";
+      return "zoom-normal";
+  }
+});
+
+const iconSizeClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "size-3";
+    case 0:
+      return "size-4";
+    case 1:
+      return "size-5";
+    case 2:
+      return "size-8";
+    default:
+      return "size-4";
+  }
+});
+
+const taskTextClass = computed(() => {
+  switch (props.zoomLevel) {
+    case -1:
+      return "text-xs";
+    case 0:
+      return "text-sm";
+    case 1:
+      return "text-base";
+    case 2:
+      return "text-lg";
+    default:
+      return "text-sm";
   }
 });
 
@@ -356,7 +387,10 @@ const getFormattedDueDate = computed(() => {
       const secondsPast = Math.floor(-timeDifference / 1000);
       const minutesPast = Math.floor(secondsPast / 60);
       const hoursPast = Math.floor(minutesPast / 60);
-      const daysPast = Math.ceil(hoursPast / 24);
+      const daysPast =
+        hoursPast % 24 > 12
+          ? Math.ceil(hoursPast / 24)
+          : Math.floor(hoursPast / 24);
 
       const seconds = secondsPast % 60;
       const minutes = minutesPast % 60;
@@ -375,7 +409,8 @@ const getFormattedDueDate = computed(() => {
     const seconds = Math.floor(timeDifference / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
-    const days = Math.ceil(hours / 24);
+    const days =
+      hours % 24 > 12 ? Math.ceil(hours / 24) : Math.floor(hours / 24);
 
     if (days > 0) {
       return `in ${days} day${days > 1 ? "s" : ""}`;
@@ -403,18 +438,27 @@ const dueDateOverdue = computed(() => {
   return false;
 });
 
-const deleteCardWithConfirmation = (index: number) => {
-  emit("removeCardWithConfirmation", index, cardRef);
+const deleteCardWithConfirmation = (id: string | undefined) => {
+  /*
+    TODO: rewrite this, we are passing a ref through an emit which works for this usecase of DOM manipulation but might break reactivity
+    need to figure out a better way to handle this, especially because we go back and forth between the card component and the parent
+    (how this works at the moment: click x -> emit removeCardWithConfirmation -> parent component opens confirmation modal and checks if we actually want the deletion -> if yes, manipulate the DOM of the card component and then delete the card)
+  */
+
+  if (id) {
+    // eslint-disable-next-line vue/no-ref-as-operand
+    emit("removeCardWithConfirmation", id, cardRef);
+  }
 };
 
-const deleteCardWithAnimation = (index: number) => {
+const deleteCardWithAnimation = (id: string | undefined) => {
   if (!cardRef.value) return;
 
   const oldClasses = cardRef.value.classList.value;
   cardRef.value.classList.value = oldClasses + " card-hidden";
 
   setTimeout(() => {
-    emit("removeCard", index);
+    emit("removeCard", id);
 
     if (!cardRef.value) return;
     cardRef.value.classList.value = oldClasses;
@@ -443,7 +487,7 @@ const updateCardName = () => {
     return;
   }
 
-  emit("setCardTitle", props.index, name.value);
+  emit("setCardTitle", props.card?.id, name.value);
   cardNameEditMode.value = false;
   emit("enableDragging");
 };
@@ -460,5 +504,35 @@ const updateCardName = () => {
 .kanban-card.card-hidden {
   opacity: 0%;
   text-decoration: line-through;
+}
+
+.separator-card {
+  margin-bottom: 0 !important;
+  gap: 0.25rem !important;
+}
+
+/* Zoom level classes for scaling */
+.zoom-down {
+  padding: 0.5rem !important;
+  margin-bottom: 0.45rem !important;
+  gap: 0.25rem !important;
+}
+
+.zoom-normal {
+  padding: 0.75rem !important;
+  margin-bottom: 0.1rem !important;
+  gap: 0.25rem !important;
+}
+
+.zoom-up {
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+  gap: 0.375rem !important;
+}
+
+.zoom-up-2x {
+  padding: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+  gap: 0.5rem !important;
 }
 </style>
