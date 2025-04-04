@@ -445,6 +445,7 @@ const deleteCardWithConfirmation = (index: number) => {
     (how this works at the moment: click x -> emit removeCardWithConfirmation -> parent component opens confirmation modal and checks if we actually want the deletion -> if yes, manipulate the DOM of the card component and then delete the card)
   */
 
+  // eslint-disable-next-line vue/no-ref-as-operand
   emit("removeCardWithConfirmation", index, cardRef);
 };
 
