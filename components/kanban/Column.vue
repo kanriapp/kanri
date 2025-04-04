@@ -235,7 +235,7 @@ const emit = defineEmits<{
   (
     e: "removeCardWithConfirmation",
     columnId: string,
-    cardIndex: number,
+    cardId: string,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
   (e: "removeColumn", columnId: string): void;
@@ -737,15 +737,19 @@ const scrollCardIntoView = () => {
 };
 
 const removeCardWithConfirmation = (
-  cardIndex: number,
+  cardId: string,
   cardRef: Ref<HTMLDivElement | null>
 ) => {
-  emit("removeCardWithConfirmation", props.id, cardIndex, cardRef);
+  emit("removeCardWithConfirmation", props.id, cardId, cardRef);
 };
 
-const removeCard = (index: number) => {
-  cards.value.splice(index, 1);
-  updateStorage();
+const removeCard = (id: string) => {
+  const index = cards.value.findIndex((card) => card.id === id);
+
+  if (index !== -1) {
+    cards.value.splice(index, 1);
+    updateStorage();
+  }
 };
 
 const setCardTitle = (cardIndex: number, name: string) => {

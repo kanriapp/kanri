@@ -734,12 +734,20 @@ const closeEditCardModal = () => {
 
 const removeCardWithConfirmation = async (
   columnId: string,
-  cardIndex: number,
+  cardId: string,
   cardRef: Ref<HTMLElement | null>
 ) => {
-  const card = board.value.columns.filter((obj: Column) => {
+  const cards = board.value.columns.filter((obj: Column) => {
     return obj.id === columnId;
-  })[0].cards[cardIndex];
+  })[0].cards;
+
+  const cardIndex = cards.findIndex((c) => c.id === cardId);
+  if (cardIndex === -1) {
+    return;
+  }
+
+  const card = cards[cardIndex];
+
   emitter.emit("openModalWithCustomDescription", {
     description: t("components.kanban.card.deleteCardConfirmation", {
       cardName: card.name,
