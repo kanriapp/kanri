@@ -52,7 +52,7 @@
       "darkThemeOption": "Тёмная",
       "lightThemeOption": "Светлая",
       "catppuccinThemeOption": "Catppuccin",
-      "customThemeOption": "Пользовательская", 
+      "customThemeOption": "Пользовательская",
       "customThemeEditorHeading": "Выберите цвета для пользовательской темы:",
       "customThemeImportHeading": "Или импортируйте/экспортируйте пользовательскую тему:",
       "customThemeImportHeadingSubtext": "Примечание: импорт перезаписывает вашу нынешнюю тему, поэтому заранее экспортируйте свою пользовательскую тему, если не хотите её потерять!",
@@ -140,23 +140,23 @@
     },
     "kanban": {
       "column": {
-          "addCard": "Добавить карточку",
-          "addCardTop": "Добавить карточку наверх",
-          "deleteColumnAction": "Удалить колонку",
-          "deleteColumnConfirmation": "Вы уверены, что хотите удалить колонку '{columnName}'? Это действие нельзя отменить.",
-          "addCardPlaceholder": "Введите название карточки..."
+        "addCard": "Добавить карточку",
+        "addCardTop": "Добавить карточку наверх",
+        "deleteColumnAction": "Удалить колонку",
+        "deleteColumnConfirmation": "Вы уверены, что хотите удалить колонку '{columnName}'? Это действие нельзя отменить.",
+        "addCardPlaceholder": "Введите название карточки..."
       },
       "card": {
-          "deleteCardAction": "Удалить карточку",
-          "deleteCardConfirmation": "Вы уверены, что хотите удалить карточку '{cardName}'? Это действие нельзя отменить."
+        "deleteCardAction": "Удалить карточку",
+        "deleteCardConfirmation": "Вы уверены, что хотите удалить карточку '{cardName}'? Это действие нельзя отменить."
       },
       "searchBar": {
-          "placeholder": "Поиск карточек..."
+        "placeholder": "Поиск карточек..."
       },
       "zoomAdjustment": {
-          "reset": "Восстановить масштаб",
-          "increaseLevel": "Увеличить масштаб",
-          "decreaseLevel": "Уменьшить масштаб"
+        "reset": "Восстановить масштаб",
+        "increaseLevel": "Увеличить масштаб",
+        "decreaseLevel": "Уменьшить масштаб"
       }
     }
   },
@@ -165,16 +165,16 @@
       "title": "Редактировать теги",
       "description": "Здесь вы можете редактировать глобальные теги, доступные для всей доски. Примечание: если удалить глобальный тег, он не удалится с карточек, но он будет недоступен для новых карточек.",
       "tagListTitle": "Ваши теги:"
-      },
+    },
     "changelog": {
-      "title": "What's new in Kanri {major}.{minor}.{revision}?",
-      "welcome": "Welcome to Kanri! After a long time, we are back with a big release featuring many new features and fixes. To quickly get notified about new releases and see the development progress, you can join",
-      "welcomeLink": "the official Discord server.",
-      "changes": "Changes:",
-      "changeItem1": "Ability to change the app language. Currently English and German are supported.",
-      "changeItem2": "Fixed a bug where pressing enter would delete boards without any confirmation.",
-      "changeItem3": "Search bar now is no longer case-sensitive",
-      "changeItem4": "Right click on cards now opens a context menu with options to edit the card"
+      "title": "Что нового в Kanri {major}.{minor}.{revision}?",
+      "welcome": "Добро пожаловать в Kanri! Спустя некоторое время мы возвращаемся с выпуском, включающим множество исправлений, улучшений и несколько небольших функций. Чтобы быстро получать уведомления о новых выпусках и следить за ходом разработки, вы можете присоединиться",
+      "welcomeLink": "к официальному серверу Discord.",
+      "changes": "Изменения: (читайте журнал изменений для всех изменений)",
+      "changeItem1": "Добавлены разделительные карточки для разделения карточек в колонке (создаются путем названия карточки ---).",
+      "changeItem2": "Улучшена строка поиска, теперь она позволяет фильтровать по отдельным свойствам (название, описание, теги).",
+      "changeItem3": "Исправлена ошибка, из-за которой редактирование работало некорректно при вводе текста в строку поиска.",
+      "changeItem4": "Добавлена функция, позволяющая изменять закрепление досок."
     },
     "confirmation": {
       "sure": "Вы уверены?",

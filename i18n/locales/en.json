@@ -168,13 +168,13 @@
     },
     "changelog": {
       "title": "What's new in Kanri {major}.{minor}.{revision}?",
-      "welcome": "Welcome to Kanri! After a long time, we are back with a big release featuring many new features and fixes. To quickly get notified about new releases and see the development progress, you can join",
+      "welcome": "Welcome to Kanri! After a while, we are back with a release featuring lots of fixes, improvement and a few small features. To quickly get notified about new releases and see the development progress, you can join",
       "welcomeLink": "the official Discord server.",
-      "changes": "Changes:",
-      "changeItem1": "Ability to change the app language. Currently English and German are supported.",
-      "changeItem2": "Fixed a bug where pressing enter would delete boards without any confirmation.",
-      "changeItem3": "Search bar now is no longer case-sensitive",
-      "changeItem4": "Right click on cards now opens a context menu with options to edit the card"
+      "changes": "Changes: (read changelog for all changes)",
+      "changeItem1": "Added divider cards to separate cards in a column (created by naming a card ---).",
+      "changeItem2": "Improved search bar to allow filtering for individual properties (name, description, tags).",
+      "changeItem3": "Fixed a bug where editing works incorrectly when text is entered in the search bar.",
+      "changeItem4": "Added a feature which allows chaning board pins."
     },
     "confirmation": {
       "sure": "Are you sure?",

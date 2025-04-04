@@ -167,14 +167,14 @@
       "tagListTitle": "Vos étiquettes :"
     },
     "changelog": {
-     "title": "Nouveautés dans Kanri {major}.{minor}.{revision}?",
-      "welcome": "Bienvenue dans Kanri ! Après une longue période, nous sommes de retour avec une grosse version contenant de nombreuses nouvelles fonctionnalités et correctifs. Pour être rapidement informé des nouvelles versions et voir la progression du développement, vous pouvez rejoindre",
+      "title": "Nouveautés dans Kanri {major}.{minor}.{revision}?",
+      "welcome": "Bienvenue dans Kanri ! Après un certain temps, nous sommes de retour avec une version contenant de nombreuses corrections, améliorations et quelques petites fonctionnalités. Pour être rapidement informé des nouvelles versions et voir la progression du développement, vous pouvez rejoindre",
       "welcomeLink": "le serveur officiel Discord.",
-      "changes": "Changements :",
-      "changeItem1": "Possibilité de changer la langue de l'application. Actuellement, l'anglais, le français et l'allemand sont pris en charge.",
-      "changeItem2": "Correction d'un bug où appuyer sur Entrée supprimait les tableaux sans aucune confirmation.",
-      "changeItem3": "La barre de recherche n'est plus sensible à la casse",
-      "changeItem4": "Un clic droit sur les cartes ouvre désormais un menu contextuel avec des options pour modifier la carte"
+      "changes": "Changements : (lisez le journal des modifications pour tous les détails)",
+      "changeItem1": "Ajout de cartes séparatrices pour séparer les cartes dans une colonne (créées en nommant une carte ---).",
+      "changeItem2": "Amélioration de la barre de recherche pour permettre le filtrage par propriétés individuelles (nom, description, étiquettes).",
+      "changeItem3": "Correction d'un bug où l'édition fonctionnait incorrectement lorsque du texte était saisi dans la barre de recherche.",
+      "changeItem4": "Ajout d'une fonctionnalité permettant de modifier les épingles des tableaux."
     },
     "confirmation": {
       "sure": "Êtes-vous sûr ?",

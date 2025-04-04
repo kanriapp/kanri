@@ -167,14 +167,14 @@
       "tagListTitle": "Tus etiquetas:"
     },
     "changelog": {
-      "title": "¿Que hay de nuevo en Kanri {major}.{minor}.{revision}?",
-      "welcome": "¡Bienvenido a Kanri! Luego de un largo rato, estamos de vuelta con un gran lanzamiento ofreciendo muchas nuevas funciones y arreglos. Para ser notificado rápidamente de nuevos lanzamientos y ver el progreso del desarrollo, puedes unirte",
-      "welcomeLink": "al servidor de Discord oficial.",
-      "changes": "Cambios:",
-      "changeItem1": "Posibilidad de cambiar el idioma de la app. Actualmente Inglés y Alemán están disponibles.",
-      "changeItem2": "Arreglado un bug el cual al presionar la tecla enter borraría tableros completos sin confirmación.",
-      "changeItem3": "La barra de búsqueda ya no distingue entre mayúsculas y minúsculas",
-      "changeItem4": "Clic derecho en las cartas ahora abre un menú contextual con opciones para editar la carta"
+      "title": "¿Qué hay de nuevo en Kanri {major}.{minor}.{revision}?",
+      "welcome": "¡Bienvenido a Kanri! Luego de un tiempo, estamos de vuelta con un lanzamiento que incluye muchas correcciones, mejoras y algunas pequeñas funciones nuevas. Para ser notificado rápidamente sobre nuevos lanzamientos y ver el progreso del desarrollo, puedes unirte",
+      "welcomeLink": "al servidor oficial de Discord.",
+      "changes": "Cambios: (lee el registro de cambios para todos los detalles)",
+      "changeItem1": "Se añadieron cartas divisoras para separar cartas en una columna (creadas nombrando una carta como ---).",
+      "changeItem2": "Se mejoró la barra de búsqueda para permitir filtrar por propiedades individuales (nombre, descripción, etiquetas).",
+      "changeItem3": "Se corrigió un error donde la edición funcionaba incorrectamente al ingresar texto en la barra de búsqueda.",
+      "changeItem4": "Se añadió una función que permite cambiar los pines de los tableros."
     },
     "confirmation": {
       "sure": "¿Está seguro?",

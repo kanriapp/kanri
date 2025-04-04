@@ -168,13 +168,13 @@
     },
     "changelog": {
       "title": "O que há de novo no Kanri {major}.{minor}.{revision}?",
-      "welcome": "Bem-vindo ao Kanri! Após muito tempo, estamos de volta com um grande lançamento, com muitos novos recursos e correções. Para ser prontamente notificado sobre lançamentos e ver o progresso do desenvolvimento, você pode se juntar",
-      "welcomeLink": "à comunidade oficial no Discord.",
-      "changes": "Mudanças:",
-      "changeItem1": "Capacidade de alterar a linguagem do aplicativo. Atualmente, inglês, alemão e português brasileiro estão disponíveis.",
-      "changeItem2": "Corrigido um bug em que pressionar Enter excluiria quadros sem qualquer confirmação.",
-      "changeItem3": "Barra de pesquisa agora não diferencia mais maiúsculas e minúsculas",
-      "changeItem4": "Clicar com o botão direito nos cartões agora abre um menu de contexto com opções para editar o cartão"
+      "welcome": "Bem-vindo ao Kanri! Após algum tempo, estamos de volta com um lançamento repleto de correções, melhorias e alguns pequenos recursos. Para ser notificado rapidamente sobre novos lançamentos e ver o progresso do desenvolvimento, você pode se juntar",
+      "welcomeLink": "ao servidor oficial do Discord.",
+      "changes": "Mudanças: (leia o changelog para todas as alterações)",
+      "changeItem1": "Adicionadas cartas divisórias para separar cartas em uma coluna (criadas ao nomear uma carta como ---).",
+      "changeItem2": "Barra de pesquisa aprimorada para permitir filtragem por propriedades individuais (nome, descrição, tags).",
+      "changeItem3": "Corrigido um bug onde a edição funcionava incorretamente ao inserir texto na barra de pesquisa.",
+      "changeItem4": "Adicionada uma funcionalidade que permite alterar os pinos dos quadros."
     },
     "confirmation": {
       "sure": "Você tem certeza?",
