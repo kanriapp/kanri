@@ -794,7 +794,7 @@ const closeEditCardModal = () => {
 
 const removeCardWithConfirmation = async (
   columnId: string,
-  cardId: string,
+  cardId: string | undefined,
   cardRef: Ref<HTMLElement | null>
 ) => {
   const cards = board.value.columns.filter((obj: Column) => {

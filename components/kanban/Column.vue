@@ -235,7 +235,7 @@ const emit = defineEmits<{
   (
     e: "removeCardWithConfirmation",
     columnId: string,
-    cardId: string,
+    cardId: string | undefined,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
   (e: "removeColumn", columnId: string): void;
@@ -737,13 +737,13 @@ const scrollCardIntoView = () => {
 };
 
 const removeCardWithConfirmation = (
-  cardId: string,
+  cardId: string | undefined,
   cardRef: Ref<HTMLDivElement | null>
 ) => {
   emit("removeCardWithConfirmation", props.id, cardId, cardRef);
 };
 
-const removeCard = (id: string) => {
+const removeCard = (id: string | undefined) => {
   const index = cards.value.findIndex((card) => card.id === id);
 
   if (index !== -1) {
