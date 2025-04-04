@@ -252,7 +252,7 @@ limitations under the License.
                   <PhCalendar class="size-5" />
                   <span v-if="dueDate"
                     >{{ $t("modals.editCard.dueDate")
-                    }}{{ dueDate.toLocaleDateString() }}</span
+                    }}{{ dateToLocalFormat(dueDate) }}</span
                   >
                   <span v-else>{{ $t("modals.editCard.dateSet") }}</span>
                 </button>
@@ -739,6 +739,13 @@ const updateTitle = () => {
 const setCardColor = (columnID: string, cardIndex: number, color: string) => {
   selectedColor.value = color;
   emit("setCardColor", columnID, cardIndex, color);
+};
+
+const dateToLocalFormat = (date: Date | string) => {
+  if (typeof date === "string") {
+    return new Date(date).toLocaleDateString();
+  }
+  return date.toLocaleDateString();
 };
 
 watch(customColor, (newVal, oldVal) => {
