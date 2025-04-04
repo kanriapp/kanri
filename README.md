@@ -63,7 +63,7 @@ If you want to contribute, please take a look at the [Contribution Guidelines](h
 The `main` branch is equivalent to a `dev` branch where development is done on - submit PRs here. The `release` branch is similar to a `stable` branch with the code of latest release.
 
 **Build Setup**:
-If you want to build the app, you need to install Node.js (latest LTS version recommended), a package manager like yarn and the [Tauri development environment](https://tauri.app/v1/guides/getting-started/prerequisites).
+If you want to build the app, you need to install Node.js (latest LTS version recommended), a package manager like yarn and the [&nearr;&nbsp;Tauri development environment](https://tauri.app/start/prerequisites/).
 Then, depending on your use case you can run the commands below:
 
 ```bash
