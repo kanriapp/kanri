@@ -41,7 +41,7 @@
   },
   "productName": "kanri",
   "mainBinaryName": "kanri",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "identifier": "tech.trobonox.kanri",
   "plugins": {},
   "app": {
