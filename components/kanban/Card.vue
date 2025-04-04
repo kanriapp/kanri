@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt, tareqdayya -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!--
