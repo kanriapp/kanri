@@ -143,7 +143,7 @@ limitations under the License.
         <ContextMenuItem
           value="Duplicate"
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
-          @click="$emit('duplicateCard', index)"
+          @click="$emit('duplicateCard', card.id)"
         >
           {{ $t("general.duplicateAction") }}
         </ContextMenuItem>
@@ -180,7 +180,7 @@ import {
   ContextMenuTrigger,
 } from "radix-vue";
 
-const props = defineProps<{ card: Card; index: number; zoomLevel: number }>();
+const props = defineProps<{ card: Card; zoomLevel: number }>();
 
 const emit = defineEmits<{
   (e: "disableDragging"): void;
@@ -192,9 +192,9 @@ const emit = defineEmits<{
     cardId: string | undefined,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
-  (e: "setCardTitle", index: number, name: string): void;
-  (e: "updateCardTags", index: number, tags: Array<Tag>): void;
-  (e: "duplicateCard", index: number): void;
+  (e: "setCardTitle", cardId: string | undefined, name: string): void;
+  (e: "updateCardTags", cardId: string | undefined, tags: Array<Tag>): void;
+  (e: "duplicateCard", cardId: string | undefined): void;
 }>();
 
 const store = useTauriStore().store;
@@ -240,7 +240,7 @@ onMounted(async () => {
         savedTag.color = tag.color;
         savedTag.style = tag.style;
 
-        emit("updateCardTags", props.index, cardTags.value ?? []);
+        emit("updateCardTags", props.card?.id, cardTags.value ?? []);
       }
     });
   });
@@ -487,7 +487,7 @@ const updateCardName = () => {
     return;
   }
 
-  emit("setCardTitle", props.index, name.value);
+  emit("setCardTitle", props.card?.id, name.value);
   cardNameEditMode.value = false;
   emit("enableDragging");
 };

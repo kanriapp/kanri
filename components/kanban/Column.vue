@@ -245,7 +245,7 @@ const emit = defineEmits<{
   (
     e: "updateCardTags",
     columnId: string,
-    cardIndex: number,
+    cardId: string | undefined,
     tags: Array<Tag>
   ): void;
 }>();
@@ -688,8 +688,8 @@ const updateColumnTitle = () => {
   updateStorage();
 };
 
-const updateCardTags = (cardIndex: number, tags: Array<Tag>) => {
-  emit("updateCardTags", props.id, cardIndex, tags);
+const updateCardTags = (cardId: string | undefined, tags: Array<Tag>) => {
+  emit("updateCardTags", props.id, cardId, tags);
 };
 
 const addCard = () => {
@@ -716,7 +716,11 @@ const addCard = () => {
   updateStorage();
 };
 
-const duplicateCard = (index: number) => {
+const duplicateCard = (cardId: string | undefined) => {
+  if (!cardId) return;
+  const index = cards.value.findIndex((card) => card.id === cardId);
+  if (index === -1) return;
+
   const cardDuplicate = JSON.parse(JSON.stringify(cards.value[index]));
   cardDuplicate.id = generateUniqueID();
   cardDuplicate.name = `${cardDuplicate.name} - ${t("general.copyNoun")}`;
@@ -752,8 +756,12 @@ const removeCard = (id: string | undefined) => {
   }
 };
 
-const setCardTitle = (cardIndex: number, name: string) => {
+const setCardTitle = (cardId: string | undefined, name: string) => {
+  if (!cardId) return;
+
+  const cardIndex = cards.value.findIndex((card) => card.id === cardId);
   cards.value[cardIndex].name = name;
+
   updateStorage();
 };
 
