@@ -65,8 +65,8 @@ limitations under the License.
           <ClickCounter
             v-if="name !== '---'"
             class="cursor-pointer"
-            @double-click="deleteCardWithAnimation(index)"
-            @single-click="deleteCardWithConfirmation(index)"
+            @double-click="deleteCardWithAnimation(card.id)"
+            @single-click="deleteCardWithConfirmation(card.id)"
           >
             <XMarkIcon
               class="text-accent-hover mt-[3px] size-4"
@@ -150,7 +150,7 @@ limitations under the License.
         <ContextMenuItem
           value="Delete"
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
-          @click="deleteCardWithConfirmation(index)"
+          @click="deleteCardWithConfirmation(card.id)"
         >
           {{ $t("general.deleteAction") }}
         </ContextMenuItem>
@@ -186,10 +186,10 @@ const emit = defineEmits<{
   (e: "disableDragging"): void;
   (e: "enableDragging"): void;
   (e: "openEditCardModal", index: number, card: Card): void;
-  (e: "removeCard", index: number): void;
+  (e: "removeCard", id: string): void;
   (
     e: "removeCardWithConfirmation",
-    index: number,
+    cardId: string | undefined,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
   (e: "setCardTitle", index: number, name: string): void;
@@ -438,25 +438,27 @@ const dueDateOverdue = computed(() => {
   return false;
 });
 
-const deleteCardWithConfirmation = (index: number) => {
+const deleteCardWithConfirmation = (id: string | undefined) => {
   /*
     TODO: rewrite this, we are passing a ref through an emit which works for this usecase of DOM manipulation but might break reactivity
     need to figure out a better way to handle this, especially because we go back and forth between the card component and the parent
     (how this works at the moment: click x -> emit removeCardWithConfirmation -> parent component opens confirmation modal and checks if we actually want the deletion -> if yes, manipulate the DOM of the card component and then delete the card)
   */
 
-  // eslint-disable-next-line vue/no-ref-as-operand
-  emit("removeCardWithConfirmation", index, cardRef);
+  if (id) {
+    // eslint-disable-next-line vue/no-ref-as-operand
+    emit("removeCardWithConfirmation", id, cardRef);
+  }
 };
 
-const deleteCardWithAnimation = (index: number) => {
+const deleteCardWithAnimation = (id: string | undefined) => {
   if (!cardRef.value) return;
 
   const oldClasses = cardRef.value.classList.value;
   cardRef.value.classList.value = oldClasses + " card-hidden";
 
   setTimeout(() => {
-    emit("removeCard", index);
+    emit("removeCard", id);
 
     if (!cardRef.value) return;
     cardRef.value.classList.value = oldClasses;
