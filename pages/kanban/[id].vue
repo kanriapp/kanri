@@ -356,6 +356,7 @@ const cssVars = computed(() => {
 onMounted(async () => {
   await loadCurrentBoard();
 
+  //@ts-expect-error TODO: fix types for column zoom parameter
   const columnZoom: null | number = await store.get("columnZoomLevel");
 
   if (columnZoom == null) {
@@ -629,61 +630,92 @@ type CardMutateFunction = (card: Card) => void;
 
 const mutateCardData = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   mutateCard: CardMutateFunction
 ) => {
   const column = findObjectById<Column>(board.value.columns, columnId);
-  const card = column.cards[cardIndex];
+  if (!column) {
+    console.error(`Column with ID ${columnId} not found`);
+    return;
+  }
+  if (column.cards.length === 0) {
+    console.error(`No cards in column with ID ${columnId}`);
+    return;
+  }
+
+  if (!cardId) {
+    console.error(`Card ID is undefined`);
+    return;
+  }
+
+  const card = findObjectById<Card>(column.cards, cardId);
+  if (!card) {
+    console.error(`Card with ID ${cardId} not found`);
+    return;
+  }
+
   mutateCard(card);
   updateColumnProperties(column);
 };
 
-const setCardTitle = (columnId: string, cardIndex: number, title: string) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+const setCardTitle = (
+  columnId: string,
+  cardId: string | undefined,
+  title: string
+) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.name = title;
   });
 };
 
 const setCardDescription = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   description: string
 ) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.description = description;
   });
 };
 
-const setCardColor = (columnId: string, cardIndex: number, color: string) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+const setCardColor = (
+  columnId: string,
+  cardId: string | undefined,
+  color: string
+) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.color = color;
   });
 };
 
 const setCardTasks = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   tasks: Card["tasks"]
 ) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.tasks = tasks;
   });
 };
 
 const setCardDueDate = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   dueDate: Date | null,
   isCounterRelative: boolean
 ) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.dueDate = dueDate;
     card.isDueDateCounterRelative = isCounterRelative;
   });
 };
 
-const setCardTags = (columnId: string, cardIndex: number, tags: Array<Tag>) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+const setCardTags = (
+  columnId: string,
+  cardId: string | undefined,
+  tags: Array<Tag>
+) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.tags = tags;
   });
 };
@@ -735,10 +767,10 @@ const updateTagName = (tagId: string, newName: string) => {
 
 const updateCardTags = (
   columnId: string,
-  cardIndex: number,
+  cardId: string | undefined,
   tags: Array<Tag>
 ) => {
-  mutateCardData(columnId, cardIndex, (card) => {
+  mutateCardData(columnId, cardId, (card) => {
     card.tags = tags;
   });
 };
