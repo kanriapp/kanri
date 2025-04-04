@@ -63,6 +63,9 @@ jobs:
           yarn config delete registry
           yarn install --network-timeout 1000000 --frozen-lockfile
 
+      - name: Build frontend
+        run: yarn generate
+
       - uses: tauri-apps/tauri-action@v0
         id: release
         env:
