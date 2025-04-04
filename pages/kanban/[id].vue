@@ -610,8 +610,6 @@ const onDrop = (dropResult: object) => {
 const getBoardTitleTextColor = async () => {
   if (bgCustom.value == null || !/\S/.test(bgCustom.value)) return;
 
-  console.log("bgCustom.value: ", bgCustom.value);
-
   const averageColorFromBackground = await getAverageColor(bgCustom.value);
   const hexColor = rgbToHex(
     averageColorFromBackground[0],
