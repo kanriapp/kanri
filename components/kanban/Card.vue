@@ -186,7 +186,7 @@ const emit = defineEmits<{
   (e: "disableDragging"): void;
   (e: "enableDragging"): void;
   (e: "openEditCardModal", card: Card): void;
-  (e: "removeCard", id: string): void;
+  (e: "removeCard", id: string | undefined): void;
   (
     e: "removeCardWithConfirmation",
     cardId: string | undefined,
