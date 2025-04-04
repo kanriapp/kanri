@@ -52,9 +52,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </nuxt-link>
     </div>
 
-   <pre>
-Name: @vue/shared
-Version: 3.5.12
+    <pre>
+    Name: @vue/shared
+Version: 3.5.13
 License: MIT
 Private: false
 Description: internal utils shared across @vue packages
@@ -89,7 +89,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/reactivity
-Version: 3.5.12
+Version: 3.5.13
 License: MIT
 Private: false
 Description: @vue/reactivity
@@ -124,7 +124,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-core
-Version: 3.5.12
+Version: 3.5.13
 License: MIT
 Private: false
 Description: @vue/runtime-core
@@ -159,7 +159,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-dom
-Version: 3.5.12
+Version: 3.5.13
 License: MIT
 Private: false
 Description: @vue/runtime-dom
@@ -194,7 +194,7 @@ THE SOFTWARE.
 ---
 
 Name: destr
-Version: 2.0.3
+Version: 2.0.5
 License: MIT
 Private: false
 Description: A faster, secure and convenient alternative for JSON.parse
@@ -326,7 +326,7 @@ SOFTWARE.
 ---
 
 Name: unctx
-Version: 2.3.1
+Version: 2.4.1
 License: MIT
 Private: false
 Description: Composition-api in Vanilla js
@@ -359,7 +359,7 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.13.2
+Version: 3.16.2
 License: MIT
 Private: false
 Description: Nuxt is a free and open-source framework with an intuitive and extendable way to create type-safe, performant and production-grade full-stack web applications and websites with Vue.js.
@@ -371,78 +371,6 @@ License Copyright:
 The MIT License (MIT)
 
 Copyright (c) 2016-present - Nuxt Team
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-Name: cookie-es
-Version: 1.2.2
-License: MIT
-Private: false
-Repository: undefined
-License Copyright:
-===
-
-MIT License
-
-Cookie-es copyright (c) Pooya Parsa &lt;pooya@pi0.io>
-
-Cookie parsing based on https://github.com/jshttp/cookie
-Copyright (c) 2012-2014 Roman Shtylman &lt;shtylman@gmail.com>
-Copyright (c) 2015 Douglas Christopher Wilson &lt;doug@somethingdoug.com>
-
-Set-Cookie parsing based on https://github.com/nfriedly/set-cookie-parser
-Copyright (c) 2015 Nathan Friedly &lt;nathan@nfriedly.com> (http://nfriedly.com/)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-Name: ohash
-Version: 1.1.4
-License: MIT
-Private: false
-Description: Super fast hashing library based on murmurhash3 written in Vanilla JS
-Repository: undefined
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -531,7 +459,7 @@ SOFTWARE.
 ---
 
 Name: h3
-Version: 1.13.0
+Version: 1.15.1
 License: MIT
 Private: false
 Description: Minimal H(TTP) framework built for high performance and portability.
@@ -542,6 +470,41 @@ License Copyright:
 MIT License
 
 Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Name: pinia
+Version: 2.3.1
+License: MIT
+Private: false
+Description: Intuitive, type safe and flexible Store for Vue
+Repository: git+https://github.com/vuejs/pinia.git
+Homepage: https://github.com/vuejs/pinia#readme
+Author: Eduardo San Martin Morote &lt;posva13@gmail.com>
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2019-present Eduardo San Martin Morote
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -582,78 +545,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-Name: @unhead/shared
-Version: 1.11.7
-License: MIT
-Private: false
-Repository: git+https://github.com/unjs/unhead.git
-Homepage: https://unhead.unjs.io
-Author: Harlan Wilton &lt;harlan@harlanzw.com>
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) Harlan Wilton &lt;harlan@harlanzw.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-Name: @unhead/dom
-Version: 1.11.7
-License: MIT
-Private: false
-Repository: git+https://github.com/unjs/unhead.git
-Homepage: https://unhead.unjs.io
-Author: Harlan Wilton &lt;harlan@harlanzw.com>
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) Harlan Wilton &lt;harlan@harlanzw.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
 Name: unhead
-Version: 1.11.7
+Version: 2.0.3
 License: MIT
 Private: false
+Description: Full-stack &lt;head> manager built for any framework.
 Repository: git+https://github.com/unjs/unhead.git
 Homepage: https://unhead.unjs.io
 Author: Harlan Wilton &lt;harlan@harlanzw.com> (https://harlanzw.com/)
@@ -685,9 +581,10 @@ SOFTWARE.
 ---
 
 Name: @unhead/vue
-Version: 1.11.7
+Version: 2.0.3
 License: MIT
 Private: false
+Description: Full-stack &lt;head> manager built for Vue.
 Repository: git+https://github.com/unjs/unhead.git
 Homepage: https://unhead.unjs.io
 Author: Harlan Wilton &lt;harlan@harlanzw.com>
@@ -718,8 +615,43 @@ SOFTWARE.
 
 ---
 
+Name: @pinia/nuxt
+Version: 0.10.1
+License: MIT
+Private: false
+Description: Nuxt Module for pinia
+Repository: git+https://github.com/vuejs/pinia.git
+Homepage: https://github.com/vuejs/pinia/tree/v3/packages/nuxt#readme
+Author: Eduardo San Martin Morote &lt;posva13@gmail.com>
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2019-present Eduardo San Martin Morote
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
 Name: vue-router
-Version: 4.4.5
+Version: 4.5.0
 License: MIT
 Private: false
 Repository: git+https://github.com/vuejs/router.git
@@ -752,20 +684,57 @@ SOFTWARE.
 
 ---
 
-Name: pinia
-Version: 2.2.4
+Name: ohash
+Version: 2.0.11
 License: MIT
 Private: false
-Description: Intuitive, type safe and flexible Store for Vue
-Repository: git+https://github.com/vuejs/pinia.git
-Homepage: https://github.com/vuejs/pinia#readme
-Author: Eduardo San Martin Morote &lt;posva13@gmail.com>
+Description: Simple object hashing, serialization and comparison utils.
+Repository: undefined
 License Copyright:
 ===
 
-The MIT License (MIT)
+MIT License
 
-Copyright (c) 2019-present Eduardo San Martin Morote
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Name: cookie-es
+Version: 2.0.0
+License: MIT
+Private: false
+Repository: undefined
+License Copyright:
+===
+
+MIT License
+
+Cookie-es copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+
+Cookie parsing based on https://github.com/jshttp/cookie
+Copyright (c) 2012-2014 Roman Shtylman &lt;shtylman@gmail.com>
+Copyright (c) 2015 Douglas Christopher Wilson &lt;doug@somethingdoug.com>
+
+Set-Cookie parsing based on https://github.com/nfriedly/set-cookie-parser
+Copyright (c) 2015 Nathan Friedly &lt;nathan@nfriedly.com> (http://nfriedly.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -809,48 +778,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-Name: @pinia/nuxt
-Version: 0.5.5
-License: MIT
-Private: false
-Description: Nuxt Module for pinia
-Repository: git+https://github.com/vuejs/pinia.git
-Homepage: https://github.com/vuejs/pinia/tree/v2/packages/nuxt#readme
-Author: Eduardo San Martin Morote &lt;posva13@gmail.com>
-License Copyright:
-===
-
-The MIT License (MIT)
-
-Copyright (c) 2019-present Eduardo San Martin Morote
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
 Name: @intlify/shared
-Version: 9.14.1
+Version: 10.0.6
 License: MIT
 Private: false
 Description: @intlify/shared
-Repository: git+https://github.com/intlify/vue-i18n-next.git
-Homepage: https://github.com/intlify/vue-i18n-next/tree/master/packages/shared#readme
+Repository: git+https://github.com/intlify/vue-i18n.git
+Homepage: https://github.com/intlify/vue-i18n/tree/master/packages/shared#readme
 Author: kazuya kawaguchi &lt;kawakazu80@gmail.com>
 License Copyright:
 ===
@@ -879,7 +813,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @nuxtjs/i18n
-Version: 8.5.5
+Version: 9.4.0
 License: MIT
 Private: false
 Description: Internationalization for Nuxt
@@ -921,12 +855,12 @@ SOFTWARE.
 ---
 
 Name: @intlify/message-compiler
-Version: 9.14.1
+Version: 10.0.6
 License: MIT
 Private: false
 Description: @intlify/message-compiler
-Repository: git+https://github.com/intlify/vue-i18n-next.git
-Homepage: https://github.com/intlify/vue-i18n-next/tree/master/packages/message-compiler#readme
+Repository: git+https://github.com/intlify/vue-i18n.git
+Homepage: https://github.com/intlify/vue-i18n/tree/master/packages/message-compiler#readme
 Author: kazuya kawaguchi &lt;kawakazu80@gmail.com>
 License Copyright:
 ===
@@ -955,12 +889,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @intlify/core-base
-Version: 9.14.1
+Version: 10.0.6
 License: MIT
 Private: false
 Description: @intlify/core-base
-Repository: git+https://github.com/intlify/vue-i18n-next.git
-Homepage: https://github.com/intlify/vue-i18n-next/tree/master/packages/core-base#readme
+Repository: git+https://github.com/intlify/vue-i18n.git
+Homepage: https://github.com/intlify/vue-i18n/tree/master/packages/core-base#readme
 Author: kazuya kawaguchi &lt;kawakazu80@gmail.com>
 License Copyright:
 ===
@@ -989,12 +923,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: vue-i18n
-Version: 9.14.1
+Version: 10.0.6
 License: MIT
 Private: false
 Description: Internationalization plugin for Vue.js
-Repository: git+https://github.com/intlify/vue-i18n-next.git
-Homepage: https://github.com/intlify/vue-i18n-next/tree/master/packages/vue-i18n#readme
+Repository: git+https://github.com/intlify/vue-i18n.git
+Homepage: https://github.com/intlify/vue-i18n/tree/master/packages/vue-i18n#readme
 Author: kazuya kawaguchi &lt;kawakazu80@gmail.com>
 License Copyright:
 ===
@@ -1023,7 +957,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @tauri-apps/api
-Version: 1.6.0
+Version: 2.4.1
 License: Apache-2.0 OR MIT
 Private: false
 Description: Tauri API definitions
@@ -1214,11 +1148,12 @@ License Copyright:
 
 ---
 
-Name: tauri-plugin-log-api
-Version: 0.0.0
-License: MIT or APACHE-2.0
+Name: @tauri-apps/plugin-log
+Version: 2.3.1
+License: MIT OR Apache-2.0
 Private: false
 Description: Configurable logging for your Tauri app.
+Repository: undefined
 License Copyright:
 ===
 
@@ -1337,7 +1272,7 @@ SOFTWARE.
 ---
 
 Name: @heroicons/vue
-Version: 2.1.5
+Version: 2.2.0
 License: MIT
 Private: false
 Repository: https://github.com/tailwindlabs/heroicons.git
@@ -1402,43 +1337,39 @@ SOFTWARE.
 
 ---
 
-Name: vue
-Version: 3.5.12
-License: MIT
+Name: @tauri-apps/plugin-autostart
+Version: 2.3.0
+License: MIT OR Apache-2.0
 Private: false
-Description: The progressive JavaScript framework for building modern web UI.
-Repository: git+https://github.com/vuejs/core.git
-Homepage: https://github.com/vuejs/core/tree/main/packages/vue#readme
-Author: Evan You
+Repository: undefined
 License Copyright:
 ===
 
-The MIT License (MIT)
-
-Copyright (c) 2018-present, Yuxi (Evan) You
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+SPDXVersion: SPDX-2.1
+DataLicense: CC0-1.0
+PackageName: tauri
+DataFormat: SPDXRef-1
+PackageSupplier: Organization: The Tauri Programme in the Commons Conservancy
+PackageHomePage: https://tauri.app
+PackageLicenseDeclared: Apache-2.0
+PackageLicenseDeclared: MIT
+PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
+PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+and small desktop applications using a web frontend.
+                &lt;/text>
+PackageComment: &lt;text>The package includes the following libraries; see
+Relationship information.
+                &lt;/text>
+Created: 2019-05-20T09:00:00Z
+PackageDownloadLocation: git://github.com/tauri-apps/tauri
+PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
+PackageDownloadLocation: git+ssh://github.com/tauri-apps/tauri.git
+Creator: Person: Daniel Thompson-Yvetot
 
 ---
 
 Name: @vueuse/shared
-Version: 11.1.0
+Version: 12.8.2
 License: MIT
 Private: false
 Repository: git+https://github.com/vueuse/vueuse.git
@@ -1472,7 +1403,7 @@ SOFTWARE.
 ---
 
 Name: @vueuse/core
-Version: 11.1.0
+Version: 12.8.2
 License: MIT
 Private: false
 Description: Collection of essential Vue Composition Utilities
@@ -1540,7 +1471,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-model
-Version: 1.23.0
+Version: 1.25.0
 License: MIT
 Private: false
 Description: ProseMirror's document model
@@ -1571,7 +1502,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-transform
-Version: 1.10.2
+Version: 1.10.3
 License: MIT
 Private: false
 Description: ProseMirror document transformations
@@ -1633,7 +1564,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-view
-Version: 1.34.3
+Version: 1.38.1
 License: MIT
 Private: false
 Description: ProseMirror's view component
@@ -1728,7 +1659,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-commands
-Version: 1.6.1
+Version: 1.7.0
 License: MIT
 Private: false
 Description: Editing commands for ProseMirror
@@ -1759,7 +1690,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-schema-list
-Version: 1.4.1
+Version: 1.5.1
 License: MIT
 Private: false
 Description: List-related schema elements and commands for ProseMirror
@@ -1790,7 +1721,7 @@ THE SOFTWARE.
 ---
 
 Name: @tiptap/core
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: headless rich text editor
@@ -1800,7 +1731,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-typography
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: typography extension for tiptap
@@ -1810,7 +1741,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-blockquote
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: blockquote extension for tiptap
@@ -1820,7 +1751,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-bold
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: bold extension for tiptap
@@ -1829,28 +1760,8 @@ Homepage: https://tiptap.dev
 
 ---
 
-Name: @tiptap/extension-list-item
-Version: 2.8.0
-License: MIT
-Private: false
-Description: list item extension for tiptap
-Repository: https://github.com/ueberdosis/tiptap
-Homepage: https://tiptap.dev
-
----
-
-Name: @tiptap/extension-text-style
-Version: 2.8.0
-License: MIT
-Private: false
-Description: text style extension for tiptap
-Repository: https://github.com/ueberdosis/tiptap
-Homepage: https://tiptap.dev
-
----
-
 Name: @tiptap/extension-bullet-list
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: bullet list extension for tiptap
@@ -1860,7 +1771,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-code
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: code extension for tiptap
@@ -1870,7 +1781,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-code-block
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: code block extension for tiptap
@@ -1880,7 +1791,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-document
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: document extension for tiptap
@@ -1921,7 +1832,7 @@ THE SOFTWARE.
 ---
 
 Name: @tiptap/extension-dropcursor
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: dropcursor extension for tiptap
@@ -1962,7 +1873,7 @@ THE SOFTWARE.
 ---
 
 Name: @tiptap/extension-gapcursor
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: gapcursor extension for tiptap
@@ -1972,7 +1883,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-hard-break
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: hard break extension for tiptap
@@ -1982,7 +1893,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-heading
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: heading extension for tiptap
@@ -2055,7 +1966,7 @@ THE SOFTWARE.
 ---
 
 Name: @tiptap/extension-history
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: history extension for tiptap
@@ -2065,7 +1976,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-horizontal-rule
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: horizontal rule extension for tiptap
@@ -2075,7 +1986,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-italic
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: italic extension for tiptap
@@ -2084,8 +1995,18 @@ Homepage: https://tiptap.dev
 
 ---
 
+Name: @tiptap/extension-list-item
+Version: 2.11.7
+License: MIT
+Private: false
+Description: list item extension for tiptap
+Repository: https://github.com/ueberdosis/tiptap
+Homepage: https://tiptap.dev
+
+---
+
 Name: @tiptap/extension-ordered-list
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: ordered list extension for tiptap
@@ -2095,7 +2016,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-paragraph
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: paragraph extension for tiptap
@@ -2105,7 +2026,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-strike
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: strike extension for tiptap
@@ -2115,7 +2036,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-text
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: text extension for tiptap
@@ -2125,7 +2046,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/starter-kit
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: starter kit for tiptap
@@ -2135,7 +2056,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-text-align
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: text align extension for tiptap
@@ -2182,7 +2103,7 @@ SOFTWARE.
 ---
 
 Name: @tiptap/extension-bubble-menu
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: bubble-menu extension for tiptap
@@ -2192,7 +2113,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/vue-3
-Version: 2.8.0
+Version: 2.11.7
 License: MIT
 Private: false
 Description: Vue components for tiptap
@@ -2202,7 +2123,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @vueuse/components
-Version: 11.1.0
+Version: 12.8.2
 License: MIT
 Private: false
 Description: Renderless components for VueUse
@@ -2337,6 +2258,111 @@ SOFTWARE.
 
 ---
 
+Name: vue
+Version: 3.5.13
+License: MIT
+Private: false
+Description: The progressive JavaScript framework for building modern web UI.
+Repository: git+https://github.com/vuejs/core.git
+Homepage: https://github.com/vuejs/core/tree/main/packages/vue#readme
+Author: Evan You
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2018-present, Yuxi (Evan) You
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+---
+
+Name: @vue/compiler-core
+Version: 3.5.13
+License: MIT
+Private: false
+Description: @vue/compiler-core
+Repository: git+https://github.com/vuejs/core.git
+Homepage: https://github.com/vuejs/core/tree/main/packages/compiler-core#readme
+Author: Evan You
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2018-present, Yuxi (Evan) You
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+---
+
+Name: @vue/compiler-dom
+Version: 3.5.13
+License: MIT
+Private: false
+Description: @vue/compiler-dom
+Repository: git+https://github.com/vuejs/core.git
+Homepage: https://github.com/vuejs/core/tree/main/packages/compiler-dom#readme
+Author: Evan You
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2018-present, Yuxi (Evan) You
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+---
+
 Name: sortablejs
 Version: 1.14.0
 License: MIT
@@ -2380,10 +2406,74 @@ Author: Johannes Munari &lt;johannesm@hotmail.de>
 
 ---
 
-Name: tauri-plugin-autostart-api
-Version: 0.0.0
-License: MIT or APACHE-2.0
+Name: @tauri-apps/plugin-dialog
+Version: 2.2.1
+License: MIT OR Apache-2.0
 Private: false
+Repository: undefined
+License Copyright:
+===
+
+SPDXVersion: SPDX-2.1
+DataLicense: CC0-1.0
+PackageName: tauri
+DataFormat: SPDXRef-1
+PackageSupplier: Organization: The Tauri Programme in the Commons Conservancy
+PackageHomePage: https://tauri.app
+PackageLicenseDeclared: Apache-2.0
+PackageLicenseDeclared: MIT
+PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
+PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+and small desktop applications using a web frontend.
+                &lt;/text>
+PackageComment: &lt;text>The package includes the following libraries; see
+Relationship information.
+                &lt;/text>
+Created: 2019-05-20T09:00:00Z
+PackageDownloadLocation: git://github.com/tauri-apps/tauri
+PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
+PackageDownloadLocation: git+ssh://github.com/tauri-apps/tauri.git
+Creator: Person: Daniel Thompson-Yvetot
+
+---
+
+Name: @tauri-apps/plugin-fs
+Version: 2.2.1
+License: MIT OR Apache-2.0
+Private: false
+Description: Access the file system.
+Repository: undefined
+License Copyright:
+===
+
+SPDXVersion: SPDX-2.1
+DataLicense: CC0-1.0
+PackageName: tauri
+DataFormat: SPDXRef-1
+PackageSupplier: Organization: The Tauri Programme in the Commons Conservancy
+PackageHomePage: https://tauri.app
+PackageLicenseDeclared: Apache-2.0
+PackageLicenseDeclared: MIT
+PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
+PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+and small desktop applications using a web frontend.
+                &lt;/text>
+PackageComment: &lt;text>The package includes the following libraries; see
+Relationship information.
+                &lt;/text>
+Created: 2019-05-20T09:00:00Z
+PackageDownloadLocation: git://github.com/tauri-apps/tauri
+PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
+PackageDownloadLocation: git+ssh://github.com/tauri-apps/tauri.git
+Creator: Person: Daniel Thompson-Yvetot
+
+---
+
+Name: @tauri-apps/plugin-os
+Version: 2.2.1
+License: MIT OR Apache-2.0
+Private: false
+Repository: undefined
 License Copyright:
 ===
 
@@ -2445,7 +2535,7 @@ SOFTWARE.
 ---
 
 Name: @noble/hashes
-Version: 1.5.0
+Version: 1.7.1
 License: MIT
 Private: false
 Description: Audited & minimal 0-dependency JS implementation of SHA, RIPEMD, BLAKE, HMAC, HKDF, PBKDF & Scrypt
@@ -2480,7 +2570,7 @@ THE SOFTWARE.
 ---
 
 Name: zod
-Version: 3.23.8
+Version: 3.24.2
 License: MIT
 Private: false
 Description: TypeScript-first schema declaration and validation library with static type inference
@@ -2515,7 +2605,7 @@ SOFTWARE.
 ---
 
 Name: @floating-ui/utils
-Version: 0.2.8
+Version: 0.2.9
 License: MIT
 Private: false
 Description: Utilities for Floating UI
@@ -2549,7 +2639,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @floating-ui/core
-Version: 1.6.8
+Version: 1.6.9
 License: MIT
 Private: false
 Description: Positioning library for floating elements: tooltips, popovers, dropdowns, and more
@@ -2583,7 +2673,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @floating-ui/dom
-Version: 1.6.11
+Version: 1.6.13
 License: MIT
 Private: false
 Description: Floating UI for the web
@@ -2617,7 +2707,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @floating-ui/vue
-Version: 1.1.5
+Version: 1.1.6
 License: MIT
 Private: false
 Description: Floating UI for Vue
@@ -2652,19 +2742,19 @@ SOFTWARE.
 ---
 
 Name: radix-vue
-Version: 1.9.7
+Version: 1.9.17
 License: MIT
 Private: false
 Description: Vue port for Radix UI Primitives.
-Repository: git+https://github.com/radix-vue/radix-vue.git
-Homepage: https://github.com/radix-vue/radix-vue
-Author: Radix Vue Contributors (https://github.com/radix-vue)
+Repository: git+https://github.com/unovue/radix-vue.git
+Homepage: https://github.com/unovue/radix-vue
+Author: Radix Vue Contributors (https://github.com/unovue/radix-vue)
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) 2023 Radix Vue &lt;https://github.com/radix-vue>
+Copyright (c) 2023 Radix Vue &lt;https://github.com/unovue/radix-vue>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -2686,11 +2776,12 @@ SOFTWARE.
 
 ---
 
-Name: tauri-plugin-store-api
-Version: 0.0.0
-License: MIT or APACHE-2.0
+Name: @tauri-apps/plugin-store
+Version: 2.2.0
+License: MIT OR Apache-2.0
 Private: false
 Description: Simple, persistent key-value store.
+Repository: undefined
 License Copyright:
 ===
 
@@ -2748,7 +2839,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-   </pre>
+   </pre
+    >
   </div>
 </template>
 
