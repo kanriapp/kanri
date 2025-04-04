@@ -808,6 +808,7 @@ const removeColumn = (columnID: string) => {
     return obj.id === columnID;
   })[0];
 
+  // TODO: check if using an index instead of the ID is an issue here
   const columnIndex = board.value.columns.indexOf(column);
   board.value.columns.splice(columnIndex, 1);
   columnEditIndex.value--;
@@ -820,6 +821,7 @@ const updateColumnProperties = (columnObj: Column) => {
     return obj.id === columnObj.id;
   })[0];
 
+  // TODO: check if using an index instead of the ID is an issue here
   const columnIndex = boardSaved.columns.indexOf(column);
   boardSaved.columns[columnIndex] = columnObj;
 
