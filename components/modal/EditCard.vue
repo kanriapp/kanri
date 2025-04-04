@@ -500,7 +500,6 @@ import { VueTagsInput } from "@vojtechlanka/vue-tags-input";
 
 const props = defineProps<{
   card: Card | null;
-  cardIndexProp: number;
   columnId: string;
   globalTags: Array<Tag>;
 }>();
@@ -761,7 +760,6 @@ watch(props, (newVal) => {
     newTaskName.value = "";
 
     columnID.value = newVal.columnId;
-    cardIndex.value = newVal.cardIndexProp;
 
     title.value = newVal.card.name;
     description.value = newVal.card.description || "";

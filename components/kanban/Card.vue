@@ -31,7 +31,7 @@ limitations under the License.
             : {},
         ]"
         class="kanban-card border-elevation-3 flex min-h-[30px] w-full cursor-pointer flex-col items-start gap-1 rounded-[3px] border p-3"
-        @click.self="$emit('openEditCardModal', index, card)"
+        @click.self="$emit('openEditCardModal', card)"
       >
         <div
           :class="{ 'pb-1': cardHasNoExtraProperties }"
@@ -41,7 +41,7 @@ limitations under the License.
             <ClickCounter
               v-if="!cardNameEditMode"
               @double-click="enableCardEditMode"
-              @single-click="$emit('openEditCardModal', index, card)"
+              @single-click="$emit('openEditCardModal', card)"
             >
               <hr v-if="name === '---'" class="mt-0.5" />
               <p v-else ref="cardNameText">
@@ -78,7 +78,7 @@ limitations under the License.
         <div
           v-if="cardTags && cardTags?.length > 0"
           class="-ml-0.5 -mt-0.5 mb-1 flex flex-row flex-wrap items-center gap-1"
-          @click="$emit('openEditCardModal', index, card)"
+          @click="$emit('openEditCardModal', card)"
         >
           <div v-for="tag in cardTags" :key="tag.id">
             <KanbanTagDisplay :tag="tag" :zoom-level="zoomLevel" />
@@ -87,7 +87,7 @@ limitations under the License.
 
         <div
           class="flex flex-row flex-wrap items-center gap-2"
-          @click="$emit('openEditCardModal', index, card)"
+          @click="$emit('openEditCardModal', card)"
         >
           <PhTextAlignLeft
             v-if="!isDescriptionEmpty"
@@ -185,7 +185,7 @@ const props = defineProps<{ card: Card; index: number; zoomLevel: number }>();
 const emit = defineEmits<{
   (e: "disableDragging"): void;
   (e: "enableDragging"): void;
-  (e: "openEditCardModal", index: number, card: Card): void;
+  (e: "openEditCardModal", card: Card): void;
   (e: "removeCard", id: string): void;
   (
     e: "removeCardWithConfirmation",

@@ -231,7 +231,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "disableDragging"): void;
   (e: "enableDragging"): void;
-  (e: "openEditCardModal", columnId: string, cardIndex: number, el: Card): void;
+  (e: "openEditCardModal", columnId: string, el: Card): void;
   (
     e: "removeCardWithConfirmation",
     columnId: string,
@@ -757,10 +757,10 @@ const setCardTitle = (cardIndex: number, name: string) => {
   updateStorage();
 };
 
-const openEditCardModal = (index: number, el: Card) => {
+const openEditCardModal = (el: Card) => {
   disableDragging();
 
-  emit("openEditCardModal", props.id, index, el);
+  emit("openEditCardModal", props.id, el);
 };
 
 const updateStorage = () => {

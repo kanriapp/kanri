@@ -43,7 +43,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <ModalEditCard
       v-show="editCardModalVisible"
       :card="currentlyActiveCardInfo.card"
-      :card-index-prop="currentlyActiveCardInfo.cardIndex"
       :column-id="currentlyActiveCardInfo.columnId"
       :global-tags="board.globalTags || []"
       @closeModal="closeEditCardModal"
@@ -333,9 +332,8 @@ const editCardModalVisible = ref(false);
 
 const currentlyActiveCardInfo: {
   card: Card | null;
-  cardIndex: number;
   columnId: string;
-} = reactive({ card: null, cardIndex: -1, columnId: "" });
+} = reactive({ card: null, columnId: "" });
 
 const removeColumnModalVisible = ref(false);
 const removeCardModalVisible = ref(false);
@@ -746,9 +744,8 @@ const updateCardTags = (
 };
 
 // Kanban card modal
-const openEditCardModal = (columnId: string, cardIndex: number, el: Card) => {
+const openEditCardModal = (columnId: string, el: Card) => {
   currentlyActiveCardInfo.columnId = columnId;
-  currentlyActiveCardInfo.cardIndex = cardIndex;
   currentlyActiveCardInfo.card = el;
 
   nextTick(() => {
