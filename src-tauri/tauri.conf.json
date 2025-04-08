@@ -68,7 +68,8 @@
         "connect-src": "'self' ipc: http://ipc.localhost",
         "img-src": "'self' asset: http://asset.localhost blob: data:",
         "style-src": "'unsafe-inline' 'self'",
-        "style-scr-elem": "'unsafe-inline' 'self'"
+        "style-scr-elem": "'unsafe-inline' 'self'",
+        "font-src": "'self' data:"
       }
     }
   }
