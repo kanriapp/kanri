@@ -64,7 +64,7 @@
     "@tiptap/vue-3": "^2.10.3",
     "@vojtechlanka/vue-tags-input": "^3",
     "mitt": "3.0.1",
-    "pinia": "2.3.1",
+    "pinia": "3.0.2",
     "radix-vue": "1.9.17",
     "v-calendar": "^3.1.2",
     "vue": "^3.5.13",
