@@ -31,7 +31,12 @@ SPDX-License-Identifier: Apache-2.0
 ## ⬇️ Download
 You can download Kanri for Windows, Mac and Linux at [kanriapp.com](https://kanriapp.com), it's free!
 
-Apple Silicon users, please run this command to prevent the error saying the app is broken:
+Alternatively, macOS users can install using homebrew:
+```bash
+brew install --no-quarantine kanriapp/cask/kanri
+```
+
+Apple Silicon users, please run this command to prevent the error saying the app is broken (not required if installing using homebrew):
 ```bash
 xattr -cr /Applications/kanri.app
 ```
