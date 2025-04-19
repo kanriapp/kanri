@@ -93,9 +93,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <div
       id="page-content"
-      class="absolute left-16 top-0 flex flex-col flex-nowrap p-8"
+      class="custom-scrollbar-horizontal custom-scrollbar absolute left-16 top-0 flex h-screen flex-col flex-nowrap overflow-auto pt-8"
     >
-      <div id="title-wrap" class="w-full">
+      <div id="title-wrap" class="w-full px-8 pb-8">
         <h1
           v-if="!boardTitleEditing"
           class="mb-2 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent text-4xl font-bold"
@@ -124,7 +124,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           "
         />
       </div>
-      <div id="toolbar-wrap" class="w-full">
+      <div id="toolbar-wrap" class="w-full px-8 pb-8">
         <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
           <div class="flex flex-row gap-2">
             <div class="flex flex-row gap-2">
@@ -209,10 +209,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </div>
         </div>
       </div>
-      <div id="cards-wrap" class="w-full">
+      <div id="cards-wrap" class="min-w-full">
         <div
           v-dragscroll:nochilddrag
-          class="custom-scrollbar-horizontal pointer-events-auto z-50 mt-8 flex flex-col overflow-y-hidden"
+          class="pointer-events-auto z-50 flex flex-col px-8 pb-8"
         >
           <Container
             non-drag-area-selector="nodrag"
