@@ -1060,16 +1060,17 @@ const getGhostParent = () => {
 }
 
 .bg-custom {
-  width: calc(100vw - 4rem);
-  height: 100vh;
+  --max-blur-radius: 20px;
+  width: calc(100vw + 2 * var(--max-blur-radius));
+  height: calc(100vh + 2 * var(--max-blur-radius));
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
   position: fixed;
-  top: 0;
-  left: 4rem;
+  top: calc(-1 * var(--max-blur-radius));
+  left: calc(-1 * var(--max-blur-radius));
   overflow: hidden;
 }
 
