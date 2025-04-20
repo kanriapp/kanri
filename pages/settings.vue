@@ -66,6 +66,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
         <div
           class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          @click="setTheme('auto')"
+        >
+          <ComputerDesktopIcon :class="themeIconClass('auto')" class="size-8" />
+          <label class="cursor-pointer" for="auto-mode-icon">{{
+            $t("pages.settings.autoThemeOption")
+          }}</label>
+        </div>
+
+        <div
+          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('catppuccin')"
         >
           <IconCatppuccin
@@ -279,6 +289,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import type { ThemeIdentifiers } from "@/types/kanban-types";
 import type { Ref } from "vue";
+import { usePreferredDark } from '@vueuse/core'
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas";
@@ -290,6 +301,7 @@ import {
   MoonIcon,
   SunIcon,
   SwatchIcon,
+  ComputerDesktopIcon,
 } from "@heroicons/vue/24/outline";
 
 import { message, open, save } from "@tauri-apps/plugin-dialog";
@@ -306,6 +318,7 @@ const { t, locale } = useI18n();
 
 const activeTheme: Ref<null | string> = ref("");
 const themeEditorDisplayed = ref(false);
+const isDark = usePreferredDark()
 
 const columnZoomLevel = ref(0);
 
@@ -331,6 +344,11 @@ onMounted(async () => {
   activeTheme.value = await store.get("activeTheme");
   if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
 
+  // Initial theme application if set to auto
+  if (activeTheme.value === 'auto') {
+    applyTheme(isDark.value ? 'dark' : 'light', false)
+  }
+
   const columnZoom: null | number = await store.get("columnZoomLevel");
 
   if (columnZoom == null) {
@@ -355,21 +373,45 @@ onMounted(async () => {
   }
 });
 
-const setTheme = (themeName: ThemeIdentifiers) => {
+const applyTheme = (themeToApply: 'light' | 'dark' | 'catppuccin', saveActive: boolean = true) => {
+  const themes = { catppuccin, dark, light };
+  const actualTheme = themes[themeToApply];
+
+  if (saveActive) {
+    store.set("activeTheme", themeToApply);
+  }
+  store.set("colors", actualTheme);
+  emitter.emit("updateColors");
+  themeEditorDisplayed.value = false;
+};
+
+const setTheme = (themeName: ThemeIdentifiers | 'auto') => {
   activeTheme.value = themeName;
   themeEditorDisplayed.value = false;
 
-  const themes = { catppuccin, dark, light };
-
   if (themeName === "custom") {
     themeEditorDisplayed.value = true;
+    // Potentially load saved custom theme here if needed
     return;
   }
 
-  store.set("activeTheme", themeName);
-  store.set("colors", themes[themeName]);
-  emitter.emit("updateColors");
+  if (themeName === "auto") {
+    store.set("activeTheme", themeName);
+    // Apply theme based on current preference, but don't save 'light'/'dark' as activeTheme
+    applyTheme(isDark.value ? 'dark' : 'light', false)
+    return;
+  }
+
+  // Handle 'light', 'dark', 'catppuccin'
+  applyTheme(themeName);
 };
+
+// Watch for system theme changes when mode is 'auto'
+watchEffect(() => {
+  if (activeTheme.value === 'auto') {
+    applyTheme(isDark.value ? 'dark' : 'light', false)
+  }
+})
 
 const themeIconClass = (theme: string) => {
   if (theme === activeTheme.value) return "text-accent";

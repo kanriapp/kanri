@@ -1,0 +1,8 @@
+  "parseJsonErrorMessage": "Could not parse imported JSON, invalid theme structure. Please check the file.",
+  "sectionThemeHeading": "Theme",
+  "lightThemeOption": "Light",
+  "darkThemeOption": "Dark",
+  "autoThemeOption": "Auto",
+  "catppuccinThemeOption": "Catppuccin",
+  "customThemeOption": "Custom",
+  "customThemeEditorHeading": "Theme Editor" 
