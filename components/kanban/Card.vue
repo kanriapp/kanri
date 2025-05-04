@@ -35,7 +35,7 @@ limitations under the License.
       >
         <div
           :class="{ 'pb-1': cardHasNoExtraProperties }"
-          class="flex w-full flex-row items-center justify-between"
+          class="flex w-full flex-row items-start justify-between"
         >
           <p class="text-no-overflow mr-2 w-full min-w-[28px]">
             <ClickCounter
@@ -69,7 +69,7 @@ limitations under the License.
             @single-click="deleteCardWithConfirmation(card.id)"
           >
             <XMarkIcon
-              class="text-accent-hover mt-[3px] size-4"
+              class="text-accent-hover mt-[5px] size-4"
               :class="[cardTextColor, iconSizeClass]"
             />
           </ClickCounter>
