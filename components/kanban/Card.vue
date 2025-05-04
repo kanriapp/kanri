@@ -69,7 +69,7 @@ limitations under the License.
             @single-click="deleteCardWithConfirmation(card.id)"
           >
             <XMarkIcon
-              class="text-accent-hover mt-[5px] size-4"
+              class="text-accent-hover mt-[4px] size-4"
               :class="[cardTextColor, iconSizeClass]"
             />
           </ClickCounter>
