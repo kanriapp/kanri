@@ -3,6 +3,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 name: "Test Tauri app on pull requests"
+permissions:
+  contents: read
+  pull-requests: write
 on:
   pull_request:
     types: [ opened, reopened ]
