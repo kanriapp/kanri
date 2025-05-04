@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="overflow-auto">
+  <div class="overflow-hidden">
     <div
       :style="cssVars"
       :class="[animationsEnabled ? '' : 'disable-animations']"
@@ -313,8 +313,8 @@ const cssVars = computed(() => {
 }
 
 .transition-button {
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke;
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
