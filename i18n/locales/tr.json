@@ -1,0 +1,246 @@
+{
+  "general": {
+    "deleteAction": "Sil",
+    "renameAction": "Yeniden Adlandır",
+    "cancelAction": "İptal",
+    "saveAction": "Kaydet",
+    "importAction": "İçe Aktar",
+    "exportAction": "Dışa Aktar",
+    "closeAction": "Kapat",
+    "addAction": "Ekle",
+    "duplicateAction": "Çoğalt",
+    "editNameAction": "Adı Düzenle",
+    "copyNoun": "Kopyala"
+  },
+  "pages": {
+    "index": {
+      "welcome": "Kanri'ye tekrar hoş geldiniz!",
+      "welcomeSubtext": "Panolarınız hazır ve sizi bekliyor.",
+      "editSortWarning": "Uyarı: geçerli bir son düzenleme tarihi olmayan en az bir pano var. Bu muhtemelen Kanri'nin eski bir sürümünde oluşturulan bir panodan kalmadır. Bu davranışı düzeltmek için lütfen tüm panoları en az bir kez düzenleyin.",
+      "sortAlphabetically": "Alfabetik olarak sırala",
+      "sortByCreationDate": "Oluşturma tarihine göre sırala",
+      "sortByLastEdited": "Son düzenlemeye göre sırala",
+      "reversedSortOrder": "Ters sıralama düzeni",
+      "noBoardsHeading": "Burası çok boş!",
+      "createBoardPrompt": "Görevlerinizi daha iyi takip etmek için bir pano oluşturun.",
+      "importDataHeading": "Zaten veriniz var mı?",
+      "importDataPrompt": "İçe/dışa aktarma menüsünü kullanarak diğer kaynaklardan veri içe aktarabilirsiniz:",
+      "importDataButton": "İçe/Dışa Aktarma menüsünü aç",
+      "getUpdatesHeading": "En son güncellemeleri almak ve oluşturucu ile sohbet etmek ister misiniz?",
+      "joinDiscordButton": "Discord topluluğuna katılın!",
+      "deleteActionConfirmationHeading": "Panoyu Sil?",
+      "deleteActionConfirmationText": "{boardName} panosunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+    },
+    "kanban": {
+      "changeBackground": "Arka Planı Değiştir",
+      "editTags": "Etiketleri Düzenle",
+      "renameBoardAction": "Panoyu Yeniden Adlandır",
+      "duplicateBoardAction": "Panoyu Çoğalt",
+      "exportBoardAction": "Panoyu Dışa Aktar",
+      "pinBoardAction": "Panoyu Sabitle",
+      "unpinBoardAction": "Panonun Sabitlemesini Kaldır",
+      "deleteBoardAction": "Panoyu Sil",
+      "deleteBoardConfirmation": "'{boardName}' panosunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+    },
+    "settings": {
+      "deleteAllDataConfirmationAction": "Verileri Sil",
+      "deleteAllDataConfirmationDescription": "Tüm verileri sil?",
+      "deleteAllDataConfirmationHeading": "TÜM Verileri Sil?",
+      "settingsHeading": "Ayarlar",
+      "settingsHeadingSubtext": "Uygulamanın davranışını buradan değiştirin.",
+      "sectionThemeHeading": "Tema",
+      "darkThemeOption": "Koyu",
+      "lightThemeOption": "Açık",
+      "catppuccinThemeOption": "Catppuccin",
+      "customThemeOption": "Özel",
+      "customThemeEditorHeading": "Özel temanız için renkleri seçin:",
+      "customThemeImportHeading": "Veya özel bir temayı içe/dışa aktarın:",
+      "customThemeImportHeadingSubtext": "Not: İçe aktarmalar mevcut temanızın üzerine yazar, bu yüzden kaybetmek istemediğiniz özel temaları önceden dışa aktarın!",
+      "colorResetText": "Renkler güncellenmiyorsa, lütfen ",
+      "colorResetLink": "buraya",
+      "preferencesHeading": "Pano Tercihleri",
+      "preferencesSubtext": "Kanban panolarınızın davranışını değiştirin.",
+      "preferencesZoomHeading": "Yakınlaştırma",
+      "preferencesZoomSubtext": "Panolarınız için genel yakınlaştırma seviyesini ayarlayın.",
+      "preferencesAddToTopButtonHeading": "Üste ekleme düğmesini göster",
+      "preferencesAddToTopButtonSubtext": "Bir sütunun üstüne yeni kartlar eklemenizi sağlayan bir düğme görüntüler.",
+      "preferencesDisplayNumberOfCardsHeading": "Sütundaki kart sayısını göster",
+      "preferencesDisplayNumberOfCardsSubtext": "Her sütunda kaç kart olduğunu gösterir.",
+      "languageSelectorHeading": "Dil",
+      "languageSelectorSubtext": "Uygulamanın dilini değiştirin.",
+      "miscellaneousHeading": "Çeşitli",
+      "miscellaneousAnimationsHeading": "Animasyonlar",
+      "miscellaneousAnimationsSubtext": "Uygulamadaki tüm animasyonları kaldırmak için bu seçeneği devre dışı bırakın.",
+      "miscellaneousAutostartHeading": "Başlangıçta otomatik başlat",
+      "miscellaneousAutostartSubtext": "Kanri'yi başlangıçta otomatik olarak başlatır.",
+      "miscellaneousDeleteAllDataHeading": "Tüm verileri sil (temalar ve panolar)",
+      "miscellaneousDeleteAllDataSubtextRed": "Dikkat!",
+      "miscellaneousDeleteAllDataSubtext": " Bu geri dönüşü olmayan bir şekilde tüm verilerinizi silecektir!",
+      "exportThemeDialogTitle": "Verileri dışa aktarmak için dosya seçin",
+      "loadJsonErrorMessage": "JSON dosyası yüklenemedi! Lütfen dosyanın düzgün bir JSON olup olmadığını kontrol edin.",
+      "parseJsonErrorMessage": "JSON dosyası yüklenemedi! Lütfen dosyanın doğru biçimlendirildiğini ve Kanri'nin eski bir sürümünden olmadığını kontrol edin."
+    },
+    "import": {
+      "importExportHeading": "İçe ve Dışa Aktarma",
+      "importExportSubtext": "Verilerinizi Kanri'den ve Kanri'ye aktararak yönetin.",
+      "importTabHeading": "Veri İçe Aktar",
+      "importTabSubtext": "Kanri, KanbanElectron veya Trello®'dan tam veri veya bireysel panoları içe aktarın",
+      "importTabPartialHeading": "Kısmi içe aktarma (bireysel pano)",
+      "importTabPartialSubtext": "Bir dosya bir panoyu içe aktarmaya eşittir. Not: bir kerede birden fazla dosya/pano içe aktarmak için seçim yapabilirsiniz.",
+      "importOptionKanri": "Kanri'den içe aktar",
+      "importOptionTrello": "Trello®'dan içe aktar",
+      "importOptionGithub": "GitHub Projesi'nden içe aktar",
+      "importOptionKanbanElectron": "KanbanElectron'dan içe aktar",
+      "importTabFullHeading": "Tam içe aktarma",
+      "importTabFullSubtext": "Tek bir dosyadan eksiksiz veriyi içe aktarır. UYARI: Bu, tüm verilerinizin üzerine içe aktardıklarınızla yazar! Önce verilerinizi dışa aktarmak isteyebilirsiniz.",
+      "exportTabHeading": "Veri Dışa Aktar",
+      "exportTabPartialHeading": "Kısmi Dışa Aktarma (bireysel pano)",
+      "exportTabPartialSubtext": "Kısmi bir dışa aktarma, bir bireysel pano için bir .json dosyası aldığınız anlamına gelir.",
+      "exportTabPartialSelectButton": "Bireysel panoyu dışa aktar",
+      "exportTabPartialSelectPrompt": "Dışa aktarmak için bir pano seçin",
+      "exportTabFullHeading": "Tam Dışa Aktarma",
+      "exportTabFullSubtext": "Tüm verilerinizi (panolar, temalar, yakınlaştırma gibi diğer tercihler) bir .json dosyasına aktarır.",
+      "exportTabFullButton": "Tüm verileri dışa aktar",
+      "exportFullJsonDialogTitle": "Verileri dışa aktarmak için dosya seçin",
+      "exportFullJsonSuccessMessage": "Verileriniz başarıyla dışa aktarıldı.",
+      "exportPartialJsonDialogTitle": "Panoyu dışa aktarmak için dosya seçin",
+      "exportPartialJsonErrorBoardNotFound": "Pano bulunamadı.",
+      "exportPartialJsonSuccessMessage": "Pano başarıyla dışa aktarıldı.",
+      "importErrorBadJson": "JSON dosyası yüklenemedi! Lütfen dosyanın doğru olup olmadığını kontrol edin.",
+      "importErrorGoodJsonFaultyData": "JSON dosyası yüklenemedi! Lütfen dosyanın doğru biçimlendirildiğini ve Kanri'nin eski bir sürümünden olmadığını kontrol edin.",
+      "importErrorNoBoards": "Pano içermeyen dosyalar yüklenemiyor. Lütfen en az bir pano içeren bir dosya içe aktarın.",
+      "importErrorTrello": "JSON dosyası yüklenemedi! Lütfen dosyanın doğru biçimlendirildiğini kontrol edin.",
+      "importErrorTrelloConversion": "Trello panonuz dönüştürülemedi. Lütfen tekrar deneyin ve bu hata tekrar olursa geliştiriciye bildirin.",
+      "importErrorKanbanElectron": "JSON dosyası yüklenemedi! Lütfen dosyanın doğru biçimlendirildiğini ve KanbanElectron'un en son sürümünden dışa aktarıldığını kontrol edin.",
+      "importErrorGithub": "{file} dosyası GitHub projelerinden dışa aktarılan geçerli bir pano değil. Bunun bir hata olduğunu düşünüyorsanız, lütfen bir GitHub sorunu açın veya {email} adresine e-posta gönderin",
+      "importSuccessFull": "Verileriniz başarıyla içe aktarıldı.",
+      "importSuccessPartial": "Panonuz başarıyla içe aktarıldı.",
+      "importDuplicateBoard": "{boardName} panosu zaten mevcut (aynı kimliğe sahip pano). Çoğaltma olarak içe aktarmak istiyor musunuz?",
+      "duplicateSuffix": " (kopya)",
+      "importSuccessGithub": "GitHub Projects panosu/panoları başarıyla içe aktarıldı."
+    }
+  },
+  "components": {
+    "customThemeEditor": {
+      "optionAccentColor": "Vurgu rengi",
+      "optionPrimaryTextColor": "Birincil metin rengi",
+      "optionButtonTextColor": "Düğme metin rengi",
+      "optionPrimaryBackgroundColor": "Birincil arka plan rengi",
+      "option1stElevationColor": "1. yükseklik seviyesi",
+      "option2ndElevationColor": "2. yükseklik seviyesi",
+      "option3rdElevationColor": "3. yükseklik seviyesi"
+    },
+    "sidebar": {
+      "home": "Ana Sayfa",
+      "back": "Geri",
+      "createNewBoard": "Yeni bir pano oluştur",
+      "importExport": "İçe/Dışa Aktar",
+      "help": "Yardım",
+      "settings": "Ayarlar"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "Kart ekle",
+        "addCardTop": "Kartı üste ekle",
+        "deleteColumnAction": "Sütunu sil",
+        "deleteColumnConfirmation": "'{columnName}' sütununu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+        "addCardPlaceholder": "Bir kart adı girin..."
+      },
+      "card": {
+        "deleteCardAction": "Kartı sil",
+        "deleteCardConfirmation": "'{cardName}' kartını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+      },
+      "searchBar": {
+        "placeholder": "Kartları ara..."
+      },
+      "zoomAdjustment": {
+        "reset": "Yakınlaştırma seviyesini sıfırla",
+        "increaseLevel": "Yakınlaştırma seviyesini artır",
+        "decreaseLevel": "Yakınlaştırma seviyesini azalt"
+      }
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "Kart etiketlerini düzenle",
+      "description": "Burada, tüm pano için kullanılabilen genel etiketlerinizi düzenleyebilirsiniz. Not: Genel bir etiketi silmek, onları kartlardan kaldırmaz, sadece yeni kartlar için kullanılamaz hale getirir.",
+      "tagListTitle": "Etiketleriniz:"
+    },
+    "changelog": {
+      "title": "Kanri {major}.{minor}.{revision}'de neler yeni?",
+      "welcome": "Kanri'ye hoş geldiniz! Bir süreden sonra, birçok düzeltme, iyileştirme ve birkaç küçük özellik içeren bir sürümle geri döndük. Yeni sürümler hakkında hızlıca haberdar olmak ve geliştirme sürecini görmek için katılabilirsiniz",
+      "welcomeLink": "resmi Discord sunucusu.",
+      "changes": "Değişiklikler: (tüm değişiklikler için değişiklik günlüğünü okuyun)",
+      "changeItem1": "Bir sütundaki kartları ayırmak için ayırıcı kartlar eklendi (bir kartı --- olarak adlandırarak oluşturulur).",
+      "changeItem2": "Bireysel özellikler için (ad, açıklama, etiketler) filtrelemeye izin vermek için arama çubuğu geliştirildi.",
+      "changeItem3": "Arama çubuğuna metin girildiğinde düzenlemenin yanlış çalıştığı bir hata düzeltildi.",
+      "changeItem4": "Pano sabitlemelerini değiştirmeye olanak sağlayan bir özellik eklendi."
+    },
+    "confirmation": {
+      "sure": "Emin misiniz?",
+      "negative": "Hayır",
+      "positive": "Evet"
+    },
+    "customBackground": {
+      "title": "Özel bir arka plan ayarla",
+      "imageTitle": "Arka plan resmi:",
+      "imageEdit": "Arka plan resmini düzenle",
+      "imageAdd": "Arka plan resmi ekle",
+      "imageBlur": "Arka plan bulanıklık gücü:",
+      "brightnessTitle": "Arka plan parlaklığı:",
+      "reset": "Arka Plan Resmini Sıfırla"
+    },
+    "editCard": {
+      "tooltip": " Kart rengi ayarla ",
+      "colorTitle": "Kart Rengi",
+      "colorCustom": "Özel bir renk seçin:",
+      "dueDate": "Bitiş: ",
+      "dateSet": "Bitiş tarihi belirle",
+      "countdown": "Göreceli geri sayım",
+      "dateRemove": "Bitiş tarihini kaldır",
+      "descriptionTitle": "Kart Açıklaması",
+      "taskTitle": "Görevler",
+      "taskAdd": "Görev Ekle",
+      "newTaskPlaceholder": "Bir görev girin...",
+      "tagsTitle": "Etiketler",
+      "tagsEdit": "Genel Etiketleri Düzenle"
+    },
+    "help": {
+      "title": "Yardım ve Kaynaklar",
+      "resources": "İşte size yardımcı olacak bazı faydalı kaynaklar.",
+      "shortcuts": "Klavye Kısayolları",
+      "ctrlKey": "ctrl",
+      "ctrl+b": "- Pano görünümünde yeni sütun oluştur",
+      "ctrl+d": "- Pano görünümünde son sütunu sil",
+      "ctrl+t": "- Pano görünümünde son sütunun başlığını düzenle",
+      "ctrl+n": "- Pano görünümünde son sütunun içinde yeni kart oluştur",
+      "ctrl+alt+<>": "(Ok tuşları) - Başlık düzenleme ve kart ekleme için sütunlar arasında geçiş yap",
+      "ctrl++-": "- Pano sütunu yakınlaştırma seviyesini artır/azalt (genel tercih)",
+      "support": "Destek kaynakları",
+      "docs": "Belgeler",
+      "github": "GitHub sorunları",
+      "discord": "Discord sunucusu",
+      "creditsTitle": "Katkıda Bulunanlar",
+      "creditsText1": "Uygulama GPLv3 lisansı altında lisanslanmıştır (uygun lisans başlıklarında/dosyalarında belirtilen farklı lisanslara sahip bazı dosyalar hariç). Kullanılan simgeler Heroicons ve Phosphor Icons'tan alınmıştır.",
+      "creditsText2": "Trello, Inc. (www.trello.com) ile herhangi bir şekilde bağlantılı, ilişkili, yetkili, onaylı veya resmi olarak bağlantılı değiliz.",
+      "copyrights": "Telif Hakkı (c) 2022-2025 trobonox ({email}) ",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "Üçüncü taraf lisans bildirimleri"
+    },
+    "newBoard": {
+      "title": "Yeni bir pano oluştur",
+      "name": "Pano adı",
+      "exampleColumns": "Örnek sütunlar ve kartlar oluştur",
+      "columns": "Sütunlar",
+      "newColumn": "Yeni Sütun",
+      "createBoardAction": "Pano Oluştur",
+      "boardNameEmptyError": "Pano adı boş olamaz",
+      "placeholder": "Pano için bir isim girin"
+    },
+    "renameBoard": {
+      "title": "Panoyu yeniden adlandır",
+      "name": "Pano Adı",
+      "placeholder": "Pano için yeni bir isim girin"
+    }
+  }
+}
