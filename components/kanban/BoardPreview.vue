@@ -22,10 +22,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   <div
     v-if="!isSimplePreviewMode"
     :style="cssVars"
-    class="flex aspect-video h-32 flex-row gap-1.5 overflow-hidden rounded-t-md"
+    class="bg-custom flex aspect-video h-32 flex-row gap-1.5 overflow-hidden rounded-t-md"
   >
-    <div id="board-bg" class="bg-custom"></div>
-    <div class="z-10 flex h-full w-max min-w-full flex-col rounded-t-md p-2">
+    <div
+      class="flex h-full w-max min-w-full flex-col rounded-t-md p-2"
+      :style="{
+        '-webkit-backdrop-filter':
+          'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
+        'backdrop-filter':
+          'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
+      }"
+    >
       <span class="mb-0.5 text-[4px] font-bold"> {{ board.title }}</span>
       <div class="flex w-full flex-row gap-1.5">
         <div
@@ -61,11 +68,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     v-else
     class="bg-elevation-2 flex aspect-video h-32 flex-row gap-4 overflow-hidden rounded-t-md p-2"
   >
-    <div id="board-bg" class="bg-custom"></div>
     <div
       v-for="column in board.columns"
       :key="column.id"
-      class="bg-accent-no-hover z-10 flex h-min w-10 shrink-0 flex-col gap-0.5 rounded-sm p-1"
+      class="bg-accent-no-hover flex h-min w-10 shrink-0 flex-col gap-0.5 rounded-sm p-1"
     >
       <div
         v-for="card in column.cards"
@@ -114,14 +120,9 @@ onMounted(() => {
 
 <style scoped>
 .bg-custom {
-  z-index: 0;
-  height: 8rem;
-  aspect-ratio: 16 / 9;
+  z-index: 1;
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
-  position: absolute;
-  overflow: hidden;
 }
 </style>
