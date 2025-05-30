@@ -207,7 +207,7 @@ const updateAddButton = () => {
   background: radial-gradient(
     circle at top left,
     var(--elevation-1) 10%,
-    transparent
+    var(--bg-primary)
   );
 }
 </style>
