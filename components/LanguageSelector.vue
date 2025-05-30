@@ -74,15 +74,19 @@ const setLang = (newLocale: string) => {
   setLocale(newLocale);
 };
 
-const store = useTauriStore().store;
+const globalSettingsStore = useSettingsStore();
 
-let tooltipClass =
-  "bg-elevation-1 absolute z-10 mt-2 w-full min-w-[160px] overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]";
-const animationsEnabled = await store.get("animationsEnabled");
-if (animationsEnabled !== false) {
-  tooltipClass +=
-    " data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade";
-}
+const tooltipClass = computed(() => {
+  const tooltipClasses =
+    "bg-elevation-1 absolute z-10 mt-2 w-full min-w-[160px] overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]";
+
+  if (globalSettingsStore.animationsEnabled) {
+    tooltipClasses +=
+      " data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade";
+  }
+
+  return tooltipClasses;
+});
 
 watch(selectedLocale, (newLocale) => {
   setLang(newLocale ?? "en");

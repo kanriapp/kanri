@@ -178,7 +178,10 @@ import {
   ContextMenuTrigger,
 } from "radix-vue";
 
-const props = defineProps<{ card: Card; zoomLevel: number }>();
+const props = defineProps<{
+  card: Card;
+  zoomLevel: number;
+}>();
 
 const emit = defineEmits<{
   (e: "disableDragging"): void;
@@ -196,6 +199,7 @@ const emit = defineEmits<{
 }>();
 
 const store = useTauriStore().store;
+const globalSettingsStore = useSettingsStore();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const savedColors: Ref<any> = ref(null); // TODO: add types for saved theme in board
@@ -372,13 +376,17 @@ const cardTextColorDim = computed(() => {
   return "text-gray-300";
 });
 
-let contextMenuClass =
-  "bg-primary-darker border-elevation-1 z-[99999] min-w-[100px] rounded-md border p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] outline-none will-change-[opacity,transform]";
-const animationsEnabled = await store.get("animationsEnabled");
-if (animationsEnabled !== false) {
-  contextMenuClass +=
-    " data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade";
-}
+const contextMenuClass = computed(() => {
+  let contextMenuClasses =
+    "bg-primary-darker border-elevation-1 z-[99999] min-w-[100px] rounded-md border p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] outline-none will-change-[opacity,transform]";
+
+  if (globalSettingsStore.animationsEnabled) {
+    contextMenuClasses +=
+      " data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade";
+  }
+
+  return contextMenuClasses;
+});
 
 const getFormattedDueDate = computed(() => {
   if (!dueDate.value) return "";

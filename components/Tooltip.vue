@@ -44,13 +44,17 @@ withDefaults(
   }
 );
 
-const store = useTauriStore().store;
+const globalSettingsStore = useSettingsStore();
 
-let tooltipClass =
-  "border-elevation-1 bg-primary-darker z-[999999999] select-none rounded-[4px] border px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]";
-const animationsEnabled = await store.get("animationsEnabled");
-if (animationsEnabled !== false) {
-  tooltipClass +=
-    " data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade";
-}
+const tooltipClass = computed(() => {
+  let tooltipClasses =
+    "border-elevation-1 bg-primary-darker z-[999999999] select-none rounded-[4px] border px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]";
+
+  if (globalSettingsStore.animationsEnabled !== false) {
+    tooltipClasses +=
+      " data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade";
+  }
+
+  return tooltipClasses;
+});
 </script>
