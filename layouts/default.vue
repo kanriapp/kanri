@@ -47,6 +47,7 @@ const savedColors = ref({});
 const mounted = ref(false);
 
 const animationsEnabled = ref(true);
+const globalSettingsStore = useSettingsStore();
 
 onMounted(async () => {
   const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
@@ -62,8 +63,10 @@ onMounted(async () => {
   const animationsEnabledSaved = await store.get("animationsEnabled");
   if (animationsEnabledSaved !== null) {
     animationsEnabled.value = animationsEnabledSaved;
+    globalSettingsStore.animationsEnabled = animationsEnabledSaved;
   } else {
     await store.set("animationsEnabled", true);
+    globalSettingsStore.animationsEnabled = true;
   }
 
   savedColors.value = await store.get("colors");
@@ -313,8 +316,8 @@ const cssVars = computed(() => {
 }
 
 .transition-button {
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke;
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }

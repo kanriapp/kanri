@@ -218,7 +218,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </span>
           </div>
           <SwitchRoot
-            v-model:checked="animationsEnabled"
+            v-model:checked="globalSettingsStore.animationsEnabled"
             class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
             @update:checked="toggleAnimations"
           >
@@ -301,6 +301,7 @@ import { useI18n } from "vue-i18n";
 const router = useRouter();
 
 const store = useTauriStore().store;
+const globalSettingsStore = useSettingsStore();
 
 const { t, locale } = useI18n();
 
@@ -311,17 +312,12 @@ const columnZoomLevel = ref(0);
 
 const autostartCheckbox = ref(false);
 const addToTopCheckbox = ref(false);
-const animationsEnabled = ref(true);
 const displayCardCountCheckbox = ref(false);
 
 const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
   emitter.emit("showSidebarBackArrow");
-
-  const animationsEnabledSaved: boolean | null =
-    await store.get("animationsEnabled");
-  animationsEnabled.value = animationsEnabledSaved || false;
 
   addToTopCheckbox.value =
     (await store.get("addToTopOfColumnButtonEnabled")) || false;
@@ -384,7 +380,7 @@ const deleteAllData = async () => {
   activeTheme.value = "dark";
   themeEditorDisplayed.value = false;
 
-  animationsEnabled.value = true;
+  globalSettingsStore.animationsEnabled.value = true;
   store.set("animationsEnabled", true); // Reset animations to true
 
   router.go(0);
