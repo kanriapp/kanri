@@ -20,9 +20,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
   <div>
-    <!-- Background element -->
-    <div class="bg-custom" :style="cssVars"></div>
-
     <ModalCustomBackground
       v-if="bgImageLoaded"
       v-show="showCustomBgModal"
@@ -91,176 +88,178 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @confirmAction="cardRemoveDialog.confirm(true)"
     />
 
+    <!-- Background element -->
     <div
-      id="page-content"
-      class="custom-scrollbar-horizontal custom-scrollbar absolute left-16 top-0 flex h-screen flex-col flex-nowrap overflow-auto pt-4"
-    >
-      <div id="title-wrap" class="w-full px-8">
-        <h1
-          v-if="!boardTitleEditing"
-          class="mb-2 w-full break-words rounded-md bg-transparent text-4xl font-bold"
-          :class="[boardTitleColor]"
-          @click="enableBoardTitleEditing()"
-        >
-          {{ board.title }}
-        </h1>
-        <input
-          v-if="boardTitleEditing"
-          ref="boardTitleInput"
-          v-model="board.title"
-          v-focus
-          class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
-          maxlength="500"
-          type="text"
-          @blur="
-            boardTitleEditing = false;
-            emitter.emit('updateBoardPin', board);
-            updateStorage();
-          "
-          @keypress.enter="
-            boardTitleEditing = false;
-            emitter.emit('updateBoardPin', board);
-            updateStorage();
-          "
-        />
-      </div>
-      <div id="toolbar-wrap" class="w-full px-8 pb-4">
-        <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
+      v-if="bgImageLoaded"
+      id="bg-container"
+      class="bg-custom z-0"
+      :style="cssVars"
+    ></div>
+    <div id="title-wrap" class="relative z-10 w-full px-8 pt-4">
+      <h1
+        v-if="!boardTitleEditing"
+        class="mb-2 w-full break-words rounded-md bg-transparent text-4xl font-bold"
+        :class="[boardTitleColor]"
+        @click="enableBoardTitleEditing()"
+      >
+        {{ board.title }}
+      </h1>
+      <input
+        v-if="boardTitleEditing"
+        ref="boardTitleInput"
+        v-model="board.title"
+        v-focus
+        class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+        maxlength="500"
+        type="text"
+        @blur="
+          boardTitleEditing = false;
+          emitter.emit('updateBoardPin', board);
+          updateStorage();
+        "
+        @keypress.enter="
+          boardTitleEditing = false;
+          emitter.emit('updateBoardPin', board);
+          updateStorage();
+        "
+      />
+    </div>
+    <div id="toolbar-wrap" class="relative z-10 w-full px-8 pb-4">
+      <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
+        <div class="flex flex-row gap-2">
           <div class="flex flex-row gap-2">
-            <div class="flex flex-row gap-2">
-              <button
-                class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-                @click="showCustomBgModal = true"
-              >
-                <PhotoIcon class="my-auto size-6" />
-                <span class="my-auto ml-0.5 hidden lg:block">
-                  {{ $t("pages.kanban.changeBackground") }}
-                </span>
-              </button>
-            </div>
-            <div class="flex flex-row gap-2">
-              <button
-                class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-                @click="editTagModalVisible = true"
-              >
-                <PhHashStraight class="my-auto size-6" />
-                <span class="my-auto ml-0.5 hidden lg:block">
-                  {{ $t("pages.kanban.editTags") }}
-                </span>
-              </button>
-            </div>
-
-            <KanbanSearchBar v-model="searchQuery" />
+            <button
+              class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+              @click="showCustomBgModal = true"
+            >
+              <PhotoIcon class="my-auto size-6" />
+              <span class="my-auto ml-0.5 hidden lg:block">
+                {{ $t("pages.kanban.changeBackground") }}
+              </span>
+            </button>
+          </div>
+          <div class="flex flex-row gap-2">
+            <button
+              class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+              @click="editTagModalVisible = true"
+            >
+              <PhHashStraight class="my-auto size-6" />
+              <span class="my-auto ml-0.5 hidden lg:block">
+                {{ $t("pages.kanban.editTags") }}
+              </span>
+            </button>
           </div>
 
-          <div class="flex flex-row items-center gap-4">
-            <KanbanZoomAdjustment v-model="columnZoomLevel" />
+          <KanbanSearchBar v-model="searchQuery" />
+        </div>
 
-            <Dropdown align="end">
-              <template #trigger>
-                <button
-                  class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
-                  @click.prevent
+        <div class="flex flex-row items-center gap-4">
+          <KanbanZoomAdjustment v-model="columnZoomLevel" />
+
+          <Dropdown align="end">
+            <template #trigger>
+              <button
+                class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
+                @click.prevent
+              >
+                <EllipsisHorizontalIcon class="size-6" />
+              </button>
+            </template>
+
+            <template #content>
+              <div class="flex flex-col">
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="renameBoardModal(getBoardIndex())"
                 >
-                  <EllipsisHorizontalIcon class="size-6" />
-                </button>
-              </template>
-
-              <template #content>
-                <div class="flex flex-col">
-                  <DropdownMenuItem
-                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                    @click="renameBoardModal(getBoardIndex())"
-                  >
-                    {{ $t("pages.kanban.renameBoardAction") }}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                    @click="duplicateBoard"
-                  >
-                    {{ $t("pages.kanban.duplicateBoardAction") }}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                    @click="exportBoardToJson"
-                  >
-                    {{ $t("pages.kanban.exportBoardAction") }}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                    @click="toggleBoardPin"
-                  >
-                    <span v-if="!isPinned">{{
-                      $t("pages.kanban.pinBoardAction")
-                    }}</span>
-                    <span v-else>{{
-                      $t("pages.kanban.unpinBoardAction")
-                    }}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                    @click="deleteBoardModal(getBoardIndex())"
-                  >
-                    {{ $t("pages.kanban.deleteBoardAction") }}
-                  </DropdownMenuItem>
-                </div>
-              </template>
-            </Dropdown>
-          </div>
+                  {{ $t("pages.kanban.renameBoardAction") }}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="duplicateBoard"
+                >
+                  {{ $t("pages.kanban.duplicateBoardAction") }}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="exportBoardToJson"
+                >
+                  {{ $t("pages.kanban.exportBoardAction") }}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="toggleBoardPin"
+                >
+                  <span v-if="!isPinned">{{
+                    $t("pages.kanban.pinBoardAction")
+                  }}</span>
+                  <span v-else>{{
+                    $t("pages.kanban.unpinBoardAction")
+                  }}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="deleteBoardModal(getBoardIndex())"
+                >
+                  {{ $t("pages.kanban.deleteBoardAction") }}
+                </DropdownMenuItem>
+              </div>
+            </template>
+          </Dropdown>
         </div>
       </div>
-      <div id="cards-wrap" class="min-w-full">
-        <div
-          v-dragscroll:nochilddrag
-          class="pointer-events-auto z-50 flex flex-col px-8"
+    </div>
+    <div id="cards-wrap" class="relative z-10 min-w-full">
+      <div
+        v-dragscroll:nochilddrag
+        class="pointer-events-auto z-50 flex flex-col px-8"
+      >
+        <Container
+          non-drag-area-selector="nodrag"
+          orientation="horizontal"
+          class="flex-row gap-2"
+          drag-handle-selector=".dragging-handle"
+          group-name="columns"
+          :get-ghost-parent="getGhostParent"
+          @drop="onDrop"
         >
-          <Container
-            non-drag-area-selector="nodrag"
-            orientation="horizontal"
-            class="flex-row gap-2"
-            drag-handle-selector=".dragging-handle"
-            group-name="columns"
-            :get-ghost-parent="getGhostParent"
-            @drop="onDrop"
+          <Draggable
+            v-for="(column, index) in board.columns"
+            :key="column.id"
           >
-            <Draggable
-              v-for="(column, index) in board.columns"
-              :key="column.id"
+            <KanbanColumn
+              :id="column.id"
+              :cards-list="column.cards"
+              :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+              :col-index="index"
+              :title="column.title"
+              :zoom-level="columnZoomLevel"
+              :add-to-top-button-shown="columnAddToTopButtonEnabled"
+              :card-count-display-enabled="columnCardCountEnabled"
+              :card-search-query="searchQuery"
+              @disableDragging="draggingEnabled = false"
+              @enableDragging="draggingEnabled = true"
+              @openEditCardModal="openEditCardModal"
+              @removeCardWithConfirmation="removeCardWithConfirmation"
+              @removeColumn="openColumnRemoveDialog(column.id)"
+              @removeColumnNoConfirmation="removeColumn"
+              @setColumnEditIndex="setColumnEditIndex"
+              @updateStorage="updateColumnProperties"
+              @updateCardTags="updateCardTags"
+            />
+          </Draggable>
+          <div class="pr-8">
+            <div
+              class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
+              @click="addColumn()"
             >
-              <KanbanColumn
-                :id="column.id"
-                :cards-list="column.cards"
-                :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
-                :col-index="index"
-                :title="column.title"
-                :zoom-level="columnZoomLevel"
-                :add-to-top-button-shown="columnAddToTopButtonEnabled"
-                :card-count-display-enabled="columnCardCountEnabled"
-                :card-search-query="searchQuery"
-                @disableDragging="draggingEnabled = false"
-                @enableDragging="draggingEnabled = true"
-                @openEditCardModal="openEditCardModal"
-                @removeCardWithConfirmation="removeCardWithConfirmation"
-                @removeColumn="openColumnRemoveDialog(column.id)"
-                @removeColumnNoConfirmation="removeColumn"
-                @setColumnEditIndex="setColumnEditIndex"
-                @updateStorage="updateColumnProperties"
-                @updateCardTags="updateCardTags"
-              />
-            </Draggable>
-            <div class="pr-8">
-              <div
-                class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
-                @click="addColumn()"
+              <PlusIcon class="text-accent size-6" />
+              <span :class="board.columns.length === 0 ? '' : 'hidden'"
+                >Add Column</span
               >
-                <PlusIcon class="text-accent size-6" />
-                <span :class="board.columns.length === 0 ? '' : 'hidden'"
-                  >Add Column</span
-                >
-              </div>
             </div>
-          </Container>
-        </div>
+          </div>
+        </Container>
       </div>
     </div>
   </div>
@@ -1069,12 +1068,8 @@ const getGhostParent = () => {
   background-position: center;
   filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
   position: fixed;
-  top: calc(-1 * var(--max-blur-radius));
-  left: calc(-1 * var(--max-blur-radius));
+  top: -20px;
+  left: -20px;
   overflow: hidden;
-}
-
-#page-content {
-  width: calc(100vw - 4rem);
 }
 </style>
