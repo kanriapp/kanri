@@ -22,7 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   <div class="overflow-hidden">
     <div
       :style="cssVars"
-      :class="[animationsEnabled ? '' : 'disable-animations']"
+      :class="[
+        globalSettingsStore.animationsEnabled ? '' : 'disable-animations',
+      ]"
       class="default-layout custom-scrollbar-hidden overflow-auto"
     >
       <div v-if="mounted">
@@ -46,7 +48,7 @@ const store = useTauriStore().store;
 const savedColors = ref({});
 const mounted = ref(false);
 
-const animationsEnabled = ref(true);
+const globalSettingsStore = useSettingsStore();
 
 onMounted(async () => {
   const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
@@ -61,9 +63,10 @@ onMounted(async () => {
 
   const animationsEnabledSaved = await store.get("animationsEnabled");
   if (animationsEnabledSaved !== null) {
-    animationsEnabled.value = animationsEnabledSaved;
+    globalSettingsStore.animationsEnabled = animationsEnabledSaved;
   } else {
     await store.set("animationsEnabled", true);
+    globalSettingsStore.animationsEnabled = true;
   }
 
   savedColors.value = await store.get("colors");
@@ -74,14 +77,6 @@ onMounted(async () => {
       savedColors.value = await store.get("colors");
     });
     savedColors.value = await store.get("colors");
-  });
-
-  emitter.on("setAnimationsOn", () => {
-    animationsEnabled.value = true;
-  });
-
-  emitter.on("setAnimationsOff", () => {
-    animationsEnabled.value = false;
   });
 });
 
