@@ -989,6 +989,11 @@ const deleteBoard = async (boardIndex: number | undefined) => {
   if (!deleteBoardModalVisible.value) return;
   if (boardIndex === -1 || boardIndex == undefined) return;
 
+  // Remove board pin before deleting
+  if (isPinned.value) {
+    emitter.emit("toggleBoardPin", board.value);
+  }
+
   boards.value.splice(boardIndex, 1);
   store.set("boards", boards.value);
 
