@@ -73,7 +73,7 @@
     "zod": "^3.20.6"
   },
   "resolutions": {
-    "vite": "^6.0.0",
+    "vite": "^7.0.0",
     "esbuild": "^0.25.0",
     "chokidar": "^3.6.0"
   },
