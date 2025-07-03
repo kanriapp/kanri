@@ -27,7 +27,7 @@
     "@vueuse/components": "^13.0.0",
     "@vueuse/core": "^13.0.0",
     "@vueuse/nuxt": "^13.0.0",
-    "eslint": "9.29.0",
+    "eslint": "9.30.1",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-tailwindcss": "^3.8.0",
