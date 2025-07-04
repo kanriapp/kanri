@@ -609,6 +609,7 @@ const beforeTagAdd = ({ tag, addTag }: any) => {
   const existingTag = autocompleteItems.value.find(
     (item) => item.text === tag.text
   );
+
   if (!existingTag) {
     if (matches.length === 1) {
       tag.text = matches[0].text;
@@ -618,6 +619,11 @@ const beforeTagAdd = ({ tag, addTag }: any) => {
     } else {
       tag.id = generateUniqueID();
     }
+  } else {
+    tag.text = existingTag.text;
+    tag.id = existingTag.id;
+    tag.color = existingTag.color;
+    tag.style = existingTag.style;
   }
 
   addTag();
