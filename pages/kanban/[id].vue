@@ -88,10 +88,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @confirmAction="cardRemoveDialog.confirm(true)"
     />
 
-    <div class="absolute top-4 z-50 ml-8 w-[calc(100vw-112px)]">
+    <!-- Background element -->
+    <div
+      v-if="bgImageLoaded"
+      id="bg-container"
+      class="bg-custom z-0"
+      :style="cssVars"
+    ></div>
+    <div id="title-wrap" class="relative z-10 w-full px-8 pt-4">
       <h1
         v-if="!boardTitleEditing"
-        class="mb-1 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
+        class="mb-2 w-full break-words rounded-md bg-transparent text-4xl font-bold"
         :class="[boardTitleColor]"
         @click="enableBoardTitleEditing()"
       >
@@ -116,7 +123,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           updateStorage();
         "
       />
-
+    </div>
+    <div id="toolbar-wrap" class="relative z-10 w-full px-8 pb-4">
       <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
         <div class="flex flex-row gap-2">
           <div class="flex flex-row gap-2">
@@ -185,7 +193,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   <span v-if="!isPinned">{{
                     $t("pages.kanban.pinBoardAction")
                   }}</span>
-                  <span v-else>{{ $t("pages.kanban.unpinBoardAction") }}</span>
+                  <span v-else>{{
+                    $t("pages.kanban.unpinBoardAction")
+                  }}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
@@ -199,75 +209,57 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
       </div>
     </div>
-
-    <div
-      id="kanban-cols-container"
-      v-dragscroll:nochilddrag
-      :style="cssVars"
-      class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
-    >
+    <div id="cards-wrap" class="relative z-10 min-w-full">
       <div
-        class="h-full w-max min-w-full pt-28"
-        :style="{
-          '-webkit-backdrop-filter':
-            'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
-          'backdrop-filter':
-            'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
-          'pointer-events': 'none',
-        }"
+        v-dragscroll:nochilddrag
+        class="pointer-events-auto z-50 flex flex-col px-8"
       >
-        <div class="pointer-events-auto z-50 pl-8">
-          <div class="pt-4">
-            <Container
-              non-drag-area-selector="nodrag"
-              orientation="horizontal"
-              class="flex-row gap-2"
-              drag-handle-selector=".dragging-handle"
-              group-name="columns"
-              :get-ghost-parent="getGhostParent"
-              @drop="onDrop"
+        <Container
+          non-drag-area-selector="nodrag"
+          orientation="horizontal"
+          class="flex-row gap-2"
+          drag-handle-selector=".dragging-handle"
+          group-name="columns"
+          :get-ghost-parent="getGhostParent"
+          @drop="onDrop"
+        >
+          <Draggable
+            v-for="(column, index) in board.columns"
+            :key="column.id"
+          >
+            <KanbanColumn
+              :id="column.id"
+              :cards-list="column.cards"
+              :class="draggingEnabled ? 'dragging-handle' : 'nomoredragging'"
+              :col-index="index"
+              :title="column.title"
+              :zoom-level="columnZoomLevel"
+              :add-to-top-button-shown="columnAddToTopButtonEnabled"
+              :card-count-display-enabled="columnCardCountEnabled"
+              :card-search-query="searchQuery"
+              @disableDragging="draggingEnabled = false"
+              @enableDragging="draggingEnabled = true"
+              @openEditCardModal="openEditCardModal"
+              @removeCardWithConfirmation="removeCardWithConfirmation"
+              @removeColumn="openColumnRemoveDialog(column.id)"
+              @removeColumnNoConfirmation="removeColumn"
+              @setColumnEditIndex="setColumnEditIndex"
+              @updateStorage="updateColumnProperties"
+              @updateCardTags="updateCardTags"
+            />
+          </Draggable>
+          <div class="pr-8">
+            <div
+              class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
+              @click="addColumn()"
             >
-              <Draggable
-                v-for="(column, index) in board.columns"
-                :key="column.id"
+              <PlusIcon class="text-accent size-6" />
+              <span :class="board.columns.length === 0 ? '' : 'hidden'"
+                >Add Column</span
               >
-                <KanbanColumn
-                  :id="column.id"
-                  :cards-list="column.cards"
-                  :class="
-                    draggingEnabled ? 'dragging-handle' : 'nomoredragging'
-                  "
-                  :col-index="index"
-                  :title="column.title"
-                  :zoom-level="columnZoomLevel"
-                  :add-to-top-button-shown="columnAddToTopButtonEnabled"
-                  :card-count-display-enabled="columnCardCountEnabled"
-                  :card-search-query="searchQuery"
-                  @disableDragging="draggingEnabled = false"
-                  @enableDragging="draggingEnabled = true"
-                  @openEditCardModal="openEditCardModal"
-                  @removeCardWithConfirmation="removeCardWithConfirmation"
-                  @removeColumn="openColumnRemoveDialog(column.id)"
-                  @removeColumnNoConfirmation="removeColumn"
-                  @setColumnEditIndex="setColumnEditIndex"
-                  @updateStorage="updateColumnProperties"
-                  @updateCardTags="updateCardTags"
-                />
-              </Draggable>
-              <div class="pr-8">
-                <div
-                  class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
-                  @click="addColumn()"
-                >
-                  <PlusIcon class="text-accent size-6" />
-                  <span :class="board.columns.length === 0 ? '' : 'hidden'"
-                    >Add Column</span
-                  >
-                </div>
-              </div>
-            </Container>
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
     </div>
   </div>
@@ -1071,14 +1063,18 @@ const getGhostParent = () => {
   z-index: 1;
 }
 
-#kanban-cols-container {
-  height: 100vh;
-}
-
 .bg-custom {
-  z-index: 1;
+  --max-blur-radius: 20px;
+  width: calc(100vw + 2 * var(--max-blur-radius));
+  height: calc(100vh + 2 * var(--max-blur-radius));
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
+  filter: blur(var(--blur-intensity)) brightness(var(--bg-brightness));
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  overflow: hidden;
 }
 </style>
