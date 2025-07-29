@@ -288,11 +288,11 @@ import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight } from "@phosphor-icons/vue";
 
-import { save } from "@tauri-apps/plugin-dialog";
-import { writeTextFile, exists } from "@tauri-apps/plugin-fs";
-import { convertFileSrc } from "@tauri-apps/api/core";
-import { normalize } from "@tauri-apps/api/path";
+// Browser-compatible Tauri imports will be handled dynamically
 import { useConfirmDialog } from "@vueuse/core";
+
+// Tauri API compatibility layer
+const { getTauriApi } = useTauriCompat();
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useI18n } from "vue-i18n";
@@ -375,12 +375,16 @@ onMounted(async () => {
   isPinned.value = findObjectById(pinned, board.value.id) ? true : false;
 
   if (board.value.background) {
+    const path = await getTauriApi('path');
+    const fs = await getTauriApi('fs');
+    const core = await getTauriApi('core');
+    
     bgCustomNoResolution.value = board.value.background.src;
 
-    const pathTauriObject = await normalize(board.value.background.src);
+    const pathTauriObject = await path.normalize(board.value.background.src);
     let bgImageExists = false;
     try {
-      bgImageExists = await exists(pathTauriObject);
+      bgImageExists = await fs.exists(pathTauriObject);
     } catch (e) {
       console.warn(
         "Background image might not exist, might be from an imported board from another device"
@@ -400,7 +404,7 @@ onMounted(async () => {
     }
 
     try {
-      bgCustom.value = convertFileSrc(board.value.background.src);
+      bgCustom.value = core.convertFileSrc(board.value.background.src);
     } catch (e) {
       console.error("Error converting file src: ", e);
       bgCustom.value = "";
@@ -917,7 +921,10 @@ const updateStorage = () => {
  */
 
 const exportBoardToJson = async () => {
-  const filePath = await save({
+  const dialog = await getTauriApi('dialog');
+  const fs = await getTauriApi('fs');
+  
+  const filePath = await dialog.save({
     defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_board_${board.value.id}_export.json`,
     filters: [
       {
@@ -931,7 +938,7 @@ const exportBoardToJson = async () => {
   const fileContents = JSON.stringify(board.value, null, 2);
 
   if (filePath == null) return;
-  await writeTextFile(filePath, fileContents);
+  await fs.writeTextFile(filePath, fileContents);
 };
 
 const renameBoardModal = (index: number) => {
@@ -1018,8 +1025,10 @@ const toggleBoardPin = () => {
  */
 
 const setBackgroundImage = async (img: string) => {
+  const core = await getTauriApi('core');
+  
   bgCustomNoResolution.value = img;
-  bgCustom.value = convertFileSrc(img);
+  bgCustom.value = core.convertFileSrc(img);
   board.value.background = {
     blur: bgBlur.value,
     brightness: bgBrightness.value,

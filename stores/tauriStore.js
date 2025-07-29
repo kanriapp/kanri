@@ -20,10 +20,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { defineStore } from "pinia";
-import { LazyStore } from "@tauri-apps/plugin-store";
+
+// Browser-compatible store implementation
+function createStore() {
+  if (process.client && typeof window !== 'undefined') {
+    // In browser, use localStorage-based mock
+    if (window.MockLazyStore) {
+      return new window.MockLazyStore(".kanri.dat");
+    }
+  }
+  
+  // Fallback for SSR or if Tauri is available
+  try {
+    const { LazyStore } = require("@tauri-apps/plugin-store");
+    return new LazyStore(".kanri.dat");
+  } catch (e) {
+    // Return a basic mock for SSR
+    return {
+      get: () => Promise.resolve(null),
+      set: () => Promise.resolve(),
+      has: () => Promise.resolve(false),
+      delete: () => Promise.resolve(),
+      clear: () => Promise.resolve(),
+      save: () => Promise.resolve(),
+      load: () => Promise.resolve(),
+    };
+  }
+}
 
 export const useTauriStore = defineStore("tauriStore", {
   state: () => {
-    return { store: new LazyStore(".kanri.dat") };
+    return { store: createStore() };
   },
 });

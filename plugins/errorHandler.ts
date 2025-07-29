@@ -19,10 +19,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { error } from "@tauri-apps/plugin-log";
+// Browser-compatible logging
+function getLogger() {
+  if (process.client && typeof window !== 'undefined' && window.mockLog) {
+    return window.mockLog;
+  }
+  
+  try {
+    const { error } = require("@tauri-apps/plugin-log");
+    return { error };
+  } catch (e) {
+    // Fallback to console
+    return { error: console.error };
+  }
+}
 
 export default defineNuxtPlugin((nuxtApp) => {
+  const logger = getLogger();
+  
   nuxtApp.hook("vue:error", (err, instance, info) => {
-    error("Vue error: " + err + " ; " + info);
+    logger.error("Vue error: " + err + " ; " + info);
   });
 });

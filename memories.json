@@ -57,7 +57,48 @@
       "lastAccessed": "2025-07-29T16:24:53.693Z",
       "lastVerified": "2025-07-29T16:24:53.693Z",
       "status": "fresh"
+    },
+    {
+      "id": "mem_1753806592183_8tv9yy3cs",
+      "content": "Kanri deployment paradox: health check shows proper Nuxt.js app with correct HTML/CSS/JS assets, but browser still shows nginx default page. This indicates a caching layer (CDN, reverse proxy, or browser) is serving stale content while the actual container serves the correct app.",
+      "type": "general",
+      "tags": [
+        "general",
+        "deployment",
+        "caching",
+        "cdn",
+        "troubleshooting",
+        "coolify"
+      ],
+      "timestamp": "2025-07-29T16:29:52.183Z",
+      "context": "Kanri deployment caching issue troubleshooting",
+      "accessCount": 0,
+      "lastAccessed": "2025-07-29T16:29:52.183Z",
+      "lastVerified": "2025-07-29T16:29:52.183Z",
+      "status": "fresh"
+    },
+    {
+      "id": "mem_1753806875863_0cj8fwgh0",
+      "content": "Fixed Kanri Tauri->browser compatibility by: 1) Created browser-compatibility.client.ts plugin with localStorage-based LazyStore mock, file system mocks, dialog mocks, etc. 2) Updated tauriStore.js to use mocks in browser. 3) Fixed errorHandler.ts for browser logging. 4) Updated app.vue to conditionally import Tauri APIs. 5) Created useTauriCompat composable for dynamic API loading. 6) Updated kanban/[id].vue to use getTauriApi() for all Tauri calls (dialog.save, fs.writeTextFile, core.convertFileSrc, etc.)",
+      "type": "code",
+      "tags": [
+        "code",
+        "vue",
+        "api",
+        "tauri",
+        "browser-compatibility",
+        "nuxt",
+        "deployment",
+        "mocks",
+        "localStorage"
+      ],
+      "timestamp": "2025-07-29T16:34:35.863Z",
+      "context": "Kanri Tauri desktop app browser compatibility deployment fix",
+      "accessCount": 0,
+      "lastAccessed": "2025-07-29T16:34:35.863Z",
+      "lastVerified": "2025-07-29T16:34:35.863Z",
+      "status": "fresh"
     }
   ],
-  "lastUpdated": "2025-07-29T16:24:53.693Z"
+  "lastUpdated": "2025-07-29T16:34:35.863Z"
 }
