@@ -98,7 +98,26 @@
       "lastAccessed": "2025-07-29T16:34:35.863Z",
       "lastVerified": "2025-07-29T16:34:35.863Z",
       "status": "fresh"
+    },
+    {
+      "id": "mem_1753807311449_8rd9zhpf1",
+      "content": "Enhanced Kanri Dockerfile with comprehensive debugging to diagnose nginx default page issue. Added: 1) Build stage debug - shows .output directory contents, file copy process, and /tmp/html verification. 2) Nginx stage debug - verifies files copied to /usr/share/nginx/html, shows index.html size and preview. 3) Config verification - displays nginx config being used. This will help identify if the issue is in build generation, file copying, or nginx serving.",
+      "type": "config",
+      "tags": [
+        "config",
+        "dockerfile",
+        "debugging",
+        "nginx",
+        "deployment",
+        "troubleshooting"
+      ],
+      "timestamp": "2025-07-29T16:41:51.449Z",
+      "context": "Kanri Docker deployment debugging nginx default page issue",
+      "accessCount": 0,
+      "lastAccessed": "2025-07-29T16:41:51.449Z",
+      "lastVerified": "2025-07-29T16:41:51.449Z",
+      "status": "fresh"
     }
   ],
-  "lastUpdated": "2025-07-29T16:34:35.863Z"
+  "lastUpdated": "2025-07-29T16:41:51.449Z"
 }
