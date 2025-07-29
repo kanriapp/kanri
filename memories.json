@@ -18,7 +18,26 @@
       "lastAccessed": "2025-07-29T16:17:47.109Z",
       "lastVerified": "2025-07-29T16:17:47.109Z",
       "status": "fresh"
+    },
+    {
+      "id": "mem_1753806082351_70tp5lx2t",
+      "content": "Updated Kanri Dockerfile to properly handle nginx configuration: 1) Remove default nginx config before copying custom one, 2) Set proper permissions on html files with chmod -R 755. This should resolve deployment conflicts and startup issues.",
+      "type": "tip",
+      "tags": [
+        "tip",
+        "deployment",
+        "dockerfile",
+        "nginx",
+        "permissions",
+        "coolify"
+      ],
+      "timestamp": "2025-07-29T16:21:22.351Z",
+      "context": "Kanri project nginx Dockerfile deployment fix",
+      "accessCount": 0,
+      "lastAccessed": "2025-07-29T16:21:22.351Z",
+      "lastVerified": "2025-07-29T16:21:22.351Z",
+      "status": "fresh"
     }
   ],
-  "lastUpdated": "2025-07-29T16:17:47.109Z"
+  "lastUpdated": "2025-07-29T16:21:22.351Z"
 }
