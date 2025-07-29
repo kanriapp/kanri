@@ -37,7 +37,27 @@
       "lastAccessed": "2025-07-29T16:22:15.343Z",
       "lastVerified": "2025-07-29T16:21:22.351Z",
       "status": "fresh"
+    },
+    {
+      "id": "mem_1753806293693_n807wa115",
+      "content": "Fixed Kanri deployment issue where site showed nginx default page instead of app. Problem was in Dockerfile file copy logic - the cp command could fail silently leaving empty /tmp/html directory. Fixed by: 1) ensuring /tmp/html directory exists first, 2) better error handling in copy operation, 3) added debugging with ls -la, 4) added health check with curl for monitoring.",
+      "type": "troubleshooting",
+      "tags": [
+        "troubleshooting",
+        "deployment",
+        "dockerfile",
+        "nginx",
+        "static-files",
+        "healthcheck",
+        "coolify"
+      ],
+      "timestamp": "2025-07-29T16:24:53.693Z",
+      "context": "Kanri Dockerfile nginx static files deployment fix",
+      "accessCount": 0,
+      "lastAccessed": "2025-07-29T16:24:53.693Z",
+      "lastVerified": "2025-07-29T16:24:53.693Z",
+      "status": "fresh"
     }
   ],
-  "lastUpdated": "2025-07-29T16:21:22.351Z"
+  "lastUpdated": "2025-07-29T16:24:53.693Z"
 }
