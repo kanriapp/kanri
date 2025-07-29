@@ -9,14 +9,31 @@ RUN yarn install --frozen-lockfile
 # Copy source code
 COPY . .
 
+# Debug: Show files before generate
+RUN echo "=== Files before generate ===" && ls -la
+
 # Generate static files for SPA
 RUN yarn generate
+
+# Debug: Show what was generated
+RUN echo "=== Files after generate ===" && ls -la
+RUN echo "=== .output directory ===" && ls -la .output/ || echo "No .output directory"
+RUN echo "=== .output/public directory ===" && ls -la .output/public/ || echo "No .output/public directory"
+RUN echo "=== dist directory ===" && ls -la dist/ || echo "No dist directory"
+RUN echo "=== .nuxt directory ===" && ls -la .nuxt/ || echo "No .nuxt directory"
 
 # Production stage
 FROM nginx:alpine
 
-# Copy the SPA build files to nginx html directory
+# Remove default nginx content first
+RUN rm -rf /usr/share/nginx/html/*
+
+# Try to copy from the most likely location
 COPY --from=builder /app/.output/public /usr/share/nginx/html
+
+# Debug: Check what's actually in nginx html directory
+RUN echo "=== Final nginx html contents ===" && ls -la /usr/share/nginx/html/ || echo "Directory is empty or doesn't exist"
+RUN echo "=== Checking for index.html ===" && cat /usr/share/nginx/html/index.html 2>/dev/null | head -10 || echo "No index.html found"
 
 # Create a custom nginx config for SPA routing
 RUN echo 'server { \
