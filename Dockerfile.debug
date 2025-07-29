@@ -1,0 +1,53 @@
+# Debug Dockerfile to check what's being generated
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy package files
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+# Copy source code
+COPY . .
+
+# Debug: Check what files exist before generate
+RUN echo "=== Files before generate ===" && ls -la
+
+# Generate static files
+RUN yarn generate
+
+# Debug: Check what was generated
+RUN echo "=== Files after generate ===" && ls -la
+RUN echo "=== Contents of .output ===" && ls -la .output/ || echo "No .output directory"
+RUN echo "=== Contents of .output/public ===" && ls -la .output/public/ || echo "No .output/public directory"
+RUN echo "=== Contents of dist ===" && ls -la dist/ || echo "No dist directory"
+
+# Production stage
+FROM nginx:alpine
+
+# Copy the generated static files - try multiple possible locations
+COPY --from=builder /app/.output/public /usr/share/nginx/html 2>/dev/null || \
+COPY --from=builder /app/dist /usr/share/nginx/html 2>/dev/null || \
+COPY --from=builder /app/.nuxt/dist /usr/share/nginx/html 2>/dev/null || \
+echo "No static files found"
+
+# Create a custom nginx config for SPA routing
+RUN echo 'server { \
+    listen 80; \
+    server_name localhost; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+    } \
+    # Handle static assets with proper caching \
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ { \
+        expires 1y; \
+        add_header Cache-Control "public, immutable"; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+# Debug: Check what's actually in nginx html directory
+RUN echo "=== Final nginx html contents ===" && ls -la /usr/share/nginx/html/
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
