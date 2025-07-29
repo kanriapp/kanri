@@ -1,0 +1,24 @@
+{
+  "memories": [
+    {
+      "id": "mem_1753805867109_zljyvb628",
+      "content": "Fixed Coolify deployment issue by replacing fragile multi-line nginx config RUN command with proper nginx.conf file copy. The issue was the complex echo command with backslashes causing nginx startup failures. Solution: created nginx.conf file and used COPY command instead.",
+      "type": "config",
+      "tags": [
+        "config",
+        "deployment",
+        "dockerfile",
+        "nginx",
+        "coolify",
+        "fix"
+      ],
+      "timestamp": "2025-07-29T16:17:47.109Z",
+      "context": "Kanri project Dockerfile nginx configuration deployment fix",
+      "accessCount": 0,
+      "lastAccessed": "2025-07-29T16:17:47.109Z",
+      "lastVerified": "2025-07-29T16:17:47.109Z",
+      "status": "fresh"
+    }
+  ],
+  "lastUpdated": "2025-07-29T16:17:47.109Z"
+}
