@@ -9,13 +9,13 @@ RUN yarn install --frozen-lockfile
 # Copy source code
 COPY . .
 
-# Generate static files
-RUN yarn generate
+# Build for SPA deployment
+RUN yarn build
 
 # Production stage
 FROM nginx:alpine
 
-# Copy the generated static files to nginx html directory
+# Copy the SPA build files to nginx html directory
 COPY --from=builder /app/.output/public /usr/share/nginx/html
 
 # Create a custom nginx config for SPA routing
