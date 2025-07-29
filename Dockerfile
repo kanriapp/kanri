@@ -1,4 +1,4 @@
-# Build stage
+# Build stage - Updated for Coolify deployment
 FROM node:20-alpine AS builder
 WORKDIR /app
 
