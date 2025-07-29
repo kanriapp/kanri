@@ -1,0 +1,99 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [20]
+        
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    
+    - name: Install Playwright Browsers
+      run: yarn playwright:install --with-deps
+    
+    - name: Build application
+      run: yarn generate
+    
+    - name: Run Playwright tests
+      run: yarn test:e2e
+      env:
+        CI: true
+        PLAYWRIGHT_BASE_URL: http://localhost:3000
+    
+    - name: Upload Playwright Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report-${{ matrix.node-version }}
+        path: playwright-report/
+        retention-days: 30
+    
+    - name: Upload Test Screenshots
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: playwright-screenshots-${{ matrix.node-version }}
+        path: tests/e2e/screenshots/
+        retention-days: 7
+    
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-results-${{ matrix.node-version }}
+        path: test-results/
+        retention-days: 7
+
+  # Optional: Run tests against deployed version
+  test-deployed:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    
+    - name: Install Playwright Browsers
+      run: yarn playwright:install --with-deps
+    
+    - name: Run tests against deployed app
+      run: yarn test:e2e
+      env:
+        CI: true
+        PLAYWRIGHT_BASE_URL: https://mytasks.cbrsgroup.com
+    
+    - name: Upload Deployed Test Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report-deployed
+        path: playwright-report/
+        retention-days: 30

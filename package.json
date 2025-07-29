@@ -14,13 +14,21 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "test:e2e": "playwright test --config=tests/e2e/playwright.config.ts",
+    "test:e2e:ui": "playwright test --config=tests/e2e/playwright.config.ts --ui",
+    "test:e2e:headed": "playwright test --config=tests/e2e/playwright.config.ts --headed",
+    "test:e2e:debug": "playwright test --config=tests/e2e/playwright.config.ts --debug",
+    "test:e2e:report": "playwright show-report",
+    "playwright:install": "playwright install",
+    "playwright:install-deps": "playwright install-deps"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.0.0",
     "@nuxt/eslint-config": "^1.0.0",
     "@nuxtjs/i18n": "^9.1.1",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "@playwright/test": "^1.54.1",
     "@tauri-apps/cli": "^2.1.0",
     "@types/node": "^22.10.2",
     "@vue/compiler-sfc": "^3.3.0",
