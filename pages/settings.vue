@@ -324,7 +324,7 @@ onMounted(async () => {
   displayCardCountCheckbox.value =
     (await store.get("displayColumnCardCountEnabled")) || false;
 
-  activeTheme.value = await store.get("activeTheme");
+  activeTheme.value = await store.get("activeTheme") || "dark";
   if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
 
   const columnZoom: null | number = await store.get("columnZoomLevel");
