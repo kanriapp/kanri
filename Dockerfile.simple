@@ -1,0 +1,36 @@
+# Simple diagnostic approach
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy package files
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+# Copy source code
+COPY . .
+
+# Try different build approaches
+RUN echo "Trying yarn generate..." && yarn generate || echo "yarn generate failed"
+RUN echo "Trying nuxt generate..." && npx nuxt generate || echo "nuxt generate failed"
+
+# Check all possible output locations
+RUN find /app -name "index.html" -type f 2>/dev/null || echo "No index.html found anywhere"
+RUN find /app -name "*.html" -type f 2>/dev/null || echo "No HTML files found"
+
+# Production stage - serve from a known working directory
+FROM nginx:alpine
+
+# Create a simple test page first
+RUN echo '<h1>Test: If you see this, Docker is working</h1>' > /usr/share/nginx/html/test.html
+
+# Try to copy from builder, but don't fail if it doesn't exist
+COPY --from=builder /app/.output/public /usr/share/nginx/html/ 2>/dev/null || \
+COPY --from=builder /app/dist /usr/share/nginx/html/ 2>/dev/null || \
+COPY --from=builder /app/.nuxt/dist /usr/share/nginx/html/ 2>/dev/null || \
+echo "Could not copy any static files"
+
+# List what we actually have
+RUN ls -la /usr/share/nginx/html/
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
