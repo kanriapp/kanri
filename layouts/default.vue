@@ -43,12 +43,16 @@ import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json";
+import { sys } from "typescript";
 
 const store = useTauriStore().store;
 const savedColors = ref({});
 const mounted = ref(false);
 
 const globalSettingsStore = useSettingsStore();
+
+const systemTheme = useDark();
+const autoThemeEnabled = ref(false);
 
 onMounted(async () => {
   const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
@@ -70,6 +74,8 @@ onMounted(async () => {
   }
 
   savedColors.value = await store.get("colors");
+  autoThemeEnabled.value = await store.get("activeTheme") === "auto" || false;
+
   mounted.value = true;
 
   emitter.on("updateColors", async () => {
@@ -84,6 +90,19 @@ onUnmounted(() => {
   emitter.off("updateColors");
   emitter.off("setAnimationsOn");
   emitter.off("setAnimationsOff");
+});
+
+watch(systemTheme, async (newValue) => {
+  autoThemeEnabled.value = await store.get("activeTheme") === "auto";
+  const resolvedThemeName = newValue ? "dark" : "light";
+
+  if (autoThemeEnabled.value) {
+    autoThemeEnabled.value = true;
+    savedColors.value = themes[resolvedThemeName];
+
+    await store.set("activeTheme", "auto");
+    await store.set("colors", themes[resolvedThemeName]);
+  }
 });
 
 const increaseSaturation = (hex) => {
