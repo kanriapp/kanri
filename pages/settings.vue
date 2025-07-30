@@ -43,7 +43,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <h2 class="mb-2 mt-6 text-2xl font-bold">
         {{ $t("pages.settings.sectionThemeHeading") }}
       </h2>
-      <div id="theme-selection" class="flex flex-row gap-4">
+      <div id="theme-selection" class="flex flex-row gap-4" v-if="!autoThemeEnabled">
         <div
           class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('light')"
@@ -88,6 +88,33 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
       </div>
 
+      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)" v-if="!autoThemeEnabled">
+        {{ $t("pages.settings.colorResetText")
+        }}<span class="underline">{{
+          $t("pages.settings.colorResetLink")
+        }}</span
+        >.
+      </button>
+
+      <div class="mt-3">
+        <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
+          <span
+            class="text-lg"
+          >
+            {{ $t("pages.settings.setThemeAuto") }}
+          </span>
+          <SwitchRoot
+            v-model:checked="autoThemeEnabled"
+            class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            @update:checked="setTheme('auto')"
+          >
+            <SwitchThumb
+              class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+            />
+          </SwitchRoot>
+        </div>
+      </div>
+
       <div v-if="themeEditorDisplayed" class="mt-6 text-lg">
         <h3 class="mb-2 font-semibold">
           {{ $t("pages.settings.customThemeEditorHeading") }}
@@ -116,14 +143,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </button>
         </div>
       </div>
-
-      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)">
-        {{ $t("pages.settings.colorResetText")
-        }}<span class="underline">{{
-          $t("pages.settings.colorResetLink")
-        }}</span
-        >.
-      </button>
     </section>
 
     <section id="kanban-settings">
@@ -307,6 +326,8 @@ const { t, locale } = useI18n();
 
 const activeTheme: Ref<null | string> = ref("");
 const themeEditorDisplayed = ref(false);
+const autoThemeEnabled = ref(false);
+const systemTheme = useDark();
 
 const columnZoomLevel = ref(0);
 
@@ -324,7 +345,13 @@ onMounted(async () => {
   displayCardCountCheckbox.value =
     (await store.get("displayColumnCardCountEnabled")) || false;
 
-  activeTheme.value = await store.get("activeTheme");
+  activeTheme.value = await store.get("activeTheme") || "dark";
+  if (activeTheme.value === "auto") {
+    autoThemeEnabled.value = true;
+    activeTheme.value = systemTheme.value ? "dark" : "light";
+  } else {
+    autoThemeEnabled.value = false;
+  }
   if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
 
   const columnZoom: null | number = await store.get("columnZoomLevel");
@@ -359,6 +386,24 @@ const setTheme = (themeName: ThemeIdentifiers) => {
 
   if (themeName === "custom") {
     themeEditorDisplayed.value = true;
+    return;
+  }
+
+  if (themeName === "auto") {
+    const resolvedTheme = systemTheme.value ? "dark" : "light";
+    if (autoThemeEnabled.value) {
+      store.set("activeTheme", "auto");
+      autoThemeEnabled.value = true;
+      themeEditorDisplayed.value = false;
+    }
+    else {
+      store.set("activeTheme", resolvedTheme);
+    }
+
+    store.set("colors", themes[resolvedTheme]);
+    emitter.emit("updateColors");
+
+    activeTheme.value = resolvedTheme;
     return;
   }
 

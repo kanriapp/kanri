@@ -83,7 +83,8 @@ export declare type ThemeIdentifiers =
   | "catppuccin"
   | "custom"
   | "dark"
-  | "light";
+  | "light"
+  | "auto";
 
 export default {
   Board,
