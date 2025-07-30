@@ -364,12 +364,31 @@ import Modal from "@/components/Modal.vue";
 import versionInfo from "@/version_info.json";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { BookOpenIcon } from "@heroicons/vue/24/outline";
-import { platform } from "@tauri-apps/plugin-os";
 
 const osType = ref("");
 
+// Function to detect platform in both Tauri and web environments
+const detectPlatform = async (): Promise<string> => {
+  try {
+    // Try to use Tauri's platform detection (desktop app)
+    const { platform } = await import("@tauri-apps/plugin-os");
+    return platform();
+  } catch (error) {
+    // Fallback to web-based platform detection
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.includes('mac')) {
+      return 'darwin';
+    } else if (userAgent.includes('win')) {
+      return 'windows';
+    } else if (userAgent.includes('linux')) {
+      return 'linux';
+    }
+    return 'unknown';
+  }
+};
+
 onMounted(async () => {
-  osType.value = platform();
+  osType.value = await detectPlatform();
 });
 
 defineEmits<{
