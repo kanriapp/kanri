@@ -700,11 +700,13 @@ const setCardDueDate = (
   columnId: string,
   cardId: string | undefined,
   dueDate: Date | null,
-  isCounterRelative: boolean
+  isCounterRelative: boolean,
+  isCompleted: boolean
 ) => {
   mutateCardData(columnId, cardId, (card) => {
     card.dueDate = dueDate;
     card.isDueDateCounterRelative = isCounterRelative;
+    card.isDueDateCompleted = isCompleted;
   });
 };
 

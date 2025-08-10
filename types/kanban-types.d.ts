@@ -59,6 +59,7 @@ export declare interface Card {
   dueDate?: Date | string | null;
   id?: string;
   isDueDateCounterRelative?: boolean;
+  isDueDateCompleted?: boolean;
   name: string;
   tasks?: Array<Task>;
   tags?: Array<Tag> | null;
