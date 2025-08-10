@@ -33,6 +33,7 @@ tauri-plugin-log = "2.0.0"
 tauri-plugin-dialog = "2"
 tauri-plugin-os = "2.2.0"
 tauri-plugin-fs = "2.2.0"
+photon-rs = "0.3.3"
 
 [features]
 # by default Tauri runs in production mode

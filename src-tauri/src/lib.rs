@@ -9,6 +9,8 @@
     windows_subsystem = "windows"
 )]
 
+mod bg_filters;
+
 use tauri::Manager;
 use tauri_plugin_autostart::MacosLauncher;
 
