@@ -24,7 +24,7 @@ import {
 onMounted(async () => {
   setTimeout(() => {
     show();
-  }, 50);
+  }, 100);
 
   await attachConsole();
 
