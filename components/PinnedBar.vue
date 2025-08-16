@@ -29,6 +29,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         :key="board.id"
         :board="board"
         @setPinIcon="setPinIcon"
+        @setPinTextIcon="setPinTextIcon"
+        @clearPinIcon="clearPinIcon"
+        @unpin="unpin"
       />
     </section>
   </nav>
@@ -40,9 +43,9 @@ import type { Board } from "@/types/kanban-types";
 import PinnedItem from "./PinnedItem.vue";
 
 const store = useTauriStore().store;
-const pins: Ref<Array<{ id: string; title: string; pinIcon?: string }>> = ref(
-  []
-);
+const pins: Ref<
+  Array<{ id: string; title: string; pinIcon?: string; pinIconText?: string }>
+> = ref([]);
 const boards: Ref<Array<Board>> = ref([]);
 
 onMounted(async () => {
@@ -66,25 +69,39 @@ const updatePin = async (board: Board) => {
   const boardIsPinned = findObjectById(pins.value, board.id) ? true : false;
   if (!boardIsPinned) return;
 
-  pins.value = pins.value.map((x) => {
-    if (x.id === board.id) {
-      x = filterBoardToNameAndId(board);
-    }
-    return x;
-  });
+  pins.value = pins.value.map((x) =>
+    x.id === board.id ? { ...x, title: board.title } : x
+  );
 
   store.set("pins", pins.value);
 };
 
-const setPinIcon = async (id: string, pinIcon: string) => {
-  pins.value = pins.value.map((x) => {
-    if (x.id === id) {
-      x = { ...x, pinIcon: pinIcon };
-    }
-    return x;
-  });
+const persistPins = () => store.set("pins", pins.value);
 
-  store.set("pins", pins.value);
+const setPinIcon = async (id: string, pinIcon: string) => {
+  pins.value = pins.value.map((x) =>
+    x.id === id ? { ...x, pinIcon, pinIconText: undefined } : x
+  );
+  persistPins();
+};
+
+const setPinTextIcon = (id: string, pinIconText: string) => {
+  pins.value = pins.value.map((x) =>
+    x.id === id ? { ...x, pinIcon: undefined, pinIconText } : x
+  );
+  persistPins();
+};
+
+const clearPinIcon = (id: string) => {
+  pins.value = pins.value.map((x) =>
+    x.id === id ? { ...x, pinIcon: undefined, pinIconText: undefined } : x
+  );
+  persistPins();
+};
+
+const unpin = (id: string) => {
+  pins.value = pins.value.filter((x) => x.id !== id);
+  persistPins();
 };
 
 const filterBoardToNameAndId = (board: Board) => {
