@@ -642,6 +642,12 @@ const onDrop = (dropResult: any) => {
 };
 
 const getChildPayload = (index: number) => {
+  // if we have search query, re-calculate the index
+  if (props.cardSearchQuery) {
+    console.log("Filtering cards, using relative index");
+    return filteredCards.value[index];
+  }
+
   return cards.value[index];
 };
 
