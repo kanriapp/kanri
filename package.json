@@ -29,7 +29,7 @@
     "@vueuse/nuxt": "^13.0.0",
     "eslint": "9.33.0",
     "eslint-plugin-tailwindcss": "^3.8.0",
-    "nuxt": "^3.16.2",
+    "nuxt": "^4.0.0",
     "postcss": "^8.4",
     "postcss-custom-properties": "^14.0.4",
     "prettier": "^3.4.2",
