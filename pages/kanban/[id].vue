@@ -151,48 +151,60 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <Dropdown align="end">
             <template #trigger>
               <button
-                class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
-                @click.prevent
+              class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
+              @click.prevent
               >
-                <EllipsisHorizontalIcon class="size-6" />
+              <EllipsisHorizontalIcon class="size-6" />
               </button>
             </template>
 
             <template #content>
               <div class="flex flex-col">
-                <DropdownMenuItem
-                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                  @click="renameBoardModal(getBoardIndex())"
-                >
-                  {{ $t("pages.kanban.renameBoardAction") }}
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                  @click="duplicateBoard"
-                >
-                  {{ $t("pages.kanban.duplicateBoardAction") }}
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                  @click="exportBoardToJson"
-                >
-                  {{ $t("pages.kanban.exportBoardAction") }}
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                  @click="toggleBoardPin"
-                >
-                  <span v-if="!isPinned">{{
-                    $t("pages.kanban.pinBoardAction")
-                  }}</span>
-                  <span v-else>{{ $t("pages.kanban.unpinBoardAction") }}</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left"
-                  @click="deleteBoardModal(getBoardIndex())"
-                >
-                  {{ $t("pages.kanban.deleteBoardAction") }}
-                </DropdownMenuItem>
+              <!-- Group 1: Board actions -->
+              <DropdownMenuItem
+                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                @click="renameBoardModal(getBoardIndex())"
+              >
+                <span class="text-dim-2"><PhPencil class="size-5" /></span>
+                <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                @click="duplicateBoard"
+              >
+                <span class="text-dim-2"><PhCopy class="size-5" /></span>
+                <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                @click="exportBoardToJson"
+              >
+                <span class="text-dim-2"><PhExport class="size-5" /></span>
+                <span>{{ $t("pages.kanban.exportBoardAction") }}</span>
+              </DropdownMenuItem>
+              <div class="my-1 border-t border-elevation-3"></div>
+              <!-- Group 2: Pin/unpin -->
+              <DropdownMenuItem
+                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                @click="toggleBoardPin"
+              >
+                <span class="text-dim-2">
+                  <PhPushPin class="size-5" />
+                </span>
+                <span v-if="!isPinned">{{ $t("pages.kanban.pinBoardAction") }}</span>
+                <span v-else>{{ $t("pages.kanban.unpinBoardAction") }}</span>
+              </DropdownMenuItem>
+              <div class="my-1 border-t border-elevation-3"></div>
+              <!-- Group 3: Danger zone -->
+              <DropdownMenuItem
+                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2 text-red-500"
+                @click="deleteBoardModal(getBoardIndex())"
+              >
+                <span>
+                  <PhTrash class="size-5" />
+                </span>
+                <span>{{ $t("pages.kanban.deleteBoardAction") }}</span>
+              </DropdownMenuItem>
               </div>
             </template>
           </Dropdown>
@@ -286,7 +298,7 @@ import { getAverageColor } from "~/utils/colorUtils";
 
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
-import { PhHashStraight } from "@phosphor-icons/vue";
+import { PhHashStraight, PhTrash, PhCopy, PhPencil, PhExport, PhPushPin } from "@phosphor-icons/vue";
 
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeTextFile, exists } from "@tauri-apps/plugin-fs";
