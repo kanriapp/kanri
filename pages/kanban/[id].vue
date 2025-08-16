@@ -383,8 +383,8 @@ onMounted(async () => {
   columnCardCountEnabled.value =
     (await store.get("displayColumnCardCountEnabled")) || false;
 
-  const pinned = ((await store.get("pins")) as Board[]) || [];
-  isPinned.value = findObjectById(pinned, board.value.id) ? true : false;
+  const pinned = ((await store.get("pins")) as Array<{ id: string }>) || [];
+  isPinned.value = !!findObjectById(pinned, board.value.id);
 
   if (board.value.background) {
     bgCustomNoResolution.value = board.value.background.src;
