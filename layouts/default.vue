@@ -43,7 +43,6 @@ import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
 import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
 import versionInfo from "@/version_info.json";
-import { sys } from "typescript";
 
 const store = useTauriStore().store;
 const savedColors = ref({});
