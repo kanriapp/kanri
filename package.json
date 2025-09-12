@@ -68,7 +68,7 @@
     "vue": "^3.5.13",
     "vue-dragscroll": "^4.0.5",
     "vue3-smooth-dnd": "0.0.6",
-    "zod": "^3.20.6"
+    "zod": "^4.0.0"
   },
   "resolutions": {
     "vite": "^6.0.0",
