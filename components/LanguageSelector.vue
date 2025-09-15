@@ -33,9 +33,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </ComboboxTrigger>
     </ComboboxAnchor>
 
-    <ComboboxContent
-      class="bg-elevation-1 absolute z-10 mt-2 w-full min-w-[160px] overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade"
-    >
+    <ComboboxContent :class="tooltipClass">
       <ComboboxViewport class="p-[5px]">
         <ComboboxEmpty
           class="text-elevation-3 py-2 text-center text-xs font-medium"
@@ -75,6 +73,20 @@ const currentLocale = computed(() => {
 const setLang = (newLocale: string) => {
   setLocale(newLocale);
 };
+
+const globalSettingsStore = useSettingsStore();
+
+const tooltipClass = computed(() => {
+  let tooltipClasses =
+    "bg-elevation-1 absolute z-10 mt-2 w-full min-w-[160px] overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]";
+
+  if (globalSettingsStore.animationsEnabled) {
+    tooltipClasses +=
+      " data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade";
+  }
+
+  return tooltipClasses;
+});
 
 watch(selectedLocale, (newLocale) => {
   setLang(newLocale ?? "en");

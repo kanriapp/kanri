@@ -22,7 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   <div class="overflow-auto">
     <div
       :style="cssVars"
-      :class="[animationsEnabled ? '' : 'disable-animations']"
+      :class="[
+        globalSettingsStore.animationsEnabled ? '' : 'disable-animations',
+      ]"
       class="default-layout custom-scrollbar-hidden overflow-auto"
     >
       <div v-if="mounted">
@@ -46,7 +48,10 @@ const store = useTauriStore().store;
 const savedColors = ref({});
 const mounted = ref(false);
 
-const animationsEnabled = ref(true);
+const globalSettingsStore = useSettingsStore();
+
+const systemTheme = useDark();
+const autoThemeEnabled = ref(false);
 
 onMounted(async () => {
   const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
@@ -61,12 +66,15 @@ onMounted(async () => {
 
   const animationsEnabledSaved = await store.get("animationsEnabled");
   if (animationsEnabledSaved !== null) {
-    animationsEnabled.value = animationsEnabledSaved;
+    globalSettingsStore.animationsEnabled = animationsEnabledSaved;
   } else {
     await store.set("animationsEnabled", true);
+    globalSettingsStore.animationsEnabled = true;
   }
 
   savedColors.value = await store.get("colors");
+  autoThemeEnabled.value = await store.get("activeTheme") === "auto" || false;
+
   mounted.value = true;
 
   emitter.on("updateColors", async () => {
@@ -75,20 +83,25 @@ onMounted(async () => {
     });
     savedColors.value = await store.get("colors");
   });
-
-  emitter.on("setAnimationsOn", () => {
-    animationsEnabled.value = true;
-  });
-
-  emitter.on("setAnimationsOff", () => {
-    animationsEnabled.value = false;
-  });
 });
 
 onUnmounted(() => {
   emitter.off("updateColors");
   emitter.off("setAnimationsOn");
   emitter.off("setAnimationsOff");
+});
+
+watch(systemTheme, async (newValue) => {
+  autoThemeEnabled.value = await store.get("activeTheme") === "auto";
+  const resolvedThemeName = newValue ? "dark" : "light";
+
+  if (autoThemeEnabled.value) {
+    autoThemeEnabled.value = true;
+    savedColors.value = themes[resolvedThemeName];
+
+    await store.set("activeTheme", "auto");
+    await store.set("colors", themes[resolvedThemeName]);
+  }
 });
 
 const increaseSaturation = (hex) => {
@@ -313,8 +326,8 @@ const cssVars = computed(() => {
 }
 
 .transition-button {
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke;
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }

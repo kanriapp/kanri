@@ -52,6 +52,7 @@
       "darkThemeOption": "Dark",
       "lightThemeOption": "Light",
       "catppuccinThemeOption": "Catppuccin",
+      "setThemeAuto": "Automatically set theme based on system preference",
       "customThemeOption": "Custom",
       "customThemeEditorHeading": "Select the colors for your custom theme:",
       "customThemeImportHeading": "Or import/export a custom theme:",
@@ -203,7 +204,7 @@
       "taskAdd": "Add Task",
       "newTaskPlaceholder": "Enter a task...",
       "tagsTitle": "Tags",
-      "tagsEdit": "Edit Global Tags"
+      "tagsEdit": "Edit Board Tags"
     },
     "help": {
       "title": "Help & Resources",

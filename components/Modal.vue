@@ -90,7 +90,7 @@ const keyDownListener = (e: { key: string }) => {
 <style>
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-  transition: opacity 0.35s ease-out;
+  transition: opacity 0.2s ease-out;
 }
 
 .modal-fade-enter-from,

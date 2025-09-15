@@ -205,10 +205,17 @@ export const cssColorStringToHex = (colorString: string): string => {
  */
 export const lightenColor = (col: string, amt: number): string => {
   // Validate inputs
-  const parsed = validateInput(LightenColorSchema, { col, amt });
+  try {
+    validateInput(LightenColorSchema, { col, amt });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid color or amount:", error.errors);
+    }
+    return col; // Return original color on error
+  }
 
-  // eslint-disable-next-line prefer-const
-  let { col: color, amt: amount } = parsed;
+  let color = col;
+  const amount = amt;
 
   color = color.replace(/^#/, "");
   if (color.length === 3) {
@@ -240,7 +247,14 @@ export const hexToRgb = (
   hex: string
 ): { r: number; g: number; b: number } | null => {
   // Validate input
-  validateInput(HexToRgbSchema, hex);
+  try {
+    validateInput(HexToRgbSchema, hex);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid hex color:", error.errors);
+    }
+    return { r: 0, g: 0, b: 0 }; // Default to black on error
+  }
 
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
@@ -262,14 +276,21 @@ export const hexToRgb = (
  */
 export const rgbToHex = (r: number, g: number, b: number): string => {
   // Validate inputs
-  const parsed = validateInput(RgbToHexSchema, { r, g, b });
+  try {
+    validateInput(RgbToHexSchema, { r, g, b });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid RGB values:", error.errors);
+    }
+    return "#000000"; // Default to black on error
+  }
 
   const toHex = (x: number): string => {
     const hex = x.toString(16);
     return hex.length === 1 ? "0" + hex : hex;
   };
 
-  return `#${toHex(parsed.r)}${toHex(parsed.g)}${toHex(parsed.b)}`.toUpperCase();
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
 };
 
 /**
@@ -285,7 +306,14 @@ export const rgbToHsl = (
   g: number,
   b: number
 ): [number, number, number] => {
-  const _ = validateInput(RgbToHslSchema, { r, g, b });
+  try {
+    validateInput(RgbToHslSchema, { r, g, b });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid RGB values:", error.errors);
+    }
+    return [0, 0, 0]; // Default to black on error
+  }
 
   r /= 255;
   g /= 255;
@@ -327,12 +355,19 @@ export const rgbToHsl = (
  */
 export const hslToHex = (h: number, s: number, l: number): string => {
   // Validate inputs
-  const parsed = validateInput(HslToHexSchema, { h, s, l });
+  try {
+    validateInput(HslToHexSchema, { h, s, l });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid HSL values:", error.errors);
+    }
+    return "#000000"; // Default to black on error
+  }
 
   l /= 100;
   const a = (s * Math.min(l, 1 - l)) / 100;
   const f = (n: number): string => {
-    const k = (n + parsed.h / 30) % 12;
+    const k = (n + h / 30) % 12;
     const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1); // Corrected line
     const value = Math.round(255 * color);
     const hex = value.toString(16);
@@ -349,7 +384,14 @@ export const hslToHex = (h: number, s: number, l: number): string => {
  */
 export const getContrast = (hexcolor: string): string => {
   // Validate input
-  validateInput(GetContrastSchema, hexcolor);
+  try {
+    validateInput(GetContrastSchema, hexcolor);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid hex color:", error.errors);
+    }
+    return "text-gray-50"; // Default to light text on error
+  }
 
   const rgb = hexToRgb(hexcolor);
   if (!rgb) return "text-gray-50";
@@ -370,7 +412,14 @@ export const getContrast = (hexcolor: string): string => {
 export const getAverageColor = async (
   imgSrc: string
 ): Promise<[number, number, number]> => {
-  const parsedImgSrc = validateInput(GetAverageColorSchema, imgSrc);
+  try {
+    validateInput(GetAverageColorSchema, imgSrc);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid image source:", error.errors);
+    }
+    return [0, 0, 0]; // Default to black on error
+  }
 
   const img = new Image();
   img.crossOrigin = "Anonymous";
@@ -378,7 +427,7 @@ export const getAverageColor = async (
   await new Promise<void>((resolve, reject) => {
     img.onload = () => resolve();
     img.onerror = () => reject(new Error("Failed to load image."));
-    img.src = parsedImgSrc;
+    img.src = imgSrc;
   });
 
   const canvas = document.createElement("canvas");

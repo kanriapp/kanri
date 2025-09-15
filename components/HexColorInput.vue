@@ -17,21 +17,18 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
+
 <template>
   <input
     v-model="inputValue"
     class="bg-elevation-1 w-24 rounded-md px-2"
     type="text"
     maxlength="7"
-    @input="updateInputValue($event)"
+    @input="onInput"
   />
 </template>
 
 <script setup lang="ts">
-/**
- * Note to self: this is very messy, might want to improve by wrapping all inputs in a form and using the pattern for validation
- */
-
 const props = defineProps<{
   modelValue: string;
 }>();
@@ -39,35 +36,37 @@ const emit = defineEmits(["update:modelValue"]);
 
 const inputValue = ref(props.modelValue);
 
-watch(props, (_, newValue) => {
-  inputValue.value = newValue.modelValue;
-});
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    inputValue.value = newVal;
+  }
+);
 
-const updateInputValue = (event: Event) => {
-  //@ts-expect-error don't want to deal with the specifics of event typings here
-  if (event.target.value.length === 1) {
-    //@ts-expect-error don't want to deal with the specifics of event typings here
-    if (event.target.value !== "#") {
-      inputValue.value = "";
-      return;
-    }
+function onInput(event: Event) {
+  const target = event.target as HTMLInputElement;
+  let value = target.value;
+
+  // Always start with #
+  if (!value.startsWith("#")) {
+    value = "#" + value.replace(/[^0-9A-Fa-f]/g, "");
   }
 
-  //@ts-expect-error don't want to deal with the specifics of event typings here
-  if (event.target.value.length > 1) {
-    const regex = /^#[0-9A-F]{1,6}$/i;
-
-    //@ts-expect-error don't want to deal with the specifics of event typings here
-    if (!regex.test(event.target.value)) {
-      inputValue.value = inputValue.value.substring(
-        0,
-        inputValue.value.length - 1
-      );
-      return;
-    }
+  // If user deletes everything, reset to #
+  if (value === "" || value === "#") {
+    inputValue.value = "#";
+    emit("update:modelValue", "#");
+    return;
   }
 
-  //@ts-expect-error don't want to deal with the specifics of event typings here
-  emit("update:modelValue", event.target.value);
-};
+  // Only allow up to 6 hex digits after #
+  value = value.slice(0, 7);
+  if (!/^#[0-9A-Fa-f]{0,6}$/.test(value)) {
+    value = "#" + value.slice(1).replace(/[^0-9A-Fa-f]/g, "");
+    value = value.slice(0, 7);
+  }
+
+  inputValue.value = value;
+  emit("update:modelValue", value);
+}
 </script>

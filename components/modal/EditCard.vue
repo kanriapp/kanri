@@ -253,8 +253,8 @@ limitations under the License.
               </template>
               <template #footer>
                 <div class="w-full px-4 pb-3">
-                  <div class="mt-3 flex flex-col gap-4">
-                    <div class="flex flex-row items-center gap-4">
+                  <div class="mt-2 flex flex-col gap-2">
+                    <div class="flex flex-row items-center gap-6 mb-2">
                       <SwitchRoot
                         v-model:checked="isDueDateCounterRelative"
                         class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
@@ -266,12 +266,21 @@ limitations under the License.
                       </SwitchRoot>
                       <p>{{ $t("modals.editCard.countdown") }}</p>
                     </div>
+
                     <button
                       class="bg-elevation-1 bg-elevation-2-hover flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
                       @click="resetDueDate"
                     >
                       <PhTrash class="mt-0.5 size-5" />
                       {{ $t("modals.editCard.dateRemove") }}
+                    </button>
+                    <button
+                      class="bg-accent flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
+                      @click="isDueDateCompleted = !isDueDateCompleted; markDueDateCompleted()"
+                    >
+                      <PhCheck v-if="!isDueDateCompleted" class="mt-0.5 size-5" />
+                      <PhX v-else class="mt-0.5 size-5" />
+                      {{ isDueDateCompleted ? 'Mark Not Completed' : 'Set as Completed' }}
                     </button>
                   </div>
                 </div>
@@ -485,6 +494,7 @@ import {
   PhCheck,
   PhPencilSimple,
   PhTrash,
+  PhX,
 } from "@phosphor-icons/vue";
 import { vOnClickOutside } from "@vueuse/components";
 //@ts-expect-error library has no types
@@ -517,7 +527,8 @@ const emit = defineEmits<{
     columnID: string,
     cardId: string | undefined,
     dueDate: Date | null,
-    isCounterRelative: boolean
+    isCounterRelative: boolean,
+    isCompleted: boolean
   ): void;
   (
     e: "setCardTags",
@@ -551,6 +562,7 @@ const selectedColor = ref("");
 
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
+const isDueDateCompleted = ref(false);
 
 const tag = ref("");
 const tags: Ref<Array<Tag>> = ref([]);
@@ -609,6 +621,7 @@ const beforeTagAdd = ({ tag, addTag }: any) => {
   const existingTag = autocompleteItems.value.find(
     (item) => item.text === tag.text
   );
+
   if (!existingTag) {
     if (matches.length === 1) {
       tag.text = matches[0].text;
@@ -618,6 +631,11 @@ const beforeTagAdd = ({ tag, addTag }: any) => {
     } else {
       tag.id = generateUniqueID();
     }
+  } else {
+    tag.text = existingTag.text;
+    tag.id = existingTag.id;
+    tag.color = existingTag.color;
+    tag.style = existingTag.style;
   }
 
   addTag();
@@ -705,7 +723,22 @@ const resetDueDate = () => {
     columnID.value,
     props.card?.id,
     null,
-    isDueDateCounterRelative.value
+    isDueDateCounterRelative.value,
+    false
+  );
+};
+
+const markDueDateCompleted = () => {
+   console.log("yeetusfeetus")
+   console.log("Due date completed", isDueDateCompleted.value)
+
+  emit(
+    "setCardDueDate",
+    columnID.value,
+    props.card?.id,
+    dueDate.value,
+    isDueDateCounterRelative.value,
+    isDueDateCompleted.value
   );
 };
 
@@ -715,7 +748,8 @@ const updateDueDate = () => {
     columnID.value,
     props.card?.id,
     dueDate.value,
-    isDueDateCounterRelative.value
+    isDueDateCounterRelative.value,
+    isDueDateCompleted.value
   );
 };
 
@@ -770,6 +804,7 @@ watch(props, (newVal) => {
     dueDate.value = newVal.card.dueDate || null;
     isDueDateCounterRelative.value =
       newVal.card.isDueDateCounterRelative || false;
+    isDueDateCompleted.value = newVal.card.isDueDateCompleted || false;
 
     tags.value = newVal.card.tags || [];
     tag.value = "";

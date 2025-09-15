@@ -1,7 +1,7 @@
 {
   "name": "kanri",
   "private": true,
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Offline-first Kanban board desktop app",
   "author": "trobonox <hello@trobo.dev>",
   "license": "GPL-3.0",
@@ -14,24 +14,22 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "embed-licenses": "node ./scripts/embed-license-reports.js"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^1.0.0",
-    "@nuxt/eslint-config": "^1.0.0",
-    "@nuxtjs/i18n": "^9.1.1",
-    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@nuxt/eslint": "1.9.0",
+    "@nuxt/eslint-config": "^1.9.0",
+    "@nuxtjs/i18n": "^10.1.0",
+    "@nuxtjs/tailwindcss": "^6.14.0",
     "@tauri-apps/cli": "^2.1.0",
     "@types/node": "^22.10.2",
     "@vue/compiler-sfc": "^3.3.0",
-    "@vueuse/components": "^12.0.0",
-    "@vueuse/core": "^12.0.0",
-    "@vueuse/nuxt": "^12.0.0",
-    "eslint": "9.23.0",
-    "eslint-config-prettier": "^10.0.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-tailwindcss": "^3.8.0",
-    "nuxt": "^3.15.4",
+    "@vueuse/components": "^13.9.0",
+    "@vueuse/core": "^13.9.0",
+    "@vueuse/nuxt": "^13.9.0",
+    "eslint": "^9.35.0",
+    "nuxt": "^4.1.2",
     "postcss": "^8.4",
     "postcss-custom-properties": "^14.0.4",
     "prettier": "^3.4.2",
@@ -45,7 +43,7 @@
     "@heroicons/vue": "2.2.0",
     "@paralleldrive/cuid2": "^2.1.0",
     "@phosphor-icons/vue": "^2.1.6",
-    "@pinia/nuxt": "0.10.1",
+    "@pinia/nuxt": "0.11.2",
     "@popperjs/core": "^2.11.8",
     "@tauri-apps/api": "^2.0.0",
     "@tauri-apps/plugin-autostart": "^2.0.0",
@@ -64,7 +62,7 @@
     "@tiptap/vue-3": "^2.10.3",
     "@vojtechlanka/vue-tags-input": "^3",
     "mitt": "3.0.1",
-    "pinia": "2.3.1",
+    "pinia": "3.0.3",
     "radix-vue": "1.9.17",
     "v-calendar": "^3.1.2",
     "vue": "^3.5.13",
@@ -74,7 +72,8 @@
   },
   "resolutions": {
     "vite": "^6.0.0",
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.25.0",
+    "chokidar": "^3.6.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

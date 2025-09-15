@@ -9,7 +9,6 @@ SPDX-License-Identifier: Apache-2.0
     <b> Kanban boards done right. Made with simplicity and user experience in mind, Kanri helps you create Kanban boards easily, right from your desktop. No internet connection or account needed! </b>
     <br> <br>
     <img src="https://img.shields.io/github/v/release/trobonox/kanri" alt="Release Version Badge" />
-    <img src="https://github.com/trobonox/kanri/actions/workflows/release.yml/badge.svg" alt="GitHub Build Status" />
     <br>
     <img src="https://img.shields.io/github/license/trobonox/kanri" alt="Repo license" />
     <img src="https://api.reuse.software/badge/github.com/trobonox/kanri" alt="Reuse status" />
@@ -32,7 +31,12 @@ SPDX-License-Identifier: Apache-2.0
 ## ⬇️ Download
 You can download Kanri for Windows, Mac and Linux at [kanriapp.com](https://kanriapp.com), it's free!
 
-Apple Silicon users, please run this command to prevent the error saying the app is broken:
+Alternatively, macOS users can install using homebrew:
+```bash
+brew install --no-quarantine kanriapp/cask/kanri
+```
+
+Apple Silicon users, please run this command to prevent the error saying the app is broken (not required if installing using homebrew):
 ```bash
 xattr -cr /Applications/kanri.app
 ```

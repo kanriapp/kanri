@@ -35,7 +35,7 @@ limitations under the License.
       >
         <div
           :class="{ 'pb-1': cardHasNoExtraProperties }"
-          class="flex w-full flex-row items-center justify-between"
+          class="flex w-full flex-row items-start justify-between"
         >
           <p class="text-no-overflow mr-2 w-full min-w-[28px]">
             <ClickCounter
@@ -69,7 +69,7 @@ limitations under the License.
             @single-click="deleteCardWithConfirmation(card.id)"
           >
             <XMarkIcon
-              class="text-accent-hover mt-[3px] size-4"
+              class="text-accent-hover mt-[4px] size-4"
               :class="[cardTextColor, iconSizeClass]"
             />
           </ClickCounter>
@@ -120,19 +120,23 @@ limitations under the License.
             v-if="dueDate"
             class="flex flex-row items-center gap-1"
             :class="{
-              'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue,
+              'text-buttons rounded-sm bg-accent px-1': isDueDateCompleted,
+              'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue && !isDueDateCompleted,
             }"
           >
-            <PhClock :class="iconSizeClass" />
+            <PhCheckCircle
+              v-if="isDueDateCompleted"
+              class="text-buttons"
+              :class="iconSizeClass"
+            />
+            <PhClock v-else :class="iconSizeClass" />
             <span :class="taskTextClass">{{ getFormattedDueDate }}</span>
           </div>
         </div>
       </div>
     </ContextMenuTrigger>
     <ContextMenuPortal to=".default-layout">
-      <ContextMenuContent
-        class="bg-primary-darker border-elevation-1 z-[99999] min-w-[100px] rounded-md border p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] outline-none will-change-[opacity,transform] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade"
-      >
+      <ContextMenuContent :class="contextMenuClass">
         <ContextMenuItem
           value="Edit Name"
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
@@ -166,6 +170,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "~/utils/colorUtils";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import {
+  PhCheckCircle,
   PhChecks,
   PhClock,
   PhListChecks,
@@ -180,7 +185,10 @@ import {
   ContextMenuTrigger,
 } from "radix-vue";
 
-const props = defineProps<{ card: Card; zoomLevel: number }>();
+const props = defineProps<{
+  card: Card;
+  zoomLevel: number;
+}>();
 
 const emit = defineEmits<{
   (e: "disableDragging"): void;
@@ -198,6 +206,7 @@ const emit = defineEmits<{
 }>();
 
 const store = useTauriStore().store;
+const globalSettingsStore = useSettingsStore();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const savedColors: Ref<any> = ref(null); // TODO: add types for saved theme in board
@@ -208,6 +217,7 @@ const description = ref(props.card.description);
 const tasks = ref(props.card.tasks);
 const dueDate = ref(props.card.dueDate);
 const isDueDateRelative = ref(props.card.isDueDateCounterRelative);
+const isDueDateCompleted = ref(props.card.isDueDateCompleted ?? false);
 const cardTags = ref(props.card.tags);
 
 const cardNameEditMode = ref(false);
@@ -223,6 +233,7 @@ watch(
     dueDate.value = newData.card.dueDate;
     isDueDateRelative.value = newData.card.isDueDateCounterRelative;
     cardTags.value = newData.card.tags;
+    isDueDateCompleted.value = newData.card.isDueDateCompleted ?? false;
   },
   { deep: true }
 );
@@ -372,6 +383,18 @@ const cardTextColorDim = computed(() => {
   }
 
   return "text-gray-300";
+});
+
+const contextMenuClass = computed(() => {
+  let contextMenuClasses =
+    "bg-primary-darker border-elevation-1 z-[99999] min-w-[100px] rounded-md border p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] outline-none will-change-[opacity,transform]";
+
+  if (globalSettingsStore.animationsEnabled) {
+    contextMenuClasses +=
+      " data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade";
+  }
+
+  return contextMenuClasses;
 });
 
 const getFormattedDueDate = computed(() => {

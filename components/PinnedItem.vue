@@ -25,7 +25,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <template #trigger>
           <nuxt-link :to="'/kanban/' + props.board.id">
             <div class="bg-elevation-3 transition-button rounded-md p-2">
-              <component :is="selectedIcon" class="size-7" />
+              <span
+                v-if="customChar"
+                class="size-7 flex items-center justify-center text-[20px] leading-none"
+                >{{ customChar }}</span
+              >
+              <component v-else :is="selectedIcon" class="size-7" />
             </div>
           </nuxt-link>
         </template>
@@ -39,7 +44,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <template #trigger>
           <nuxt-link :to="'/kanban/' + props.board.id">
             <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-              <component :is="selectedIcon" class="size-7" />
+              <span
+                v-if="customChar"
+                class="size-7 flex items-center justify-center text-[20px] leading-none"
+                >{{ customChar }}</span
+              >
+              <component v-else :is="selectedIcon" class="size-7" />
             </div>
           </nuxt-link>
         </template>
@@ -52,46 +62,39 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <ContextMenuPortal to=".default-layout">
       <ContextMenuContent
-        class="text-normal bg-primary-darker border-elevation-1 icon-menu z-[999] min-w-[240px] rounded-md border p-1 shadow-lg"
+        class="text-normal bg-primary-darker border-elevation-1 icon-menu z-[999] w-[300px] rounded-md border p-1 shadow-lg"
       >
-        <div class="flex flex-col gap-1 px-2 py-1.5">
-          <span class="text-sm font-medium">Change Icon</span>
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Search icons..."
-            class="bg-elevation-2 focus:ring-accent mt-1 w-full rounded px-2 py-1 text-sm focus:outline-none focus:ring-1"
-          />
-        </div>
-        <ContextMenuSeparator class="bg-elevation-1 my-1 h-px" />
-
-        <div v-if="searchQuery" class="max-h-[300px] overflow-y-auto">
-          <div class="grid grid-cols-4 gap-1 p-1">
-            <ContextMenuItem
-              v-for="icon in searchResults"
-              :key="icon.name"
-              class="bg-elevation-2-hover flex cursor-pointer items-center justify-center rounded-md p-2"
-              :class="{ 'bg-elevation-3': selectedIconName === icon.name }"
-              @click="selectIcon(icon.component, icon.name)"
-            >
-              <Tooltip>
-                <template #trigger>
-                  <component :is="icon.component" class="size-5" />
-                </template>
-                <template #content>{{ icon.name }}</template>
-              </Tooltip>
-            </ContextMenuItem>
+        <div class="px-2 pt-1.5">
+          <div class="mb-2 flex rounded-md bg-elevation-2 p-0.5 text-xs font-medium">
+            <button
+              class="flex-1 rounded-sm px-2 py-1 transition-colors"
+              :class="activeTab === 'icons' ? 'bg-elevation-3' : 'hover:bg-elevation-1'
+              "
+              @click="activeTab = 'icons'"
+            >Icons</button>
+            <button
+              class="flex-1 rounded-sm px-2 py-1 transition-colors"
+              :class="activeTab === 'custom' ? 'bg-elevation-3' : 'hover:bg-elevation-1'"
+              @click="activeTab = 'custom'"
+            >Custom</button>
           </div>
         </div>
 
-        <div v-else class="max-h-[400px] overflow-y-auto">
-          <div v-for="category in categories" :key="category">
-            <ContextMenuLabel class="px-2 py-1.5 text-sm">{{
-              category
-            }}</ContextMenuLabel>
-            <div class="grid grid-cols-4 gap-1 p-1">
+        <template v-if="activeTab === 'icons'">
+          <div class="flex flex-col gap-1 px-2 pb-1">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search icons..."
+              class="bg-elevation-2 focus:ring-accent mt-1 w-full rounded px-2 py-1 text-sm focus:outline-none focus:ring-1"
+            />
+          </div>
+          <ContextMenuSeparator class="bg-elevation-1 my-1 h-px" />
+
+          <div v-if="searchQuery" class="max-h-[300px] overflow-y-auto">
+            <div class="grid grid-cols-5 gap-1 p-1">
               <ContextMenuItem
-                v-for="icon in getIconsByCategory(category)"
+                v-for="icon in searchResults"
                 :key="icon.name"
                 class="bg-elevation-2-hover flex cursor-pointer items-center justify-center rounded-md p-2"
                 :class="{ 'bg-elevation-3': selectedIconName === icon.name }"
@@ -105,11 +108,71 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </Tooltip>
               </ContextMenuItem>
             </div>
-            <ContextMenuSeparator
-              v-if="category !== categories[categories.length - 1]"
-              class="bg-elevation-1 my-1 h-px"
-            />
           </div>
+
+          <div v-else class="max-h-[300px] overflow-y-auto">
+            <div v-for="category in categories" :key="category">
+              <ContextMenuLabel class="px-2 py-1.5 text-xs uppercase tracking-wide text-dim-3">{{
+                category
+              }}</ContextMenuLabel>
+              <div class="grid grid-cols-5 gap-1 p-1">
+                <ContextMenuItem
+                  v-for="icon in getIconsByCategory(category)"
+                  :key="icon.name"
+                  class="bg-elevation-2-hover flex cursor-pointer items-center justify-center rounded-md p-2"
+                  :class="{ 'bg-elevation-3': selectedIconName === icon.name }"
+                  @click="selectIcon(icon.component, icon.name)"
+                >
+                  <Tooltip>
+                    <template #trigger>
+                      <component :is="icon.component" class="size-5" />
+                    </template>
+                    <template #content>{{ icon.name }}</template>
+                  </Tooltip>
+                </ContextMenuItem>
+              </div>
+              <ContextMenuSeparator
+                v-if="category !== categories[categories.length - 1]"
+                class="bg-elevation-1 my-1 h-px"
+              />
+            </div>
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="flex flex-col gap-2 px-2 py-2">
+            <label class="text-xs font-medium text-dim-3">Character / Emoji</label>
+            <div class="flex items-center gap-2">
+              <input
+                v-model="customCharInput"
+                type="text"
+                maxlength="5"
+                placeholder="e.g. 🐱 or A"
+                class="bg-elevation-2 focus:ring-accent w-full rounded px-2 py-1 text-sm focus:outline-none focus:ring-1"
+                @keydown.enter.prevent="applyCustomChar"
+              />
+              <button
+                class="bg-accent hover:bg-accent-hover disabled:bg-elevation-2 rounded px-3 py-1 text-xs font-semibold transition-colors"
+                :disabled="!customCharInput.trim()"
+                @click="applyCustomChar"
+              >Set</button>
+            </div>
+            <div class="flex gap-2">
+              <button
+                v-if="customChar"
+                class="bg-elevation-2-hover hover:bg-elevation-3 rounded px-2 py-1 text-xs"
+                @click="clearCustomChar"
+              >Clear</button>
+            </div>
+          </div>
+        </template>
+
+        <ContextMenuSeparator class="bg-elevation-1 my-2 h-px" />
+        <div class="px-2 pb-2">
+          <button
+            class="unpin-button bg-destructive/80 hover:bg-destructive text-destructive-content w-full rounded-md px-3 py-1.5 text-sm font-semibold transition-colors"
+            @click="unpin"
+          >Unpin Board</button>
         </div>
       </ContextMenuContent>
     </ContextMenuPortal>
@@ -136,10 +199,15 @@ import {
 } from "@/utils/iconManager";
 
 const props = defineProps<{
-  board: { id: string; title: string; pinIcon?: string };
+  board: { id: string; title: string; pinIcon?: string; pinIconText?: string };
 }>();
 
-const emit = defineEmits(["setPinIcon"]);
+const emit = defineEmits([
+  "setPinIcon",
+  "setPinTextIcon",
+  "clearPinIcon",
+  "unpin",
+]);
 
 const isActivePin = ref(false);
 const router = useRouter();
@@ -147,6 +215,9 @@ const searchQuery = ref("");
 
 const selectedIconName = ref("article");
 const selectedIcon = shallowRef<Component>(availableIcons[0].component);
+const customChar = ref<string>("");
+const customCharInput = ref("");
+const activeTab = ref<'icons' | 'custom'>(customChar.value ? 'custom' : 'icons');
 
 const searchResults = computed(() => {
   if (!searchQuery.value) return [];
@@ -157,7 +228,10 @@ onMounted(async () => {
   emitter.on("openKanbanPage", onNavigation);
   emitter.on("closeKanbanPage", onNavigation);
 
-  if (props.board.pinIcon) {
+  if (props.board.pinIconText) {
+    customChar.value = props.board.pinIconText;
+    customCharInput.value = props.board.pinIconText;
+  } else if (props.board.pinIcon) {
     const savedIcon = availableIcons.find(
       (icon) => icon.name === props.board.pinIcon
     );
@@ -176,10 +250,38 @@ onUnmounted(() => {
 });
 
 const selectIcon = async (icon: Component, name: string) => {
+  customChar.value = ""; // reset custom char when selecting an icon
   selectedIcon.value = icon;
   selectedIconName.value = name;
-
   emit("setPinIcon", props.board.id, name);
+};
+
+const applyCustomChar = () => {
+  const value = customCharInput.value.trim();
+  if (!value) return;
+
+  // Use at most one visible grapheme cluster (allow emoji sequences, flags, etc.)
+  let truncated = value;
+  if (typeof Intl !== "undefined" && Intl.Segmenter) {
+    const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
+    const iterator = segmenter.segment(value)[Symbol.iterator]();
+    const first = iterator.next();
+    truncated = first.value ? first.value.segment : "";
+  } else {
+    truncated = Array.from(value)[0] || "";
+  }
+  customChar.value = truncated;
+  emit("setPinTextIcon", props.board.id, truncated);
+};
+
+const clearCustomChar = () => {
+  customChar.value = "";
+  customCharInput.value = "";
+  emit("clearPinIcon", props.board.id);
+};
+
+const unpin = () => {
+  emit("unpin", props.board.id);
 };
 
 const onNavigation = () => {

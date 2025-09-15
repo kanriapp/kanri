@@ -51,10 +51,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         Rust dependencies
       </nuxt-link>
     </div>
-
     <pre>
-    Name: @vue/shared
-Version: 3.5.13
+Name: @vue/shared
+Version: 3.5.21
 License: MIT
 Private: false
 Description: internal utils shared across @vue packages
@@ -89,7 +88,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/reactivity
-Version: 3.5.13
+Version: 3.5.21
 License: MIT
 Private: false
 Description: @vue/reactivity
@@ -124,7 +123,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-core
-Version: 3.5.13
+Version: 3.5.21
 License: MIT
 Private: false
 Description: @vue/runtime-core
@@ -159,7 +158,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/runtime-dom
-Version: 3.5.13
+Version: 3.5.21
 License: MIT
 Private: false
 Description: @vue/runtime-dom
@@ -204,7 +203,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -227,7 +226,7 @@ SOFTWARE.
 ---
 
 Name: ufo
-Version: 1.5.4
+Version: 1.6.1
 License: MIT
 Private: false
 Description: URL utils for humans
@@ -237,7 +236,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -270,7 +269,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -303,7 +302,7 @@ License Copyright:
 
 The MIT License (MIT)
 
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -336,7 +335,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) 2022 - Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) 2022 - Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -359,7 +358,7 @@ SOFTWARE.
 ---
 
 Name: nuxt
-Version: 3.16.2
+Version: 4.1.2
 License: MIT
 Private: false
 Description: Nuxt is a free and open-source framework with an intuitive and extendable way to create type-safe, performant and production-grade full-stack web applications and websites with Vue.js.
@@ -403,7 +402,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -436,7 +435,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -459,7 +458,7 @@ SOFTWARE.
 ---
 
 Name: h3
-Version: 1.15.1
+Version: 1.15.4
 License: MIT
 Private: false
 Description: Minimal H(TTP) framework built for high performance and portability.
@@ -469,7 +468,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -492,13 +491,13 @@ SOFTWARE.
 ---
 
 Name: pinia
-Version: 2.3.1
+Version: 3.0.3
 License: MIT
 Private: false
 Description: Intuitive, type safe and flexible Store for Vue
 Repository: git+https://github.com/vuejs/pinia.git
-Homepage: https://github.com/vuejs/pinia#readme
-Author: Eduardo San Martin Morote &lt;posva13@gmail.com>
+Homepage: https://pinia.vuejs.org
+Author: Eduardo San Martin Morote &lt;posva13@gmail.com&gt;
 License Copyright:
 ===
 
@@ -527,7 +526,7 @@ SOFTWARE.
 ---
 
 Name: devalue
-Version: 5.1.1
+Version: 5.3.2
 License: MIT
 Private: false
 Description: Gets the job done when JSON.stringify can't
@@ -546,19 +545,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 Name: unhead
-Version: 2.0.3
+Version: 2.0.14
 License: MIT
 Private: false
-Description: Full-stack &lt;head> manager built for any framework.
+Description: Full-stack &lt;head&gt; manager built for any framework.
 Repository: git+https://github.com/unjs/unhead.git
 Homepage: https://unhead.unjs.io
-Author: Harlan Wilton &lt;harlan@harlanzw.com> (https://harlanzw.com/)
+Author: Harlan Wilton &lt;harlan@harlanzw.com&gt; (https://harlanzw.com/)
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) Harlan Wilton &lt;harlan@harlanzw.com>
+Copyright (c) Harlan Wilton &lt;harlan@harlanzw.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -581,19 +580,19 @@ SOFTWARE.
 ---
 
 Name: @unhead/vue
-Version: 2.0.3
+Version: 2.0.14
 License: MIT
 Private: false
-Description: Full-stack &lt;head> manager built for Vue.
+Description: Full-stack &lt;head&gt; manager built for Vue.
 Repository: git+https://github.com/unjs/unhead.git
 Homepage: https://unhead.unjs.io
-Author: Harlan Wilton &lt;harlan@harlanzw.com>
+Author: Harlan Wilton &lt;harlan@harlanzw.com&gt;
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) Harlan Wilton &lt;harlan@harlanzw.com>
+Copyright (c) Harlan Wilton &lt;harlan@harlanzw.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -616,13 +615,13 @@ SOFTWARE.
 ---
 
 Name: @pinia/nuxt
-Version: 0.10.1
+Version: 0.11.2
 License: MIT
 Private: false
 Description: Nuxt Module for pinia
 Repository: git+https://github.com/vuejs/pinia.git
-Homepage: https://github.com/vuejs/pinia/tree/v3/packages/nuxt#readme
-Author: Eduardo San Martin Morote &lt;posva13@gmail.com>
+Homepage: https://pinia.vuejs.org/ssr/nuxt.html
+Author: Eduardo San Martin Morote &lt;posva13@gmail.com&gt;
 License Copyright:
 ===
 
@@ -651,12 +650,12 @@ SOFTWARE.
 ---
 
 Name: vue-router
-Version: 4.5.0
+Version: 4.5.1
 License: MIT
 Private: false
 Repository: git+https://github.com/vuejs/router.git
 Homepage: https://github.com/vuejs/router#readme
-Author: Eduardo San Martin Morote &lt;posva13@gmail.com>
+Author: Eduardo San Martin Morote &lt;posva13@gmail.com&gt;
 License Copyright:
 ===
 
@@ -695,7 +694,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -727,14 +726,14 @@ License Copyright:
 
 MIT License
 
-Cookie-es copyright (c) Pooya Parsa &lt;pooya@pi0.io>
+Cookie-es copyright (c) Pooya Parsa &lt;pooya@pi0.io&gt;
 
 Cookie parsing based on https://github.com/jshttp/cookie
-Copyright (c) 2012-2014 Roman Shtylman &lt;shtylman@gmail.com>
-Copyright (c) 2015 Douglas Christopher Wilson &lt;doug@somethingdoug.com>
+Copyright (c) 2012-2014 Roman Shtylman &lt;shtylman@gmail.com&gt;
+Copyright (c) 2015 Douglas Christopher Wilson &lt;doug@somethingdoug.com&gt;
 
 Set-Cookie parsing based on https://github.com/nfriedly/set-cookie-parser
-Copyright (c) 2015 Nathan Friedly &lt;nathan@nfriedly.com> (http://nfriedly.com/)
+Copyright (c) 2015 Nathan Friedly &lt;nathan@nfriedly.com&gt; (http://nfriedly.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -762,13 +761,13 @@ License: MIT
 Private: false
 Description: A tiny (240B to 501B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!
 Repository: undefined
-Author: Luke Edwards &lt;luke.edwards05@gmail.com> (https://lukeed.com)
+Author: Luke Edwards &lt;luke.edwards05@gmail.com&gt; (https://lukeed.com)
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) Luke Edwards &lt;luke.edwards05@gmail.com> (lukeed.com)
+Copyright (c) Luke Edwards &lt;luke.edwards05@gmail.com&gt; (lukeed.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -779,13 +778,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ---
 
 Name: @intlify/shared
-Version: 10.0.6
+Version: 11.1.12
 License: MIT
 Private: false
 Description: @intlify/shared
 Repository: git+https://github.com/intlify/vue-i18n.git
 Homepage: https://github.com/intlify/vue-i18n/tree/master/packages/shared#readme
-Author: kazuya kawaguchi &lt;kawakazu80@gmail.com>
+Author: kazuya kawaguchi &lt;kawakazu80@gmail.com&gt;
 License Copyright:
 ===
 
@@ -813,7 +812,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @nuxtjs/i18n
-Version: 9.4.0
+Version: 10.1.0
 License: MIT
 Private: false
 Description: Internationalization for Nuxt
@@ -833,6 +832,7 @@ Copyright (c) Nuxt Community
 Copyright (c) Rafał Chłodnicki (@rchl)
 Copyright (c) Paul Gascou-Vaillancourt (@paulgv)
 Copyright (c) Kazuya Kawaguchi (@kazupon)
+Copyright (c) Bobbie Goede (@BobbieGoede)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -854,14 +854,48 @@ SOFTWARE.
 
 ---
 
+Name: @intlify/utils
+Version: 0.13.0
+License: MIT
+Private: false
+Description: Collection of i18n utilities
+Repository: git+https://github.com/intlify/utils.git
+Homepage: https://github.com/intlify/utils#readme
+Author: kazuya kawaguchi &lt;kawakazu80@gmail.com&gt;
+License Copyright:
+===
+
+The MIT License (MIT)
+
+Copyright (c) 2023 kazuya kawaguchi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
 Name: @intlify/message-compiler
-Version: 10.0.6
+Version: 11.1.12
 License: MIT
 Private: false
 Description: @intlify/message-compiler
 Repository: git+https://github.com/intlify/vue-i18n.git
 Homepage: https://github.com/intlify/vue-i18n/tree/master/packages/message-compiler#readme
-Author: kazuya kawaguchi &lt;kawakazu80@gmail.com>
+Author: kazuya kawaguchi &lt;kawakazu80@gmail.com&gt;
 License Copyright:
 ===
 
@@ -889,13 +923,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @intlify/core-base
-Version: 10.0.6
+Version: 11.1.12
 License: MIT
 Private: false
 Description: @intlify/core-base
 Repository: git+https://github.com/intlify/vue-i18n.git
 Homepage: https://github.com/intlify/vue-i18n/tree/master/packages/core-base#readme
-Author: kazuya kawaguchi &lt;kawakazu80@gmail.com>
+Author: kazuya kawaguchi &lt;kawakazu80@gmail.com&gt;
 License Copyright:
 ===
 
@@ -923,13 +957,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: vue-i18n
-Version: 10.0.6
+Version: 11.1.12
 License: MIT
 Private: false
 Description: Internationalization plugin for Vue.js
 Repository: git+https://github.com/intlify/vue-i18n.git
 Homepage: https://github.com/intlify/vue-i18n/tree/master/packages/vue-i18n#readme
-Author: kazuya kawaguchi &lt;kawakazu80@gmail.com>
+Author: kazuya kawaguchi &lt;kawakazu80@gmail.com&gt;
 License Copyright:
 ===
 
@@ -957,7 +991,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @tauri-apps/api
-Version: 2.4.1
+Version: 2.8.0
 License: Apache-2.0 OR MIT
 Private: false
 Description: Tauri API definitions
@@ -1149,7 +1183,7 @@ License Copyright:
 ---
 
 Name: @tauri-apps/plugin-log
-Version: 2.3.1
+Version: 2.7.0
 License: MIT OR Apache-2.0
 Private: false
 Description: Configurable logging for your Tauri app.
@@ -1166,12 +1200,12 @@ PackageHomePage: https://tauri.app
 PackageLicenseDeclared: Apache-2.0
 PackageLicenseDeclared: MIT
 PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
-PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+PackageSummary: &lt;text&gt;Tauri is a rust project that enables developers to make secure
 and small desktop applications using a web frontend.
-                &lt;/text>
-PackageComment: &lt;text>The package includes the following libraries; see
+                &lt;/text&gt;
+PackageComment: &lt;text&gt;The package includes the following libraries; see
 Relationship information.
-                &lt;/text>
+                &lt;/text&gt;
 Created: 2019-05-20T09:00:00Z
 PackageDownloadLocation: git://github.com/tauri-apps/tauri
 PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
@@ -1186,7 +1220,7 @@ License: MIT
 Private: false
 Description: Tooltip and Popover Positioning Engine
 Repository: undefined
-Author: Federico Zivolo &lt;federico.zivolo@gmail.com>
+Author: Federico Zivolo &lt;federico.zivolo@gmail.com&gt;
 License Copyright:
 ===
 
@@ -1220,7 +1254,7 @@ Private: false
 Description: A calendar and date picker plugin for Vue.js.
 Repository: undefined
 Homepage: https://vcalendar.io
-Author: Nathan Reyes &lt;nathanreyes@me.com>
+Author: Nathan Reyes &lt;nathanreyes@me.com&gt;
 License Copyright:
 ===
 
@@ -1243,7 +1277,7 @@ Private: false
 Description:  vue directive to make a scrollable element scroll by draging to the scroll direction
 Repository: git+https://github.com/donmbelembe/vue-dragscroll.git
 Homepage: https://vue-dragscroll.clebinfosys.com/
-Author: Don mbelembe &lt;bizroy678@gmail.com>
+Author: Don mbelembe &lt;bizroy678@gmail.com&gt;
 License Copyright:
 ===
 
@@ -1338,7 +1372,7 @@ SOFTWARE.
 ---
 
 Name: @tauri-apps/plugin-autostart
-Version: 2.3.0
+Version: 2.5.0
 License: MIT OR Apache-2.0
 Private: false
 Repository: undefined
@@ -1354,86 +1388,17 @@ PackageHomePage: https://tauri.app
 PackageLicenseDeclared: Apache-2.0
 PackageLicenseDeclared: MIT
 PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
-PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+PackageSummary: &lt;text&gt;Tauri is a rust project that enables developers to make secure
 and small desktop applications using a web frontend.
-                &lt;/text>
-PackageComment: &lt;text>The package includes the following libraries; see
+                &lt;/text&gt;
+PackageComment: &lt;text&gt;The package includes the following libraries; see
 Relationship information.
-                &lt;/text>
+                &lt;/text&gt;
 Created: 2019-05-20T09:00:00Z
 PackageDownloadLocation: git://github.com/tauri-apps/tauri
 PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
 PackageDownloadLocation: git+ssh://github.com/tauri-apps/tauri.git
 Creator: Person: Daniel Thompson-Yvetot
-
----
-
-Name: @vueuse/shared
-Version: 12.8.2
-License: MIT
-Private: false
-Repository: git+https://github.com/vueuse/vueuse.git
-Homepage: https://github.com/vueuse/vueuse/tree/main/packages/shared#readme
-Author: Anthony Fu &lt;https://github.com/antfu>
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) 2019-PRESENT Anthony Fu&lt;https://github.com/antfu>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-Name: @vueuse/core
-Version: 12.8.2
-License: MIT
-Private: false
-Description: Collection of essential Vue Composition Utilities
-Repository: git+https://github.com/vueuse/vueuse.git
-Homepage: https://github.com/vueuse/vueuse#readme
-Author: Anthony Fu &lt;https://github.com/antfu>
-License Copyright:
-===
-
-MIT License
-
-Copyright (c) 2019-PRESENT Anthony Fu&lt;https://github.com/antfu>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 ---
 
@@ -1444,11 +1409,11 @@ Private: false
 Description: Persistent ordered mapping from strings
 Repository: git+https://github.com/marijnh/orderedmap.git
 Homepage: https://github.com/marijnh/orderedmap#readme
-Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin>
+Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt;
 License Copyright:
 ===
 
-Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1471,7 +1436,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-model
-Version: 1.25.0
+Version: 1.25.3
 License: MIT
 Private: false
 Description: ProseMirror's document model
@@ -1479,7 +1444,7 @@ Repository: git://github.com/prosemirror/prosemirror-model.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1502,7 +1467,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-transform
-Version: 1.10.3
+Version: 1.10.4
 License: MIT
 Private: false
 Description: ProseMirror document transformations
@@ -1510,7 +1475,7 @@ Repository: git://github.com/prosemirror/prosemirror-transform.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1541,7 +1506,7 @@ Repository: git://github.com/prosemirror/prosemirror-state.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1564,7 +1529,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-view
-Version: 1.38.1
+Version: 1.41.0
 License: MIT
 Private: false
 Description: ProseMirror's view component
@@ -1572,7 +1537,7 @@ Repository: git://github.com/prosemirror/prosemirror-view.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1601,11 +1566,11 @@ Private: false
 Description: Get a KeyboardEvent.key-style string from an event
 Repository: git+https://github.com/marijnh/w3c-keyname.git
 Homepage: https://github.com/marijnh/w3c-keyname#readme
-Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin>
+Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt;
 License Copyright:
 ===
 
-Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1628,7 +1593,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-keymap
-Version: 1.2.2
+Version: 1.2.3
 License: MIT
 Private: false
 Description: Keymap plugin for ProseMirror
@@ -1636,7 +1601,7 @@ Repository: git://github.com/prosemirror/prosemirror-keymap.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1659,7 +1624,7 @@ THE SOFTWARE.
 ---
 
 Name: prosemirror-commands
-Version: 1.7.0
+Version: 1.7.1
 License: MIT
 Private: false
 Description: Editing commands for ProseMirror
@@ -1667,7 +1632,7 @@ Repository: git://github.com/prosemirror/prosemirror-commands.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1698,7 +1663,7 @@ Repository: git://github.com/prosemirror/prosemirror-schema-list.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1721,7 +1686,7 @@ THE SOFTWARE.
 ---
 
 Name: @tiptap/core
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: headless rich text editor
@@ -1731,7 +1696,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-typography
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: typography extension for tiptap
@@ -1741,7 +1706,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-blockquote
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: blockquote extension for tiptap
@@ -1751,7 +1716,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-bold
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: bold extension for tiptap
@@ -1761,7 +1726,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-bullet-list
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: bullet list extension for tiptap
@@ -1771,7 +1736,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-code
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: code extension for tiptap
@@ -1781,7 +1746,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-code-block
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: code block extension for tiptap
@@ -1791,7 +1756,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-document
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: document extension for tiptap
@@ -1801,7 +1766,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: prosemirror-dropcursor
-Version: 1.8.1
+Version: 1.8.2
 License: MIT
 Private: false
 Description: Drop cursor plugin for ProseMirror
@@ -1809,7 +1774,7 @@ Repository: git://github.com/prosemirror/prosemirror-dropcursor.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1832,7 +1797,7 @@ THE SOFTWARE.
 ---
 
 Name: @tiptap/extension-dropcursor
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: dropcursor extension for tiptap
@@ -1850,7 +1815,7 @@ Repository: git://github.com/prosemirror/prosemirror-gapcursor.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1873,7 +1838,7 @@ THE SOFTWARE.
 ---
 
 Name: @tiptap/extension-gapcursor
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: gapcursor extension for tiptap
@@ -1883,7 +1848,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-hard-break
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: hard break extension for tiptap
@@ -1893,7 +1858,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-heading
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: heading extension for tiptap
@@ -1908,11 +1873,11 @@ License: MIT
 Private: false
 Description: Rope-based persistent sequence type
 Repository: git+https://github.com/marijnh/rope-sequence.git
-Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin>
+Author: Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt;
 License Copyright:
 ===
 
-Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin>
+Copyright (C) 2016 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1943,7 +1908,7 @@ Repository: git://github.com/prosemirror/prosemirror-history.git
 License Copyright:
 ===
 
-Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin> and others
+Copyright (C) 2015-2017 by Marijn Haverbeke &lt;marijn@haverbeke.berlin&gt; and others
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1966,7 +1931,7 @@ THE SOFTWARE.
 ---
 
 Name: @tiptap/extension-history
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: history extension for tiptap
@@ -1976,7 +1941,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-horizontal-rule
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: horizontal rule extension for tiptap
@@ -1986,7 +1951,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-italic
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: italic extension for tiptap
@@ -1996,7 +1961,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-list-item
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: list item extension for tiptap
@@ -2006,7 +1971,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-ordered-list
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: ordered list extension for tiptap
@@ -2016,7 +1981,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-paragraph
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: paragraph extension for tiptap
@@ -2026,7 +1991,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-strike
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: strike extension for tiptap
@@ -2036,7 +2001,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-text
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: text extension for tiptap
@@ -2046,7 +2011,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/starter-kit
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: starter kit for tiptap
@@ -2056,7 +2021,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/extension-text-align
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: text align extension for tiptap
@@ -2103,7 +2068,7 @@ SOFTWARE.
 ---
 
 Name: @tiptap/extension-bubble-menu
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: bubble-menu extension for tiptap
@@ -2113,7 +2078,7 @@ Homepage: https://tiptap.dev
 ---
 
 Name: @tiptap/vue-3
-Version: 2.11.7
+Version: 2.26.1
 License: MIT
 Private: false
 Description: Vue components for tiptap
@@ -2122,20 +2087,54 @@ Homepage: https://tiptap.dev
 
 ---
 
-Name: @vueuse/components
-Version: 12.8.2
+Name: @vueuse/shared
+Version: 13.9.0
 License: MIT
 Private: false
-Description: Renderless components for VueUse
 Repository: git+https://github.com/vueuse/vueuse.git
-Homepage: https://github.com/vueuse/vueuse/tree/main/packages/components#readme
-Author: Jacob Clevenger &lt;https://github.com/wheatjs>
+Homepage: https://github.com/vueuse/vueuse/tree/main/packages/shared#readme
+Author: Anthony Fu &lt;https://github.com/antfu&gt;
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) 2019-PRESENT Anthony Fu&lt;https://github.com/antfu>
+Copyright (c) 2019-PRESENT Anthony Fu&lt;https://github.com/antfu&gt;
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Name: @vueuse/components
+Version: 13.9.0
+License: MIT
+Private: false
+Description: Renderless components for VueUse
+Repository: git+https://github.com/vueuse/vueuse.git
+Homepage: https://github.com/vueuse/vueuse/tree/main/packages/components#readme
+Author: Jacob Clevenger &lt;https://github.com/wheatjs&gt;
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2019-PRESENT Anthony Fu&lt;https://github.com/antfu&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -2163,7 +2162,7 @@ License: MIT
 Private: false
 Description: Drag and Drop library
 Repository: https://github.com/kutlugsahin/smooth-dnd.git
-Author: Kutlu Sahin &lt;kutlugsahin@gmail.com>
+Author: Kutlu Sahin &lt;kutlugsahin@gmail.com&gt;
 License Copyright:
 ===
 
@@ -2259,7 +2258,7 @@ SOFTWARE.
 ---
 
 Name: vue
-Version: 3.5.13
+Version: 3.5.21
 License: MIT
 Private: false
 Description: The progressive JavaScript framework for building modern web UI.
@@ -2294,7 +2293,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/compiler-core
-Version: 3.5.13
+Version: 3.5.21
 License: MIT
 Private: false
 Description: @vue/compiler-core
@@ -2329,7 +2328,7 @@ THE SOFTWARE.
 ---
 
 Name: @vue/compiler-dom
-Version: 3.5.13
+Version: 3.5.21
 License: MIT
 Private: false
 Description: @vue/compiler-dom
@@ -2402,12 +2401,12 @@ License: MIT
 Private: false
 Description: A tags input component for Vue3 based on @sipec/vue-tags-input which is fork from @JohMun/vue-tags-input.
 Repository: git+https://github.com/VojtechLanka/vue-tags-input.git
-Author: Johannes Munari &lt;johannesm@hotmail.de>
+Author: Johannes Munari &lt;johannesm@hotmail.de&gt;
 
 ---
 
 Name: @tauri-apps/plugin-dialog
-Version: 2.2.1
+Version: 2.4.0
 License: MIT OR Apache-2.0
 Private: false
 Repository: undefined
@@ -2423,12 +2422,12 @@ PackageHomePage: https://tauri.app
 PackageLicenseDeclared: Apache-2.0
 PackageLicenseDeclared: MIT
 PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
-PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+PackageSummary: &lt;text&gt;Tauri is a rust project that enables developers to make secure
 and small desktop applications using a web frontend.
-                &lt;/text>
-PackageComment: &lt;text>The package includes the following libraries; see
+                &lt;/text&gt;
+PackageComment: &lt;text&gt;The package includes the following libraries; see
 Relationship information.
-                &lt;/text>
+                &lt;/text&gt;
 Created: 2019-05-20T09:00:00Z
 PackageDownloadLocation: git://github.com/tauri-apps/tauri
 PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
@@ -2438,7 +2437,7 @@ Creator: Person: Daniel Thompson-Yvetot
 ---
 
 Name: @tauri-apps/plugin-fs
-Version: 2.2.1
+Version: 2.4.2
 License: MIT OR Apache-2.0
 Private: false
 Description: Access the file system.
@@ -2455,12 +2454,12 @@ PackageHomePage: https://tauri.app
 PackageLicenseDeclared: Apache-2.0
 PackageLicenseDeclared: MIT
 PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
-PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+PackageSummary: &lt;text&gt;Tauri is a rust project that enables developers to make secure
 and small desktop applications using a web frontend.
-                &lt;/text>
-PackageComment: &lt;text>The package includes the following libraries; see
+                &lt;/text&gt;
+PackageComment: &lt;text&gt;The package includes the following libraries; see
 Relationship information.
-                &lt;/text>
+                &lt;/text&gt;
 Created: 2019-05-20T09:00:00Z
 PackageDownloadLocation: git://github.com/tauri-apps/tauri
 PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
@@ -2470,7 +2469,7 @@ Creator: Person: Daniel Thompson-Yvetot
 ---
 
 Name: @tauri-apps/plugin-os
-Version: 2.2.1
+Version: 2.3.1
 License: MIT OR Apache-2.0
 Private: false
 Repository: undefined
@@ -2486,12 +2485,12 @@ PackageHomePage: https://tauri.app
 PackageLicenseDeclared: Apache-2.0
 PackageLicenseDeclared: MIT
 PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
-PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+PackageSummary: &lt;text&gt;Tauri is a rust project that enables developers to make secure
 and small desktop applications using a web frontend.
-                &lt;/text>
-PackageComment: &lt;text>The package includes the following libraries; see
+                &lt;/text&gt;
+PackageComment: &lt;text&gt;The package includes the following libraries; see
 Relationship information.
-                &lt;/text>
+                &lt;/text&gt;
 Created: 2019-05-20T09:00:00Z
 PackageDownloadLocation: git://github.com/tauri-apps/tauri
 PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
@@ -2535,7 +2534,7 @@ SOFTWARE.
 ---
 
 Name: @noble/hashes
-Version: 1.7.1
+Version: 1.8.0
 License: MIT
 Private: false
 Description: Audited & minimal 0-dependency JS implementation of SHA, RIPEMD, BLAKE, HMAC, HKDF, PBKDF & Scrypt
@@ -2569,20 +2568,55 @@ THE SOFTWARE.
 
 ---
 
-Name: zod
-Version: 3.24.2
+Name: @vueuse/core
+Version: 13.9.0
 License: MIT
 Private: false
-Description: TypeScript-first schema declaration and validation library with static type inference
-Repository: git+https://github.com/colinhacks/zod.git
-Homepage: https://zod.dev
-Author: Colin McDonnell &lt;colin@colinhacks.com>
+Description: Collection of essential Vue Composition Utilities
+Repository: git+https://github.com/vueuse/vueuse.git
+Homepage: https://github.com/vueuse/vueuse#readme
+Author: Anthony Fu &lt;https://github.com/antfu&gt;
 License Copyright:
 ===
 
 MIT License
 
-Copyright (c) 2020 Colin McDonnell
+Copyright (c) 2019-PRESENT Anthony Fu&lt;https://github.com/antfu&gt;
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Name: zod
+Version: 3.25.76
+License: MIT
+Private: false
+Description: TypeScript-first schema declaration and validation library with static type inference
+Repository: git+https://github.com/colinhacks/zod.git
+Homepage: https://zod.dev
+Author: Colin McDonnell &lt;zod@colinhacks.com&gt;
+License Copyright:
+===
+
+MIT License
+
+Copyright (c) 2025 Colin McDonnell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -2605,7 +2639,7 @@ SOFTWARE.
 ---
 
 Name: @floating-ui/utils
-Version: 0.2.9
+Version: 0.2.10
 License: MIT
 Private: false
 Description: Utilities for Floating UI
@@ -2639,7 +2673,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @floating-ui/core
-Version: 1.6.9
+Version: 1.7.3
 License: MIT
 Private: false
 Description: Positioning library for floating elements: tooltips, popovers, dropdowns, and more
@@ -2673,7 +2707,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @floating-ui/dom
-Version: 1.6.13
+Version: 1.7.4
 License: MIT
 Private: false
 Description: Floating UI for the web
@@ -2707,7 +2741,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ---
 
 Name: @floating-ui/vue
-Version: 1.1.6
+Version: 1.1.9
 License: MIT
 Private: false
 Description: Floating UI for Vue
@@ -2754,7 +2788,7 @@ License Copyright:
 
 MIT License
 
-Copyright (c) 2023 Radix Vue &lt;https://github.com/unovue/radix-vue>
+Copyright (c) 2023 Radix Vue &lt;https://github.com/unovue/radix-vue&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -2777,7 +2811,7 @@ SOFTWARE.
 ---
 
 Name: @tauri-apps/plugin-store
-Version: 2.2.0
+Version: 2.4.0
 License: MIT OR Apache-2.0
 Private: false
 Description: Simple, persistent key-value store.
@@ -2794,12 +2828,12 @@ PackageHomePage: https://tauri.app
 PackageLicenseDeclared: Apache-2.0
 PackageLicenseDeclared: MIT
 PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
-PackageSummary: &lt;text>Tauri is a rust project that enables developers to make secure
+PackageSummary: &lt;text&gt;Tauri is a rust project that enables developers to make secure
 and small desktop applications using a web frontend.
-                &lt;/text>
-PackageComment: &lt;text>The package includes the following libraries; see
+                &lt;/text&gt;
+PackageComment: &lt;text&gt;The package includes the following libraries; see
 Relationship information.
-                &lt;/text>
+                &lt;/text&gt;
 Created: 2019-05-20T09:00:00Z
 PackageDownloadLocation: git://github.com/tauri-apps/tauri
 PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
@@ -2839,8 +2873,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-   </pre
-    >
+    </pre>
   </div>
 </template>
 
