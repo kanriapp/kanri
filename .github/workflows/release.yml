@@ -66,6 +66,10 @@ jobs:
       - name: Build frontend
         run: yarn generate
 
+      - name: Override linuxdeploy version (potential Linux fix)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: cargo install tauri-cli --git https://github.com/tauri-apps/tauri --branch temp/linuxdeploy --force --locked
+
       - uses: tauri-apps/tauri-action@v0
         id: release
         env:
@@ -107,3 +111,4 @@ jobs:
           with:
             upload_url: ${{ needs.publish-kanri.outputs.upload_url }}
             targets: ./src-tauri/target/*/release/bundle/deb/*.deb
+
