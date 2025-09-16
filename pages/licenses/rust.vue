@@ -9623,7 +9623,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&
                 <h3 id="GPL-3.0">GNU General Public License v3.0 only</h3>
                 <h4>Used by:</h4>
                 <ul class="license-used-by">
-                    <li><a href=" https://github.com/trobonox/kanri ">kanri 0.8.1</a></li>
+                    <li><a href=" https://github.com/trobonox/kanri ">kanri 0.8.2</a></li>
                 </ul>
                 <pre class="license-text">GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
