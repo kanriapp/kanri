@@ -37,7 +37,7 @@ limitations under the License.
                 <Tooltip direction="top">
                   <template #trigger>
                     <button
-                      class="size-6 rounded-full py-1 pl-[0.3rem] pr-1"
+                      class="size-7 rounded-full flex items-center justify-center"
                       :class="[isCustomColor ? '' : selectedColor]"
                       :style="{
                         'background-color': isCustomColor ? customColor : '',

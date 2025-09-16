@@ -169,13 +169,13 @@
     },
     "changelog": {
       "title": "What's new in Kanri {major}.{minor}.{revision}?",
-      "welcome": "Welcome to Kanri! After a while, we are back with a release featuring lots of fixes, improvement and a few small features. To quickly get notified about new releases and see the development progress, you can join",
+      "welcome": "Welcome to Kanri! After a while, we are back with a release featuring lots of important fixes and a few small new features. To quickly get notified about new releases and see the development progress, you can join",
       "welcomeLink": "the official Discord server.",
       "changes": "Changes: (read changelog for all changes)",
-      "changeItem1": "Added divider cards to separate cards in a column (created by naming a card ---).",
-      "changeItem2": "Improved search bar to allow filtering for individual properties (name, description, tags).",
-      "changeItem3": "Fixed a bug where editing works incorrectly when text is entered in the search bar.",
-      "changeItem4": "Added a feature which allows chaning board pins."
+      "changeItem1": "Fixed a bug where moving a card while searching moved the wrong card.",
+      "changeItem2": "Added setting to automatically set light/dark mode based on the system preference.",
+      "changeItem3": "Added a feature to allow marking due dates as completed.",
+      "changeItem4": "Fixed a bug where deleting a board would not remove it from the sidebar pins."
     },
     "confirmation": {
       "sure": "Are you sure?",
