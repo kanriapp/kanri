@@ -14,7 +14,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "embed-licenses": "node ./scripts/embed-license-reports.js"
   },
   "devDependencies": {
     "@nuxt/eslint": "1.9.0",
