@@ -237,6 +237,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               drag-handle-selector=".dragging-handle"
               group-name="columns"
               :get-ghost-parent="getGhostParent"
+              :get-child-payload="(index: number) => board.columns[index]"
               @drop="onDrop"
             >
               <Draggable
