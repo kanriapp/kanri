@@ -120,10 +120,16 @@ limitations under the License.
             v-if="dueDate"
             class="flex flex-row items-center gap-1"
             :class="{
-              'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue,
+              'text-buttons rounded-sm bg-accent px-1': isDueDateCompleted,
+              'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue && !isDueDateCompleted,
             }"
           >
-            <PhClock :class="iconSizeClass" />
+            <PhCheckCircle
+              v-if="isDueDateCompleted"
+              class="text-buttons"
+              :class="iconSizeClass"
+            />
+            <PhClock v-else :class="iconSizeClass" />
             <span :class="taskTextClass">{{ getFormattedDueDate }}</span>
           </div>
         </div>
@@ -164,6 +170,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "~/utils/colorUtils";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import {
+  PhCheckCircle,
   PhChecks,
   PhClock,
   PhListChecks,
@@ -210,6 +217,7 @@ const description = ref(props.card.description);
 const tasks = ref(props.card.tasks);
 const dueDate = ref(props.card.dueDate);
 const isDueDateRelative = ref(props.card.isDueDateCounterRelative);
+const isDueDateCompleted = ref(props.card.isDueDateCompleted ?? false);
 const cardTags = ref(props.card.tags);
 
 const cardNameEditMode = ref(false);
@@ -225,6 +233,7 @@ watch(
     dueDate.value = newData.card.dueDate;
     isDueDateRelative.value = newData.card.isDueDateCounterRelative;
     cardTags.value = newData.card.tags;
+    isDueDateCompleted.value = newData.card.isDueDateCompleted ?? false;
   },
   { deep: true }
 );

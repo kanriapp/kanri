@@ -168,13 +168,13 @@
     },
     "changelog": {
       "title": "¿Qué hay de nuevo en Kanri {major}.{minor}.{revision}?",
-      "welcome": "¡Bienvenido a Kanri! Luego de un tiempo, estamos de vuelta con un lanzamiento que incluye muchas correcciones, mejoras y algunas pequeñas funciones nuevas. Para ser notificado rápidamente sobre nuevos lanzamientos y ver el progreso del desarrollo, puedes unirte",
+  "welcome": "¡Bienvenido a Kanri! Después de un tiempo, volvemos con una versión que incluye muchas correcciones importantes y algunas pequeñas funciones nuevas. Para enterarte rápidamente de nuevos lanzamientos y ver el progreso del desarrollo, puedes unirte",
       "welcomeLink": "al servidor oficial de Discord.",
-      "changes": "Cambios: (lee el registro de cambios para todos los detalles)",
-      "changeItem1": "Se añadieron cartas divisoras para separar cartas en una columna (creadas nombrando una carta como ---).",
-      "changeItem2": "Se mejoró la barra de búsqueda para permitir filtrar por propiedades individuales (nombre, descripción, etiquetas).",
-      "changeItem3": "Se corrigió un error donde la edición funcionaba incorrectamente al ingresar texto en la barra de búsqueda.",
-      "changeItem4": "Se añadió una función que permite cambiar los pines de los tableros."
+  "changes": "Cambios: (lee el registro de cambios para ver todos los detalles)",
+  "changeItem1": "Se corrigió un error por el que mover una carta mientras se buscaba movía la carta equivocada.",
+  "changeItem2": "Se añadió un ajuste para establecer automáticamente el modo claro/oscuro según la preferencia del sistema.",
+  "changeItem3": "Se añadió una función para marcar las fechas de vencimiento como completadas.",
+  "changeItem4": "Se corrigió un error por el que al eliminar un tablero no se quitaba de los anclajes de la barra lateral."
     },
     "confirmation": {
       "sure": "¿Está seguro?",

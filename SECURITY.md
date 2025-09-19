@@ -12,8 +12,8 @@ Since this app is constantly changing and previous versions are not receiving an
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.8.1   | :white_check_mark: |
-| < 0.8.1 | :x:                |
+| 0.8.2   | :white_check_mark: |
+| < 0.8.2 | :x:                |
 
 ## Reporting a Vulnerability
 

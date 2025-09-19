@@ -168,13 +168,13 @@
     },
     "changelog": {
       "title": "Was gibt es Neues in Kanri {major}.{minor}.{revision}?",
-      "welcome": "Willkommen bei Kanri! Nach langer Zeit sind wir mit einer Veröffentlichung zurück, die viele Fehlerbehebungen, Verbesserungen und einige kleine neue Funktionen enthält. Um schnell über neue Versionen informiert zu werden und den Entwicklungsfortschritt zu sehen, kannst du",
+  "welcome": "Willkommen bei Kanri! Nach einiger Zeit sind wir mit einem Release zurück, das viele wichtige Fehlerbehebungen und ein paar kleine neue Funktionen enthält. Um schnell über neue Versionen informiert zu werden und den Entwicklungsfortschritt zu sehen, kannst du",
       "welcomeLink": "dem offiziellen Discord-Server beitreten.",
-      "changes": "Änderungen: (lies das Änderungsprotokoll für alle Änderungen)",
-      "changeItem1": "Trennkarten hinzugefügt, um Karten in einer Spalte zu trennen (erstellt durch Benennen einer Karte mit ---).",
-      "changeItem2": "Suchleiste verbessert, um das Filtern nach einzelnen Eigenschaften (Name, Beschreibung, Tags) zu ermöglichen.",
-      "changeItem3": "Einen Fehler behoben, bei dem das Bearbeiten nicht korrekt funktionierte, wenn Text in die Suchleiste eingegeben wurde.",
-      "changeItem4": "Eine Funktion hinzugefügt, die das Ändern von Board-Pins ermöglicht."
+  "changes": "Änderungen: (lies das Änderungsprotokoll für alle Änderungen)",
+  "changeItem1": "Einen Fehler behoben, bei dem beim Verschieben einer Karte während der Suche die falsche Karte verschoben wurde.",
+  "changeItem2": "Einstellung hinzugefügt, die das helle/dunkle Design automatisch anhand der Systemeinstellung setzt.",
+  "changeItem3": "Funktion hinzugefügt, um Fälligkeitstermine als erledigt zu markieren.",
+  "changeItem4": "Einen Fehler behoben, bei dem das Löschen eines Boards es nicht aus den Seitenleisten-Pins entfernte."
     },
     "confirmation": {
       "sure": "Bist du sicher?",

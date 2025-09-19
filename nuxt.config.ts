@@ -17,8 +17,8 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@vueuse/nuxt",
     "radix-vue/nuxt",
-    "@nuxt/eslint",
     "@nuxtjs/i18n",
+    "@nuxt/eslint",
   ],
   ssr: false,
   telemetry: false,
@@ -47,9 +47,6 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     langDir: "locales/",
     strategy: "no_prefix",
-    bundle: {
-      optimizeTranslationDirective: "false",
-    },
   },
   compatibilityDate: "2024-11-01",
 });

@@ -203,24 +203,41 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 </template>
 
                 <template #content>
-                  <div class="flex flex-col items-start">
+                  <div class="flex flex-col">
+                    <!-- Group 1: Board actions -->
                     <DropdownMenuItem
-                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-2 py-1.5 text-left"
+                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
                       @click="renameBoardModal(index)"
                     >
-                      {{ $t("general.renameAction") }}
+                      <span class="text-dim-2"><PhPencil class="size-5" /></span>
+                      <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-2 py-1.5 text-left"
+                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                      @click="duplicateBoard(index)"
+                    >
+                      <span class="text-dim-2"><PhCopy class="size-5" /></span>
+                      <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                      @click="exportBoardToJson(index)"
+                    >
+                      <span class="text-dim-2"><PhExport class="size-5" /></span>
+                      <span>{{ $t("pages.kanban.exportBoardAction") }}</span>
+                    </DropdownMenuItem>
+                    <div class="my-1 border-t border-elevation-3"></div>
+                    <!-- Group 3: Danger zone -->
+                    <DropdownMenuItem
+                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2 text-red-500"
                       @click="deleteBoardModal(index)"
                     >
-                      {{ $t("general.deleteAction") }}
+                      <span>
+                        <PhTrash class="size-5" />
+                      </span>
+                      <span>{{ $t("pages.kanban.deleteBoardAction") }}</span>
                     </DropdownMenuItem>
                   </div>
-                  <DropdownMenuArrow
-                    class="fill-bg-primary-darker"
-                    :width="10"
-                  />
                 </template>
               </Dropdown>
             </div>
@@ -240,8 +257,10 @@ import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator.js";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
-import { PhFunnel } from "@phosphor-icons/vue";
+import { PhFunnel, PhPushPin, PhTrash, PhExport, PhCopy, PhPencil } from "@phosphor-icons/vue";
 import { useI18n } from "vue-i18n";
+import { save } from "@tauri-apps/plugin-dialog";
+import { writeTextFile } from "@tauri-apps/plugin-fs";
 
 const store = useTauriStore().store;
 const boards: Ref<Array<Board>> = ref([]);
@@ -419,6 +438,41 @@ const deleteBoard = async (boardIndex: number | undefined) => {
   store.set("boards", boards.value);
 
   deletedBoard.forEach((board) => emitter.emit("boardDeletion", board));
+};
+
+const duplicateBoard = async (boardIndex: number | undefined) => {
+  if (boardIndex === -1 || boardIndex == undefined) return;
+
+  const boardToDuplicate = boards.value[boardIndex];
+  if (!boardToDuplicate) return;
+
+  const duplicatedBoard = { ...boardToDuplicate, id: generateUniqueID() };
+  duplicatedBoard.title = `${duplicatedBoard.title} (Copy)`;
+  boards.value.splice(boardIndex + 1, 0, duplicatedBoard);
+  store.set("boards", boards.value);
+};
+
+const exportBoardToJson = async (index: number | undefined) => {
+  if (index === -1 || index == undefined) return;
+
+  const boardToExport = boards.value[index];
+  if (!boardToExport) return;
+
+  const filePath = await save({
+    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_board_${boardToExport.id}_export.json`,
+    filters: [
+      {
+        extensions: ["json"],
+        name: "JSON File",
+      },
+    ],
+    title: "Select file to export data to",
+  });
+
+  const fileContents = JSON.stringify(boardToExport, null, 2);
+
+  if (filePath == null) return;
+  await writeTextFile(filePath, fileContents);
 };
 
 const sortBoardsAlphabetically = () => {

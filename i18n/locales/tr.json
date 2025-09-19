@@ -167,14 +167,14 @@
       "tagListTitle": "Etiketleriniz:"
     },
     "changelog": {
-      "title": "Kanri {major}.{minor}.{revision}'de neler yeni?",
-      "welcome": "Kanri'ye hoş geldiniz! Bir süreden sonra, birçok düzeltme, iyileştirme ve birkaç küçük özellik içeren bir sürümle geri döndük. Yeni sürümler hakkında hızlıca haberdar olmak ve geliştirme sürecini görmek için katılabilirsiniz",
+  "title": "Kanri {major}.{minor}.{revision}'de neler yeni?",
+  "welcome": "Kanri'ye hoş geldiniz! Bir süre sonra, birçok önemli düzeltme ve birkaç küçük yeni özellikle geri döndük. Yeni sürümlerden hızlıca haberdar olmak ve geliştirme ilerlemesini görmek için katılabilirsiniz",
       "welcomeLink": "resmi Discord sunucusu.",
-      "changes": "Değişiklikler: (tüm değişiklikler için değişiklik günlüğünü okuyun)",
-      "changeItem1": "Bir sütundaki kartları ayırmak için ayırıcı kartlar eklendi (bir kartı --- olarak adlandırarak oluşturulur).",
-      "changeItem2": "Bireysel özellikler için (ad, açıklama, etiketler) filtrelemeye izin vermek için arama çubuğu geliştirildi.",
-      "changeItem3": "Arama çubuğuna metin girildiğinde düzenlemenin yanlış çalıştığı bir hata düzeltildi.",
-      "changeItem4": "Pano sabitlemelerini değiştirmeye olanak sağlayan bir özellik eklendi."
+  "changes": "Değişiklikler: (tüm değişiklikler için changelog'u okuyun)",
+  "changeItem1": "Arama yaparken bir kartı taşırken yanlış kartın taşınmasına neden olan bir hata düzeltildi.",
+  "changeItem2": "Sistem tercihi temelinde açık/koyu modu otomatik ayarlamak için bir ayar eklendi.",
+  "changeItem3": "Bitiş tarihlerini tamamlandı olarak işaretleme özelliği eklendi.",
+  "changeItem4": "Bir pano silindiğinde kenar çubuğu sabitlerinden kaldırılmamasına neden olan bir hata düzeltildi."
     },
     "confirmation": {
       "sure": "Emin misiniz?",

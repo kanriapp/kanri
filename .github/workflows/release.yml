@@ -34,7 +34,7 @@ jobs:
     outputs:
       upload_url: ${{ steps.release.outputs.releaseUploadUrl }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: setup node
         uses: actions/setup-node@v4
@@ -66,6 +66,16 @@ jobs:
       - name: Build frontend
         run: yarn generate
 
+      - name: Override linuxdeploy version (potential Linux fix)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          # Pin linuxdeploy version to prevent @tauri-apps/cli-linux-x64-gnu from pulling in an outdated version
+          TAURI_TOOLKIT_PATH="${XDG_CACHE_HOME:-$HOME/.cache}/tauri"
+          mkdir -p "$TAURI_TOOLKIT_PATH"
+          wget https://github.com/linuxdeploy/linuxdeploy/releases/download/1-alpha-20250213-2/linuxdeploy-x86_64.AppImage -O "$TAURI_TOOLKIT_PATH/linuxdeploy-x86_64.AppImage"
+          chmod +x "$TAURI_TOOLKIT_PATH/linuxdeploy-x86_64.AppImage"
+
+        
       - uses: tauri-apps/tauri-action@v0
         id: release
         env:
@@ -88,7 +98,7 @@ jobs:
 
       runs-on: ubuntu-22.04
       steps:
-        - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         - uses: actions/setup-node@v4
           with:
             node-version: lts/*
@@ -107,3 +117,5 @@ jobs:
           with:
             upload_url: ${{ needs.publish-kanri.outputs.upload_url }}
             targets: ./src-tauri/target/*/release/bundle/deb/*.deb
+
+
