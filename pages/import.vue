@@ -216,6 +216,9 @@ const exportJSON = async () => {
   const columnZoomLevel = await store.get("columnZoomLevel");
   const lastInstalledVersion = await store.get("lastInstalledVersion");
   const animationsEnabled = await store.get("animationsEnabled");
+  const defaultRelativeDueDatesEnabled = await store.get(
+    "defaultRelativeDueDatesEnabled"
+  );
   const addToTopOfColumnButtonEnabled = await store.get(
     "addToTopOfColumnButtonEnabled"
   );
@@ -235,6 +238,7 @@ const exportJSON = async () => {
       savedCustomTheme,
       reverseSorting,
       animationsEnabled,
+      defaultRelativeDueDatesEnabled,
       addToTopOfColumnButtonEnabled,
       displayColumnCardCountEnabled,
     },
@@ -345,6 +349,12 @@ const importFromKanriFull = async () => {
   store.set("savedCustomTheme", zodParsed.savedCustomTheme);
   store.set("lastInstalledVersion", zodParsed.lastInstalledVersion);
   store.set("animationsEnabled", zodParsed.animationsEnabled);
+  if (zodParsed.defaultRelativeDueDatesEnabled !== undefined) {
+    store.set(
+      "defaultRelativeDueDatesEnabled",
+      zodParsed.defaultRelativeDueDatesEnabled
+    );
+  }
   store.set("reverseSorting", zodParsed.reverseSorting);
   store.set(
     "addToTopOfColumnButtonEnabled",

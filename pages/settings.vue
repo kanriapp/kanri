@@ -204,6 +204,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           />
         </SwitchRoot>
       </div>
+
+      <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
+        <div>
+          <h3 class="text-lg">
+            {{ $t("pages.settings.preferencesDefaultRelativeDueDatesHeading") }}
+          </h3>
+          <span class="text-dim-2">
+            {{ $t("pages.settings.preferencesDefaultRelativeDueDatesSubtext") }}
+          </span>
+        </div>
+        <SwitchRoot
+          v-model:checked="globalSettingsStore.defaultRelativeDueDatesEnabled"
+          class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+          @update:checked="toggleDefaultRelativeDueDates"
+        >
+          <SwitchThumb
+            class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+          />
+        </SwitchRoot>
+      </div>
     </section>
 
     <section id="miscellaneous-settings">
@@ -425,7 +445,7 @@ const deleteAllData = async () => {
   activeTheme.value = "dark";
   themeEditorDisplayed.value = false;
 
-  globalSettingsStore.animationsEnabled.value = true;
+  globalSettingsStore.animationsEnabled = true;
   store.set("animationsEnabled", true); // Reset animations to true
 
   router.go(0);
@@ -464,6 +484,14 @@ const toggleDisplayCardCount = async (displayCardCountToggled: boolean) => {
     await store.set("displayColumnCardCountEnabled", true);
   } else {
     await store.set("displayColumnCardCountEnabled", false);
+  }
+};
+
+const toggleDefaultRelativeDueDates = async (relativeToggled: boolean) => {
+  if (relativeToggled) {
+    await store.set("defaultRelativeDueDatesEnabled", true);
+  } else {
+    await store.set("defaultRelativeDueDatesEnabled", false);
   }
 };
 

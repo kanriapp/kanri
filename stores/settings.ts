@@ -22,5 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 export const useSettingsStore = defineStore("settings", {
   state: () => ({
     animationsEnabled: true,
+    // If true, new due dates default to relative countdown mode
+    defaultRelativeDueDatesEnabled: false,
   }),
 });

@@ -72,6 +72,15 @@ onMounted(async () => {
     globalSettingsStore.animationsEnabled = true;
   }
 
+  // Load defaultRelativeDueDatesEnabled preference
+  const relativeDueDatesPref = await store.get("defaultRelativeDueDatesEnabled");
+  if (relativeDueDatesPref !== null) {
+    globalSettingsStore.defaultRelativeDueDatesEnabled = relativeDueDatesPref;
+  } else {
+    await store.set("defaultRelativeDueDatesEnabled", false);
+    globalSettingsStore.defaultRelativeDueDatesEnabled = false;
+  }
+
   savedColors.value = await store.get("colors");
   autoThemeEnabled.value = await store.get("activeTheme") === "auto" || false;
 

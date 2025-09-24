@@ -501,6 +501,7 @@ import { vOnClickOutside } from "@vueuse/components";
 import { Container, Draggable } from "vue3-smooth-dnd";
 //@ts-expect-error library has no types
 import { VueTagsInput } from "@vojtechlanka/vue-tags-input";
+import { useSettingsStore } from "@/stores/settings";
 
 const props = defineProps<{
   card: Card | null;
@@ -562,6 +563,7 @@ const selectedColor = ref("");
 
 const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
+const settingsStore = useSettingsStore();
 const isDueDateCompleted = ref(false);
 
 const tag = ref("");
@@ -623,7 +625,7 @@ const beforeTagAdd = ({ tag, addTag }: any) => {
   );
 
   if (!existingTag) {
-    if (matches.length === 1) {
+    if (matches.length === 1 && matches[0]) {
       tag.text = matches[0].text;
       tag.id = matches[0].id;
       tag.color = matches[0].color;
@@ -702,7 +704,9 @@ const updateTask = (index: number) => {
     !/\S/.test(currentlyEditingTaskName.value);
   if (taskNameEmpty || currentlyEditingTaskIndex.value === -1) return;
 
-  tasks.value[index].name = currentlyEditingTaskName.value;
+  if (tasks.value[index]) {
+    tasks.value[index].name = currentlyEditingTaskName.value;
+  }
 
   currentlyEditingTaskIndex.value = -1;
   currentlyEditingTaskName.value = "";
@@ -803,7 +807,9 @@ watch(props, (newVal) => {
     //@ts-expect-error TODO: improve due date handling/types
     dueDate.value = newVal.card.dueDate || null;
     isDueDateCounterRelative.value =
-      newVal.card.isDueDateCounterRelative || false;
+      newVal.card.isDueDateCounterRelative !== undefined
+        ? newVal.card.isDueDateCounterRelative
+        : settingsStore.defaultRelativeDueDatesEnabled;
     isDueDateCompleted.value = newVal.card.isDueDateCompleted || false;
 
     tags.value = newVal.card.tags || [];
