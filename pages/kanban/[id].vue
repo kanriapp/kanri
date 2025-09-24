@@ -295,6 +295,7 @@ import { useTauriStore } from "@/stores/tauriStore";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator";
+import { clampZoom, migrateLegacyZoomValue, ZOOM_STEP } from "@/utils/zoom";
 import { getAverageColor } from "~/utils/colorUtils";
 
 import { PhotoIcon } from "@heroicons/vue/24/outline";
@@ -330,7 +331,7 @@ const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
-const columnZoomLevel = ref(0);
+const columnZoomLevel = ref(100);
 const columnAddToTopButtonEnabled = ref(false);
 const columnCardCountEnabled = ref(false);
 
@@ -370,14 +371,11 @@ onMounted(async () => {
   await loadCurrentBoard();
 
   //@ts-expect-error TODO: fix types for column zoom parameter
-  const columnZoom: null | number = await store.get("columnZoomLevel");
+  const columnZoomRaw = await store.get("columnZoomLevel");
+  const resolvedZoom = migrateLegacyZoomValue(columnZoomRaw);
 
-  if (columnZoom == null) {
-    await store.set("columnZoomLevel", 0);
-    columnZoomLevel.value = 0;
-  } else {
-    columnZoomLevel.value = columnZoom;
-  }
+  columnZoomLevel.value = resolvedZoom;
+  await store.set("columnZoomLevel", resolvedZoom);
 
   columnAddToTopButtonEnabled.value =
     (await store.get("addToTopOfColumnButtonEnabled")) || false;
@@ -497,16 +495,21 @@ const setColumnEditIndex = (columnIndex: number, eventType: string) => {
   }
 };
 
+const applyColumnZoom = (value: number) => {
+  const clamped = clampZoom(value);
+
+  if (clamped === columnZoomLevel.value) return;
+
+  columnZoomLevel.value = clamped;
+  store.set("columnZoomLevel", clamped);
+};
+
 const increaseZoomLevel = () => {
-  if (columnZoomLevel.value + 1 > 2) return;
-  columnZoomLevel.value++;
-  store.set("columnZoomLevel", columnZoomLevel.value);
+  applyColumnZoom(columnZoomLevel.value + ZOOM_STEP);
 };
 
 const decreaseZoomLevel = () => {
-  if (columnZoomLevel.value - 1 < -1) return;
-  columnZoomLevel.value--;
-  store.set("columnZoomLevel", columnZoomLevel.value);
+  applyColumnZoom(columnZoomLevel.value - ZOOM_STEP);
 };
 
 const keyDownListener = (e: KeyboardEvent) => {

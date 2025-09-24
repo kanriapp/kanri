@@ -173,6 +173,7 @@ import {
   trelloJsonSchema,
 } from "@/types/json-schemas";
 import emitter from "@/utils/emitter";
+import { migrateLegacyZoomValue } from "@/utils/zoom";
 import { ask, message, open, save } from "@tauri-apps/plugin-dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { useI18n } from "vue-i18n";
@@ -344,7 +345,10 @@ const importFromKanriFull = async () => {
   store.set("pins", zodParsed.pins);
   store.set("colors", zodParsed.colors);
   store.set("activeTheme", zodParsed.activeTheme);
-  store.set("columnZoomLevel", zodParsed.columnZoomLevel);
+  store.set(
+    "columnZoomLevel",
+    migrateLegacyZoomValue(zodParsed.columnZoomLevel)
+  );
   store.set("boardSortingOption", zodParsed.boardSortingOption);
   store.set("savedCustomTheme", zodParsed.savedCustomTheme);
   store.set("lastInstalledVersion", zodParsed.lastInstalledVersion);
@@ -438,8 +442,11 @@ const importFromKanbanElectronFull = async () => {
   store.set("boards", convertedBoards);
   store.set("colors", zodParsed.colors);
   store.set("activeTheme", zodParsed.activeTheme);
-  if (zodParsed.columnZoomLevel) {
-    store.set("columnZoomLevel", zodParsed.columnZoomLevel);
+  if (zodParsed.columnZoomLevel != null) {
+    store.set(
+      "columnZoomLevel",
+      migrateLegacyZoomValue(zodParsed.columnZoomLevel)
+    );
   }
 
   await message(t("pages.import.importSuccessPartial"), { kind: "info" });
