@@ -48,6 +48,8 @@ const store = useTauriStore().store;
 const savedColors = ref({});
 const mounted = ref(false);
 
+const { setLocale, setLocaleCookie } = useI18n();
+
 const globalSettingsStore = useSettingsStore();
 
 const systemTheme = useDark();
@@ -62,6 +64,13 @@ onMounted(async () => {
   ) {
     emitter.emit("openChangelogModal");
     await store.set("lastInstalledVersion", currentVersionIdentifier);
+  }
+
+  const localeSaved = await store.get("locale");
+  if (localeSaved !== null) {
+    setLocale(localeSaved);
+    setLocaleCookie(localeSaved);
+    console.log("loaded locale from store:", localeSaved);
   }
 
   const animationsEnabledSaved = await store.get("animationsEnabled");
