@@ -299,51 +299,12 @@ const allTasksCompleted = computed(() => {
   return false; //default return
 });
 
-// New computed properties for scaling elements
-const zoomClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "zoom-down text-sm";
-    case 0:
-      return "zoom-normal";
-    case 1:
-      return "zoom-up text-xl";
-    case 2:
-      return "zoom-up-2x text-2xl";
-    default:
-      return "zoom-normal";
-  }
-});
+// Base classes; scaling handled by the parent column zoom
+const zoomClass = computed(() => "zoom-normal");
 
-const iconSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "size-3";
-    case 0:
-      return "size-4";
-    case 1:
-      return "size-5";
-    case 2:
-      return "size-8";
-    default:
-      return "size-4";
-  }
-});
+const iconSizeClass = computed(() => "size-4");
 
-const taskTextClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "text-xs";
-    case 0:
-      return "text-sm";
-    case 1:
-      return "text-base";
-    case 2:
-      return "text-lg";
-    default:
-      return "text-sm";
-  }
-});
+const taskTextClass = computed(() => "text-sm");
 
 const cardBackgroundColor = computed(() => {
   if (!props.card.color) return "bg-elevation-2";

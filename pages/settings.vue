@@ -322,6 +322,7 @@ import type { Ref } from "vue";
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas";
 import emitter from "@/utils/emitter";
+import { migrateLegacyZoomValue } from "@/utils/zoom";
 import { catppuccin, dark, light } from "@/utils/themes";
 import {
   ArrowDownTrayIcon,
@@ -349,7 +350,7 @@ const themeEditorDisplayed = ref(false);
 const autoThemeEnabled = ref(false);
 const systemTheme = useDark();
 
-const columnZoomLevel = ref(0);
+const columnZoomLevel = ref(100);
 
 const autostartCheckbox = ref(false);
 const addToTopCheckbox = ref(false);
@@ -374,14 +375,11 @@ onMounted(async () => {
   }
   if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
 
-  const columnZoom: null | number = await store.get("columnZoomLevel");
+  const columnZoomRaw = await store.get("columnZoomLevel");
+  const resolvedZoom = migrateLegacyZoomValue(columnZoomRaw);
 
-  if (columnZoom == null) {
-    await store.set("columnZoomLevel", 0);
-    columnZoomLevel.value = 0;
-  } else {
-    columnZoomLevel.value = columnZoom;
-  }
+  columnZoomLevel.value = resolvedZoom;
+  await store.set("columnZoomLevel", resolvedZoom);
 
   const autostartStatus = await isEnabled();
   switch (autostartStatus) {

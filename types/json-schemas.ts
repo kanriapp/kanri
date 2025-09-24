@@ -97,7 +97,7 @@ export const kanriJsonSchema = z.object({
   boardSortingOption: z.string().optional().nullable(),
   boards: z.array(kanriBoardSchema),
   colors: kanriThemeSchema,
-  columnZoomLevel: z.number().optional().nullable(),
+  columnZoomLevel: z.union([z.number(), z.string()]).optional().nullable(),
   lastInstalledVersion: z.string().optional().nullable(),
   savedCustomTheme: kanriThemeSchema.optional().nullable(),
   reverseSorting: z.boolean().optional().nullable(),
@@ -121,7 +121,7 @@ export const kanbanElectronJsonSchema = z.object({
   activeTheme: z.string(),
   boards: z.array(kanbanElectronBoardSchema),
   colors: kanriThemeSchema,
-  columnZoomLevel: z.string().optional(),
+  columnZoomLevel: z.union([z.string(), z.number()]).optional().nullable(),
 });
 
 export const trelloJsonSchema = z.object({
