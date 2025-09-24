@@ -63,7 +63,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import { useI18n } from "vue-i18n";
 import { PhCaretDown, PhCheck } from "@phosphor-icons/vue";
 
-const { locale, locales, setLocale } = useI18n();
+const { locale, locales, setLocale, setLocaleCookie } = useI18n();
 const selectedLocale = ref(locale);
 
 const currentLocale = computed(() => {
@@ -72,6 +72,7 @@ const currentLocale = computed(() => {
 
 const setLang = (newLocale: string) => {
   setLocale(newLocale);
+  setLocaleCookie(newLocale);
 };
 
 const globalSettingsStore = useSettingsStore();
