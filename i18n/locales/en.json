@@ -67,6 +67,8 @@
       "preferencesAddToTopButtonSubtext": "Displays a button which allows you to add new cards to the top of a column.",
       "preferencesDisplayNumberOfCardsHeading": "Display number of cards in column",
       "preferencesDisplayNumberOfCardsSubtext": "Shows how many cards are in each column.",
+      "preferencesDefaultRelativeDueDatesHeading": "Use relative due date countdown by default",
+      "preferencesDefaultRelativeDueDatesSubtext": "Newly set due dates default to relative countdown mode instead of absolute date.",
       "languageSelectorHeading": "Language",
       "languageSelectorSubtext": "Change the language of the application.",
       "miscellaneousHeading": "Miscellaneous",
