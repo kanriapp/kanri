@@ -66,6 +66,8 @@ import { PhCaretDown, PhCheck } from "@phosphor-icons/vue";
 const { locale, locales, setLocale, setLocaleCookie } = useI18n();
 const selectedLocale = ref(locale);
 
+const tauriStore = useTauriStore().store;
+
 const currentLocale = computed(() => {
   return locales.value.filter((i) => i.code === locale.value)[0];
 });
@@ -73,6 +75,8 @@ const currentLocale = computed(() => {
 const setLang = (newLocale: string) => {
   setLocale(newLocale);
   setLocaleCookie(newLocale);
+  tauriStore.set("locale", newLocale);
+  console.log("saved locale to store:", newLocale);
 };
 
 const globalSettingsStore = useSettingsStore();
