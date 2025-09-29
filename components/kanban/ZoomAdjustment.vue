@@ -33,19 +33,35 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         {{ $t("components.kanban.zoomAdjustment.decreaseLevel") }}
       </template>
     </Tooltip>
-    <Tooltip direction="top">
-      <template #trigger>
-        <button
-          class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1.5"
-          @click="resetZoomLevel"
-        >
-          {{ columnZoomLevel * 50 + 100 }}%
-        </button>
-      </template>
-      <template #content>
-        {{ $t("components.kanban.zoomAdjustment.reset") }}
-      </template>
-    </Tooltip>
+    <div class="relative">
+      <Tooltip v-if="!isEditingManualZoom" direction="top">
+        <template #trigger>
+          <button
+            class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1.5"
+            @click="startManualZoomEditing"
+            @dblclick="resetZoomLevel"
+          >
+            {{ columnZoomLevel }}%
+          </button>
+        </template>
+        <template #content>
+          {{ $t("components.kanban.zoomAdjustment.reset") }}
+        </template>
+      </Tooltip>
+      <input
+        v-else
+        ref="manualZoomInput"
+        v-model="manualZoomValue"
+        class="bg-elevation-1 border-elevation-2 w-20 px-3.5 py-1.5 text-center outline-none"
+        inputmode="numeric"
+        type="number"
+        :min="ZOOM_MIN"
+        :max="ZOOM_MAX"
+        @blur="commitManualZoom"
+        @keyup.enter.prevent="commitManualZoom"
+        @keyup.esc.prevent="cancelManualZoom"
+      />
+    </div>
     <Tooltip direction="top">
       <template #trigger>
         <button
@@ -64,38 +80,74 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import { useTauriStore } from "@/stores/tauriStore";
+import { clampZoom, ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } from "@/utils/zoom";
 import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon,
 } from "@heroicons/vue/24/solid";
+import { nextTick, ref } from "vue";
 
 const store = useTauriStore().store;
 const columnZoomLevel = defineModel({ type: Number, required: true });
+const manualZoomValue = ref(columnZoomLevel.value.toString());
+const isEditingManualZoom = ref(false);
+const manualZoomInput = ref<HTMLInputElement | null>(null);
 
-const increaseZoomLevel = () => {
-  if (columnZoomLevel.value + 1 > 2) return;
-  columnZoomLevel.value++;
-
+const persistZoomLevel = () => {
   nextTick(() => {
-    // nextTick required for the model value to update properly before saving
     store.set("columnZoomLevel", columnZoomLevel.value);
   });
+};
+
+const setZoomLevel = (value: number) => {
+  const clamped = clampZoom(value);
+
+  if (clamped === columnZoomLevel.value) {
+    manualZoomValue.value = clamped.toString();
+    return;
+  }
+
+  columnZoomLevel.value = clamped;
+  manualZoomValue.value = clamped.toString();
+  persistZoomLevel();
+};
+
+const increaseZoomLevel = () => {
+  setZoomLevel(columnZoomLevel.value + ZOOM_STEP);
 };
 
 const decreaseZoomLevel = () => {
-  if (columnZoomLevel.value - 1 < -1) return;
-  columnZoomLevel.value--;
+  setZoomLevel(columnZoomLevel.value - ZOOM_STEP);
+};
+
+const startManualZoomEditing = () => {
+  manualZoomValue.value = columnZoomLevel.value.toString();
+  isEditingManualZoom.value = true;
 
   nextTick(() => {
-    store.set("columnZoomLevel", columnZoomLevel.value);
+    manualZoomInput.value?.focus();
+    manualZoomInput.value?.select();
   });
 };
 
-const resetZoomLevel = () => {
-  columnZoomLevel.value = 0;
+const cancelManualZoom = () => {
+  manualZoomValue.value = columnZoomLevel.value.toString();
+  isEditingManualZoom.value = false;
+};
 
-  nextTick(() => {
-    store.set("columnZoomLevel", columnZoomLevel.value);
-  });
+const commitManualZoom = () => {
+  const parsed = Number.parseInt(manualZoomValue.value, 10);
+
+  if (Number.isNaN(parsed)) {
+    cancelManualZoom();
+    return;
+  }
+
+  setZoomLevel(parsed);
+  isEditingManualZoom.value = false;
+};
+
+const resetZoomLevel = () => {
+  setZoomLevel(100);
 };
 </script>

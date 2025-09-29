@@ -26,6 +26,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       columnSizeClass,
       columnSpacingClass,
     ]"
+    :style="columnZoomStyle"
   >
     <div
       id="board-title"
@@ -212,6 +213,7 @@ import type { Ref } from "vue";
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
+import { migrateLegacyZoomValue } from "@/utils/zoom";
 import { PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 //@ts-expect-error, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
@@ -256,6 +258,10 @@ const titleInput: Ref<HTMLInputElement | null> = ref(null);
 const newCardInput: Ref<HTMLInputElement | null> = ref(null);
 
 const cards = ref<Card[]>(props.cardsList);
+const zoomPercent = computed(() => migrateLegacyZoomValue(props.zoomLevel));
+const columnZoomStyle = computed(() => ({
+  zoom: `${zoomPercent.value / 100}`,
+}));
 const newCardName = ref("");
 const cardAddMode = ref(false);
 const cardAddModeAddToTopOfColumn = ref(false);
@@ -316,221 +322,41 @@ onMounted(() => {
   }
 });
 
-// enhanced scaling classes based on zoom level
-const titleTextClassZoom = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "text-md";
-    case 0:
-      return "text-lg";
-    case 1:
-      return "text-xl";
-    case 2:
-      return "text-2xl";
-    default:
-      return "";
-  }
-});
+// Base classes; actual scaling handled via CSS zoom on the container
+const titleTextClassZoom = computed(() => "text-lg");
 
-const columnSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "w-48";
-    case 0:
-      return "w-64";
-    case 1:
-      return "w-96";
-    case 2:
-      return "w-[560px]";
-    default:
-      return "";
-  }
-});
+const columnSizeClass = computed(() => "w-64");
 
-// new scaled classes for other elements
-const badgeSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "text-xs";
-    case 0:
-      return "text-xs";
-    case 1:
-      return "text-sm";
-    case 2:
-      return "text-base";
-    default:
-      return "text-xs";
-  }
-});
+// Base classes for elements inside the column
+const badgeSizeClass = computed(() => "text-xs");
 
-const inputSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "text-sm py-0.5";
-    case 0:
-      return "text-base py-1";
-    case 1:
-      return "text-lg py-1.5";
-    case 2:
-      return "text-xl py-2";
-    default:
-      return "text-base py-1";
-  }
-});
+const inputSizeClass = computed(() => "text-base py-1");
 
-const iconSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "size-4";
-    case 0:
-      return "size-4";
-    case 1:
-      return "size-5";
-    case 2:
-      return "size-6";
-    default:
-      return "size-4";
-  }
-});
+const iconSizeClass = computed(() => "size-4");
 
-const columnSpacingClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "p-1.5";
-    case 0:
-      return "p-2";
-    case 1:
-      return "p-3";
-    case 2:
-      return "p-4";
-    default:
-      return "p-2";
-  }
-});
+const columnSpacingClass = computed(() => "p-2");
 
 const containerSpacingClass = computed(() => {
   if (cards.value.length === 0) {
     return "p-6";
   }
 
-  switch (props.zoomLevel) {
-    case -1:
-      return "mt-1.5";
-    case 0:
-      return "mt-2";
-    case 1:
-      return "mt-3";
-    case 2:
-      return "mt-4";
-    default:
-      return "mt-2";
-  }
+  return "mt-2";
 });
 
-const cardSpacingClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "mb-1.5";
-    case 0:
-      return "mb-2";
-    case 1:
-      return "mb-3";
-    case 2:
-      return "mb-4";
-    default:
-      return "mb-2";
-  }
-});
+const cardSpacingClass = computed(() => "mb-2");
 
-const textAreaSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "h-10 text-sm";
-    case 0:
-      return "h-12 text-base";
-    case 1:
-      return "h-16 text-lg";
-    case 2:
-      return "h-20 text-xl";
-    default:
-      return "h-12 text-base";
-  }
-});
+const textAreaSizeClass = computed(() => "h-12 text-base");
 
-const buttonSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "text-sm px-1.5 py-0.5";
-    case 0:
-      return "text-base px-2 py-1";
-    case 1:
-      return "text-lg px-3 py-1.5";
-    case 2:
-      return "text-xl px-4 py-2";
-    default:
-      return "text-base px-2 py-1";
-  }
-});
+const buttonSizeClass = computed(() => "text-base px-2 py-1");
 
-const addCardFormSpacingClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "mt-1.5";
-    case 0:
-      return "mt-2";
-    case 1:
-      return "mt-3";
-    case 2:
-      return "mt-4";
-    default:
-      return "mt-2";
-  }
-});
+const addCardFormSpacingClass = computed(() => "mt-2");
 
-const addCardButtonSpacingClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "mt-1.5 py-0.5";
-    case 0:
-      return "mt-2 py-1";
-    case 1:
-      return "mt-3 py-1.5";
-    case 2:
-      return "mt-4 py-2";
-    default:
-      return "mt-2 py-1";
-  }
-});
+const addCardButtonSpacingClass = computed(() => "mt-2 py-1");
 
-const addCardIconSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "size-4";
-    case 0:
-      return "size-6";
-    case 1:
-      return "size-8";
-    case 2:
-      return "size-10";
-    default:
-      return "size-6";
-  }
-});
+const addCardIconSizeClass = computed(() => "size-6");
 
-const addCardTextSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "text-sm";
-    case 0:
-      return "text-base";
-    case 1:
-      return "text-lg";
-    case 2:
-      return "text-xl";
-    default:
-      return "text-base";
-  }
-});
+const addCardTextSizeClass = computed(() => "text-base");
 
 const fuzzyMatch = (input: string, str: string) => {
   const inputWords = input.toLowerCase().split(/\s+/);
