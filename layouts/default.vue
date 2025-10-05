@@ -352,21 +352,30 @@ const cssVars = computed(() => {
 
 .page-enter-active,
 .page-leave-active {
-  transition-property: height, opacity, transform;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
-  overflow: hidden;
-}
-
-.page-enter-active {
-  transition-property: all;
-  transition-duration: 700ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    opacity 220ms cubic-bezier(0.4, 0, 0.2, 0.8),
+    transform 220ms cubic-bezier(0.4, 0, 0.2, 0.8);
+  will-change: opacity, transform;
   overflow: hidden;
 }
 
 .page-enter-from {
-  transform: translateY(5rem);
   opacity: 0;
-  overflow: hidden;
+  transform: translateY(30px) scale(0.98);
+}
+
+.page-enter-to {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.page-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.99);
 }
 </style>
