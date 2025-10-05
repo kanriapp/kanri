@@ -182,6 +182,7 @@ import { ZodError, z } from "zod";
 const router = useRouter();
 
 const store = useTauriStore().store;
+const globalSettingsStore = useSettingsStore();
 
 const { t } = useI18n();
 
@@ -365,6 +366,8 @@ const importFromKanriFull = async () => {
     zodParsed.displayColumnCardCountEnabled
   );
 
+  globalSettingsStore.loadSettings();
+
   await message(t("pages.import.importSuccessFull"), { kind: "info" });
 
   // Manual refresh
@@ -441,6 +444,8 @@ const importFromKanbanElectronFull = async () => {
   if (zodParsed.columnZoomLevel) {
     store.set("columnZoomLevel", zodParsed.columnZoomLevel);
   }
+
+  globalSettingsStore.loadSettings();
 
   await message(t("pages.import.importSuccessPartial"), { kind: "info" });
 
