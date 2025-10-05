@@ -63,22 +63,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import { useTauriStore } from "@/stores/tauriStore";
 import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon,
 } from "@heroicons/vue/24/solid";
 
-const store = useTauriStore().store;
-const columnZoomLevel = defineModel({ type: Number, required: true });
+const settings = useSettingsStore();
+const { columnZoomLevel } = storeToRefs(settings);
 
 const increaseZoomLevel = () => {
   if (columnZoomLevel.value + 1 > 2) return;
   columnZoomLevel.value++;
 
   nextTick(() => {
-    // nextTick required for the model value to update properly before saving
-    store.set("columnZoomLevel", columnZoomLevel.value);
+    settings.setColumnZoomLevel(columnZoomLevel.value);
   });
 };
 
@@ -87,7 +85,7 @@ const decreaseZoomLevel = () => {
   columnZoomLevel.value--;
 
   nextTick(() => {
-    store.set("columnZoomLevel", columnZoomLevel.value);
+    settings.setColumnZoomLevel(columnZoomLevel.value);
   });
 };
 
@@ -95,7 +93,7 @@ const resetZoomLevel = () => {
   columnZoomLevel.value = 0;
 
   nextTick(() => {
-    store.set("columnZoomLevel", columnZoomLevel.value);
+    settings.setColumnZoomLevel(columnZoomLevel.value);
   });
 };
 </script>

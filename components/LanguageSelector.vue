@@ -27,7 +27,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <ComboboxTrigger
         class="flex w-full flex-row items-center justify-between"
       >
-        <span>{{ currentLocale.name }}</span>
+        <span>{{ currentLocale?.name ?? "Unknown" }}</span>
 
         <PhCaretDown class="text-primary-light size-3" />
       </ComboboxTrigger>
@@ -66,26 +66,23 @@ import { PhCaretDown, PhCheck } from "@phosphor-icons/vue";
 const { locale, locales, setLocale, setLocaleCookie } = useI18n();
 const selectedLocale = ref(locale);
 
-const tauriStore = useTauriStore().store;
-
 const currentLocale = computed(() => {
   return locales.value.filter((i) => i.code === locale.value)[0];
 });
 
-const setLang = (newLocale: string) => {
+const settings = useSettingsStore();
+
+const setLang = (newLocale: typeof locale.value) => {
   setLocale(newLocale);
   setLocaleCookie(newLocale);
-  tauriStore.set("locale", newLocale);
-  console.log("saved locale to store:", newLocale);
+  settings.setLocale(newLocale);
 };
-
-const globalSettingsStore = useSettingsStore();
 
 const tooltipClass = computed(() => {
   let tooltipClasses =
     "bg-elevation-1 absolute z-10 mt-2 w-full min-w-[160px] overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]";
 
-  if (globalSettingsStore.animationsEnabled) {
+  if (settings.animationsEnabled) {
     tooltipClasses +=
       " data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade";
   }

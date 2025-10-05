@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div
       :style="cssVars"
       :class="[
-        globalSettingsStore.animationsEnabled ? '' : 'disable-animations',
+        settings.animationsEnabled ? '' : 'disable-animations',
       ]"
       class="default-layout custom-scrollbar-hidden overflow-auto"
     >
@@ -50,12 +50,15 @@ const mounted = ref(false);
 
 const { setLocale, setLocaleCookie } = useI18n();
 
-const globalSettingsStore = useSettingsStore();
+const settings = useSettingsStore();
 
 const systemTheme = useDark();
 const autoThemeEnabled = ref(false);
 
 onMounted(async () => {
+  // Load settings into pinia store
+  await settings.loadSettings();
+
   const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
   const lastInstalledVersionNumber = await store.get("lastInstalledVersion");
   if (
@@ -66,29 +69,9 @@ onMounted(async () => {
     await store.set("lastInstalledVersion", currentVersionIdentifier);
   }
 
-  const localeSaved = await store.get("locale");
-  if (localeSaved !== null) {
-    setLocale(localeSaved);
-    setLocaleCookie(localeSaved);
-    console.log("loaded locale from store:", localeSaved);
-  }
-
-  const animationsEnabledSaved = await store.get("animationsEnabled");
-  if (animationsEnabledSaved !== null) {
-    globalSettingsStore.animationsEnabled = animationsEnabledSaved;
-  } else {
-    await store.set("animationsEnabled", true);
-    globalSettingsStore.animationsEnabled = true;
-  }
-
-  // Load defaultRelativeDueDatesEnabled preference
-  const relativeDueDatesPref = await store.get("defaultRelativeDueDatesEnabled");
-  if (relativeDueDatesPref !== null) {
-    globalSettingsStore.defaultRelativeDueDatesEnabled = relativeDueDatesPref;
-  } else {
-    await store.set("defaultRelativeDueDatesEnabled", false);
-    globalSettingsStore.defaultRelativeDueDatesEnabled = false;
-  }
+  // Set locale cookies based on saved value
+  setLocale(settings.locale);
+  setLocaleCookie(settings.locale);
 
   savedColors.value = await store.get("colors");
   autoThemeEnabled.value = await store.get("activeTheme") === "auto" || false;
@@ -105,8 +88,6 @@ onMounted(async () => {
 
 onUnmounted(() => {
   emitter.off("updateColors");
-  emitter.off("setAnimationsOn");
-  emitter.off("setAnimationsOff");
 });
 
 watch(systemTheme, async (newValue) => {
