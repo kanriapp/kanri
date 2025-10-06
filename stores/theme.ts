@@ -46,6 +46,7 @@ export const useThemeStore = defineStore("theme", {
       this.savedCustomTheme = savedCustomThemeSaved;
       this.autoThemeEnabled = autoThemeEnabledSaved;
     },
+
     async setTheme(theme: string, colors: Theme | null = null) {
       const store = useTauriStore().store;
 
@@ -62,6 +63,7 @@ export const useThemeStore = defineStore("theme", {
         }
       }
     },
+
     async toggleAutoTheme(resolvedSystemTheme: "light" | "dark" = "dark") {
       const store = useTauriStore().store;
 
