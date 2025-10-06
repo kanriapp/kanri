@@ -41,8 +41,6 @@ export const useThemeStore = defineStore("theme", {
       const savedCustomThemeSaved: Theme | null = await store.get("savedCustomTheme") ?? null;
       const autoThemeEnabledSaved: boolean = await store.get("activeTheme") === "auto" ? true : false;
 
-      console.log("Resolved theme:", colorsSaved);
-
       this.activeTheme = activeThemeSaved;
       this.colors = colorsSaved;
       this.savedCustomTheme = savedCustomThemeSaved;
