@@ -450,10 +450,7 @@ const importThemeFromJson = async () => {
   }
   if (zodParsed === null) return;
 
-  await store.set("colors", zodParsed);
-  await store.set("activeTheme", "custom");
-  await store.set("savedCustomTheme", zodParsed);
-  emitter.emit("updateColors");
+  await theme.setTheme("custom", zodParsed);
 
   // Manual refresh
   router.go(0);
