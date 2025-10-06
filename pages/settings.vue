@@ -43,7 +43,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <h2 class="mb-2 mt-6 text-2xl font-bold">
         {{ $t("pages.settings.sectionThemeHeading") }}
       </h2>
-      <div id="theme-selection" class="flex flex-row gap-4" v-if="!autoThemeEnabled">
+      <div id="theme-selection" class="flex flex-row gap-4" v-if="!theme.autoThemeEnabled">
         <div
           class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('light')"
@@ -88,7 +88,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
       </div>
 
-      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)" v-if="!autoThemeEnabled">
+      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)" v-if="!theme.autoThemeEnabled">
         {{ $t("pages.settings.colorResetText")
         }}<span class="underline">{{
           $t("pages.settings.colorResetLink")
@@ -104,7 +104,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             {{ $t("pages.settings.setThemeAuto") }}
           </span>
           <SwitchRoot
-            v-model:checked="autoThemeEnabled"
+            v-model:checked="theme.autoThemeEnabled"
             class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
             @update:checked="setTheme('auto')"
           >
@@ -340,61 +340,38 @@ const router = useRouter();
 
 const store = useTauriStore().store;
 const globalSettingsStore = useSettingsStore();
+const theme = useThemeStore();
 
 const { t, locale } = useI18n();
 
-const activeTheme: Ref<null | string> = ref("");
-const themeEditorDisplayed = ref(false);
-const autoThemeEnabled = ref(false);
+const { activeTheme } = toRefs(theme)
+const themeEditorDisplayed = computed(() => activeTheme.value === "custom");
 const systemTheme = useDark();
 
 const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
   emitter.emit("showSidebarBackArrow");
-
-  activeTheme.value = await store.get("activeTheme") || "dark";
-  if (activeTheme.value === "auto") {
-    autoThemeEnabled.value = true;
-    activeTheme.value = systemTheme.value ? "dark" : "light";
-  } else {
-    autoThemeEnabled.value = false;
-  }
-  if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
 });
 
-const setTheme = (themeName: ThemeIdentifiers) => {
+const setTheme = async (themeName: ThemeIdentifiers) => {
   activeTheme.value = themeName;
-  themeEditorDisplayed.value = false;
 
   const themes = { catppuccin, dark, light };
 
   if (themeName === "custom") {
-    themeEditorDisplayed.value = true;
+    // handling is done through watcher in CustomThemeEditor
     return;
   }
 
   if (themeName === "auto") {
-    const resolvedTheme = systemTheme.value ? "dark" : "light";
-    if (autoThemeEnabled.value) {
-      store.set("activeTheme", "auto");
-      autoThemeEnabled.value = true;
-      themeEditorDisplayed.value = false;
-    }
-    else {
-      store.set("activeTheme", resolvedTheme);
-    }
+    const resolvedThemeName = systemTheme.value ? "dark" : "light";
+    await theme.toggleAutoTheme(resolvedThemeName);
 
-    store.set("colors", themes[resolvedTheme]);
-    emitter.emit("updateColors");
-
-    activeTheme.value = resolvedTheme;
     return;
   }
 
-  store.set("activeTheme", themeName);
-  store.set("colors", themes[themeName]);
-  emitter.emit("updateColors");
+  await theme.setTheme(themeName, themes[themeName]);
 };
 
 const themeIconClass = (theme: string) => {
@@ -407,7 +384,6 @@ const deleteAllData = async () => {
 
   await globalSettingsStore.deleteAllData();
   activeTheme.value = "dark";
-  themeEditorDisplayed.value = false;
 
   router.go(0);
 
