@@ -38,17 +38,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup>
-import { useTauriStore } from "@/stores/tauriStore";
 import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
-import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
-import versionInfo from "@/version_info.json";
 
 const { setLocale, setLocaleCookie } = useI18n();
 
-const store = useTauriStore().store;
 const settings = useSettingsStore();
 const theme = useThemeStore();
+const layout = useLayoutStore();
 
 const systemTheme = useDark();
 
@@ -56,19 +53,10 @@ const mounted = ref(false);
 const { colors: savedColors, autoThemeEnabled } = toRefs(theme)
 
 onMounted(async () => {
-  // Load settings into pinia store
+  // Load settings into pinia stores
   await settings.loadSettings();
   await theme.loadThemeSettings();
-
-  const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
-  const lastInstalledVersionNumber = await store.get("lastInstalledVersion");
-  if (
-    lastInstalledVersionNumber === null ||
-    lastInstalledVersionNumber !== currentVersionIdentifier
-  ) {
-    emitter.emit("openChangelogModal");
-    await store.set("lastInstalledVersion", currentVersionIdentifier);
-  }
+  await layout.loadLayoutSettings();
 
   // Set locale cookies based on saved value
   setLocale(settings.locale);
