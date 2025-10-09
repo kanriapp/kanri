@@ -257,12 +257,13 @@ import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator.js";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
-import { PhFunnel, PhPushPin, PhTrash, PhExport, PhCopy, PhPencil } from "@phosphor-icons/vue";
+import { PhFunnel, PhTrash, PhExport, PhCopy, PhPencil } from "@phosphor-icons/vue";
 import { useI18n } from "vue-i18n";
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeTextFile } from "@tauri-apps/plugin-fs";
 
 const store = useTauriStore().store;
+const layoutSettings = useLayoutStore();
 const boards: Ref<Array<Board>> = ref([]);
 
 const loading = ref(true);
@@ -283,7 +284,13 @@ onMounted(async () => {
     await createNewBoard(title, columns);
   });
 
-  emitter.on("openChangelogModal", () => (changelogModalVisible.value = true));
+  nextTick(async () => {
+    console.log("Checking if changelog needs to be shown...");
+    const showChangelog = await layoutSettings.shouldDisplayChangelog();
+    if (showChangelog) {
+      changelogModalVisible.value = true;
+    }
+  });
 
   emitter.emit("hideSidebarBackArrow");
 

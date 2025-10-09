@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div
       :style="cssVars"
       :class="[
-        globalSettingsStore.animationsEnabled ? '' : 'disable-animations',
+        settings.animationsEnabled ? '' : 'disable-animations',
       ]"
       class="default-layout custom-scrollbar-hidden overflow-auto"
     >
@@ -38,69 +38,38 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup>
-import { useTauriStore } from "@/stores/tauriStore";
 import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
-import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
-import versionInfo from "@/version_info.json";
 
-const store = useTauriStore().store;
-const savedColors = ref({});
-const mounted = ref(false);
+const { setLocale, setLocaleCookie } = useI18n();
 
-const globalSettingsStore = useSettingsStore();
+const settings = useSettingsStore();
+const theme = useThemeStore();
+const layout = useLayoutStore();
 
 const systemTheme = useDark();
-const autoThemeEnabled = ref(false);
+
+const mounted = ref(false);
+const { colors: savedColors, autoThemeEnabled } = toRefs(theme)
 
 onMounted(async () => {
-  const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
-  const lastInstalledVersionNumber = await store.get("lastInstalledVersion");
-  if (
-    lastInstalledVersionNumber === null ||
-    lastInstalledVersionNumber !== currentVersionIdentifier
-  ) {
-    emitter.emit("openChangelogModal");
-    await store.set("lastInstalledVersion", currentVersionIdentifier);
-  }
+  // Load settings into pinia stores
+  await settings.loadSettings();
+  await theme.loadThemeSettings();
+  await layout.loadLayoutSettings();
 
-  const animationsEnabledSaved = await store.get("animationsEnabled");
-  if (animationsEnabledSaved !== null) {
-    globalSettingsStore.animationsEnabled = animationsEnabledSaved;
-  } else {
-    await store.set("animationsEnabled", true);
-    globalSettingsStore.animationsEnabled = true;
-  }
-
-  savedColors.value = await store.get("colors");
-  autoThemeEnabled.value = await store.get("activeTheme") === "auto" || false;
+  // Set locale cookies based on saved value
+  setLocale(settings.locale);
+  setLocaleCookie(settings.locale);
 
   mounted.value = true;
-
-  emitter.on("updateColors", async () => {
-    nextTick(async () => {
-      savedColors.value = await store.get("colors");
-    });
-    savedColors.value = await store.get("colors");
-  });
-});
-
-onUnmounted(() => {
-  emitter.off("updateColors");
-  emitter.off("setAnimationsOn");
-  emitter.off("setAnimationsOff");
 });
 
 watch(systemTheme, async (newValue) => {
-  autoThemeEnabled.value = await store.get("activeTheme") === "auto";
   const resolvedThemeName = newValue ? "dark" : "light";
 
   if (autoThemeEnabled.value) {
-    autoThemeEnabled.value = true;
-    savedColors.value = themes[resolvedThemeName];
-
-    await store.set("activeTheme", "auto");
-    await store.set("colors", themes[resolvedThemeName]);
+    theme.toggleAutoTheme(resolvedThemeName);
   }
 });
 
@@ -130,9 +99,7 @@ const increaseSaturation = (hex) => {
 
 const cssVars = computed(() => {
   if (!savedColors.value) {
-    store.set("activeTheme", "dark");
-    store.set("colors", dark);
-
+    // until our store gets propagated with the saved colors, use dark theme as fallback
     return {
       "--accent": dark.accent,
       "--accent-darker": dark.accentDarker,
@@ -334,21 +301,30 @@ const cssVars = computed(() => {
 
 .page-enter-active,
 .page-leave-active {
-  transition-property: height, opacity, transform;
-  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
-  overflow: hidden;
-}
-
-.page-enter-active {
-  transition-property: all;
-  transition-duration: 700ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    opacity 220ms cubic-bezier(0.4, 0, 0.2, 0.8),
+    transform 220ms cubic-bezier(0.4, 0, 0.2, 0.8);
+  will-change: opacity, transform;
   overflow: hidden;
 }
 
 .page-enter-from {
-  transform: translateY(5rem);
   opacity: 0;
-  overflow: hidden;
+  transform: translateY(30px) scale(0.98);
+}
+
+.page-enter-to {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.page-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.99);
 }
 </style>

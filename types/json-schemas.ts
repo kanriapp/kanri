@@ -103,12 +103,15 @@ export const kanriJsonSchema = z.object({
   reverseSorting: z.boolean().optional().nullable(),
   addToTopOfColumnButtonEnabled: z.boolean().optional().nullable(),
   displayColumnCardCountEnabled: z.boolean().optional().nullable(),
+  // If enabled, newly created due dates default to relative countdown mode
+  defaultRelativeDueDatesEnabled: z.boolean().optional().nullable(),
   pins: z
     .array(
       z.object({
         id: z.string(),
         title: z.string(),
         pinIcon: z.string().optional(),
+        pinIconText: z.string().optional(),
       })
     )
     .optional()

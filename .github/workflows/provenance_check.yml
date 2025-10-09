@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: Test Dependency Provenance
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      # Trigger a run only on PRs that change the lockfile
+      - package-lock.json
+      - yarn.lock
+
+permissions:
+  contents: read
+jobs:
+  check-provenance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check provenance downgrades
+        uses: danielroe/provenance-action@main
+        id: check
+        with:
+          fail-on-provenance-change: true
+      - name: Print result
+        run: "echo 'Downgraded: ${{ steps.check.outputs.downgraded }}'"

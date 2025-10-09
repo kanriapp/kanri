@@ -12,6 +12,7 @@
         "core:window:allow-hide",
         "core:app:allow-app-show",
         "core:app:allow-app-hide",
+        "core:window:default",
         "store:default",
         "dialog:allow-open",
         "dialog:default",
@@ -21,6 +22,7 @@
         "fs:allow-read",
         "fs:allow-write",
         "fs:allow-read-text-file",
-        "fs:allow-write-text-file"
+        "fs:allow-write-text-file",
+        "window-state:default"
     ]
 }

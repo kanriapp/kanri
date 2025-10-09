@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="flex w-[48rem] flex-col gap-4">
+  <div class="flex w-[48rem] flex-col gap-4 mb-6">
     <div id="color-row" class="flex flex-row items-center justify-between">
       <label for="color-picker">{{
         $t("components.customThemeEditor.optionAccentColor")
@@ -93,64 +93,43 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <input ref="colorInput" v-model="customTheme.elevation3" type="color" />
       </div>
     </div>
-
-    <div class="flex flex-row items-center justify-end">
-      <button
-        class="text-buttons transition-button bg-accent rounded-md px-6 py-1"
-        @click="setCustomTheme"
-      >
-        {{ $t("general.saveAction") }}
-      </button>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Theme } from "@/types/kanban-types";
-
-import { useTauriStore } from "@/stores/tauriStore";
 import { lightenColor } from "@/utils/colorUtils";
-import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
 
-const store = useTauriStore().store;
-
+const theme = useThemeStore();
 const customTheme = ref(dark);
 
 onMounted(async () => {
-  const savedPalette: Theme | null =
-    (await store.get("savedCustomTheme")) || (await store.get("colors"));
-  await store.set("colors", savedPalette);
-  await store.set("activeTheme", "custom");
-  emitter.emit("updateColors");
+  const savedPalette = theme.savedCustomTheme ?? theme.colors;
+  await theme.setTheme("custom", savedPalette);
   customTheme.value = savedPalette || dark;
 });
 
-const setCustomTheme = () => {
-  if (!customTheme.value) return;
+// generate shades for accentDarker and text shades
+watch(
+  () => customTheme.value,
+  (newValue) => {
+    const accentDarker = lightenColor(newValue.accent, -20);
+    const textDim1 = lightenColor(newValue.text, 20);
+    const textDim2 = lightenColor(newValue.text, 40);
+    const textDim3 = lightenColor(newValue.text, 60);
 
-  store.set("activeTheme", "custom");
+    const updatedTheme = {
+      ...newValue,
+      accentDarker,
+      textDim1,
+      textDim2,
+      textDim3,
+    };
 
-  const theme = {
-    accent: customTheme.value.accent,
-    accentDarker: lightenColor(customTheme.value.accent, -40),
-    // take values from inputs and generate missing shades
-    bgPrimary: customTheme.value.bgPrimary,
-    elevation1: customTheme.value.elevation1,
-    elevation2: customTheme.value.elevation2,
-    elevation3: customTheme.value.elevation3,
-    text: customTheme.value.text,
-    textButtons: customTheme.value.textButtons,
-    textD1: lightenColor(customTheme.value.text, -30),
-    textD2: lightenColor(customTheme.value.text, -50),
-    textD3: lightenColor(customTheme.value.text, -70),
-    textD4: lightenColor(customTheme.value.text, -90),
-  };
-
-  store.set("colors", theme);
-  store.set("savedCustomTheme", theme);
-  emitter.emit("updateColors");
-};
+    theme.setTheme("custom", updatedTheme);
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped>

@@ -146,7 +146,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div class="flex flex-row items-center gap-4">
-          <KanbanZoomAdjustment v-model="columnZoomLevel" />
+          <KanbanZoomAdjustment />
 
           <Dropdown align="end">
             <template #trigger>
@@ -253,8 +253,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   :col-index="index"
                   :title="column.title"
                   :zoom-level="columnZoomLevel"
-                  :add-to-top-button-shown="columnAddToTopButtonEnabled"
-                  :card-count-display-enabled="columnCardCountEnabled"
+                  :add-to-top-button-shown="addToTopOfColumnButtonEnabled"
+                  :card-count-display-enabled="displayColumnCardCountEnabled"
                   :card-search-query="searchQuery"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
@@ -316,6 +316,8 @@ const router = useRouter();
 
 const { t } = useI18n();
 
+const settings = useSettingsStore();
+
 const boards: Ref<Array<Board>> = ref([]);
 const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
 const draggingEnabled = ref(true);
@@ -330,9 +332,12 @@ const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
-const columnZoomLevel = ref(0);
-const columnAddToTopButtonEnabled = ref(false);
-const columnCardCountEnabled = ref(false);
+const { 
+  columnZoomLevel, 
+  displayColumnCardCountEnabled, 
+  addToTopOfColumnButtonEnabled 
+} = storeToRefs(settings);
+
 
 const bgCustom = ref("");
 const bgCustomNoResolution = ref("");
@@ -368,21 +373,6 @@ const cssVars = computed(() => {
 
 onMounted(async () => {
   await loadCurrentBoard();
-
-  //@ts-expect-error TODO: fix types for column zoom parameter
-  const columnZoom: null | number = await store.get("columnZoomLevel");
-
-  if (columnZoom == null) {
-    await store.set("columnZoomLevel", 0);
-    columnZoomLevel.value = 0;
-  } else {
-    columnZoomLevel.value = columnZoom;
-  }
-
-  columnAddToTopButtonEnabled.value =
-    (await store.get("addToTopOfColumnButtonEnabled")) || false;
-  columnCardCountEnabled.value =
-    (await store.get("displayColumnCardCountEnabled")) || false;
 
   const pinned = ((await store.get("pins")) as Array<{ id: string }>) || [];
   isPinned.value = !!findObjectById(pinned, board.value.id);

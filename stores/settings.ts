@@ -18,9 +18,97 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+import { disable, enable, isEnabled } from "@tauri-apps/plugin-autostart";
 
 export const useSettingsStore = defineStore("settings", {
-  state: () => ({
-    animationsEnabled: true,
-  }),
+  state: () => {
+    /* Overall app settings */
+    const locale = ref("en");
+    const animationsEnabled = ref(true);
+    const autostartEnabled = ref(false);
+
+    /* Global board settings */
+    const columnZoomLevel = ref(0);
+    const addToTopOfColumnButtonEnabled = ref(false);
+    const displayColumnCardCountEnabled = ref(false);
+    const defaultRelativeDueDatesEnabled = ref(false);
+
+    return {
+      locale,
+      animationsEnabled,
+      autostartEnabled,
+
+      columnZoomLevel,
+      addToTopOfColumnButtonEnabled,
+      displayColumnCardCountEnabled,
+      defaultRelativeDueDatesEnabled,
+    }
+  },
+
+  actions: {
+    async loadSettings() {
+      const store = useTauriStore().store;
+
+      const localeSaved: string = await store.get("locale") ?? "en";
+      const animationsEnabledSaved: boolean = await store.get("animationsEnabled") ?? true;
+      const autostartEnabledSaved: boolean = await isEnabled() ?? false;
+
+      const columnZoomLevelSaved: number = await store.get("columnZoomLevel") ?? 0;
+      const addToTopOfColumnButtonEnabledSaved: boolean = await store.get("addToTopOfColumnButtonEnabled") ?? false;
+      const displayColumnCardCountEnabledSaved: boolean = await store.get("displayColumnCardCountEnabled") ?? false;
+      const defaultRelativeDueDatesEnabledSaved: boolean = await store.get("defaultRelativeDueDatesEnabled") ?? false;
+
+      this.locale = localeSaved;
+      this.animationsEnabled = animationsEnabledSaved;
+      this.autostartEnabled = autostartEnabledSaved;
+      this.columnZoomLevel = columnZoomLevelSaved;
+      this.addToTopOfColumnButtonEnabled = addToTopOfColumnButtonEnabledSaved;
+      this.displayColumnCardCountEnabled = displayColumnCardCountEnabledSaved;
+      this.defaultRelativeDueDatesEnabled = defaultRelativeDueDatesEnabledSaved;
+    },
+
+    async deleteAllData() {
+      const store = useTauriStore().store;
+      await store.reset();
+      await this.loadSettings(); // load defaults
+    },
+
+    async setLocale(locale: string) {
+      this.locale = locale;
+      await useTauriStore().store.set("locale", locale);
+    },
+
+    async setAnimationsEnabled(value: boolean) {
+      this.animationsEnabled = value;
+      await useTauriStore().store.set("animationsEnabled", value);
+    },
+
+    async setAutostartEnabled(value: boolean) {
+      this.autostartEnabled = value;
+
+      // set using tauri plugin, not saving in store
+      if (value) await enable();
+      else await disable();
+    },
+
+    async setColumnZoomLevel(value: number) {
+      this.columnZoomLevel = value;
+      await useTauriStore().store.set("columnZoomLevel", value);
+    },
+
+    async setAddToTopOfColumnButtonEnabled(value: boolean) {
+      this.addToTopOfColumnButtonEnabled = value;
+      await useTauriStore().store.set("addToTopOfColumnButtonEnabled", value);
+    },
+    
+    async setDisplayColumnCardCountEnabled(value: boolean) {
+      this.displayColumnCardCountEnabled = value;
+      await useTauriStore().store.set("displayColumnCardCountEnabled", value);
+    },
+
+    async setDefaultRelativeDueDatesEnabled(value: boolean) {
+      this.defaultRelativeDueDatesEnabled = value;
+      await useTauriStore().store.set("defaultRelativeDueDatesEnabled", value);
+    }
+  }
 });

@@ -43,7 +43,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <h2 class="mb-2 mt-6 text-2xl font-bold">
         {{ $t("pages.settings.sectionThemeHeading") }}
       </h2>
-      <div id="theme-selection" class="flex flex-row gap-4" v-if="!autoThemeEnabled">
+      <div id="theme-selection" class="flex flex-row gap-4" v-if="!theme.autoThemeEnabled">
         <div
           class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('light')"
@@ -88,7 +88,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
       </div>
 
-      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)" v-if="!autoThemeEnabled">
+      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)" v-if="!theme.autoThemeEnabled">
         {{ $t("pages.settings.colorResetText")
         }}<span class="underline">{{
           $t("pages.settings.colorResetLink")
@@ -104,7 +104,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             {{ $t("pages.settings.setThemeAuto") }}
           </span>
           <SwitchRoot
-            v-model:checked="autoThemeEnabled"
+            v-model:checked="theme.autoThemeEnabled"
             class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
             @update:checked="setTheme('auto')"
           >
@@ -162,7 +162,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             {{ $t("pages.settings.preferencesZoomSubtext") }}
           </span>
         </div>
-        <KanbanZoomAdjustment v-model="columnZoomLevel" />
+        <KanbanZoomAdjustment />
       </div>
 
       <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
@@ -175,9 +175,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </span>
         </div>
         <SwitchRoot
-          v-model:checked="addToTopCheckbox"
+          v-model:checked="globalSettingsStore.addToTopOfColumnButtonEnabled"
           class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-          @update:checked="toggleAddToTopButton"
+          @update:checked="(val) => globalSettingsStore.setAddToTopOfColumnButtonEnabled(val)"
         >
           <SwitchThumb
             class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -195,9 +195,29 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </span>
         </div>
         <SwitchRoot
-          v-model:checked="displayCardCountCheckbox"
+          v-model:checked="globalSettingsStore.displayColumnCardCountEnabled"
           class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-          @update:checked="toggleDisplayCardCount"
+          @update:checked="(val) => globalSettingsStore.setDisplayColumnCardCountEnabled(val)"
+        >
+          <SwitchThumb
+            class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+          />
+        </SwitchRoot>
+      </div>
+
+      <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
+        <div>
+          <h3 class="text-lg">
+            {{ $t("pages.settings.preferencesDefaultRelativeDueDatesHeading") }}
+          </h3>
+          <span class="text-dim-2">
+            {{ $t("pages.settings.preferencesDefaultRelativeDueDatesSubtext") }}
+          </span>
+        </div>
+        <SwitchRoot
+          v-model:checked="globalSettingsStore.defaultRelativeDueDatesEnabled"
+          class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+          @update:checked="(val) => globalSettingsStore.setDefaultRelativeDueDatesEnabled(val)"
         >
           <SwitchThumb
             class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -239,7 +259,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <SwitchRoot
             v-model:checked="globalSettingsStore.animationsEnabled"
             class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-            @update:checked="toggleAnimations"
+            @update:checked="(val) => globalSettingsStore.setAnimationsEnabled(val)"
           >
             <SwitchThumb
               class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -257,9 +277,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </span>
           </div>
           <SwitchRoot
-            v-model:checked="autostartCheckbox"
+            v-model:checked="globalSettingsStore.autostartEnabled"
             class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-            @update:checked="toggleAutostart"
+            @update:checked="(val) => globalSettingsStore.setAutostartEnabled(val)"
           >
             <SwitchThumb
               class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -313,7 +333,6 @@ import {
 
 import { message, open, save } from "@tauri-apps/plugin-dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
-import { disable, enable, isEnabled } from "@tauri-apps/plugin-autostart";
 
 import { useI18n } from "vue-i18n";
 
@@ -321,95 +340,38 @@ const router = useRouter();
 
 const store = useTauriStore().store;
 const globalSettingsStore = useSettingsStore();
+const theme = useThemeStore();
 
 const { t, locale } = useI18n();
 
-const activeTheme: Ref<null | string> = ref("");
-const themeEditorDisplayed = ref(false);
-const autoThemeEnabled = ref(false);
+const { activeTheme } = toRefs(theme)
+const themeEditorDisplayed = computed(() => activeTheme.value === "custom");
 const systemTheme = useDark();
-
-const columnZoomLevel = ref(0);
-
-const autostartCheckbox = ref(false);
-const addToTopCheckbox = ref(false);
-const displayCardCountCheckbox = ref(false);
 
 const deleteBoardModalVisible = ref(false);
 
 onMounted(async () => {
   emitter.emit("showSidebarBackArrow");
-
-  addToTopCheckbox.value =
-    (await store.get("addToTopOfColumnButtonEnabled")) || false;
-  displayCardCountCheckbox.value =
-    (await store.get("displayColumnCardCountEnabled")) || false;
-
-  activeTheme.value = await store.get("activeTheme") || "dark";
-  if (activeTheme.value === "auto") {
-    autoThemeEnabled.value = true;
-    activeTheme.value = systemTheme.value ? "dark" : "light";
-  } else {
-    autoThemeEnabled.value = false;
-  }
-  if (activeTheme.value === "custom") themeEditorDisplayed.value = true;
-
-  const columnZoom: null | number = await store.get("columnZoomLevel");
-
-  if (columnZoom == null) {
-    await store.set("columnZoomLevel", 0);
-    columnZoomLevel.value = 0;
-  } else {
-    columnZoomLevel.value = columnZoom;
-  }
-
-  const autostartStatus = await isEnabled();
-  switch (autostartStatus) {
-    case true:
-      autostartCheckbox.value = true;
-      break;
-
-    case false:
-      break;
-
-    default:
-      console.error("Error when fetching autostart status:", autostartStatus);
-      break;
-  }
 });
 
-const setTheme = (themeName: ThemeIdentifiers) => {
+const setTheme = async (themeName: ThemeIdentifiers) => {
   activeTheme.value = themeName;
-  themeEditorDisplayed.value = false;
 
   const themes = { catppuccin, dark, light };
 
   if (themeName === "custom") {
-    themeEditorDisplayed.value = true;
+    // handling is done through watcher in CustomThemeEditor
     return;
   }
 
   if (themeName === "auto") {
-    const resolvedTheme = systemTheme.value ? "dark" : "light";
-    if (autoThemeEnabled.value) {
-      store.set("activeTheme", "auto");
-      autoThemeEnabled.value = true;
-      themeEditorDisplayed.value = false;
-    }
-    else {
-      store.set("activeTheme", resolvedTheme);
-    }
+    const resolvedThemeName = systemTheme.value ? "dark" : "light";
+    await theme.toggleAutoTheme(resolvedThemeName);
 
-    store.set("colors", themes[resolvedTheme]);
-    emitter.emit("updateColors");
-
-    activeTheme.value = resolvedTheme;
     return;
   }
 
-  store.set("activeTheme", themeName);
-  store.set("colors", themes[themeName]);
-  emitter.emit("updateColors");
+  await theme.setTheme(themeName, themes[themeName]);
 };
 
 const themeIconClass = (theme: string) => {
@@ -420,51 +382,12 @@ const themeIconClass = (theme: string) => {
 const deleteAllData = async () => {
   if (!deleteBoardModalVisible.value) return;
 
-  await store.reset();
-
+  await globalSettingsStore.deleteAllData();
   activeTheme.value = "dark";
-  themeEditorDisplayed.value = false;
-
-  globalSettingsStore.animationsEnabled.value = true;
-  store.set("animationsEnabled", true); // Reset animations to true
 
   router.go(0);
 
   await message("Successfully deleted data.", { title: "Kanri", kind: "info" });
-};
-
-const toggleAutostart = async (autostartToggled: boolean) => {
-  if (autostartToggled) {
-    await enable();
-  } else {
-    await disable();
-  }
-};
-
-const toggleAddToTopButton = async (addToTopToggled: boolean) => {
-  if (addToTopToggled) {
-    await store.set("addToTopOfColumnButtonEnabled", true);
-  } else {
-    await store.set("addToTopOfColumnButtonEnabled", false);
-  }
-};
-
-const toggleAnimations = async (animationsToggled: boolean) => {
-  if (animationsToggled) {
-    emitter.emit("setAnimationsOn");
-    await store.set("animationsEnabled", true);
-  } else {
-    emitter.emit("setAnimationsOff");
-    await store.set("animationsEnabled", false);
-  }
-};
-
-const toggleDisplayCardCount = async (displayCardCountToggled: boolean) => {
-  if (displayCardCountToggled) {
-    await store.set("displayColumnCardCountEnabled", true);
-  } else {
-    await store.set("displayColumnCardCountEnabled", false);
-  }
 };
 
 const exportThemeToJson = async () => {
@@ -527,10 +450,7 @@ const importThemeFromJson = async () => {
   }
   if (zodParsed === null) return;
 
-  await store.set("colors", zodParsed);
-  await store.set("activeTheme", "custom");
-  await store.set("savedCustomTheme", zodParsed);
-  emitter.emit("updateColors");
+  await theme.setTheme("custom", zodParsed);
 
   // Manual refresh
   router.go(0);

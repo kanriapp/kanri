@@ -182,6 +182,8 @@ import { ZodError, z } from "zod";
 const router = useRouter();
 
 const store = useTauriStore().store;
+const globalSettingsStore = useSettingsStore();
+const theme = useThemeStore();
 
 const { t } = useI18n();
 
@@ -216,6 +218,9 @@ const exportJSON = async () => {
   const columnZoomLevel = await store.get("columnZoomLevel");
   const lastInstalledVersion = await store.get("lastInstalledVersion");
   const animationsEnabled = await store.get("animationsEnabled");
+  const defaultRelativeDueDatesEnabled = await store.get(
+    "defaultRelativeDueDatesEnabled"
+  );
   const addToTopOfColumnButtonEnabled = await store.get(
     "addToTopOfColumnButtonEnabled"
   );
@@ -235,6 +240,7 @@ const exportJSON = async () => {
       savedCustomTheme,
       reverseSorting,
       animationsEnabled,
+      defaultRelativeDueDatesEnabled,
       addToTopOfColumnButtonEnabled,
       displayColumnCardCountEnabled,
     },
@@ -345,6 +351,12 @@ const importFromKanriFull = async () => {
   store.set("savedCustomTheme", zodParsed.savedCustomTheme);
   store.set("lastInstalledVersion", zodParsed.lastInstalledVersion);
   store.set("animationsEnabled", zodParsed.animationsEnabled);
+  if (zodParsed.defaultRelativeDueDatesEnabled !== undefined) {
+    store.set(
+      "defaultRelativeDueDatesEnabled",
+      zodParsed.defaultRelativeDueDatesEnabled
+    );
+  }
   store.set("reverseSorting", zodParsed.reverseSorting);
   store.set(
     "addToTopOfColumnButtonEnabled",
@@ -354,6 +366,9 @@ const importFromKanriFull = async () => {
     "displayColumnCardCountEnabled",
     zodParsed.displayColumnCardCountEnabled
   );
+
+  globalSettingsStore.loadSettings();
+  theme.loadThemeSettings();
 
   await message(t("pages.import.importSuccessFull"), { kind: "info" });
 
@@ -431,6 +446,8 @@ const importFromKanbanElectronFull = async () => {
   if (zodParsed.columnZoomLevel) {
     store.set("columnZoomLevel", zodParsed.columnZoomLevel);
   }
+
+  globalSettingsStore.loadSettings();
 
   await message(t("pages.import.importSuccessPartial"), { kind: "info" });
 
