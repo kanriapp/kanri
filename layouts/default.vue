@@ -38,68 +38,38 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup>
-import { useTauriStore } from "@/stores/tauriStore";
 import { hslToHex, rgbToHsl } from "@/utils/colorUtils";
-import emitter from "@/utils/emitter";
 import { dark } from "@/utils/themes";
-import versionInfo from "@/version_info.json";
-
-const store = useTauriStore().store;
-const savedColors = ref({});
-const mounted = ref(false);
 
 const { setLocale, setLocaleCookie } = useI18n();
 
 const settings = useSettingsStore();
+const theme = useThemeStore();
+const layout = useLayoutStore();
 
 const systemTheme = useDark();
-const autoThemeEnabled = ref(false);
+
+const mounted = ref(false);
+const { colors: savedColors, autoThemeEnabled } = toRefs(theme)
 
 onMounted(async () => {
-  // Load settings into pinia store
+  // Load settings into pinia stores
   await settings.loadSettings();
-
-  const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
-  const lastInstalledVersionNumber = await store.get("lastInstalledVersion");
-  if (
-    lastInstalledVersionNumber === null ||
-    lastInstalledVersionNumber !== currentVersionIdentifier
-  ) {
-    emitter.emit("openChangelogModal");
-    await store.set("lastInstalledVersion", currentVersionIdentifier);
-  }
+  await theme.loadThemeSettings();
+  await layout.loadLayoutSettings();
 
   // Set locale cookies based on saved value
   setLocale(settings.locale);
   setLocaleCookie(settings.locale);
 
-  savedColors.value = await store.get("colors");
-  autoThemeEnabled.value = await store.get("activeTheme") === "auto" || false;
-
   mounted.value = true;
-
-  emitter.on("updateColors", async () => {
-    nextTick(async () => {
-      savedColors.value = await store.get("colors");
-    });
-    savedColors.value = await store.get("colors");
-  });
-});
-
-onUnmounted(() => {
-  emitter.off("updateColors");
 });
 
 watch(systemTheme, async (newValue) => {
-  autoThemeEnabled.value = await store.get("activeTheme") === "auto";
   const resolvedThemeName = newValue ? "dark" : "light";
 
   if (autoThemeEnabled.value) {
-    autoThemeEnabled.value = true;
-    savedColors.value = themes[resolvedThemeName];
-
-    await store.set("activeTheme", "auto");
-    await store.set("colors", themes[resolvedThemeName]);
+    theme.toggleAutoTheme(resolvedThemeName);
   }
 });
 
@@ -129,9 +99,7 @@ const increaseSaturation = (hex) => {
 
 const cssVars = computed(() => {
   if (!savedColors.value) {
-    store.set("activeTheme", "dark");
-    store.set("colors", dark);
-
+    // until our store gets propagated with the saved colors, use dark theme as fallback
     return {
       "--accent": dark.accent,
       "--accent-darker": dark.accentDarker,

@@ -183,6 +183,7 @@ const router = useRouter();
 
 const store = useTauriStore().store;
 const globalSettingsStore = useSettingsStore();
+const theme = useThemeStore();
 
 const { t } = useI18n();
 
@@ -367,6 +368,7 @@ const importFromKanriFull = async () => {
   );
 
   globalSettingsStore.loadSettings();
+  theme.loadThemeSettings();
 
   await message(t("pages.import.importSuccessFull"), { kind: "info" });
 
