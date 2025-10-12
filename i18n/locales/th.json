@@ -1,0 +1,249 @@
+{
+  "general": {
+    "deleteAction": "ลบ",
+    "renameAction": "เปลี่ยนชื่อ",
+    "cancelAction": "ยกเลิก",
+    "saveAction": "บันทึก",
+    "importAction": "นำเข้า",
+    "exportAction": "ส่งออก",
+    "closeAction": "ปิด",
+    "addAction": "เพิ่ม",
+    "duplicateAction": "ทำซ้ำ",
+    "editNameAction": "แก้ไขชื่อ",
+    "copyNoun": "สำเนา"
+  },
+  "pages": {
+    "index": {
+      "welcome": "ยินดีต้อนรับกลับมาที่ Kanri อีกครั้ง",
+      "welcomeSubtext": "บอร์ดของคุณพร้อมสำหรับการวางแผนการทำงานแล้ว",
+      "editSortWarning": "คำเตือน: มีบอร์ดอย่างน้อยหนึ่งบอร์ดที่ไม่มีวันแก้ไขล่าสุดที่ถูกต้อง นี่อาจเป็นส่วนที่เหลือจากบอร์ดที่สร้างขึ้นใน Kanri เวอร์ชันเก่า โปรดแก้ไขบอร์ดทั้งหมด อย่างน้อยหนึ่งครั้งเพื่อการแจ้งเตือนนี้",
+      "sortAlphabetically": "เรียงตามตัวอักษร",
+      "sortByCreationDate": "เรียงตามวันที่สร้าง",
+      "sortByLastEdited": "เรียงตามการแก้ไขครั้งล่าสุด",
+      "reversedSortOrder": "กลับลำดับการจัดเรียง",
+      "noBoardsHeading": "ว่างเปล่าเลยนะ!",
+      "createBoardPrompt": "สร้างบอร์ดเพื่อเริ่มต้นติดตามงานของคุณอย่างมีประสิทธิภาพ",
+      "importDataHeading": "คุณมีข้อมูลบางอย่างแล้วหรือยัง?",
+      "importDataPrompt": "คุณสามารถนำเข้าข้อมูลจากแหล่งอื่นได้โดยใช้เมนูนำเข้า/ส่งออก:",
+      "importDataButton": "เปิดเมนูนำเข้า/ส่งออก",
+      "getUpdatesHeading": "ต้องการรับข้อมูลอัปเดตล่าสุดและร่วมพูดคุยกับผู้สร้างหรือไม่",
+      "joinDiscordButton": "เข้าร่วมชุมชน Discord!",
+      "deleteActionConfirmationHeading": "ลบบอร์ด?",
+      "deleteActionConfirmationText": "คุณต้องการลบบอร์ด {boardName} ใช่หรือไม่? การกระทำนี้ไม่สามารถย้อนกลับได้นะ"
+    },
+    "kanban": {
+      "changeBackground": "เปลี่ยนพื้นหลัง",
+      "editTags": "แก้ไขแท็ก",
+      "renameBoardAction": "เปลี่ยนชื่อบอร์ด",
+      "duplicateBoardAction": "สำเนาบอร์ด",
+      "exportBoardAction": "ส่งออกบอร์ด",
+      "pinBoardAction": "ปักหมุดบอร์ด",
+      "unpinBoardAction": "เลิกปักหมุดบอร์ด",
+      "deleteBoardAction": "ลบบอร์ด",
+      "deleteBoardConfirmation": "คุณต้องการลบบอร์ด {boardName} ใช่หรือไม่? การกระทำนี้ไม่สามารถย้อนกลับได้นะ"
+    },
+    "settings": {
+      "deleteAllDataConfirmationAction": "ลบข้อมูล",
+      "deleteAllDataConfirmationDescription": "ลบข้อมูลทั้งหมดใช่ไหม",
+      "deleteAllDataConfirmationHeading": "ลบข้อมูลทั้งหมดใช่ไหม",
+      "settingsHeading": "การตั้งค่า",
+      "settingsHeadingSubtext": "เปลี่ยนลักษณะการทำงานของโปรแกรมได้ที่นี่",
+      "sectionThemeHeading": "ธีม",
+      "darkThemeOption": "มืด",
+      "lightThemeOption": "แสงสว่าง",
+      "catppuccinThemeOption": "Catppuccin",
+      "setThemeAuto": "ตั้งค่าธีมอัตโนมัติตามระบบ",
+      "customThemeOption": "กำหนดเอง",
+      "customThemeEditorHeading": "เลือกสีธีมที่คุณกำหนดเอง:",
+      "customThemeImportHeading": "หรือนำเข้า/ส่งออกธีมที่กำหนดเอง:",
+      "customThemeImportHeadingSubtext": "หมายเหตุ: หากไม่ต้องการให้ธีมที่คุณปรับแต่งเองสูญหาย กรุณาส่งออกธีมนั้นก่อนการนำเข้า เพราะว่าการนำเข้า จะเขียนทับธีมปัจจุบันของคุณ",
+      "colorResetText": "หากสีไม่อัพเดตกรุณาคลิก",
+      "colorResetLink": "ที่นี่",
+      "preferencesHeading": "การตั้งค่าบอร์ด",
+      "preferencesSubtext": "เปลี่ยนลักษณะการทำงานบอร์ดคัมบังของคุณ",
+      "preferencesZoomHeading": "ซูม",
+      "preferencesZoomSubtext": "ปรับการซูมสำหรับบอร์ดของคุณ",
+      "preferencesAddToTopButtonHeading": "แสดงปุ่มเพิ่มไปที่ด้านบน",
+      "preferencesAddToTopButtonSubtext": "แสดงปุ่มเพิ่มการ์ดใหม่ที่ด้านบนของคอลัมน์",
+      "preferencesDisplayNumberOfCardsHeading": "แสดงจำนวนการ์ดในคอลัมน์",
+      "preferencesDisplayNumberOfCardsSubtext": "แสดงจำนวนการ์ดในแต่ละคอลัมน์",
+      "preferencesDefaultRelativeDueDatesHeading": "ใช้การนับถอยหลังวันครบกำหนดเป็นค่าเริ่มต้น",
+      "preferencesDefaultRelativeDueDatesSubtext": "วันที่ครบกำหนดที่ตั้งไว้ใหม่จะมีค่าเริ่มต้นเป็นโหมดการนับถอยหลังแบบสัมพันธ์แทนที่จะเป็นวันที่ที่แน่นอน",
+      "languageSelectorHeading": "ภาษา",
+      "languageSelectorSubtext": "เปลี่ยนภาษาของโปรแกรม",
+      "miscellaneousHeading": "เบ็ดเตล็ด",
+      "miscellaneousAnimationsHeading": "แอนิเมชัน",
+      "miscellaneousAnimationsSubtext": "ปิดใช้งานตัวเลือกนี้เพื่อลบแอนิเมชันทั้งหมด",
+      "miscellaneousAutostartHeading": "เปิดโปรแกรมอัตโนมัติเมื่อเปิดเครื่อง",
+      "miscellaneousAutostartSubtext": "เริ่ม Kanri โดยอัตโนมัติเมื่อเปิดเครื่อง",
+      "miscellaneousDeleteAllDataHeading": "ลบข้อมูลทั้งหมด (บอร์ดและธีม)",
+      "miscellaneousDeleteAllDataSubtextRed": "คำเตือน!",
+      "miscellaneousDeleteAllDataSubtext": "การดำเนินการนี้จะลบข้อมูลทั้งหมดอย่างถาวร!",
+      "exportThemeDialogTitle": "เลือกไฟล์ที่ต้องการส่งออกข้อมูล",
+      "loadJsonErrorMessage": "ไม่สามารถโหลดไฟล์ JSON ได้! โปรดตรวจสอบว่าไฟล์เป็น JSON ที่ถูกต้องหรือไม่",
+      "parseJsonErrorMessage": "ไม่สามารถโหลดไฟล์ JSON ได้! โปรดตรวจสอบว่าไฟล์มีรูปแบบที่ถูกต้องและไม่ได้มาจาก Kanri เวอร์ชันเก่า"
+    },
+    "import": {
+      "importExportHeading": "นำเข้าและส่งออก",
+      "importExportSubtext": "จัดการข้อมูลของคุณโดยการส่งออกและนำเข้าด้วย Kanri",
+      "importTabHeading": "นำเข้าข้อมูล",
+      "importTabSubtext": "นำเข้าข้อมูลทั้งหมดหรือแต่ละบอร์ดจาก Kanri, KanbanElectron หรือ Trello®",
+      "importTabPartialHeading": "การนำเข้าบางส่วน (บางบอร์ด)",
+      "importTabPartialSubtext": "หนึ่งไฟล์เท่ากับหนึ่งบอร์ดที่จะนำเข้า หมายเหตุ: คุณสามารถเลือกหลายไฟล์/บอร์ดเพื่อนำเข้าพร้อมกันได้",
+      "importOptionKanri": "นำเข้าจาก Kanri",
+      "importOptionTrello": "นำเข้าจาก Trello®",
+      "importOptionGithub": "นำเข้าจาก GitHub",
+      "importOptionKanbanElectron": "นำเข้าจาก KanbanElectron",
+      "importTabFullHeading": "นำเข้าเต็มรูปแบบ",
+      "importTabFullSubtext": "นำเข้าข้อมูลที่สมบูรณ์จาก 1 ไฟล์ คำเตือน: วิธีนี้จะแทนที่ข้อมูลทั้งหมดด้วยข้อมูลที่นำเข้า!คุณควรส่งออกข้อมูลเก่าของคุณก่อน",
+      "exportTabHeading": "ส่งออกข้อมูล",
+      "exportTabPartialHeading": "การส่งออกบางส่วน (บางบอร์ด)",
+      "exportTabPartialSubtext": "การส่งออกบางส่วนหมายความว่าคุณได้รับไฟล์ .json หนึ่งไฟล์สำหรับหนึ่งบอร์ด",
+      "exportTabPartialSelectButton": "ส่งออกแต่ละบอร์ด",
+      "exportTabPartialSelectPrompt": "เลือกบอร์ดที่จะส่งออก",
+      "exportTabFullHeading": "ส่งออกเต็มรูปแบบ",
+      "exportTabFullSubtext": "ส่งออกข้อมูลทั้งหมดของคุณ (บอร์ด ธีม การตั้งค่าอื่นๆ เช่น ซูม) เป็นไฟล์ .json ไฟล์เดียว",
+      "exportTabFullButton": "ส่งออกข้อมูลทั้งหมด",
+      "exportFullJsonDialogTitle": "เลือกไฟล์ที่จะส่งออกข้อมูลไป",
+      "exportFullJsonSuccessMessage": "ส่งออกข้อมูลของคุณสำเร็จแล้ว",
+      "exportPartialJsonDialogTitle": "เลือกไฟล์ที่จะส่งออกบอร์ดไป",
+      "exportPartialJsonErrorBoardNotFound": "ไม่พบบอร์ด",
+      "exportPartialJsonSuccessMessage": "ส่งออกบอร์ดสำเร็จแล้ว",
+      "importErrorBadJson": "ไม่สามารถโหลดไฟล์ JSON ได้! กรุณาตรวจสอบว่าไฟล์ถูกต้องหรือไม่",
+      "importErrorGoodJsonFaultyData": "ไม่สามารถโหลดไฟล์ JSON ได้! โปรดตรวจสอบว่าไฟล์มีรูปแบบที่ถูกต้องและไม่ได้มาจาก Kanri เวอร์ชันเก่า",
+      "importErrorNoBoards": "ไม่สามารถโหลดไฟล์ที่ไม่มีบอร์ดได้ กรุณานำเข้าไฟล์ที่มีบอร์ดอย่างน้อยหนึ่งบอร์ด",
+      "importErrorTrello": "ไม่สามารถโหลดไฟล์ JSON ได้! โปรดตรวจสอบว่าไฟล์มีรูปแบบที่ถูกต้อง",
+      "importErrorTrelloConversion": "ไม่สามารถแปลงบอร์ด Trello ได้ โปรดลองใหมาอีกครั้งและรายงานข้อผิดพลาดนี้ให้ผู้พัฒนาซอฟต์แวร์ทราบ หากเกิดขึ้นอีก",
+      "importErrorKanbanElectron": "ไม่สามารถโหลดไฟล์ JSON ได้! โปรดตรวจสอบว่าไฟล์มีรูปแบบที่ถูกต้องและส่งออกจาก KanbanElectron เวอร์ชันล่าสุด",
+      "importErrorGithub": "ไฟล์ {file} ไม่ใช่บอร์ดที่ถูกต้องที่ส่งออกจาก  GitHub หากคุณเชื่อว่านี่เป็นข้อบกพร่อง โปรดเปิด issue ที่ GitHub หรือส่งอีเมลไปที่ {email}",
+      "importSuccessFull": "นำเข้าข้อมูลของคุณสำเร็จแล้ว",
+      "importSuccessPartial": "นำเข้าบอร์ดของคุณสำเร็จแล้ว",
+      "importDuplicateBoard": "มีบอร์ด {boardName} อยู่แล้ว (บอร์ดที่มี ID เดียวกัน)คุณต้องการนำเข้าซ้ำหรือไม่?",
+      "duplicateSuffix": " (ทำซ้ำ)",
+      "importSuccessGithub": "นำเข้าบอร์ดจาก GitHub สำเร็จแล้ว"
+    }
+  },
+  "components": {
+    "customThemeEditor": {
+      "optionAccentColor": "สีเน้น",
+      "optionPrimaryTextColor": "สีข้อความหลัก",
+      "optionButtonTextColor": "สีข้อความของปุ่ม",
+      "optionPrimaryBackgroundColor": "สีพื้นหลังหลัก",
+      "option1stElevationColor": "ระดับความสูงที่ 1",
+      "option2ndElevationColor": "ระดับความสูงที่ 2",
+      "option3rdElevationColor": "ระดับความสูงที่ 3"
+    },
+    "sidebar": {
+      "home": "หน้าแรก",
+      "back": "กลับ",
+      "createNewBoard": "สร้างบอร์ดใหม่",
+      "importExport": "นำเข้า/ส่งออก",
+      "help": "ช่วย",
+      "settings": "การตั้งค่า"
+    },
+    "kanban": {
+      "column": {
+        "addCard": "เพิ่มการ์ด",
+        "addCardTop": "เพิ่มการ์ดไปด้านบน",
+        "deleteColumnAction": "ลบคอลัมน์",
+        "deleteColumnConfirmation": "คุณแน่ใจหรือไม่ว่าต้องการลบคอลัมน์ '{columnName}' การกระทำนี้ไม่สามารถย้อนกลับได้",
+        "addCardPlaceholder": "ตั้งชื่อการ์ด..."
+      },
+      "card": {
+        "deleteCardAction": "ลบการ์ด",
+        "deleteCardConfirmation": "คุณแน่ใจหรือไม่ว่าต้องการลบการ์ด '{cardName}'? การกระทำนี้ไม่สามารถย้อนกลับได้"
+      },
+      "searchBar": {
+        "placeholder": "ค้นหาการ์ด..."
+      },
+      "zoomAdjustment": {
+        "reset": "รีเซ็ตการซูม",
+        "increaseLevel": "เพิ่มระดับการซูม",
+        "decreaseLevel": "ลดระดับการซูม"
+      }
+    }
+  },
+  "modals": {
+    "cardTags": {
+      "title": "แก้ไขแท็ก",
+      "description": "คุณสามารถแก้ไขแท็กส่วนกลางได้ที่นี่ โดยแท็กทั้งหมดสามารถใช้งานได้ในทุกบอร์ด หมายเหตุ: การลบแท็กส่วนกลางไม่ได้เป็นการลบออกจากการ์ด แต่จะทำให้ไม่สามารถใช้งานได้กับการ์ดใหม่เท่านั้น",
+      "tagListTitle": "แท็กของคุณ:"
+    },
+    "changelog": {
+      "title": "มีอะไรใหม่ใน Kanri {major}.{minor}.{revision}?",
+      "welcome": "ยินดีต้อนรับสู่ Kanri! หลังจากผ่านไประยะหนึ่ง เราได้กลับมาพร้อมกับเวอร์ชันที่มีการแก้ไขที่สำคัญมากมายและมีฟีเจอร์ใหม่เล็ก ๆ  น้อย ๆ หากต้องการรับการแจ้งเตือนเกี่ยวกับการเปิดตัวใหม่อย่างรวดเร็วและดูความคืบหน้าของการพัฒนา คุณสามารถเข้าร่วมได้",
+      "welcomeLink": "เซิร์ฟเวอร์ Discord อย่างเป็นทางการ",
+      "changes": "การเปลี่ยนแปลง: (อ่านบันทึกการเปลี่ยนแปลงสำหรับการเปลี่ยนแปลงทั้งหมด)",
+      "changeItem1": "แก้ไขข้อบกพร่องที่การเคลื่อนย้ายการ์ดขณะค้นหาทำให้การ์ดผิด",
+      "changeItem2": "เพิ่มการตั้งค่าเพื่อตั้งค่าโหมดสว่าง/มืดโดยอัตโนมัติตามการตั้งค่าระบบ",
+      "changeItem3": "เพิ่มคุณสมบัติเพื่อให้สามารถทำเครื่องหมายในวันครบกำหนดว่าเสร็จสมบูรณ์ได้",
+      "changeItem4": "แก้ไขข้อผิดพลาดของการลบบอร์ดไม่ทำให้บอร์ดออกจากหมุดแถบด้านข้าง"
+    },
+    "confirmation": {
+      "sure": "คุณแน่ใจเหรอ?",
+      "negative": "ไม่",
+      "positive": "ใช่"
+    },
+    "customBackground": {
+      "title": "ตั้งค่าพื้นหลังที่กำหนดเอง",
+      "imageTitle": "ภาพพื้นหลัง:",
+      "imageEdit": "แก้ไขภาพพื้นหลัง",
+      "imageAdd": "เพิ่มภาพพื้นหลัง",
+      "imageBlur": "ระดับความเบลอของพื้นหลัง:",
+      "brightnessTitle": "ความสว่างพื้นหลัง:",
+      "reset": "รีเซ็ตภาพพื้นหลัง"
+    },
+    "editCard": {
+      "tooltip": "ตั้งค่าสีการ์ด",
+      "colorTitle": "สีการ์ด",
+      "colorCustom": "เลือกสีที่กำหนดเอง:",
+      "dueDate": "ภายในวันที่:",
+      "dateSet": "ตั้งวันที่",
+      "countdown": "นับถอยหลังแบบละเอียด",
+      "dateRemove": "ลบการนับถอยหลัง",
+      "descriptionTitle": "คำอธิบายการ์ด",
+      "taskTitle": "งาน",
+      "taskAdd": "เพิ่มงาน",
+      "newTaskPlaceholder": "ป้อนงาน...",
+      "tagsTitle": "แท็ก",
+      "tagsEdit": "แก้ไขแท็กบอร์ด"
+    },
+    "help": {
+      "title": "ความช่วยเหลือและแหล่งข้อมูล",
+      "resources": "ต่อไปนี้เป็นแหล่งข้อมูลที่เป็นประโยชน์เพื่อช่วยเหลือคุณ",
+      "shortcuts": "แป้นพิมพ์ลัด",
+      "ctrlKey": "Ctrl",
+      "ctrl+b": "- สร้างคอลัมน์ใหม่ในมุมมองบอร์ด",
+      "ctrl+d": "- ลบคอลัมน์สุดท้ายในมุมมองบอร์ด",
+      "ctrl+t": "- แก้ไขชื่อคอลัมน์สุดท้ายในมุมมองบอร์ด",
+      "ctrl+n": "- สร้างการ์ดใหม่ภายในคอลัมน์สุดท้ายในมุมมองบอร์ด",
+      "ctrl+alt+<>": "(ปุ่มลูกศร) - สลับคอลัมน์สำหรับแก้ไขชื่อเรื่องและเพิ่มการ์ด",
+      "ctrl++-": "- เพิ่ม/ลดการซูมคอลัมน์บอร์ด (การตั้งค่าทั้งระบบ)",
+      "support": "ทรัพยากรสนับสนุน",
+      "docs": "เอกสาร",
+      "github": "GitHub issueเ",
+      "discord": "เซิร์ฟเวอร์ Discord",
+      "creditsTitle": "เครดิต",
+      "creditsText1": "แอปที่ได้รับอนุญาตภายใต้สัญญาอนุญาต GPLv3 (ยกเว้นไฟล์บางไฟล์ที่มีสัญญาอนุญาตที่แตกต่างกันซึ่งกำหนดไว้ในส่วนหัว/ไฟล์ใสัญญาอนุญาตที่เหมาะสม)ไอคอนที่ใช้มาจาก Heroicons และ Phosphor",
+      "creditsText2": "เราไม่ได้เป็นพันธมิตร เกี่ยวข้อง ได้รับอนุญาต รับรองโดยหรือเชื่อมต่ออย่างเป็นทางการกับ Trello, Inc. (www.trello.com) ในทางใดทางหนึ่ง",
+      "copyrights": "ลิขสิทธิ์ (c) 2022-2025 trobonox ({email})",
+      "version": "v{major}.{minor}.{revision}",
+      "thirdPartyLicenseNotices": "ประกาศเกี่ยวกับสัญญาอนุญาตของบุคคลที่สาม"
+    },
+    "newBoard": {
+      "title": "สร้างบอร์ดใหม่",
+      "name": "ชื่อบอร์ด",
+      "exampleColumns": "สร้างคอลัมน์และการ์ดตัวอย่าง",
+      "columns": "คอลัมน์",
+      "newColumn": "คอลัมน์ใหม่",
+      "createBoardAction": "สร้างบอร์ด",
+      "boardNameEmptyError": "ชื่อบอร์ดต้องไม่เว้นว่าง",
+      "placeholder": "ป้อนชื่อบอร์ด"
+    },
+    "renameBoard": {
+      "title": "เปลี่ยนชื่อบอร์ด",
+      "name": "ชื่อบอร์ด",
+      "placeholder": "ป้อนชื่อบอร์ดใหม่"
+    }
+  }
+}
