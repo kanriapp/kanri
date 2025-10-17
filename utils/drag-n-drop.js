@@ -9,8 +9,6 @@ export function applyDrag(arr, dragResult) {
   const result = [...arr];
   let itemToAdd = payload;
 
-  console.log("Payload:", payload);
-
   if (removedIndex !== null) {
     // Try to locate the item to remove in a robust way:
     // 1. Prefer strict identity match
