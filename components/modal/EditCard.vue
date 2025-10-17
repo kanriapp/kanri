@@ -330,6 +330,7 @@ limitations under the License.
                   lock-axis="y"
                   orientation="vertical"
                   @drop="onTaskDrop"
+                  :get-child-payload="(index: number) => tasks[index]"
                 >
                   <Draggable
                     v-for="(task, index) in tasks"
@@ -733,9 +734,6 @@ const resetDueDate = () => {
 };
 
 const markDueDateCompleted = () => {
-   console.log("yeetusfeetus")
-   console.log("Due date completed", isDueDateCompleted.value)
-
   emit(
     "setCardDueDate",
     columnID.value,
@@ -824,7 +822,7 @@ watch(props, (newVal) => {
     if (savedTasks.length > 0) {
       savedTasks.forEach((task) => {
         if (!task.id) {
-          console.log("this should not happen again");
+          console.log("Generating ID for old task, this should not happen again");
           task.id = generateUniqueID();
         }
       });
