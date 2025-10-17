@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="overflow-auto pl-8 pt-6">
+  <div class="overflow-auto pl-8 pt-5">
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
       @closeModal="renameBoardModalVisible = false"
@@ -48,84 +48,110 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @closeModal="changelogModalVisible = false"
     />
 
-    <section id="welcome-text">
-      <h1 class="text-4xl font-bold">
-        {{ $t("pages.index.welcome") }}
-      </h1>
-      <h2 v-if="boards.length !== 0" class="text-dim-3 ml-1">
-        {{ $t("pages.index.welcomeSubtext") }}
-      </h2>
-      <p v-if="editSortWarning" class="mt-1 text-red-500">
-        {{ $t("pages.index.editSortWarning") }}
-      </p>
-    </section>
+    <h1 class="mb-4 text-3xl font-bold">
+      {{ $t('pages.index.welcome') }}
+    </h1>
 
-    <section
-      v-if="!(boards.length === 0 && loading === false)"
-      id="filters"
-      class="mt-2"
-    >
-      <div
-        class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow w-fit rounded-md hover:cursor-pointer"
-      >
-        <Dropdown>
-          <template #trigger>
-            <button class="flex flex-row items-center gap-2 px-4 py-2">
-              <PhFunnel class="size-6" />
-              <p>{{ sortingOptionText }}</p>
-              <ChevronDownIcon class="size-4" />
-            </button>
-          </template>
+    <section id="board-search-and-sort" class="mt-2">
+      <div class="flex flex-row gap-3 pr-2 w-full max-h-12">
+        <!-- Search input -->
+        <div
+          class="relative rounded-xl border border-elevation-2 bg-elevation-1 backdrop-blur supports-[backdrop-filter]:bg-elevation-1/50 shadow-sm focus-within:ring-2 focus-within:ring-accent/70 w-full"
+        >
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+            <MagnifyingGlassIcon class="size-5 text-dim-3" />
+          </div>
+          <input
+            v-model="searchQuery"
+            :placeholder="searchPlaceholder"
+            class="w-full rounded-xl bg-transparent py-2 pl-12 pr-12 text-lg outline-none placeholder:text-dim-3"
+            type="text"
+            aria-label="Search boards"
+          />
+          <button
+            v-if="searchQuery"
+            class="absolute inset-y-0 right-0 mr-2 flex items-center rounded-md p-2 text-dim-2 hover:bg-elevation-2-hover"
+            @click="searchQuery = ''"
+            aria-label="Clear search"
+          >
+            <XMarkIcon class="size-5" />
+          </button>
+        </div>
 
-          <template #content>
-            <DropdownMenuRadioGroup
-              v-model="sortingOptionRef"
-              class="flex flex-col"
+        <!-- Sorting toolbar -->
+        <div
+          v-if="!(boards.length === 0 && loading === false)"
+          class="flex flex-wrap items-center justify-between gap-2 min-w-[16rem]"
+        >
+          <div class="flex items-center gap-2 max-h-12">
+            <div
+              class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow w-fit rounded-md hover:cursor-pointer max-h-12"
             >
-              <DropdownMenuRadioItem
-                value="alphabetically"
-                class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
-                @click="sortBoardsAlphabetically()"
-              >
-                <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
-                  <CheckIcon class="size-4" />
-                </DropdownMenuItemIndicator>
-                {{ $t("pages.index.sortAlphabetically") }}
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem
-                value="default"
-                class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
-                @click="sortBoardsByCreationDate()"
-              >
-                <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
-                  <CheckIcon class="size-4" />
-                </DropdownMenuItemIndicator>
-                {{ $t("pages.index.sortByCreationDate") }}
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem
-                value="edited"
-                class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
-                @click="sortBoardsByEditDate()"
-              >
-                <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
-                  <CheckIcon class="size-4" />
-                </DropdownMenuItemIndicator>
-                {{ $t("pages.index.sortByLastEdited") }}
-              </DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-            <DropdownMenuSeparator class="bg-elevation-2 m-[5px] h-px" />
-            <DropdownMenuCheckboxItem
-              v-model:checked="reverseSortOrder"
-              class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
-              @click="reverseCurrentSorting"
-            >
-              <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
-                <CheckIcon class="size-4" />
-              </DropdownMenuItemIndicator>
-              {{ $t("pages.index.reversedSortOrder") }}
-            </DropdownMenuCheckboxItem>
-          </template>
-        </Dropdown>
+              <Dropdown>
+                <template #trigger>
+                  <button class="flex flex-row items-center gap-2 px-6 py-4 max-h-12 whitespace-nowrap min-w-[12rem] md:min-w-[14rem]">
+                    <PhFunnel class="size-6 shrink-0" />
+                    <span class="flex-1 text-left overflow-hidden text-ellipsis">{{ sortingOptionText }}</span>
+                    <ChevronDownIcon class="size-4 shrink-0" />
+                  </button>
+                </template>
+
+                <template #content>
+                  <DropdownMenuRadioGroup
+                    v-model="sortingOptionRef"
+                    class="flex flex-col"
+                  >
+                    <DropdownMenuRadioItem
+                      value="alphabetically"
+                      class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+                      @click="sortBoardsAlphabetically()"
+                    >
+                      <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                        <CheckIcon class="size-4" />
+                      </DropdownMenuItemIndicator>
+                      {{ $t("pages.index.sortAlphabetically") }}
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                      value="default"
+                      class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
+                      @click="sortBoardsByCreationDate()"
+                    >
+                      <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                        <CheckIcon class="size-4" />
+                      </DropdownMenuItemIndicator>
+                      {{ $t("pages.index.sortByCreationDate") }}
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                      value="edited"
+                      class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
+                      @click="sortBoardsByEditDate()"
+                    >
+                      <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                        <CheckIcon class="size-4" />
+                      </DropdownMenuItemIndicator>
+                      {{ $t("pages.index.sortByLastEdited") }}
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                  <DropdownMenuSeparator class="bg-elevation-2 m-[5px] h-px" />
+                  <DropdownMenuCheckboxItem
+                    v-model:checked="reverseSortOrder"
+                    class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
+                    @click="reverseCurrentSorting"
+                  >
+                    <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                      <CheckIcon class="size-4" />
+                    </DropdownMenuItemIndicator>
+                    {{ $t("pages.index.reversedSortOrder") }}
+                  </DropdownMenuCheckboxItem>
+                </template>
+              </Dropdown>
+            </div>
+          </div>
+        </div>
+
+        <p v-if="editSortWarning" class="text-amber-400/90 ml-1 mt-1 text-sm">
+          {{ $t('pages.index.editSortWarning') }}
+        </p>
       </div>
     </section>
 
@@ -167,14 +193,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </div>
 
       <div v-else class="mb-8 mt-6 flex flex-row flex-wrap gap-6">
+        <!-- No results for current search -->
+        <div
+          v-if="!loading && searchQuery && visibleBoards.length === 0"
+          class="items-left mt-2 flex w-fit flex-col justify-center rounded-md p-2 text-dim-2"
+        >
+          <h3 class="text-xl font-semibold">{{ noResultsText }}</h3>
+        </div>
+
         <TransitionGroup
-          v-if="!loading"
+          v-if="!loading && visibleBoards.length > 0"
           class="flex flex-row flex-wrap gap-6"
           name="list"
           tag="div"
         >
           <nuxt-link
-            v-for="(board, index) in boards"
+            v-for="(board, index) in visibleBoards"
             id="board-preview"
             :key="board.id"
             :to="'/kanban/' + board.id"
@@ -182,7 +216,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           >
             <LazyKanbanBoardPreview
               :board="board"
-              :is-simple-preview-mode="boards.length >= 25"
+              :is-simple-preview-mode="visibleBoards.length >= 25"
             />
             <div
               class="border-accent flex flex-row justify-between border-t px-1 py-2"
@@ -207,21 +241,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <!-- Group 1: Board actions -->
                     <DropdownMenuItem
                       class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                      @click="renameBoardModal(index)"
+                      @click="renameBoardModal(getBoardIndex(board.id))"
                     >
                       <span class="text-dim-2"><PhPencil class="size-5" /></span>
                       <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                      @click="duplicateBoard(index)"
+                      @click="duplicateBoard(getBoardIndex(board.id))"
                     >
                       <span class="text-dim-2"><PhCopy class="size-5" /></span>
                       <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                      @click="exportBoardToJson(index)"
+                      @click="exportBoardToJson(getBoardIndex(board.id))"
                     >
                       <span class="text-dim-2"><PhExport class="size-5" /></span>
                       <span>{{ $t("pages.kanban.exportBoardAction") }}</span>
@@ -230,7 +264,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <!-- Group 3: Danger zone -->
                     <DropdownMenuItem
                       class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2 text-red-500"
-                      @click="deleteBoardModal(index)"
+                      @click="deleteBoardModal(getBoardIndex(board.id))"
                     >
                       <span>
                         <PhTrash class="size-5" />
@@ -255,7 +289,7 @@ import type { Ref } from "vue";
 import { useTauriStore } from "@/stores/tauriStore";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator.js";
-import { ChevronDownIcon } from "@heroicons/vue/24/outline";
+import { ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel, PhTrash, PhExport, PhCopy, PhPencil } from "@phosphor-icons/vue";
 import { useI18n } from "vue-i18n";
@@ -276,8 +310,30 @@ const sortingOptionRef = ref("");
 const reverseSortOrder = ref(false);
 const sortingOptionText = ref("Sort by creation date");
 
+// Search state
+const searchQuery = ref("");
+
 const boardToBeDeletedIndex = ref(-1);
 const { t } = useI18n();
+
+// i18n fallbacks for new UI text
+const searchPlaceholder = computed(() => {
+  const key = "pages.index.searchBoardsPlaceholder";
+  const result = t(key) as string;
+  return result === key ? "Search boards..." : result;
+});
+const noResultsText = computed(() => {
+  const key = "pages.index.noBoardsMatch";
+  const result = t(key) as string;
+  return result === key ? "No boards match your search." : result;
+});
+
+// Filtered boards based on search, preserving current sort order
+const visibleBoards = computed(() => {
+  const q = searchQuery.value.trim().toLowerCase();
+  if (!q) return boards.value;
+  return boards.value.filter((b) => b.title.toLowerCase().includes(q));
+});
 
 onMounted(async () => {
   emitter.on("createBoard", async ({ columns, title }) => {
@@ -480,6 +536,11 @@ const exportBoardToJson = async (index: number | undefined) => {
 
   if (filePath == null) return;
   await writeTextFile(filePath, fileContents);
+};
+
+// Helpers
+const getBoardIndex = (id: string) => {
+  return boards.value.findIndex((b) => b.id === id);
 };
 
 const sortBoardsAlphabetically = () => {
