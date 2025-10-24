@@ -71,6 +71,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <span>description: search by description</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
+        <li
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
+          @mousedown="addFilter('sort:')"
+        >
+          <span>sort: sort by field (tags, dueDate)</span>
+          <span class="group/edit invisible group-hover/item:visible">+</span>
+        </li>
       </ul>
     </div>
   </div>
