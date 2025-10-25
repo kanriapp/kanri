@@ -157,6 +157,9 @@ watch(
     } else if (newValue.startsWith("description:")) {
       activeFilter.value = "description:";
       displayModel.value = newValue.replace("description:", "");
+    } else if (newValue.startsWith("sort:")) {
+      activeFilter.value = "sort:";
+      displayModel.value = newValue.replace("sort:", "");
     } else {
       displayModel.value = newValue;
       activeFilter.value = "";
