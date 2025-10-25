@@ -603,6 +603,51 @@ const filteredCards = computed(() => {
     });
   }
 
+  // check for sort: field
+  if (searchQuery.startsWith("sort:")) {
+    const fields = searchQuery
+      .substring(5)
+      .trim()
+      .split(",")
+      .map((f) => f.trim());
+    const validFields = ["tags", "dueDate"];
+
+    const sortFields = fields.filter((f) => validFields.includes(f));
+    if (sortFields.length === 0) return cards.value;
+
+    return [...cards.value].sort((a, b) => {
+      for (const field of sortFields) {
+        let cmp = 0;
+
+        if (field === "dueDate") {
+          if (a.isDueDateCompleted && !b.isDueDateCompleted) return 1;
+          if (!a.isDueDateCompleted && b.isDueDateCompleted) return -1;
+
+          const aDate = a.dueDate ? new Date(a.dueDate).getTime() : Infinity;
+          const bDate = b.dueDate ? new Date(b.dueDate).getTime() : Infinity;
+          cmp = aDate === bDate ? 0 : aDate - bDate; // null handling
+        }
+
+        if (field === "tags") {
+          const aTags = a.tags?.map((t) => t.text) ?? [];
+          const bTags = b.tags?.map((t) => t.text) ?? [];
+          const minLen = Math.min(aTags.length, bTags.length);
+
+          for (let i = 0; i < minLen; i++) {
+            cmp = aTags[i].localeCompare(bTags[i], undefined, {
+              sensitivity: "base",
+            });
+            if (cmp !== 0) break;
+          }
+          if (cmp === 0) cmp = aTags.length - bTags.length;
+        }
+
+        if (cmp !== 0) return cmp;
+      }
+      return 0;
+    });
+  }
+
   // default search (name or tags)
   return cards.value.filter((card) => {
     const cardName = card.name;
