@@ -19,7 +19,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <Modal :blur-background="false" @closeModal="$emit('closeModal')">
+  <Modal
+    :blur-background="false"
+    :visible="visible"
+    @closeModal="$emit('closeModal')"
+  >
     <template #content>
       <main class="max-w-3xl">
         <div class="flex flex-row items-start justify-between">
@@ -75,6 +79,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import Modal from "@/components/Modal.vue";
 import versionInfo from "@/version_info.json";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
+
+defineProps<{
+  visible: boolean;
+}>();
 
 defineEmits<{
   (e: "closeModal"): void;

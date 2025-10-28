@@ -19,9 +19,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { defineStore } from 'pinia'
-import { dark } from '@/utils/themes';
-import type { Theme } from '@/types/kanban-types';
+import { defineStore } from "pinia";
+import { dark } from "@/utils/themes";
+import type { Theme } from "@/types/kanban-types";
 
 export const useThemeStore = defineStore("theme", {
   state: () => {
@@ -36,10 +36,13 @@ export const useThemeStore = defineStore("theme", {
     async loadThemeSettings() {
       const store = useTauriStore().store;
 
-      const activeThemeSaved: string = await store.get("activeTheme") ?? "dark";
-      const colorsSaved: Theme | null = await store.get("colors") ?? dark;
-      const savedCustomThemeSaved: Theme | null = await store.get("savedCustomTheme") ?? null;
-      const autoThemeEnabledSaved: boolean = await store.get("activeTheme") === "auto" ? true : false;
+      const activeThemeSaved: string =
+        (await store.get("activeTheme")) ?? "dark";
+      const colorsSaved: Theme | null = (await store.get("colors")) ?? dark;
+      const savedCustomThemeSaved: Theme | null =
+        (await store.get("savedCustomTheme")) ?? null;
+      const autoThemeEnabledSaved: boolean =
+        (await store.get("activeTheme")) === "auto" ? true : false;
 
       this.activeTheme = activeThemeSaved;
       this.colors = colorsSaved;
@@ -77,6 +80,6 @@ export const useThemeStore = defineStore("theme", {
 
       this.colors = themes[resolvedSystemTheme];
       await store.set("colors", themes[resolvedSystemTheme]);
-    }
-  }
-})
+    },
+  },
+});

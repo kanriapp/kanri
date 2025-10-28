@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <Modal @closeModal="$emit('closeModal')">
+  <Modal :visible="visible" @closeModal="$emit('closeModal')">
     <template #content>
       <main class="h-38 max-w-3xl">
         <div class="flex flex-row items-start justify-between">
@@ -371,6 +371,10 @@ const osType = ref("");
 onMounted(async () => {
   osType.value = platform();
 });
+
+defineProps<{
+  visible: boolean;
+}>();
 
 defineEmits<{
   (e: "closeModal"): void;

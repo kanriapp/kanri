@@ -21,13 +21,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <div class="overflow-auto pl-8 pt-5">
     <ModalRenameBoard
-      v-show="renameBoardModalVisible"
+      :visible="renameBoardModalVisible"
       @closeModal="renameBoardModalVisible = false"
       @renameBoard="renameBoard"
     />
 
     <ModalConfirmation
-      v-show="deleteBoardModalVisible"
+      :visible="deleteBoardModalVisible"
       :close-button-text="$t('general.cancelAction')"
       :confirm-button-text="$t('general.deleteAction')"
       :description="
@@ -44,35 +44,37 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     />
 
     <ModalChangelog
-      v-show="changelogModalVisible"
+      :visible="changelogModalVisible"
       @closeModal="changelogModalVisible = false"
     />
 
     <h1 class="mb-4 text-3xl font-bold">
-      {{ $t('pages.index.welcome') }}
+      {{ $t("pages.index.welcome") }}
     </h1>
 
     <section id="board-search-and-sort" class="mt-2">
-      <div class="flex flex-row gap-3 pr-2 w-full max-h-12">
+      <div class="flex max-h-12 w-full flex-row gap-3 pr-2">
         <!-- Search input -->
         <div
-          class="relative rounded-xl border border-elevation-2 bg-elevation-1 backdrop-blur supports-[backdrop-filter]:bg-elevation-1/50 shadow-sm focus-within:ring-2 focus-within:ring-accent/70 w-full"
+          class="border-elevation-2 bg-elevation-1 supports-[backdrop-filter]:bg-elevation-1/50 focus-within:ring-accent/70 relative w-full rounded-xl border shadow-sm backdrop-blur focus-within:ring-2"
         >
-          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-            <MagnifyingGlassIcon class="size-5 text-dim-3" />
+          <div
+            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4"
+          >
+            <MagnifyingGlassIcon class="text-dim-3 size-5" />
           </div>
           <input
             v-model="searchQuery"
             :placeholder="searchPlaceholder"
-            class="w-full rounded-xl bg-transparent py-2 pl-12 pr-12 text-lg outline-none placeholder:text-dim-3"
+            class="placeholder:text-dim-3 w-full rounded-xl bg-transparent px-12 py-2 text-lg outline-none"
             type="text"
             aria-label="Search boards"
           />
           <button
             v-if="searchQuery"
-            class="absolute inset-y-0 right-0 mr-2 flex items-center rounded-md p-2 text-dim-2 hover:bg-elevation-2-hover"
-            @click="searchQuery = ''"
+            class="text-dim-2 hover:bg-elevation-2-hover absolute inset-y-0 right-0 mr-2 flex items-center rounded-md p-2"
             aria-label="Clear search"
+            @click="searchQuery = ''"
           >
             <XMarkIcon class="size-5" />
           </button>
@@ -81,17 +83,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <!-- Sorting toolbar -->
         <div
           v-if="!(boards.length === 0 && loading === false)"
-          class="flex flex-wrap items-center justify-between gap-2 min-w-[16rem]"
+          class="flex min-w-64 flex-wrap items-center justify-between gap-2"
         >
-          <div class="flex items-center gap-2 max-h-12">
+          <div class="flex max-h-12 items-center gap-2">
             <div
-              class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow w-fit rounded-md hover:cursor-pointer max-h-12"
+              class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow max-h-12 w-fit rounded-md hover:cursor-pointer"
             >
               <Dropdown>
                 <template #trigger>
-                  <button class="flex flex-row items-center gap-2 px-6 py-4 max-h-12 whitespace-nowrap min-w-[12rem] md:min-w-[14rem]">
+                  <button
+                    class="flex max-h-12 min-w-48 flex-row items-center gap-2 whitespace-nowrap px-6 py-4 md:min-w-56"
+                  >
                     <PhFunnel class="size-6 shrink-0" />
-                    <span class="flex-1 text-left overflow-hidden text-ellipsis">{{ sortingOptionText }}</span>
+                    <span
+                      class="flex-1 overflow-hidden text-ellipsis text-left"
+                      >{{ sortingOptionText }}</span
+                    >
                     <ChevronDownIcon class="size-4 shrink-0" />
                   </button>
                 </template>
@@ -106,7 +113,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                       class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
                       @click="sortBoardsAlphabetically()"
                     >
-                      <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                      <DropdownMenuItemIndicator
+                        class="absolute left-2 w-[25px]"
+                      >
                         <CheckIcon class="size-4" />
                       </DropdownMenuItemIndicator>
                       {{ $t("pages.index.sortAlphabetically") }}
@@ -116,7 +125,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                       class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
                       @click="sortBoardsByCreationDate()"
                     >
-                      <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                      <DropdownMenuItemIndicator
+                        class="absolute left-2 w-[25px]"
+                      >
                         <CheckIcon class="size-4" />
                       </DropdownMenuItemIndicator>
                       {{ $t("pages.index.sortByCreationDate") }}
@@ -126,7 +137,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                       class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
                       @click="sortBoardsByEditDate()"
                     >
-                      <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
+                      <DropdownMenuItemIndicator
+                        class="absolute left-2 w-[25px]"
+                      >
                         <CheckIcon class="size-4" />
                       </DropdownMenuItemIndicator>
                       {{ $t("pages.index.sortByLastEdited") }}
@@ -149,8 +162,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </div>
         </div>
 
-        <p v-if="editSortWarning" class="text-amber-400/90 ml-1 mt-1 text-sm">
-          {{ $t('pages.index.editSortWarning') }}
+        <p v-if="editSortWarning" class="ml-1 mt-1 text-sm text-amber-400/90">
+          {{ $t("pages.index.editSortWarning") }}
         </p>
       </div>
     </section>
@@ -196,7 +209,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <!-- No results for current search -->
         <div
           v-if="!loading && searchQuery && visibleBoards.length === 0"
-          class="items-left mt-2 flex w-fit flex-col justify-center rounded-md p-2 text-dim-2"
+          class="items-left text-dim-2 mt-2 flex w-fit flex-col justify-center rounded-md p-2"
         >
           <h3 class="text-xl font-semibold">{{ noResultsText }}</h3>
         </div>
@@ -208,7 +221,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           tag="div"
         >
           <nuxt-link
-            v-for="(board, index) in visibleBoards"
+            v-for="board in visibleBoards"
             id="board-preview"
             :key="board.id"
             :to="'/kanban/' + board.id"
@@ -240,30 +253,34 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   <div class="flex flex-col">
                     <!-- Group 1: Board actions -->
                     <DropdownMenuItem
-                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                      class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
                       @click="renameBoardModal(getBoardIndex(board.id))"
                     >
-                      <span class="text-dim-2"><PhPencil class="size-5" /></span>
+                      <span class="text-dim-2"
+                        ><PhPencil class="size-5"
+                      /></span>
                       <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                      class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
                       @click="duplicateBoard(getBoardIndex(board.id))"
                     >
                       <span class="text-dim-2"><PhCopy class="size-5" /></span>
                       <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                      class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
                       @click="exportBoardToJson(getBoardIndex(board.id))"
                     >
-                      <span class="text-dim-2"><PhExport class="size-5" /></span>
+                      <span class="text-dim-2"
+                        ><PhExport class="size-5"
+                      /></span>
                       <span>{{ $t("pages.kanban.exportBoardAction") }}</span>
                     </DropdownMenuItem>
-                    <div class="my-1 border-t border-elevation-3"></div>
+                    <div class="border-elevation-3 my-1 border-t"></div>
                     <!-- Group 3: Danger zone -->
                     <DropdownMenuItem
-                      class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2 text-red-500"
+                      class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left text-red-500"
                       @click="deleteBoardModal(getBoardIndex(board.id))"
                     >
                       <span>
@@ -289,9 +306,19 @@ import type { Ref } from "vue";
 import { useTauriStore } from "@/stores/tauriStore";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator.js";
-import { ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import {
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+  XMarkIcon,
+} from "@heroicons/vue/24/outline";
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
-import { PhFunnel, PhTrash, PhExport, PhCopy, PhPencil } from "@phosphor-icons/vue";
+import {
+  PhFunnel,
+  PhTrash,
+  PhExport,
+  PhCopy,
+  PhPencil,
+} from "@phosphor-icons/vue";
 import { useI18n } from "vue-i18n";
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeTextFile } from "@tauri-apps/plugin-fs";

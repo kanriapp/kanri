@@ -19,7 +19,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <Modal :click-outside-to-close="true" @closeModal="$emit('closeModal')">
+  <Modal
+    :click-outside-to-close="true"
+    :visible="visible"
+    @closeModal="$emit('closeModal')"
+  >
     <template #content>
       <main class="h-[36rem] min-w-[32rem] max-w-3xl overflow-auto">
         <div class="flex flex-row items-start justify-between">
@@ -70,6 +74,7 @@ const emit = defineEmits([
 ]);
 
 defineProps<{
+  visible: boolean;
   tags: Array<Tag>;
 }>();
 

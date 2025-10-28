@@ -24,12 +24,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
   >
     <ModalNewBoard
-      v-show="newBoardModalVisible"
+      :visible="newBoardModalVisible"
       @closeModal="newBoardModalVisible = false"
     />
     <Teleport to=".default-layout">
       <ModalHelp
-        v-show="helpModalVisible"
+        :visible="helpModalVisible"
         @closeModal="helpModalVisible = false"
       />
     </Teleport>
