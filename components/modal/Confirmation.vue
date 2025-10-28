@@ -21,6 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <Modal
     :blur-background="false"
+    :visible="visible"
     @closeModal="closeModal()"
     @enterKeyPressed="
       $emit('confirmAction', boardIndex);
@@ -71,6 +72,7 @@ import emitter from "@/utils/emitter";
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps<{
+  visible: boolean;
   closeButtonText?: string;
   confirmButtonText?: string;
   description?: string;

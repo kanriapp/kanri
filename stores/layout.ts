@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 import versionInfo from "@/version_info.json";
 
 export const useLayoutStore = defineStore("layout", {
@@ -36,16 +36,20 @@ export const useLayoutStore = defineStore("layout", {
       showHelpModal,
       showBackArrow,
 
-      lastInstalledVersion
-    }
+      lastInstalledVersion,
+    };
   },
   actions: {
     async loadLayoutSettings() {
       const store = useTauriStore().store;
       const currentVersionIdentifier = `${versionInfo.buildMajor}.${versionInfo.buildMinor}.${versionInfo.buildRevision}`;
 
-      const lastInstalledVersionSaved: string = await store.get("lastInstalledVersion") ?? currentVersionIdentifier;
-      console.log("Loaded lastInstalledVersion from store:", lastInstalledVersionSaved);
+      const lastInstalledVersionSaved: string =
+        (await store.get("lastInstalledVersion")) ?? currentVersionIdentifier;
+      console.log(
+        "Loaded lastInstalledVersion from store:",
+        lastInstalledVersionSaved
+      );
       this.lastInstalledVersion = lastInstalledVersionSaved;
     },
 
@@ -68,6 +72,6 @@ export const useLayoutStore = defineStore("layout", {
       }
 
       return false;
-    }
-  }
-})
+    },
+  },
+});

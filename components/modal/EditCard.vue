@@ -17,6 +17,7 @@ limitations under the License.
 
 <template>
   <Modal
+    :visible="visible"
     :blur-background="false"
     @closeModal="
       $emit('closeModal', columnID);
@@ -37,7 +38,7 @@ limitations under the License.
                 <Tooltip direction="top">
                   <template #trigger>
                     <button
-                      class="size-7 rounded-full flex items-center justify-center"
+                      class="flex size-7 items-center justify-center rounded-full"
                       :class="[isCustomColor ? '' : selectedColor]"
                       :style="{
                         'background-color': isCustomColor ? customColor : '',
@@ -254,7 +255,7 @@ limitations under the License.
               <template #footer>
                 <div class="w-full px-4 pb-3">
                   <div class="mt-2 flex flex-col gap-2">
-                    <div class="flex flex-row items-center gap-6 mb-2">
+                    <div class="mb-2 flex flex-row items-center gap-6">
                       <SwitchRoot
                         v-model:checked="isDueDateCounterRelative"
                         class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
@@ -276,11 +277,21 @@ limitations under the License.
                     </button>
                     <button
                       class="bg-accent flex flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
-                      @click="isDueDateCompleted = !isDueDateCompleted; markDueDateCompleted()"
+                      @click="
+                        isDueDateCompleted = !isDueDateCompleted;
+                        markDueDateCompleted();
+                      "
                     >
-                      <PhCheck v-if="!isDueDateCompleted" class="mt-0.5 size-5" />
+                      <PhCheck
+                        v-if="!isDueDateCompleted"
+                        class="mt-0.5 size-5"
+                      />
                       <PhX v-else class="mt-0.5 size-5" />
-                      {{ isDueDateCompleted ? 'Mark Not Completed' : 'Set as Completed' }}
+                      {{
+                        isDueDateCompleted
+                          ? "Mark Not Completed"
+                          : "Set as Completed"
+                      }}
                     </button>
                   </div>
                 </div>
@@ -329,8 +340,8 @@ limitations under the License.
                   drag-handle-selector=".task-drag"
                   lock-axis="y"
                   orientation="vertical"
-                  @drop="onTaskDrop"
                   :get-child-payload="(index: number) => tasks[index]"
+                  @drop="onTaskDrop"
                 >
                   <Draggable
                     v-for="(task, index) in tasks"
@@ -505,6 +516,7 @@ import { VueTagsInput } from "@vojtechlanka/vue-tags-input";
 import { useSettingsStore } from "@/stores/settings";
 
 const props = defineProps<{
+  visible: boolean;
   card: Card | null;
   columnId: string;
   globalTags: Array<Tag>;
@@ -822,7 +834,9 @@ watch(props, (newVal) => {
     if (savedTasks.length > 0) {
       savedTasks.forEach((task) => {
         if (!task.id) {
-          console.log("Generating ID for old task, this should not happen again");
+          console.log(
+            "Generating ID for old task, this should not happen again"
+          );
           task.id = generateUniqueID();
         }
       });

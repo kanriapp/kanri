@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <main id="settings" class="overflow-auto pl-8 pt-6">
     <ModalConfirmation
-      v-show="deleteBoardModalVisible"
+      :visible="deleteBoardModalVisible"
       :close-button-text="$t('general.cancelAction')"
       :confirm-button-text="
         $t('pages.settings.deleteAllDataConfirmationAction')
@@ -43,7 +43,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <h2 class="mb-2 mt-6 text-2xl font-bold">
         {{ $t("pages.settings.sectionThemeHeading") }}
       </h2>
-      <div id="theme-selection" class="flex flex-row gap-4" v-if="!theme.autoThemeEnabled">
+      <div
+        v-if="!theme.autoThemeEnabled"
+        id="theme-selection"
+        class="flex flex-row gap-4"
+      >
         <div
           class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('light')"
@@ -88,7 +92,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
       </div>
 
-      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)" v-if="!theme.autoThemeEnabled">
+      <button
+        v-if="!theme.autoThemeEnabled"
+        class="text-dim-3 transition-button mt-2"
+        @click="$router.go(0)"
+      >
         {{ $t("pages.settings.colorResetText")
         }}<span class="underline">{{
           $t("pages.settings.colorResetLink")
@@ -98,9 +106,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
       <div class="mt-3">
         <div class="mt-4 flex w-[48rem] flex-row items-start justify-between">
-          <span
-            class="text-lg"
-          >
+          <span class="text-lg">
             {{ $t("pages.settings.setThemeAuto") }}
           </span>
           <SwitchRoot
@@ -177,7 +183,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <SwitchRoot
           v-model:checked="globalSettingsStore.addToTopOfColumnButtonEnabled"
           class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-          @update:checked="(val) => globalSettingsStore.setAddToTopOfColumnButtonEnabled(val)"
+          @update:checked="
+            (val) => globalSettingsStore.setAddToTopOfColumnButtonEnabled(val)
+          "
         >
           <SwitchThumb
             class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -197,7 +205,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <SwitchRoot
           v-model:checked="globalSettingsStore.displayColumnCardCountEnabled"
           class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-          @update:checked="(val) => globalSettingsStore.setDisplayColumnCardCountEnabled(val)"
+          @update:checked="
+            (val) => globalSettingsStore.setDisplayColumnCardCountEnabled(val)
+          "
         >
           <SwitchThumb
             class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -217,7 +227,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <SwitchRoot
           v-model:checked="globalSettingsStore.defaultRelativeDueDatesEnabled"
           class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-          @update:checked="(val) => globalSettingsStore.setDefaultRelativeDueDatesEnabled(val)"
+          @update:checked="
+            (val) => globalSettingsStore.setDefaultRelativeDueDatesEnabled(val)
+          "
         >
           <SwitchThumb
             class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -259,7 +271,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <SwitchRoot
             v-model:checked="globalSettingsStore.animationsEnabled"
             class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-            @update:checked="(val) => globalSettingsStore.setAnimationsEnabled(val)"
+            @update:checked="
+              (val) => globalSettingsStore.setAnimationsEnabled(val)
+            "
           >
             <SwitchThumb
               class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -279,7 +293,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <SwitchRoot
             v-model:checked="globalSettingsStore.autostartEnabled"
             class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
-            @update:checked="(val) => globalSettingsStore.setAutostartEnabled(val)"
+            @update:checked="
+              (val) => globalSettingsStore.setAutostartEnabled(val)
+            "
           >
             <SwitchThumb
               class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
@@ -317,7 +333,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import type { ThemeIdentifiers } from "@/types/kanban-types";
-import type { Ref } from "vue";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas";
@@ -344,7 +359,7 @@ const theme = useThemeStore();
 
 const { t, locale } = useI18n();
 
-const { activeTheme } = toRefs(theme)
+const { activeTheme } = toRefs(theme);
 const themeEditorDisplayed = computed(() => activeTheme.value === "custom");
 const systemTheme = useDark();
 

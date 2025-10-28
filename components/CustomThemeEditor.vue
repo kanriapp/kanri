@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="flex w-[48rem] flex-col gap-4 mb-6">
+  <div class="mb-6 flex w-[48rem] flex-col gap-4">
     <div id="color-row" class="flex flex-row items-center justify-between">
       <label for="color-picker">{{
         $t("components.customThemeEditor.optionAccentColor")

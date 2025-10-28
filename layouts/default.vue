@@ -22,9 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   <div class="overflow-auto">
     <div
       :style="cssVars"
-      :class="[
-        settings.animationsEnabled ? '' : 'disable-animations',
-      ]"
+      :class="[settings.animationsEnabled ? '' : 'disable-animations']"
       class="default-layout custom-scrollbar-hidden overflow-auto"
     >
       <div v-if="mounted">
@@ -50,7 +48,7 @@ const layout = useLayoutStore();
 const systemTheme = useDark();
 
 const mounted = ref(false);
-const { colors: savedColors, autoThemeEnabled } = toRefs(theme)
+const { colors: savedColors, autoThemeEnabled } = toRefs(theme);
 
 onMounted(async () => {
   // Load settings into pinia stores

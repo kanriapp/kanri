@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <Modal :blur-background="false" @closeModal="closeModal()">
+  <Modal :blur-background="false" :visible="visible" @closeModal="closeModal()">
     <template #content>
       <main class="min-w-[32rem] max-w-3xl" @keypress.enter="createNewBoard()">
         <div class="flex flex-row items-start justify-between">
@@ -122,6 +122,10 @@ import emitter from "@/utils/emitter";
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { PhPlus, PhTrash } from "@phosphor-icons/vue";
 import { useI18n } from "vue-i18n";
+
+defineProps<{
+  visible: boolean;
+}>();
 
 const emit = defineEmits<{
   (e: "closeModal"): void;

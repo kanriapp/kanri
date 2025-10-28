@@ -21,6 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <transition name="modal-fade">
     <div
+      v-if="visible"
       :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
       class="modal z-huge size-screen inset-0 flex flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
       @click.self="clickOutsideClose ? $emit('closeModal') : () => {}"
@@ -39,6 +40,7 @@ import emitter from "@/utils/emitter";
 
 const props = withDefaults(
   defineProps<{
+    visible: boolean;
     blurBackground?: boolean;
     clickOutsideToClose?: boolean;
   }>(),
