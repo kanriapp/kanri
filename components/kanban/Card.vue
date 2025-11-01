@@ -200,7 +200,7 @@ const emit = defineEmits<{
     cardId: string | undefined,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
-  (e: "setCardTitle", cardId: string | undefined, name: string): void;
+  (e: "setCardName", cardId: string | undefined, name: string): void;
   (e: "updateCardTags", cardId: string | undefined, tags: Array<Tag>): void;
   (e: "duplicateCard", cardId: string | undefined): void;
 }>();
@@ -240,25 +240,6 @@ watch(
 
 onMounted(async () => {
   savedColors.value = await store.get("colors");
-
-  emitter.on("globalTagsUpdated", ({ tags }) => {
-    if (!tags) return;
-
-    tags.forEach((tag) => {
-      const savedTag = cardTags.value?.find((cardTag) => tag.id === cardTag.id);
-      if (savedTag) {
-        savedTag.text = tag.text;
-        savedTag.color = tag.color;
-        savedTag.style = tag.style;
-
-        emit("updateCardTags", props.card?.id, cardTags.value ?? []);
-      }
-    });
-  });
-});
-
-onUnmounted(() => {
-  emitter.off("globalTagsUpdated");
 });
 
 const cardHasNoExtraProperties = computed(() => {
@@ -510,7 +491,8 @@ const updateCardName = () => {
     return;
   }
 
-  emit("setCardTitle", props.card?.id, name.value);
+  // TODO: clean up logic and just pass card as prop; fix reactivity issues!
+  emit("setCardName", props.card?.id, name.value);
   cardNameEditMode.value = false;
   emit("enableDragging");
 };

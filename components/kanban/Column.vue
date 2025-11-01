@@ -39,7 +39,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           class="stop-text-overflow ml-1 font-bold"
           @click="enableTitleEditing()"
         >
-          {{ boardTitle }}
+          {{ props.title }}
         </h1>
         <span
           v-if="cardCountDisplayEnabled"
@@ -128,7 +128,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           @open-edit-card-modal="openEditCardModal"
           @remove-card="removeCard"
           @remove-card-with-confirmation="removeCardWithConfirmation"
-          @set-card-title="setCardTitle"
+          @set-card-name="setCardName"
           @update-card-tags="updateCardTags"
           @duplicate-card="duplicateCard"
         />
@@ -207,7 +207,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Card, Column, Tag } from "@/types/kanban-types";
+import type { Card, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { applyDrag } from "@/utils/drag-n-drop";
@@ -229,25 +229,35 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
+  // drag and drop
   (e: "disableDragging"): void;
   (e: "enableDragging"): void;
+
+  // card actions
   (e: "openEditCardModal", columnId: string, el: Card): void;
+  (e: "addCard", columnId: string, card: Card, addToTop: boolean | undefined): void;
+  (e: "removeCard", columnId: string, cardId: string | undefined): void;
   (
     e: "removeCardWithConfirmation",
     columnId: string,
     cardId: string | undefined,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
-  (e: "removeColumn", columnId: string): void;
-  (e: "removeColumnNoConfirmation", columnId: string): void;
-  (e: "setColumnEditIndex", columnId: number, eventType: string): void;
-  (e: "updateStorage", column: Column): void;
   (
     e: "updateCardTags",
     columnId: string,
     cardId: string | undefined,
     tags: Array<Tag>
   ): void;
+
+  // column actions
+  (e: "updateColumnTitle", columnId: string, title: string): void;
+  (e: "removeColumn", columnId: string): void;
+  (e: "removeColumnNoConfirmation", columnId: string): void;
+  (e: "setColumnEditIndex", columnIndex: number, eventType: string): void;
+  (e: "setCardName", columnId: string, cardId: string | undefined, name: string): void;
+  (e: "duplicateCard", columnId: string, cardId: string | undefined): void;
+  (e: "reorderCards", columnId: string, newCardsOrder: Array<Card>): void;
 }>();
 
 const { t } = useI18n();
@@ -264,8 +274,6 @@ const titleNew = ref(props.title);
 const titleEditing = ref(false);
 
 const draggingEnabled = ref(true);
-
-const boardTitle = ref(props.title);
 
 const columnDOMElement = ref<HTMLDivElement | null>(null);
 
@@ -310,11 +318,18 @@ onMounted(() => {
     cards.value.forEach((card) => {
       if (!card.id) {
         card.id = generateUniqueID();
-        updateStorage();
       }
     });
   }
 });
+
+// TODO: get rid of this watcher by using props.cardsList directly
+watch(
+  () => props.cardsList,
+  (newCards) => {
+    cards.value = newCards;
+  }
+);
 
 // enhanced scaling classes based on zoom level
 const titleTextClassZoom = computed(() => {
@@ -638,7 +653,7 @@ const keyDownListener = (e: { key: string }) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onDrop = (dropResult: any) => {
   cards.value = applyDrag(cards.value, dropResult);
-  updateStorage();
+  emit("reorderCards", props.id, cards.value);
 };
 
 const getChildPayload = (index: number) => {
@@ -666,7 +681,7 @@ const enableTitleEditing = () => {
   disableDragging();
 
   titleEditing.value = true;
-  titleNew.value = boardTitle.value;
+  titleNew.value = props.title;
 };
 
 const enableCardAddMode = (addToTopOfColumn?: boolean) => {
@@ -687,11 +702,10 @@ const updateColumnTitle = () => {
     return;
   }
 
-  boardTitle.value = titleNew.value;
+  emit("updateColumnTitle", props.id, titleNew.value);
   titleNew.value = "";
 
   titleEditing.value = false;
-  updateStorage();
 };
 
 const updateCardTags = (cardId: string | undefined, tags: Array<Tag>) => {
@@ -703,37 +717,31 @@ const addCard = () => {
 
   if (newCardName.value == null || !/\S/.test(newCardName.value)) return;
 
-  if (cardAddModeAddToTopOfColumn.value) {
-    cards.value = [
-      { id: generateUniqueID(), name: newCardName.value },
-      ...cards.value,
-    ];
-  } else {
-    cards.value[cards.value.length] = {
-      id: generateUniqueID(),
-      name: newCardName.value,
-    };
+  const card: Card = {
+    id: generateUniqueID(),
+    name: newCardName.value,
+    description: "",
+    color: "",
+    tasks: [],
+    dueDate: null,
+    isDueDateCounterRelative: false,
+    isDueDateCompleted: false,
+    tags: [],
+  };
+
+  emit("addCard", props.id, card, cardAddModeAddToTopOfColumn.value);
+  if (!cardAddModeAddToTopOfColumn.value) {
+    // scroll to the new card only if adding to bottom
     scrollCardIntoView();
   }
 
   newCardName.value = "";
   cardAddMode.value = false;
   cardAddModeAddToTopOfColumn.value = false;
-  updateStorage();
 };
 
 const duplicateCard = (cardId: string | undefined) => {
-  if (!cardId) return;
-  const index = cards.value.findIndex((card) => card.id === cardId);
-  if (index === -1) return;
-
-  const cardDuplicate = JSON.parse(JSON.stringify(cards.value[index]));
-  cardDuplicate.id = generateUniqueID();
-  cardDuplicate.name = `${cardDuplicate.name} - ${t("general.copyNoun")}`;
-
-  cards.value.splice(index + 1, 0, cardDuplicate);
-
-  updateStorage();
+  emit("duplicateCard", props.id, cardId);
 };
 
 const scrollCardIntoView = () => {
@@ -743,7 +751,10 @@ const scrollCardIntoView = () => {
 
   if (!cards || cards.length === 0) return;
 
-  cards[cards.length - 1].scrollIntoView({ behavior: "smooth" });
+  const lastCard = cards.item(cards.length - 1) as HTMLElement | null;
+  if (!lastCard) return;
+
+  lastCard.scrollIntoView({ behavior: "smooth" });
 };
 
 const removeCardWithConfirmation = (
@@ -754,37 +765,17 @@ const removeCardWithConfirmation = (
 };
 
 const removeCard = (id: string | undefined) => {
-  const index = cards.value.findIndex((card) => card.id === id);
-
-  if (index !== -1) {
-    cards.value.splice(index, 1);
-    updateStorage();
-  }
+  emit("removeCard", props.id, id);
 };
 
-const setCardTitle = (cardId: string | undefined, name: string) => {
-  if (!cardId) return;
-
-  const cardIndex = cards.value.findIndex((card) => card.id === cardId);
-  cards.value[cardIndex].name = name;
-
-  updateStorage();
+const setCardName = (cardId: string | undefined, name: string) => {
+  emit("setCardName", props.id, cardId, name);
 };
 
 const openEditCardModal = (el: Card) => {
   disableDragging();
 
   emit("openEditCardModal", props.id, el);
-};
-
-const updateStorage = () => {
-  const column = {
-    cards: cards.value,
-    id: props.id,
-    title: boardTitle.value,
-  };
-
-  emit("updateStorage", column);
 };
 
 const getGhostParent = () => {
