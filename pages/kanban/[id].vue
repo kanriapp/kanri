@@ -107,12 +107,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         type="text"
         @blur="
           boardTitleEditing = false;
-          emitter.emit('updateBoardPin', boardContent);
           board.updateBoardPin();
         "
         @keypress.enter="
           boardTitleEditing = false;
-          emitter.emit('updateBoardPin', boardContent);
           board.updateBoardPin();
         "
       />
@@ -191,8 +189,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <span class="text-dim-2">
                   <PhPushPin class="size-5" />
                 </span>
-                <span v-if="!board.isPinned">{{ $t("pages.kanban.pinBoardAction") }}</span>
-                <span v-else>{{ $t("pages.kanban.unpinBoardAction") }}</span>
+
+                <span v-if="board.isPinned.value">{{ $t("pages.kanban.unpinBoardAction") }}</span>
+                <span v-else>{{ $t("pages.kanban.pinBoardAction") }}</span>
               </DropdownMenuItem>
               <div class="my-1 border-t border-elevation-3"></div>
               <!-- Group 3: Danger zone -->
@@ -775,7 +774,7 @@ const deleteBoard = async (boardIndex: number | undefined) => {
 
   // Remove board pin before deleting
   if (board.isPinned.value) {
-    emitter.emit("toggleBoardPin", boardContent.value);
+    board.togglePin();
   }
 
   boards.value.splice(boardIndex, 1);
@@ -790,6 +789,10 @@ const enableBoardTitleEditing = () => {
 
 const getBoardIndex = () => {
   return boards.value.findIndex((b) => b.id === boardContent.value.id);
+};
+
+const toggleBoardPin = () => {
+  board.togglePin();
 };
 
 /**

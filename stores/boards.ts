@@ -42,6 +42,16 @@ export const useBoardsStore = defineStore("boards", {
         throw error;
       }
     },
+    async savePins() {
+      const tauri = useTauriStore().store;
+      try {
+        await tauri.set("pins", this.pins);
+        await tauri.save();
+      } catch (error) {
+        console.error("Failed to save pins:", error);
+        throw error;
+      }
+    },
 
     // Board CRUD
     upsertBoard(board: Board) {
@@ -83,15 +93,31 @@ export const useBoardsStore = defineStore("boards", {
       if (!b) return;
       const i = this.pins.findIndex(p => p.id === id);
 
-      if (i === -1) this.pins.push({ id, title: b.title });
-      else this.pins.splice(i, 1);
+      if (i === -1) {
+        // TODO: see what order this creates
+        this.pins.push({ id, title: b.title });
+      } else {
+        // Remove the pin
+        this.pins = this.pins.filter(p => p.id !== id);
+      }
     },
     updateBoardPin(id: string) {
+      // simple update: board title only
       const b = this.boardById(id);
+      console.log("board id", id, "board:", b);
       if (!b) return;
+
+      console.log("updating pin for board:", b);
+
+      this.mutateBoardPin(id, (pin) => {
+        pin.title = b.title;
+      });
+    },
+    async mutateBoardPin(id: string, mut: (pin: Pin) => void) {
       const pin = this.pins.find(p => p.id === id);
       if (pin) {
-        pin.title = b.title;
+        mut(pin);
+        await this.savePins();
       }
     },
 
@@ -293,6 +319,7 @@ export const useBoardsStore = defineStore("boards", {
       const schedule = () => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
+          console.log("Auto-saving boards...");
           this.save().catch((err) => {
             console.error("Auto-save failed:", err);
           });
@@ -300,7 +327,7 @@ export const useBoardsStore = defineStore("boards", {
         }, 100);
       };
 
-      this.$subscribe(schedule, { detached: true });
+      this.$subscribe(schedule, { detached: true, deep: true});
     },
   },
 });

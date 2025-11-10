@@ -49,9 +49,6 @@ type Events = {
   openModalWithCustomDescription: { description: string };
   boardDeletion: Board;
 
-  toggleBoardPin: Board;
-  updateBoardPin: Board;
-
   resetColumnInputs: void;
 
   setAnimationsOff: void;
