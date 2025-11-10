@@ -316,7 +316,6 @@ export const useBoardsStore = defineStore("boards", {
       const schedule = () => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
-          console.log("Auto-saving boards...");
           this.save().catch((err) => {
             console.error("Auto-save failed:", err);
           });
