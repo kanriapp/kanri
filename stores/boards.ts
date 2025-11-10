@@ -104,10 +104,7 @@ export const useBoardsStore = defineStore("boards", {
     updateBoardPin(id: string) {
       // simple update: board title only
       const b = this.boardById(id);
-      console.log("board id", id, "board:", b);
       if (!b) return;
-
-      console.log("updating pin for board:", b);
 
       this.mutateBoardPin(id, (pin) => {
         pin.title = b.title;
