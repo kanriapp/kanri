@@ -79,6 +79,8 @@
       "miscellaneousDeleteAllDataHeading": "Delete all data (themes and boards)",
       "miscellaneousDeleteAllDataSubtextRed": "Caution!",
       "miscellaneousDeleteAllDataSubtext": " This will irreversibly delete all of your data!",
+      "miscellaneousDisableSpellcheckHeading": "Disable spellchecking",
+      "miscellaneousDisableSpellcheckSubtext": "Disables the built-in spellchecking functionality in all input fields.",
       "exportThemeDialogTitle": "Select file to export data to",
       "loadJsonErrorMessage": "Could not load JSON file! Please check if the file is proper JSON.",
       "parseJsonErrorMessage": "Could not load JSON file! Please check if the file is formatted correctly and is not from an old version of Kanri."

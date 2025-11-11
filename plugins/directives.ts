@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive("resizable", {
     mounted: function (el) {
-      el.addEventListener("input", function (e) {
+      el.addEventListener("input", function (e: any) { // TODO: fix types
         e.target.style.height = "auto";
         e.target.style.height =
           (parseInt(e.target.scrollHeight) + 2).toString() + "px";
@@ -33,6 +33,15 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive("focus", {
     mounted: function (el) {
       el.focus();
+    },
+  });
+
+  nuxtApp.vueApp.directive("disable-spellcheck", {
+    mounted: function (el) {
+      el.setAttribute("autocomplete", "off");
+      el.setAttribute("autocorrect", "off");
+      el.setAttribute("autocapitalize", "off");
+      el.setAttribute("spellcheck", "false");
     },
   });
 });

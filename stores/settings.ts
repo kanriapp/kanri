@@ -18,14 +18,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
 import { disable, enable, isEnabled } from "@tauri-apps/plugin-autostart";
+import type { set } from "zod/v4";
 
 export const useSettingsStore = defineStore("settings", {
   state: () => {
+    /* Start page settings */
+    const boardSortingOption = ref("manual");
+    const reverseSorting = ref(false);
+    // TODO: implement logic/migrate to store
+
     /* Overall app settings */
     const locale = ref("en");
     const animationsEnabled = ref(true);
     const autostartEnabled = ref(false);
+    const disableSpellcheck = ref(false);
 
     /* Global board settings */
     const columnZoomLevel = ref(0);
@@ -37,6 +45,7 @@ export const useSettingsStore = defineStore("settings", {
       locale,
       animationsEnabled,
       autostartEnabled,
+      disableSpellcheck,
 
       columnZoomLevel,
       addToTopOfColumnButtonEnabled,
@@ -89,6 +98,11 @@ export const useSettingsStore = defineStore("settings", {
       // set using tauri plugin, not saving in store
       if (value) await enable();
       else await disable();
+    },
+
+    async setDisableSpellcheck(value: boolean) {
+      this.disableSpellcheck = value;
+      await useTauriStore().store.set("disableSpellcheck", value);
     },
 
     async setColumnZoomLevel(value: number) {

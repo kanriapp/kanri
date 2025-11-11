@@ -53,6 +53,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         ref="titleInput"
         v-model="titleNew"
         v-focus
+        :v-disable-spellcheck="settings.disableSpellcheck"
         :class="[
           'bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none',
           inputSizeClass,
@@ -261,6 +262,8 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+
+const settings = useSettingsStore();
 
 const titleInput: Ref<HTMLInputElement | null> = ref(null);
 const newCardInput: Ref<HTMLInputElement | null> = ref(null);

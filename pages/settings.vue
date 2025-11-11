@@ -270,6 +270,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <div class="flex w-[48rem] flex-row items-start justify-between">
           <div>
             <h3 class="text-lg">
+              {{ $t("pages.settings.miscellaneousDisableSpellcheckHeading") }}
+            </h3>
+            <span class="text-dim-2">
+              {{ $t("pages.settings.miscellaneousDisableSpellcheckSubtext") }}
+            </span>
+          </div>
+          <SwitchRoot
+            v-model:checked="globalSettingsStore.disableSpellcheck"
+            class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            @update:checked="(val) => globalSettingsStore.setDisableSpellcheck(val)"
+          >
+            <SwitchThumb
+              class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+            />
+          </SwitchRoot>
+        </div>
+
+        <div class="flex w-[48rem] flex-row items-start justify-between">
+          <div>
+            <h3 class="text-lg">
               {{ $t("pages.settings.miscellaneousAutostartHeading") }}
             </h3>
             <span class="text-dim-2">
@@ -317,7 +337,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import type { ThemeIdentifiers } from "@/types/kanban-types";
-import type { Ref } from "vue";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas";
