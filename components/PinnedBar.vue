@@ -40,14 +40,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import PinnedItem from "./PinnedItem.vue";
 
-const store = useTauriStore().store;
 const boardsStore = useBoardsStore();
 
 const { pins } = storeToRefs(boardsStore);
-
-onMounted(async () => {
-  pins.value = (await store.get("pins")) || [];
-});
 
 const setPinIcon = async (id: string, pinIcon: string) => {
   boardsStore.mutateBoardPin(id, (pin => {
