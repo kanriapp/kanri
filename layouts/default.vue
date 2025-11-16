@@ -46,6 +46,7 @@ const { setLocale, setLocaleCookie } = useI18n();
 const settings = useSettingsStore();
 const theme = useThemeStore();
 const layout = useLayoutStore();
+const boards = useBoardsStore();
 
 const systemTheme = useDark();
 
@@ -57,6 +58,7 @@ onMounted(async () => {
   await settings.loadSettings();
   await theme.loadThemeSettings();
   await layout.loadLayoutSettings();
+  await boards.init();
 
   // Set locale cookies based on saved value
   setLocale(settings.locale);
