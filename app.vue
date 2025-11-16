@@ -11,8 +11,6 @@
 </template>
 
 <script setup>
-import { getCurrentWindow } from "@tauri-apps/api/window";
-import { show } from "@tauri-apps/api/app";
 import {
   attachConsole,
   trace,
@@ -23,10 +21,6 @@ import {
 } from "@tauri-apps/plugin-log";
 
 onMounted(async () => {
-  setTimeout(async () => {
-    await getCurrentWindow().show();
-  }, 50);
-
   await attachConsole();
 
   console.trace = trace;
@@ -34,14 +28,5 @@ onMounted(async () => {
   console.info = info;
   console.warn = warn;
   console.error = error;
-
-  // if after 2 seconds the window is still not shown, try to open it again
-  setTimeout(async () => {
-    const isVisible = await getCurrentWindow().isVisible();
-    if (!isVisible) {
-      await show(); // for macOS
-      await getCurrentWindow().show(); // generic function
-    }
-  }, 2000);
 });
 </script>
