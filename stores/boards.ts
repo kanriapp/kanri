@@ -63,16 +63,6 @@ export const useBoardsStore = defineStore("boards", {
         throw error;
       }
     },
-    async savePins() {
-      const tauri = useTauriStore().store;
-      try {
-        await tauri.set("pins", this.pins);
-        await tauri.save();
-      } catch (error) {
-        console.error("Failed to save pins:", error);
-        throw error;
-      }
-    },
 
     // Board CRUD
     upsertBoard(board: Board) {
@@ -135,7 +125,6 @@ export const useBoardsStore = defineStore("boards", {
       const pin = this.pins.find(p => p.id === id);
       if (pin) {
         mut(pin);
-        await this.savePins();
       }
     },
 
@@ -346,6 +335,7 @@ export const useBoardsStore = defineStore("boards", {
       const schedule = () => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
+          console.log("Auto-saving boards...");
           this.save().catch((err) => {
             console.error("Auto-save failed:", err);
           });

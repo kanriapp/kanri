@@ -67,6 +67,5 @@ const clearPinIcon = (id: string) => {
 
 const unpin = (id: string) => {
   pins.value = pins.value.filter(p => p.id !== id);
-  boardsStore.savePins();
 }
 </script>
