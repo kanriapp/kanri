@@ -326,7 +326,7 @@ limitations under the License.
               >
                 <Container
                   drag-class="cursor-grabbing"
-                  drag-handle-selector=".task-drag"
+                  drag-handle-selector=".task-drag-handle"
                   lock-axis="y"
                   orientation="vertical"
                   @drop="onTaskDrop"
@@ -335,7 +335,6 @@ limitations under the License.
                   <Draggable
                     v-for="(task, index) in tasks"
                     :key="task.id"
-                    :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
                     :index="index"
                   >
                     <div
@@ -344,6 +343,10 @@ limitations under the License.
                       <div
                         class="flex w-full flex-row items-center justify-start gap-4"
                       >
+                        <PhDotsSixVertical
+                          v-if="!taskEditMode"
+                          class="task-drag-handle text-dim-2 size-4 shrink-0 cursor-grab"
+                        />
                         <CheckboxRoot
                           v-model:checked="task.finished"
                           class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 shrink-0 appearance-none items-center justify-center rounded-[4px] border outline-none"
@@ -493,6 +496,7 @@ import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import {
   PhCalendar,
   PhCheck,
+  PhDotsSixVertical,
   PhPencilSimple,
   PhTrash,
   PhX,
@@ -584,8 +588,6 @@ const newTaskInput: Ref<HTMLInputElement | null> = ref(null);
 const currentlyEditingTaskIndex = ref(-1);
 const currentlyEditingTaskName = ref("");
 const taskEditMode = ref(false);
-
-const draggingEnabled = ref(true);
 
 const enableTitleEditing = () => {
   emitter.emit("modalPreventClickOutsideClose");
@@ -694,7 +696,6 @@ const enableTaskEditMode = (
   task: { finished: boolean; name: string }
 ) => {
   taskEditMode.value = true;
-  draggingEnabled.value = false;
   currentlyEditingTaskIndex.value = index;
   currentlyEditingTaskName.value = task.name;
 };
@@ -712,7 +713,6 @@ const updateTask = (index: number) => {
   currentlyEditingTaskIndex.value = -1;
   currentlyEditingTaskName.value = "";
   taskEditMode.value = false;
-  draggingEnabled.value = true;
 
   updateCardTasks();
 };
