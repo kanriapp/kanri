@@ -87,6 +87,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @closeModal="cardRemoveDialog.cancel()"
       @confirmAction="cardRemoveDialog.confirm(true)"
     />
+    <ModalConfirmation
+      v-show="removeAllColumnCardsModalVisible"
+      :close-button-text="$t('general.cancelAction')"
+      :confirm-button-text="$t('general.deleteAction')"
+      :title="$t('components.kanban.card.deleteAllColumnCardsConfirmationTitle') + '?'"
+      @closeModal="allColumnCardsRemoveDialog.cancel()"
+      @confirmAction="allColumnCardsRemoveDialog.confirm(true)"
+    />
 
     <div class="absolute top-4 z-50 ml-8 w-[calc(100vw-112px)]">
       <h1
@@ -261,6 +269,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   @addCard="board.createCard"
                   @removeCard="board.deleteCard"
                   @removeCardWithConfirmation="removeCardWithConfirmation"
+                  @removeAllColumnCards="removeAllColumnCards"
                   @removeColumn="openColumnRemoveDialog(column.id)"
                   @removeColumnNoConfirmation="board.removeColumn"
                   @setColumnEditIndex="setColumnEditIndex"
@@ -360,6 +369,7 @@ const currentlyActiveCardInfo: {
 
 const removeColumnModalVisible = ref(false);
 const removeCardModalVisible = ref(false);
+const removeAllColumnCardsModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const renameBoardModalVisible = ref(false);
 
@@ -367,6 +377,7 @@ const editTagModalVisible = ref(false);
 
 const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
 const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
+const allColumnCardsRemoveDialog = useConfirmDialog(removeAllColumnCardsModalVisible);
 
 const board = useBoard(computed(() => route.params.id as string));
 const { board: boardContent } = board;
@@ -664,6 +675,27 @@ const removeCardWithConfirmation = async (
   draggingEnabled.value = true;
   emitter.emit("columnDraggingOn");
 };
+
+const removeAllColumnCards = async (
+    columnID: string
+) => {
+  const column = boardContent.value?.columns.filter((obj: Column) => {
+    return obj.id === columnID;
+  })[0];
+  
+  emitter.emit("openModalWithCustomDescription", {
+    description: t("components.kanban.card.deleteAllColumnCardsConfirmation", {
+      columnName: column.title,
+    }),
+  });
+  
+  const { isCanceled } = await allColumnCardsRemoveDialog.reveal();
+  if (!isCanceled) {
+    setTimeout(() => {
+      board.deleteAllColumnCards(columnID);
+    }, 250);
+  }
+}
 
 /**
  * Get the text color with the correct contrast if a background image is set

@@ -153,7 +153,10 @@
       },
       "card": {
         "deleteCardAction": "Delete card",
-        "deleteCardConfirmation": "Are you sure you want to delete the card '{cardName}'? This action is irreversible."
+        "deleteCardConfirmation": "Are you sure you want to delete the card '{cardName}'? This action is irreversible.",
+        "deleteAllColumnCardsAction": "Delete all cards",
+        "deleteAllColumnCardsConfirmation": "Are you sure you want to delete all the cards in column '{columnName}'? This action is irreversible.",
+        "deleteAllColumnCardsConfirmationTitle": "Delete all cards in this column"
       },
       "searchBar": {
         "placeholder": "Search for cards..."
