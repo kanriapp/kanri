@@ -70,7 +70,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Dropdown align="end">
         <template #trigger>
           <button
-          class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
+          class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md"
           @click.prevent
           >
           <EllipsisHorizontalIcon class="size-6" />
