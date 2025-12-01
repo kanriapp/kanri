@@ -30,7 +30,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div
       id="board-title"
       :class="[
-        'flex flex-row items-start justify-between gap-4',
+        'flex flex-row justify-between gap-4',
         titleTextClassZoom,
       ]"
     >
