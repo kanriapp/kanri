@@ -311,6 +311,15 @@ export const useBoardsStore = defineStore("boards", {
       col.cards = col.cards.filter(c => c.id !== cardId);
       b.lastEdited = new Date();
     },
+    deleteAllColumnCards(boardId: string, columnId: string) {
+      const b = this.boardById(boardId);
+      if (!b) return;
+      const col = b.columns.find(c => c.id === columnId);
+      if (!col) return;
+
+      col.cards = [];
+      b.lastEdited = new Date();
+    },
     mutateCard(boardId: string, columnId: string, cardId: string, mut: (c: Card) => void) {
       const b = this.boardById(boardId);
       if (!b) return;

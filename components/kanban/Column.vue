@@ -30,7 +30,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div
       id="board-title"
       :class="[
-        'flex flex-row items-start justify-between gap-4',
+        'flex flex-row justify-between gap-4',
         titleTextClassZoom,
       ]"
     >
@@ -66,36 +66,37 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           emitter.emit('columnActionDone');
         "
       />
-
-      <div class="flex flex-row items-center gap-2">
-        <Tooltip v-if="addToTopButtonShown" direction="top">
-          <template #trigger>
-            <PlusIcon
-              :class="[
-                'text-dim-4 text-accent-hover cursor-pointe mt-1.5 shrink-0 grow-0',
-                iconSizeClass,
-              ]"
+      
+      <Dropdown align="end">
+        <template #trigger>
+          <button
+          class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md"
+          @click.prevent
+          >
+          <EllipsisHorizontalIcon class="size-6" />
+          </button>
+        </template>
+        <template #content>
+            <DropdownMenuItem
+              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
               @click="enableCardAddMode(true)"
-            />
-          </template>
-
-          <template #content>{{
-            $t("components.kanban.column.addCardTop")
-          }}</template>
-        </Tooltip>
-
-        <ClickCounter
-          @double-click="$emit('removeColumnNoConfirmation', id)"
-          @single-click="$emit('removeColumn', id)"
-        >
-          <XMarkIcon
-            :class="[
-              'text-dim-4 text-accent-hover mt-1.5 shrink-0 grow-0 cursor-pointer',
-              iconSizeClass,
-            ]"
-          />
-        </ClickCounter>
-      </div>
+            >
+                {{$t('components.kanban.column.addCardTop')}}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+              @click="$emit('removeAllColumnCards', id)"
+            >
+                 {{$t('components.kanban.card.deleteAllColumnCardsAction')}}               
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+              @click="$emit('removeColumn', id)"
+            >
+                {{$t('components.kanban.column.deleteColumnAction')}}
+            </DropdownMenuItem>
+        </template>
+      </Dropdown>
     </div>
 
     <Container
@@ -213,7 +214,7 @@ import type { Ref } from "vue";
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
-import { PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
+import { PlusIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 //@ts-expect-error, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useI18n } from "vue-i18n";
@@ -238,6 +239,7 @@ const emit = defineEmits<{
   (e: "openEditCardModal", columnId: string, el: Card): void;
   (e: "addCard", columnId: string, card: Card, addToTop: boolean | undefined): void;
   (e: "removeCard", columnId: string, cardId: string | undefined): void;
+  (e: "removeAllColumnCards", columnId: string): void;
   (
     e: "removeCardWithConfirmation",
     columnId: string,
