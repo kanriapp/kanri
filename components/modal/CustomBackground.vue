@@ -113,7 +113,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { open } from "@tauri-apps/plugin-dialog";
-import { convertFileSrc } from "@tauri-apps/api/core";
+import { convertFileSrc, invoke } from "@tauri-apps/api/core";
 import { ref } from "vue";
 
 const emit = defineEmits([
@@ -147,6 +147,14 @@ watch(bgBlurDebounced, (newVal, oldVal) => {
 watch(bgBrightnessDebounced, (newVal, oldVal) => {
   if (newVal != oldVal) {
     emit("setBrightness", `${newVal}%`);
+    // FIXME: Filter invocation currently not great
+    // FIXME: Needs proper image paths
+    invoke("filter_bg", {
+      brightness: newVal / 100,
+      blur: parseInt(bgBlur.value),
+      srcPath: "",
+      destPath: "",
+    });
   }
 });
 
