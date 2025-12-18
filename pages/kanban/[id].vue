@@ -91,7 +91,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       v-show="removeAllColumnCardsModalVisible"
       :close-button-text="$t('general.cancelAction')"
       :confirm-button-text="$t('general.deleteAction')"
-      :title="$t('components.kanban.card.deleteAllColumnCardsConfirmationTitle') + '?'"
+      :title="
+        $t('components.kanban.card.deleteAllColumnCardsConfirmationTitle') + '?'
+      "
       @closeModal="allColumnCardsRemoveDialog.cancel()"
       @confirmAction="allColumnCardsRemoveDialog.confirm(true)"
     />
@@ -157,61 +159,63 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <Dropdown align="end">
             <template #trigger>
               <button
-              class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
-              @click.prevent
+                class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
+                @click.prevent
               >
-              <EllipsisHorizontalIcon class="size-6" />
+                <EllipsisHorizontalIcon class="size-6" />
               </button>
             </template>
 
             <template #content>
               <div class="flex flex-col">
-              <!-- Group 1: Board actions -->
-              <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                @click="renameBoardModal(getBoardIndex())"
-              >
-                <span class="text-dim-2"><PhPencil class="size-5" /></span>
-                <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                @click="duplicateBoard"
-              >
-                <span class="text-dim-2"><PhCopy class="size-5" /></span>
-                <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                @click="exportBoardToJson"
-              >
-                <span class="text-dim-2"><PhExport class="size-5" /></span>
-                <span>{{ $t("pages.kanban.exportBoardAction") }}</span>
-              </DropdownMenuItem>
-              <div class="my-1 border-t border-elevation-3"></div>
-              <!-- Group 2: Pin/unpin -->
-              <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                @click="toggleBoardPin"
-              >
-                <span class="text-dim-2">
-                  <PhPushPin class="size-5" />
-                </span>
+                <!-- Group 1: Board actions -->
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="renameBoardModal(getBoardIndex())"
+                >
+                  <span class="text-dim-2"><PhPencil class="size-5" /></span>
+                  <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="duplicateBoard"
+                >
+                  <span class="text-dim-2"><PhCopy class="size-5" /></span>
+                  <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="exportBoardToJson"
+                >
+                  <span class="text-dim-2"><PhExport class="size-5" /></span>
+                  <span>{{ $t("pages.kanban.exportBoardAction") }}</span>
+                </DropdownMenuItem>
+                <div class="border-elevation-3 my-1 border-t"></div>
+                <!-- Group 2: Pin/unpin -->
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
+                  @click="toggleBoardPin"
+                >
+                  <span class="text-dim-2">
+                    <PhPushPin class="size-5" />
+                  </span>
 
-                <span v-if="board.isPinned.value">{{ $t("pages.kanban.unpinBoardAction") }}</span>
-                <span v-else>{{ $t("pages.kanban.pinBoardAction") }}</span>
-              </DropdownMenuItem>
-              <div class="my-1 border-t border-elevation-3"></div>
-              <!-- Group 3: Danger zone -->
-              <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2 text-red-500"
-                @click="deleteBoardModal(boardContent?.id)"
-              >
-                <span>
-                  <PhTrash class="size-5" />
-                </span>
-                <span>{{ $t("pages.kanban.deleteBoardAction") }}</span>
-              </DropdownMenuItem>
+                  <span v-if="board.isPinned.value">{{
+                    $t("pages.kanban.unpinBoardAction")
+                  }}</span>
+                  <span v-else>{{ $t("pages.kanban.pinBoardAction") }}</span>
+                </DropdownMenuItem>
+                <div class="border-elevation-3 my-1 border-t"></div>
+                <!-- Group 3: Danger zone -->
+                <DropdownMenuItem
+                  class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left text-red-500"
+                  @click="deleteBoardModal(boardContent?.id)"
+                >
+                  <span>
+                    <PhTrash class="size-5" />
+                  </span>
+                  <span>{{ $t("pages.kanban.deleteBoardAction") }}</span>
+                </DropdownMenuItem>
               </div>
             </template>
           </Dropdown>
@@ -244,7 +248,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               drag-handle-selector=".dragging-handle"
               group-name="columns"
               :get-ghost-parent="getGhostParent"
-              :get-child-payload="(index: number) => boardContent?.columns[index]"
+              :get-child-payload="
+                (index: number) => boardContent?.columns[index]
+              "
               @drop="onDrop"
             >
               <Draggable
@@ -286,7 +292,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   @click="board.addColumn()"
                 >
                   <PlusIcon class="text-accent size-6" />
-                  <span :class="boardContent?.columns.length === 0 ? '' : 'hidden'"
+                  <span
+                    :class="boardContent?.columns.length === 0 ? '' : 'hidden'"
                     >Add Column</span
                   >
                 </div>
@@ -297,8 +304,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </div>
     </div>
   </div>
-  <div v-else class="flex h-screen w-screen items-center justify-center">
-  </div>
+  <div v-else class="flex h-screen w-screen items-center justify-center"></div>
 </template>
 
 <script setup lang="ts">
@@ -312,7 +318,14 @@ import emitter from "@/utils/emitter";
 
 import { PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
-import { PhHashStraight, PhTrash, PhCopy, PhPencil, PhExport, PhPushPin } from "@phosphor-icons/vue";
+import {
+  PhHashStraight,
+  PhTrash,
+  PhCopy,
+  PhPencil,
+  PhExport,
+  PhPushPin,
+} from "@phosphor-icons/vue";
 
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeTextFile, exists } from "@tauri-apps/plugin-fs";
@@ -346,12 +359,11 @@ const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
 const columnEditIndex = ref(0);
-const { 
-  columnZoomLevel, 
-  displayColumnCardCountEnabled, 
-  addToTopOfColumnButtonEnabled 
+const {
+  columnZoomLevel,
+  displayColumnCardCountEnabled,
+  addToTopOfColumnButtonEnabled,
 } = storeToRefs(settings);
-
 
 const bgCustom = ref("");
 const bgCustomNoResolution = ref("");
@@ -377,7 +389,9 @@ const editTagModalVisible = ref(false);
 
 const columnRemoveDialog = useConfirmDialog(removeColumnModalVisible);
 const cardRemoveDialog = useConfirmDialog(removeCardModalVisible);
-const allColumnCardsRemoveDialog = useConfirmDialog(removeAllColumnCardsModalVisible);
+const allColumnCardsRemoveDialog = useConfirmDialog(
+  removeAllColumnCardsModalVisible
+);
 
 const board = useBoard(computed(() => route.params.id as string));
 const { board: boardContent } = board;
@@ -443,7 +457,9 @@ onMounted(async () => {
   emitter.emit("openKanbanPage");
 
   columnEditIndex.value =
-    boardContent.value.columns.length !== 0 ? boardContent.value.columns.length - 1 : -1;
+    boardContent.value.columns.length !== 0
+      ? boardContent.value.columns.length - 1
+      : -1;
 
   emitter.on("columnActionDone", () => {
     columnCardAddMode.value = false;
@@ -526,7 +542,10 @@ const keyDownListener = (e: KeyboardEvent) => {
 
   // Arrow key left to decrease
   if ((e.key === "ArrowLeft" || e.key === "h") && e.altKey) {
-    if (columnEditIndex.value === 0 && boardContent.value.columns.length !== 0) {
+    if (
+      columnEditIndex.value === 0 &&
+      boardContent.value.columns.length !== 0
+    ) {
       columnEditIndex.value = boardContent.value.columns.length - 1;
     } else {
       columnEditIndex.value--;
@@ -571,7 +590,9 @@ const keyDownListener = (e: KeyboardEvent) => {
   // ctrl + d for deleting the last column
   if (e.key === "d") {
     columnEditIndex.value =
-      boardContent.value.columns.length !== 0 ? boardContent.value.columns.length - 1 : -1;
+      boardContent.value.columns.length !== 0
+        ? boardContent.value.columns.length - 1
+        : -1;
     const lastColumnID = boardContent.value.columns[columnEditIndex.value].id;
 
     openColumnRemoveDialog(lastColumnID);
@@ -676,26 +697,24 @@ const removeCardWithConfirmation = async (
   emitter.emit("columnDraggingOn");
 };
 
-const removeAllColumnCards = async (
-    columnID: string
-) => {
+const removeAllColumnCards = async (columnID: string) => {
   const column = boardContent.value?.columns.filter((obj: Column) => {
     return obj.id === columnID;
   })[0];
-  
+
   emitter.emit("openModalWithCustomDescription", {
     description: t("components.kanban.card.deleteAllColumnCardsConfirmation", {
       columnName: column.title,
     }),
   });
-  
+
   const { isCanceled } = await allColumnCardsRemoveDialog.reveal();
   if (!isCanceled) {
     setTimeout(() => {
       board.deleteAllColumnCards(columnID);
     }, 250);
   }
-}
+};
 
 /**
  * Get the text color with the correct contrast if a background image is set
@@ -741,7 +760,9 @@ const openColumnRemoveDialog = async (columnID: string) => {
  * Main method for updating the persistent storage, overrides old board with new one and saves to tauri store
  */
 const updateStorage = () => {
-  console.error("We don't want to use this anymore!! Use store inside useBoard composable!");
+  console.error(
+    "We don't want to use this anymore!! Use store inside useBoard composable!"
+  );
 };
 
 /**

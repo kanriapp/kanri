@@ -45,28 +45,28 @@ const boardsStore = useBoardsStore();
 const { pins } = storeToRefs(boardsStore);
 
 const setPinIcon = async (id: string, pinIcon: string) => {
-  boardsStore.mutateBoardPin(id, (pin => {
+  boardsStore.mutateBoardPin(id, (pin) => {
     pin.pinIcon = pinIcon;
     pin.pinIconText = undefined;
-  }));
-}
+  });
+};
 
 const setPinTextIcon = (id: string, pinIconText: string) => {
-  boardsStore.mutateBoardPin(id, (pin => {
+  boardsStore.mutateBoardPin(id, (pin) => {
     pin.pinIcon = undefined;
     pin.pinIconText = pinIconText;
-  }));
-}
+  });
+};
 
 const clearPinIcon = (id: string) => {
-  boardsStore.mutateBoardPin(id, (pin => {
+  boardsStore.mutateBoardPin(id, (pin) => {
     pin.pinIcon = undefined;
     pin.pinIconText = undefined;
-  }));
-}
+  });
+};
 
 const unpin = (id: string) => {
-  pins.value = pins.value.filter(p => p.id !== id);
+  pins.value = pins.value.filter((p) => p.id !== id);
   boardsStore.savePins();
-}
+};
 </script>

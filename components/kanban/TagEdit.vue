@@ -30,6 +30,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         type="color"
         @change="setTagColor"
       />
+      <button
+        class="text-accent-hover disabled:text-accent-hover size-4 cursor-pointer border-none bg-transparent p-0 focus:outline-none disabled:opacity-50 disabled:hover:bg-transparent"
+        :disabled="isResetDisabled"
+        type="button"
+        title="Reset tag color"
+        @click="resetTagColor"
+      >
+        <PhArrowCounterClockwise class="text-accent-hover size-4" />
+      </button>
       <template v-if="!isEditing">
         <ClickCounter @double-click="startEditing">
           {{ tag.text }}
@@ -70,7 +79,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import type { Tag } from "@/types/kanban-types";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
-import { PhPencilSimple, PhCheck } from "@phosphor-icons/vue";
+import {
+  PhPencilSimple,
+  PhCheck,
+  PhArrowCounterClockwise,
+} from "@phosphor-icons/vue";
 
 const emit = defineEmits(["setTagColor", "removeTag", "updateTagName"]);
 
@@ -78,9 +91,24 @@ const props = defineProps<{
   tag: Tag;
 }>();
 
+const defaultColor = "";
+
 const tagColor = ref(props.tag.color);
 const isEditing = ref(false);
 const editedTagName = ref(props.tag.text);
+
+const isResetDisabled = computed(() => {
+  // If the color is empty or matches the default, disable reset
+  if (!tagColor.value || tagColor.value === defaultColor) return true;
+  // If the color is a default swatch (like #ffffff or #fff), also treat as default
+  // You may want to check for common default values (e.g., white, transparent, etc.)
+  const normalized = tagColor.value.trim().toLowerCase();
+  return (
+    normalized === "#fff" ||
+    normalized === "#ffffff" ||
+    normalized === "transparent"
+  );
+});
 
 const setTagColor = () => {
   emit("setTagColor", props.tag.id, tagColor.value);
@@ -104,6 +132,11 @@ const saveTagName = () => {
   }
   isEditing.value = false;
 };
+
+const resetTagColor = () => {
+  tagColor.value = "";
+  emit("setTagColor", props.tag.id, "");
+};
 </script>
 
 <style>
@@ -122,5 +155,9 @@ input[type="color"]::-webkit-color-swatch {
   border-width: 1px;
   border-style: solid;
   border-color: var(--text);
+}
+button:disabled,
+button[disabled] {
+  pointer-events: none;
 }
 </style>

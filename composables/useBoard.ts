@@ -103,13 +103,17 @@ export function useBoard(id: string | Ref<string>) {
     if (!cardId) return;
     store.deleteCard(board.value.id, columnId, cardId);
   }
-  
+
   function deleteAllColumnCards(columnId: string) {
     if (!board.value) return;
     store.deleteAllColumnCards(board.value.id, columnId);
   }
 
-  function mutateCard(columnId: string, cardId: string, mut: Parameters<typeof store.mutateCard>[3]) {
+  function mutateCard(
+    columnId: string,
+    cardId: string,
+    mut: Parameters<typeof store.mutateCard>[3]
+  ) {
     if (!board.value) return;
     store.mutateCard(board.value.id, columnId, cardId, mut);
   }

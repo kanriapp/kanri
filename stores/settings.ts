@@ -51,21 +51,26 @@ export const useSettingsStore = defineStore("settings", {
       addToTopOfColumnButtonEnabled,
       displayColumnCardCountEnabled,
       defaultRelativeDueDatesEnabled,
-    }
+    };
   },
 
   actions: {
     async loadSettings() {
       const store = useTauriStore().store;
 
-      const localeSaved: string = await store.get("locale") ?? "en";
-      const animationsEnabledSaved: boolean = await store.get("animationsEnabled") ?? true;
-      const autostartEnabledSaved: boolean = await isEnabled() ?? false;
+      const localeSaved: string = (await store.get("locale")) ?? "en";
+      const animationsEnabledSaved: boolean =
+        (await store.get("animationsEnabled")) ?? true;
+      const autostartEnabledSaved: boolean = (await isEnabled()) ?? false;
 
-      const columnZoomLevelSaved: number = await store.get("columnZoomLevel") ?? 0;
-      const addToTopOfColumnButtonEnabledSaved: boolean = await store.get("addToTopOfColumnButtonEnabled") ?? false;
-      const displayColumnCardCountEnabledSaved: boolean = await store.get("displayColumnCardCountEnabled") ?? false;
-      const defaultRelativeDueDatesEnabledSaved: boolean = await store.get("defaultRelativeDueDatesEnabled") ?? false;
+      const columnZoomLevelSaved: number =
+        (await store.get("columnZoomLevel")) ?? 0;
+      const addToTopOfColumnButtonEnabledSaved: boolean =
+        (await store.get("addToTopOfColumnButtonEnabled")) ?? false;
+      const displayColumnCardCountEnabledSaved: boolean =
+        (await store.get("displayColumnCardCountEnabled")) ?? false;
+      const defaultRelativeDueDatesEnabledSaved: boolean =
+        (await store.get("defaultRelativeDueDatesEnabled")) ?? false;
 
       this.locale = localeSaved;
       this.animationsEnabled = animationsEnabledSaved;
@@ -114,7 +119,7 @@ export const useSettingsStore = defineStore("settings", {
       this.addToTopOfColumnButtonEnabled = value;
       await useTauriStore().store.set("addToTopOfColumnButtonEnabled", value);
     },
-    
+
     async setDisplayColumnCardCountEnabled(value: boolean) {
       this.displayColumnCardCountEnabled = value;
       await useTauriStore().store.set("displayColumnCardCountEnabled", value);
@@ -123,6 +128,6 @@ export const useSettingsStore = defineStore("settings", {
     async setDefaultRelativeDueDatesEnabled(value: boolean) {
       this.defaultRelativeDueDatesEnabled = value;
       await useTauriStore().store.set("defaultRelativeDueDatesEnabled", value);
-    }
-  }
+    },
+  },
 });

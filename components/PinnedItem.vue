@@ -27,10 +27,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <div class="bg-elevation-3 transition-button rounded-md p-2">
               <span
                 v-if="customChar"
-                class="size-7 flex items-center justify-center text-[20px] leading-none"
+                class="flex size-7 items-center justify-center text-[20px] leading-none"
                 >{{ customChar }}</span
               >
-              <component v-else :is="selectedIcon" class="size-7" />
+              <component :is="selectedIcon" v-else class="size-7" />
             </div>
           </nuxt-link>
         </template>
@@ -46,10 +46,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <div class="bg-elevation-2-hover transition-button rounded-md p-2">
               <span
                 v-if="customChar"
-                class="size-7 flex items-center justify-center text-[20px] leading-none"
+                class="flex size-7 items-center justify-center text-[20px] leading-none"
                 >{{ customChar }}</span
               >
-              <component v-else :is="selectedIcon" class="size-7" />
+              <component :is="selectedIcon" v-else class="size-7" />
             </div>
           </nuxt-link>
         </template>
@@ -65,18 +65,31 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         class="text-normal bg-primary-darker border-elevation-1 icon-menu z-[999] w-[300px] rounded-md border p-1 shadow-lg"
       >
         <div class="px-2 pt-1.5">
-          <div class="mb-2 flex rounded-md bg-elevation-2 p-0.5 text-xs font-medium">
+          <div
+            class="bg-elevation-2 mb-2 flex rounded-md p-0.5 text-xs font-medium"
+          >
             <button
               class="flex-1 rounded-sm px-2 py-1 transition-colors"
-              :class="activeTab === 'icons' ? 'bg-elevation-3' : 'hover:bg-elevation-1'
+              :class="
+                activeTab === 'icons'
+                  ? 'bg-elevation-3'
+                  : 'hover:bg-elevation-1'
               "
               @click="activeTab = 'icons'"
-            >Icons</button>
+            >
+              Icons
+            </button>
             <button
               class="flex-1 rounded-sm px-2 py-1 transition-colors"
-              :class="activeTab === 'custom' ? 'bg-elevation-3' : 'hover:bg-elevation-1'"
+              :class="
+                activeTab === 'custom'
+                  ? 'bg-elevation-3'
+                  : 'hover:bg-elevation-1'
+              "
               @click="activeTab = 'custom'"
-            >Custom</button>
+            >
+              Custom
+            </button>
           </div>
         </div>
 
@@ -112,9 +125,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
           <div v-else class="max-h-[300px] overflow-y-auto">
             <div v-for="category in categories" :key="category">
-              <ContextMenuLabel class="px-2 py-1.5 text-xs uppercase tracking-wide text-dim-3">{{
-                category
-              }}</ContextMenuLabel>
+              <ContextMenuLabel
+                class="text-dim-3 px-2 py-1.5 text-xs uppercase tracking-wide"
+                >{{ category }}</ContextMenuLabel
+              >
               <div class="grid grid-cols-5 gap-1 p-1">
                 <ContextMenuItem
                   v-for="icon in getIconsByCategory(category)"
@@ -140,8 +154,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </template>
 
         <template v-else>
-          <div class="flex flex-col gap-2 px-2 py-2">
-            <label class="text-xs font-medium text-dim-3">Character / Emoji</label>
+          <div class="flex flex-col gap-2 p-2">
+            <label class="text-dim-3 text-xs font-medium"
+              >Character / Emoji</label
+            >
             <div class="flex items-center gap-2">
               <input
                 v-model="customCharInput"
@@ -155,14 +171,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 class="bg-accent hover:bg-accent-hover disabled:bg-elevation-2 rounded px-3 py-1 text-xs font-semibold transition-colors"
                 :disabled="!customCharInput.trim()"
                 @click="applyCustomChar"
-              >Set</button>
+              >
+                Set
+              </button>
             </div>
             <div class="flex gap-2">
               <button
                 v-if="customChar"
                 class="bg-elevation-2-hover hover:bg-elevation-3 rounded px-2 py-1 text-xs"
                 @click="clearCustomChar"
-              >Clear</button>
+              >
+                Clear
+              </button>
             </div>
           </div>
         </template>
@@ -172,7 +192,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <button
             class="unpin-button bg-destructive/80 hover:bg-destructive text-destructive-content w-full rounded-md px-3 py-1.5 text-sm font-semibold transition-colors"
             @click="unpin"
-          >Unpin Board</button>
+          >
+            Unpin Board
+          </button>
         </div>
       </ContextMenuContent>
     </ContextMenuPortal>
@@ -217,7 +239,9 @@ const selectedIconName = ref("article");
 const selectedIcon = shallowRef<Component>(availableIcons[0].component);
 const customChar = ref<string>("");
 const customCharInput = ref("");
-const activeTab = ref<'icons' | 'custom'>(customChar.value ? 'custom' : 'icons');
+const activeTab = ref<"icons" | "custom">(
+  customChar.value ? "custom" : "icons"
+);
 
 const searchResults = computed(() => {
   if (!searchQuery.value) return [];
@@ -263,7 +287,9 @@ const applyCustomChar = () => {
   // Use at most one visible grapheme cluster (allow emoji sequences, flags, etc.)
   let truncated = value;
   if (typeof Intl !== "undefined" && Intl.Segmenter) {
-    const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
+    const segmenter = new Intl.Segmenter(undefined, {
+      granularity: "grapheme",
+    });
     const iterator = segmenter.segment(value)[Symbol.iterator]();
     const first = iterator.next();
     truncated = first.value ? first.value.segment : "";

@@ -29,10 +29,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   >
     <div
       id="board-title"
-      :class="[
-        'flex flex-row justify-between gap-4',
-        titleTextClassZoom,
-      ]"
+      :class="['flex flex-row justify-between gap-4', titleTextClassZoom]"
     >
       <div v-if="!titleEditing" class="flex flex-row items-center gap-1.5">
         <h1
@@ -66,35 +63,35 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           emitter.emit('columnActionDone');
         "
       />
-      
+
       <Dropdown align="end">
         <template #trigger>
           <button
-          class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md"
-          @click.prevent
+            class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md"
+            @click.prevent
           >
-          <EllipsisHorizontalIcon class="size-6" />
+            <EllipsisHorizontalIcon class="size-6" />
           </button>
         </template>
         <template #content>
-            <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-              @click="enableCardAddMode(true)"
-            >
-                {{$t('components.kanban.column.addCardTop')}}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-              @click="$emit('removeAllColumnCards', id)"
-            >
-                 {{$t('components.kanban.card.deleteAllColumnCardsAction')}}               
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-              @click="$emit('removeColumn', id)"
-            >
-                {{$t('components.kanban.column.deleteColumnAction')}}
-            </DropdownMenuItem>
+          <DropdownMenuItem
+            class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
+            @click="enableCardAddMode(true)"
+          >
+            {{ $t("components.kanban.column.addCardTop") }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
+            @click="$emit('removeAllColumnCards', id)"
+          >
+            {{ $t("components.kanban.card.deleteAllColumnCardsAction") }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
+            @click="$emit('removeColumn', id)"
+          >
+            {{ $t("components.kanban.column.deleteColumnAction") }}
+          </DropdownMenuItem>
         </template>
       </Dropdown>
     </div>
@@ -237,7 +234,12 @@ const emit = defineEmits<{
 
   // card actions
   (e: "openEditCardModal", columnId: string, el: Card): void;
-  (e: "addCard", columnId: string, card: Card, addToTop: boolean | undefined): void;
+  (
+    e: "addCard",
+    columnId: string,
+    card: Card,
+    addToTop: boolean | undefined
+  ): void;
   (e: "removeCard", columnId: string, cardId: string | undefined): void;
   (e: "removeAllColumnCards", columnId: string): void;
   (
@@ -258,7 +260,12 @@ const emit = defineEmits<{
   (e: "removeColumn", columnId: string): void;
   (e: "removeColumnNoConfirmation", columnId: string): void;
   (e: "setColumnEditIndex", columnIndex: number, eventType: string): void;
-  (e: "setCardName", columnId: string, cardId: string | undefined, name: string): void;
+  (
+    e: "setCardName",
+    columnId: string,
+    cardId: string | undefined,
+    name: string
+  ): void;
   (e: "duplicateCard", columnId: string, cardId: string | undefined): void;
   (e: "reorderCards", columnId: string, newCardsOrder: Array<Card>): void;
 }>();

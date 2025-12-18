@@ -17,15 +17,15 @@ export function applyDrag(arr, dragResult) {
     let indexToRemove = -1;
 
     if (payload != null) {
-      indexToRemove = result.findIndex(item => item === payload);
+      indexToRemove = result.findIndex((item) => item === payload);
 
       if (indexToRemove === -1) {
         const payloadId = payload && (payload.id ?? payload.ID ?? payload._id);
-        if (typeof payloadId !== 'undefined') {
-          indexToRemove = result.findIndex(item => {
+        if (typeof payloadId !== "undefined") {
+          indexToRemove = result.findIndex((item) => {
             if (!item) return false;
             const itemId = item.id ?? item.ID ?? item._id;
-            return typeof itemId !== 'undefined' && itemId === payloadId;
+            return typeof itemId !== "undefined" && itemId === payloadId;
           });
         }
       }
@@ -33,7 +33,11 @@ export function applyDrag(arr, dragResult) {
 
     // If we still didn't find it, fall back to the removedIndex if valid
     if (indexToRemove === -1) {
-      if (Number.isInteger(removedIndex) && removedIndex >= 0 && removedIndex < result.length) {
+      if (
+        Number.isInteger(removedIndex) &&
+        removedIndex >= 0 &&
+        removedIndex < result.length
+      ) {
         indexToRemove = removedIndex;
       }
     }

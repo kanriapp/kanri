@@ -24,7 +24,12 @@ import type { Board, Column, Card, Tag } from "@/types/kanban-types";
 import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator";
 
-type Pin = { id: string; title: string; pinIcon?: string; pinIconText?: string };
+type Pin = {
+  id: string;
+  title: string;
+  pinIcon?: string;
+  pinIconText?: string;
+};
 
 export const useBoardsStore = defineStore("boards", {
   state: () => ({
@@ -33,8 +38,9 @@ export const useBoardsStore = defineStore("boards", {
     initialized: false,
   }),
   getters: {
-    boardById: (state) => (id: string) => state.boards.find(b => b.id === id) ?? null,
-    isPinned: (state) => (id: string) => !!state.pins.find(p => p.id === id),
+    boardById: (state) => (id: string) =>
+      state.boards.find((b) => b.id === id) ?? null,
+    isPinned: (state) => (id: string) => !!state.pins.find((p) => p.id === id),
   },
   actions: {
     async init() {
@@ -76,21 +82,22 @@ export const useBoardsStore = defineStore("boards", {
 
     // Board CRUD
     upsertBoard(board: Board) {
-      const i = this.boards.findIndex(b => b.id === board.id);
+      const i = this.boards.findIndex((b) => b.id === board.id);
       board.lastEdited = new Date();
       if (i === -1) this.boards.push(board);
       else this.boards[i] = board;
     },
     removeBoard(id: string) {
-      this.boards = this.boards.filter(b => b.id !== id);
-      this.pins = this.pins.filter(p => p.id !== id);
+      this.boards = this.boards.filter((b) => b.id !== id);
+      this.pins = this.pins.filter((p) => p.id !== id);
     },
     duplicateBoard(id: string) {
       const b = this.boardById(id);
       if (!b) return;
-      const copy: Board = typeof structuredClone === "function" 
-        ? structuredClone(b) 
-        : JSON.parse(JSON.stringify(b));
+      const copy: Board =
+        typeof structuredClone === "function"
+          ? structuredClone(b)
+          : JSON.parse(JSON.stringify(b));
       copy.id = generateUniqueID();
       copy.title = `${copy.title} (duplicate)`;
       copy.lastEdited = new Date();
@@ -102,7 +109,7 @@ export const useBoardsStore = defineStore("boards", {
 
       b.title = title;
       // also update pin title
-      const pin = this.pins.find(p => p.id === id);
+      const pin = this.pins.find((p) => p.id === id);
       if (pin) {
         pin.title = title;
       }
@@ -112,14 +119,14 @@ export const useBoardsStore = defineStore("boards", {
     togglePin(id: string) {
       const b = this.boardById(id);
       if (!b) return;
-      const i = this.pins.findIndex(p => p.id === id);
+      const i = this.pins.findIndex((p) => p.id === id);
 
       if (i === -1) {
         // TODO: see what order this creates
         this.pins.push({ id, title: b.title });
       } else {
         // Remove the pin
-        this.pins = this.pins.filter(p => p.id !== id);
+        this.pins = this.pins.filter((p) => p.id !== id);
       }
     },
     updateBoardPin(id: string) {
@@ -132,7 +139,7 @@ export const useBoardsStore = defineStore("boards", {
       });
     },
     async mutateBoardPin(id: string, mut: (pin: Pin) => void) {
-      const pin = this.pins.find(p => p.id === id);
+      const pin = this.pins.find((p) => p.id === id);
       if (pin) {
         mut(pin);
         await this.savePins();
@@ -146,7 +153,7 @@ export const useBoardsStore = defineStore("boards", {
       if (!b.globalTags) b.globalTags = [];
 
       // only add if it doesn't exist already
-      if (b.globalTags.find(t => t.id === tag.id)) return;
+      if (b.globalTags.find((t) => t.id === tag.id)) return;
 
       b.globalTags.push(tag);
       b.lastEdited = new Date();
@@ -157,14 +164,14 @@ export const useBoardsStore = defineStore("boards", {
 
       // Remove from globalTags list
       if (b.globalTags) {
-        b.globalTags = b.globalTags.filter(t => t.id !== tagId);
+        b.globalTags = b.globalTags.filter((t) => t.id !== tagId);
       }
 
       // Remove references from all cards on this board
       for (const col of b.columns) {
         for (const card of col.cards) {
           if (!card.tags || card.tags.length === 0) continue;
-          card.tags = card.tags.filter(t => t && t.id !== tagId);
+          card.tags = card.tags.filter((t) => t && t.id !== tagId);
         }
       }
 
@@ -173,10 +180,11 @@ export const useBoardsStore = defineStore("boards", {
     setGlobalTagColor(boardId: string, tagId: string, color: string) {
       const b = this.boardById(boardId);
       if (!b || !b.globalTags) return;
-      const tag = b.globalTags.find(t => t.id === tagId);
+      const tag = b.globalTags.find((t) => t.id === tagId);
       if (!tag) return;
 
-      const textColor = getContrast(color) === "text-gray-50" ? "#f4f4f5" : "#1e293b";
+      const textColor =
+        getContrast(color) === "text-gray-50" ? "#f4f4f5" : "#1e293b";
       tag.style = `background-color: ${color}; color: ${textColor}`;
       tag.color = color;
 
@@ -187,7 +195,7 @@ export const useBoardsStore = defineStore("boards", {
     updateGlobalTagName(boardId: string, tagId: string, newName: string) {
       const b = this.boardById(boardId);
       if (!b || !b.globalTags) return;
-      const tag = b.globalTags.find(t => t.id === tagId);
+      const tag = b.globalTags.find((t) => t.id === tagId);
       if (!tag) return;
 
       tag.text = newName;
@@ -197,7 +205,7 @@ export const useBoardsStore = defineStore("boards", {
       b.lastEdited = new Date();
     },
 
-     // Update all cards that reference the global tag (mutate in place)
+    // Update all cards that reference the global tag (mutate in place)
     _propagateGlobalTag(boardId: string, updated: Tag) {
       const b = this.boardById(boardId);
       if (!b) return;
@@ -233,7 +241,7 @@ export const useBoardsStore = defineStore("boards", {
     removeColumn(boardId: string, columnId: string) {
       const b = this.boardById(boardId);
       if (!b) return;
-      b.columns = b.columns.filter(c => c.id !== columnId);
+      b.columns = b.columns.filter((c) => c.id !== columnId);
       b.lastEdited = new Date();
     },
     reorderColumns(boardId: string, nextColumns: Column[]) {
@@ -245,25 +253,30 @@ export const useBoardsStore = defineStore("boards", {
     setColumnTitle(boardId: string, columnId: string, title: string) {
       const b = this.boardById(boardId);
       if (!b) return;
-      const col = b.columns.find(c => c.id === columnId);
+      const col = b.columns.find((c) => c.id === columnId);
       if (!col) return;
-      
+
       col.title = title;
       b.lastEdited = new Date();
     },
     updateColumn(boardId: string, column: Column) {
       const b = this.boardById(boardId);
       if (!b) return;
-      const i = b.columns.findIndex(c => c.id === column.id);
+      const i = b.columns.findIndex((c) => c.id === column.id);
       if (i !== -1) b.columns[i] = column;
       b.lastEdited = new Date();
     },
 
     // Card ops
-    createCard(boardId: string, columnId: string, card: Card, addToTop?: boolean) {
+    createCard(
+      boardId: string,
+      columnId: string,
+      card: Card,
+      addToTop?: boolean
+    ) {
       const b = this.boardById(boardId);
       if (!b) return;
-      const col = b.columns.find(c => c.id === columnId);
+      const col = b.columns.find((c) => c.id === columnId);
       if (!col) return;
 
       if (addToTop) {
@@ -276,9 +289,9 @@ export const useBoardsStore = defineStore("boards", {
     duplicateCard(boardId: string, columnId: string, cardId: string) {
       const b = this.boardById(boardId);
       if (!b) return;
-      const col = b.columns.find(c => c.id === columnId);
+      const col = b.columns.find((c) => c.id === columnId);
       if (!col) return;
-      const card = col.cards.find(c => c.id === cardId);
+      const card = col.cards.find((c) => c.id === cardId);
       if (!card) return;
 
       // Clone card while preserving Date objects and creating new array instances
@@ -292,8 +305,8 @@ export const useBoardsStore = defineStore("boards", {
           ...card,
           // Normalize dueDate to a Date if it was a string; keep null/undefined as is
           dueDate: card.dueDate ? new Date(card.dueDate) : null,
-          tasks: card.tasks ? card.tasks.map(t => ({ ...t })) : undefined,
-          tags: card.tags ? card.tags.map(t => ({ ...t })) : undefined,
+          tasks: card.tasks ? card.tasks.map((t) => ({ ...t })) : undefined,
+          tags: card.tags ? card.tags.map((t) => ({ ...t })) : undefined,
         } as Card;
       }
 
@@ -305,27 +318,32 @@ export const useBoardsStore = defineStore("boards", {
     deleteCard(boardId: string, columnId: string, cardId: string) {
       const b = this.boardById(boardId);
       if (!b) return;
-      const col = b.columns.find(c => c.id === columnId);
+      const col = b.columns.find((c) => c.id === columnId);
       if (!col) return;
 
-      col.cards = col.cards.filter(c => c.id !== cardId);
+      col.cards = col.cards.filter((c) => c.id !== cardId);
       b.lastEdited = new Date();
     },
     deleteAllColumnCards(boardId: string, columnId: string) {
       const b = this.boardById(boardId);
       if (!b) return;
-      const col = b.columns.find(c => c.id === columnId);
+      const col = b.columns.find((c) => c.id === columnId);
       if (!col) return;
 
       col.cards = [];
       b.lastEdited = new Date();
     },
-    mutateCard(boardId: string, columnId: string, cardId: string, mut: (c: Card) => void) {
+    mutateCard(
+      boardId: string,
+      columnId: string,
+      cardId: string,
+      mut: (c: Card) => void
+    ) {
       const b = this.boardById(boardId);
       if (!b) return;
-      const col = b.columns.find(c => c.id === columnId);
+      const col = b.columns.find((c) => c.id === columnId);
       if (!col) return;
-      const card = col.cards.find(c => c.id === cardId);
+      const card = col.cards.find((c) => c.id === cardId);
       if (!card) return;
       mut(card);
       b.lastEdited = new Date();
@@ -333,7 +351,7 @@ export const useBoardsStore = defineStore("boards", {
     reorderCards(boardId: string, columnId: string, nextCards: Card[]) {
       const b = this.boardById(boardId);
       if (!b) return;
-      const col = b.columns.find(c => c.id === columnId);
+      const col = b.columns.find((c) => c.id === columnId);
       if (!col) return;
       col.cards = nextCards;
       b.lastEdited = new Date();
@@ -353,7 +371,7 @@ export const useBoardsStore = defineStore("boards", {
         }, 100);
       };
 
-      this.$subscribe(schedule, { detached: true, deep: true});
+      this.$subscribe(schedule, { detached: true, deep: true });
     },
   },
 });
