@@ -93,7 +93,6 @@ export function useBoard(id: string | Ref<string>) {
   }
 
   function duplicateCard(columnId: string, cardId: string | undefined) {
-    console.log('duplicteCard called', columnId, cardId);
     if (!board.value) return;
     if (!cardId) return;
     store.duplicateCard(board.value.id, columnId, cardId);
