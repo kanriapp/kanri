@@ -138,6 +138,18 @@ export const useBoardsStore = defineStore("boards", {
         await this.savePins();
       }
     },
+    listBoards(currentBoardId: string) {
+      return this.boards
+        .map(board => {
+          const isCurrent = board.id === currentBoardId;
+
+          return {
+            id: board.id,
+            title: board.title,
+            isCurrent
+          };
+        });
+    },
 
     // Global Tags ops
     addGlobalTag(boardId: string, tag: Tag) {
@@ -258,6 +270,13 @@ export const useBoardsStore = defineStore("boards", {
       if (i !== -1) b.columns[i] = column;
       b.lastEdited = new Date();
     },
+    listColumns(boardId: string) {
+      const board = this.boardById(boardId);
+      if (!board) return [];
+      return board.columns.map(column => (
+        { id: column.id, title: column.title }
+      ));
+    },
 
     // Card ops
     createCard(boardId: string, columnId: string, card: Card, addToTop?: boolean) {
@@ -337,6 +356,25 @@ export const useBoardsStore = defineStore("boards", {
       if (!col) return;
       col.cards = nextCards;
       b.lastEdited = new Date();
+    },
+    moveCard(sourceBoardId: string, targetBoardId: string, sourceColumnId: string, targetColumnId: string, cardId: string) {
+      if (sourceColumnId === targetColumnId) return;
+
+      const sourceBoard = this.boardById(sourceBoardId);
+      const targetBoard = this.boardById(targetBoardId);
+      if (!sourceBoard || !targetBoard) return;
+
+      const sourceCol = sourceBoard.columns.find(c => c.id === sourceColumnId);
+      const targetCol = targetBoard.columns.find(c => c.id === targetColumnId);
+      if (!sourceCol || !targetCol) return;
+
+      const cardIndex = sourceCol.cards.findIndex(c => c.id === cardId);
+
+      const [card] = sourceCol.cards.splice(cardIndex, 1);
+      if (card === undefined) return;
+      targetCol.cards.push(card);
+      targetBoard.lastEdited = new Date();
+      sourceBoard.lastEdited = new Date();
     },
 
     // Debounced auto-save of board properties

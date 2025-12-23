@@ -139,21 +139,22 @@ limitations under the License.
       <ContextMenuContent :class="contextMenuClass">
         <ContextMenuItem
           value="Edit Name"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="enableCardEditMode()"
         >
           {{ $t("general.editNameAction") }}
         </ContextMenuItem>
+        <MoveTo :card="card" />
         <ContextMenuItem
           value="Duplicate"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="$emit('duplicateCard', card.id)"
         >
           {{ $t("general.duplicateAction") }}
         </ContextMenuItem>
         <ContextMenuItem
           value="Delete"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="deleteCardWithConfirmation(card.id)"
         >
           {{ $t("general.deleteAction") }}
@@ -184,6 +185,7 @@ import {
   ContextMenuRoot,
   ContextMenuTrigger,
 } from "radix-vue";
+import MoveTo from "./MoveTo.vue";
 
 const props = defineProps<{
   card: Card;
