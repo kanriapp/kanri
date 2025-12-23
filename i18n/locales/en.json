@@ -10,7 +10,8 @@
     "addAction": "Add",
     "duplicateAction": "Duplicate",
     "editNameAction": "Edit Name",
-    "copyNoun": "Copy"
+    "copyNoun": "Copy",
+    "moveTo": "Move to"
   },
   "pages": {
     "index": {

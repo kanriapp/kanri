@@ -278,6 +278,8 @@ const cardAddModeAddToTopOfColumn = ref(false);
 const titleNew = ref(props.title);
 const titleEditing = ref(false);
 
+provide('columnId', props.id);
+
 const draggingEnabled = ref(true);
 
 const columnDOMElement = ref<HTMLDivElement | null>(null);
