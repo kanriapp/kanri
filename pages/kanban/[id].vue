@@ -110,7 +110,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         ref="boardTitleInput"
         v-model="boardContent.title"
         v-focus
-        class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+        class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 -ml-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none font-bold text-2xl"
         maxlength="500"
         type="text"
         @blur="
