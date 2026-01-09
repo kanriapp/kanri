@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -338,7 +338,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import type { ThemeIdentifiers } from "@/types/kanban-types";
 
-import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas";
 import emitter from "@/utils/emitter";
 import { catppuccin, dark, light } from "@/utils/themes";
@@ -357,7 +356,6 @@ import { useI18n } from "vue-i18n";
 
 const router = useRouter();
 
-const store = useTauriStore().store;
 const globalSettingsStore = useSettingsStore();
 const theme = useThemeStore();
 
@@ -421,9 +419,7 @@ const exportThemeToJson = async () => {
     title: t("pages.settings.exportThemeDialogTitle"),
   });
 
-  const colors = await store.get("colors");
-
-  const fileContents = JSON.stringify(colors, null, 2);
+  const fileContents = JSON.stringify(theme.colors, null, 2);
 
   if (filePath == null) return;
   await writeTextFile(filePath, fileContents);
