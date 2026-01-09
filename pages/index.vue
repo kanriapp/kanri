@@ -32,13 +32,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       :confirm-button-text="$t('general.deleteAction')"
       :description="
         $t('pages.index.deleteActionConfirmationText', {
-          boardName: boards[boardToBeDeletedIndex]?.title,
+          boardName: boards.find(b => b.id === boardToBeDeletedId)?.title,
         })
       "
       :title="$t('pages.index.deleteActionConfirmationHeading')"
       @closeModal="
         deleteBoardModalVisible = false;
-        boardToBeDeletedIndex = -1;
+        boardToBeDeletedId = '';
       "
       @confirmAction="deleteBoard"
     />
@@ -195,20 +195,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <div v-else class="mb-8 mt-6 flex flex-row flex-wrap gap-6">
         <!-- No results for current search -->
         <div
-          v-if="!loading && searchQuery && visibleBoards.length === 0"
+          v-if="!loading && searchQuery && visibleBoards?.length === 0"
           class="items-left mt-2 flex w-fit flex-col justify-center rounded-md p-2 text-dim-2"
         >
           <h3 class="text-xl font-semibold">{{ noResultsText }}</h3>
         </div>
 
         <TransitionGroup
-          v-if="!loading && visibleBoards.length > 0"
+          v-if="!loading && visibleBoards!.length > 0"
           class="flex flex-row flex-wrap gap-6"
           name="list"
           tag="div"
         >
           <nuxt-link
-            v-for="(board, index) in visibleBoards"
+            v-for="board in visibleBoards"
             id="board-preview"
             :key="board.id"
             :to="'/kanban/' + board.id"
@@ -216,7 +216,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           >
             <LazyKanbanBoardPreview
               :board="board"
-              :is-simple-preview-mode="visibleBoards.length >= 25"
+              :is-simple-preview-mode="visibleBoards!.length >= 25"
             />
             <div
               class="border-accent flex flex-row justify-between border-t px-1 py-2"
@@ -241,21 +241,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <!-- Group 1: Board actions -->
                     <DropdownMenuItem
                       class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                      @click="renameBoardModal(getBoardIndex(board.id))"
+                      @click="renameBoardModal(board.id)"
                     >
                       <span class="text-dim-2"><PhPencil class="size-5" /></span>
                       <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                      @click="duplicateBoard(getBoardIndex(board.id))"
+                      @click="duplicateBoard(board.id)"
                     >
                       <span class="text-dim-2"><PhCopy class="size-5" /></span>
                       <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                      @click="exportBoardToJson(getBoardIndex(board.id))"
+                      @click="exportBoardToJson(board.id)"
                     >
                       <span class="text-dim-2"><PhExport class="size-5" /></span>
                       <span>{{ $t("pages.kanban.exportBoardAction") }}</span>
@@ -264,7 +264,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     <!-- Group 3: Danger zone -->
                     <DropdownMenuItem
                       class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2 text-red-500"
-                      @click="deleteBoardModal(getBoardIndex(board.id))"
+                      @click="deleteBoardModal(board.id)"
                     >
                       <span>
                         <PhTrash class="size-5" />
@@ -286,9 +286,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import type { Board, Column } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
-import { useTauriStore } from "@/stores/tauriStore";
 import emitter from "@/utils/emitter";
-import { generateUniqueID } from "@/utils/idGenerator.js";
 import { ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 import { PhFunnel, PhTrash, PhExport, PhCopy, PhPencil } from "@phosphor-icons/vue";
@@ -296,9 +294,10 @@ import { useI18n } from "vue-i18n";
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeTextFile } from "@tauri-apps/plugin-fs";
 
-const store = useTauriStore().store;
 const layoutSettings = useLayoutStore();
-const boards: Ref<Array<Board>> = ref([]);
+const boardsStore = useBoardsStore();
+const settingsStore = useSettingsStore();
+const boards: Ref<Board[]> = ref([]);
 
 const loading = ref(true);
 const editSortWarning = ref(false);
@@ -313,7 +312,7 @@ const sortingOptionText = ref("Sort by creation date");
 // Search state
 const searchQuery = ref("");
 
-const boardToBeDeletedIndex = ref(-1);
+const boardToBeDeletedId = ref("");
 const { t } = useI18n();
 
 // i18n fallbacks for new UI text
@@ -328,11 +327,13 @@ const noResultsText = computed(() => {
   return result === key ? "No boards match your search." : result;
 });
 
-// Filtered boards based on search, preserving current sort order
 const visibleBoards = computed(() => {
+  if (!boards) return;
+
   const q = searchQuery.value.trim().toLowerCase();
   if (!q) return boards.value;
-  return boards.value.filter((b) => b.title.toLowerCase().includes(q));
+
+  return boards?.value?.filter((b) => b.title.toLowerCase().includes(q));
 });
 
 onMounted(async () => {
@@ -350,7 +351,10 @@ onMounted(async () => {
 
   emitter.emit("hideSidebarBackArrow");
 
-  boards.value = (await store.get("boards")) || [];
+  await boardsStore.init();
+
+  // make sure we use a copy to not break internal sorting
+  boards.value = JSON.parse(JSON.stringify(boardsStore.boards));
 
   await setSorting();
 
@@ -362,20 +366,18 @@ onBeforeUnmount(() => {
   emitter.off("openChangelogModal");
 });
 
+watch(boardsStore.boards, (_, newBoards) => {
+  if (newBoards == null || newBoards == undefined) return;
+  boards.value = newBoards; // keep in sync with store
+  setSorting(); // re-sort boards
+});
+
 const setSorting = async () => {
-  const sortingOption = await store.get("boardSortingOption");
-  if (sortingOption == null) {
-    await store.set("boardSortingOption", "default");
-  }
+  const sortingOption = settingsStore.boardSortingOption;
+  const savedSortPreference = settingsStore.reverseSorting;
 
-  let savedSortPreference = await store.get("reverseSorting");
-  if (savedSortPreference == null) {
-    savedSortPreference = "false";
-  }
-  savedSortPreference = Boolean(savedSortPreference as string).valueOf();
-
-  sortingOptionRef.value = (sortingOption as string) || "default";
-  reverseSortOrder.value = savedSortPreference as boolean;
+  sortingOptionRef.value = sortingOption;
+  reverseSortOrder.value = savedSortPreference;
 
   switch (sortingOption) {
     case "alphabetically":
@@ -387,24 +389,20 @@ const setSorting = async () => {
       break;
 
     default:
-      if (reverseSortOrder.value) {
-        boards.value.reverse();
+      if (reverseSortOrder.value && boards.value) {
+        boards.value.reverse()
       }
       break;
   }
 };
 
 const reverseCurrentSorting = async () => {
-  let savedSortPreference = await store.get("reverseSorting");
-  if (savedSortPreference == null) {
-    savedSortPreference = "false";
-  }
-  savedSortPreference = Boolean(savedSortPreference as string).valueOf();
+  const savedSortPreference = settingsStore.reverseSorting;
 
   reverseSortOrder.value = !savedSortPreference;
-  await store.set("reverseSorting", !savedSortPreference);
+  await settingsStore.setReverseSorting(!savedSortPreference);
 
-  boards.value.reverse();
+  boards?.value?.reverse();
 };
 
 const createNewBoard = async (title: string, columns?: Column[]) => {
@@ -442,83 +440,92 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
     title: title,
   };
 
-  boards.value = [...boards.value, board];
-  store.set("boards", boards.value);
+  boardsStore.upsertBoard(board);
 
   await setSorting();
 };
 
-const renameBoardModal = (index: number) => {
-  const selectedBoard = boards.value[index];
+const renameBoardModal = (id: string) => {
+  if (!boards.value) return;
+
+  const selectedBoard = boards.value.find(b => b.id === id);
   if (selectedBoard == null) {
-    return console.error("Could not find board with index: ", index);
+    return console.error("Could not find board with id: ", id);
   }
 
-  emitter.emit("openBoardRenameModal", { board: selectedBoard, index: index });
+  emitter.emit("openBoardRenameModal", { board: selectedBoard });
   renameBoardModalVisible.value = true;
 };
 
-const renameBoard = async (index: number, name: string) => {
-  if (boards.value[index] == null) {
-    return console.error("Could not find board with index: ", index);
+const renameBoard = async (id: string, name: string) => {
+  if (!boards.value || !boardsStore.boards) return;
+
+  // Update in local sorted copy
+  const localBoard = boards.value.find(b => b.id === id);
+  if (localBoard) {
+    localBoard.title = name;
+    localBoard.lastEdited = new Date();
   }
 
-  boards.value[index].title = name;
-  boards.value[index].lastEdited = new Date();
-  store.set("boards", boards.value);
-
-  // update board name in pinned bar
-  emitter.emit("updateBoardPin", boards.value[index]);
+  // Update in store (which handles persistence)
+  boardsStore.renameBoard(id, name);
 
   await setSorting();
 };
 
-const deleteBoardModal = (index: number | undefined) => {
-  if (index == undefined)
-    return console.error("Undefined board to delete, this should not happen!");
+const deleteBoardModal = (id: string) => {
+  if (!boards.value) return;
 
-  boardToBeDeletedIndex.value = index;
-
-  const selectedBoard = boards.value[index];
+  const selectedBoard = boards.value.find(b => b.id === id);
   if (selectedBoard == null) {
-    return console.error("Could not find board with index: ", index);
+    return console.error("Could not find board with id: ", id);
   }
+
+  boardToBeDeletedId.value = id;
 
   emitter.emit("openBoardDeleteModal", {
     description: t("pages.index.deleteActionConfirmationText", {
       boardName: selectedBoard.title,
     }),
-    index: index,
+    id: id,
   });
   deleteBoardModalVisible.value = true;
 };
 
-const deleteBoard = async (boardIndex: number | undefined) => {
+const deleteBoard = async (boardId: string | undefined) => {
   if (!deleteBoardModalVisible.value) return;
-  if (boardIndex === -1 || boardIndex == undefined) return;
+  if (!boardId) return;
 
-  const deletedBoard = boards.value.splice(boardIndex, 1);
-  store.set("boards", boards.value);
+  // Find the board before deletion for the event
+  const boardToDelete = boards.value.find(b => b.id === boardId);
+  if (!boardToDelete) return;
 
-  deletedBoard.forEach((board) => emitter.emit("boardDeletion", board));
+  // Remove from local sorted copy
+  boards.value = boards.value.filter(b => b.id !== boardId);
+
+  // Remove from store (which handles persistence)
+  boardsStore.removeBoard(boardId);
+
+  emitter.emit("boardDeletion", boardToDelete);
 };
 
-const duplicateBoard = async (boardIndex: number | undefined) => {
-  if (boardIndex === -1 || boardIndex == undefined) return;
+const duplicateBoard = async (id: string) => {
+  if (!id) return;
 
-  const boardToDuplicate = boards.value[boardIndex];
+  const boardToDuplicate = boards.value.find(b => b.id === id);
   if (!boardToDuplicate) return;
 
-  const duplicatedBoard = { ...boardToDuplicate, id: generateUniqueID() };
-  duplicatedBoard.title = `${duplicatedBoard.title} (Copy)`;
-  boards.value.splice(boardIndex + 1, 0, duplicatedBoard);
-  store.set("boards", boards.value);
+  // Use store's duplicateBoard which handles persistence
+  boardsStore.duplicateBoard(id);
+
+  // Re-sync and re-sort local copy
+  await setSorting();
 };
 
-const exportBoardToJson = async (index: number | undefined) => {
-  if (index === -1 || index == undefined) return;
+const exportBoardToJson = async (id: string) => {
+  if (!id) return;
 
-  const boardToExport = boards.value[index];
+  const boardToExport = boards.value.find(b => b.id === id);
   if (!boardToExport) return;
 
   const filePath = await save({
@@ -538,12 +545,7 @@ const exportBoardToJson = async (index: number | undefined) => {
   await writeTextFile(filePath, fileContents);
 };
 
-// Helpers
-const getBoardIndex = (id: string) => {
-  return boards.value.findIndex((b) => b.id === id);
-};
-
-const sortBoardsAlphabetically = () => {
+const sortBoardsAlphabetically = async () => {
   editSortWarning.value = false;
 
   boards.value.sort((a, b) => {
@@ -554,23 +556,24 @@ const sortBoardsAlphabetically = () => {
     boards.value.reverse();
   }
 
-  store.set("boardSortingOption", "alphabetically");
+  await settingsStore.setBoardSortingOption("alphabetically");
   sortingOptionText.value = t("pages.index.sortAlphabetically");
 };
 
 const sortBoardsByCreationDate = async () => {
   editSortWarning.value = false;
 
-  boards.value = (await store.get("boards")) || [];
+  boards.value = JSON.parse(JSON.stringify(boardsStore.boards));
+
   if (reverseSortOrder.value) {
     boards.value.reverse();
   }
 
-  store.set("boardSortingOption", "default");
+  await settingsStore.setBoardSortingOption("default");
   sortingOptionText.value = t("pages.index.sortByCreationDate");
 };
 
-const sortBoardsByEditDate = () => {
+const sortBoardsByEditDate = async () => {
   boards.value.sort((a, b) => {
     if (!a.lastEdited || !b.lastEdited) {
       editSortWarning.value = true;
@@ -583,8 +586,7 @@ const sortBoardsByEditDate = () => {
   if (reverseSortOrder.value) {
     boards.value.reverse();
   }
-
-  store.set("boardSortingOption", "edited");
+  await settingsStore.setBoardSortingOption("edited");
   sortingOptionText.value = t("pages.index.sortByLastEdited");
 };
 </script>
