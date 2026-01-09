@@ -77,20 +77,20 @@ import { XMarkIcon } from "@heroicons/vue/24/outline";
 
 const emit = defineEmits<{
   (e: "closeModal"): void;
-  (e: "renameBoard", boardIndex: number, newBoardName: string): void;
+  (e: "renameBoard", boardId: string, newBoardName: string): void;
 }>();
 
 const boardNameInput: Ref<HTMLInputElement | null> = ref(null);
 
 const newBoardName = ref("");
-const boardIndex = ref(-1);
+const boardId = ref("");
 
 onMounted(() => {
   emitter.on(
     "openBoardRenameModal",
-    (params: { board: Board; index: number }) => {
+    (params: { board: Board }) => {
       newBoardName.value = params.board.title;
-      boardIndex.value = params.index;
+      boardId.value = params.board.id;
 
       setTimeout(() => {
         if (boardNameInput.value == null) return;
@@ -110,7 +110,7 @@ onUpdated(() => {
 const renameBoard = () => {
   if (newBoardName.value == null || !/\S/.test(newBoardName.value)) return;
 
-  emit("renameBoard", boardIndex.value, newBoardName.value);
+  emit("renameBoard", boardId.value, newBoardName.value);
   closeModal();
 };
 

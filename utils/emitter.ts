@@ -42,8 +42,8 @@ type Events = {
   modalEnableClickOutsideClose: void;
   modalPreventClickOutsideClose: void;
 
-  openBoardDeleteModal: { description: string; index: number };
-  openBoardRenameModal: { board: Board; index: number };
+  openBoardDeleteModal: { description: string; id: string };
+  openBoardRenameModal: { board: Board };
   openChangelogModal: void;
   openKanbanPage: void;
   openModalWithCustomDescription: { description: string };
