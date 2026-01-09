@@ -53,7 +53,7 @@
         "title": "Kanri",
         "width": 1400,
         "center": true,
-        "visible": false
+        "visible": true
       }
     ],
     "security": {
