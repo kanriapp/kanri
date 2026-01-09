@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt, tareqdayya -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt, tareqdayya -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!--
@@ -166,7 +166,6 @@ limitations under the License.
 <script setup lang="ts">
 import type { Card, Tag } from "@/types/kanban-types";
 
-import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "~/utils/colorUtils";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import {
@@ -205,8 +204,8 @@ const emit = defineEmits<{
   (e: "duplicateCard", cardId: string | undefined): void;
 }>();
 
-const store = useTauriStore().store;
 const globalSettingsStore = useSettingsStore();
+const themeStore = useThemeStore();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const savedColors: Ref<any> = ref(null); // TODO: add types for saved theme in board
@@ -238,8 +237,8 @@ watch(
   { deep: true }
 );
 
-onMounted(async () => {
-  savedColors.value = await store.get("colors");
+onMounted(() => {
+  savedColors.value = themeStore.colors;
 });
 
 const cardHasNoExtraProperties = computed(() => {
