@@ -14,7 +14,7 @@
     :side-offset="6"
     :align-offset="-5"
   >
-    <ContextMenuSub v-for="board in boards" :key="board.id">
+    <ContextMenuSub v-for="board in mappedBoards" :key="board.id">
       <ContextMenuSubTrigger
         :class="contextMenuItemClass + ' pr-0'"
       >
@@ -76,21 +76,34 @@ const currentBoardId = route.params.id as string;
 
 const columnId = inject<string>('columnId')!;
 
-const { listBoards, listColumns, moveCard } = useBoardsStore();
+const boardsStore = useBoardsStore();
+const { boards } = storeToRefs(boardsStore);
 
 const handleMoveCard = (targetBoardId: string, targetColumnId: string) => {
     if (props.card.id === undefined) return;
-    moveCard(currentBoardId, targetBoardId, columnId, targetColumnId, props.card.id);
+    boardsStore.moveCard(currentBoardId, targetBoardId, columnId, targetColumnId, props.card.id);
 }
 
-const boards = listBoards(currentBoardId);
+const mappedBoards = computed(() => {
+  return boards.value.map((board) => ({
+    id: board.id,
+    title: board.title,
+    isCurrent: board.id === currentBoardId,
+  }));
+});
 
-const mappedColumns = {} as Record<string, Array<{ id: string; title: string; isCurrent?: boolean }>>;
-for (const board of boards) {
-    const columns = listColumns(board.id);
-    mappedColumns[board.id] = columns.map(col => ({
-        ...col,
-        isCurrent: col.id === columnId && board.id === currentBoardId
+const mappedColumns = computed(() => {
+  const result = {} as Record<
+    string,
+    Array<{ id: string; title: string; isCurrent?: boolean }>
+  >;
+  for (const board of boards.value) {
+    result[board.id] = board.columns.map((col) => ({
+      id: col.id,
+      title: col.title,
+      isCurrent: col.id === columnId && board.id === currentBoardId,
     }));
-}
+  }
+  return result;
+});
 </script>

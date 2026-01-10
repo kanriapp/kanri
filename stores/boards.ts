@@ -138,18 +138,6 @@ export const useBoardsStore = defineStore("boards", {
         await this.savePins();
       }
     },
-    listBoards(currentBoardId: string) {
-      return this.boards
-        .map(board => {
-          const isCurrent = board.id === currentBoardId;
-
-          return {
-            id: board.id,
-            title: board.title,
-            isCurrent
-          };
-        });
-    },
 
     // Global Tags ops
     addGlobalTag(boardId: string, tag: Tag) {
@@ -269,13 +257,6 @@ export const useBoardsStore = defineStore("boards", {
       const i = b.columns.findIndex(c => c.id === column.id);
       if (i !== -1) b.columns[i] = column;
       b.lastEdited = new Date();
-    },
-    listColumns(boardId: string) {
-      const board = this.boardById(boardId);
-      if (!board) return [];
-      return board.columns.map(column => (
-        { id: column.id, title: column.title }
-      ));
     },
 
     // Card ops
