@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab, jynxbt, tareqdayya -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab, jynxbt, tareqdayya, qunm00 -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -277,6 +277,8 @@ const cardAddModeAddToTopOfColumn = ref(false);
 
 const titleNew = ref(props.title);
 const titleEditing = ref(false);
+
+provide('columnId', props.id);
 
 const draggingEnabled = ref(true);
 

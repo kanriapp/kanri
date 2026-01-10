@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt, tareqdayya -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt, tareqdayya, qunm00 -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!--
@@ -139,21 +139,22 @@ limitations under the License.
       <ContextMenuContent :class="contextMenuClass">
         <ContextMenuItem
           value="Edit Name"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="enableCardEditMode()"
         >
           {{ $t("general.editNameAction") }}
         </ContextMenuItem>
+        <KanbanMoveTo :card="card" />
         <ContextMenuItem
           value="Duplicate"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="$emit('duplicateCard', card.id)"
         >
           {{ $t("general.duplicateAction") }}
         </ContextMenuItem>
         <ContextMenuItem
           value="Delete"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="deleteCardWithConfirmation(card.id)"
         >
           {{ $t("general.deleteAction") }}

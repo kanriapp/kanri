@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>
+/* SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, qunm00
 
 SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -326,6 +326,25 @@ export const useBoardsStore = defineStore("boards", {
       if (!col) return;
       col.cards = nextCards;
       b.lastEdited = new Date();
+    },
+    moveCard(sourceBoardId: string, targetBoardId: string, sourceColumnId: string, targetColumnId: string, cardId: string) {
+      if (sourceColumnId === targetColumnId) return;
+
+      const sourceBoard = this.boardById(sourceBoardId);
+      const targetBoard = this.boardById(targetBoardId);
+      if (!sourceBoard || !targetBoard) return;
+
+      const sourceCol = sourceBoard.columns.find(c => c.id === sourceColumnId);
+      const targetCol = targetBoard.columns.find(c => c.id === targetColumnId);
+      if (!sourceCol || !targetCol) return;
+
+      const cardIndex = sourceCol.cards.findIndex(c => c.id === cardId);
+
+      const [card] = sourceCol.cards.splice(cardIndex, 1);
+      if (card === undefined) return;
+      targetCol.cards.push(card);
+      targetBoard.lastEdited = new Date();
+      sourceBoard.lastEdited = new Date();
     },
 
     // Debounced auto-save of board properties
