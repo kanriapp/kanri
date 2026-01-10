@@ -16,6 +16,7 @@ To ensure uniformity in Kanri's repository, every contributor must follow these 
 * Have ESLint and Volar installed on your IDE for code formatting.
 * Follow the general Vue conventions (except for kebab-casing and events)
 * Use camelCasing on any function/method/property in code you've contributed.
+* Add your GitHub username (and optionally email) to the license headers of the files you've worked on (changes of 3+ lines). If you are creating a new file, copy a GPLv3 license header from another file and keep the creators attribution (trobonox), then add yourself.
 
 Please also take a look at the [Code of Conduct](https://github.com/trobonox/kanri/blob/main/CODE_OF_CONDUCT.md).
 
@@ -55,3 +56,4 @@ yarn lint
 yarn generate
 yarn tauri build
 ```
+
