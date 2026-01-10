@@ -144,7 +144,7 @@ limitations under the License.
         >
           {{ $t("general.editNameAction") }}
         </ContextMenuItem>
-        <MoveTo :card="card" />
+        <KanbanMoveTo :card="card" />
         <ContextMenuItem
           value="Duplicate"
           class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
@@ -185,7 +185,6 @@ import {
   ContextMenuRoot,
   ContextMenuTrigger,
 } from "radix-vue";
-import MoveTo from "./MoveTo.vue";
 
 const props = defineProps<{
   card: Card;
