@@ -18,7 +18,7 @@
     "embed-licenses": "node ./scripts/embed-license-reports.js"
   },
   "devDependencies": {
-    "@nuxt/eslint": "1.9.0",
+    "@nuxt/eslint": "1.12.1",
     "@nuxt/eslint-config": "^1.9.0",
     "@nuxtjs/i18n": "^10.1.0",
     "@nuxtjs/tailwindcss": "^6.14.0",
@@ -43,7 +43,7 @@
     "@heroicons/vue": "2.2.0",
     "@paralleldrive/cuid2": "^2.1.0",
     "@phosphor-icons/vue": "^2.1.6",
-    "@pinia/nuxt": "0.11.2",
+    "@pinia/nuxt": "0.11.3",
     "@popperjs/core": "^2.11.8",
     "@tauri-apps/api": "^2.0.0",
     "@tauri-apps/plugin-autostart": "^2.0.0",
@@ -62,7 +62,7 @@
     "@tiptap/vue-3": "^2.10.3",
     "@vojtechlanka/vue-tags-input": "^3",
     "mitt": "3.0.1",
-    "pinia": "3.0.3",
+    "pinia": "3.0.4",
     "radix-vue": "1.9.17",
     "v-calendar": "^3.1.2",
     "vue": "^3.5.13",
@@ -72,7 +72,7 @@
   },
   "resolutions": {
     "vite": "^6.0.0",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.27.0",
     "chokidar": "^3.6.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
