@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, PwshLab, jynxbt, tareqdayya -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab, jynxbt, tareqdayya -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     >
       <div v-if="!titleEditing" class="flex flex-row items-center gap-1.5">
         <h1
-          class="stop-text-overflow ml-1 font-bold"
+          class="stop-text-overflow ml-1 font-bold text-lg"
           @click="enableTitleEditing()"
         >
           {{ props.title }}
@@ -55,7 +55,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         v-focus
         :v-disable-spellcheck="settings.disableSpellcheck"
         :class="[
-          'bg-elevation-2 border-accent text-no-overflow mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none',
+          'bg-elevation-2 border-accent text-no-overflow -m-2 mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none font-bold text-lg',
           inputSizeClass,
         ]"
         maxlength="1000"
@@ -148,7 +148,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         v-focus
         v-resizable
         :class="[
-          'bg-elevation-2 border-accent-focus mb-2 overflow-hidden rounded-sm p-1 focus:border-2 focus:border-dotted focus:outline-none',
+          'bg-elevation-2 border-accent-focus border-2 border-transparent mb-2 overflow-hidden rounded-sm p-1 focus:border-dotted focus:outline-none',
           textAreaSizeClass,
         ]"
         maxlength="5000"

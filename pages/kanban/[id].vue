@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, PwshLab, tareqdayya -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab, tareqdayya -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -107,10 +107,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </h1>
       <input
         v-if="boardTitleEditing"
-        ref="boardTitleInput"
         v-model="boardContent.title"
         v-focus
-        class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none"
+        class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 -ml-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none font-bold text-2xl"
         maxlength="500"
         type="text"
         @blur="
@@ -169,7 +168,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               <!-- Group 1: Board actions -->
               <DropdownMenuItem
                 class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
-                @click="renameBoardModal(getBoardIndex())"
+                @click="renameBoardModal(boardContent?.id)"
               >
                 <span class="text-dim-2"><PhPencil class="size-5" /></span>
                 <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
@@ -331,6 +330,7 @@ const router = useRouter();
 const { t } = useI18n();
 
 const settings = useSettingsStore();
+const boardsStore = useBoardsStore();
 
 const boards: Ref<Array<Board>> = ref([]);
 // const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
@@ -341,7 +341,6 @@ const searchQuery = ref("");
 
 const boardTitleColor = ref("");
 const boardTitleEditing = ref(false);
-const boardTitleInput: Ref<HTMLInputElement | null> = ref(null);
 
 const columnCardAddMode = ref(false);
 const columnTitleEditing = ref(false);
@@ -351,7 +350,6 @@ const {
   displayColumnCardCountEnabled, 
   addToTopOfColumnButtonEnabled 
 } = storeToRefs(settings);
-
 
 const bgCustom = ref("");
 const bgCustomNoResolution = ref("");
@@ -766,13 +764,16 @@ const exportBoardToJson = async () => {
   await writeTextFile(filePath, fileContents);
 };
 
-const renameBoardModal = (index: number) => {
-  const selectedBoard = boards.value[index];
+const renameBoardModal = (id: string | undefined) => {
+  if (id == undefined)
+    return console.error("Undefined board to rename, this should not happen!");
+
+  const selectedBoard = boards.value.find((b) => b.id === id);
   if (selectedBoard == null) {
-    return console.error("Could not find board with index: ", index);
+    return console.error("Could not find board with id: ", id);
   }
 
-  emitter.emit("openBoardRenameModal", { board: selectedBoard, index: index });
+  emitter.emit("openBoardRenameModal", { board: selectedBoard });
   renameBoardModalVisible.value = true;
 };
 
@@ -795,32 +796,27 @@ const deleteBoardModal = (id: string | undefined) => {
     description: t("pages.kanban.deleteBoardConfirmation", {
       boardName: selectedBoard.title,
     }),
-    index: getBoardIndex(),
+    id: id,
   });
   deleteBoardModalVisible.value = true;
 };
 
-const deleteBoard = async (boardIndex: number | undefined) => {
+const deleteBoard = async (boardId: string | undefined) => {
   if (!deleteBoardModalVisible.value) return;
-  if (boardIndex === -1 || boardIndex == undefined) return;
+  if (!boardId) return;
 
   // Remove board pin before deleting
   if (board.isPinned.value) {
     board.togglePin();
   }
 
-  boards.value.splice(boardIndex, 1);
-  store.set("boards", boards.value);
+  boardsStore.removeBoard(boardId);
 
   router.push("/");
 };
 
 const enableBoardTitleEditing = () => {
   boardTitleEditing.value = true;
-};
-
-const getBoardIndex = () => {
-  return boards.value.findIndex((b) => b.id === boardContent.value.id);
 };
 
 const toggleBoardPin = () => {

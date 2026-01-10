@@ -1,9 +1,9 @@
-/* SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, PwshLab
+/* SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab
 
 SPDX-License-Identifier: GPL-3.0-or-later
 
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,8 +42,8 @@ type Events = {
   modalEnableClickOutsideClose: void;
   modalPreventClickOutsideClose: void;
 
-  openBoardDeleteModal: { description: string; index: number };
-  openBoardRenameModal: { board: Board; index: number };
+  openBoardDeleteModal: { description: string; id: string };
+  openBoardRenameModal: { board: Board };
   openChangelogModal: void;
   openKanbanPage: void;
   openModalWithCustomDescription: { description: string };

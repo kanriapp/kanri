@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev> -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,6 +46,7 @@ const { setLocale, setLocaleCookie } = useI18n();
 const settings = useSettingsStore();
 const theme = useThemeStore();
 const layout = useLayoutStore();
+const boards = useBoardsStore();
 
 const systemTheme = useDark();
 
@@ -57,6 +58,7 @@ onMounted(async () => {
   await settings.loadSettings();
   await theme.loadThemeSettings();
   await layout.loadLayoutSettings();
+  await boards.init();
 
   // Set locale cookies based on saved value
   setLocale(settings.locale);

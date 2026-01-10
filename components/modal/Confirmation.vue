@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak-->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, gitoak-->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     :blur-background="false"
     @closeModal="closeModal()"
     @enterKeyPressed="
-      $emit('confirmAction', boardIndex);
+      $emit('confirmAction', boardId);
       closeModal();
     "
   >
@@ -54,7 +54,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <button
             class="bg-accent text-buttons transition-button rounded-md px-4 py-2"
             @click="
-              $emit('confirmAction', boardIndex);
+              $emit('confirmAction', boardId);
               closeModal();
             "
           >
@@ -79,17 +79,17 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: "closeModal"): void;
-  (e: "confirmAction", boardIndex?: number): void;
+  (e: "confirmAction", boardId?: string): void;
 }>();
 
-const boardIndex = ref(-1);
+const boardId = ref("");
 const modalDescription = ref(props.description || "");
 
 onMounted(() => {
   emitter.on(
     "openBoardDeleteModal",
-    (params: { description: string; index: number }) => {
-      boardIndex.value = params.index;
+    (params: { description: string; id: string }) => {
+      boardId.value = params.id;
       modalDescription.value = params.description;
     }
   );
