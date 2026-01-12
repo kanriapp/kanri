@@ -42,7 +42,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         />
       </div>
 
-      <Tooltip>
+      <Tooltip :label="$t('components.sidebar.home')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -51,11 +51,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <PhHouse class="size-7" />
           </button>
         </template>
-
-        <template #content>{{ $t("components.sidebar.home") }}</template>
       </Tooltip>
 
-      <Tooltip v-if="!showAddButton">
+      <Tooltip v-if="!showAddButton" :label="$t('components.sidebar.back')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -64,11 +62,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <PhArrowBendUpLeft class="size-7" />
           </button>
         </template>
-
-        <template #content>{{ $t("components.sidebar.back") }}</template>
       </Tooltip>
 
-      <Tooltip v-if="showAddButton">
+      <Tooltip v-if="showAddButton" :label="$t('components.sidebar.createNewBoard')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -77,17 +73,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <IconPhPlusCircleDuotone class="text-accent size-7" />
           </button>
         </template>
-
-        <template #content>{{
-          $t("components.sidebar.createNewBoard")
-        }}</template>
       </Tooltip>
     </section>
 
     <PinnedBar />
 
     <section id="icons-bottom" class="flex flex-col items-center gap-4">
-      <Tooltip>
+      <Tooltip :label="$t('components.sidebar.importExport')">
         <template #trigger>
           <nuxt-link to="/import">
             <div class="bg-elevation-2-hover transition-button rounded-md p-2">
@@ -95,13 +87,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </div>
           </nuxt-link>
         </template>
-
-        <template #content>{{
-          $t("components.sidebar.importExport")
-        }}</template>
       </Tooltip>
 
-      <Tooltip>
+      <Tooltip :label="$t('components.sidebar.help')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -110,11 +98,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <PhQuestion class="size-7" />
           </button>
         </template>
-
-        <template #content>{{ $t("components.sidebar.help") }}</template>
       </Tooltip>
 
-      <Tooltip>
+      <Tooltip :label="$t('components.sidebar.settings')">
         <template #trigger>
           <nuxt-link to="/settings">
             <div class="bg-elevation-2-hover transition-button rounded-md p-2">
@@ -122,8 +108,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </div>
           </nuxt-link>
         </template>
-
-        <template #content>{{ $t("components.sidebar.settings") }}</template>
       </Tooltip>
     </section>
   </nav>

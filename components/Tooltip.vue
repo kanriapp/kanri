@@ -21,12 +21,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <TooltipProvider>
     <TooltipRoot :delay-duration="200">
-      <TooltipTrigger asChild>
+      <TooltipTrigger asChild :aria-label="label">
         <slot name="trigger" />
       </TooltipTrigger>
       <TooltipPortal to=".default-layout">
         <TooltipContent :side="direction" :class="tooltipClass">
-          <slot name="content" />
+          {{ label }}
           <TooltipArrow class="fill-bg-primary-darker" :width="10" />
         </TooltipContent>
       </TooltipPortal>
@@ -38,6 +38,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 withDefaults(
   defineProps<{
     direction?: "right" | "top" | "bottom" | "left";
+    label: string;
   }>(),
   {
     direction: "right",
