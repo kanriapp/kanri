@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <ContextMenuRoot>
     <ContextMenuTrigger>
-      <Tooltip v-if="isActivePin">
+      <Tooltip v-if="isActivePin" :label="props.board.title">
         <template #trigger>
           <nuxt-link :to="'/kanban/' + props.board.id">
             <div class="bg-elevation-3 transition-button rounded-md p-2">
@@ -34,13 +34,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </div>
           </nuxt-link>
         </template>
-
-        <template #content>
-          {{ props.board.title }}
-        </template>
       </Tooltip>
 
-      <Tooltip v-else>
+      <Tooltip v-else :label="props.board.title">
         <template #trigger>
           <nuxt-link :to="'/kanban/' + props.board.id">
             <div class="bg-elevation-2-hover transition-button rounded-md p-2">
@@ -52,10 +48,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               <component v-else :is="selectedIcon" class="size-7" />
             </div>
           </nuxt-link>
-        </template>
-
-        <template #content>
-          {{ props.board.title }}
         </template>
       </Tooltip>
     </ContextMenuTrigger>
@@ -100,11 +92,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 :class="{ 'bg-elevation-3': selectedIconName === icon.name }"
                 @click="selectIcon(icon.component, icon.name)"
               >
-                <Tooltip>
+                <Tooltip :label="icon.name">
                   <template #trigger>
                     <component :is="icon.component" class="size-5" />
                   </template>
-                  <template #content>{{ icon.name }}</template>
                 </Tooltip>
               </ContextMenuItem>
             </div>
@@ -123,11 +114,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   :class="{ 'bg-elevation-3': selectedIconName === icon.name }"
                   @click="selectIcon(icon.component, icon.name)"
                 >
-                  <Tooltip>
+                  <Tooltip :label="icon.name">
                     <template #trigger>
                       <component :is="icon.component" class="size-5" />
                     </template>
-                    <template #content>{{ icon.name }}</template>
                   </Tooltip>
                 </ContextMenuItem>
               </div>

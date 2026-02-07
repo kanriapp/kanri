@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
   <div class="flex flex-row items-center">
-    <Tooltip direction="top">
+    <Tooltip direction="top" :label="$t('components.kanban.zoomAdjustment.decreaseLevel')">
       <template #trigger>
         <button
           class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-l-2xl border-r px-3.5 py-2"
@@ -29,11 +29,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <MagnifyingGlassMinusIcon class="size-5" />
         </button>
       </template>
-      <template #content>
-        {{ $t("components.kanban.zoomAdjustment.decreaseLevel") }}
-      </template>
     </Tooltip>
-    <Tooltip direction="top">
+    <Tooltip direction="top" :label="$t('components.kanban.zoomAdjustment.reset')">
       <template #trigger>
         <button
           class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 px-3.5 py-1.5"
@@ -42,11 +39,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           {{ columnZoomLevel * 50 + 100 }}%
         </button>
       </template>
-      <template #content>
-        {{ $t("components.kanban.zoomAdjustment.reset") }}
-      </template>
     </Tooltip>
-    <Tooltip direction="top">
+    <Tooltip direction="top" :label="$t('components.kanban.zoomAdjustment.increaseLevel')">
       <template #trigger>
         <button
           class="bg-elevation-1 bg-elevation-2-hover transition-button border-elevation-2 rounded-r-2xl border-l px-3.5 py-2"
@@ -54,9 +48,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         >
           <MagnifyingGlassPlusIcon class="size-5" />
         </button>
-      </template>
-      <template #content>
-        {{ $t("components.kanban.zoomAdjustment.increaseLevel") }}
       </template>
     </Tooltip>
   </div>
