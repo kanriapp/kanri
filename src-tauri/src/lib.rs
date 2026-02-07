@@ -8,9 +8,55 @@
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
 )]
-
 use tauri::Manager;
 use tauri_plugin_autostart::MacosLauncher;
+
+use photon_rs::effects::adjust_brightness;
+use photon_rs::conv::gaussian_blur;
+use photon_rs::native::open_image;
+use photon_rs::native::save_image;
+
+
+/// Reads an image from the source path, applies blur and brightness, then writes it into the destination path.
+///
+/// # Arguments
+/// * `brightness` - A float that has to be between 0 and 1, where 1 will leave the brightness unchanged and 0 will produce a black image
+/// * `blur` - Blur radius to apply to the image
+/// * `src_path` - Filepath where the original image is stored
+/// * `dest_path` - Filepath where the edited image will be stored
+#[tauri::command]
+fn filter_bg(
+    brightness: f32,
+    blur: i32,
+    src_path: String,
+    dest_path: String,
+) -> Result<(), String> {
+    if brightness < 0f32 || brightness > 1f32 {
+        return Err(format!(
+            "Brightness must be between 0 and 1 but was {brightness}"
+        ));
+    }
+
+    let mut img = match open_image(src_path) {
+        Err(e) => return Err(e.to_string()),
+        Ok(img) => img,
+    };
+
+    if brightness < 1f32 {
+        let brightness_val: i16 = -255 + ((255f32 * brightness) as i16);
+        adjust_brightness(&mut img, brightness_val);
+    }
+
+    if blur > 0 {
+        gaussian_blur(&mut img, blur);
+    }
+
+    match save_image(img, dest_path) {
+        Err(e) => return Err(e.to_string()),
+        Ok(()) => return Ok(()),
+    };
+}
+
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -37,6 +83,7 @@ pub fn run() {
             MacosLauncher::LaunchAgent,
             None,
         ))
+        .invoke_handler(tauri::generate_handler![filter_bg])
         .setup(|app| {
             #[cfg(desktop)]
             let _ = app.handle().plugin(tauri_plugin_single_instance::init(|app, _args,_cwd| {
