@@ -28,7 +28,7 @@
     "@vueuse/components": "14.1.0",
     "@vueuse/core": "14.1.0",
     "@vueuse/nuxt": "14.1.0",
-    "eslint": "9.39.2",
+    "eslint": "10.0.0",
     "nuxt": "4.2.2",
     "postcss": "^8.4",
     "postcss-custom-properties": "^14.0.4",
