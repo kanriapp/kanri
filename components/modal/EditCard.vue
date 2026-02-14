@@ -34,7 +34,7 @@ limitations under the License.
               class="relative -left-8 top-0 flex flex-row items-center gap-2"
             >
               <div @blur="showCustomColorPopup = false">
-                <Tooltip direction="top">
+                <Tooltip direction="top" :label="$t('modals.editCard.tooltip')">
                   <template #trigger>
                     <button
                       class="size-7 rounded-full flex items-center justify-center"
@@ -53,10 +53,6 @@ limitations under the License.
                       />
                     </button>
                   </template>
-
-                  <template #content>{{
-                    $t("modals.editCard.tooltip")
-                  }}</template>
                 </Tooltip>
                 <div
                   v-if="showCustomColorPopup"
