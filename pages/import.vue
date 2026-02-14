@@ -206,8 +206,6 @@ const exportJSON = async () => {
     title: t("pages.import.exportFullJsonDialogTitle"),
   });
 
-  console.log(new Date().toLocaleDateString());
-
   const savedBoards = await store.get("boards");
   const boardSortingOption = await store.get("boardSortingOption");
   const pins = await store.get("pins");
