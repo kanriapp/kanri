@@ -777,10 +777,12 @@ const setCardColor = (
 };
 
 const dateToLocalFormat = (date: Date | string) => {
+  const jsLocaleIdentifier = locale.value.replace("_", "-")
+
   if (typeof date === "string") {
-    return new Date(date).toLocaleDateString(locale.value);
+    return new Date(date).toLocaleDateString(jsLocaleIdentifier);
   }
-  return date.toLocaleDateString(locale.value);
+  return date.toLocaleDateString(jsLocaleIdentifier);
 };
 
 watch(customColor, (newVal, oldVal) => {

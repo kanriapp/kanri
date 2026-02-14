@@ -429,7 +429,8 @@ const getFormattedDueDate = computed(() => {
     }
   }
 
-  return new Date(dueDate.value).toLocaleDateString(locale.value);
+  const jsLocaleIdentifier = locale.value.replace("_", "-")
+  return new Date(dueDate.value).toLocaleDateString(jsLocaleIdentifier);
 });
 
 const dueDateOverdue = computed(() => {
