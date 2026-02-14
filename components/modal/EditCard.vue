@@ -550,6 +550,8 @@ const emit = defineEmits<{
   (e: "openTagEdit"): void;
 }>();
 
+const { locale } = useI18n();
+
 const columnID = ref("");
 const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
@@ -776,9 +778,9 @@ const setCardColor = (
 
 const dateToLocalFormat = (date: Date | string) => {
   if (typeof date === "string") {
-    return new Date(date).toLocaleDateString();
+    return new Date(date).toLocaleDateString(locale.value);
   }
-  return date.toLocaleDateString();
+  return date.toLocaleDateString(locale.value);
 };
 
 watch(customColor, (newVal, oldVal) => {

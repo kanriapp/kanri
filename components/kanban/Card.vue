@@ -205,6 +205,8 @@ const emit = defineEmits<{
   (e: "duplicateCard", cardId: string | undefined): void;
 }>();
 
+const { locale } = useI18n();
+
 const globalSettingsStore = useSettingsStore();
 const themeStore = useThemeStore();
 
@@ -427,7 +429,7 @@ const getFormattedDueDate = computed(() => {
     }
   }
 
-  return new Date(dueDate.value).toLocaleDateString();
+  return new Date(dueDate.value).toLocaleDateString(locale.value);
 });
 
 const dueDateOverdue = computed(() => {
