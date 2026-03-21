@@ -46,7 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             type="text"
             @focus="boardNameEmptyError = false"
             @blur="checkIfBoardNameEmpty"
-          />
+          >
           <p v-if="boardNameEmptyError" class="mt-0.5 text-red-500">
             {{ $t("modals.newBoard.boardNameEmptyError") }}
           </p>
@@ -85,7 +85,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 v-model="column.title"
                 class="bg-elevation-3 text-normal w-32 text-ellipsis rounded-md border-none px-2 py-1 focus:outline-none"
                 type="text"
-              />
+              >
               <PhTrash
                 class="text-accent-hover size-5 cursor-pointer"
                 @click="columns.splice(index, 1)"
@@ -126,6 +126,8 @@ import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { PhPlus, PhTrash } from "@phosphor-icons/vue";
 import { useI18n } from "vue-i18n";
 
+import { exampleColumns as staticExampleColumns } from "~/utils/exampleData";
+
 const emit = defineEmits<{
   (e: "closeModal"): void;
 }>();
@@ -137,23 +139,7 @@ const boardNameEmptyError = ref(false);
 
 const newBoardName = ref("");
 const exampleColumns = ref(false);
-const columns: Ref<Array<Column>> = ref([
-  {
-    cards: [],
-    id: generateUniqueID(),
-    title: "Todo",
-  },
-  {
-    cards: [],
-    id: generateUniqueID(),
-    title: "Work in progress",
-  },
-  {
-    cards: [],
-    id: generateUniqueID(),
-    title: "Done",
-  },
-]);
+const columns: Ref<Array<Column>> = ref(staticExampleColumns.map((column) => ({ title: column.title, id: generateUniqueID(), cards: [] })));
 
 onUpdated(() => {
   nextTick(() => {
