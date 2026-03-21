@@ -21,7 +21,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <Modal :blur-background="false" @closeModal="closeModal()">
     <template #content>
-      <main class="min-w-[32rem] max-w-3xl" @keypress.enter="createNewBoard()">
+      <main class="min-w-[32rem] max-w-3xl">
+        <form @submit.prevent="createNewBoard()">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
             {{ $t("modals.newBoard.title") }}
@@ -98,17 +99,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         >
           <button
             class="text-accent-hover transition-button"
+            type="button"
             @click="closeModal()"
           >
             {{ $t("general.cancelAction") }}
           </button>
           <button
             class="bg-accent text-buttons transition-button rounded-md px-4 py-2"
-            @click="createNewBoard()"
+            type="submit"
           >
             {{ $t("modals.newBoard.createBoardAction") }}
           </button>
         </section>
+        </form>
       </main>
     </template>
   </Modal>
@@ -177,7 +180,10 @@ const addColumnAndScrollToEnd = () => {
   });
   nextTick(() => {
     const columnElements = document.querySelectorAll(".column");
-    columnElements[columnElements.length - 1].scrollIntoView({
+    const lastColumn = columnElements[columnElements.length - 1];
+    if (!lastColumn) return;
+
+    lastColumn.scrollIntoView({
       behavior: "smooth",
     });
   });
