@@ -19,20 +19,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="overflow-auto">
-    <div
-      :style="cssVars"
-      :class="[
-        settings.animationsEnabled ? '' : 'disable-animations',
-      ]"
-      class="default-layout custom-scrollbar-hidden overflow-auto"
-    >
-      <div v-if="mounted">
-        <Sidebar class="fixed left-0 w-8" />
-      </div>
-      <div class="min-h-screen pl-16">
-        <slot />
-      </div>
+  <div
+    :style="cssVars"
+    :class="[
+      settings.animationsEnabled ? '' : 'disable-animations',
+    ]"
+    class="default-layout custom-scrollbar-hidden h-screen overflow-auto"
+  >
+    <div v-if="mounted">
+      <Sidebar class="fixed left-0 w-8" />
+    </div>
+    <div class="min-h-screen pl-16">
+      <slot />
     </div>
   </div>
 </template>
@@ -151,7 +149,6 @@ const cssVars = computed(() => {
   transition: color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   transition: background-color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
 }
 
 .bg-primary {
