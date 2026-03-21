@@ -4,11 +4,10 @@
 
 import withNuxt from "./.nuxt/eslint.config.mjs";
 import tailwind from "eslint-plugin-tailwindcss";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import noStoreOutsideStores from "./eslint-rules/no-store-outside-stores.js";
 
 export default withNuxt(
   ...tailwind.configs["flat/recommended"],
-  eslintPluginPrettierRecommended,
   {
     files: ["**/*.ts", "**/*.vue"],
     rules: {
@@ -19,7 +18,19 @@ export default withNuxt(
       "vue/v-on-event-hyphenation": "off",
       "@typescript-eslint/no-invalid-void-type": "off",
       "@typescript-eslint/unified-signatures": "off",
-      "prettier/prettier": "error", // Treat Prettier issues as ESLint errors
+    },
+  },
+  {
+    files: ["**/*.ts", "**/*.vue"],
+    plugins: {
+      custom: {
+        rules: {
+          'no-store-outside-stores': noStoreOutsideStores,
+        },
+      },
+    },
+    rules: {
+      'custom/no-store-outside-stores': 'warn',
     },
   },
   {
