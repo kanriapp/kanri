@@ -66,12 +66,21 @@ export const useBoardsStore = defineStore("boards", {
 
     // Board CRUD
     upsertBoard(board: Board) {
-      console.log("Upserting board:", board);
       const i = this.boards.findIndex(b => b.id === board.id);
       board.lastEdited = new Date();
-      board.createdAt = board.createdAt || new Date();
-      if (i === -1) this.boards.push(board);
-      else this.boards[i] = board;
+
+      if (i === -1) {
+        if (!board.id) {
+          board.id = generateUniqueID();
+        }
+        if (!board.createdAt) {
+          board.createdAt = new Date();
+        }
+        this.boards.push(board);
+        return;
+      }
+
+      this.boards[i] = board;
     },
     removeBoard(id: string) {
       this.boards = this.boards.filter(b => b.id !== id);
