@@ -1,28 +1,43 @@
 {
-    "$schema": "../gen/schemas/desktop-schema.json",
-    "identifier": "main-capability",
-    "description": "Capability for the main window",
-    "windows": [
-        "main"
-    ],
-    "permissions": [
-        "core:default",
-        "core:image:default",
-        "core:window:allow-show",
-        "core:window:allow-hide",
-        "core:app:allow-app-show",
-        "core:app:allow-app-hide",
-        "core:window:default",
-        "store:default",
-        "dialog:allow-open",
-        "dialog:default",
-        "autostart:default",
-        "log:default",
-        "fs:default",
-        "fs:allow-read",
-        "fs:allow-write",
-        "fs:allow-read-text-file",
-        "fs:allow-write-text-file",
-        "window-state:default"
-    ]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "Capability for the main window",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "core:image:default",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:app:allow-app-show",
+    "core:app:allow-app-hide",
+    "core:window:default",
+    "store:default",
+    "dialog:allow-open",
+    "dialog:default",
+    "autostart:default",
+    "log:default",
+    "fs:default",
+    "fs:allow-read",
+    "fs:allow-write",
+    "fs:allow-read-text-file",
+    "fs:allow-write-text-file",
+    "window-state:default",
+    "opener:default",
+    {
+      "identifier": "opener:allow-open-url",
+      "allow": [
+        {
+          "url": "https://kanriapp.com/*"
+        },
+        {
+          "url": "https://github.com/kanriapp/*"
+        },
+        {
+          "url": "https://discord.gg/AVqHrvxB9C"
+        }
+      ]
+    }
+  ]
 }
