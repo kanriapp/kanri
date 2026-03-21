@@ -370,6 +370,7 @@ onMounted(async () => {
   emitter.emit("hideSidebarBackArrow");
 
   await boardsStore.init();
+  await settingsStore.loadBoardSortingOptions();
 
   loading.value = false;
 });

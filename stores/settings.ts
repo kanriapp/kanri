@@ -20,7 +20,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { disable, enable, isEnabled } from "@tauri-apps/plugin-autostart";
-import type { set } from "zod/v4";
 
 export const useSettingsStore = defineStore("settings", {
   state: () => {
@@ -82,6 +81,24 @@ export const useSettingsStore = defineStore("settings", {
       this.addToTopOfColumnButtonEnabled = addToTopOfColumnButtonEnabledSaved;
       this.displayColumnCardCountEnabled = displayColumnCardCountEnabledSaved;
       this.defaultRelativeDueDatesEnabled = defaultRelativeDueDatesEnabledSaved;
+      this.boardSortingOption =
+        boardSortingOptionSaved === "alphabetical" ||
+        boardSortingOptionSaved === "lastEdited" ||
+        boardSortingOptionSaved === "createdAt"
+          ? boardSortingOptionSaved
+          : "createdAt";
+      this.reverseSorting = reverseSortingSaved;
+    },
+
+    async loadBoardSortingOptions() {
+      const store = useTauriStore().store;
+
+      const boardSortingOptionSaved: string = (await store.get("boardSortingOption")) ?? "createdAt";
+      const reverseSortingSavedRaw: unknown = await store.get("reverseSorting");
+      const reverseSortingSaved: boolean = typeof reverseSortingSavedRaw === "boolean"
+        ? reverseSortingSavedRaw
+        : false;
+
       this.boardSortingOption =
         boardSortingOptionSaved === "alphabetical" ||
         boardSortingOptionSaved === "lastEdited" ||
