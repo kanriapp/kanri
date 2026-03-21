@@ -391,43 +391,15 @@ const getSortedBoards = (boards: Board[], sortingOption: string, reverseSort: bo
 };
 
 const createNewBoard = async (title: string, columns?: Column[]) => {
-  const exampleColumns = [
-    {
-      cards: [
-        {
-          description: "",
-          name: "Eat something tasty",
-        },
-        {
-          description: "This is an extended description for an example task",
-          name: "Do some important task",
-        },
-      ],
-      id: generateUniqueID(),
-      title: "Todo",
-    },
-    {
-      cards: [{ description: "", name: "Doing something cool" }],
-      id: generateUniqueID(),
-      title: "Doing",
-    },
-    {
-      cards: [],
-      id: generateUniqueID(),
-      title: "Done",
-    },
-  ];
-
   const board: Board = {
     columns: columns || exampleColumns,
     id: generateUniqueID(),
     lastEdited: new Date(),
+    createdAt: new Date(),
     title: title,
   };
 
   boardsStore.upsertBoard(board);
-
-  // await setSorting();
 };
 
 const renameBoardModal = (id: string) => {
@@ -444,8 +416,6 @@ const renameBoardModal = (id: string) => {
 
 const renameBoard = async (id: string, name: string) => {
   if (!boards.value || !boardsStore.boards) return;
-
-  // Update in store (which handles persistence)
   boardsStore.renameBoard(id, name);
 };
 
@@ -478,8 +448,6 @@ const deleteBoard = async (boardId: string | undefined) => {
 
   // Remove from store (which handles persistence)
   boardsStore.removeBoard(boardId);
-
-  emitter.emit("boardDeletion", boardToDelete); // TODO: remove this redundant emit
 };
 
 const duplicateBoard = async (id: string) => {
