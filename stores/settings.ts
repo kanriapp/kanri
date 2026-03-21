@@ -25,7 +25,7 @@ import type { set } from "zod/v4";
 export const useSettingsStore = defineStore("settings", {
   state: () => {
     /* Start page settings */
-  const boardSortingOption = ref<"default" | "alphabetically" | "edited">("default");
+  const boardSortingOption = ref<"alphabetical" | "lastEdited" | "createdAt">("createdAt");
   const reverseSorting = ref(false);
 
     /* Overall app settings */
@@ -69,7 +69,7 @@ export const useSettingsStore = defineStore("settings", {
       const displayColumnCardCountEnabledSaved: boolean = await store.get("displayColumnCardCountEnabled") ?? false;
       const defaultRelativeDueDatesEnabledSaved: boolean = await store.get("defaultRelativeDueDatesEnabled") ?? false;
 
-      const boardSortingOptionSaved: string = (await store.get("boardSortingOption")) ?? "default";
+      const boardSortingOptionSaved: string = (await store.get("boardSortingOption")) ?? "createdAt";
       const reverseSortingSavedRaw: unknown = await store.get("reverseSorting");
       const reverseSortingSaved: boolean = typeof reverseSortingSavedRaw === "boolean"
         ? reverseSortingSavedRaw
@@ -83,11 +83,11 @@ export const useSettingsStore = defineStore("settings", {
       this.displayColumnCardCountEnabled = displayColumnCardCountEnabledSaved;
       this.defaultRelativeDueDatesEnabled = defaultRelativeDueDatesEnabledSaved;
       this.boardSortingOption =
-        boardSortingOptionSaved === "alphabetically" ||
-        boardSortingOptionSaved === "edited" ||
-        boardSortingOptionSaved === "default"
+        boardSortingOptionSaved === "alphabetical" ||
+        boardSortingOptionSaved === "lastEdited" ||
+        boardSortingOptionSaved === "createdAt"
           ? boardSortingOptionSaved
-          : "default";
+          : "createdAt";
       this.reverseSorting = reverseSortingSaved;
     },
 
@@ -140,7 +140,7 @@ export const useSettingsStore = defineStore("settings", {
       await useTauriStore().store.set("defaultRelativeDueDatesEnabled", value);
     },
 
-    async setBoardSortingOption(option: "default" | "alphabetically" | "edited") {
+    async setBoardSortingOption(option: "alphabetical" | "lastEdited" | "createdAt") {
       this.boardSortingOption = option;
       await useTauriStore().store.set("boardSortingOption", option);
     },

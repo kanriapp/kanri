@@ -98,13 +98,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
                 <template #content>
                   <DropdownMenuRadioGroup
-                    v-model="sortingOptionRef"
+                    v-model="boardSortingOption"
                     class="flex flex-col"
                   >
                     <DropdownMenuRadioItem
-                      value="alphabetically"
+                      value="alphabetical"
                       class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
-                      @click="sortBoardsAlphabetically()"
+                      @click="settingsStore.setBoardSortingOption('alphabetical')"
                     >
                       <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                         <CheckIcon class="size-4" />
@@ -112,9 +112,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                       {{ $t("pages.index.sortAlphabetically") }}
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem
-                      value="default"
+                      value="createdAt"
                       class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
-                      @click="sortBoardsByCreationDate()"
+                      @click="settingsStore.setBoardSortingOption('createdAt')"
                     >
                       <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                         <CheckIcon class="size-4" />
@@ -122,9 +122,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                       {{ $t("pages.index.sortByCreationDate") }}
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem
-                      value="edited"
+                      value="lastEdited"
                       class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
-                      @click="sortBoardsByEditDate()"
+                      @click="settingsStore.setBoardSortingOption('lastEdited')"
                     >
                       <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                         <CheckIcon class="size-4" />
@@ -134,9 +134,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   </DropdownMenuRadioGroup>
                   <DropdownMenuSeparator class="bg-elevation-2 m-[5px] h-px" />
                   <DropdownMenuCheckboxItem
-                    v-model:checked="reverseSortOrder"
+                    v-model:checked="reverseSorting"
                     class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px] text-left"
-                    @click="reverseCurrentSorting"
+                    @click="settingsStore.setReverseSorting(reverseSorting)"
                   >
                     <DropdownMenuItemIndicator class="absolute left-2 w-[25px]">
                       <CheckIcon class="size-4" />
@@ -284,7 +284,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import type { Board, Column } from "@/types/kanban-types";
-import type { Ref } from "vue";
 
 import emitter from "@/utils/emitter";
 import { ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/vue/24/outline";
@@ -297,49 +296,68 @@ import { writeTextFile } from "@tauri-apps/plugin-fs";
 const layoutSettings = useLayoutStore();
 const boardsStore = useBoardsStore();
 const settingsStore = useSettingsStore();
-const boards: Ref<Board[]> = ref([]);
+
+const { boards } = storeToRefs(boardsStore);
+const { boardSortingOption, reverseSorting } = storeToRefs(settingsStore);
 
 const loading = ref(true);
 const editSortWarning = ref(false);
+
 const renameBoardModalVisible = ref(false);
 const deleteBoardModalVisible = ref(false);
 const changelogModalVisible = ref(false);
 
-const sortingOptionRef = ref("");
-const reverseSortOrder = ref(false);
-const sortingOptionText = ref("Sort by creation date");
-
-// Search state
 const searchQuery = ref("");
 
 const boardToBeDeletedId = ref("");
 const { t } = useI18n();
 
-// i18n fallbacks for new UI text
+const sortingOptionText = computed(() => {
+    switch (boardSortingOption.value) {
+      case "alphabetical":
+        return t("pages.index.sortAlphabetically");
+  
+      case "createdAt":
+        return t("pages.index.sortByCreationDate");
+  
+      case "lastEdited":
+        return t("pages.index.sortByLastEdited");
+  
+      default:
+        return boardSortingOption.value;
+    }
+});
+
 const searchPlaceholder = computed(() => {
   const key = "pages.index.searchBoardsPlaceholder";
   const result = t(key) as string;
   return result === key ? "Search boards..." : result;
 });
+
 const noResultsText = computed(() => {
   const key = "pages.index.noBoardsMatch";
   const result = t(key) as string;
   return result === key ? "No boards match your search." : result;
 });
 
+const handleCreateBoard = async ({ columns, title }: { columns?: Column[]; title: string }) => {
+  await createNewBoard(title, columns);
+};
+
 const visibleBoards = computed(() => {
   if (!boards) return;
 
   const q = searchQuery.value.trim().toLowerCase();
-  if (!q) return boards.value;
 
-  return boards?.value?.filter((b) => b.title.toLowerCase().includes(q));
+  // TODO: make this a bit more robust
+  const searchResults = boards.value.filter((b) => b.title.toLowerCase().includes(q));
+  const sortedSearchResults = getSortedBoards(searchResults, boardSortingOption.value, reverseSorting.value);
+
+  return sortedSearchResults;
 });
 
 onMounted(async () => {
-  emitter.on("createBoard", async ({ columns, title }) => {
-    await createNewBoard(title, columns);
-  });
+  emitter.on("createBoard", handleCreateBoard);
 
   nextTick(async () => {
     console.log("Checking if changelog needs to be shown...");
@@ -353,56 +371,23 @@ onMounted(async () => {
 
   await boardsStore.init();
 
-  // make sure we use a copy to not break internal sorting
-  boards.value = JSON.parse(JSON.stringify(boardsStore.boards));
-
-  await setSorting();
-
   loading.value = false;
 });
 
 onBeforeUnmount(() => {
   // Make sure we properly remove our event listeners
+  emitter.off("createBoard", handleCreateBoard);
   emitter.off("openChangelogModal");
 });
 
-watch(boardsStore.boards, (_, newBoards) => {
-  if (newBoards == null || newBoards == undefined) return;
-  boards.value = newBoards; // keep in sync with store
-  setSorting(); // re-sort boards
-});
+const getSortedBoards = (boards: Board[], sortingOption: string, reverseSort: boolean) => {
+  // TODO: add createdAt for boards that don't have the property yet
+  let sortMethod = getSortingFunctionFromString<Board>(sortingOption);
 
-const setSorting = async () => {
-  const sortingOption = settingsStore.boardSortingOption;
-  const savedSortPreference = settingsStore.reverseSorting;
+  const sortedBoards = sortMethod(boards);
 
-  sortingOptionRef.value = sortingOption;
-  reverseSortOrder.value = savedSortPreference;
-
-  switch (sortingOption) {
-    case "alphabetically":
-      sortBoardsAlphabetically();
-      break;
-
-    case "edited":
-      sortBoardsByEditDate();
-      break;
-
-    default:
-      if (reverseSortOrder.value && boards.value) {
-        boards.value.reverse()
-      }
-      break;
-  }
-};
-
-const reverseCurrentSorting = async () => {
-  const savedSortPreference = settingsStore.reverseSorting;
-
-  reverseSortOrder.value = !savedSortPreference;
-  await settingsStore.setReverseSorting(!savedSortPreference);
-
-  boards?.value?.reverse();
+  if (reverseSort) return sortedBoards.toReversed();
+  else return sortedBoards;
 };
 
 const createNewBoard = async (title: string, columns?: Column[]) => {
@@ -442,7 +427,7 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
 
   boardsStore.upsertBoard(board);
 
-  await setSorting();
+  // await setSorting();
 };
 
 const renameBoardModal = (id: string) => {
@@ -460,17 +445,8 @@ const renameBoardModal = (id: string) => {
 const renameBoard = async (id: string, name: string) => {
   if (!boards.value || !boardsStore.boards) return;
 
-  // Update in local sorted copy
-  const localBoard = boards.value.find(b => b.id === id);
-  if (localBoard) {
-    localBoard.title = name;
-    localBoard.lastEdited = new Date();
-  }
-
   // Update in store (which handles persistence)
   boardsStore.renameBoard(id, name);
-
-  await setSorting();
 };
 
 const deleteBoardModal = (id: string) => {
@@ -500,26 +476,16 @@ const deleteBoard = async (boardId: string | undefined) => {
   const boardToDelete = boards.value.find(b => b.id === boardId);
   if (!boardToDelete) return;
 
-  // Remove from local sorted copy
-  boards.value = boards.value.filter(b => b.id !== boardId);
-
   // Remove from store (which handles persistence)
   boardsStore.removeBoard(boardId);
 
-  emitter.emit("boardDeletion", boardToDelete);
+  emitter.emit("boardDeletion", boardToDelete); // TODO: remove this redundant emit
 };
 
 const duplicateBoard = async (id: string) => {
   if (!id) return;
 
-  const boardToDuplicate = boards.value.find(b => b.id === id);
-  if (!boardToDuplicate) return;
-
-  // Use store's duplicateBoard which handles persistence
   boardsStore.duplicateBoard(id);
-
-  // Re-sync and re-sort local copy
-  await setSorting();
 };
 
 const exportBoardToJson = async (id: string) => {
@@ -543,51 +509,6 @@ const exportBoardToJson = async (id: string) => {
 
   if (filePath == null) return;
   await writeTextFile(filePath, fileContents);
-};
-
-const sortBoardsAlphabetically = async () => {
-  editSortWarning.value = false;
-
-  boards.value.sort((a, b) => {
-    return a.title.localeCompare(b.title);
-  });
-
-  if (reverseSortOrder.value) {
-    boards.value.reverse();
-  }
-
-  await settingsStore.setBoardSortingOption("alphabetically");
-  sortingOptionText.value = t("pages.index.sortAlphabetically");
-};
-
-const sortBoardsByCreationDate = async () => {
-  editSortWarning.value = false;
-
-  boards.value = JSON.parse(JSON.stringify(boardsStore.boards));
-
-  if (reverseSortOrder.value) {
-    boards.value.reverse();
-  }
-
-  await settingsStore.setBoardSortingOption("default");
-  sortingOptionText.value = t("pages.index.sortByCreationDate");
-};
-
-const sortBoardsByEditDate = async () => {
-  boards.value.sort((a, b) => {
-    if (!a.lastEdited || !b.lastEdited) {
-      editSortWarning.value = true;
-      return -1;
-    }
-
-    return new Date(b.lastEdited).getTime() - new Date(a.lastEdited).getTime();
-  });
-
-  if (reverseSortOrder.value) {
-    boards.value.reverse();
-  }
-  await settingsStore.setBoardSortingOption("edited");
-  sortingOptionText.value = t("pages.index.sortByLastEdited");
 };
 </script>
 
