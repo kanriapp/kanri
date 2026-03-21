@@ -66,8 +66,10 @@ export const useBoardsStore = defineStore("boards", {
 
     // Board CRUD
     upsertBoard(board: Board) {
+      console.log("Upserting board:", board);
       const i = this.boards.findIndex(b => b.id === board.id);
       board.lastEdited = new Date();
+      board.createdAt = board.createdAt || new Date();
       if (i === -1) this.boards.push(board);
       else this.boards[i] = board;
     },
@@ -84,6 +86,7 @@ export const useBoardsStore = defineStore("boards", {
       copy.id = generateUniqueID();
       copy.title = `${copy.title} (duplicate)`;
       copy.lastEdited = new Date();
+      copy.createdAt = new Date();
       this.boards.push(copy);
     },
     renameBoard(id: string, title: string) {

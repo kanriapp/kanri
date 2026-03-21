@@ -24,6 +24,7 @@ export declare interface Board {
   columns: Array<Column>;
   id: string;
   lastEdited?: Date | string;
+  createdAt?: Date | string;
   title: string;
   globalTags?: Array<Tag> | null;
 }
