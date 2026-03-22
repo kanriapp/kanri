@@ -300,7 +300,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Board, Card, Column } from "@/types/kanban-types";
+import type { Card, Column } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { applyDrag } from "@/utils/drag-n-drop";
@@ -311,14 +311,13 @@ import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight, PhTrash, PhCopy, PhPencil, PhExport, PhPushPin } from "@phosphor-icons/vue";
 
 import { save } from "@tauri-apps/plugin-dialog";
-import { writeTextFile, exists } from "@tauri-apps/plugin-fs";
-import { convertFileSrc } from "@tauri-apps/api/core";
-import { normalize } from "@tauri-apps/api/path";
+import { writeTextFile } from "@tauri-apps/plugin-fs";
 import { useConfirmDialog } from "@vueuse/core";
 //@ts-expect-error this library doesn't have types
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useI18n } from "vue-i18n";
 import { useBoard } from "@/composables/useBoard";
+import { useBackgroundImage } from "@/composables/useBackgroundImage";
 
 const route = useRoute();
 const router = useRouter();
@@ -332,7 +331,6 @@ const draggingEnabled = ref(true);
 
 const searchQuery = ref("");
 
-const boardTitleColor = ref("");
 const boardTitleEditing = ref(false);
 
 const columnCardAddMode = ref(false);
@@ -343,13 +341,6 @@ const {
   displayColumnCardCountEnabled, 
   addToTopOfColumnButtonEnabled 
 } = storeToRefs(settings);
-
-const bgCustom = ref("");
-const bgCustomNoResolution = ref("");
-const showCustomBgModal = ref(false);
-const bgImageLoaded = ref(false);
-const bgBlur = ref("8px");
-const bgBrightness = ref("100%");
 
 const editCardModalVisible = ref(false);
 
@@ -372,14 +363,20 @@ const allColumnCardsRemoveDialog = useConfirmDialog(removeAllColumnCardsModalVis
 
 const board = useBoard(computed(() => route.params.id as string));
 const { board: boardContent } = board;
-
-const cssVars = computed(() => {
-  return {
-    "--bg-brightness": bgBrightness.value,
-    "--bg-custom-image": `url("${bgCustom.value}")`,
-    "--blur-intensity": bgBlur.value,
-  };
-});
+const {
+  bgCustom,
+  showCustomBgModal,
+  bgImageLoaded,
+  bgBlur,
+  bgBrightness,
+  boardTitleColor,
+  cssVars,
+  initBackgroundImage,
+  setBackgroundImage,
+  resetBackground,
+  setBlur,
+  setBrightness,
+} = useBackgroundImage(boardContent);
 
 onMounted(async () => {
   // await loadCurrentBoard();
@@ -391,43 +388,7 @@ onMounted(async () => {
     return;
   }
 
-  if (boardContent.value.background) {
-    bgCustomNoResolution.value = boardContent.value.background.src;
-
-    const pathTauriObject = await normalize(boardContent.value.background.src);
-    let bgImageExists = false;
-    try {
-      bgImageExists = await exists(pathTauriObject);
-    } catch (e) {
-      console.warn(
-        "Background image might not exist, might be from an imported board from another device"
-      );
-      console.info(e);
-      bgImageExists = false;
-    }
-
-    if (!bgImageExists) {
-      console.warn(
-        "Background image does not exist, removing background image from board"
-      );
-      boardContent.value.background = null; // completely remove leftover traces of the background image
-
-      return; // don't set any more values regarding background
-    }
-
-    try {
-      bgCustom.value = convertFileSrc(boardContent.value.background.src);
-    } catch (e) {
-      console.error("Error converting file src: ", e);
-      bgCustom.value = "";
-    }
-
-    bgBlur.value = boardContent.value.background.blur;
-    bgBrightness.value = boardContent.value.background.brightness;
-  }
-  nextTick(() => (bgImageLoaded.value = true));
-
-  await getBoardTitleTextColor();
+  await initBackgroundImage();
 
   document.addEventListener("keydown", keyDownListener);
 
@@ -689,22 +650,6 @@ const removeAllColumnCards = async (
 }
 
 /**
- * Get the text color with the correct contrast if a background image is set
- */
-const getBoardTitleTextColor = async () => {
-  if (bgCustom.value == null || !/\S/.test(bgCustom.value)) return;
-
-  const averageColorFromBackground = await getAverageColor(bgCustom.value);
-  const hexColor = rgbToHex(
-    averageColorFromBackground[0],
-    averageColorFromBackground[1],
-    averageColorFromBackground[2]
-  );
-
-  boardTitleColor.value = getContrast(hexColor);
-};
-
-/**
  * Utility methods for creating, deleting and updating columns
  * Also includes methods to open modals which are used
  */
@@ -807,52 +752,6 @@ const enableBoardTitleEditing = () => {
 
 const toggleBoardPin = () => {
   board.togglePin();
-};
-
-/**
- * Board background utilities
- */
-
-const setBackgroundImage = async (img: string) => {
-  bgCustomNoResolution.value = img;
-  bgCustom.value = convertFileSrc(img);
-  boardContent.value.background = {
-    blur: bgBlur.value,
-    brightness: bgBrightness.value,
-    src: bgCustomNoResolution.value,
-  };
-  await getBoardTitleTextColor();
-};
-
-const resetBackground = () => {
-  bgCustom.value = "";
-  bgBlur.value = "8px";
-  bgBrightness.value = "100%";
-
-  if (boardContent.value) {
-    delete boardContent.value.background;
-  }
-
-  boardTitleColor.value = "";
-};
-
-const setBlur = (blurAmount: string) => {
-  bgBlur.value = blurAmount;
-  boardContent.value.background = {
-    blur: bgBlur.value,
-    brightness: bgBrightness.value,
-    src: bgCustomNoResolution.value,
-  };
-};
-
-const setBrightness = (brightnessAmount: string) => {
-  bgBrightness.value = brightnessAmount;
-  boardContent.value.background = {
-    blur: bgBlur.value,
-    brightness: bgBrightness.value,
-    src: bgCustomNoResolution.value,
-  };
-  // TODO: fix storage update
 };
 
 const getGhostParent = () => {
