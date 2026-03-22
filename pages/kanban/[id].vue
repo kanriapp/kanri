@@ -109,7 +109,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         v-if="boardTitleEditing"
         v-model="boardContent.title"
         v-focus
-        class="bg-elevation-2 border-accent text-no-overflow mb-1 mr-2 -ml-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl outline-none font-bold text-2xl"
+        class="bg-elevation-2 border-accent text-no-overflow -ml-2 mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl font-bold outline-none"
         maxlength="500"
         type="text"
         @blur="
@@ -120,7 +120,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           boardTitleEditing = false;
           board.updateBoardPin();
         "
-      />
+      >
 
       <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
         <div class="flex flex-row gap-2">
@@ -167,30 +167,30 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               <div class="flex flex-col">
               <!-- Group 1: Board actions -->
               <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
                 @click="renameBoardModal(boardContent?.id)"
               >
                 <span class="text-dim-2"><PhPencil class="size-5" /></span>
                 <span>{{ $t("pages.kanban.renameBoardAction") }}</span>
               </DropdownMenuItem>
               <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
                 @click="duplicateBoard"
               >
                 <span class="text-dim-2"><PhCopy class="size-5" /></span>
                 <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
               </DropdownMenuItem>
               <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
                 @click="exportBoardToJson"
               >
                 <span class="text-dim-2"><PhExport class="size-5" /></span>
                 <span>{{ $t("pages.kanban.exportBoardAction") }}</span>
               </DropdownMenuItem>
-              <div class="my-1 border-t border-elevation-3"></div>
+              <div class="border-elevation-3 my-1 border-t"/>
               <!-- Group 2: Pin/unpin -->
               <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+                class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
                 @click="toggleBoardPin"
               >
                 <span class="text-dim-2">
@@ -200,10 +200,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 <span v-if="board.isPinned.value">{{ $t("pages.kanban.unpinBoardAction") }}</span>
                 <span v-else>{{ $t("pages.kanban.pinBoardAction") }}</span>
               </DropdownMenuItem>
-              <div class="my-1 border-t border-elevation-3"></div>
+              <div class="border-elevation-3 my-1 border-t"/>
               <!-- Group 3: Danger zone -->
               <DropdownMenuItem
-                class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2 text-red-500"
+                class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left text-red-500"
                 @click="deleteBoardModal(boardContent?.id)"
               >
                 <span>
@@ -296,15 +296,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </div>
     </div>
   </div>
-  <div v-else class="flex h-screen w-screen items-center justify-center">
-  </div>
+  <div v-else class="flex h-screen w-screen items-center justify-center"/>
 </template>
 
 <script setup lang="ts">
-import type { Board, Card, Column, Tag } from "@/types/kanban-types";
+import type { Board, Card, Column } from "@/types/kanban-types";
 import type { Ref } from "vue";
-
-import { useTauriStore } from "@/stores/tauriStore";
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
@@ -323,7 +320,6 @@ import { Container, Draggable } from "vue3-smooth-dnd";
 import { useI18n } from "vue-i18n";
 import { useBoard } from "@/composables/useBoard";
 
-const store = useTauriStore().store;
 const route = useRoute();
 const router = useRouter();
 
@@ -736,19 +732,12 @@ const openColumnRemoveDialog = async (columnID: string) => {
 };
 
 /**
- * Main method for updating the persistent storage, overrides old board with new one and saves to tauri store
- */
-const updateStorage = () => {
-  console.error("We don't want to use this anymore!! Use store inside useBoard composable!");
-};
-
-/**
  * Utility methods for altering board (delete, export, etc.)
  */
 
 const exportBoardToJson = async () => {
   const filePath = await save({
-    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_board_${board.value.id}_export.json`,
+    defaultPath: `./${new Date().toISOString().slice(0, 10)}_kanri_board_${boardContent.value.id}_export.json`,
     filters: [
       {
         extensions: ["json"],
@@ -758,7 +747,7 @@ const exportBoardToJson = async () => {
     title: "Select file to export data to",
   });
 
-  const fileContents = JSON.stringify(board.value, null, 2);
+  const fileContents = JSON.stringify(boardContent.value, null, 2);
 
   if (filePath == null) return;
   await writeTextFile(filePath, fileContents);
