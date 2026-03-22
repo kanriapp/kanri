@@ -31,7 +31,24 @@ import { getAverageColor, getContrast, rgbToHex } from "@/utils/colorUtils";
 const DEFAULT_BLUR = "8px";
 const DEFAULT_BRIGHTNESS = "100%";
 
-export function useBackgroundImage(boardContent: Ref<Board | null>) {
+type UseBackgroundImageOptions = {
+  checkFileExists?: boolean;
+  mutateBoardOnMissingFile?: boolean;
+  syncBoardOnSetters?: boolean;
+  computeTitleColor?: boolean;
+};
+
+export function useBackgroundImage(
+  boardContent: Ref<Board | null | undefined>,
+  options: UseBackgroundImageOptions = {}
+) {
+  const {
+    checkFileExists = true,
+    mutateBoardOnMissingFile = true,
+    syncBoardOnSetters = true,
+    computeTitleColor = true,
+  } = options;
+
   const bgCustom = ref("");
   const bgCustomNoResolution = ref("");
   const showCustomBgModal = ref(false);
@@ -49,6 +66,11 @@ export function useBackgroundImage(boardContent: Ref<Board | null>) {
   });
 
   const refreshBoardTitleTextColor = async () => {
+    if (!computeTitleColor) {
+      boardTitleColor.value = "";
+      return;
+    }
+
     if (bgCustom.value == null || !/\S/.test(bgCustom.value)) {
       boardTitleColor.value = "";
       return;
@@ -65,6 +87,7 @@ export function useBackgroundImage(boardContent: Ref<Board | null>) {
   };
 
   const updateBoardBackground = () => {
+    if (!syncBoardOnSetters) return;
     if (!boardContent.value) return;
 
     boardContent.value.background = {
@@ -80,40 +103,47 @@ export function useBackgroundImage(boardContent: Ref<Board | null>) {
       return;
     }
 
-    bgCustomNoResolution.value = boardContent.value.background.src;
+    const background = boardContent.value.background;
+    bgCustomNoResolution.value = background.src;
 
-    const pathTauriObject = await normalize(boardContent.value.background.src);
-    let bgImageExists = false;
-    try {
-      bgImageExists = await exists(pathTauriObject);
-    } catch (e) {
-      console.warn(
-        "Background image might not exist, might be from an imported board from another device"
-      );
-      console.info(e);
-      bgImageExists = false;
+    let bgImageExists = true;
+    if (checkFileExists) {
+      const pathTauriObject = await normalize(background.src);
+      try {
+        bgImageExists = await exists(pathTauriObject);
+      } catch (e) {
+        console.warn(
+          "Background image might not exist, might be from an imported board from another device"
+        );
+        console.info(e);
+        bgImageExists = false;
+      }
     }
 
     if (!bgImageExists) {
       console.warn(
         "Background image does not exist, removing background image from board"
       );
-      boardContent.value.background = null;
+      if (mutateBoardOnMissingFile) {
+        boardContent.value.background = null;
+      }
       bgImageLoaded.value = true;
       return;
     }
 
     try {
-      bgCustom.value = convertFileSrc(boardContent.value.background.src);
+      bgCustom.value = convertFileSrc(background.src);
     } catch (e) {
       console.error("Error converting file src: ", e);
       bgCustom.value = "";
     }
 
-    bgBlur.value = boardContent.value.background.blur;
-    bgBrightness.value = boardContent.value.background.brightness;
+    bgBlur.value = background.blur;
+    bgBrightness.value = background.brightness;
 
-    await refreshBoardTitleTextColor();
+    if (computeTitleColor) {
+      await refreshBoardTitleTextColor();
+    }
     bgImageLoaded.value = true;
   };
 
@@ -122,7 +152,9 @@ export function useBackgroundImage(boardContent: Ref<Board | null>) {
     bgCustom.value = convertFileSrc(img);
     updateBoardBackground();
 
-    await refreshBoardTitleTextColor();
+    if (computeTitleColor) {
+      await refreshBoardTitleTextColor();
+    }
   };
 
   const resetBackground = () => {
@@ -131,7 +163,7 @@ export function useBackgroundImage(boardContent: Ref<Board | null>) {
     bgBlur.value = DEFAULT_BLUR;
     bgBrightness.value = DEFAULT_BRIGHTNESS;
 
-    if (boardContent.value) {
+    if (syncBoardOnSetters && boardContent.value) {
       delete boardContent.value.background;
     }
 
