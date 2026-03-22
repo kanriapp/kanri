@@ -89,9 +89,8 @@ export const useBoardsStore = defineStore("boards", {
     duplicateBoard(id: string) {
       const b = this.boardById(id);
       if (!b) return;
-      const copy: Board = typeof structuredClone === "function" 
-        ? structuredClone(b) 
-        : JSON.parse(JSON.stringify(b));
+      
+      const copy: Board = JSON.parse(JSON.stringify(b));
       copy.id = generateUniqueID();
       copy.title = `${copy.title} (duplicate)`;
       copy.lastEdited = new Date();

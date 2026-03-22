@@ -328,10 +328,7 @@ const { t } = useI18n();
 const settings = useSettingsStore();
 const boardsStore = useBoardsStore();
 
-const boards: Ref<Array<Board>> = ref([]);
-// const board: Ref<Board> = ref({ columns: [], id: "123", title: "" });
 const draggingEnabled = ref(true);
-// const isPinned = ref(false);
 
 const searchQuery = ref("");
 
@@ -757,7 +754,7 @@ const renameBoardModal = (id: string | undefined) => {
   if (id == undefined)
     return console.error("Undefined board to rename, this should not happen!");
 
-  const selectedBoard = boards.value.find((b) => b.id === id);
+  const selectedBoard = boardsStore.boards.find((b) => b.id === id);
   if (selectedBoard == null) {
     return console.error("Could not find board with id: ", id);
   }
@@ -776,7 +773,7 @@ const deleteBoardModal = (id: string | undefined) => {
   if (id == undefined)
     return console.error("Undefined board to delete, this should not happen!");
 
-  const selectedBoard = boards.value.find((b) => b.id === id);
+  const selectedBoard = boardsStore.boards.find((b) => b.id === id);
   if (selectedBoard == null) {
     return console.error("Could not find board with id: ", id);
   }
