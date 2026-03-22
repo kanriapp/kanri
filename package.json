@@ -45,7 +45,7 @@
     "@phosphor-icons/vue": "^2.1.6",
     "@pinia/nuxt": "0.11.3",
     "@popperjs/core": "^2.11.8",
-    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/api": "^2.10.1",
     "@tauri-apps/plugin-autostart": "^2.5.1",
     "@tauri-apps/plugin-dialog": "2.6.0",
     "@tauri-apps/plugin-fs": "2.4.5",
