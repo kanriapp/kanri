@@ -49,9 +49,7 @@ const { pins } = storeToRefs(boardsStore);
 const currentRouteBoardId = ref("");
 
 watch(() => router.currentRoute.value, (newRoute) => {
-  // Handle route change logic if needed
-  currentRouteBoardId.value = newRoute.path.split("/kanban/")[1] || "";
-  console.log("Current Route Board ID:", currentRouteBoardId.value);
+  currentRouteBoardId.value = newRoute.path.split("/kanban/")[1] || ""; // maybe make this a bit more reliable
 });
 
 const setPinIcon = async (id: string, pinIcon: string) => {
