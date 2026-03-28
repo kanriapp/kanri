@@ -28,6 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         id="tabitem"
         :key="board.id"
         :board="board"
+        :is-active="board.id === currentRouteBoardId"
         @setPinIcon="setPinIcon"
         @setPinTextIcon="setPinTextIcon"
         @clearPinIcon="clearPinIcon"
@@ -40,9 +41,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import PinnedItem from "./PinnedItem.vue";
 
+const router = useRouter();
 const boardsStore = useBoardsStore();
 
 const { pins } = storeToRefs(boardsStore);
+
+const currentRouteBoardId = ref("");
+
+watch(() => router.currentRoute.value, (newRoute) => {
+  // Handle route change logic if needed
+  currentRouteBoardId.value = newRoute.path.split("/kanban/")[1] || "";
+  console.log("Current Route Board ID:", currentRouteBoardId.value);
+});
 
 const setPinIcon = async (id: string, pinIcon: string) => {
   boardsStore.mutateBoardPin(id, (pin => {

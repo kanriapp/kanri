@@ -21,16 +21,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <ContextMenuRoot>
     <ContextMenuTrigger>
-      <Tooltip v-if="isActivePin" :label="props.board.title">
+      <Tooltip v-if="isActive" :label="props.board.title">
         <template #trigger>
           <nuxt-link :to="'/kanban/' + props.board.id">
             <div class="bg-elevation-3 transition-button rounded-md p-2">
               <span
                 v-if="customChar"
-                class="size-7 flex items-center justify-center text-[20px] leading-none"
+                class="flex size-7 items-center justify-center text-[20px] leading-none"
                 >{{ customChar }}</span
               >
-              <component v-else :is="selectedIcon" class="size-7" />
+              <component :is="selectedIcon" v-else class="size-7" />
             </div>
           </nuxt-link>
         </template>
@@ -42,10 +42,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <div class="bg-elevation-2-hover transition-button rounded-md p-2">
               <span
                 v-if="customChar"
-                class="size-7 flex items-center justify-center text-[20px] leading-none"
+                class="flex size-7 items-center justify-center text-[20px] leading-none"
                 >{{ customChar }}</span
               >
-              <component v-else :is="selectedIcon" class="size-7" />
+              <component :is="selectedIcon" v-else class="size-7" />
             </div>
           </nuxt-link>
         </template>
@@ -57,7 +57,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         class="text-normal bg-primary-darker border-elevation-1 icon-menu z-[999] w-[300px] rounded-md border p-1 shadow-lg"
       >
         <div class="px-2 pt-1.5">
-          <div class="mb-2 flex rounded-md bg-elevation-2 p-0.5 text-xs font-medium">
+          <div class="bg-elevation-2 mb-2 flex rounded-md p-0.5 text-xs font-medium">
             <button
               class="flex-1 rounded-sm px-2 py-1 transition-colors"
               :class="activeTab === 'icons' ? 'bg-elevation-3' : 'hover:bg-elevation-1'
@@ -79,7 +79,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               type="text"
               placeholder="Search icons..."
               class="bg-elevation-2 focus:ring-accent mt-1 w-full rounded px-2 py-1 text-sm focus:outline-none focus:ring-1"
-            />
+            >
           </div>
           <ContextMenuSeparator class="bg-elevation-1 my-1 h-px" />
 
@@ -103,7 +103,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
           <div v-else class="max-h-[300px] overflow-y-auto">
             <div v-for="category in categories" :key="category">
-              <ContextMenuLabel class="px-2 py-1.5 text-xs uppercase tracking-wide text-dim-3">{{
+              <ContextMenuLabel class="text-dim-3 px-2 py-1.5 text-xs uppercase tracking-wide">{{
                 category
               }}</ContextMenuLabel>
               <div class="grid grid-cols-5 gap-1 p-1">
@@ -130,8 +130,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </template>
 
         <template v-else>
-          <div class="flex flex-col gap-2 px-2 py-2">
-            <label class="text-xs font-medium text-dim-3">Character / Emoji</label>
+          <div class="flex flex-col gap-2 p-2">
+            <label class="text-dim-3 text-xs font-medium">Character / Emoji</label>
             <div class="flex items-center gap-2">
               <input
                 v-model="customCharInput"
@@ -140,7 +140,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 placeholder="e.g. 🐱 or A"
                 class="bg-elevation-2 focus:ring-accent w-full rounded px-2 py-1 text-sm focus:outline-none focus:ring-1"
                 @keydown.enter.prevent="applyCustomChar"
-              />
+              >
               <button
                 class="bg-accent hover:bg-accent-hover disabled:bg-elevation-2 rounded px-3 py-1 text-xs font-semibold transition-colors"
                 :disabled="!customCharInput.trim()"
@@ -170,7 +170,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
 import {
   ContextMenuContent,
   ContextMenuItem,
@@ -190,6 +189,7 @@ import {
 
 const props = defineProps<{
   board: { id: string; title: string; pinIcon?: string; pinIconText?: string };
+  isActive: boolean;
 }>();
 
 const emit = defineEmits([
@@ -199,8 +199,6 @@ const emit = defineEmits([
   "unpin",
 ]);
 
-const isActivePin = ref(false);
-const router = useRouter();
 const searchQuery = ref("");
 
 const selectedIconName = ref("article");
@@ -215,9 +213,6 @@ const searchResults = computed(() => {
 });
 
 onMounted(async () => {
-  emitter.on("openKanbanPage", onNavigation);
-  emitter.on("closeKanbanPage", onNavigation);
-
   if (props.board.pinIconText) {
     customChar.value = props.board.pinIconText;
     customCharInput.value = props.board.pinIconText;
@@ -230,13 +225,6 @@ onMounted(async () => {
       selectedIconName.value = savedIcon.name;
     }
   }
-
-  onNavigation();
-});
-
-onUnmounted(() => {
-  emitter.off("openKanbanPage");
-  emitter.off("closeKanbanPage");
 });
 
 const selectIcon = async (icon: Component, name: string) => {
@@ -272,14 +260,6 @@ const clearCustomChar = () => {
 
 const unpin = () => {
   emit("unpin", props.board.id);
-};
-
-const onNavigation = () => {
-  isActivePin.value = false;
-
-  if (router.currentRoute.value.path.includes("/kanban/" + props.board.id)) {
-    isActivePin.value = true;
-  }
 };
 </script>
 
