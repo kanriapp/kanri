@@ -41,9 +41,6 @@ type Events = {
   openModalWithCustomDescription: { description: string };
 
   resetColumnInputs: void;
-
-  setAnimationsOff: void;
-  setAnimationsOn: void;
 };
 
 const emitter = mitt<Events>();
