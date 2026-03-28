@@ -2876,11 +2876,3 @@ SOFTWARE.
     </pre>
   </div>
 </template>
-
-<script setup lang="ts">
-import emitter from "@/utils/emitter";
-
-onMounted(() => {
-  emitter.emit("showSidebarBackArrow");
-});
-</script>

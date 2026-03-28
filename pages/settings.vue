@@ -43,7 +43,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <h2 class="mb-2 mt-6 text-2xl font-bold">
         {{ $t("pages.settings.sectionThemeHeading") }}
       </h2>
-      <div id="theme-selection" class="flex flex-row gap-4" v-if="!theme.autoThemeEnabled">
+      <div v-if="!theme.autoThemeEnabled" id="theme-selection" class="flex flex-row gap-4">
         <div
           class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('light')"
@@ -88,7 +88,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
       </div>
 
-      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)" v-if="!theme.autoThemeEnabled">
+      <button v-if="!theme.autoThemeEnabled" class="text-dim-3 transition-button mt-2" @click="$router.go(0)">
         {{ $t("pages.settings.colorResetText")
         }}<span class="underline">{{
           $t("pages.settings.colorResetLink")
@@ -366,10 +366,6 @@ const themeEditorDisplayed = computed(() => activeTheme.value === "custom");
 const systemTheme = useDark();
 
 const deleteBoardModalVisible = ref(false);
-
-onMounted(async () => {
-  emitter.emit("showSidebarBackArrow");
-});
 
 const setTheme = async (themeName: ThemeIdentifiers) => {
   activeTheme.value = themeName;

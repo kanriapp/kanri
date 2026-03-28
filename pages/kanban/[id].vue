@@ -407,7 +407,6 @@ onMounted(async () => {
 
 onBeforeUnmount(async () => {
   document.removeEventListener("keydown", keyDownListener);
-  emitter.emit("closeKanbanPage");
 
   emitter.off("columnActionDone");
 });

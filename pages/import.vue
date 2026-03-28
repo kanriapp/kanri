@@ -172,7 +172,6 @@ import {
   kanriJsonSchema,
   trelloJsonSchema,
 } from "@/types/json-schemas";
-import emitter from "@/utils/emitter";
 import { ask, message, open, save } from "@tauri-apps/plugin-dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { useI18n } from "vue-i18n";
@@ -190,7 +189,6 @@ const { t } = useI18n();
 const boards: Ref<Board[]> = ref([]);
 
 onMounted(async () => {
-  emitter.emit("showSidebarBackArrow");
   boards.value = ((await store.get("boards")) as Board[]) || [];
 });
 
