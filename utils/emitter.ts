@@ -19,13 +19,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import type { Board, Column, Tag } from "@/types/kanban-types";
+import type { Board, Column } from "@/types/kanban-types";
 
 import mitt from "mitt";
 
 type Events = {
-  closeKanbanPage: void;
-
   columnActionDone: void;
   columnDraggingOff: void;
   columnDraggingOn: void;
@@ -35,29 +33,17 @@ type Events = {
   enableColumnCardAddMode: string;
   enableColumnTitleEditing: string;
 
-  hideSidebarBackArrow: void;
-
-  globalTagsUpdated: { tags: Array<Tag> | null | undefined };
-
   modalEnableClickOutsideClose: void;
   modalPreventClickOutsideClose: void;
 
   openBoardDeleteModal: { description: string; id: string };
   openBoardRenameModal: { board: Board };
-  openChangelogModal: void;
-  openKanbanPage: void;
   openModalWithCustomDescription: { description: string };
 
   resetColumnInputs: void;
 
   setAnimationsOff: void;
   setAnimationsOn: void;
-
-  showSidebarBackArrow: void;
-  updateColors: void;
-
-  zIndexBack: void;
-  zIndexDown: void;
 };
 
 const emitter = mitt<Events>();
