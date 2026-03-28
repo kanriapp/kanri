@@ -20,7 +20,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
   <nav
-    :class="zIndexDown ? '' : 'z-50'"
     class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
   >
     <ModalNewBoard
@@ -29,8 +28,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     />
     <Teleport to=".default-layout">
       <ModalHelp
-        v-show="helpModalVisible"
-        @closeModal="helpModalVisible = false"
+        v-show="showSidebarHelpModal"
+        @closeModal="showSidebarHelpModal = false"
       />
     </Teleport>
 
@@ -53,7 +52,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </template>
       </Tooltip>
 
-      <Tooltip v-if="!showAddButton" :label="$t('components.sidebar.back')">
+      <Tooltip v-if="showSidebarBackArrow" :label="$t('components.sidebar.back')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -64,7 +63,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </template>
       </Tooltip>
 
-      <Tooltip v-if="showAddButton" :label="$t('components.sidebar.createNewBoard')">
+      <Tooltip v-if="showSidebarAddButton" :label="$t('components.sidebar.createNewBoard')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -93,7 +92,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
-            @click="helpModalVisible = true"
+            @click="showSidebarHelpModal = true"
           >
             <PhQuestion class="size-7" />
           </button>
@@ -114,7 +113,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
 import {
   PhArrowBendUpLeft,
   PhHouse,
@@ -123,66 +121,23 @@ import {
   PhQuestion,
 } from "@phosphor-icons/vue";
 
-const router = useRouter();
+const { showSidebarAddButton, showSidebarBackArrow, showSidebarHelpModal } = storeToRefs(useLayoutStore());
 
-const helpModalVisible = ref(false);
 const newBoardModalVisible = ref(false);
-
-const zIndexDown = ref(false);
-const showAddButton = ref(true);
 
 onMounted(async () => {
   document.addEventListener("keydown", keyDownListener);
-
-  emitter.on("zIndexDown", () => {
-    zIndexDown.value = true;
-  });
-
-  emitter.on("zIndexBack", () => {
-    zIndexDown.value = false;
-  });
-
-  emitter.on("openKanbanPage", () => {
-    updateAddButton();
-  });
-
-  emitter.on("closeKanbanPage", () => {
-    updateAddButton();
-  });
-
-  emitter.on("showSidebarBackArrow", () => {
-    showAddButton.value = false;
-  });
-
-  emitter.on("hideSidebarBackArrow", () => {
-    showAddButton.value = true;
-  });
 });
 
 onBeforeUnmount(() => {
   document.removeEventListener("keydown", keyDownListener);
-
-  emitter.off("updateColors");
-  emitter.off("zIndexDown");
-  emitter.off("zIndexBack");
-  emitter.off("openKanbanPage");
-  emitter.off("closeKanbanPage");
-  emitter.off("showSidebarBackArrow");
-  emitter.off("hideSidebarBackArrow");
 });
 
 const keyDownListener = (e: KeyboardEvent) => {
   if (e.key === "F1") {
-    helpModalVisible.value = true;
+    showSidebarHelpModal.value = true;
     return;
   }
-};
-
-const updateAddButton = () => {
-  const currentPath = router.currentRoute.value.path;
-
-  if (currentPath.endsWith("/")) showAddButton.value = true;
-  else showAddButton.value = false;
 };
 </script>
 

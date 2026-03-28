@@ -25,18 +25,20 @@ import versionInfo from "@/version_info.json";
 export const useLayoutStore = defineStore("layout", {
   state: () => {
     /* Sidebar settings */
-    const showHelpModal = ref(false);
-    const showBackArrow = ref(false);
+    const showSidebarHelpModal = ref(false);
+    const showSidebarBackArrow = ref(false);
+    const showSidebarAddButton = ref(true);
     // TODO: implement logic/migrate to store
 
-    // TODO: add logic for drag and drop disable
+    // TODO: add logic for drag and drop disable (do this at some later point)
 
     /* Changelog settings */
     const lastInstalledVersion: Ref<string | null> = ref(null);
 
     return {
-      showHelpModal,
-      showBackArrow,
+      showSidebarHelpModal,
+      showSidebarBackArrow,
+      showSidebarAddButton,
 
       lastInstalledVersion
     }
@@ -49,6 +51,16 @@ export const useLayoutStore = defineStore("layout", {
       const lastInstalledVersionSaved: string = await store.get("lastInstalledVersion") ?? currentVersionIdentifier;
       console.log("Loaded lastInstalledVersion from store:", lastInstalledVersionSaved);
       this.lastInstalledVersion = lastInstalledVersionSaved;
+    },
+
+    onHomePageLeave() {
+      this.showSidebarAddButton = false;
+      this.showSidebarBackArrow = true;
+    },
+
+    onHomePageEnter() {
+      this.showSidebarAddButton = true;
+      this.showSidebarBackArrow = false;
     },
 
     async shouldDisplayChangelog() {

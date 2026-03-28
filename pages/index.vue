@@ -367,7 +367,7 @@ onMounted(async () => {
     }
   });
 
-  emitter.emit("hideSidebarBackArrow");
+  layoutSettings.onHomePageEnter();
 
   await boardsStore.init();
   await settingsStore.loadBoardSortingOptions();
@@ -379,6 +379,9 @@ onBeforeUnmount(() => {
   // Make sure we properly remove our event listeners
   emitter.off("createBoard", handleCreateBoard);
   emitter.off("openChangelogModal");
+
+  // show back arrow on sidebar for any other menu except home page
+  layoutSettings.onHomePageLeave();
 });
 
 const getSortedBoards = (boards: Board[], sortingOption: string, reverseSort: boolean) => {

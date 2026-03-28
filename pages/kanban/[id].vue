@@ -392,8 +392,6 @@ onMounted(async () => {
 
   document.addEventListener("keydown", keyDownListener);
 
-  emitter.emit("openKanbanPage");
-
   columnEditIndex.value =
     boardContent.value.columns.length !== 0 ? boardContent.value.columns.length - 1 : -1;
 
