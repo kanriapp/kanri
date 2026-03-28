@@ -28,7 +28,6 @@ export const useLayoutStore = defineStore("layout", {
     const showSidebarHelpModal = ref(false);
     const showSidebarBackArrow = ref(false);
     const showSidebarAddButton = ref(true);
-    // TODO: implement logic/migrate to store
 
     // TODO: add logic for drag and drop disable (do this at some later point)
 
