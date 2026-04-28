@@ -45,6 +45,7 @@ export const useBoardsStore = defineStore("boards", {
       this.pins = (await tauri.get("pins")) || [];
       this.initialized = true;
 
+      this._propagateCreatedAtDates(); // add creation dates for old boards that don't have it
       this._setupAutoSave();
     },
     async forceReloadBoards() {
@@ -110,6 +111,17 @@ export const useBoardsStore = defineStore("boards", {
 
       b.lastEdited = new Date();
     },
+    _propagateCreatedAtDates() {
+      const now = new Date();
+      this.boards.forEach((board, index) => {
+        if (!board.createdAt) {
+          // Give missing boards slightly older dates based on their index to preserve initial creation order
+          board.createdAt = new Date(now.getTime() - (this.boards.length - index) * 1000);
+          console.log(`Added creation date for board ${board.title} (ID: ${board.id}). This should only happen once!`)
+        }
+      });
+    },
+
     togglePin(id: string) {
       const b = this.boardById(id);
       if (!b) return;
