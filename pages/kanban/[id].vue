@@ -109,18 +109,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </h1>
       <input
         v-if="boardTitleEditing"
-        v-model="boardContent.title"
+        :value="boardContent.title"
         v-focus
         class="bg-elevation-2 border-accent text-no-overflow -ml-2 mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl font-bold outline-none"
         maxlength="500"
         type="text"
         @blur="
           boardTitleEditing = false;
-          board.updateBoardPin();
+          board.renameBoard(($event.target as HTMLInputElement).value);
         "
         @keypress.enter="
           boardTitleEditing = false;
-          board.updateBoardPin();
+          board.renameBoard(($event.target as HTMLInputElement).value);
         "
       >
 
