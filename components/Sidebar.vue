@@ -22,11 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   <nav
     class="border-elevation-1 bg-sidebar z-10 mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
   >
-    <ModalNewBoard
-      v-show="newBoardModalVisible"
-      @closeModal="newBoardModalVisible = false"
-    />
     <Teleport to=".default-layout">
+      <ModalNewBoard
+        v-show="newBoardModalVisible"
+        @closeModal="newBoardModalVisible = false"
+      />
       <ModalHelp
         v-show="showSidebarHelpModal"
         @closeModal="showSidebarHelpModal = false"
