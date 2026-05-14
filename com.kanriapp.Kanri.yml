@@ -16,6 +16,9 @@ finish-args:
 
 build-options:
   append-path: /usr/lib/sdk/node24/bin:/usr/lib/sdk/rust-stable/bin
+  env:
+    CARGO_HOME: /run/build/Kanri/cargo
+    CARGO_NET_OFFLINE: "true"
 
 modules:
   - name: Kanri
@@ -25,15 +28,11 @@ modules:
         url: https://github.com/kanriapp/kanri
         tag: app-v0.8.2
         commit: 612be4929d36ac4a27884a4de95527bda0490dc7
-      - ./packaging/node-sources.json
-      - ./packaging/cargo-sources.json
-    env:
-      CARGO_HOME: /run/build/Kanri/cargo
-      XDG_CACHE_HOME: /run/build/Kanri/flatpak-node/cache
-      npm_config_cache: /run/build/Kanri/flatpak-node/npm-cache
-      # TODO: Build offline
+      - node-sources.json
+      - cargo-sources.json
     build-commands:
-      - yarn install
+      - cargo --offline fetch --manifest-path src-tauri/Cargo.toml --verbose
+      - yarn install --offline
       - yarn tauri build -- --no-bundle
 
       - install -Dm755 -t /app/bin/ src-tauri/target/release/kanri
