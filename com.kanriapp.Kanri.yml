@@ -1,8 +1,8 @@
 id: com.kanriapp.Kanri
 
-runtime: org.freedesktop.Platform
-runtime-version: "25.08"
-sdk: org.freedesktop.Sdk
+runtime: org.gnome.Platform
+runtime-version: "50"
+sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
   - org.freedesktop.Sdk.Extension.node24
@@ -26,13 +26,14 @@ modules:
     sources:
       - type: git
         url: https://github.com/kanriapp/kanri
-        tag: app-v0.8.2
-        commit: 612be4929d36ac4a27884a4de95527bda0490dc7
-      - node-sources.json
-      - cargo-sources.json
+        branch: main
+      - packaging/node-sources.json
+      - packaging/cargo-sources.json
     build-commands:
       - cargo --offline fetch --manifest-path src-tauri/Cargo.toml --verbose
+      - HOME=$PWD yarn config --offline set yarn-offline-mirror /run/build/Kanri/flatpak-node/yarn-mirror
       - yarn install --offline
+      - yarn generate
       - yarn tauri build -- --no-bundle
 
       - install -Dm755 -t /app/bin/ src-tauri/target/release/kanri
