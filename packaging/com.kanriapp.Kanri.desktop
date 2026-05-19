@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Development;ProjectManagement
+Comment=Kanri is a modern, minimalist Kanban board that works offline
+Exec=kanri
+Icon=Kanri
+Name=Kanri
+Terminal=false
+Type=Application
