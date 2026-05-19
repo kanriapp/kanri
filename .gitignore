@@ -18,3 +18,7 @@ src-tauri/license.html
 
 src-tauri/gen/*
 src-tauri/gen/schemas
+
+# Flatpak build artifact.
+# If no Flatpak repository is specified while building, the Flatpak builder will create this directory.
+repo/
