@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <h2 class="mb-2 mt-6 text-2xl font-bold">
         {{ $t("pages.settings.sectionThemeHeading") }}
       </h2>
-      <div id="theme-selection" class="flex flex-row gap-4" v-if="!theme.autoThemeEnabled">
+      <div v-if="!theme.autoThemeEnabled" id="theme-selection" class="flex flex-row gap-4">
         <div
           class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
           @click="setTheme('light')"
@@ -88,7 +88,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
       </div>
 
-      <button class="text-dim-3 transition-button mt-2" @click="$router.go(0)" v-if="!theme.autoThemeEnabled">
+      <button v-if="!theme.autoThemeEnabled" class="text-dim-3 transition-button mt-2" @click="$router.go(0)">
         {{ $t("pages.settings.colorResetText")
         }}<span class="underline">{{
           $t("pages.settings.colorResetLink")
@@ -270,6 +270,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <div class="flex w-[48rem] flex-row items-start justify-between">
           <div>
             <h3 class="text-lg">
+              {{ $t("pages.settings.miscellaneousDisableSpellcheckHeading") }}
+            </h3>
+            <span class="text-dim-2">
+              {{ $t("pages.settings.miscellaneousDisableSpellcheckSubtext") }}
+            </span>
+          </div>
+          <SwitchRoot
+            v-model:checked="globalSettingsStore.disableSpellcheck"
+            class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+            @update:checked="(val) => globalSettingsStore.setDisableSpellcheck(val)"
+          >
+            <SwitchThumb
+              class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+            />
+          </SwitchRoot>
+        </div>
+
+        <div class="flex w-[48rem] flex-row items-start justify-between">
+          <div>
+            <h3 class="text-lg">
               {{ $t("pages.settings.miscellaneousAutostartHeading") }}
             </h3>
             <span class="text-dim-2">
@@ -317,9 +337,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import type { ThemeIdentifiers } from "@/types/kanban-types";
-import type { Ref } from "vue";
 
-import { useTauriStore } from "@/stores/tauriStore";
 import { kanriThemeSchema } from "@/types/json-schemas";
 import emitter from "@/utils/emitter";
 import { catppuccin, dark, light } from "@/utils/themes";
@@ -338,7 +356,6 @@ import { useI18n } from "vue-i18n";
 
 const router = useRouter();
 
-const store = useTauriStore().store;
 const globalSettingsStore = useSettingsStore();
 const theme = useThemeStore();
 
@@ -349,10 +366,6 @@ const themeEditorDisplayed = computed(() => activeTheme.value === "custom");
 const systemTheme = useDark();
 
 const deleteBoardModalVisible = ref(false);
-
-onMounted(async () => {
-  emitter.emit("showSidebarBackArrow");
-});
 
 const setTheme = async (themeName: ThemeIdentifiers) => {
   activeTheme.value = themeName;
@@ -402,9 +415,7 @@ const exportThemeToJson = async () => {
     title: t("pages.settings.exportThemeDialogTitle"),
   });
 
-  const colors = await store.get("colors");
-
-  const fileContents = JSON.stringify(colors, null, 2);
+  const fileContents = JSON.stringify(theme.colors, null, 2);
 
   if (filePath == null) return;
   await writeTextFile(filePath, fileContents);

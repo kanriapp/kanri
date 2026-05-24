@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev> -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev> -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -85,36 +85,28 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import type { Board } from "@/types/kanban-types";
 
-import { convertFileSrc } from "@tauri-apps/api/core";
+import { useBackgroundImage } from "@/composables/useBackgroundImage";
 
 const props = defineProps<{
   board: Board;
   isSimplePreviewMode: boolean;
 }>();
 
-const bgCustom = ref("");
-const bgCustomNoResolution = ref("");
-const bgImageLoaded = ref(false);
-const bgBlur = ref("8px");
-const bgBrightness = ref("100%");
-
-const cssVars = computed(() => {
-  return {
-    "--bg-brightness": bgBrightness.value,
-    "--bg-custom-image": `url("${bgCustom.value}")`,
-    "--blur-intensity": bgBlur.value,
-  };
-});
-
-onMounted(() => {
-  if (props.board.background && !props.isSimplePreviewMode) {
-    bgCustomNoResolution.value = props.board.background.src;
-    bgCustom.value = convertFileSrc(props.board.background.src);
-
-    bgBlur.value = props.board.background.blur;
-    bgBrightness.value = props.board.background.brightness;
+const boardRef = computed(() => props.board);
+const { cssVars, bgBlur, bgBrightness, initBackgroundImage } = useBackgroundImage(
+  boardRef,
+  {
+    checkFileExists: false,
+    mutateBoardOnMissingFile: false,
+    syncBoardOnSetters: false,
+    computeTitleColor: false,
   }
-  nextTick(() => (bgImageLoaded.value = true));
+);
+
+onMounted(async () => {
+  if (!props.isSimplePreviewMode) {
+    await initBackgroundImage();
+  }
 });
 </script>
 

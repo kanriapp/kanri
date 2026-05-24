@@ -1,9 +1,9 @@
-/* SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>
+/* SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>
 
 SPDX-License-Identifier: GPL-3.0-or-later
 
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,14 +18,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
 import { disable, enable, isEnabled } from "@tauri-apps/plugin-autostart";
 
 export const useSettingsStore = defineStore("settings", {
   state: () => {
+    /* Start page settings */
+  const boardSortingOption = ref<"alphabetical" | "lastEdited" | "createdAt">("createdAt");
+  const reverseSorting = ref(false);
+
     /* Overall app settings */
     const locale = ref("en");
     const animationsEnabled = ref(true);
     const autostartEnabled = ref(false);
+    const disableSpellcheck = ref(false);
 
     /* Global board settings */
     const columnZoomLevel = ref(0);
@@ -34,14 +40,18 @@ export const useSettingsStore = defineStore("settings", {
     const defaultRelativeDueDatesEnabled = ref(false);
 
     return {
-      locale,
-      animationsEnabled,
-      autostartEnabled,
+  locale,
+  animationsEnabled,
+  autostartEnabled,
+  disableSpellcheck,
 
-      columnZoomLevel,
-      addToTopOfColumnButtonEnabled,
-      displayColumnCardCountEnabled,
-      defaultRelativeDueDatesEnabled,
+  columnZoomLevel,
+  addToTopOfColumnButtonEnabled,
+  displayColumnCardCountEnabled,
+  defaultRelativeDueDatesEnabled,
+
+  boardSortingOption,
+  reverseSorting,
     }
   },
 
@@ -58,6 +68,12 @@ export const useSettingsStore = defineStore("settings", {
       const displayColumnCardCountEnabledSaved: boolean = await store.get("displayColumnCardCountEnabled") ?? false;
       const defaultRelativeDueDatesEnabledSaved: boolean = await store.get("defaultRelativeDueDatesEnabled") ?? false;
 
+      const boardSortingOptionSaved: string = (await store.get("boardSortingOption")) ?? "createdAt";
+      const reverseSortingSavedRaw: unknown = await store.get("reverseSorting");
+      const reverseSortingSaved: boolean = typeof reverseSortingSavedRaw === "boolean"
+        ? reverseSortingSavedRaw
+        : false;
+
       this.locale = localeSaved;
       this.animationsEnabled = animationsEnabledSaved;
       this.autostartEnabled = autostartEnabledSaved;
@@ -65,6 +81,31 @@ export const useSettingsStore = defineStore("settings", {
       this.addToTopOfColumnButtonEnabled = addToTopOfColumnButtonEnabledSaved;
       this.displayColumnCardCountEnabled = displayColumnCardCountEnabledSaved;
       this.defaultRelativeDueDatesEnabled = defaultRelativeDueDatesEnabledSaved;
+      this.boardSortingOption =
+        boardSortingOptionSaved === "alphabetical" ||
+        boardSortingOptionSaved === "lastEdited" ||
+        boardSortingOptionSaved === "createdAt"
+          ? boardSortingOptionSaved
+          : "createdAt";
+      this.reverseSorting = reverseSortingSaved;
+    },
+
+    async loadBoardSortingOptions() {
+      const store = useTauriStore().store;
+
+      const boardSortingOptionSaved: string = (await store.get("boardSortingOption")) ?? "createdAt";
+      const reverseSortingSavedRaw: unknown = await store.get("reverseSorting");
+      const reverseSortingSaved: boolean = typeof reverseSortingSavedRaw === "boolean"
+        ? reverseSortingSavedRaw
+        : false;
+
+      this.boardSortingOption =
+        boardSortingOptionSaved === "alphabetical" ||
+        boardSortingOptionSaved === "lastEdited" ||
+        boardSortingOptionSaved === "createdAt"
+          ? boardSortingOptionSaved
+          : "createdAt";
+      this.reverseSorting = reverseSortingSaved;
     },
 
     async deleteAllData() {
@@ -91,6 +132,11 @@ export const useSettingsStore = defineStore("settings", {
       else await disable();
     },
 
+    async setDisableSpellcheck(value: boolean) {
+      this.disableSpellcheck = value;
+      await useTauriStore().store.set("disableSpellcheck", value);
+    },
+
     async setColumnZoomLevel(value: number) {
       this.columnZoomLevel = value;
       await useTauriStore().store.set("columnZoomLevel", value);
@@ -109,6 +155,16 @@ export const useSettingsStore = defineStore("settings", {
     async setDefaultRelativeDueDatesEnabled(value: boolean) {
       this.defaultRelativeDueDatesEnabled = value;
       await useTauriStore().store.set("defaultRelativeDueDatesEnabled", value);
+    },
+
+    async setBoardSortingOption(option: "alphabetical" | "lastEdited" | "createdAt") {
+      this.boardSortingOption = option;
+      await useTauriStore().store.set("boardSortingOption", option);
+    },
+
+    async setReverseSorting(value: boolean) {
+      this.reverseSorting = value;
+      await useTauriStore().store.set("reverseSorting", value);
     }
   }
 });

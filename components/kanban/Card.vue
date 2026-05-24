@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt, tareqdayya -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, Khusyasy, PwshLab, jynxbt, tareqdayya, qunm00 -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!--
@@ -139,21 +139,22 @@ limitations under the License.
       <ContextMenuContent :class="contextMenuClass">
         <ContextMenuItem
           value="Edit Name"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="enableCardEditMode()"
         >
           {{ $t("general.editNameAction") }}
         </ContextMenuItem>
+        <KanbanMoveTo :card="card" />
         <ContextMenuItem
           value="Duplicate"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="$emit('duplicateCard', card.id)"
         >
           {{ $t("general.duplicateAction") }}
         </ContextMenuItem>
         <ContextMenuItem
           value="Delete"
-          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5 pl-[25px]"
+          class="bg-elevation-2-hover flex w-full cursor-pointer flex-row items-center rounded-md px-4 py-1.5"
           @click="deleteCardWithConfirmation(card.id)"
         >
           {{ $t("general.deleteAction") }}
@@ -166,7 +167,6 @@ limitations under the License.
 <script setup lang="ts">
 import type { Card, Tag } from "@/types/kanban-types";
 
-import { useTauriStore } from "@/stores/tauriStore";
 import { getContrast } from "~/utils/colorUtils";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import {
@@ -200,13 +200,15 @@ const emit = defineEmits<{
     cardId: string | undefined,
     cardRef: Ref<HTMLDivElement | null>
   ): void;
-  (e: "setCardTitle", cardId: string | undefined, name: string): void;
+  (e: "setCardName", cardId: string | undefined, name: string): void;
   (e: "updateCardTags", cardId: string | undefined, tags: Array<Tag>): void;
   (e: "duplicateCard", cardId: string | undefined): void;
 }>();
 
-const store = useTauriStore().store;
+const { locale } = useI18n();
+
 const globalSettingsStore = useSettingsStore();
+const themeStore = useThemeStore();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const savedColors: Ref<any> = ref(null); // TODO: add types for saved theme in board
@@ -238,27 +240,8 @@ watch(
   { deep: true }
 );
 
-onMounted(async () => {
-  savedColors.value = await store.get("colors");
-
-  emitter.on("globalTagsUpdated", ({ tags }) => {
-    if (!tags) return;
-
-    tags.forEach((tag) => {
-      const savedTag = cardTags.value?.find((cardTag) => tag.id === cardTag.id);
-      if (savedTag) {
-        savedTag.text = tag.text;
-        savedTag.color = tag.color;
-        savedTag.style = tag.style;
-
-        emit("updateCardTags", props.card?.id, cardTags.value ?? []);
-      }
-    });
-  });
-});
-
-onUnmounted(() => {
-  emitter.off("globalTagsUpdated");
+onMounted(() => {
+  savedColors.value = themeStore.colors;
 });
 
 const cardHasNoExtraProperties = computed(() => {
@@ -446,7 +429,8 @@ const getFormattedDueDate = computed(() => {
     }
   }
 
-  return new Date(dueDate.value).toLocaleDateString();
+  const jsLocaleIdentifier = locale.value.replace("_", "-")
+  return new Date(dueDate.value).toLocaleDateString(jsLocaleIdentifier);
 });
 
 const dueDateOverdue = computed(() => {
@@ -510,7 +494,8 @@ const updateCardName = () => {
     return;
   }
 
-  emit("setCardTitle", props.card?.id, name.value);
+  // TODO: clean up logic and just pass card as prop; fix reactivity issues!
+  emit("setCardName", props.card?.id, name.value);
   cardNameEditMode.value = false;
   emit("enableDragging");
 };

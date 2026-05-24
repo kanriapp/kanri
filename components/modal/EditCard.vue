@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, Khusyasy, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, Khusyasy, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!--
@@ -34,7 +34,7 @@ limitations under the License.
               class="relative -left-8 top-0 flex flex-row items-center gap-2"
             >
               <div @blur="showCustomColorPopup = false">
-                <Tooltip direction="top">
+                <Tooltip direction="top" :label="$t('modals.editCard.tooltip')">
                   <template #trigger>
                     <button
                       class="size-7 rounded-full flex items-center justify-center"
@@ -53,10 +53,6 @@ limitations under the License.
                       />
                     </button>
                   </template>
-
-                  <template #content>{{
-                    $t("modals.editCard.tooltip")
-                  }}</template>
                 </Tooltip>
                 <div
                   v-if="showCustomColorPopup"
@@ -330,6 +326,7 @@ limitations under the License.
                   lock-axis="y"
                   orientation="vertical"
                   @drop="onTaskDrop"
+                  :get-child-payload="(index: number) => tasks[index]"
                 >
                   <Draggable
                     v-for="(task, index) in tasks"
@@ -553,6 +550,8 @@ const emit = defineEmits<{
   (e: "openTagEdit"): void;
 }>();
 
+const { locale } = useI18n();
+
 const columnID = ref("");
 const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
@@ -733,9 +732,6 @@ const resetDueDate = () => {
 };
 
 const markDueDateCompleted = () => {
-   console.log("yeetusfeetus")
-   console.log("Due date completed", isDueDateCompleted.value)
-
   emit(
     "setCardDueDate",
     columnID.value,
@@ -781,10 +777,12 @@ const setCardColor = (
 };
 
 const dateToLocalFormat = (date: Date | string) => {
+  const jsLocaleIdentifier = locale.value.replace("_", "-")
+
   if (typeof date === "string") {
-    return new Date(date).toLocaleDateString();
+    return new Date(date).toLocaleDateString(jsLocaleIdentifier);
   }
-  return date.toLocaleDateString();
+  return date.toLocaleDateString(jsLocaleIdentifier);
 };
 
 watch(customColor, (newVal, oldVal) => {
@@ -824,7 +822,7 @@ watch(props, (newVal) => {
     if (savedTasks.length > 0) {
       savedTasks.forEach((task) => {
         if (!task.id) {
-          console.log("this should not happen again");
+          console.log("Generating ID for old task, this should not happen again");
           task.id = generateUniqueID();
         }
       });

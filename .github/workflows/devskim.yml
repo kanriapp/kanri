@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -28,6 +28,6 @@ jobs:
         uses: microsoft/DevSkim-Action@v1
 
       - name: Upload DevSkim scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: devskim-results.sarif

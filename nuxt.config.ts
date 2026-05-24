@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak
+// SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, gitoak
 //
 // SPDX-License-Identifier: CC0-1.0
 
@@ -43,6 +43,8 @@ export default defineNuxtConfig({
       { code: "uk", name: "українська", file: "uk.json" },
       { code: "fr", name: "Français", file: "fr.json" },
       { code: "tr", name: "Türkçe", file: "tr.json" },
+      { code: "th", name: "ภาษาไทย", file: "th.json" },
+      { code: "ja", name: "日本語", file: "ja.json" },
     ],
     defaultLocale: "en",
     langDir: "locales/",

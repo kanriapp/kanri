@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, PwshLab -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         id="tabitem"
         :key="board.id"
         :board="board"
+        :is-active="board.id === currentRouteBoardId"
         @setPinIcon="setPinIcon"
         @setPinTextIcon="setPinTextIcon"
         @clearPinIcon="clearPinIcon"
@@ -38,78 +39,41 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
-import type { Board } from "@/types/kanban-types";
 import PinnedItem from "./PinnedItem.vue";
 
-const store = useTauriStore().store;
-const pins: Ref<
-  Array<{ id: string; title: string; pinIcon?: string; pinIconText?: string }>
-> = ref([]);
-const boards: Ref<Array<Board>> = ref([]);
+const router = useRouter();
+const boardsStore = useBoardsStore();
 
-onMounted(async () => {
-  boards.value = (await store.get("boards")) || [];
-  pins.value = (await store.get("pins")) || [];
+const { pins } = storeToRefs(boardsStore);
 
-  emitter.on("toggleBoardPin", onPinToggle);
-  emitter.on("updateBoardPin", updatePin);
-  emitter.on("boardDeletion", onKanbanDelete);
+const currentRouteBoardId = ref("");
+
+watch(() => router.currentRoute.value, (newRoute) => {
+  currentRouteBoardId.value = newRoute.path.split("/kanban/")[1] || ""; // maybe make this a bit more reliable
 });
 
-const onPinToggle = async (board: Board) => {
-  const boardIsPinned = findObjectById(pins.value, board.id) ? true : false;
-  if (boardIsPinned) pins.value = pins.value.filter((x) => x.id !== board.id);
-  else pins.value = [filterBoardToNameAndId(board), ...pins.value];
-
-  store.set("pins", pins.value);
-};
-
-const updatePin = async (board: Board) => {
-  const boardIsPinned = findObjectById(pins.value, board.id) ? true : false;
-  if (!boardIsPinned) return;
-
-  pins.value = pins.value.map((x) =>
-    x.id === board.id ? { ...x, title: board.title } : x
-  );
-
-  store.set("pins", pins.value);
-};
-
-const persistPins = () => store.set("pins", pins.value);
-
 const setPinIcon = async (id: string, pinIcon: string) => {
-  pins.value = pins.value.map((x) =>
-    x.id === id ? { ...x, pinIcon, pinIconText: undefined } : x
-  );
-  persistPins();
-};
+  boardsStore.mutateBoardPin(id, (pin => {
+    pin.pinIcon = pinIcon;
+    pin.pinIconText = undefined;
+  }));
+}
 
 const setPinTextIcon = (id: string, pinIconText: string) => {
-  pins.value = pins.value.map((x) =>
-    x.id === id ? { ...x, pinIcon: undefined, pinIconText } : x
-  );
-  persistPins();
-};
+  boardsStore.mutateBoardPin(id, (pin => {
+    pin.pinIcon = undefined;
+    pin.pinIconText = pinIconText;
+  }));
+}
 
 const clearPinIcon = (id: string) => {
-  pins.value = pins.value.map((x) =>
-    x.id === id ? { ...x, pinIcon: undefined, pinIconText: undefined } : x
-  );
-  persistPins();
-};
+  boardsStore.mutateBoardPin(id, (pin => {
+    pin.pinIcon = undefined;
+    pin.pinIconText = undefined;
+  }));
+}
 
 const unpin = (id: string) => {
-  pins.value = pins.value.filter((x) => x.id !== id);
-  persistPins();
-};
-
-const filterBoardToNameAndId = (board: Board) => {
-  return { id: board.id, title: board.title };
-};
-
-const onKanbanDelete = async (board: Board) => {
-  pins.value = pins.value.filter((x) => x.id !== board.id);
-  store.set("pins", pins.value);
-};
+  pins.value = pins.value.filter(p => p.id !== id);
+}
 </script>

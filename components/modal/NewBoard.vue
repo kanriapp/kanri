@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <Modal :blur-background="false" @closeModal="closeModal()">
     <template #content>
-      <main class="min-w-[32rem] max-w-3xl" @keypress.enter="createNewBoard()">
+      <main class="min-w-[32rem] max-w-3xl">
+        <form @submit.prevent="createNewBoard()">
         <div class="flex flex-row items-start justify-between">
           <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
             {{ $t("modals.newBoard.title") }}
@@ -45,7 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             type="text"
             @focus="boardNameEmptyError = false"
             @blur="checkIfBoardNameEmpty"
-          />
+          >
           <p v-if="boardNameEmptyError" class="mt-0.5 text-red-500">
             {{ $t("modals.newBoard.boardNameEmptyError") }}
           </p>
@@ -84,7 +85,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 v-model="column.title"
                 class="bg-elevation-3 text-normal w-32 text-ellipsis rounded-md border-none px-2 py-1 focus:outline-none"
                 type="text"
-              />
+              >
               <PhTrash
                 class="text-accent-hover size-5 cursor-pointer"
                 @click="columns.splice(index, 1)"
@@ -98,17 +99,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         >
           <button
             class="text-accent-hover transition-button"
+            type="button"
             @click="closeModal()"
           >
             {{ $t("general.cancelAction") }}
           </button>
           <button
             class="bg-accent text-buttons transition-button rounded-md px-4 py-2"
-            @click="createNewBoard()"
+            type="submit"
           >
             {{ $t("modals.newBoard.createBoardAction") }}
           </button>
         </section>
+        </form>
       </main>
     </template>
   </Modal>
@@ -123,6 +126,8 @@ import { XMarkIcon } from "@heroicons/vue/24/outline";
 import { PhPlus, PhTrash } from "@phosphor-icons/vue";
 import { useI18n } from "vue-i18n";
 
+import { exampleColumns as staticExampleColumns } from "~/utils/exampleData";
+
 const emit = defineEmits<{
   (e: "closeModal"): void;
 }>();
@@ -134,23 +139,7 @@ const boardNameEmptyError = ref(false);
 
 const newBoardName = ref("");
 const exampleColumns = ref(false);
-const columns: Ref<Array<Column>> = ref([
-  {
-    cards: [],
-    id: generateUniqueID(),
-    title: "Todo",
-  },
-  {
-    cards: [],
-    id: generateUniqueID(),
-    title: "Work in progress",
-  },
-  {
-    cards: [],
-    id: generateUniqueID(),
-    title: "Done",
-  },
-]);
+const columns: Ref<Array<Column>> = ref(staticExampleColumns.map((column) => ({ title: column.title, id: generateUniqueID(), cards: [] })));
 
 onUpdated(() => {
   nextTick(() => {
@@ -177,7 +166,10 @@ const addColumnAndScrollToEnd = () => {
   });
   nextTick(() => {
     const columnElements = document.querySelectorAll(".column");
-    columnElements[columnElements.length - 1].scrollIntoView({
+    const lastColumn = columnElements[columnElements.length - 1];
+    if (!lastColumn) return;
+
+    lastColumn.scrollIntoView({
       behavior: "smooth",
     });
   });

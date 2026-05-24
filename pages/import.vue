@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -172,7 +172,6 @@ import {
   kanriJsonSchema,
   trelloJsonSchema,
 } from "@/types/json-schemas";
-import emitter from "@/utils/emitter";
 import { ask, message, open, save } from "@tauri-apps/plugin-dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { useI18n } from "vue-i18n";
@@ -190,7 +189,6 @@ const { t } = useI18n();
 const boards: Ref<Board[]> = ref([]);
 
 onMounted(async () => {
-  emitter.emit("showSidebarBackArrow");
   boards.value = ((await store.get("boards")) as Board[]) || [];
 });
 
@@ -205,8 +203,6 @@ const exportJSON = async () => {
     ],
     title: t("pages.import.exportFullJsonDialogTitle"),
   });
-
-  console.log(new Date().toLocaleDateString());
 
   const savedBoards = await store.get("boards");
   const boardSortingOption = await store.get("boardSortingOption");

@@ -1,9 +1,9 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2025 trobonox <hello@trobo.dev>, PwshLab, gitoak -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab, gitoak -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
 Kanri is an offline Kanban board app made using Tauri and Nuxt.
-Copyright (C) 2022-2025 trobonox <hello@trobo.dev>
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,7 +20,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
   <nav
-    :class="zIndexDown ? '' : 'z-50'"
     class="border-elevation-1 bg-sidebar mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
   >
     <ModalNewBoard
@@ -29,8 +28,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     />
     <Teleport to=".default-layout">
       <ModalHelp
-        v-show="helpModalVisible"
-        @closeModal="helpModalVisible = false"
+        v-show="showSidebarHelpModal"
+        @closeModal="showSidebarHelpModal = false"
       />
     </Teleport>
 
@@ -42,7 +41,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         />
       </div>
 
-      <Tooltip>
+      <Tooltip :label="$t('components.sidebar.home')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -51,11 +50,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <PhHouse class="size-7" />
           </button>
         </template>
-
-        <template #content>{{ $t("components.sidebar.home") }}</template>
       </Tooltip>
 
-      <Tooltip v-if="!showAddButton">
+      <Tooltip v-if="showSidebarBackArrow" :label="$t('components.sidebar.back')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -64,11 +61,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <PhArrowBendUpLeft class="size-7" />
           </button>
         </template>
-
-        <template #content>{{ $t("components.sidebar.back") }}</template>
       </Tooltip>
 
-      <Tooltip v-if="showAddButton">
+      <Tooltip v-if="showSidebarAddButton" :label="$t('components.sidebar.createNewBoard')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
@@ -77,17 +72,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <IconPhPlusCircleDuotone class="text-accent size-7" />
           </button>
         </template>
-
-        <template #content>{{
-          $t("components.sidebar.createNewBoard")
-        }}</template>
       </Tooltip>
     </section>
 
     <PinnedBar />
 
     <section id="icons-bottom" class="flex flex-col items-center gap-4">
-      <Tooltip>
+      <Tooltip :label="$t('components.sidebar.importExport')">
         <template #trigger>
           <nuxt-link to="/import">
             <div class="bg-elevation-2-hover transition-button rounded-md p-2">
@@ -95,26 +86,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </div>
           </nuxt-link>
         </template>
-
-        <template #content>{{
-          $t("components.sidebar.importExport")
-        }}</template>
       </Tooltip>
 
-      <Tooltip>
+      <Tooltip :label="$t('components.sidebar.help')">
         <template #trigger>
           <button
             class="bg-elevation-2-hover transition-button rounded-md p-2"
-            @click="helpModalVisible = true"
+            @click="showSidebarHelpModal = true"
           >
             <PhQuestion class="size-7" />
           </button>
         </template>
-
-        <template #content>{{ $t("components.sidebar.help") }}</template>
       </Tooltip>
 
-      <Tooltip>
+      <Tooltip :label="$t('components.sidebar.settings')">
         <template #trigger>
           <nuxt-link to="/settings">
             <div class="bg-elevation-2-hover transition-button rounded-md p-2">
@@ -122,15 +107,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             </div>
           </nuxt-link>
         </template>
-
-        <template #content>{{ $t("components.sidebar.settings") }}</template>
       </Tooltip>
     </section>
   </nav>
 </template>
 
 <script setup lang="ts">
-import emitter from "@/utils/emitter";
 import {
   PhArrowBendUpLeft,
   PhHouse,
@@ -139,66 +121,23 @@ import {
   PhQuestion,
 } from "@phosphor-icons/vue";
 
-const router = useRouter();
+const { showSidebarAddButton, showSidebarBackArrow, showSidebarHelpModal } = storeToRefs(useLayoutStore());
 
-const helpModalVisible = ref(false);
 const newBoardModalVisible = ref(false);
-
-const zIndexDown = ref(false);
-const showAddButton = ref(true);
 
 onMounted(async () => {
   document.addEventListener("keydown", keyDownListener);
-
-  emitter.on("zIndexDown", () => {
-    zIndexDown.value = true;
-  });
-
-  emitter.on("zIndexBack", () => {
-    zIndexDown.value = false;
-  });
-
-  emitter.on("openKanbanPage", () => {
-    updateAddButton();
-  });
-
-  emitter.on("closeKanbanPage", () => {
-    updateAddButton();
-  });
-
-  emitter.on("showSidebarBackArrow", () => {
-    showAddButton.value = false;
-  });
-
-  emitter.on("hideSidebarBackArrow", () => {
-    showAddButton.value = true;
-  });
 });
 
 onBeforeUnmount(() => {
   document.removeEventListener("keydown", keyDownListener);
-
-  emitter.off("updateColors");
-  emitter.off("zIndexDown");
-  emitter.off("zIndexBack");
-  emitter.off("openKanbanPage");
-  emitter.off("closeKanbanPage");
-  emitter.off("showSidebarBackArrow");
-  emitter.off("hideSidebarBackArrow");
 });
 
 const keyDownListener = (e: KeyboardEvent) => {
   if (e.key === "F1") {
-    helpModalVisible.value = true;
+    showSidebarHelpModal.value = true;
     return;
   }
-};
-
-const updateAddButton = () => {
-  const currentPath = router.currentRoute.value.path;
-
-  if (currentPath.endsWith("/")) showAddButton.value = true;
-  else showAddButton.value = false;
 };
 </script>
 
