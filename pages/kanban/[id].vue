@@ -1,4 +1,4 @@
-<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab, tareqdayya -->
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev>, PwshLab, tareqdayya, alexlalves -->
 <!-- -->
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!--
@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div v-if="boardContent">
+  <div v-if="boardContent" class="relative">
     <ModalCustomBackground
       v-if="bgImageLoaded"
       v-show="showCustomBgModal"
@@ -95,6 +95,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @closeModal="allColumnCardsRemoveDialog.cancel()"
       @confirmAction="allColumnCardsRemoveDialog.confirm(true)"
     />
+
+    <div class="bg-custom pointer-events-none absolute inset-0" :style="cssVars" />
 
     <div class="absolute top-4 z-50 ml-8 w-[calc(100vw-112px)]">
       <h1
@@ -221,19 +223,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div
       id="kanban-cols-container"
       v-dragscroll:nochilddrag
-      :style="cssVars"
-      class="custom-scrollbar-horizontal bg-custom flex max-h-screen flex-col overflow-y-hidden"
+      class="custom-scrollbar-horizontal flex max-h-screen flex-col overflow-y-hidden"
     >
-      <div
-        class="h-full w-max min-w-full pt-28"
-        :style="{
-          '-webkit-backdrop-filter':
-            'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
-          'backdrop-filter':
-            'blur(' + bgBlur + ') brightness(' + bgBrightness + ')',
-          'pointer-events': 'none',
-        }"
-      >
+    <div class="pointer-events-none h-full w-max min-w-full pt-28">
         <div class="pointer-events-auto z-50 pl-8">
           <div class="pt-4">
             <Container
@@ -767,7 +759,10 @@ const getGhostParent = () => {
 }
 
 .bg-custom {
-  z-index: 1;
+  filter:
+    blur(var(--blur-intensity))
+    brightness(var(--bg-brightness));
+
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;
