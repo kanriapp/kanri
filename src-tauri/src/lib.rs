@@ -9,9 +9,50 @@
     windows_subsystem = "windows"
 )]
 
-use tauri::Manager;
+use notify::{RecommendedWatcher, RecursiveMode, Watcher};
+use std::sync::mpsc::channel;
+use std::time::Duration;
+use tauri::{AppHandle, Emitter, Manager};
 use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_window_state::StateFlags;
+
+// Watch the data store for external writes (from the kanri-bridge daemon) and
+// tell the frontend to reload. The daemon writes `.kanri.dat` atomically via
+// rename, which swaps the file's inode — so we watch the parent directory and
+// filter, never the file path itself. Bursts are debounced into one event.
+fn start_kanri_dat_watcher(app: &AppHandle) {
+    let Ok(dir) = app.path().app_data_dir() else {
+        return;
+    };
+    let dat_name = std::ffi::OsString::from(".kanri.dat");
+    let handle = app.clone();
+    std::thread::spawn(move || {
+        let (tx, rx) = channel();
+        let Ok(mut watcher) = RecommendedWatcher::new(tx, notify::Config::default()) else {
+            return;
+        };
+        if watcher.watch(&dir, RecursiveMode::NonRecursive).is_err() {
+            return;
+        }
+        // `watcher` is held for the life of this loop; it drops (and the OS
+        // closes its fds) when the app exits and the channel closes.
+        loop {
+            match rx.recv() {
+                Ok(Ok(event)) => {
+                    if !event.paths.iter().any(|p| p.file_name() == Some(dat_name.as_os_str())) {
+                        continue;
+                    }
+                    // Debounce: swallow follow-up events until 150ms of quiet,
+                    // collapsing a burst of writes into a single reload.
+                    while rx.recv_timeout(Duration::from_millis(150)).is_ok() {}
+                    let _ = handle.emit("kanri-dat-changed", ());
+                }
+                Ok(Err(_)) => continue,
+                Err(_) => break,
+            }
+        }
+    });
+}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -55,6 +96,8 @@ pub fn run() {
                         let _ = window.set_focus();
                     }
                 }));
+
+            start_kanri_dat_watcher(app.handle());
             Ok(())
         })
         .run(tauri::generate_context!())

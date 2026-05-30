@@ -34,6 +34,7 @@ tauri-plugin-dialog = "2.6.0"
 tauri-plugin-os = "2.3.2"
 tauri-plugin-fs = "2.4.2"
 tauri-plugin-opener = "2"
+notify = "6"
 
 [features]
 # by default Tauri runs in production mode
