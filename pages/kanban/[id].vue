@@ -762,7 +762,8 @@ const getGhostParent = () => {
   filter:
     blur(var(--blur-intensity))
     brightness(var(--bg-brightness));
-
+    
+    transition: filter 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;
