@@ -26,7 +26,9 @@ tauri-build = { version = "2", features = [] }
 serde_json = "1.0.149"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "2.10.3", features = ["protocol-asset"] }
-tauri-plugin-persisted-scope = { features = ["protocol-asset"], version = "2.3.5" }
+tauri-plugin-persisted-scope = { features = [
+  "protocol-asset",
+], version = "2.3.5" }
 ignore = "=0.4.25"
 tauri-plugin-store = "2.4.2"
 tauri-plugin-log = "2.8.0"
@@ -34,6 +36,7 @@ tauri-plugin-dialog = "2.6.0"
 tauri-plugin-os = "2.3.2"
 tauri-plugin-fs = "2.4.2"
 tauri-plugin-opener = "2"
+photon-rs = "0.3.3"
 
 [features]
 # by default Tauri runs in production mode
