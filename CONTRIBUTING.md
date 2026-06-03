@@ -5,32 +5,37 @@ SPDX-License-Identifier: Apache-2.0
 -->
 
 # Contributing to Kanri
-Thank you for showing interest into contributing to Kanri! First off, some general information:
-Kanri is written in TypeScript, Vue (Nuxt v3), and Rust; and is licensed under the GPLv3 license. The landing page and docs site uses Astro with Starlight and [can be found here](https://github.com/trobonox/kanri-website). The documentation is still a big work in progress and if you would like to help, please reach out!
 
-## A few rules
+In its current state, Kanri is in a temporary "maintenance mode", for two reasons:
+1. There is an ongoing rewrite for the storage backend, which is supposed to clean up some of the messy code that has built up over the years. This is meant to future-proof Kanri but requires significant thought put into it, so it will take an undefined amount of time until it is completed.
+2. Kanri is primarily mainained by one person, with occasional help from some trusted regular contributors. This means that progress is slow and happens in bursts, and the release schedule is irregular.
+
+## Takeaways for contributions
+
+Until the rewrite mentioned above is complete, Kanri will only accept small, isolated PRs that fix a bug or security issue. 
+
+### AI Guidelines
+
+Kanri does not accept AI-generated contributions from first-time contributors. Moreover, even trusted contributors are not allowed to push code that is mostly AI generated.
+
+Examples:
+- If any commit is co-authored by an AI, it is not allowed in the Kanri codebase.
+- If a PR description was obviously written by AI, the PR will be rejected immediately.
+- If a commit or PR includes hundreds of lines of AI-generated code at once, the PR will most likely be rejected unless there has been some previous agreement beforehand (such as an interaction on Discord where a walkthrough of the solution has been done).
+
+These guidelines are subject to change, and they leave room for interpretation on purpose.
+
+## General rules
 By contributing to Kanri, you confirm that the work you are submitting is yours and it will be licensed under the GPLv3 license of the project.
 
 To ensure uniformity in Kanri's repository, every contributor must follow these set of rules:
 * Commits must use the commit convention. (e.g. `feat: add x feature`)
 * Have ESLint and Volar installed on your IDE for code formatting.
 * Follow the general Vue conventions (except for kebab-casing and events)
-* Use camelCasing on any function/method/property in code you've contributed.
 * Add your GitHub username (and optionally email) to the license headers of the files you've worked on (changes of 3+ lines). If you are creating a new file, copy a GPLv3 license header from another file and keep the creators attribution (trobonox), then add yourself.
 
 Please also take a look at the [Code of Conduct](https://github.com/trobonox/kanri/blob/main/CODE_OF_CONDUCT.md).
 
-## Here’s the process for contributing to Kanri
-* Fork the Kanri repository, and clone it locally on your development machine.
-* Find help wanted tickets that are up for grabs in GitHub or look at the things that are todo or work in progress in the roadmap (projects tab). Comment to let everyone know you’re working on it and let a core contributor assign the issue to you. If there’s no ticket for what you want to work on, you are free to continue with your changes but consider opening an issue or a discussion to make sure what you want to add is in line with the project vision.
-* If in some case you need to use another dependency, create a new issue requesting for the package to be reviewed (by adding the "dependency request" label to the according issue).
-* Your code should follow general Vue conventions, except for some exclusions, most notably camelCasing and events.
-* After writing your code, make sure to lint your code with `yarn lint`.
-* When your changes are checked in to your fork, make sure to test your code extensively. Your commits should also follow the commit conventions.
-* Submit your pull request for a code review and wait for a Kanri core contributor to review it. When in doubt, ask for help in the Kanri Discord server or open an issue.
-* Last but not least, make sure to have fun with the code!
-
-We’re glad you’re here; good luck and have fun. 🤍
 
 ## Development workspace
 ### Recommended IDE setup
@@ -40,20 +45,5 @@ We’re glad you’re here; good luck and have fun. 🤍
 * [Tauri Development Environment](https://tauri.app/v1/guides/getting-started/prerequisites/)
 
 ### Building and testing your fork
-While testing and making modifications to Kanri, make sure to familiarise yourself with these three commands.
-
-```bash
-# Install dependencies
-yarn install
-
-# Start debug tauri build
-yarn tauri dev
-
-# Lint and cleanup code
-yarn lint
-
-# Build tauri for production
-yarn generate
-yarn tauri build
-```
+Kanri does not have a comprehensive test suite yet, meaning each new feature requires manual testing. Please make sure to test that core features (primarily CRUD actions on boards) are not impacted by your changes and work as expected. In doubt, feel free to ask for help in the PR.
 
