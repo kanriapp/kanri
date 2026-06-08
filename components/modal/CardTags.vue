@@ -102,6 +102,8 @@ const newTagName = ref('');
 
 const newTagInput = useTemplateRef('newTagInput');
 
+const settings = useSettingsStore();
+
 const setTagColor = (tagId: string, color: string | null) => {
   emit("setTagColor", tagId, color);
 };
@@ -119,10 +121,12 @@ const createTag = () => {
     return;
   }
   if (props.tags.filter(x => x.text.toLowerCase() === newTagName.value.toLowerCase()).length > 0) {
-    newTagInput.value?.classList?.add('shake');
-    setTimeout(() => {
-      newTagInput.value?.classList?.remove('shake');
-    }, 300);
+    if (settings.animationsEnabled) {
+      newTagInput.value?.classList?.add('shake');
+      setTimeout(() => {
+        newTagInput.value?.classList?.remove('shake');
+      }, 300);
+    }
     return;
   }
   emit('addGlobalTag', {
