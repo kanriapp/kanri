@@ -1,0 +1,49 @@
+id: com.kanriapp.Kanri
+
+runtime: org.gnome.Platform
+runtime-version: "50"
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+  - org.freedesktop.Sdk.Extension.node24
+
+command: kanri
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --share=ipc
+
+build-options:
+  append-path: /usr/lib/sdk/node24/bin:/usr/lib/sdk/rust-stable/bin
+  env:
+    CARGO_HOME: /run/build/Kanri/cargo
+    CARGO_NET_OFFLINE: "true"
+
+modules:
+  - name: Kanri
+    buildsystem: simple
+    sources:
+      - type: git
+        url: https://github.com/leherkom/kanri
+        branch: feat/flatpak-build
+      - packaging/node-sources.json
+      - packaging/cargo-sources.json
+    build-commands:
+      - cargo --offline fetch --manifest-path src-tauri/Cargo.toml --verbose
+      - HOME=$PWD yarn config --offline set yarn-offline-mirror /run/build/Kanri/flatpak-node/yarn-mirror
+      - yarn install --offline
+      - yarn generate
+      - yarn tauri build -- --no-bundle
+
+      - install -Dm644 -t /app/share/metainfo/ packaging/com.kanriapp.Kanri.metainfo.xml
+      - install -Dm644 -t /app/share/applications/ packaging/com.kanriapp.Kanri.desktop
+      - install -Dm755 -t /app/bin/ src-tauri/target/release/kanri
+
+      - install -Dm644 src-tauri/icons/32x32.png /app/share/icons/hicolor/32x32/apps/com.kanriapp.Kanri.png
+      - install -Dm644 src-tauri/icons/128x128.png /app/share/icons/hicolor/128x128/apps/com.kanriapp.Kanri.png
+      - install -Dm644 src-tauri/icons/128x128@2x.png /app/share/icons/hicolor/256x256/apps/com.kanriapp.Kanri.png
+      - install -Dm644 src-tauri/icons/icon.png /app/share/icons/hicolor/256x256@2/apps/com.kanriapp.Kanri.png
+      - desktop-file-edit --set-key=Icon --set-value="com.kanriapp.Kanri" /app/share/applications/com.kanriapp.Kanri.desktop
+
+      - install -Dm644 LICENSE /app/share/licenses/com.kanriapp.Kanri/LICENSE

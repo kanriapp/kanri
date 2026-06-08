@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.kanriapp.Kanri</id>
+
+  <name>Kanri</name>
+  <summary>Kanri is a modern, minimalist Kanban board that works offline</summary>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+
+  <description>
+    <p>
+      Kanri is a modern, minimalist Kanban board that works offline — no setup or self-hosting needed, just pure productivity. It&apos;s packed with powerful features to help you stay organized and productive. Built with modern technologies such as Nuxt, Tauri and TypeScript, ensuring a smooth and efficient user experience.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">com.kanriapp.Kanri.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://www.kanriapp.com/kanri_board_screenshot.webp</image>
+    </screenshot>
+  </screenshots>
+</component>
