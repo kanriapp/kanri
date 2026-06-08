@@ -164,7 +164,8 @@
     "cardTags": {
       "title": "Editar etiquetas de la carta",
       "description": "Aquí puedes editar tus etiquetas globales, las cuales están disponibles para el tablero completo. Nota: borrar una etiqueta global no la remueve de las cartas, solo la hace indisponible para nuevas cartas.",
-      "tagListTitle": "Tus etiquetas:"
+      "tagListTitle": "Tus etiquetas:",
+      "addTag": "Añadir etiqueta..."
     },
     "changelog": {
       "title": "¿Qué hay de nuevo en Kanri {major}.{minor}.{revision}?",
