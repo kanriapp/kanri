@@ -23,6 +23,8 @@ body {
   overscroll-behavior: none;
   scroll-behavior: smooth;
   background-color: #111112;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .smooth-dnd-container {
@@ -30,8 +32,36 @@ body {
 }
 
 body:has(> .disable-animations) * {
+  -webkit-animation: none !important;
+  -moz-animation: none !important;
+  -o-animation: none !important;
+  animation: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
+}
+
+.smooth-dnd-draggable-wrapper {
+  transition:
+    transform 200ms cubic-bezier(0.4, 0, 0, 1),
+    opacity 120ms cubic-bezier(0.4, 1, 0.6, 1);
+}
+
+.smooth-dnd-ghost,
+.smooth-dnd-draggable-wrapper.animated {
+  transition:
+    transform 200ms cubic-bezier(0.4, 0, 0, 1),
+    opacity 120ms cubic-bezier(0.4, 1, 0.6, 1) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
 }

@@ -43,7 +43,15 @@
   "mainBinaryName": "kanri",
   "version": "0.8.2",
   "identifier": "tech.trobonox.kanri",
-  "plugins": {},
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": [
+          "kanri"
+        ]
+      }
+    }
+  },
   "app": {
     "windows": [
       {

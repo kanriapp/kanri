@@ -30,20 +30,60 @@ limitations under the License.
             ? { 'background-color': cardBackgroundColor }
             : {},
         ]"
-        class="kanban-card border-elevation-3 flex min-h-[30px] w-full cursor-pointer flex-col items-start gap-1 rounded-[3px] border p-3"
+        class="kanban-card border-elevation-3 flex min-h-[30px] w-full cursor-pointer flex-col items-start gap-1 rounded-md border p-3 shadow-sm"
         @click.self="$emit('openEditCardModal', card)"
       >
         <div
           :class="{ 'pb-1': cardHasNoExtraProperties }"
-          class="flex w-full flex-row items-start justify-between"
+          class="flex w-full flex-row items-start justify-between gap-2"
         >
+          <CheckboxRoot
+            v-if="name !== '---'"
+            :checked="false"
+            :disabled="!canMoveRight"
+            :aria-label="canMoveRight
+              ? $t('unifiedTodo.markDone')
+              : $t('unifiedTodo.noNextColumn')"
+            :title="canMoveRight
+              ? $t('unifiedTodo.markDone')
+              : $t('unifiedTodo.noNextColumn')"
+            class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 mt-0.5 flex size-5 shrink-0 appearance-none items-center justify-center rounded-md border outline-none disabled:cursor-not-allowed disabled:opacity-40"
+            @click.stop
+            @pointerdown.stop
+            @update:checked="markDone"
+          >
+            <CheckboxIndicator
+              class="flex size-full items-center justify-center rounded"
+            >
+              <PhCheck weight="bold" class="text-accent-lighter size-4" />
+            </CheckboxIndicator>
+          </CheckboxRoot>
+
+          <button
+            v-if="canScheduleWeekday && name !== '---'"
+            type="button"
+            :aria-label="scheduledWeekday
+              ? `Plan day: ${scheduledWeekday}`
+              : 'Choose plan day'"
+            :title="scheduledWeekday
+              ? `Plan day: ${scheduledWeekday}`
+              : 'Choose plan day'"
+            class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 transition-button mt-0.5 flex h-5 min-w-8 shrink-0 items-center justify-center rounded-md border px-1 text-[10px] font-bold outline-none"
+            :class="scheduledWeekday ? '' : 'text-dim-2'"
+            :style="scheduledWeekdayStyle"
+            @click.stop="cycleScheduledWeekday"
+            @pointerdown.stop
+          >
+            {{ scheduledWeekday ?? "Gün" }}
+          </button>
+
           <p class="text-no-overflow mr-2 w-full min-w-[28px]">
             <ClickCounter
               v-if="!cardNameEditMode"
               @double-click="enableCardEditMode"
               @single-click="$emit('openEditCardModal', card)"
             >
-              <hr v-if="name === '---'" class="mt-0.5" />
+              <hr v-if="name === '---'" class="mt-0.5" >
               <p v-else ref="cardNameText">
                 {{ name }}
               </p>
@@ -120,7 +160,7 @@ limitations under the License.
             v-if="dueDate"
             class="flex flex-row items-center gap-1"
             :class="{
-              'text-buttons rounded-sm bg-accent px-1': isDueDateCompleted,
+              'text-buttons bg-accent rounded-sm px-1': isDueDateCompleted,
               'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue && !isDueDateCompleted,
             }"
           >
@@ -132,6 +172,58 @@ limitations under the License.
             <PhClock v-else :class="iconSizeClass" />
             <span :class="taskTextClass">{{ getFormattedDueDate }}</span>
           </div>
+
+          <button
+            v-if="sourceUrl && name !== '---'"
+            type="button"
+            class="text-dim-2 bg-elevation-3-hover flex max-w-full flex-row items-center gap-1 rounded-md px-1"
+            :title="sourceUrl"
+            @click.stop="openSourceUrl"
+            @pointerdown.stop
+          >
+            <PhLinkSimple :class="iconSizeClass" />
+            <span :class="taskTextClass" class="max-w-28 truncate">
+              {{ sourceTitle || sourceUrl }}
+            </span>
+          </button>
+        </div>
+
+        <div
+          v-if="visibleSubtasks.length > 0 && name !== '---'"
+          class="border-elevation-3/70 custom-scrollbar mt-1 flex max-h-28 w-full flex-col gap-1 overflow-y-auto border-t pt-2"
+        >
+          <button
+            v-for="(task, index) in visibleSubtasks"
+            :key="task.id ?? `${task.name}-${index}`"
+            type="button"
+            class="bg-elevation-3-hover flex w-full min-w-0 items-start gap-1.5 rounded-md px-1 py-0.5 text-left"
+            :title="task.name"
+            @click.stop="toggleSubtask(index)"
+            @pointerdown.stop
+          >
+            <CheckboxRoot
+              :checked="task.finished"
+              class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 mt-0.5 flex size-4 shrink-0 appearance-none items-center justify-center rounded border outline-none"
+              @click.stop
+              @pointerdown.stop
+              @update:checked="(checked) => setSubtaskFinished(index, checked)"
+            >
+              <CheckboxIndicator
+                class="flex size-full items-center justify-center rounded"
+              >
+                <PhCheck weight="bold" class="text-accent-lighter size-3" />
+              </CheckboxIndicator>
+            </CheckboxRoot>
+            <span
+              class="min-w-0 flex-1 break-words text-xs leading-snug"
+              :class="[
+                task.finished ? cardTextColorDim : cardTextColor,
+                { 'line-through opacity-70': task.finished },
+              ]"
+            >
+              {{ task.name }}
+            </span>
+          </button>
         </div>
       </div>
     </ContextMenuTrigger>
@@ -165,17 +257,24 @@ limitations under the License.
 </template>
 
 <script setup lang="ts">
-import type { Card, Tag } from "@/types/kanban-types";
+import type { Card, ScheduledWeekday, Tag, Task } from "@/types/kanban-types";
 
 import { getContrast } from "~/utils/colorUtils";
+import {
+  getNextPlannedWeekday,
+  plannedWeekdayStyleFor,
+} from "@/utils/plannedWeekday";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import {
+  PhCheck,
   PhCheckCircle,
   PhChecks,
   PhClock,
+  PhLinkSimple,
   PhListChecks,
   PhTextAlignLeft,
 } from "@phosphor-icons/vue";
+import { openSourceLink } from "@/utils/sourceLinks";
 
 import {
   ContextMenuContent,
@@ -187,6 +286,8 @@ import {
 
 const props = defineProps<{
   card: Card;
+  canMoveRight?: boolean;
+  canScheduleWeekday?: boolean;
   zoomLevel: number;
 }>();
 
@@ -203,6 +304,13 @@ const emit = defineEmits<{
   (e: "setCardName", cardId: string | undefined, name: string): void;
   (e: "updateCardTags", cardId: string | undefined, tags: Array<Tag>): void;
   (e: "duplicateCard", cardId: string | undefined): void;
+  (e: "markDone", cardId: string | undefined): void;
+  (e: "setCardTasks", cardId: string | undefined, tasks: Array<Task>): void;
+  (
+    e: "setScheduledWeekday",
+    cardId: string | undefined,
+    weekday: ScheduledWeekday
+  ): void;
 }>();
 
 const { locale } = useI18n();
@@ -221,6 +329,11 @@ const dueDate = ref(props.card.dueDate);
 const isDueDateRelative = ref(props.card.isDueDateCounterRelative);
 const isDueDateCompleted = ref(props.card.isDueDateCompleted ?? false);
 const cardTags = ref(props.card.tags);
+const scheduledWeekday = ref<ScheduledWeekday | null>(
+  props.card.scheduledWeekday ?? null
+);
+const sourceUrl = ref(props.card.sourceUrl ?? null);
+const sourceTitle = ref(props.card.sourceTitle ?? null);
 
 const cardNameEditMode = ref(false);
 const cardNameInput: Ref<HTMLTextAreaElement | null> = ref(null);
@@ -228,7 +341,7 @@ const cardNameText: Ref<HTMLParagraphElement | null> = ref(null);
 
 watch(
   props,
-  (_, newData) => {
+  (newData) => {
     name.value = newData.card.name;
     description.value = newData.card.description;
     tasks.value = newData.card.tasks;
@@ -236,6 +349,9 @@ watch(
     isDueDateRelative.value = newData.card.isDueDateCounterRelative;
     cardTags.value = newData.card.tags;
     isDueDateCompleted.value = newData.card.isDueDateCompleted ?? false;
+    scheduledWeekday.value = newData.card.scheduledWeekday ?? null;
+    sourceUrl.value = newData.card.sourceUrl ?? null;
+    sourceTitle.value = newData.card.sourceTitle ?? null;
   },
   { deep: true }
 );
@@ -249,6 +365,8 @@ const cardHasNoExtraProperties = computed(() => {
     (!tasks.value || tasks.value.length === 0) &&
     isDescriptionEmpty &&
     !dueDate.value &&
+    !scheduledWeekday.value &&
+    !sourceUrl.value &&
     (props.card.tags || []).length === 0 &&
     !props.card.name.startsWith("---")
   );
@@ -281,6 +399,8 @@ const allTasksCompleted = computed(() => {
 
   return false; //default return
 });
+
+const visibleSubtasks = computed(() => tasks.value ?? []);
 
 // New computed properties for scaling elements
 const zoomClass = computed(() => {
@@ -445,6 +565,49 @@ const dueDateOverdue = computed(() => {
   return false;
 });
 
+const markDone = (checked: boolean | "indeterminate") => {
+  if (checked === true && props.canMoveRight) {
+    emit("markDone", props.card.id);
+  }
+};
+
+const scheduledWeekdayStyle = computed(() =>
+  plannedWeekdayStyleFor(scheduledWeekday.value)
+);
+
+const cycleScheduledWeekday = () => {
+  if (!props.canScheduleWeekday) return;
+
+  const nextWeekday = getNextPlannedWeekday(scheduledWeekday.value);
+  scheduledWeekday.value = nextWeekday;
+  emit("setScheduledWeekday", props.card.id, nextWeekday);
+};
+
+const openSourceUrl = async () => {
+  await openSourceLink(sourceUrl.value);
+};
+
+const setSubtaskFinished = (
+  taskIndex: number,
+  checked: boolean | "indeterminate"
+) => {
+  if (checked === "indeterminate") return;
+
+  const nextTasks = (tasks.value ?? []).map((task, index) =>
+    index === taskIndex ? { ...task, finished: checked } : { ...task }
+  );
+
+  tasks.value = nextTasks;
+  emit("setCardTasks", props.card.id, nextTasks);
+};
+
+const toggleSubtask = (taskIndex: number) => {
+  const task = visibleSubtasks.value[taskIndex];
+  if (!task) return;
+
+  setSubtaskFinished(taskIndex, !task.finished);
+};
+
 const deleteCardWithConfirmation = (id: string | undefined) => {
   /*
     TODO: rewrite this, we are passing a ref through an emit which works for this usecase of DOM manipulation but might break reactivity
@@ -503,10 +666,27 @@ const updateCardName = () => {
 
 <style scoped>
 .kanban-card {
-  transition-duration: 550ms;
-  transition-timing-function: ease-out;
-  transition-property: opacity, text-decoration;
   opacity: 100%;
+  transform: translateZ(0);
+  transition:
+    opacity 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    text-decoration-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--motion-fast) var(--motion-ease-interaction),
+    box-shadow var(--motion-fast) var(--motion-ease-interaction),
+    border-color var(--motion-fast) var(--motion-ease-interaction);
+  will-change: transform;
+}
+
+.kanban-card:hover {
+  border-color: color-mix(in srgb, var(--elevation-3) 84%, var(--accent));
+  box-shadow:
+    0 8px 20px -20px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  transform: translateY(-1px);
+}
+
+.kanban-card:active {
+  transform: translateY(0) scale(0.995);
 }
 
 .kanban-card.card-hidden {
@@ -517,6 +697,12 @@ const updateCardName = () => {
 .separator-card {
   margin-bottom: 0 !important;
   gap: 0.25rem !important;
+}
+
+.separator-card:hover,
+.separator-card:active {
+  box-shadow: none;
+  transform: none;
 }
 
 /* Zoom level classes for scaling */

@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
   <nav
-    class="border-elevation-1 bg-sidebar z-10 mr-8 flex h-screen flex-col items-center justify-between overflow-hidden border-r-2 px-8 pb-6 pt-5 shadow-md"
+    class="border-elevation-1 bg-sidebar z-10 mr-5 flex h-screen flex-col items-center justify-between overflow-hidden border-r px-5 pb-6 pt-5 shadow-sm"
   >
     <ModalNewBoard
       v-show="newBoardModalVisible"
@@ -33,10 +33,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       />
     </Teleport>
 
-    <section id="items-top" class="flex flex-col items-center gap-4">
+    <section id="items-top" class="flex flex-col items-center gap-3">
       <div id="logo" class="flex flex-row rounded-md">
         <IconKanri
-          class="text-accent-logo-icon size-9 pl-1"
+          class="text-accent-logo-icon sidebar-logo size-9 pl-1"
           @click="$router.push('/')"
         />
       </div>
@@ -44,21 +44,51 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Tooltip :label="$t('components.sidebar.home')">
         <template #trigger>
           <button
-            class="bg-elevation-2-hover transition-button rounded-md p-2"
+            :class="sidebarActionClass('/')"
             @click="$router.push('/')"
           >
-            <PhHouse class="size-7" />
+            <PhHouse class="size-6" />
           </button>
+        </template>
+      </Tooltip>
+
+      <Tooltip :label="$t('unifiedTodo.title')">
+        <template #trigger>
+          <nuxt-link to="/unified-todo">
+            <div :class="sidebarActionClass('/unified-todo')">
+              <PhListChecks class="size-6" />
+            </div>
+          </nuxt-link>
+        </template>
+      </Tooltip>
+
+      <Tooltip :label="$t('weeklyCalendar.title')">
+        <template #trigger>
+          <nuxt-link to="/weekly-calendar">
+            <div :class="sidebarActionClass('/weekly-calendar')">
+              <PhCalendarBlank class="size-6" />
+            </div>
+          </nuxt-link>
+        </template>
+      </Tooltip>
+
+      <Tooltip :label="$t('globalWorkflow.title')">
+        <template #trigger>
+          <nuxt-link to="/global-workflow">
+            <div :class="sidebarActionClass('/global-workflow')">
+              <PhKanban class="size-6" />
+            </div>
+          </nuxt-link>
         </template>
       </Tooltip>
 
       <Tooltip v-if="showSidebarBackArrow" :label="$t('components.sidebar.back')">
         <template #trigger>
           <button
-            class="bg-elevation-2-hover transition-button rounded-md p-2"
+            :class="sidebarActionClass()"
             @click="$router.go(-1)"
           >
-            <PhArrowBendUpLeft class="size-7" />
+            <PhArrowBendUpLeft class="size-6" />
           </button>
         </template>
       </Tooltip>
@@ -66,10 +96,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Tooltip v-if="showSidebarAddButton" :label="$t('components.sidebar.createNewBoard')">
         <template #trigger>
           <button
-            class="bg-elevation-2-hover transition-button rounded-md p-2"
+            :class="sidebarActionClass()"
             @click="newBoardModalVisible = true"
           >
-            <IconPhPlusCircleDuotone class="text-accent size-7" />
+            <IconPhPlusCircleDuotone class="text-accent size-6" />
           </button>
         </template>
       </Tooltip>
@@ -77,12 +107,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <PinnedBar />
 
-    <section id="icons-bottom" class="flex flex-col items-center gap-4">
+    <section id="icons-bottom" class="flex flex-col items-center gap-3">
       <Tooltip :label="$t('components.sidebar.importExport')">
         <template #trigger>
           <nuxt-link to="/import">
-            <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-              <PhArrowsLeftRight class="size-7" />
+            <div :class="sidebarActionClass('/import')">
+              <PhArrowsLeftRight class="size-6" />
             </div>
           </nuxt-link>
         </template>
@@ -91,10 +121,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Tooltip :label="$t('components.sidebar.help')">
         <template #trigger>
           <button
-            class="bg-elevation-2-hover transition-button rounded-md p-2"
+            :class="sidebarActionClass()"
             @click="showSidebarHelpModal = true"
           >
-            <PhQuestion class="size-7" />
+            <PhQuestion class="size-6" />
           </button>
         </template>
       </Tooltip>
@@ -102,8 +132,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Tooltip :label="$t('components.sidebar.settings')">
         <template #trigger>
           <nuxt-link to="/settings">
-            <div class="bg-elevation-2-hover transition-button rounded-md p-2">
-              <PhGearSix class="size-7" />
+            <div :class="sidebarActionClass('/settings')">
+              <PhGearSix class="size-6" />
             </div>
           </nuxt-link>
         </template>
@@ -118,12 +148,23 @@ import {
   PhHouse,
   PhArrowsLeftRight,
   PhGearSix,
+  PhListChecks,
+  PhCalendarBlank,
+  PhKanban,
   PhQuestion,
 } from "@phosphor-icons/vue";
 
 const { showSidebarAddButton, showSidebarBackArrow, showSidebarHelpModal } = storeToRefs(useLayoutStore());
+const route = useRoute();
 
 const newBoardModalVisible = ref(false);
+
+const isActiveRoute = (path?: string) => Boolean(path && route.path === path);
+
+const sidebarActionClass = (path?: string) => [
+  "sidebar-action bg-elevation-2-hover transition-button rounded-lg p-2",
+  isActiveRoute(path) ? "sidebar-action-active" : "",
+];
 
 onMounted(async () => {
   document.addEventListener("keydown", keyDownListener);
@@ -143,12 +184,38 @@ const keyDownListener = (e: KeyboardEvent) => {
 
 <style scoped>
 .bg-sidebar {
-  background:
-    radial-gradient(
-      circle at top left,
-      var(--elevation-1) 10%,
-      transparent
-    ),
-    var(--bg-primary);
+  background-color: color-mix(in srgb, var(--bg-primary) 94%, var(--elevation-1));
+}
+
+.sidebar-logo,
+.sidebar-action {
+  transition:
+    background-color var(--motion-fast) var(--motion-ease-interaction),
+    box-shadow var(--motion-fast) var(--motion-ease-interaction),
+    color var(--motion-fast) var(--motion-ease-interaction),
+    opacity var(--motion-fast) var(--motion-ease-interaction),
+    transform var(--motion-fast) var(--motion-ease-interaction);
+}
+
+.sidebar-logo {
+  cursor: pointer;
+}
+
+.sidebar-logo:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.sidebar-action {
+  color: var(--text-dim-1);
+}
+
+.sidebar-action:hover {
+  color: var(--text);
+}
+
+.sidebar-action-active {
+  background-color: color-mix(in srgb, var(--accent) 16%, var(--elevation-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 34%, transparent);
+  color: var(--accent);
 }
 </style>

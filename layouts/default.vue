@@ -137,6 +137,10 @@ const cssVars = computed(() => {
 
 <style>
 .disable-animations * {
+  -webkit-animation: none !important;
+  -moz-animation: none !important;
+  -o-animation: none !important;
+  animation: none !important;
   -webkit-transition: none !important;
   -moz-transition: none !important;
   -o-transition: none !important;
@@ -144,10 +148,15 @@ const cssVars = computed(() => {
 }
 
 .default-layout {
+  --motion-fast: 120ms;
+  --motion-standard: 200ms;
+  --motion-ease-interaction: cubic-bezier(0.4, 1, 0.6, 1);
+  --motion-ease-transition: cubic-bezier(0, 0.4, 0, 1);
   background-color: var(--bg-primary);
   color: var(--text);
-  transition: color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  transition: background-color 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  transition:
+    background-color var(--motion-standard) var(--motion-ease-transition),
+    color var(--motion-standard) var(--motion-ease-transition);
   overscroll-behavior: none;
 }
 
@@ -293,37 +302,51 @@ const cssVars = computed(() => {
 
 .transition-button {
   transition-property:
-    color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+    color, background-color, border-color, box-shadow, opacity, transform, text-decoration-color, fill, stroke;
+  transition-timing-function: var(--motion-ease-interaction);
+  transition-duration: var(--motion-fast);
+}
+
+.transition-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 78%, white);
+  outline-offset: 2px;
 }
 
 .page-enter-active,
 .page-leave-active {
   transition:
-    opacity 220ms cubic-bezier(0.4, 0, 0.2, 0.8),
-    transform 220ms cubic-bezier(0.4, 0, 0.2, 0.8);
+    opacity var(--motion-standard) var(--motion-ease-transition),
+    transform var(--motion-standard) var(--motion-ease-transition);
   will-change: opacity, transform;
   overflow: hidden;
 }
 
 .page-enter-from {
   opacity: 0;
-  transform: translateY(30px) scale(0.98);
+  transform: translateY(4px);
 }
 
 .page-enter-to {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .page-leave-from {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .page-leave-to {
   opacity: 0;
-  transform: translateY(-10px) scale(0.99);
+  transform: translateY(-2px);
 }
 </style>

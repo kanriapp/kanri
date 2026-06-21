@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Kanri Quick Add",
+  "description": "Save the current Chrome tab to Kanri.",
+  "version": "0.1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Add task to Kanri"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:47827/*"
+  ]
+}

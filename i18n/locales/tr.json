@@ -16,6 +16,8 @@
     "index": {
       "welcome": "Kanri'ye tekrar hoş geldiniz!",
       "welcomeSubtext": "Panolarınız hazır ve sizi bekliyor.",
+      "searchBoardsPlaceholder": "Panolarda ara...",
+      "noBoardsMatch": "Aramanızla eşleşen pano yok.",
       "editSortWarning": "Uyarı: geçerli bir son düzenleme tarihi olmayan en az bir pano var. Bu muhtemelen Kanri'nin eski bir sürümünde oluşturulan bir panodan kalmadır. Bu davranışı düzeltmek için lütfen tüm panoları en az bir kez düzenleyin.",
       "sortAlphabetically": "Alfabetik olarak sırala",
       "sortByCreationDate": "Oluşturma tarihine göre sırala",
@@ -242,5 +244,51 @@
       "name": "Pano Adı",
       "placeholder": "Pano için yeni bir isim girin"
     }
+  },
+  "unifiedTodo": {
+    "eyebrow": "Genel görev görünümü",
+    "title": "Unified To-Do",
+    "description": "Dahil edilen pano sütunlarındaki tüm görevler; her biri özgün kartına bağlı kalır.",
+    "boardFilter": "Pano filtresi",
+    "allBoards": "Tüm Panolar",
+    "noTasks": "Şu anda yapılacak görev yok.",
+    "noFilterMatches": "Bu pano filtresiyle eşleşen görev yok.",
+    "lastColumn": "Sonraki sütun yok",
+    "showColumn": "Bu sütundaki görevleri Unified To-Do'da göster",
+    "markDone": "Tamamlandı olarak işaretle ve sağdaki sütuna taşı",
+    "noNextColumn": "Bu kart zaten son sütunda"
+  },
+  "weeklyCalendar": {
+    "eyebrow": "Hafta planı",
+    "title": "Haftalık Takvim",
+    "plannedTasks": "planlı görev",
+    "dropHere": "Planlı görevleri buraya sürükle",
+    "unscheduledTitle": "Günü seçilmemiş Planned görevleri",
+    "unscheduledHint": "Kartları buradan bir güne sürükleyerek haftaya dağıt.",
+    "noUnscheduledTasks": "Tüm Planned görevlerine gün atanmış."
+  },
+  "globalWorkflow": {
+    "eyebrow": "Genel tablo akışı",
+    "title": "Genel Akış",
+    "boards": "tablo",
+    "tasks": "task",
+    "dropHere": "Taskleri buraya sürükle",
+    "chooseDay": "Gün",
+    "cycleWeekday": "Plan gününü değiştir"
+  },
+  "quickAdd": {
+    "eyebrow": "Tarayıcı yakalama",
+    "title": "Sekmeyi Task Olarak Ekle",
+    "currentTab": "Mevcut sekme",
+    "missingUrl": "URL alınamadı.",
+    "unsupportedUrl": "Eklentiden yalnızca http ve https URL'leri kaydedilebilir.",
+    "chooseBoard": "Pano seç",
+    "noBoards": "Pano bulunamadı. Önce bir pano oluştur.",
+    "targetColumn": "{column} sütununa kaydedilecek",
+    "newIdeaColumn": "Idea sütunu oluşturulacak",
+    "saveFailed": "Bu task kaydedilemedi.",
+    "saved": "{board} panosuna kaydedildi.",
+    "openBoard": "Panoyu aç",
+    "untitledPage": "Başlıksız sayfa"
   }
 }

@@ -17,6 +17,8 @@
     "index": {
       "welcome": "Welcome back to Kanri!",
       "welcomeSubtext": "Your boards are ready and waiting for you.",
+      "searchBoardsPlaceholder": "Search boards...",
+      "noBoardsMatch": "No boards match your search.",
       "editSortWarning": "Warning: there is at least one board which does not have a valid last edited date. This is probably a remainder from a board created in an old version of Kanri. Please edit all boards at least once to mitigate this behaviour.",
       "sortAlphabetically": "Sort alphabetically",
       "sortByCreationDate": "Sort by creation date",
@@ -251,5 +253,51 @@
       "name": "Board Name",
       "placeholder": "Enter a new name for the board"
     }
+  },
+  "unifiedTodo": {
+    "eyebrow": "Global task view",
+    "title": "Unified To-Do",
+    "description": "All tasks from the board columns included in Unified To-Do, kept connected to their original cards.",
+    "boardFilter": "Board filter",
+    "allBoards": "All Boards",
+    "noTasks": "No tasks to do right now.",
+    "noFilterMatches": "No tasks match this board filter.",
+    "lastColumn": "No next column",
+    "showColumn": "Show tasks from this column in Unified To-Do",
+    "markDone": "Mark done and move to the next column",
+    "noNextColumn": "This card is already in the last column"
+  },
+  "weeklyCalendar": {
+    "eyebrow": "Planned week",
+    "title": "Weekly Calendar",
+    "plannedTasks": "planned tasks",
+    "dropHere": "Drop planned tasks here",
+    "unscheduledTitle": "Unscheduled Planned tasks",
+    "unscheduledHint": "Drag cards from here onto a weekday to assign them.",
+    "noUnscheduledTasks": "Every Planned task has a weekday."
+  },
+  "globalWorkflow": {
+    "eyebrow": "Global board flow",
+    "title": "Global Workflow",
+    "boards": "boards",
+    "tasks": "tasks",
+    "dropHere": "Drop tasks here",
+    "chooseDay": "Day",
+    "cycleWeekday": "Change planned weekday"
+  },
+  "quickAdd": {
+    "eyebrow": "Browser capture",
+    "title": "Add Current Tab",
+    "currentTab": "Current tab",
+    "missingUrl": "No URL received.",
+    "unsupportedUrl": "Only http and https URLs can be saved from the extension.",
+    "chooseBoard": "Choose board",
+    "noBoards": "No boards found. Create a board first.",
+    "targetColumn": "Will save to {column}",
+    "newIdeaColumn": "Will create Idea column",
+    "saveFailed": "Could not save this task.",
+    "saved": "Saved to {board}.",
+    "openBoard": "Open board",
+    "untitledPage": "Untitled page"
   }
 }

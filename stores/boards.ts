@@ -23,8 +23,18 @@ import { defineStore } from "pinia";
 import type { Board, Column, Card, Tag } from "@/types/kanban-types";
 import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator";
+import { aggregateUnifiedTodoItems } from "@/utils/unifiedTodo";
 
 type Pin = { id: string; title: string; pinIcon?: string; pinIconText?: string };
+const AUTO_SAVE_DEBOUNCE_MS = 250;
+
+const addMissingCardIds = (board: Board) => {
+  for (const column of board.columns) {
+    for (const card of column.cards) {
+      if (!card.id) card.id = generateUniqueID();
+    }
+  }
+};
 
 export const useBoardsStore = defineStore("boards", {
   state: () => ({
@@ -35,6 +45,7 @@ export const useBoardsStore = defineStore("boards", {
   getters: {
     boardById: (state) => (id: string) => state.boards.find(b => b.id === id) ?? null,
     isPinned: (state) => (id: string) => !!state.pins.find(p => p.id === id),
+    unifiedTodoItems: (state) => aggregateUnifiedTodoItems(state.boards),
   },
   actions: {
     async init() {
@@ -46,10 +57,12 @@ export const useBoardsStore = defineStore("boards", {
       this.initialized = true;
 
       this._setupAutoSave();
+      this.boards.forEach(addMissingCardIds);
     },
     async forceReloadBoards() {
       const tauri = useTauriStore().store;
       this.boards = (await tauri.get("boards")) || [];
+      this.boards.forEach(addMissingCardIds);
     },
     async save() {
       const tauri = useTauriStore().store;
@@ -67,6 +80,7 @@ export const useBoardsStore = defineStore("boards", {
     // Board CRUD
     upsertBoard(board: Board) {
       const i = this.boards.findIndex(b => b.id === board.id);
+      addMissingCardIds(board);
       board.lastEdited = new Date();
 
       if (i === -1) {
@@ -251,6 +265,19 @@ export const useBoardsStore = defineStore("boards", {
       col.title = title;
       b.lastEdited = new Date();
     },
+    setColumnUnifiedTodoInclusion(
+      boardId: string,
+      columnId: string,
+      include: boolean
+    ) {
+      const b = this.boardById(boardId);
+      if (!b) return;
+      const col = b.columns.find(c => c.id === columnId);
+      if (!col) return;
+
+      col.includeInUnifiedTodo = include;
+      b.lastEdited = new Date();
+    },
     updateColumn(boardId: string, column: Column) {
       const b = this.boardById(boardId);
       if (!b) return;
@@ -350,12 +377,25 @@ export const useBoardsStore = defineStore("boards", {
       if (!sourceCol || !targetCol) return;
 
       const cardIndex = sourceCol.cards.findIndex(c => c.id === cardId);
+      if (cardIndex === -1) return;
 
       const [card] = sourceCol.cards.splice(cardIndex, 1);
       if (card === undefined) return;
       targetCol.cards.push(card);
       targetBoard.lastEdited = new Date();
       sourceBoard.lastEdited = new Date();
+    },
+    moveCardToNextColumn(boardId: string, columnId: string, cardId: string) {
+      const board = this.boardById(boardId);
+      if (!board) return;
+
+      const columnIndex = board.columns.findIndex(column => column.id === columnId);
+      if (columnIndex === -1) return;
+
+      const nextColumn = board.columns[columnIndex + 1];
+      if (!nextColumn) return;
+
+      this.moveCard(boardId, boardId, columnId, nextColumn.id, cardId);
     },
 
     // Debounced auto-save of board properties
@@ -365,12 +405,11 @@ export const useBoardsStore = defineStore("boards", {
       const schedule = () => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
-          console.log("Auto-saving boards...");
           this.save().catch((err) => {
             console.error("Auto-save failed:", err);
           });
           timeout = null;
-        }, 100);
+        }, AUTO_SAVE_DEBOUNCE_MS);
       };
 
       this.$subscribe(schedule, { detached: true, deep: true});

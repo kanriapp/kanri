@@ -24,13 +24,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Tooltip v-if="isActive" :label="props.board.title">
         <template #trigger>
           <nuxt-link :to="'/kanban/' + props.board.id">
-            <div class="bg-elevation-3 transition-button rounded-md p-2">
+            <div class="bg-elevation-3 transition-button rounded-lg p-2 shadow-sm">
               <span
                 v-if="customChar"
-                class="flex size-7 items-center justify-center text-[20px] leading-none"
+                class="flex size-6 items-center justify-center text-lg leading-none"
                 >{{ customChar }}</span
               >
-              <component :is="selectedIcon" v-else class="size-7" />
+              <component :is="selectedIcon" v-else class="size-6" />
             </div>
           </nuxt-link>
         </template>
@@ -39,13 +39,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <Tooltip v-else :label="props.board.title">
         <template #trigger>
           <nuxt-link :to="'/kanban/' + props.board.id">
-            <div class="bg-elevation-2-hover transition-button rounded-md p-2">
+            <div class="bg-elevation-2-hover transition-button rounded-lg p-2">
               <span
                 v-if="customChar"
-                class="flex size-7 items-center justify-center text-[20px] leading-none"
+                class="flex size-6 items-center justify-center text-lg leading-none"
                 >{{ customChar }}</span
               >
-              <component :is="selectedIcon" v-else class="size-7" />
+              <component :is="selectedIcon" v-else class="size-6" />
             </div>
           </nuxt-link>
         </template>

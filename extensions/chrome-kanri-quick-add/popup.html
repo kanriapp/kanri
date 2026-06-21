@@ -1,0 +1,42 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev> -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kanri Quick Add</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="popup">
+      <header>
+        <p class="eyebrow">Kanri</p>
+        <h1>Task Ekle</h1>
+      </header>
+
+      <section class="tab-card" aria-live="polite">
+        <p class="label">Mevcut sekme</p>
+        <h2 id="tab-title">Sekme okunuyor...</h2>
+        <p id="tab-url" class="url"></p>
+      </section>
+
+      <section class="board-card">
+        <label class="label" for="board-select">Kaydedilecek tablo</label>
+        <select id="board-select" disabled>
+          <option>Panolar okunuyor...</option>
+        </select>
+        <p id="target-column" class="hint"></p>
+      </section>
+
+      <button id="add-task" type="button" disabled>
+        Task Ekle
+      </button>
+
+      <p id="status" class="status" role="status"></p>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

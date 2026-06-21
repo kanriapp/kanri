@@ -19,28 +19,28 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <main id="settings" class="overflow-auto pl-8 pt-6">
-    <h1 class="text-4xl font-bold">
+  <main id="settings" class="h-screen overflow-auto px-6 py-5">
+    <h1 class="text-2xl font-semibold">
       {{ $t("pages.import.importExportHeading") }}
     </h1>
     <span class="text-dim-3">{{ $t("pages.import.importExportSubtext") }}</span>
 
-    <TabsRoot class="mt-4 flex w-1/2 flex-col" default-value="tab1">
+    <TabsRoot class="mt-4 flex w-full max-w-3xl flex-col" default-value="tab1">
       <TabsList
-        class="bg-elevation-1 relative flex shrink-0 rounded-md"
+        class="bg-elevation-1 border-elevation-2 relative flex shrink-0 rounded-lg border p-1"
         aria-label="Manage your account"
       >
         <TabsIndicator
-          class="bg-elevation-2 absolute bottom-0 left-0 h-full w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-md transition-[width,transform] duration-300"
+          class="bg-elevation-2 absolute inset-y-1 left-0 w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-md transition-[width,transform] duration-200"
         />
         <TabsTrigger
-          class="tab-active-text z-10 flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-md px-2 text-[16px] leading-none outline-none transition-colors duration-300"
+          class="tab-active-text z-10 flex h-9 flex-1 cursor-pointer select-none items-center justify-center rounded-md px-2 text-sm leading-none outline-none transition-colors duration-150"
           value="tab1"
         >
           {{ $t("general.importAction") }}
         </TabsTrigger>
         <TabsTrigger
-          class="tab-active-text z-10 flex h-[45px] flex-1 cursor-pointer select-none items-center justify-center rounded-md px-2 text-[16px] leading-none outline-none transition-colors duration-300"
+          class="tab-active-text z-10 flex h-9 flex-1 cursor-pointer select-none items-center justify-center rounded-md px-2 text-sm leading-none outline-none transition-colors duration-150"
           value="tab2"
         >
           {{ $t("general.exportAction") }}
@@ -48,7 +48,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </TabsList>
       <TabsContent class="grow rounded-b-md pt-8 outline-none" value="tab1">
         <div>
-          <h2 class="mb-0.5 text-2xl font-bold">
+          <h2 class="mb-0.5 text-lg font-semibold">
             {{ $t("pages.import.importTabHeading") }}
           </h2>
           <p class="text-dim-2 mb-2">
@@ -104,7 +104,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </TabsContent>
       <TabsContent class="grow rounded-b-md pt-8 outline-none" value="tab2">
         <div class="flex flex-col gap-4">
-          <h2 class="mb-2 text-2xl font-bold">
+          <h2 class="mb-2 text-lg font-semibold">
             {{ $t("pages.import.exportTabHeading") }}
           </h2>
           <div>

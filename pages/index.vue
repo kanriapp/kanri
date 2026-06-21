@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="overflow-auto pl-8 pt-5">
+  <div class="overflow-auto px-6 py-5">
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
       @closeModal="renameBoardModalVisible = false"
@@ -48,15 +48,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @closeModal="changelogModalVisible = false"
     />
 
-    <h1 class="mb-4 text-3xl font-bold">
+    <h1 class="mb-4 text-2xl font-semibold">
       {{ $t('pages.index.welcome') }}
     </h1>
 
     <section id="board-search-and-sort" class="mt-2">
-      <div class="flex max-h-12 w-full flex-row gap-3 pr-2">
+      <div class="flex h-10 w-full flex-row gap-3 pr-2">
         <!-- Search input -->
         <div
-          class="border-elevation-2 bg-elevation-1 supports-[backdrop-filter]:bg-elevation-1/50 focus-within:ring-accent/70 relative w-full rounded-xl border shadow-sm backdrop-blur focus-within:ring-2"
+          class="border-elevation-2 bg-elevation-1 focus-within:border-accent relative w-full rounded-lg border transition-colors"
         >
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
             <MagnifyingGlassIcon class="text-dim-3 size-5" />
@@ -64,7 +64,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <input
             v-model="searchQuery"
             :placeholder="searchPlaceholder"
-            class="placeholder:text-dim-3 w-full rounded-xl bg-transparent px-12 py-2 text-lg outline-none"
+            class="placeholder:text-dim-3 size-full rounded-lg bg-transparent px-12 text-sm outline-none"
             type="text"
             aria-label="Search boards"
           >
@@ -85,12 +85,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         >
           <div class="flex max-h-12 items-center gap-2">
             <div
-              class="bg-elevation-1 bg-elevation-2-hover transition-button hide-popper-arrow max-h-12 w-fit rounded-md hover:cursor-pointer"
+              class="bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button hide-popper-arrow h-10 w-fit rounded-lg border hover:cursor-pointer"
             >
               <Dropdown>
                 <template #trigger>
-                  <button class="flex max-h-12 min-w-48 flex-row items-center gap-2 whitespace-nowrap px-6 py-4 md:min-w-56">
-                    <PhFunnel class="size-6 shrink-0" />
+                  <button class="flex h-10 min-w-48 flex-row items-center gap-2 whitespace-nowrap px-3 text-sm md:min-w-52">
+                    <PhFunnel class="size-4 shrink-0" />
                     <span class="flex-1 overflow-hidden text-ellipsis text-left">{{ sortingOptionText }}</span>
                     <ChevronDownIcon class="size-4 shrink-0" />
                   </button>
@@ -192,7 +192,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
       </div>
 
-      <div v-else class="mb-8 mt-6 flex flex-row flex-wrap gap-6">
+      <div v-else class="mb-8 mt-5 flex flex-row flex-wrap gap-4">
         <!-- No results for current search -->
         <div
           v-if="!loading && searchQuery && visibleBoards?.length === 0"
@@ -203,7 +203,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
         <TransitionGroup
           v-if="!loading && visibleBoards!.length > 0"
-          class="flex flex-row flex-wrap gap-6"
+          class="flex flex-row flex-wrap gap-4"
           name="list"
           tag="div"
         >
@@ -212,7 +212,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             id="board-preview"
             :key="board.id"
             :to="'/kanban/' + board.id"
-            class="bg-board-preview border-elevation-1 flex flex-col rounded-md border-2 shadow-xl transition-transform hover:-translate-y-1"
+            class="board-preview-tile bg-board-preview border-elevation-2 flex flex-col rounded-lg border"
           >
             <LazyKanbanBoardPreview
               :board="board"
@@ -487,12 +487,14 @@ const exportBoardToJson = async (id: string) => {
 <style scoped>
 .list-move,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition:
+    opacity 180ms cubic-bezier(0.4, 1, 0.6, 1),
+    transform 200ms cubic-bezier(0.4, 0, 0, 1);
 }
 
 .list-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateY(4px) scale(0.99);
 }
 
 .list-leave-active {
@@ -500,10 +502,19 @@ const exportBoardToJson = async (id: string) => {
 }
 
 .bg-board-preview {
-  background: radial-gradient(
-    circle at bottom left,
-    var(--elevation-1) 30%,
-    transparent
-  );
+  background-color: var(--elevation-1);
+}
+
+.board-preview-tile {
+  transition:
+    border-color 120ms cubic-bezier(0.4, 1, 0.6, 1),
+    box-shadow 120ms cubic-bezier(0.4, 1, 0.6, 1),
+    transform 120ms cubic-bezier(0.4, 1, 0.6, 1);
+}
+
+.board-preview-tile:hover {
+  border-color: color-mix(in srgb, var(--elevation-3) 82%, var(--accent));
+  box-shadow: 0 12px 28px -24px rgba(0, 0, 0, 0.72);
+  transform: translateY(-1px);
 }
 </style>

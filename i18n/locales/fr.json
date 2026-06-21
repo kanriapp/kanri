@@ -242,5 +242,27 @@
       "name": "Nom du tableau",
       "placeholder": "Entrez un nouveau nom pour le tableau"
     }
+  },
+  "unifiedTodo": {
+    "eyebrow": "Global task view",
+    "title": "Unified To-Do",
+    "description": "All tasks from included board columns, connected to their original cards.",
+    "boardFilter": "Board filter",
+    "allBoards": "All Boards",
+    "noTasks": "No tasks to do right now.",
+    "noFilterMatches": "No tasks match this board filter.",
+    "lastColumn": "No next column",
+    "showColumn": "Show tasks from this column in Unified To-Do",
+    "markDone": "Mark done and move to the next column",
+    "noNextColumn": "This card is already in the last column"
+  },
+  "globalWorkflow": {
+    "eyebrow": "Global board flow",
+    "title": "Global Workflow",
+    "boards": "boards",
+    "tasks": "tasks",
+    "dropHere": "Drop tasks here",
+    "chooseDay": "Day",
+    "cycleWeekday": "Change planned weekday"
   }
 }

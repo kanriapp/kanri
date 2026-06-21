@@ -27,12 +27,12 @@ module.exports = {
       },
       animation: {
         slideDownAndFade:
-          "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+          "slideDownAndFade 160ms cubic-bezier(0, 0.4, 0, 1)",
         slideLeftAndFade:
-          "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-        slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+          "slideLeftAndFade 160ms cubic-bezier(0, 0.4, 0, 1)",
+        slideUpAndFade: "slideUpAndFade 160ms cubic-bezier(0, 0.4, 0, 1)",
         slideRightAndFade:
-          "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+          "slideRightAndFade 160ms cubic-bezier(0, 0.4, 0, 1)",
       },
     },
   },

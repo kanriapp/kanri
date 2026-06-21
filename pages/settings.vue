@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <main id="settings" class="overflow-auto pl-8 pt-6">
+  <main id="settings" class="h-screen overflow-auto px-6 py-5">
     <ModalConfirmation
       v-show="deleteBoardModalVisible"
       :close-button-text="$t('general.cancelAction')"
@@ -32,7 +32,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @confirmAction="deleteAllData"
     />
 
-    <h1 class="text-4xl font-bold">
+    <h1 class="text-2xl font-semibold">
       {{ $t("pages.settings.settingsHeading") }}
     </h1>
     <span class="text-dim-3">{{
@@ -40,37 +40,37 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     }}</span>
 
     <section id="theme-settings">
-      <h2 class="mb-2 mt-6 text-2xl font-bold">
+      <h2 class="mb-2 mt-5 text-lg font-semibold">
         {{ $t("pages.settings.sectionThemeHeading") }}
       </h2>
       <div v-if="!theme.autoThemeEnabled" id="theme-selection" class="flex flex-row gap-4">
         <div
-          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          class="bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button flex min-w-32 cursor-pointer flex-col items-center justify-center rounded-lg border p-3 text-sm font-medium"
           @click="setTheme('light')"
         >
-          <SunIcon :class="themeIconClass('light')" class="size-8" />
+          <SunIcon :class="themeIconClass('light')" class="size-6" />
           <label class="cursor-pointer" for="light-mode-icon">{{
             $t("pages.settings.lightThemeOption")
           }}</label>
         </div>
 
         <div
-          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          class="bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button flex min-w-32 cursor-pointer flex-col items-center justify-center rounded-lg border p-3 text-sm font-medium"
           @click="setTheme('dark')"
         >
-          <MoonIcon :class="themeIconClass('dark')" class="size-8" />
+          <MoonIcon :class="themeIconClass('dark')" class="size-6" />
           <label class="cursor-pointer" for="dark-mode-icon">{{
             $t("pages.settings.darkThemeOption")
           }}</label>
         </div>
 
         <div
-          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          class="bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button flex min-w-32 cursor-pointer flex-col items-center justify-center rounded-lg border p-3 text-sm font-medium"
           @click="setTheme('catppuccin')"
         >
           <IconCatppuccin
             :class="themeIconClass('catppuccin')"
-            class="size-8"
+            class="size-6"
           />
           <label class="cursor-pointer" for="catppuccin-mode-icon">{{
             $t("pages.settings.catppuccinThemeOption")
@@ -78,10 +78,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </div>
 
         <div
-          class="bg-elevation-1 bg-elevation-2-hover flex min-w-36 cursor-pointer flex-col items-center justify-center rounded-md p-2 text-xl font-semibold"
+          class="bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button flex min-w-32 cursor-pointer flex-col items-center justify-center rounded-lg border p-3 text-sm font-medium"
           @click="setTheme('custom')"
         >
-          <SwatchIcon :class="themeIconClass('custom')" class="size-8" />
+          <SwatchIcon :class="themeIconClass('custom')" class="size-6" />
           <label class="cursor-pointer" for="custom-mode-icon">{{
             $t("pages.settings.customThemeOption")
           }}</label>
@@ -146,7 +146,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     </section>
 
     <section id="kanban-settings">
-      <h2 class="mt-8 text-2xl font-bold">
+      <h2 class="mt-8 text-lg font-semibold">
         {{ $t("pages.settings.preferencesHeading") }}
       </h2>
       <span class="text-dim-3 mb-2">{{
@@ -339,7 +339,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import type { ThemeIdentifiers } from "@/types/kanban-types";
 
 import { kanriThemeSchema } from "@/types/json-schemas";
-import emitter from "@/utils/emitter";
 import { catppuccin, dark, light } from "@/utils/themes";
 import {
   ArrowDownTrayIcon,

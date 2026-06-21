@@ -48,6 +48,12 @@ const kanriCardSchema = z.object({
   description: z.string().optional(),
   id: z.string().optional(),
   name: z.string(),
+  scheduledWeekday: z
+    .enum(["Pzt", "Sl", "Çrş", "Prş", "Cum", "Cmt", "Paz"])
+    .optional()
+    .nullable(),
+  sourceTitle: z.string().optional().nullable(),
+  sourceUrl: z.string().optional().nullable(),
   tasks: z
     .array(
       z.object({
@@ -64,6 +70,7 @@ const kanriCardSchema = z.object({
 const kanriColumnSchema = z.object({
   cards: z.array(kanriCardSchema),
   id: z.string(),
+  includeInUnifiedTodo: z.boolean().optional(),
   title: z.string(),
 });
 

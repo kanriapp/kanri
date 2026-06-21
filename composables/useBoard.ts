@@ -21,7 +21,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { computed, toValue } from "vue";
 import type { Ref } from "vue";
-import type { Board, Card, Column, Tag } from "@/types/kanban-types";
+import type {
+  Board,
+  Card,
+  Column,
+  ScheduledWeekday,
+  Tag,
+} from "@/types/kanban-types";
 import { useBoardsStore } from "@/stores/boards";
 
 export function useBoard(id: string | Ref<string>) {
@@ -84,6 +90,10 @@ export function useBoard(id: string | Ref<string>) {
     if (!board.value) return;
     store.setColumnTitle(board.value.id, columnId, title);
   }
+  function setColumnUnifiedTodoInclusion(columnId: string, include: boolean) {
+    if (!board.value) return;
+    store.setColumnUnifiedTodoInclusion(board.value.id, columnId, include);
+  }
 
   // Cards
   function createCard(columnId: string, card: Card, addToTop?: boolean) {
@@ -117,6 +127,11 @@ export function useBoard(id: string | Ref<string>) {
   function reorderCards(columnId: string, nextCards: Card[]) {
     if (!board.value) return;
     store.reorderCards(board.value.id, columnId, nextCards);
+  }
+
+  function moveCardToNextColumn(columnId: string, cardId: string | undefined) {
+    if (!board.value || !cardId) return;
+    store.moveCardToNextColumn(board.value.id, columnId, cardId);
   }
 
   const setCardName = (
@@ -201,6 +216,19 @@ export function useBoard(id: string | Ref<string>) {
     });
   };
 
+  const setCardScheduledWeekday = (
+    columnId: string,
+    cardId: string | undefined,
+    weekday: ScheduledWeekday
+  ) => {
+    if (!board.value) return;
+    if (!cardId) return;
+
+    mutateCard(columnId, cardId, (card) => {
+      card.scheduledWeekday = weekday;
+    });
+  };
+
   // (Global) Card Tags
   const addGlobalTag = (tag: Tag) => {
     if (!board.value) return;
@@ -243,6 +271,7 @@ export function useBoard(id: string | Ref<string>) {
     removeColumn,
     reorderColumns,
     setColumnTitle,
+    setColumnUnifiedTodoInclusion,
 
     // card actions
     createCard,
@@ -250,6 +279,7 @@ export function useBoard(id: string | Ref<string>) {
     deleteAllColumnCards,
     duplicateCard,
     mutateCard,
+    moveCardToNextColumn,
     reorderCards,
     setCardName,
     setCardDescription,
@@ -257,6 +287,7 @@ export function useBoard(id: string | Ref<string>) {
     setCardTasks,
     setCardDueDate,
     setCardTags,
+    setCardScheduledWeekday,
 
     // global tags
     addGlobalTag,

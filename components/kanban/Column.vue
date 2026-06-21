@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   <div
     ref="columnDOMElement"
     :class="[
-      'kanban-column bg-elevation-1 max-h-column flex flex-col rounded-lg p-2',
+      'kanban-column bg-elevation-1 border-elevation-2 max-h-column flex flex-col rounded-lg border p-2 shadow-sm',
       columnSizeClass,
       columnSpacingClass,
     ]"
@@ -36,7 +36,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     >
       <div v-if="!titleEditing" class="flex flex-row items-center gap-1.5">
         <h1
-          class="stop-text-overflow ml-1 font-bold text-lg"
+          class="stop-text-overflow ml-1 text-lg font-bold"
           @click="enableTitleEditing()"
         >
           {{ props.title }}
@@ -55,7 +55,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         v-focus
         :v-disable-spellcheck="settings.disableSpellcheck"
         :class="[
-          'bg-elevation-2 border-accent text-no-overflow -m-2 mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none font-bold text-lg',
+          'bg-elevation-2 border-accent text-no-overflow -m-2 mr-2 w-full rounded-sm border-2 border-dotted px-2 text-lg font-bold outline-none',
           inputSizeClass,
         ]"
         maxlength="1000"
@@ -65,32 +65,51 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           updateColumnTitle();
           emitter.emit('columnActionDone');
         "
-      />
+      >
       
       <Dropdown align="end">
         <template #trigger>
           <button
-          class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md"
-          @click.prevent
+            class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md px-1"
+            @click.prevent
           >
-          <EllipsisHorizontalIcon class="size-6" />
+            <EllipsisHorizontalIcon class="size-6" />
           </button>
         </template>
         <template #content>
+            <div
+              class="flex min-w-72 items-center justify-between gap-4 rounded-md px-4 py-2"
+              @click.stop
+            >
+              <span class="max-w-52 text-sm">
+                {{ $t('unifiedTodo.showColumn') }}
+              </span>
+              <SwitchRoot
+                :checked="includedInUnifiedTodo"
+                :aria-label="$t('unifiedTodo.showColumn')"
+                class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] shrink-0 cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
+                @update:checked="setUnifiedTodoInclusion"
+              >
+                <SwitchThumb
+                  class="bg-button-text my-auto block size-[18px] translate-x-0.5 rounded-full shadow-sm transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[19px]"
+                />
+              </SwitchRoot>
+            </div>
+            <div class="border-elevation-3 my-1 border-t" />
             <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+              class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
               @click="enableCardAddMode(true)"
             >
                 {{$t('components.kanban.column.addCardTop')}}
             </DropdownMenuItem>
             <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+              class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
               @click="$emit('removeAllColumnCards', id)"
             >
                  {{$t('components.kanban.card.deleteAllColumnCardsAction')}}               
             </DropdownMenuItem>
             <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+              class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
               @click="$emit('removeColumn', id)"
             >
                 {{$t('components.kanban.column.deleteColumnAction')}}
@@ -106,6 +125,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         containerSpacingClass,
       ]"
       drag-class="cursor-grabbing"
+      drop-class="kanban-card-drop-target"
       drag-handle-selector=".kanbancard-drag"
       group-name="cards"
       orientation="vertical"
@@ -123,6 +143,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       >
         <KanbanCard
           :card="card"
+          :can-move-right="hasNextColumn"
+          :can-schedule-weekday="plannedWeekdayEnabled"
           :index="index"
           :zoom-level="zoomLevel"
           @disable-dragging="disableDragging"
@@ -133,6 +155,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           @set-card-name="setCardName"
           @update-card-tags="updateCardTags"
           @duplicate-card="duplicateCard"
+          @mark-done="markDone"
+          @set-card-tasks="setCardTasks"
+          @set-scheduled-weekday="setScheduledWeekday"
         />
       </Draggable>
     </Container>
@@ -148,7 +173,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         v-focus
         v-resizable
         :class="[
-          'bg-elevation-2 border-accent-focus border-2 border-transparent mb-2 overflow-hidden rounded-sm p-1 focus:border-dotted focus:outline-none',
+          'bg-elevation-2 border-accent-focus mb-2 overflow-hidden rounded-sm border-2 border-transparent p-1 focus:border-dotted focus:outline-none',
           textAreaSizeClass,
         ]"
         maxlength="5000"
@@ -195,7 +220,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     <div
       v-if="!cardAddMode"
       :class="[
-        'text-dim-1 bg-elevation-3-hover mt-2 flex cursor-pointer flex-row items-center gap-1 rounded-md py-1 font-medium',
+        'text-dim-1 bg-elevation-3-hover transition-button mt-2 flex cursor-pointer flex-row items-center gap-1 rounded-md p-1 font-medium',
         addCardButtonSpacingClass,
       ]"
       @click="enableCardAddMode()"
@@ -209,7 +234,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Card, Tag } from "@/types/kanban-types";
+import type { Card, ScheduledWeekday, Tag, Task } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { applyDrag } from "@/utils/drag-n-drop";
@@ -217,12 +242,15 @@ import emitter from "@/utils/emitter";
 import { PlusIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 //@ts-expect-error, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { useI18n } from "vue-i18n";
+import { isColumnIncludedInUnifiedTodo } from "@/utils/unifiedTodo";
+import { isPlannedColumnTitle } from "@/utils/plannedWeekday";
 
 const props = defineProps<{
   cardsList: Array<Card>;
   colIndex: number;
   id: string;
+  hasNextColumn?: boolean;
+  includeInUnifiedTodo?: boolean;
   title: string;
   zoomLevel: number;
   addToTopButtonShown?: boolean;
@@ -255,15 +283,27 @@ const emit = defineEmits<{
 
   // column actions
   (e: "updateColumnTitle", columnId: string, title: string): void;
+  (e: "setColumnUnifiedTodoInclusion", columnId: string, include: boolean): void;
   (e: "removeColumn", columnId: string): void;
   (e: "removeColumnNoConfirmation", columnId: string): void;
   (e: "setColumnEditIndex", columnIndex: number, eventType: string): void;
   (e: "setCardName", columnId: string, cardId: string | undefined, name: string): void;
+  (
+    e: "setCardTasks",
+    columnId: string,
+    cardId: string | undefined,
+    tasks: Array<Task>
+  ): void;
+  (
+    e: "setCardScheduledWeekday",
+    columnId: string,
+    cardId: string | undefined,
+    weekday: ScheduledWeekday
+  ): void;
   (e: "duplicateCard", columnId: string, cardId: string | undefined): void;
+  (e: "moveCardToNextColumn", columnId: string, cardId: string | undefined): void;
   (e: "reorderCards", columnId: string, newCardsOrder: Array<Card>): void;
 }>();
-
-const { t } = useI18n();
 
 const settings = useSettingsStore();
 
@@ -278,44 +318,54 @@ const cardAddModeAddToTopOfColumn = ref(false);
 const titleNew = ref(props.title);
 const titleEditing = ref(false);
 
+const includedInUnifiedTodo = computed(() =>
+  isColumnIncludedInUnifiedTodo({
+    cards: props.cardsList,
+    id: props.id,
+    includeInUnifiedTodo: props.includeInUnifiedTodo,
+    title: props.title,
+  })
+);
+
+const plannedWeekdayEnabled = computed(() => isPlannedColumnTitle(props.title));
+
 provide('columnId', props.id);
 
 const draggingEnabled = ref(true);
 
 const columnDOMElement = ref<HTMLDivElement | null>(null);
 
+const enableColumnTitleEditingHandler = (columnID: string) => {
+  if (columnID === props.id) {
+    enableTitleEditing();
+  }
+};
+
+const enableColumnCardAddModeHandler = (columnID: string) => {
+  if (columnID === props.id) {
+    enableCardAddMode();
+  } else {
+    cardAddMode.value = false;
+    newCardName.value = "";
+    draggingEnabled.value = true;
+  }
+};
+
+const resetColumnInputsHandler = () => {
+  cardAddMode.value = false;
+  newCardName.value = "";
+  titleEditing.value = false;
+};
+
 onMounted(() => {
   document.addEventListener("keydown", keyDownListener);
 
-  emitter.on("enableColumnTitleEditing", (columnID) => {
-    if (columnID === props.id) {
-      enableTitleEditing();
-    }
-  });
+  emitter.on("enableColumnTitleEditing", enableColumnTitleEditingHandler);
+  emitter.on("enableColumnCardAddMode", enableColumnCardAddModeHandler);
+  emitter.on("resetColumnInputs", resetColumnInputsHandler);
 
-  emitter.on("enableColumnCardAddMode", (columnID) => {
-    if (columnID === props.id) {
-      enableCardAddMode();
-    } else {
-      cardAddMode.value = false;
-      newCardName.value = "";
-      draggingEnabled.value = true;
-    }
-  });
-
-  emitter.on("resetColumnInputs", () => {
-    cardAddMode.value = false;
-    newCardName.value = "";
-    titleEditing.value = false;
-  });
-
-  emitter.on("columnDraggingOn", () => {
-    enableDragging();
-  });
-
-  emitter.on("columnDraggingOff", () => {
-    disableDragging();
-  });
+  emitter.on("columnDraggingOn", enableDragging);
+  emitter.on("columnDraggingOff", disableDragging);
 
   /**
    * Enforce adding IDs to all cards
@@ -397,21 +447,6 @@ const inputSizeClass = computed(() => {
       return "text-xl py-2";
     default:
       return "text-base py-1";
-  }
-});
-
-const iconSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "size-4";
-    case 0:
-      return "size-4";
-    case 1:
-      return "size-5";
-    case 2:
-      return "size-6";
-    default:
-      return "size-4";
   }
 });
 
@@ -640,11 +675,11 @@ const filteredCards = computed(() => {
 onBeforeUnmount(() => {
   document.removeEventListener("keydown", keyDownListener);
 
-  emitter.off("enableColumnTitleEditing");
-  emitter.off("enableColumnCardAddMode");
-  emitter.off("resetColumnInputs");
-  emitter.off("columnDraggingOn");
-  emitter.off("columnDraggingOff");
+  emitter.off("enableColumnTitleEditing", enableColumnTitleEditingHandler);
+  emitter.off("enableColumnCardAddMode", enableColumnCardAddModeHandler);
+  emitter.off("resetColumnInputs", resetColumnInputsHandler);
+  emitter.off("columnDraggingOn", enableDragging);
+  emitter.off("columnDraggingOff", disableDragging);
 });
 
 const keyDownListener = (e: { key: string }) => {
@@ -733,6 +768,9 @@ const addCard = () => {
     dueDate: null,
     isDueDateCounterRelative: false,
     isDueDateCompleted: false,
+    scheduledWeekday: null,
+    sourceTitle: null,
+    sourceUrl: null,
     tags: [],
   };
 
@@ -749,6 +787,25 @@ const addCard = () => {
 
 const duplicateCard = (cardId: string | undefined) => {
   emit("duplicateCard", props.id, cardId);
+};
+
+const markDone = (cardId: string | undefined) => {
+  emit("moveCardToNextColumn", props.id, cardId);
+};
+
+const setCardTasks = (cardId: string | undefined, tasks: Array<Task>) => {
+  emit("setCardTasks", props.id, cardId, tasks);
+};
+
+const setScheduledWeekday = (
+  cardId: string | undefined,
+  weekday: ScheduledWeekday
+) => {
+  emit("setCardScheduledWeekday", props.id, cardId, weekday);
+};
+
+const setUnifiedTodoInclusion = (include: boolean) => {
+  emit("setColumnUnifiedTodoInclusion", props.id, include);
 };
 
 const scrollCardIntoView = () => {
@@ -793,6 +850,25 @@ const getGhostParent = () => {
 <style scoped>
 .max-h-column {
   max-height: calc(90vh - 100px);
+}
+
+.kanban-column {
+  background-color: var(--elevation-1);
+  transition:
+    border-color var(--motion-fast) var(--motion-ease-interaction),
+    box-shadow var(--motion-fast) var(--motion-ease-interaction),
+    transform var(--motion-fast) var(--motion-ease-interaction);
+}
+
+.kanban-column:hover {
+  border-color: var(--elevation-3);
+  box-shadow: 0 10px 24px -24px rgba(0, 0, 0, 0.6);
+}
+
+:deep(.kanban-card-drop-target) {
+  border-radius: 0.5rem;
+  outline: 1px dashed color-mix(in srgb, var(--accent) 75%, transparent);
+  outline-offset: -4px;
 }
 
 .stop-text-overflow {

@@ -1,0 +1,112 @@
+/* SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev> */
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+body {
+  margin: 0;
+  min-width: 340px;
+  background: #111827;
+  color: #f9fafb;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+}
+
+.eyebrow,
+.label,
+.status,
+.hint {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.eyebrow {
+  color: #7dd3fc;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 22px;
+}
+
+h2 {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.tab-card,
+.board-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  background: #1f2937;
+  padding: 12px;
+}
+
+.url {
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: #d1d5db;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+select {
+  width: 100%;
+  border: 1px solid #4b5563;
+  border-radius: 7px;
+  background: #111827;
+  color: #f9fafb;
+  font: inherit;
+  padding: 9px 10px;
+}
+
+select:disabled {
+  color: #9ca3af;
+  opacity: 0.8;
+}
+
+button {
+  border: 0;
+  border-radius: 7px;
+  background: #0ea5e9;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 10px 12px;
+}
+
+button:disabled {
+  background: #374151;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.status {
+  min-height: 16px;
+}

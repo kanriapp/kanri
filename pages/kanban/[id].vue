@@ -98,40 +98,65 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <div class="bg-custom pointer-events-none absolute inset-0" :style="cssVars" />
 
-    <div class="absolute top-4 z-50 ml-8 w-[calc(100vw-112px)]">
-      <h1
-        v-if="!boardTitleEditing"
-        class="mb-1 max-h-12 w-full overflow-hidden break-words rounded-md bg-transparent py-1 pr-8 text-4xl font-bold"
-        :class="[boardTitleColor]"
-        @click="enableBoardTitleEditing()"
-      >
-        {{ boardContent?.title }}
-      </h1>
-      <input
-        v-if="boardTitleEditing"
-        v-model="boardContent.title"
-        v-focus
-        class="bg-elevation-2 border-accent text-no-overflow -ml-2 mb-1 mr-2 h-12 w-min rounded-sm border-2 border-dotted px-2 text-4xl font-bold outline-none"
-        maxlength="500"
-        type="text"
-        @blur="
-          boardTitleEditing = false;
-          board.updateBoardPin();
-        "
-        @keypress.enter="
-          boardTitleEditing = false;
-          board.updateBoardPin();
-        "
-      >
+    <div class="kanban-board-header absolute top-4 z-50 ml-8 w-[calc(100vw-112px)]">
+      <div class="mb-1 flex max-w-full flex-col gap-2 pr-8 xl:flex-row xl:items-center">
+        <h1
+          v-if="!boardTitleEditing"
+          class="max-h-11 min-w-0 overflow-hidden break-words rounded-md bg-transparent py-1 text-3xl font-semibold"
+          :class="[boardTitleColor]"
+          @click="enableBoardTitleEditing()"
+        >
+          {{ boardContent?.title }}
+        </h1>
+        <input
+          v-if="boardTitleEditing"
+          v-model="boardContent.title"
+          v-focus
+          class="bg-elevation-2 border-accent text-no-overflow -ml-2 mr-2 h-11 w-min rounded-md border px-2 text-3xl font-semibold outline-none"
+          maxlength="500"
+          type="text"
+          @blur="
+            boardTitleEditing = false;
+            board.updateBoardPin();
+          "
+          @keypress.enter="
+            boardTitleEditing = false;
+            board.updateBoardPin();
+          "
+        >
+
+        <div
+          class="board-progress flex w-full max-w-sm shrink-0 items-center rounded-lg px-3 py-2 xl:w-80"
+          :aria-label="`Progress ${boardProgress.percentage} percent, ${boardProgress.done} of ${boardProgress.total} tasks done`"
+          :title="`Done ${boardProgress.done}/${boardProgress.total} (${boardProgress.percentage}%)`"
+        >
+          <div class="flex min-w-0 flex-1 flex-col gap-1.5">
+            <div class="flex items-center justify-between gap-3 text-[11px] font-medium">
+              <span class="text-dim-2 truncate">
+                Done {{ boardProgress.done }}/{{ boardProgress.total }}
+              </span>
+              <span class="shrink-0 tabular-nums text-emerald-500">
+                {{ boardProgress.percentage }}%
+              </span>
+            </div>
+            <div class="board-progress-track relative h-1.5 overflow-hidden rounded-full">
+              <div
+                class="board-progress-fill"
+                :style="{ width: `${boardProgress.percentage}%` }"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="flex w-full flex-row justify-between gap-6 xl:gap-0">
         <div class="flex flex-row gap-2">
           <div class="flex flex-row gap-2">
             <button
-              class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+              class="bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button flex flex-row gap-1 rounded-md border px-3 py-1.5"
               @click="showCustomBgModal = true"
             >
-              <PhotoIcon class="my-auto size-6" />
+              <PhotoIcon class="my-auto size-5" />
               <span class="my-auto ml-0.5 hidden lg:block">
                 {{ $t("pages.kanban.changeBackground") }}
               </span>
@@ -139,10 +164,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           </div>
           <div class="flex flex-row gap-2">
             <button
-              class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+              class="bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button flex flex-row gap-1 rounded-md border px-3 py-1.5"
               @click="editTagModalVisible = true"
             >
-              <PhHashStraight class="my-auto size-6" />
+              <PhHashStraight class="my-auto size-5" />
               <span class="my-auto ml-0.5 hidden lg:block">
                 {{ $t("pages.kanban.editTags") }}
               </span>
@@ -158,10 +183,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <Dropdown align="end">
             <template #trigger>
               <button
-              class="bg-elevation-1 bg-elevation-2-hover transition-button h-full rounded-md p-2"
+              class="bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button h-full rounded-md border p-2"
               @click.prevent
               >
-              <EllipsisHorizontalIcon class="size-6" />
+              <EllipsisHorizontalIcon class="size-5" />
               </button>
             </template>
 
@@ -231,7 +256,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             <Container
               non-drag-area-selector="nodrag"
               orientation="horizontal"
-              class="flex-row gap-2"
+              class="flex-row gap-3"
+              drop-class="kanban-column-drop-target"
               drag-handle-selector=".dragging-handle"
               group-name="columns"
               :get-ghost-parent="getGhostParent"
@@ -249,6 +275,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                     draggingEnabled ? 'dragging-handle' : 'nomoredragging'
                   "
                   :col-index="index"
+                  :has-next-column="index < boardContent.columns.length - 1"
+                  :include-in-unified-todo="column.includeInUnifiedTodo"
                   :title="column.title"
                   :zoom-level="columnZoomLevel"
                   :add-to-top-button-shown="addToTopOfColumnButtonEnabled"
@@ -267,13 +295,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   @updateCardTags="board.setCardTags"
                   @updateColumnTitle="board.setColumnTitle"
                   @setCardName="board.setCardName"
+                  @setCardTasks="board.setCardTasks"
+                  @setCardScheduledWeekday="board.setCardScheduledWeekday"
                   @duplicateCard="board.duplicateCard"
+                  @moveCardToNextColumn="board.moveCardToNextColumn"
                   @reorderCards="board.reorderCards"
+                  @setColumnUnifiedTodoInclusion="board.setColumnUnifiedTodoInclusion"
                 />
               </Draggable>
               <div class="pr-8">
                 <div
-                  class="nodrag bg-elevation-1 bg-elevation-2-hover mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-md p-2"
+                  class="nodrag bg-elevation-1 bg-elevation-2-hover border-elevation-2 transition-button mr-8 flex h-min cursor-pointer flex-row items-center gap-2 rounded-lg border p-2 shadow-sm"
                   @click="board.addColumn()"
                 >
                   <PlusIcon class="text-accent size-6" />
@@ -310,6 +342,7 @@ import { Container, Draggable } from "vue3-smooth-dnd";
 import { useI18n } from "vue-i18n";
 import { useBoard } from "@/composables/useBoard";
 import { useBackgroundImage } from "@/composables/useBackgroundImage";
+import { calculateBoardProgress } from "@/utils/boardProgress";
 
 const route = useRoute();
 const router = useRouter();
@@ -355,6 +388,7 @@ const allColumnCardsRemoveDialog = useConfirmDialog(removeAllColumnCardsModalVis
 
 const board = useBoard(computed(() => route.params.id as string));
 const { board: boardContent } = board;
+const boardProgress = computed(() => calculateBoardProgress(boardContent.value));
 const {
   bgCustom,
   showCustomBgModal,
@@ -581,9 +615,12 @@ const removeCardWithConfirmation = async (
   cardId: string | undefined,
   cardRef: Ref<HTMLElement | null>
 ) => {
-  const cards = boardContent.value?.columns.filter((obj: Column) => {
-    return obj.id === columnId;
-  })[0].cards;
+  const column = boardContent.value?.columns.find(
+    (obj: Column) => obj.id === columnId
+  );
+  if (!column) return;
+
+  const cards = column.cards;
 
   const cardIndex = cards.findIndex((c) => c.id === cardId);
   if (cardIndex === -1) {
@@ -617,12 +654,11 @@ const removeCardWithConfirmation = async (
   emitter.emit("columnDraggingOn");
 };
 
-const removeAllColumnCards = async (
-    columnID: string
-) => {
-  const column = boardContent.value?.columns.filter((obj: Column) => {
-    return obj.id === columnID;
-  })[0];
+const removeAllColumnCards = async (columnID: string) => {
+  const column = boardContent.value?.columns.find(
+    (obj: Column) => obj.id === columnID
+  );
+  if (!column) return;
   
   emitter.emit("openModalWithCustomDescription", {
     description: t("components.kanban.card.deleteAllColumnCardsConfirmation", {
@@ -636,7 +672,7 @@ const removeAllColumnCards = async (
       board.deleteAllColumnCards(columnID);
     }, 250);
   }
-}
+};
 
 /**
  * Utility methods for creating, deleting and updating columns
@@ -644,9 +680,11 @@ const removeAllColumnCards = async (
  */
 
 const openColumnRemoveDialog = async (columnID: string) => {
-  const column = boardContent.value.columns.filter((obj: Column) => {
-    return obj.id === columnID;
-  })[0];
+  const column = boardContent.value?.columns.find(
+    (obj: Column) => obj.id === columnID
+  );
+  if (!column) return;
+
   emitter.emit("openModalWithCustomDescription", {
     description: t("components.kanban.column.deleteColumnConfirmation", {
       columnName: column.title,
@@ -758,12 +796,45 @@ const getGhostParent = () => {
   height: 100vh;
 }
 
+.kanban-board-header {
+  text-shadow: 0 1px 18px color-mix(in srgb, var(--bg-primary) 40%, transparent);
+}
+
+:deep(.kanban-column-drop-target) {
+  border-radius: 0.75rem;
+  outline: 1px dashed color-mix(in srgb, var(--accent) 72%, transparent);
+  outline-offset: 4px;
+}
+
+.board-progress {
+  border: 1px solid color-mix(in srgb, var(--elevation-3) 72%, transparent);
+  background-color: color-mix(in srgb, var(--elevation-1) 92%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.board-progress-track {
+  background-color: color-mix(in srgb, var(--elevation-3) 84%, black 16%);
+}
+
+.board-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 9999px;
+  background-color: #22c55e;
+  transition: width 200ms cubic-bezier(0.4, 1, 0.6, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .board-progress-fill {
+    transition: none;
+  }
+}
+
 .bg-custom {
   filter:
     blur(var(--blur-intensity))
     brightness(var(--bg-brightness));
-    
-    transition: filter 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  transition: filter 240ms cubic-bezier(0.16, 1, 0.3, 1);
   background-image: var(--bg-custom-image);
   background-repeat: no-repeat;
   background-size: cover;

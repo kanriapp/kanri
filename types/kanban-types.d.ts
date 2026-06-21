@@ -38,6 +38,7 @@ export declare interface BackgroundSettings {
 export declare interface Column {
   cards: Array<Card>;
   id: string;
+  includeInUnifiedTodo?: boolean;
   title: string;
 }
 
@@ -54,6 +55,15 @@ export declare interface Tag {
   color?: string | null;
 }
 
+export declare type ScheduledWeekday =
+  | "Pzt"
+  | "Sl"
+  | "Çrş"
+  | "Prş"
+  | "Cum"
+  | "Cmt"
+  | "Paz";
+
 export declare interface Card {
   color?: string;
   description?: string;
@@ -62,6 +72,9 @@ export declare interface Card {
   isDueDateCounterRelative?: boolean;
   isDueDateCompleted?: boolean;
   name: string;
+  scheduledWeekday?: ScheduledWeekday | null;
+  sourceTitle?: string | null;
+  sourceUrl?: string | null;
   tasks?: Array<Task>;
   tags?: Array<Tag> | null;
 }
