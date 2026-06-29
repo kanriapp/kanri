@@ -30,7 +30,10 @@
       "getUpdatesHeading": "Want to get the latest updates and chat with the creator?",
       "joinDiscordButton": "Join the Discord community!",
       "deleteActionConfirmationHeading": "Delete Board?",
-      "deleteActionConfirmationText": "Are you sure you want to delete the board {boardName}? This action is irreversible."
+      "deleteActionConfirmationText": "Are you sure you want to delete the board {boardName}? This action is irreversible.",
+      "loadBoardsErrorHeading": "Could not load boards.",
+      "loadBoardsErrorDescription": "Kanri kept the interface available, but board data could not be loaded yet.",
+      "loadBoardsErrorRetry": "Retry"
     },
     "kanban": {
       "changeBackground": "Change Background",

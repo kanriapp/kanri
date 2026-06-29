@@ -29,7 +29,10 @@
       "getUpdatesHeading": "想获取最新更新并与创作者交流吗？",
       "joinDiscordButton": "加入Discord社区！",
       "deleteActionConfirmationHeading": "删除看板？",
-      "deleteActionConfirmationText": "您确定要删除看板 {boardName} 吗？此操作不可逆。"
+      "deleteActionConfirmationText": "您确定要删除看板 {boardName} 吗？此操作不可逆。",
+      "loadBoardsErrorHeading": "无法加载看板。",
+      "loadBoardsErrorDescription": "Kanri 已保持界面可用，但暂时无法加载看板数据。",
+      "loadBoardsErrorRetry": "重试"
     },
     "kanban": {
       "changeBackground": "更改背景",

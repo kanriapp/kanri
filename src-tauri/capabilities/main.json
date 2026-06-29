@@ -23,6 +23,8 @@
     "fs:allow-write",
     "fs:allow-read-text-file",
     "fs:allow-write-text-file",
+    "fs:allow-applocaldata-read-recursive",
+    "fs:allow-applocaldata-write-recursive",
     "window-state:default",
     "opener:default",
     {

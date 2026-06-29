@@ -52,17 +52,21 @@ const mounted = ref(false);
 const { colors: savedColors, autoThemeEnabled } = toRefs(theme)
 
 onMounted(async () => {
-  // Load settings into pinia stores
-  await settings.loadSettings();
-  await theme.loadThemeSettings();
-  await layout.loadLayoutSettings();
-  await boards.init();
+  try {
+    // Load settings into pinia stores
+    await settings.loadSettings();
+    await theme.loadThemeSettings();
+    await layout.loadLayoutSettings();
+    await boards.init();
+  } catch (error) {
+    console.error("Failed to initialize Kanri:", error);
+  } finally {
+    // Set locale cookies based on saved value
+    setLocale(settings.locale);
+    setLocaleCookie(settings.locale);
 
-  // Set locale cookies based on saved value
-  setLocale(settings.locale);
-  setLocaleCookie(settings.locale);
-
-  mounted.value = true;
+    mounted.value = true;
+  }
 });
 
 watch(systemTheme, async (newValue) => {

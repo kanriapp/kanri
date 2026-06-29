@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <div class="overflow-auto pl-8 pt-5">
+  <div class="overflow-y-auto overflow-x-hidden pl-8 pt-5">
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
       @closeModal="renameBoardModalVisible = false"
@@ -53,10 +53,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     </h1>
 
     <section id="board-search-and-sort" class="mt-2">
-      <div class="flex max-h-12 w-full flex-row gap-3 pr-2">
+      <div class="flex max-h-12 w-full min-w-0 flex-row gap-3 pr-2">
         <!-- Search input -->
         <div
-          class="border-elevation-2 bg-elevation-1 supports-[backdrop-filter]:bg-elevation-1/50 focus-within:ring-accent/70 relative w-full rounded-xl border shadow-sm backdrop-blur focus-within:ring-2"
+          class="border-elevation-2 bg-elevation-1 supports-[backdrop-filter]:bg-elevation-1/50 focus-within:ring-accent/70 relative min-w-0 flex-1 rounded-xl border shadow-sm backdrop-blur focus-within:ring-2"
         >
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
             <MagnifyingGlassIcon class="text-dim-3 size-5" />
@@ -81,7 +81,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <!-- Sorting toolbar -->
         <div
           v-if="!(boards.length === 0 && loading === false)"
-          class="flex min-w-64 flex-wrap items-center justify-between gap-2"
+          class="flex min-w-64 shrink-0 flex-wrap items-center justify-between gap-2"
         >
           <div class="flex max-h-12 items-center gap-2">
             <div
@@ -157,7 +157,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
     <main id="boards">
       <div
-        v-if="boards.length === 0 && loading === false"
+        v-if="loadError && loading === false"
+        class="border-elevation-2 bg-elevation-1 mt-6 flex w-fit max-w-xl flex-col gap-3 rounded-md border p-4"
+      >
+        <h3 class="text-xl font-bold">
+          {{ loadErrorTitle }}
+        </h3>
+        <p class="text-dim-2">
+          {{ loadErrorDescription }}
+        </p>
+        <button
+          class="bg-accent w-fit cursor-pointer rounded-md px-4 py-2 font-semibold transition-colors"
+          @click="retryLoadBoards"
+        >
+          {{ loadErrorRetryText }}
+        </button>
+      </div>
+
+      <div
+        v-else-if="boards.length === 0 && loading === false"
         class="items-left mt-2 flex w-fit flex-col justify-center rounded-md p-2"
       >
         <h3 class="text-xl font-bold">
@@ -301,6 +319,7 @@ const { boards } = storeToRefs(boardsStore);
 const { boardSortingOption, reverseSorting } = storeToRefs(settingsStore);
 
 const loading = ref(true);
+const loadError = ref(false);
 const editSortWarning = ref(false);
 
 const renameBoardModalVisible = ref(false);
@@ -340,6 +359,26 @@ const noResultsText = computed(() => {
   return result === key ? "No boards match your search." : result;
 });
 
+const loadErrorTitle = computed(() => {
+  const key = "pages.index.loadBoardsErrorHeading";
+  const result = t(key) as string;
+  return result === key ? "Could not load boards." : result;
+});
+
+const loadErrorDescription = computed(() => {
+  const key = "pages.index.loadBoardsErrorDescription";
+  const result = t(key) as string;
+  return result === key
+    ? "Kanri kept the interface available, but board data could not be loaded yet."
+    : result;
+});
+
+const loadErrorRetryText = computed(() => {
+  const key = "pages.index.loadBoardsErrorRetry";
+  const result = t(key) as string;
+  return result === key ? "Retry" : result;
+});
+
 const handleCreateBoard = async ({ columns, title }: { columns?: Column[]; title: string }) => {
   await createNewBoard(title, columns);
 };
@@ -360,19 +399,20 @@ onMounted(async () => {
   emitter.on("createBoard", handleCreateBoard);
 
   nextTick(async () => {
-    console.log("Checking if changelog needs to be shown...");
-    const showChangelog = await layoutSettings.shouldDisplayChangelog();
-    if (showChangelog) {
-      changelogModalVisible.value = true;
+    try {
+      console.log("Checking if changelog needs to be shown...");
+      const showChangelog = await layoutSettings.shouldDisplayChangelog();
+      if (showChangelog) {
+        changelogModalVisible.value = true;
+      }
+    } catch (error) {
+      console.error("Failed to check changelog status:", error);
     }
   });
 
   layoutSettings.onHomePageEnter();
 
-  await boardsStore.init();
-  await settingsStore.loadBoardSortingOptions();
-
-  loading.value = false;
+  await loadBoards();
 });
 
 onBeforeUnmount(() => {
@@ -404,6 +444,29 @@ const createNewBoard = async (title: string, columns?: Column[]) => {
   };
 
   boardsStore.upsertBoard(board);
+};
+
+const loadBoards = async () => {
+  loading.value = true;
+  loadError.value = false;
+
+  try {
+    if (boardsStore.initialized) {
+      await boardsStore.forceReloadBoards();
+    } else {
+      await boardsStore.init();
+    }
+    await settingsStore.loadBoardSortingOptions();
+  } catch (error) {
+    loadError.value = true;
+    console.error("Failed to load boards:", error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const retryLoadBoards = async () => {
+  await loadBoards();
 };
 
 const renameBoardModal = (id: string) => {

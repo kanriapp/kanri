@@ -90,31 +90,31 @@ const countAssetReferences = (board: Board, assetId: string) => {
 };
 
 const backupLegacyBoardsOnce = async (tauri: ReturnType<typeof useTauriStore>["store"], boards: Board[], pins: Pin[]) => {
-  const backupCreated = await tauri.get("attachmentsMigrationBackupCreated");
-  if (backupCreated) return;
-
   try {
+    const backupCreated = await tauri.get("attachmentsMigrationBackupCreated");
+    if (backupCreated) return;
+
     await mkdir("kanri-backups", {
       baseDir: BaseDirectory.AppLocalData,
       recursive: true,
     });
-  } catch {
-    // Directory may already exist.
+
+    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+    const backup = JSON.stringify({
+      createdAt: new Date().toISOString(),
+      reason: "Pre-attachments schema backup",
+      boards,
+      pins,
+    }, null, 2);
+
+    await writeTextFile(`kanri-backups/pre-attachments-${timestamp}.json`, backup, {
+      baseDir: BaseDirectory.AppLocalData,
+    });
+    await tauri.set("attachmentsMigrationBackupCreated", true);
+    await tauri.save();
+  } catch (error) {
+    console.error("Failed to create pre-attachments backup; continuing with migration:", error);
   }
-
-  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-  const backup = JSON.stringify({
-    createdAt: new Date().toISOString(),
-    reason: "Pre-attachments schema backup",
-    boards,
-    pins,
-  }, null, 2);
-
-  await writeTextFile(`kanri-backups/pre-attachments-${timestamp}.json`, backup, {
-    baseDir: BaseDirectory.AppLocalData,
-  });
-  await tauri.set("attachmentsMigrationBackupCreated", true);
-  await tauri.save();
 };
 
 export const useBoardsStore = defineStore("boards", {
