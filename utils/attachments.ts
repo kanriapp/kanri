@@ -25,6 +25,14 @@ export const ingestLocalFile = async (sourcePath: string) => {
   return await invoke<AssetBlobInfo>("kanri_ingest_file", { sourcePath });
 };
 
+export const ingestBytes = async (
+  name: string,
+  mimeType: string | null,
+  bytes: number[]
+) => {
+  return await invoke<AssetBlobInfo>("kanri_ingest_bytes", { bytes, mimeType, name });
+};
+
 export const downloadRemoteImage = async (url: string) => {
   return await invoke<AssetBlobInfo>("kanri_download_remote_image", { url });
 };

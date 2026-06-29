@@ -149,6 +149,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               </span>
             </button>
           </div>
+          <div class="flex flex-row gap-2">
+            <button
+              class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
+              title="Board files"
+              @click="openAssetLibrary"
+            >
+              <ArchiveBoxIcon class="my-auto size-6" />
+              <span class="my-auto ml-0.5 hidden lg:block">
+                Files
+              </span>
+            </button>
+          </div>
 
           <KanbanSearchBar v-model="searchQuery" />
         </div>
@@ -188,7 +200,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                 @click="openAssetLibrary"
               >
                 <span class="text-dim-2"><ArchiveBoxIcon class="size-5" /></span>
-                <span>Board library</span>
+                <span>Files</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"

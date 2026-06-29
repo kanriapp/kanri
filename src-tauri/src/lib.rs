@@ -12,7 +12,7 @@
 use serde::Serialize;
 use sha2::{Digest, Sha256};
 use std::fs::{self, File};
-use std::io::{BufReader, BufWriter, Read, Write};
+use std::io::{BufReader, BufWriter, Cursor, Read, Write};
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 use tauri::Manager;
@@ -289,6 +289,17 @@ fn kanri_ingest_file(app: tauri::AppHandle, source_path: String) -> Result<Asset
 }
 
 #[tauri::command]
+fn kanri_ingest_bytes(
+    app: tauri::AppHandle,
+    name: String,
+    mime_type: Option<String>,
+    bytes: Vec<u8>,
+) -> Result<AssetBlobInfo, String> {
+    let mut reader = Cursor::new(bytes);
+    persist_reader_to_blob(&app, &mut reader, &name, mime_type, None)
+}
+
+#[tauri::command]
 fn kanri_download_remote_image(app: tauri::AppHandle, url: String) -> Result<AssetBlobInfo, String> {
     let parsed = reqwest::Url::parse(&url).map_err(|err| format!("Invalid URL: {err}"))?;
     if parsed.scheme() != "https" && parsed.scheme() != "http" {
@@ -381,6 +392,7 @@ pub fn run() {
             kanri_copy_blob_to,
             kanri_delete_blob,
             kanri_download_remote_image,
+            kanri_ingest_bytes,
             kanri_ingest_file,
         ])
         .plugin(tauri_plugin_opener::init())

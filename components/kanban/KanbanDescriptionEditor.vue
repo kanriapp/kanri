@@ -162,16 +162,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </button>
     </div>
   </bubble-menu>
-  <div class="bg-elevation-2 mt-1 flex items-center justify-end rounded-t-sm px-2 py-1">
+  <div class="relative mt-1">
+    <editor-content class="bg-elevation-2 rounded-sm" :editor="editor" />
     <button
-      class="bg-elevation-3-hover rounded-md p-1"
+      class="bg-elevation-3-hover text-dim-2 text-accent-hover absolute right-2 top-2 rounded-md p-1"
       title="Insert Attachment"
+      @mousedown.prevent
       @click="$emit('requestFiles')"
     >
       <ph-paperclip class="size-5" />
     </button>
   </div>
-  <editor-content class="bg-elevation-2 mt-1 rounded-sm" :editor="editor" />
 </template>
 
 <script>
@@ -185,6 +186,7 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { mergeAttributes, Node } from "@tiptap/core";
+import { TextSelection } from "@tiptap/pm/state";
 import { BubbleMenu, Editor, EditorContent } from "@tiptap/vue-3";
 import { sanitizeRichHtml } from "@/utils/richContent";
 import emitter from "@/utils/emitter";
@@ -305,10 +307,66 @@ export default {
     },
   },
 
-  emits: ["update:modelValue", "editorBlurred", "requestFiles"],
+  emits: ["update:modelValue", "editorBlurred", "filesReceived", "requestFiles"],
 
   setup(props, { emit }) {
     const editor = ref(null);
+
+    const timestampName = (extension = "png") => {
+      const value = new Date()
+        .toISOString()
+        .replace(/[-:]/g, "")
+        .replace("T", "-")
+        .slice(0, 15);
+      return `pasted-image-${value}.${extension}`;
+    };
+
+    const extensionFromType = (type) => {
+      switch (type) {
+        case "image/jpeg":
+          return "jpg";
+        case "image/gif":
+          return "gif";
+        case "image/webp":
+          return "webp";
+        case "image/svg+xml":
+          return "svg";
+        case "image/png":
+        default:
+          return "png";
+      }
+    };
+
+    const filePath = (file) => ("path" in file ? String(file.path || "") : "");
+
+    const getTransferFiles = (dataTransfer, source) => {
+      const files = [];
+      const seen = new Set();
+      const addFile = (file) => {
+        if (!file) return;
+        const key = `${file.name}-${file.size}-${file.type}-${filePath(file)}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        const isPathlessPastedImage = source === "paste" && file.type?.startsWith("image/") && !filePath(file);
+        files.push({
+          file,
+          name: isPathlessPastedImage ? timestampName(extensionFromType(file.type)) : file.name,
+          path: filePath(file),
+        });
+      };
+
+      Array.from(dataTransfer?.items || []).forEach((item) => {
+        if (item.kind === "file") addFile(item.getAsFile());
+      });
+      Array.from(dataTransfer?.files || []).forEach(addFile);
+      return files;
+    };
+
+    const emitFiles = (files) => {
+      if (files.length === 0) return false;
+      emit("filesReceived", files);
+      return true;
+    };
 
     watch(
       () => props.modelValue,
@@ -351,6 +409,29 @@ export default {
             types: ["heading", "paragraph"],
           }),
         ],
+        editorProps: {
+          handleDrop(view, event) {
+            const files = getTransferFiles(event.dataTransfer, "drop");
+            if (files.length === 0) return false;
+            const coordinates = view.posAtCoords({
+              left: event.clientX,
+              top: event.clientY,
+            });
+            if (coordinates) {
+              view.dispatch(view.state.tr.setSelection(
+                TextSelection.near(view.state.doc.resolve(coordinates.pos))
+              ));
+            }
+            event.preventDefault();
+            return emitFiles(files);
+          },
+          handlePaste(_view, event) {
+            const files = getTransferFiles(event.clipboardData, "paste");
+            if (files.length === 0) return false;
+            event.preventDefault();
+            return emitFiles(files);
+          },
+        },
         onBlur: () => {
           emit("editorBlurred");
         },
@@ -440,6 +521,7 @@ export default {
   height: 148px;
   overflow: auto;
   padding: 4px;
+  padding-right: 2.5rem;
   resize: vertical;
 }
 

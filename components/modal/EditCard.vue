@@ -292,13 +292,11 @@ limitations under the License.
 
         <div class="overflow-auto">
           <div class="flex flex-col pr-6">
-            <h2 class="text-lg font-semibold">
-              {{ $t("modals.editCard.descriptionTitle") }}
-            </h2>
             <KanbanDescriptionEditor
               ref="descriptionEditor"
               v-model="description"
               @editorBlurred="updateDescription"
+              @filesReceived="addInputFilesToCardContent"
               @requestFiles="addFilesToCardContent"
             />
           </div>
@@ -506,6 +504,7 @@ limitations under the License.
 </template>
 
 <script setup lang="ts">
+import type { AttachmentInputFile } from "@/composables/useAttachments";
 import type { AttachmentRef, BoardAsset, Card, Task, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
@@ -529,6 +528,7 @@ import { Container, Draggable } from "vue3-smooth-dnd";
 import { useSettingsStore } from "@/stores/settings";
 import { formatFileSize, getAssetUrl, makeAttachmentRef } from "@/utils/attachments";
 import { richHtmlToText, sanitizeRichHtml } from "@/utils/richContent";
+import { message } from "@tauri-apps/plugin-dialog";
 
 const props = defineProps<{
   boardAssets: Array<BoardAsset>;
@@ -631,7 +631,7 @@ const currentlyEditingTaskLineCount = ref(0);
 const taskEditMode = ref(false);
 
 const draggingEnabled = ref(true);
-const { ingestFiles, openAsset, pickFiles } = useAttachments();
+const { ingestFiles, ingestInputFiles, openAsset, pickFiles } = useAttachments();
 
 const enableTitleEditing = () => {
   emitter.emit("modalPreventClickOutsideClose");
@@ -737,8 +737,19 @@ const updateCardAttachments = () => {
   );
 };
 
-const addCardAssetsToDescription = async (paths: string[]) => {
-  const { assets } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
+const showAttachmentErrors = async (errors: Array<{ path: string; reason: string }>) => {
+  if (errors.length === 0) return;
+  const details = errors
+    .slice(0, 3)
+    .map(error => `${error.path}: ${error.reason}`)
+    .join("\n");
+  await message(`Some files could not be attached:\n${details}`, {
+    kind: "warning",
+    title: "Kanri",
+  });
+};
+
+const insertAssetsIntoDescription = async (assets: BoardAsset[]) => {
   if (assets.length === 0) return;
 
   for (const asset of assets) {
@@ -763,9 +774,21 @@ const addCardAssetsToDescription = async (paths: string[]) => {
   updateDescription();
 };
 
+const addCardAssetsToDescription = async (paths: string[]) => {
+  const { assets, errors } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
+  await showAttachmentErrors(errors);
+  await insertAssetsIntoDescription(assets);
+};
+
 const addFilesToCardContent = async () => {
   const paths = await pickFiles();
   if (paths.length > 0) await addCardAssetsToDescription(paths);
+};
+
+const addInputFilesToCardContent = async (files: AttachmentInputFile[]) => {
+  const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
+  await showAttachmentErrors(errors);
+  await insertAssetsIntoDescription(assets);
 };
 
 const extractDescriptionAttachmentRefs = () => {
@@ -818,8 +841,9 @@ const normalizeTaskAttachmentLines = (task: Task, previousLineCount = taskLines(
   void previousLineCount;
 };
 
-const addFilesToTaskLine = async (task: Task, paths: string[], line: number) => {
-  const { assets } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
+const addInputFilesToTaskLine = async (task: Task, files: AttachmentInputFile[], line: number) => {
+  const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
+  await showAttachmentErrors(errors);
   if (assets.length === 0) return;
   task.attachments = [
     ...(task.attachments || []),
@@ -831,11 +855,28 @@ const addFilesToTaskLine = async (task: Task, paths: string[], line: number) => 
   updateCardTasks();
 };
 
+const inputFilesFromDataTransfer = (dataTransfer: DataTransfer | null) => {
+  const seen = new Set<string>();
+  const files: AttachmentInputFile[] = [];
+  const addFile = (file: File | null) => {
+    if (!file) return;
+    const path = "path" in file ? String((file as File & { path?: string }).path || "") : "";
+    const key = `${file.name}-${file.size}-${file.type}-${path}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    files.push({ file, name: file.name, path });
+  };
+
+  Array.from(dataTransfer?.items || []).forEach((item) => {
+    if (item.kind === "file") addFile(item.getAsFile());
+  });
+  Array.from(dataTransfer?.files || []).forEach(addFile);
+  return files;
+};
+
 const addDroppedFilesToTaskLine = async (event: DragEvent, task: Task, line: number) => {
-  const paths = Array.from(event.dataTransfer?.files || [])
-    .map(file => ("path" in file ? String((file as File & { path?: string }).path || "") : ""))
-    .filter(Boolean);
-  if (paths.length > 0) await addFilesToTaskLine(task, paths, line);
+  const files = inputFilesFromDataTransfer(event.dataTransfer);
+  if (files.length > 0) await addInputFilesToTaskLine(task, files, line);
 };
 
 const removeTaskAttachment = (task: Task, attachment: AttachmentRef) => {
