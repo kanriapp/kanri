@@ -18,6 +18,7 @@ limitations under the License.
 <template>
   <Modal
     :blur-background="false"
+    center-in-workspace
     @closeModal="
       $emit('closeModal', columnID);
       titleEditing = false;
@@ -295,18 +296,10 @@ limitations under the License.
               {{ $t("modals.editCard.descriptionTitle") }}
             </h2>
             <KanbanDescriptionEditor
+              ref="descriptionEditor"
               v-model="description"
               @editorBlurred="updateDescription"
-            />
-            <KanbanAttachmentList
-              class="mt-3"
-              title="Card attachments"
-              :allow-inline-images="true"
-              :assets="boardAssets"
-              :attachments="cardAttachments"
-              @addFiles="addFilesToCard"
-              @insertImage="insertCardImage"
-              @remove="removeCardAttachment"
+              @requestFiles="addFilesToCardContent"
             />
           </div>
           <div>
@@ -336,7 +329,7 @@ limitations under the License.
               >
                 <Container
                   drag-class="cursor-grabbing"
-                  drag-handle-selector=".task-drag"
+                  drag-handle-selector=".task-drag-handle"
                   :animation-duration="120"
                   :drag-begin-delay="0"
                   :get-child-payload="(index: number) => tasks[index]"
@@ -350,23 +343,18 @@ limitations under the License.
                     :class="draggingEnabled ? 'task-drag' : 'nomoredragging'"
                     :index="index"
                   >
-                    <div class="mb-2 flex w-full flex-col gap-1.5">
+                    <div
+                      class="mb-2 flex w-full flex-col gap-1.5"
+                      @dragover.prevent
+                    >
                       <div class="flex w-full flex-row items-start justify-between gap-4">
-                        <div class="flex w-full flex-row items-center justify-start gap-4">
-                          <button
-                            class="text-dim-2 text-accent-hover shrink-0 rounded-md p-0.5"
-                            title="Toggle task details"
-                            @click="toggleTaskExpanded(task, index)"
-                          >
-                            <PhCaretDown
-                              v-if="isTaskExpanded(task, index)"
-                              class="size-4"
-                            />
-                            <PhCaretRight v-else class="size-4" />
-                          </button>
+                        <div class="flex w-full flex-row items-start justify-start gap-3">
+                          <div class="task-drag-handle text-dim-3 mt-1 cursor-grab select-none text-xs">
+                            ::
+                          </div>
                           <CheckboxRoot
                             v-model:checked="task.finished"
-                            class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 shrink-0 appearance-none items-center justify-center rounded-[4px] border outline-none"
+                            class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 mt-1 flex size-5 shrink-0 appearance-none items-center justify-center rounded-[4px] border outline-none"
                             @update:checked="(checked) => handleTaskCheckedChange(task, checked)"
                           >
                             <CheckboxIndicator
@@ -384,18 +372,47 @@ limitations under the License.
                             "
                             v-model="currentlyEditingTaskName"
                             v-focus
-                            class="bg-elevation-2 border-accent -mx-1.5 w-full rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
+                            class="bg-elevation-2 border-accent -mx-1.5 min-h-20 w-full resize-y rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
                             @blur="updateTask(index)"
-                            @keydown.enter.exact.prevent="updateTask(index)"
+                            @keydown.ctrl.enter.prevent="updateTask(index)"
                           />
                           <ClickCounter
                             v-else
                             @double-click="enableTaskEditMode(index, task)"
                           >
-                            <div class="w-full">
-                              <span class="block w-full whitespace-pre-wrap break-words">{{
-                                task.name
-                              }}</span>
+                            <div class="w-full min-w-0">
+                              <div
+                                v-for="(line, lineIndex) in taskLines(task.name)"
+                                :key="`${taskKey(task, index)}-${lineIndex}`"
+                                class="rounded-sm px-1 py-0.5"
+                                @drop.prevent="(event) => addDroppedFilesToTaskLine(event, task, lineIndex)"
+                              >
+                                <span class="block w-full whitespace-pre-wrap break-words">{{ line || " " }}</span>
+                                <div
+                                  v-if="taskAttachmentsForLine(task, lineIndex).length"
+                                  class="mt-1 flex flex-col gap-1"
+                                >
+                                  <div
+                                    v-for="attachment in taskAttachmentsForLine(task, lineIndex)"
+                                    :key="attachment.id"
+                                    class="bg-elevation-2 border-elevation-3 flex min-h-8 max-w-full items-center gap-2 rounded border px-2 py-1 text-xs"
+                                  >
+                                    <PhPaperclip class="text-dim-2 size-3.5 shrink-0" />
+                                    <button
+                                      class="min-w-0 flex-1 truncate text-left"
+                                      @click="openTaskAttachment(attachment)"
+                                    >
+                                      {{ attachmentLabel(attachment) }}
+                                    </button>
+                                    <button
+                                      class="text-dim-2 text-accent-hover shrink-0"
+                                      @click="removeTaskAttachment(task, attachment)"
+                                    >
+                                      <XMarkIcon class="size-3.5" />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
                               <span class="text-dim-2 mt-0.5 block text-xs">
                                 Created: {{ formatTimestamp(task.createdAt) || '-' }}
                                 <span v-if="task.completedAt"> | Completed: {{ formatTimestamp(task.completedAt) }}</span>
@@ -406,14 +423,6 @@ limitations under the License.
                         <div
                           class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center"
                         >
-                          <span
-                            v-if="task.attachments?.length"
-                            class="text-dim-2 flex items-center gap-0.5 rounded px-1 text-xs"
-                            title="Task attachments"
-                          >
-                            <PhPaperclip class="size-3.5" />
-                            {{ task.attachments.length }}
-                          </span>
                           <button
                             v-if="!taskEditMode"
                             class="shrink-0"
@@ -449,26 +458,6 @@ limitations under the License.
                             />
                           </button>
                         </div>
-                      </div>
-                      <div
-                        v-if="isTaskExpanded(task, index)"
-                        class="border-elevation-2 bg-elevation-1 ml-10 mr-2 rounded-md border p-2"
-                      >
-                        <h4 class="text-dim-2 mb-1 text-xs font-semibold">
-                          Task details
-                        </h4>
-                        <KanbanDescriptionEditor
-                          v-model="task.description"
-                          @editorBlurred="updateCardTasks"
-                        />
-                        <KanbanAttachmentList
-                          class="mt-2"
-                          title="Task attachments"
-                          :assets="boardAssets"
-                          :attachments="task.attachments || []"
-                          @addFiles="(paths) => addFilesToTask(task, paths)"
-                          @remove="(attachment) => removeTaskAttachment(task, attachment)"
-                        />
                       </div>
                     </div>
                   </Draggable>
@@ -527,8 +516,6 @@ import { generateUniqueID } from "@/utils/idGenerator";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import {
-  PhCaretDown,
-  PhCaretRight,
   PhCalendar,
   PhCheck,
   PhPaperclip,
@@ -540,8 +527,8 @@ import { vOnClickOutside } from "@vueuse/components";
 //@ts-expect-error library has no types
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useSettingsStore } from "@/stores/settings";
-import { getAssetUrl, makeAttachmentRef } from "@/utils/attachments";
-import { sanitizeRichHtml } from "@/utils/richContent";
+import { formatFileSize, getAssetUrl, makeAttachmentRef } from "@/utils/attachments";
+import { richHtmlToText, sanitizeRichHtml } from "@/utils/richContent";
 
 const props = defineProps<{
   boardAssets: Array<BoardAsset>;
@@ -598,6 +585,10 @@ const { locale } = useI18n();
 const columnID = ref("");
 const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
+const descriptionEditor = ref<{
+  insertAttachment: (attachment: Record<string, string | null>) => void;
+  insertImage: (src: string, assetId: string, alt?: string) => void;
+} | null>(null);
 const cardAttachments: Ref<Array<AttachmentRef>> = ref([]);
 const tasks: Ref<Array<Task>> = ref([]);
 const cardCreatedAt = ref<string | null>(null);
@@ -636,11 +627,11 @@ const newTaskInput: Ref<HTMLTextAreaElement | null> = ref(null);
 
 const currentlyEditingTaskIndex = ref(-1);
 const currentlyEditingTaskName = ref("");
+const currentlyEditingTaskLineCount = ref(0);
 const taskEditMode = ref(false);
 
 const draggingEnabled = ref(true);
-const expandedTaskIds: Ref<string[]> = ref([]);
-const { ingestFiles } = useAttachments();
+const { ingestFiles, openAsset, pickFiles } = useAttachments();
 
 const enableTitleEditing = () => {
   emitter.emit("modalPreventClickOutsideClose");
@@ -699,6 +690,7 @@ const enableTaskEditMode = (
   draggingEnabled.value = false;
   currentlyEditingTaskIndex.value = index;
   currentlyEditingTaskName.value = task.name;
+  currentlyEditingTaskLineCount.value = taskLines(task.name).length;
 };
 
 const updateTask = (index: number) => {
@@ -709,10 +701,12 @@ const updateTask = (index: number) => {
 
   if (tasks.value[index]) {
     tasks.value[index].name = currentlyEditingTaskName.value;
+    normalizeTaskAttachmentLines(tasks.value[index], currentlyEditingTaskLineCount.value);
   }
 
   currentlyEditingTaskIndex.value = -1;
   currentlyEditingTaskName.value = "";
+  currentlyEditingTaskLineCount.value = 0;
   taskEditMode.value = false;
   draggingEnabled.value = true;
 
@@ -743,61 +737,163 @@ const updateCardAttachments = () => {
   );
 };
 
-const addFilesToCard = async (paths: string[]) => {
+const addCardAssetsToDescription = async (paths: string[]) => {
   const { assets } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
   if (assets.length === 0) return;
-  cardAttachments.value = [
-    ...cardAttachments.value,
-    ...assets.map(asset => makeAttachmentRef(asset.id)),
-  ];
+
+  for (const asset of assets) {
+    const attachment = makeAttachmentRef(asset.id, asset.kind === "image" ? "inline-image" : "attachment");
+    cardAttachments.value = [...cardAttachments.value, attachment];
+
+    if (asset.kind === "image") {
+      descriptionEditor.value?.insertImage(await getAssetUrl(asset), asset.id, asset.name);
+    } else {
+      descriptionEditor.value?.insertAttachment({
+        assetId: asset.id,
+        attachmentId: attachment.id,
+        href: "#",
+        kind: asset.kind,
+        label: `${asset.name} (${formatFileSize(asset.size)})`,
+      });
+    }
+  }
+
+  syncCardAttachmentsFromDescription();
   updateCardAttachments();
-};
-
-const removeCardAttachment = (attachment: AttachmentRef) => {
-  cardAttachments.value = cardAttachments.value.filter(item => item.id !== attachment.id);
-  updateCardAttachments();
-};
-
-const insertCardImage = async (attachment: AttachmentRef) => {
-  const asset = props.boardAssets.find(item => item.id === attachment.assetId);
-  if (!asset || asset.kind !== "image") return;
-
-  const src = await getAssetUrl(asset);
-  const imageHtml = `<p><img src="${src}" alt="${asset.name}" title="${asset.name}" data-asset-id="${asset.id}"></p>`;
-  description.value = sanitizeRichHtml(`${description.value || ""}${imageHtml}`);
   updateDescription();
+};
+
+const addFilesToCardContent = async () => {
+  const paths = await pickFiles();
+  if (paths.length > 0) await addCardAssetsToDescription(paths);
+};
+
+const extractDescriptionAttachmentRefs = () => {
+  if (typeof window === "undefined") return cardAttachments.value;
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(sanitizeRichHtml(description.value), "text/html");
+  const refs: AttachmentRef[] = [];
+
+  doc.querySelectorAll("[data-asset-id]").forEach((node) => {
+    const assetId = node.getAttribute("data-asset-id");
+    if (!assetId) return;
+    const existing = cardAttachments.value.find(item =>
+      item.id === node.getAttribute("data-attachment-id") ||
+      (item.assetId === assetId && item.role === (node.tagName.toLowerCase() === "img" ? "inline-image" : "attachment"))
+    );
+    refs.push({
+      ...(existing || makeAttachmentRef(assetId, node.tagName.toLowerCase() === "img" ? "inline-image" : "attachment")),
+      assetId,
+      role: node.tagName.toLowerCase() === "img" ? "inline-image" : "attachment",
+    });
+  });
+
+  return refs.filter((ref, index, all) => all.findIndex(item => item.id === ref.id) === index);
 };
 
 const taskKey = (task: Task, index: number) => {
   return task.id || `task-${index}`;
 };
 
-const isTaskExpanded = (task: Task, index: number) => {
-  return expandedTaskIds.value.includes(taskKey(task, index));
+const syncCardAttachmentsFromDescription = () => {
+  cardAttachments.value = extractDescriptionAttachmentRefs();
 };
 
-const toggleTaskExpanded = (task: Task, index: number) => {
-  const key = taskKey(task, index);
-  if (expandedTaskIds.value.includes(key)) {
-    expandedTaskIds.value = expandedTaskIds.value.filter(item => item !== key);
-  } else {
-    expandedTaskIds.value = [...expandedTaskIds.value, key];
-  }
+const taskLines = (value: string | null | undefined) => {
+  const lines = (value || "").split("\n");
+  return lines.length > 0 ? lines : [""];
 };
 
-const addFilesToTask = async (task: Task, paths: string[]) => {
+const taskAttachmentsForLine = (task: Task, line: number) => {
+  return (task.attachments || []).filter(attachment => (attachment.line || 0) === line);
+};
+
+const normalizeTaskAttachmentLines = (task: Task, previousLineCount = taskLines(task.name).length) => {
+  const lineCount = Math.max(1, taskLines(task.name).length);
+  task.attachments = (task.attachments || []).map(attachment => ({
+    ...attachment,
+    line: Math.min(Math.max(0, attachment.line || 0), lineCount - 1),
+  }));
+  void previousLineCount;
+};
+
+const addFilesToTaskLine = async (task: Task, paths: string[], line: number) => {
   const { assets } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
   if (assets.length === 0) return;
   task.attachments = [
     ...(task.attachments || []),
-    ...assets.map(asset => makeAttachmentRef(asset.id)),
+    ...assets.map((asset) => ({
+      ...makeAttachmentRef(asset.id),
+      line: Math.min(Math.max(0, line), Math.max(0, taskLines(task.name).length - 1)),
+    })),
   ];
   updateCardTasks();
+};
+
+const addDroppedFilesToTaskLine = async (event: DragEvent, task: Task, line: number) => {
+  const paths = Array.from(event.dataTransfer?.files || [])
+    .map(file => ("path" in file ? String((file as File & { path?: string }).path || "") : ""))
+    .filter(Boolean);
+  if (paths.length > 0) await addFilesToTaskLine(task, paths, line);
 };
 
 const removeTaskAttachment = (task: Task, attachment: AttachmentRef) => {
   task.attachments = (task.attachments || []).filter(item => item.id !== attachment.id);
   updateCardTasks();
+};
+
+const taskAttachmentAsset = (attachment: AttachmentRef) => {
+  return props.boardAssets.find(asset => asset.id === attachment.assetId) || null;
+};
+
+const attachmentLabel = (attachment: AttachmentRef) => {
+  const asset = taskAttachmentAsset(attachment);
+  return asset ? `${asset.name} (${formatFileSize(asset.size)})` : "Missing attachment";
+};
+
+const openTaskAttachment = async (attachment: AttachmentRef) => {
+  const asset = taskAttachmentAsset(attachment);
+  if (asset) await openAsset(asset);
+};
+
+const mergeLegacyTaskDetails = (task: Task) => {
+  if (!task.description) return;
+  const detailsText = richHtmlToText(task.description);
+  if (!detailsText) {
+    task.description = "";
+    return;
+  }
+
+  if (!task.name.includes(detailsText)) {
+    task.name = `${task.name}${task.name.trim() ? "\n\n" : ""}${detailsText}`;
+  }
+  task.description = "";
+};
+
+const appendLegacyCardAttachmentsToDescription = async () => {
+  const represented = new Set(extractDescriptionAttachmentRefs().map(ref => ref.assetId));
+  const missing = cardAttachments.value.filter(attachment => !represented.has(attachment.assetId));
+  if (missing.length === 0) return;
+
+  for (const attachment of missing) {
+    const asset = props.boardAssets.find(item => item.id === attachment.assetId);
+    if (!asset) continue;
+    if (asset.kind === "image") {
+      descriptionEditor.value?.insertImage(await getAssetUrl(asset), asset.id, asset.name);
+    } else {
+      descriptionEditor.value?.insertAttachment({
+        assetId: asset.id,
+        attachmentId: attachment.id,
+        href: "#",
+        kind: asset.kind,
+        label: `${asset.name} (${formatFileSize(asset.size)})`,
+      });
+    }
+  }
+  syncCardAttachmentsFromDescription();
+  updateCardAttachments();
+  updateDescription();
 };
 
 const resetDueDate = () => {
@@ -836,6 +932,8 @@ const updateDueDate = () => {
 
 const updateDescription = () => {
   description.value = sanitizeRichHtml(description.value);
+  syncCardAttachmentsFromDescription();
+  updateCardAttachments();
   emit("setCardDescription", columnID.value, props.card?.id, description.value);
   emitter.emit("modalEnableClickOutsideClose");
 };
@@ -921,10 +1019,12 @@ watch(props, (newVal) => {
         if (task.description == null) {
           task.description = "";
         }
+        mergeLegacyTaskDetails(task);
+        normalizeTaskAttachmentLines(task);
       });
     }
     tasks.value = savedTasks;
-    expandedTaskIds.value = [];
+    void nextTick(() => appendLegacyCardAttachmentsToDescription());
 
     selectedColor.value = newVal.card.color || "bg-elevation-2";
     if (newVal.card.color?.startsWith("#")) {

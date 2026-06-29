@@ -44,6 +44,8 @@ const allowedAttributes = [
   "class",
   "colspan",
   "data-asset-id",
+  "data-attachment-id",
+  "data-attachment-kind",
   "href",
   "rel",
   "rowspan",

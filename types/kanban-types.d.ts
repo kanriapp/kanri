@@ -115,6 +115,7 @@ export declare interface AttachmentRef {
   caption?: string;
   createdAt?: Date | string;
   id: string;
+  line?: number;
   role?: "attachment" | "inline-image";
 }
 

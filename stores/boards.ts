@@ -25,6 +25,7 @@ import { getCurrentTimestamp } from "@/utils/dateTime";
 import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator";
 import { BaseDirectory, mkdir, writeTextFile } from "@tauri-apps/plugin-fs";
+import { richHtmlToText } from "@/utils/richContent";
 
 type Pin = { id: string; title: string; pinIcon?: string; pinIconText?: string };
 
@@ -35,12 +36,24 @@ const normalizeAttachments = (attachments: AttachmentRef[] | undefined | null) =
 };
 
 const normalizeTasks = (tasks: Task[] | undefined | null) => {
-  return (tasks || []).map(task => ({
-    ...task,
-    attachments: normalizeAttachments(task.attachments),
-    description: task.description || "",
-    subtasks: task.subtasks || [],
-  }));
+  return (tasks || []).map((task) => {
+    const detailsText = richHtmlToText(task.description);
+    const name = detailsText && !(task.name || "").includes(detailsText)
+      ? `${task.name || ""}${task.name?.trim() ? "\n\n" : ""}${detailsText}`
+      : task.name;
+    const lineCount = Math.max(1, (name || "").split("\n").length);
+
+    return {
+      ...task,
+      attachments: normalizeAttachments(task.attachments).map(attachment => ({
+        ...attachment,
+        line: Math.min(Math.max(0, attachment.line || 0), lineCount - 1),
+      })),
+      description: "",
+      name,
+      subtasks: task.subtasks || [],
+    };
+  });
 };
 
 const normalizeCard = (card: Card) => ({
@@ -69,7 +82,12 @@ const boardNeedsNormalization = (board: Board) => {
     (column.cards || []).some(card => (
       !Array.isArray(card.attachments) ||
       !Array.isArray(card.tasks) ||
-      (card.tasks || []).some(task => !Array.isArray(task.attachments) || task.description == null)
+      (card.tasks || []).some(task =>
+        !Array.isArray(task.attachments) ||
+        task.description == null ||
+        !!task.description ||
+        (task.attachments || []).some(attachment => attachment.line == null)
+      )
     ))
   );
 };
@@ -87,6 +105,11 @@ const countAssetReferences = (board: Board, assetId: string) => {
   }
 
   return count;
+};
+
+const extractInlineAssetIds = (html: string | null | undefined) => {
+  if (!html) return [];
+  return Array.from(html.matchAll(/data-asset-id=["']([^"']+)["']/g)).map(match => match[1]);
 };
 
 const backupLegacyBoardsOnce = async (tauri: ReturnType<typeof useTauriStore>["store"], boards: Board[], pins: Pin[]) => {
@@ -504,6 +527,7 @@ export const useBoardsStore = defineStore("boards", {
       if (card === undefined) return;
       const referencedAssetIds = new Set([
         ...(card.attachments || []).map(attachment => attachment.assetId),
+        ...extractInlineAssetIds(card.description),
         ...(card.tasks || []).flatMap(task => (task.attachments || []).map(attachment => attachment.assetId)),
       ]);
       if (referencedAssetIds.size > 0) {

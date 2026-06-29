@@ -139,13 +139,44 @@ const attachmentLines = (
   }).join("\n");
 };
 
+const assetMarkdownLabel = (asset: BoardAsset) => {
+  return `${asset.name} (${asset.kind}, ${formatFileSize(asset.size)})`;
+};
+
+const richHtmlWithRelativeAssets = (
+  board: Board,
+  html: string | null | undefined,
+  copiedAssets: Map<string, string>,
+  from: "ai_context" | "board" | "card" | "task"
+) => {
+  if (!html) return "";
+
+  return html
+    .replace(/<img([^>]*?)data-asset-id=["']([^"']+)["']([^>]*)>/g, (match, before, assetId, after) => {
+      const asset = (board.assets || []).find(item => item.id === assetId);
+      const copiedPath = copiedAssets.get(assetId);
+      if (!asset || !copiedPath) return match;
+      const src = relativeLink(from, copiedPath);
+      const altMatch = String(`${before} ${after}`).match(/alt=["']([^"']*)["']/);
+      const alt = altMatch?.[1] || asset.name;
+      return `<img src="${src}" alt="${alt}" title="${asset.name}">`;
+    })
+    .replace(/<a[^>]*data-asset-id=["']([^"']+)["'][^>]*>.*?<\/a>/g, (match, assetId) => {
+      const asset = (board.assets || []).find(item => item.id === assetId);
+      const copiedPath = copiedAssets.get(assetId);
+      if (!asset || !copiedPath) return match;
+      return `<a href="${relativeLink(from, copiedPath)}" title="${assetMarkdownLabel(asset)}">${assetMarkdownLabel(asset)}</a>`;
+    });
+};
+
 const cardMarkdown = (
   board: Board,
   columnTitle: string,
   card: Card,
   copiedAssets: Map<string, string>
 ) => {
-  const descriptionMarkdown = richHtmlToMarkdown(card.description);
+  const descriptionHtml = richHtmlWithRelativeAssets(board, card.description, copiedAssets, "card");
+  const descriptionMarkdown = richHtmlToMarkdown(descriptionHtml);
   const taskRows = (card.tasks || []).map((task, index) => (
     `| ${index + 1} | ${task.finished ? "done" : "open"} | ${markdownEscape(task.name)} | ${formatDate(task.dueDate)} | ${(task.attachments || []).length} |`
   ));
@@ -166,7 +197,7 @@ const cardMarkdown = (
     descriptionMarkdown || "_No description_",
     "",
     "## Description HTML",
-    fenced("html", card.description || ""),
+    fenced("html", descriptionHtml || ""),
     "",
     "## Attachments",
     attachmentLines(board, card.attachments, copiedAssets, "card"),
@@ -198,11 +229,8 @@ const taskMarkdown = (
     `- Completed: ${formatDate(task.completedAt)}`,
     `- Due: ${formatDate(task.dueDate)}`,
     "",
-    "## Details Markdown",
-    richHtmlToMarkdown(task.description) || "_No details_",
-    "",
-    "## Details HTML",
-    fenced("html", task.description || ""),
+    "## Content",
+    task.name || "_No content_",
     "",
     "## Attachments",
     attachmentLines(board, task.attachments || [], copiedAssets, "task"),
@@ -287,7 +315,7 @@ const aiContextMarkdown = (
     "## Data Model",
     "- Board: title, columns, global tags, assets.",
     "- Card: name, description HTML, attachments, tasks, tags, due date.",
-    "- Task: title, details HTML, attachments, status, optional one-level subtasks.",
+    "- Task: content, attachments, status, optional one-level subtasks.",
     "- Attachments: stored in attachments/ with relative Markdown links.",
   ];
 
@@ -307,9 +335,10 @@ const aiContextMarkdown = (
         lines.push(`- Tags: ${(card.tags || []).map(tag => tag.text).join(", ") || "None"}`);
         lines.push("");
         lines.push("Description Markdown:");
-        lines.push(richHtmlToMarkdown(card.description) || "_No description_");
+        const descriptionHtml = richHtmlWithRelativeAssets(board, card.description, copiedAssets, "ai_context");
+        lines.push(richHtmlToMarkdown(descriptionHtml) || "_No description_");
         if (card.description) {
-          lines.push("", "Description HTML:", fenced("html", card.description));
+          lines.push("", "Description HTML:", fenced("html", descriptionHtml));
         }
         lines.push("", "Attachments:");
         lines.push(attachmentLines(board, card.attachments, copiedAssets, "ai_context"));
@@ -321,10 +350,7 @@ const aiContextMarkdown = (
           lines.push(`- Completed: ${formatDate(task.completedAt)}`);
           lines.push(`- Due: ${formatDate(task.dueDate)}`);
           lines.push("");
-          lines.push(richHtmlToMarkdown(task.description) || "_No details_");
-          if (task.description) {
-            lines.push("", "Details HTML:", fenced("html", task.description));
-          }
+          lines.push(task.name || "_No content_");
           if ((task.subtasks || []).length > 0) {
             lines.push("", "Subtasks:");
             lines.push((task.subtasks || []).map(subtask => `- [${subtask.finished ? "x" : " "}] ${subtask.name}`).join("\n"));

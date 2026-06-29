@@ -21,7 +21,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <template>
   <transition name="modal-fade">
     <div
+      v-show="true"
       :class="blurBackground ? 'backdrop-blur-xl' : 'backdrop-brightness-50'"
+      :style="modalStyle"
       class="modal z-huge size-screen inset-0 flex flex-col items-center justify-center bg-zinc-800/40 bg-clip-padding"
       @click.self="clickOutsideClose ? $emit('closeModal') : () => {}"
     >
@@ -40,15 +42,34 @@ import emitter from "@/utils/emitter";
 const props = withDefaults(
   defineProps<{
     blurBackground?: boolean;
+    centerInWorkspace?: boolean;
     clickOutsideToClose?: boolean;
   }>(),
   {
     blurBackground: true,
+    centerInWorkspace: false,
     clickOutsideToClose: true,
   }
 );
 
 const clickOutsideClose = ref(props.clickOutsideToClose);
+const workspaceOffset = ref(0);
+
+const modalStyle = computed(() => (
+  props.centerInWorkspace
+    ? { paddingLeft: `${workspaceOffset.value}px` }
+    : {}
+));
+
+const updateWorkspaceOffset = () => {
+  if (!props.centerInWorkspace || typeof window === "undefined") {
+    workspaceOffset.value = 0;
+    return;
+  }
+
+  const sidebar = document.querySelector("[data-kanri-sidebar]");
+  workspaceOffset.value = sidebar?.getBoundingClientRect().right || 0;
+};
 
 const emit = defineEmits<{
   (e: "closeModal"): void;
@@ -57,6 +78,8 @@ const emit = defineEmits<{
 
 onMounted(() => {
   document.addEventListener("keydown", keyDownListener);
+  window.addEventListener("resize", updateWorkspaceOffset);
+  updateWorkspaceOffset();
 
   emitter.on("modalPreventClickOutsideClose", () => {
     clickOutsideClose.value = false;
@@ -69,13 +92,15 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   document.removeEventListener("keydown", keyDownListener);
+  window.removeEventListener("resize", updateWorkspaceOffset);
 
   emitter.off("modalPreventClickOutsideClose");
   emitter.off("modalEnableClickOutsideClose");
 });
 
-watch(props, (_, newData) => {
+watch(props, (newData) => {
   clickOutsideClose.value = newData.clickOutsideToClose;
+  updateWorkspaceOffset();
 });
 
 const keyDownListener = (e: { key: string }) => {

@@ -48,6 +48,7 @@ const kanriAttachmentRefSchema = z.object({
   caption: z.string().optional(),
   createdAt: z.string().optional(),
   id: z.string(),
+  line: z.number().optional(),
   role: z.enum(["attachment", "inline-image"]).optional(),
 });
 

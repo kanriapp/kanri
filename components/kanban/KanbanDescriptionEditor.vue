@@ -76,6 +76,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       >
         <ph-link-simple class="size-5" />
       </button>
+      <button
+        class="bg-elevation-2-hover rounded-md p-1"
+        title="Insert Attachment"
+        @click="$emit('requestFiles')"
+      >
+        <ph-paperclip class="size-5" />
+      </button>
 
       <div class="bg-elevation-3 mx-1 h-6 w-px" />
 
@@ -155,6 +162,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       </button>
     </div>
   </bubble-menu>
+  <div class="bg-elevation-2 mt-1 flex items-center justify-end rounded-t-sm px-2 py-1">
+    <button
+      class="bg-elevation-3-hover rounded-md p-1"
+      title="Insert Attachment"
+      @click="$emit('requestFiles')"
+    >
+      <ph-paperclip class="size-5" />
+    </button>
+  </div>
   <editor-content class="bg-elevation-2 mt-1 rounded-sm" :editor="editor" />
 </template>
 
@@ -168,6 +184,7 @@ import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
+import { mergeAttributes, Node } from "@tiptap/core";
 import { BubbleMenu, Editor, EditorContent } from "@tiptap/vue-3";
 import { sanitizeRichHtml } from "@/utils/richContent";
 import emitter from "@/utils/emitter";
@@ -180,6 +197,7 @@ import {
   PhFileCode,
   PhColumnsPlusRight,
   PhLinkSimple,
+  PhPaperclip,
   PhRows,
   PhRowsPlusBottom,
   PhTable,
@@ -189,6 +207,74 @@ import {
   PhTextAlignRight,
   PhTextAlignJustify,
 } from "@phosphor-icons/vue";
+
+const AttachmentBlock = Node.create({
+  name: "attachmentBlock",
+  group: "block",
+  atom: true,
+  selectable: true,
+
+  addAttributes() {
+    return {
+      assetId: {
+        default: null,
+        parseHTML: element => element.getAttribute("data-asset-id"),
+        renderHTML: attributes => ({ "data-asset-id": attributes.assetId }),
+      },
+      attachmentId: {
+        default: null,
+        parseHTML: element => element.getAttribute("data-attachment-id"),
+        renderHTML: attributes => ({ "data-attachment-id": attributes.attachmentId }),
+      },
+      href: {
+        default: "#",
+        parseHTML: element => element.getAttribute("href") || "#",
+        renderHTML: attributes => ({ href: attributes.href || "#" }),
+      },
+      kind: {
+        default: "other",
+        parseHTML: element => element.getAttribute("data-attachment-kind") || "other",
+        renderHTML: attributes => ({ "data-attachment-kind": attributes.kind || "other" }),
+      },
+      label: {
+        default: "Attachment",
+        parseHTML: element => element.getAttribute("title") || element.textContent || "Attachment",
+        renderHTML: attributes => ({ title: attributes.label || "Attachment" }),
+      },
+    };
+  },
+
+  parseHTML() {
+    return [{ tag: "a[data-attachment-id]" }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "a",
+      mergeAttributes(HTMLAttributes, {
+        class: "kanri-file-attachment",
+        contenteditable: "false",
+      }),
+      ["span", { class: "kanri-file-attachment-icon" }, "Attachment"],
+      ["span", { class: "kanri-file-attachment-name" }, HTMLAttributes.title || "Attachment"],
+    ];
+  },
+});
+
+const AssetImage = Image.extend({
+  addAttributes() {
+    return {
+      ...(this.parent?.() || {}),
+      assetId: {
+        default: null,
+        parseHTML: element => element.getAttribute("data-asset-id"),
+        renderHTML: attributes => (
+          attributes.assetId ? { "data-asset-id": attributes.assetId } : {}
+        ),
+      },
+    };
+  },
+});
 
 export default {
   components: {
@@ -201,6 +287,7 @@ export default {
     PhCode,
     PhFileCode,
     PhLinkSimple,
+    PhPaperclip,
     PhRows,
     PhRowsPlusBottom,
     PhTable,
@@ -218,7 +305,7 @@ export default {
     },
   },
 
-  emits: ["update:modelValue", "editorBlurred"],
+  emits: ["update:modelValue", "editorBlurred", "requestFiles"],
 
   setup(props, { emit }) {
     const editor = ref(null);
@@ -237,12 +324,13 @@ export default {
         content: props.modelValue,
         extensions: [
           StarterKit,
-          Image.configure({
+          AssetImage.configure({
             allowBase64: false,
             HTMLAttributes: {
               class: "kanri-rich-image",
             },
           }),
+          AttachmentBlock,
           Link.configure({
             autolink: true,
             defaultProtocol: "https",
@@ -306,12 +394,25 @@ export default {
       editor.value
         .chain()
         .focus()
-        .setImage({ src, alt, title: alt, "data-asset-id": assetId })
+        .setImage({ assetId, src, alt, title: alt })
+        .run();
+    };
+
+    const insertAttachment = (attachment) => {
+      if (!editor.value) return;
+      editor.value
+        .chain()
+        .focus()
+        .insertContent({
+          type: "attachmentBlock",
+          attrs: attachment,
+        })
         .run();
     };
 
     return {
       editor,
+      insertAttachment,
       insertImage,
       setLink,
     };
@@ -432,5 +533,32 @@ export default {
 .tiptap a {
   color: var(--accent);
   text-decoration: underline;
+}
+
+.kanri-file-attachment {
+  align-items: center;
+  background: var(--elevation-1);
+  border: 1px solid var(--elevation-3);
+  border-radius: 0.375rem;
+  color: var(--text);
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.35rem 0;
+  max-width: 100%;
+  padding: 0.4rem 0.55rem;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.kanri-file-attachment-icon {
+  color: var(--text-dim-2);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.kanri-file-attachment-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
