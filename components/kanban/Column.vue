@@ -36,7 +36,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     >
       <div v-if="!titleEditing" class="flex flex-row items-center gap-1.5">
         <h1
-          class="stop-text-overflow ml-1 font-bold text-lg"
+          class="stop-text-overflow ml-1 text-lg font-bold"
           @click="enableTitleEditing()"
         >
           {{ props.title }}
@@ -55,7 +55,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         v-focus
         :v-disable-spellcheck="settings.disableSpellcheck"
         :class="[
-          'bg-elevation-2 border-accent text-no-overflow -m-2 mr-2 w-full rounded-sm border-2 border-dotted px-2 outline-none font-bold text-lg',
+          'bg-elevation-2 border-accent text-no-overflow -m-2 mr-2 w-full rounded-sm border-2 border-dotted px-2 text-lg font-bold outline-none',
           inputSizeClass,
         ]"
         maxlength="1000"
@@ -65,7 +65,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           updateColumnTitle();
           emitter.emit('columnActionDone');
         "
-      />
+      >
       
       <Dropdown align="end">
         <template #trigger>
@@ -78,19 +78,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         </template>
         <template #content>
             <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+              class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
               @click="enableCardAddMode(true)"
             >
                 {{$t('components.kanban.column.addCardTop')}}
             </DropdownMenuItem>
             <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+              class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
               @click="$emit('removeAllColumnCards', id)"
             >
                  {{$t('components.kanban.card.deleteAllColumnCardsAction')}}               
             </DropdownMenuItem>
             <DropdownMenuItem
-              class="bg-elevation-2-hover w-full cursor-pointer rounded-md px-4 py-1.5 pr-6 text-left flex items-center gap-2"
+              class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
               @click="$emit('removeColumn', id)"
             >
                 {{$t('components.kanban.column.deleteColumnAction')}}
@@ -107,6 +107,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       ]"
       drag-class="cursor-grabbing"
       drag-handle-selector=".kanbancard-drag"
+      :animation-duration="120"
+      :drag-begin-delay="0"
       group-name="cards"
       orientation="vertical"
       :get-ghost-parent="getGhostParent"
@@ -122,6 +124,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         :index="index"
       >
         <KanbanCard
+          :board-assets="boardAssets || []"
           :card="card"
           :index="index"
           :zoom-level="zoomLevel"
@@ -148,7 +151,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         v-focus
         v-resizable
         :class="[
-          'bg-elevation-2 border-accent-focus border-2 border-transparent mb-2 overflow-hidden rounded-sm p-1 focus:border-dotted focus:outline-none',
+          'bg-elevation-2 border-accent-focus mb-2 overflow-hidden rounded-sm border-2 border-transparent p-1 focus:border-dotted focus:outline-none',
           textAreaSizeClass,
         ]"
         maxlength="5000"
@@ -209,16 +212,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 </template>
 
 <script setup lang="ts">
-import type { Card, Tag } from "@/types/kanban-types";
+import type { BoardAsset, Card, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { applyDrag } from "@/utils/drag-n-drop";
 import { getCurrentTimestamp } from "@/utils/dateTime";
 import emitter from "@/utils/emitter";
+import { richHtmlToText } from "@/utils/richContent";
 import { PlusIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/solid";
 //@ts-expect-error, sadly this library does not have ts typings
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   cardsList: Array<Card>;
@@ -227,6 +230,7 @@ const props = defineProps<{
   title: string;
   zoomLevel: number;
   addToTopButtonShown?: boolean;
+  boardAssets?: Array<BoardAsset>;
   cardCountDisplayEnabled?: boolean;
   cardSearchQuery?: string;
 }>();
@@ -263,8 +267,6 @@ const emit = defineEmits<{
   (e: "duplicateCard", columnId: string, cardId: string | undefined): void;
   (e: "reorderCards", columnId: string, newCardsOrder: Array<Card>): void;
 }>();
-
-const { t } = useI18n();
 
 const settings = useSettingsStore();
 
@@ -398,21 +400,6 @@ const inputSizeClass = computed(() => {
       return "text-xl py-2";
     default:
       return "text-base py-1";
-  }
-});
-
-const iconSizeClass = computed(() => {
-  switch (props.zoomLevel) {
-    case -1:
-      return "size-4";
-    case 0:
-      return "size-4";
-    case 1:
-      return "size-5";
-    case 2:
-      return "size-6";
-    default:
-      return "size-4";
   }
 });
 
@@ -586,12 +573,72 @@ const fuzzyMatch = (input: string, str: string) => {
   return matches === inputWords.length;
 };
 
+const padTwoDigits = (value: number) => {
+  return String(value).padStart(2, "0");
+};
+
+const getTimeSearchTokens = (value: Date | string | null | undefined) => {
+  if (value == null) return [];
+
+  const rawValue = String(value);
+  const parsedDate = new Date(value);
+  if (Number.isNaN(parsedDate.getTime())) {
+    return [rawValue.toLowerCase()];
+  }
+
+  const year = parsedDate.getFullYear();
+  const month = padTwoDigits(parsedDate.getMonth() + 1);
+  const day = padTwoDigits(parsedDate.getDate());
+  const hours = padTwoDigits(parsedDate.getHours());
+  const minutes = padTwoDigits(parsedDate.getMinutes());
+  const seconds = padTwoDigits(parsedDate.getSeconds());
+
+  return [
+    rawValue.toLowerCase(),
+    `${year}-${month}-${day}`,
+    `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`,
+    parsedDate.toISOString().toLowerCase(),
+  ];
+};
+
+const getTaskContent = (card: Card) => {
+  const cardTasks = card.tasks || [];
+  return cardTasks.map((task) => {
+    const taskAttachments = getAttachmentContent(task.attachments || []);
+    const subtasks = (task.subtasks || []).map(subtask => subtask.name || "").join(" ");
+    return `${task.name || ""} ${richHtmlToText(task.description)} ${subtasks} ${taskAttachments}`;
+  }).join(" ").toLowerCase();
+};
+
+const getAttachmentContent = (attachments: Card["attachments"]) => {
+  const boardAssets = props.boardAssets || [];
+  return (attachments || [])
+    .map(attachment => boardAssets.find(asset => asset.id === attachment.assetId)?.name || "")
+    .join(" ")
+    .toLowerCase();
+};
+
+const getCreatedTimeContent = (card: Card) => {
+  const taskCreatedAt = (card.tasks || []).flatMap((task) => getTimeSearchTokens(task.createdAt));
+  return [...getTimeSearchTokens(card.createdAt), ...taskCreatedAt].join(" ");
+};
+
+const getCompletedTimeContent = (card: Card) => {
+  const taskCompletedAt = (card.tasks || []).flatMap((task) => getTimeSearchTokens(task.completedAt));
+  return taskCompletedAt.join(" ");
+};
+
+const getAllTimeContent = (card: Card) => {
+  return `${getCreatedTimeContent(card)} ${getCompletedTimeContent(card)}`.trim();
+};
+
 const filteredCards = computed(() => {
   if (props.cardSearchQuery == null || !/\S/.test(props.cardSearchQuery)) {
     return cards.value;
   }
 
   const searchQuery = props.cardSearchQuery.trim();
+  const normalizedSearchQuery = searchQuery.toLowerCase();
 
   // check for name: filter
   if (searchQuery.startsWith("name:")) {
@@ -622,18 +669,77 @@ const filteredCards = computed(() => {
 
     return cards.value.filter((card) => {
       const cardDescription = card.description || "";
-      return cardDescription.toLowerCase().includes(descriptionQuery);
+      return richHtmlToText(cardDescription).toLowerCase().includes(descriptionQuery);
     });
   }
 
-  // default search (name or tags)
+  // check for task: filter
+  if (searchQuery.startsWith("task:")) {
+    const taskQuery = searchQuery.substring(5).trim().toLowerCase();
+    if (!taskQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      return getTaskContent(card).includes(taskQuery);
+    });
+  }
+
+  // check for attachment: filter
+  if (searchQuery.startsWith("attachment:")) {
+    const attachmentQuery = searchQuery.substring(11).trim().toLowerCase();
+    if (!attachmentQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      return getAttachmentContent(card.attachments).includes(attachmentQuery) ||
+        (card.tasks || []).some(task => getAttachmentContent(task.attachments || []).includes(attachmentQuery));
+    });
+  }
+
+  // check for created: filter
+  if (searchQuery.startsWith("created:")) {
+    const createdQuery = searchQuery.substring(8).trim().toLowerCase();
+    if (!createdQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      return getCreatedTimeContent(card).includes(createdQuery);
+    });
+  }
+
+  // check for completed: filter
+  if (searchQuery.startsWith("completed:")) {
+    const completedQuery = searchQuery.substring(10).trim().toLowerCase();
+    if (!completedQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      return getCompletedTimeContent(card).includes(completedQuery);
+    });
+  }
+
+  // check for time: filter
+  if (searchQuery.startsWith("time:")) {
+    const timeQuery = searchQuery.substring(5).trim().toLowerCase();
+    if (!timeQuery) return cards.value;
+
+    return cards.value.filter((card) => {
+      return getAllTimeContent(card).includes(timeQuery);
+    });
+  }
+
+  // default search (name, description, tags, task content, created/completed time)
   return cards.value.filter((card) => {
     const cardName = card.name;
+    const cardDescription = card.description || "";
     const cardTags = card.tags || [];
+    const cardTaskContent = getTaskContent(card);
+    const cardAttachmentContent = getAttachmentContent(card.attachments);
+    const cardTimeContent = getAllTimeContent(card);
 
     return (
       fuzzyMatch(searchQuery, cardName) ||
-      cardTags.some((tag) => tag.text.includes(searchQuery))
+      richHtmlToText(cardDescription).toLowerCase().includes(normalizedSearchQuery) ||
+      cardTags.some((tag) => tag.text.toLowerCase().includes(normalizedSearchQuery)) ||
+      cardTaskContent.includes(normalizedSearchQuery) ||
+      cardAttachmentContent.includes(normalizedSearchQuery) ||
+      cardTimeContent.includes(normalizedSearchQuery)
     );
   });
 });
@@ -726,6 +832,7 @@ const addCard = () => {
 
   const card: Card = {
     id: generateUniqueID(),
+    attachments: [],
     createdAt: getCurrentTimestamp(),
     name: newCardName.value,
     description: "",

@@ -20,12 +20,102 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import { defineStore } from "pinia";
-import type { Board, Column, Card, Tag } from "@/types/kanban-types";
+import type { Board, Column, Card, Tag, BoardAsset, AttachmentRef, Task } from "@/types/kanban-types";
 import { getCurrentTimestamp } from "@/utils/dateTime";
 import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator";
+import { BaseDirectory, mkdir, writeTextFile } from "@tauri-apps/plugin-fs";
 
 type Pin = { id: string; title: string; pinIcon?: string; pinIconText?: string };
+
+export const KANRI_SCHEMA_VERSION = 2;
+
+const normalizeAttachments = (attachments: AttachmentRef[] | undefined | null) => {
+  return (attachments || []).filter(attachment => attachment && attachment.assetId && attachment.id);
+};
+
+const normalizeTasks = (tasks: Task[] | undefined | null) => {
+  return (tasks || []).map(task => ({
+    ...task,
+    attachments: normalizeAttachments(task.attachments),
+    description: task.description || "",
+    subtasks: task.subtasks || [],
+  }));
+};
+
+const normalizeCard = (card: Card) => ({
+  ...card,
+  attachments: normalizeAttachments(card.attachments),
+  description: card.description || "",
+  tasks: normalizeTasks(card.tasks),
+});
+
+const normalizeBoard = (board: Board) => ({
+  ...board,
+  assets: board.assets || [],
+  columns: (board.columns || []).map(column => ({
+    ...column,
+    cards: (column.cards || []).map(normalizeCard),
+  })),
+  globalTags: board.globalTags || [],
+  schemaVersion: KANRI_SCHEMA_VERSION,
+});
+
+const boardNeedsNormalization = (board: Board) => {
+  if (board.schemaVersion !== KANRI_SCHEMA_VERSION) return true;
+  if (!Array.isArray(board.assets)) return true;
+
+  return (board.columns || []).some(column =>
+    (column.cards || []).some(card => (
+      !Array.isArray(card.attachments) ||
+      !Array.isArray(card.tasks) ||
+      (card.tasks || []).some(task => !Array.isArray(task.attachments) || task.description == null)
+    ))
+  );
+};
+
+const countAssetReferences = (board: Board, assetId: string) => {
+  let count = 0;
+
+  for (const column of board.columns || []) {
+    for (const card of column.cards || []) {
+      count += (card.attachments || []).filter(attachment => attachment.assetId === assetId).length;
+      for (const task of card.tasks || []) {
+        count += (task.attachments || []).filter(attachment => attachment.assetId === assetId).length;
+      }
+    }
+  }
+
+  return count;
+};
+
+const backupLegacyBoardsOnce = async (tauri: ReturnType<typeof useTauriStore>["store"], boards: Board[], pins: Pin[]) => {
+  const backupCreated = await tauri.get("attachmentsMigrationBackupCreated");
+  if (backupCreated) return;
+
+  try {
+    await mkdir("kanri-backups", {
+      baseDir: BaseDirectory.AppLocalData,
+      recursive: true,
+    });
+  } catch {
+    // Directory may already exist.
+  }
+
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const backup = JSON.stringify({
+    createdAt: new Date().toISOString(),
+    reason: "Pre-attachments schema backup",
+    boards,
+    pins,
+  }, null, 2);
+
+  await writeTextFile(`kanri-backups/pre-attachments-${timestamp}.json`, backup, {
+    baseDir: BaseDirectory.AppLocalData,
+  });
+  await tauri.set("attachmentsMigrationBackupCreated", true);
+  await tauri.save();
+};
 
 export const useBoardsStore = defineStore("boards", {
   state: () => ({
@@ -36,25 +126,42 @@ export const useBoardsStore = defineStore("boards", {
   getters: {
     boardById: (state) => (id: string) => state.boards.find(b => b.id === id) ?? null,
     isPinned: (state) => (id: string) => !!state.pins.find(p => p.id === id),
+    assetById: (state) => (boardId: string, assetId: string) => {
+      const board = state.boards.find(b => b.id === boardId);
+      return board?.assets?.find(asset => asset.id === assetId) ?? null;
+    },
+    assetReferenceCount: (state) => (boardId: string, assetId: string) => {
+      const board = state.boards.find(b => b.id === boardId);
+      if (!board) return 0;
+      return countAssetReferences(board, assetId);
+    },
   },
   actions: {
     async init() {
       if (this.initialized) return;
       const tauri = useTauriStore().store;
 
-      this.boards = (await tauri.get("boards")) || [];
-      this.pins = (await tauri.get("pins")) || [];
+      const savedBoards = ((await tauri.get("boards")) || []) as Board[];
+      const savedPins = ((await tauri.get("pins")) || []) as Pin[];
+      if (savedBoards.some(boardNeedsNormalization)) {
+        await backupLegacyBoardsOnce(tauri, savedBoards, savedPins);
+      }
+
+      this.boards = savedBoards.map(normalizeBoard);
+      this.pins = savedPins;
       this.initialized = true;
 
       this._setupAutoSave();
     },
     async forceReloadBoards() {
       const tauri = useTauriStore().store;
-      this.boards = (await tauri.get("boards")) || [];
+      const savedBoards = ((await tauri.get("boards")) || []) as Board[];
+      this.boards = savedBoards.map(normalizeBoard);
     },
     async save() {
       const tauri = useTauriStore().store;
       try {
+        await tauri.set("schemaVersion", KANRI_SCHEMA_VERSION);
         await tauri.set("boards", this.boards);
         await tauri.set("pins", this.pins);
         await tauri.save();
@@ -67,21 +174,22 @@ export const useBoardsStore = defineStore("boards", {
 
     // Board CRUD
     upsertBoard(board: Board) {
-      const i = this.boards.findIndex(b => b.id === board.id);
-      board.lastEdited = new Date();
+      const normalizedBoard = normalizeBoard(board);
+      const i = this.boards.findIndex(b => b.id === normalizedBoard.id);
+      normalizedBoard.lastEdited = new Date();
 
       if (i === -1) {
-        if (!board.id) {
-          board.id = generateUniqueID();
+        if (!normalizedBoard.id) {
+          normalizedBoard.id = generateUniqueID();
         }
-        if (!board.createdAt) {
-          board.createdAt = new Date();
+        if (!normalizedBoard.createdAt) {
+          normalizedBoard.createdAt = new Date();
         }
-        this.boards.push(board);
+        this.boards.push(normalizedBoard);
         return;
       }
 
-      this.boards[i] = board;
+      this.boards[i] = normalizedBoard;
     },
     removeBoard(id: string) {
       this.boards = this.boards.filter(b => b.id !== id);
@@ -260,6 +368,31 @@ export const useBoardsStore = defineStore("boards", {
       b.lastEdited = new Date();
     },
 
+    // Board asset ops
+    upsertBoardAsset(boardId: string, asset: BoardAsset) {
+      const b = this.boardById(boardId);
+      if (!b) return;
+      if (!b.assets) b.assets = [];
+
+      const index = b.assets.findIndex(existing => existing.id === asset.id);
+      if (index === -1) {
+        b.assets.push(asset);
+      } else {
+        b.assets[index] = asset;
+      }
+
+      b.lastEdited = new Date();
+    },
+    removeBoardAsset(boardId: string, assetId: string) {
+      const b = this.boardById(boardId);
+      if (!b || !b.assets) return false;
+      if (countAssetReferences(b, assetId) > 0) return false;
+
+      b.assets = b.assets.filter(asset => asset.id !== assetId);
+      b.lastEdited = new Date();
+      return true;
+    },
+
     // Card ops
     createCard(boardId: string, columnId: string, card: Card, addToTop?: boolean) {
       const b = this.boardById(boardId);
@@ -269,11 +402,12 @@ export const useBoardsStore = defineStore("boards", {
       if (!card.createdAt) {
         card.createdAt = getCurrentTimestamp();
       }
+      const normalizedCard = normalizeCard(card);
 
       if (addToTop) {
-        col.cards.unshift(card);
+        col.cards.unshift(normalizedCard);
       } else {
-        col.cards.push(card);
+        col.cards.push(normalizedCard);
       }
       b.lastEdited = new Date();
     },
@@ -340,6 +474,11 @@ export const useBoardsStore = defineStore("boards", {
       mut(card);
       b.lastEdited = new Date();
     },
+    setCardAttachments(boardId: string, columnId: string, cardId: string, attachments: AttachmentRef[]) {
+      this.mutateCard(boardId, columnId, cardId, (card) => {
+        card.attachments = normalizeAttachments(attachments);
+      });
+    },
     reorderCards(boardId: string, columnId: string, nextCards: Card[]) {
       const b = this.boardById(boardId);
       if (!b) return;
@@ -363,6 +502,19 @@ export const useBoardsStore = defineStore("boards", {
 
       const [card] = sourceCol.cards.splice(cardIndex, 1);
       if (card === undefined) return;
+      const referencedAssetIds = new Set([
+        ...(card.attachments || []).map(attachment => attachment.assetId),
+        ...(card.tasks || []).flatMap(task => (task.attachments || []).map(attachment => attachment.assetId)),
+      ]);
+      if (referencedAssetIds.size > 0) {
+        if (!targetBoard.assets) targetBoard.assets = [];
+        for (const assetId of referencedAssetIds) {
+          const sourceAsset = (sourceBoard.assets || []).find(asset => asset.id === assetId);
+          if (!sourceAsset) continue;
+          if (targetBoard.assets.some(asset => asset.id === sourceAsset.id)) continue;
+          targetBoard.assets.push({ ...sourceAsset });
+        }
+      }
       targetCol.cards.push(card);
       targetBoard.lastEdited = new Date();
       sourceBoard.lastEdited = new Date();

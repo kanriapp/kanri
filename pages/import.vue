@@ -25,7 +25,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     </h1>
     <span class="text-dim-3">{{ $t("pages.import.importExportSubtext") }}</span>
 
-    <TabsRoot class="mt-4 flex w-1/2 flex-col" default-value="tab1">
+    <TabsRoot class="mt-4 flex w-full max-w-3xl flex-col" default-value="tab1">
       <TabsList
         class="bg-elevation-1 relative flex shrink-0 rounded-md"
         aria-label="Manage your account"
@@ -156,14 +156,83 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               {{ $t("pages.import.exportTabFullButton") }}
             </button>
           </div>
+          <div class="border-elevation-3 border-t pt-4">
+            <h3 class="text-lg font-semibold tracking-tight">
+              AI / Obsidian export
+            </h3>
+            <p class="text-dim-1">
+              Creates a timestamped folder with Markdown, manifest, JSON data, and copied attachments.
+            </p>
+            <button
+              class="bg-elevation-1 bg-elevation-2-hover border-accent mt-4 cursor-pointer rounded-md border border-dotted p-2 px-8 font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+              :disabled="aiExportRunning"
+              @click="exportAiArchive"
+            >
+              Export AI archive
+            </button>
+            <button
+              class="text-dim-2 bg-elevation-2-hover ml-3 rounded-md px-3 py-2 text-sm"
+              @click="aiExportDetailsOpen = !aiExportDetailsOpen"
+            >
+              {{ aiExportDetailsOpen ? "Hide details" : "Show details" }}
+            </button>
+            <div
+              v-if="aiExportDetailsOpen"
+              class="text-dim-2 mt-3 text-sm leading-6"
+            >
+              <p>Output includes ai_context.md, manifest.json, kanri-data.json, per-board/card/task Markdown, and attachments/** files.</p>
+              <p>Markdown links are relative, rich text keeps both Markdown and original HTML, and skipped attachments are recorded in the manifest.</p>
+            </div>
+            <div
+              v-if="aiExportResultPath"
+              class="mt-3 flex flex-wrap items-center gap-2 text-sm"
+            >
+              <span class="text-dim-2 text-no-overflow max-w-full">{{ aiExportResultPath }}</span>
+              <button class="bg-elevation-2-hover rounded-md px-3 py-1" @click="openAiExportFolder">
+                Open folder
+              </button>
+              <button class="bg-elevation-2-hover rounded-md px-3 py-1" @click="copyAiExportPath">
+                Copy path
+              </button>
+            </div>
+          </div>
         </div>
       </TabsContent>
     </TabsRoot>
+    <div
+      v-if="aiExportRunning && aiExportProgress"
+      class="fixed inset-0 z-[99999] flex items-center justify-center bg-black/40"
+    >
+      <div class="bg-elevation-1 border-elevation-3 w-[min(92vw,32rem)] rounded-md border p-5 shadow-xl">
+        <h2 class="text-xl font-bold">Exporting AI archive</h2>
+        <p class="text-dim-2 mt-1 text-sm">{{ aiExportProgress.stage }}</p>
+        <p class="text-dim-1 mt-2 min-h-5 text-sm">{{ aiExportProgress.currentItem }}</p>
+        <div class="bg-elevation-3 mt-4 h-2 overflow-hidden rounded-sm">
+          <div
+            class="bg-accent h-full transition-[width] duration-200"
+            :style="{ width: aiExportPercent + '%' }"
+          />
+        </div>
+        <div class="text-dim-2 mt-2 flex justify-between text-xs">
+          <span>{{ aiExportProgress.completed }} / {{ aiExportProgress.total }}</span>
+          <span>{{ aiExportProgress.errors }} errors/skipped</span>
+        </div>
+        <div class="mt-5 flex justify-end">
+          <button
+            class="bg-elevation-2-hover rounded-md px-4 py-2"
+            @click="aiExportCancelRequested = true"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
 <script setup lang="ts">
 import type { Board, Column, Tag, Card } from "@/types/kanban-types";
+import type { AiExportProgress, MissingAssetAction } from "@/utils/aiExport";
 
 import { useTauriStore } from "@/stores/tauriStore";
 import {
@@ -174,9 +243,12 @@ import {
 } from "@/types/json-schemas";
 import { ask, message, open, save } from "@tauri-apps/plugin-dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
+import { openPath } from "@tauri-apps/plugin-opener";
 import { useI18n } from "vue-i18n";
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ZodError, z } from "zod";
+import { AiExportCancelled, exportKanriAiArchive } from "@/utils/aiExport";
+import { KANRI_SCHEMA_VERSION } from "@/stores/boards";
 
 const router = useRouter();
 
@@ -187,10 +259,127 @@ const theme = useThemeStore();
 const { t } = useI18n();
 
 const boards: Ref<Board[]> = ref([]);
+const aiExportCancelRequested = ref(false);
+const aiExportDetailsOpen = ref(false);
+const aiExportProgress = ref<AiExportProgress | null>(null);
+const aiExportResultPath = ref("");
+const aiExportRunning = ref(false);
+
+const aiExportPercent = computed(() => {
+  if (!aiExportProgress.value || aiExportProgress.value.total === 0) return 0;
+  return Math.min(100, Math.round((aiExportProgress.value.completed / aiExportProgress.value.total) * 100));
+});
 
 onMounted(async () => {
   boards.value = ((await store.get("boards")) as Board[]) || [];
 });
+
+const getFullExportData = async () => {
+  const savedBoards = ((await store.get("boards")) as Board[]) || [];
+  const boardSortingOption = await store.get("boardSortingOption");
+  const pins = await store.get("pins");
+  const reverseSorting = await store.get("reverseSorting");
+  const activeTheme = await store.get("activeTheme");
+  const colors = await store.get("colors");
+  const savedCustomTheme = await store.get("savedCustomTheme");
+  const columnZoomLevel = await store.get("columnZoomLevel");
+  const lastInstalledVersion = await store.get("lastInstalledVersion");
+  const animationsEnabled = await store.get("animationsEnabled");
+  const defaultRelativeDueDatesEnabled = await store.get(
+    "defaultRelativeDueDatesEnabled"
+  );
+  const addToTopOfColumnButtonEnabled = await store.get(
+    "addToTopOfColumnButtonEnabled"
+  );
+  const displayColumnCardCountEnabled = await store.get(
+    "displayColumnCardCountEnabled"
+  );
+
+  return {
+    activeTheme,
+    addToTopOfColumnButtonEnabled,
+    animationsEnabled,
+    boardSortingOption,
+    boards: savedBoards,
+    colors,
+    columnZoomLevel,
+    defaultRelativeDueDatesEnabled,
+    displayColumnCardCountEnabled,
+    lastInstalledVersion,
+    pins,
+    reverseSorting,
+    savedCustomTheme,
+    schemaVersion: KANRI_SCHEMA_VERSION,
+  };
+};
+
+const exportAiArchive = async () => {
+  if (aiExportRunning.value) return;
+
+  const selected = await open({
+    directory: true,
+    multiple: false,
+    title: "Select folder for AI export",
+  });
+  if (selected === null || Array.isArray(selected)) return;
+
+  aiExportCancelRequested.value = false;
+  aiExportProgress.value = {
+    completed: 0,
+    currentItem: "Preparing export",
+    errors: 0,
+    stage: "Preparing",
+    total: 1,
+  };
+  aiExportResultPath.value = "";
+  aiExportRunning.value = true;
+
+  try {
+    const exportData = await getFullExportData();
+    const result = await exportKanriAiArchive(selected, exportData, {
+      isCancelled: () => aiExportCancelRequested.value,
+      onMissingAsset: async (asset): Promise<MissingAssetAction> => {
+        const retry = await ask(
+          `Attachment "${asset.name}" is missing or unreadable. Retry now?`,
+          { kind: "warning", title: "Kanri AI export" }
+        );
+        if (retry) return "retry";
+
+        const skip = await ask(
+          `Skip "${asset.name}" and record it in manifest.json? Choosing No cancels the export.`,
+          { kind: "warning", title: "Kanri AI export" }
+        );
+        return skip ? "skip" : "cancel";
+      },
+      onProgress: (progress) => {
+        aiExportProgress.value = progress;
+      },
+    });
+    aiExportResultPath.value = result.exportDir;
+    await message(`AI export created:\n${result.exportDir}`, { kind: "info" });
+  } catch (error) {
+    if (error instanceof AiExportCancelled) {
+      await message("AI export cancelled. Incomplete export folder was removed.", {
+        kind: "info",
+      });
+    } else {
+      console.error(error);
+      await message(`AI export failed: ${String(error)}`, { kind: "error" });
+    }
+  } finally {
+    aiExportRunning.value = false;
+  }
+};
+
+const openAiExportFolder = async () => {
+  if (!aiExportResultPath.value) return;
+  await openPath(aiExportResultPath.value);
+};
+
+const copyAiExportPath = async () => {
+  if (!aiExportResultPath.value) return;
+  await navigator.clipboard.writeText(aiExportResultPath.value);
+};
 
 const exportJSON = async () => {
   const filePath = await save({
@@ -229,6 +418,7 @@ const exportJSON = async () => {
       activeTheme,
       boardSortingOption,
       boards: savedBoards,
+      schemaVersion: KANRI_SCHEMA_VERSION,
       pins,
       colors,
       columnZoomLevel,

@@ -43,6 +43,27 @@ const kanriTagSchema = z.object({
   style: z.string().optional(),
 });
 
+const kanriAttachmentRefSchema = z.object({
+  assetId: z.string(),
+  caption: z.string().optional(),
+  createdAt: z.string().optional(),
+  id: z.string(),
+  role: z.enum(["attachment", "inline-image"]).optional(),
+});
+
+const kanriBoardAssetSchema = z.object({
+  blobPath: z.string(),
+  createdAt: z.string().optional(),
+  id: z.string(),
+  kind: z.enum(["document", "image", "other", "pdf", "spreadsheet"]),
+  mimeType: z.string().optional().nullable(),
+  name: z.string(),
+  originalUrl: z.string().optional().nullable(),
+  sha256: z.string(),
+  size: z.number(),
+  status: z.enum(["available", "error", "missing", "remote"]).optional(),
+});
+
 const kanriSubtaskSchema = z.object({
   completedAt: z.string().optional().nullable(),
   createdAt: z.string().optional(),
@@ -52,8 +73,10 @@ const kanriSubtaskSchema = z.object({
 });
 
 const kanriTaskSchema = z.object({
+  attachments: z.array(kanriAttachmentRefSchema).optional(),
   completedAt: z.string().optional().nullable(),
   createdAt: z.string().optional(),
+  description: z.string().optional(),
   id: z.string().optional(),
   finished: z.boolean(),
   name: z.string(),
@@ -62,10 +85,13 @@ const kanriTaskSchema = z.object({
 });
 
 const kanriCardSchema = z.object({
+  attachments: z.array(kanriAttachmentRefSchema).optional(),
   color: z.string().optional(),
   createdAt: z.string().optional(),
   description: z.string().optional(),
   id: z.string().optional(),
+  isDueDateCompleted: z.boolean().optional(),
+  isDueDateCounterRelative: z.boolean().optional(),
   name: z.string(),
   tasks: z.array(kanriTaskSchema).optional(),
   dueDate: z.string().optional().nullable(),
@@ -88,11 +114,14 @@ const kanriBoardBackgroundSchema = z
   .nullable();
 
 export const kanriBoardSchema = z.object({
+  assets: z.array(kanriBoardAssetSchema).optional(),
   globalTags: z.array(kanriTagSchema).optional().nullable(),
   background: kanriBoardBackgroundSchema,
   columns: z.array(kanriColumnSchema),
+  createdAt: z.string().optional(),
   id: z.string(),
   lastEdited: z.string().optional(),
+  schemaVersion: z.number().optional(),
   title: z.string(),
 });
 
@@ -110,6 +139,7 @@ export const kanriJsonSchema = z.object({
   colors: kanriThemeSchema,
   columnZoomLevel: z.number().optional().nullable(),
   lastInstalledVersion: z.string().optional().nullable(),
+  schemaVersion: z.number().optional(),
   savedCustomTheme: kanriThemeSchema.optional().nullable(),
   reverseSorting: z.boolean().optional().nullable(),
   addToTopOfColumnButtonEnabled: z.boolean().optional().nullable(),

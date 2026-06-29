@@ -25,8 +25,10 @@ export declare interface Board {
   id: string;
   lastEdited?: Date | string;
   createdAt?: Date | string;
+  schemaVersion?: number;
   title: string;
   globalTags?: Array<Tag> | null;
+  assets?: Array<BoardAsset>;
 }
 
 export declare interface BackgroundSettings {
@@ -42,8 +44,10 @@ export declare interface Column {
 }
 
 export declare interface Task {
+  attachments?: Array<AttachmentRef>;
   completedAt?: Date | string | null;
   createdAt?: Date | string;
+  description?: string;
   finished: boolean;
   id?: string;
   dueDate?: Date | string | null;
@@ -67,6 +71,7 @@ export declare interface Tag {
 }
 
 export declare interface Card {
+  attachments?: Array<AttachmentRef>;
   color?: string;
   createdAt?: Date | string;
   description?: string;
@@ -77,6 +82,40 @@ export declare interface Card {
   name: string;
   tasks?: Array<Task>;
   tags?: Array<Tag> | null;
+}
+
+export declare type AttachmentKind =
+  | "document"
+  | "image"
+  | "other"
+  | "pdf"
+  | "spreadsheet";
+
+export declare type AttachmentStatus =
+  | "available"
+  | "error"
+  | "missing"
+  | "remote";
+
+export declare interface BoardAsset {
+  blobPath: string;
+  createdAt?: Date | string;
+  id: string;
+  kind: AttachmentKind;
+  mimeType?: string | null;
+  name: string;
+  originalUrl?: string | null;
+  sha256: string;
+  size: number;
+  status?: AttachmentStatus;
+}
+
+export declare interface AttachmentRef {
+  assetId: string;
+  caption?: string;
+  createdAt?: Date | string;
+  id: string;
+  role?: "attachment" | "inline-image";
 }
 
 export declare interface Theme {
@@ -103,7 +142,9 @@ export declare type ThemeIdentifiers =
 
 export default {
   Board,
+  BoardAsset,
   Card,
   Column,
+  AttachmentRef,
   ThemeIdentifiers,
 };

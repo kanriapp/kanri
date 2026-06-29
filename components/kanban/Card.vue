@@ -43,7 +43,7 @@ limitations under the License.
               @double-click="enableCardEditMode"
               @single-click="$emit('openEditCardModal', card)"
             >
-              <hr v-if="name === '---'" class="mt-0.5" />
+              <hr v-if="name === '---'" class="mt-0.5" >
               <p v-else ref="cardNameText">
                 {{ name }}
               </p>
@@ -117,30 +117,10 @@ limitations under the License.
           </div>
 
           <div
-            v-if="dueSoonTaskItemCount > 0"
-            class="flex flex-row items-center gap-1"
-          >
-            <PhClock :class="[cardTextColorDim, iconSizeClass]" />
-            <span :class="[cardTextColorDim, taskTextClass]">
-              {{ dueSoonTaskItemCount }}
-            </span>
-          </div>
-
-          <div
-            v-if="overdueTaskItemCount > 0"
-            class="flex flex-row items-center gap-1"
-          >
-            <PhWarningCircle :class="['text-red-500', iconSizeClass]" />
-            <span :class="['text-red-500', taskTextClass]">
-              {{ overdueTaskItemCount }}
-            </span>
-          </div>
-
-          <div
             v-if="dueDate"
             class="flex flex-row items-center gap-1"
             :class="{
-              'text-buttons rounded-sm bg-accent px-1': isDueDateCompleted,
+              'text-buttons bg-accent rounded-sm px-1': isDueDateCompleted,
               'text-buttons rounded-sm bg-red-600 px-1': dueDateOverdue && !isDueDateCompleted,
             }"
           >
@@ -152,6 +132,35 @@ limitations under the License.
             <PhClock v-else :class="iconSizeClass" />
             <span :class="taskTextClass">{{ getFormattedDueDate }}</span>
           </div>
+
+          <div
+            v-if="attachmentCount > 0"
+            class="flex flex-row items-center gap-1"
+          >
+            <PhPaperclip :class="[cardTextColorDim, iconSizeClass]" />
+            <span :class="[cardTextColorDim, taskTextClass]">{{ attachmentCount }}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="cardCreatedAtFormatted || cardCompletedAtFormatted"
+          class="mt-1 flex w-full flex-col gap-0.5 text-xs"
+          @click="$emit('openEditCardModal', card)"
+        >
+          <p
+            v-if="cardCreatedAtFormatted"
+            :class="[cardTextColorDim]"
+            class="text-no-overflow"
+          >
+            Created: {{ cardCreatedAtFormatted }}
+          </p>
+          <p
+            v-if="cardCompletedAtFormatted"
+            :class="[cardTextColorDim]"
+            class="text-no-overflow"
+          >
+            Completed: {{ cardCompletedAtFormatted }}
+          </p>
         </div>
       </div>
     </ContextMenuTrigger>
@@ -185,7 +194,7 @@ limitations under the License.
 </template>
 
 <script setup lang="ts">
-import type { Card, Tag } from "@/types/kanban-types";
+import type { BoardAsset, Card, Tag } from "@/types/kanban-types";
 
 import { getContrast } from "~/utils/colorUtils";
 import { XMarkIcon } from "@heroicons/vue/24/solid";
@@ -194,8 +203,8 @@ import {
   PhChecks,
   PhClock,
   PhListChecks,
+  PhPaperclip,
   PhTextAlignLeft,
-  PhWarningCircle,
 } from "@phosphor-icons/vue";
 
 import {
@@ -207,6 +216,7 @@ import {
 } from "radix-vue";
 
 const props = defineProps<{
+  boardAssets?: BoardAsset[];
   card: Card;
   zoomLevel: number;
 }>();
@@ -269,6 +279,7 @@ const cardHasNoExtraProperties = computed(() => {
   return (
     (!tasks.value || tasks.value.length === 0) &&
     isDescriptionEmpty &&
+    attachmentCount.value === 0 &&
     !dueDate.value &&
     (props.card.tags || []).length === 0 &&
     !props.card.name.startsWith("---")
@@ -303,33 +314,12 @@ const allTasksCompleted = computed(() => {
   return false; //default return
 });
 
-const taskAndSubtaskDueDates = computed(() => {
-  if (!tasks.value) return [] as number[];
+const attachmentCount = computed(() => {
+  const taskAttachmentCount = (tasks.value || []).reduce((total, task) => {
+    return total + (task.attachments || []).length;
+  }, 0);
 
-  const dueDates: number[] = [];
-
-  for (const task of tasks.value) {
-    if (!task.finished && task.dueDate) {
-      const dateMs = new Date(task.dueDate).getTime();
-      if (!Number.isNaN(dateMs)) dueDates.push(dateMs);
-    }
-
-  }
-
-  return dueDates;
-});
-
-const overdueTaskItemCount = computed(() => {
-  const now = Date.now();
-  return taskAndSubtaskDueDates.value.filter(dueMs => dueMs < now).length;
-});
-
-const dueSoonTaskItemCount = computed(() => {
-  const now = Date.now();
-  const nextDay = now + 24 * 60 * 60 * 1000;
-  return taskAndSubtaskDueDates.value.filter(
-    dueMs => dueMs >= now && dueMs <= nextDay
-  ).length;
+  return (props.card.attachments || []).length + taskAttachmentCount;
 });
 
 // New computed properties for scaling elements
@@ -495,6 +485,37 @@ const dueDateOverdue = computed(() => {
   return false;
 });
 
+const formatTimestamp = (value: Date | string | null | undefined) => {
+  if (!value) return null;
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return String(value);
+
+  const jsLocaleIdentifier = locale.value.replace("_", "-");
+  return parsed.toLocaleString(jsLocaleIdentifier);
+};
+
+const cardCreatedAtFormatted = computed(() => {
+  return formatTimestamp(props.card.createdAt);
+});
+
+const cardCompletedAtFormatted = computed(() => {
+  if (!tasks.value || tasks.value.length === 0) return null;
+  if (tasks.value.some((task) => !task.finished || !task.completedAt)) return null;
+
+  const completionTimes = tasks.value
+    .map((task) => {
+      if (!task.completedAt) return Number.NaN;
+      return new Date(task.completedAt).getTime();
+    })
+    .filter((time) => !Number.isNaN(time));
+
+  if (completionTimes.length !== tasks.value.length) return null;
+
+  const latestCompletion = Math.max(...completionTimes);
+  return formatTimestamp(new Date(latestCompletion).toISOString());
+});
+
 const deleteCardWithConfirmation = (id: string | undefined) => {
   /*
     TODO: rewrite this, we are passing a ref through an emit which works for this usecase of DOM manipulation but might break reactivity
@@ -553,9 +574,9 @@ const updateCardName = () => {
 
 <style scoped>
 .kanban-card {
-  transition-duration: 550ms;
+  transition-duration: 160ms;
   transition-timing-function: ease-out;
-  transition-property: opacity, text-decoration;
+  transition-property: opacity;
   opacity: 100%;
 }
 

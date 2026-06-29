@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { computed, toValue } from "vue";
 import type { Ref } from "vue";
-import type { Board, Card, Column, Tag } from "@/types/kanban-types";
+import type { Board, Card, Column, Tag, BoardAsset, AttachmentRef } from "@/types/kanban-types";
 import { useBoardsStore } from "@/stores/boards";
 
 export function useBoard(id: string | Ref<string>) {
@@ -85,6 +85,21 @@ export function useBoard(id: string | Ref<string>) {
     store.setColumnTitle(board.value.id, columnId, title);
   }
 
+  function upsertBoardAsset(asset: BoardAsset) {
+    if (!board.value) return;
+    store.upsertBoardAsset(board.value.id, asset);
+  }
+
+  function removeBoardAsset(assetId: string) {
+    if (!board.value) return false;
+    return store.removeBoardAsset(board.value.id, assetId);
+  }
+
+  function assetReferenceCount(assetId: string) {
+    if (!board.value) return 0;
+    return store.assetReferenceCount(board.value.id, assetId);
+  }
+
   // Cards
   function createCard(columnId: string, card: Card, addToTop?: boolean) {
     if (!board.value) return;
@@ -143,6 +158,17 @@ export function useBoard(id: string | Ref<string>) {
     mutateCard(columnId, cardId, (card) => {
       card.description = description;
     });
+  };
+
+  const setCardAttachments = (
+    columnId: string,
+    cardId: string | undefined,
+    attachments: AttachmentRef[]
+  ) => {
+    if (!board.value) return;
+    if (!cardId) return;
+
+    store.setCardAttachments(board.value.id, columnId, cardId, attachments);
   };
 
   const setCardColor = (
@@ -243,6 +269,9 @@ export function useBoard(id: string | Ref<string>) {
     removeColumn,
     reorderColumns,
     setColumnTitle,
+    upsertBoardAsset,
+    removeBoardAsset,
+    assetReferenceCount,
 
     // card actions
     createCard,
@@ -253,6 +282,7 @@ export function useBoard(id: string | Ref<string>) {
     reorderCards,
     setCardName,
     setCardDescription,
+    setCardAttachments,
     setCardColor,
     setCardTasks,
     setCardDueDate,

@@ -42,10 +42,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
     />
     <ModalEditCard
       v-show="editCardModalVisible"
+      :board-assets="boardContent?.assets ?? []"
       :card="currentlyActiveCardInfo.card"
       :column-id="currentlyActiveCardInfo.columnId"
       :global-tags="boardContent?.globalTags ?? []"
       @closeModal="closeEditCardModal"
+      @setCardAttachments="board.setCardAttachments"
       @setCardColor="board.setCardColor"
       @setCardDescription="board.setCardDescription"
       @setCardTasks="board.setCardTasks"
@@ -54,6 +56,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @setCardTags="board.setCardTags"
       @addGlobalTag="board.addGlobalTag"
       @openTagEdit="editTagModalVisible = true"
+      @upsertBoardAsset="board.upsertBoardAsset"
     />
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
@@ -182,6 +185,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               </DropdownMenuItem>
               <DropdownMenuItem
                 class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
+                @click="openAssetLibrary"
+              >
+                <span class="text-dim-2"><ArchiveBoxIcon class="size-5" /></span>
+                <span>Board library</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
                 @click="exportBoardToJson"
               >
                 <span class="text-dim-2"><PhExport class="size-5" /></span>
@@ -241,6 +251,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               orientation="horizontal"
               class="flex-row gap-2"
               drag-handle-selector=".dragging-handle"
+              :animation-duration="120"
+              :drag-begin-delay="0"
               group-name="columns"
               :get-ghost-parent="getGhostParent"
               :get-child-payload="(index: number) => boardContent?.columns[index]"
@@ -262,6 +274,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
                   :add-to-top-button-shown="addToTopOfColumnButtonEnabled"
                   :card-count-display-enabled="displayColumnCardCountEnabled"
                   :card-search-query="searchQuery"
+                  :board-assets="boardContent?.assets ?? []"
                   @disableDragging="draggingEnabled = false"
                   @enableDragging="draggingEnabled = true"
                   @openEditCardModal="openEditCardModal"
@@ -306,7 +319,7 @@ import type { Ref } from "vue";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 
-import { PhotoIcon } from "@heroicons/vue/24/outline";
+import { ArchiveBoxIcon, PhotoIcon } from "@heroicons/vue/24/outline";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import { PhHashStraight, PhTrash, PhCopy, PhPencil, PhExport, PhPushPin } from "@phosphor-icons/vue";
 
@@ -389,6 +402,7 @@ onMounted(async () => {
   }
 
   await initBackgroundImage();
+  openCardFromRouteQuery();
 
   document.addEventListener("keydown", keyDownListener);
 
@@ -578,6 +592,18 @@ const openEditCardModal = (columnId: string, el: Card) => {
   });
 };
 
+const openCardFromRouteQuery = () => {
+  const columnId = typeof route.query.columnId === "string" ? route.query.columnId : "";
+  const cardId = typeof route.query.cardId === "string" ? route.query.cardId : "";
+  if (!columnId || !cardId || !boardContent.value) return;
+
+  const column = boardContent.value.columns.find(item => item.id === columnId);
+  const card = column?.cards.find(item => item.id === cardId);
+  if (!column || !card) return;
+
+  openEditCardModal(column.id, card);
+};
+
 const closeEditCardModal = () => {
   editCardModalVisible.value = false;
   draggingEnabled.value = true;
@@ -709,6 +735,11 @@ const duplicateBoard = () => {
   board.duplicate();
 
   router.push("/");
+};
+
+const openAssetLibrary = () => {
+  if (!boardContent.value) return;
+  router.push(`/kanban/${boardContent.value.id}/library`);
 };
 
 const deleteBoardModal = (id: string | undefined) => {

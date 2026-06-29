@@ -27,7 +27,7 @@ limitations under the License.
     "
   >
     <template #content>
-      <div class="flex h-[40rem] w-[42rem] max-w-[92vw] flex-col pl-2">
+      <div class="flex max-h-[86vh] min-h-[40rem] w-[72rem] max-w-[94vw] flex-col pl-2">
         <div class="mb-4">
           <div class="flex flex-row items-start justify-between gap-12">
             <div
@@ -37,7 +37,7 @@ limitations under the License.
                 <Tooltip direction="top" :label="$t('modals.editCard.tooltip')">
                   <template #trigger>
                     <button
-                      class="size-7 rounded-full flex items-center justify-center"
+                      class="flex size-7 items-center justify-center rounded-full"
                       :class="[isCustomColor ? '' : selectedColor]"
                       :style="{
                         'background-color': isCustomColor ? customColor : '',
@@ -189,7 +189,7 @@ limitations under the License.
                           v-model="customColor"
                           class="w-20"
                           type="color"
-                        />
+                        >
                         <HexColorInput v-model="customColor" />
                       </div>
                     </div>
@@ -250,7 +250,7 @@ limitations under the License.
               <template #footer>
                 <div class="w-full px-4 pb-3">
                   <div class="mt-2 flex flex-col gap-2">
-                    <div class="flex flex-row items-center gap-6 mb-2">
+                    <div class="mb-2 flex flex-row items-center gap-6">
                       <SwitchRoot
                         v-model:checked="isDueDateCounterRelative"
                         class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
@@ -283,9 +283,10 @@ limitations under the License.
               </template>
             </VDatePicker>
           </div>
-          <p v-if="cardCreatedAt" class="text-dim-2 mt-2 text-xs">
-            创建时间: {{ cardCreatedAt }}
-          </p>
+          <div class="text-dim-2 mt-2 flex flex-col gap-1 text-xs">
+            <p v-if="cardCreatedAt">Created: {{ cardCreatedAt }}</p>
+            <p v-if="cardCompletedAt">Completed: {{ cardCompletedAt }}</p>
+          </div>
         </div>
 
         <div class="overflow-auto">
@@ -296,6 +297,16 @@ limitations under the License.
             <KanbanDescriptionEditor
               v-model="description"
               @editorBlurred="updateDescription"
+            />
+            <KanbanAttachmentList
+              class="mt-3"
+              title="Card attachments"
+              :allow-inline-images="true"
+              :assets="boardAssets"
+              :attachments="cardAttachments"
+              @addFiles="addFilesToCard"
+              @insertImage="insertCardImage"
+              @remove="removeCardAttachment"
             />
           </div>
           <div>
@@ -321,15 +332,17 @@ limitations under the License.
             <div class="flex w-full flex-col gap-1">
               <div
                 v-if="tasks && tasks.length !== 0"
-                class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1 pr-6"
+                class="flex max-h-[46vh] min-h-56 w-full flex-col gap-4 overflow-auto pl-1 pr-6"
               >
                 <Container
                   drag-class="cursor-grabbing"
                   drag-handle-selector=".task-drag"
+                  :animation-duration="120"
+                  :drag-begin-delay="0"
+                  :get-child-payload="(index: number) => tasks[index]"
                   lock-axis="y"
                   orientation="vertical"
                   @drop="onTaskDrop"
-                  :get-child-payload="(index: number) => tasks[index]"
                 >
                   <Draggable
                     v-for="(task, index) in tasks"
@@ -340,6 +353,17 @@ limitations under the License.
                     <div class="mb-2 flex w-full flex-col gap-1.5">
                       <div class="flex w-full flex-row items-start justify-between gap-4">
                         <div class="flex w-full flex-row items-center justify-start gap-4">
+                          <button
+                            class="text-dim-2 text-accent-hover shrink-0 rounded-md p-0.5"
+                            title="Toggle task details"
+                            @click="toggleTaskExpanded(task, index)"
+                          >
+                            <PhCaretDown
+                              v-if="isTaskExpanded(task, index)"
+                              class="size-4"
+                            />
+                            <PhCaretRight v-else class="size-4" />
+                          </button>
                           <CheckboxRoot
                             v-model:checked="task.finished"
                             class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-5 shrink-0 appearance-none items-center justify-center rounded-[4px] border outline-none"
@@ -369,12 +393,12 @@ limitations under the License.
                             @double-click="enableTaskEditMode(index, task)"
                           >
                             <div class="w-full">
-                              <span class="text-no-overflow-task block w-full whitespace-pre-wrap break-words">{{
+                              <span class="block w-full whitespace-pre-wrap break-words">{{
                                 task.name
                               }}</span>
                               <span class="text-dim-2 mt-0.5 block text-xs">
-                                Created: {{ task.createdAt || '-' }}
-                                <span v-if="task.completedAt"> | Completed: {{ task.completedAt }}</span>
+                                Created: {{ formatTimestamp(task.createdAt) || '-' }}
+                                <span v-if="task.completedAt"> | Completed: {{ formatTimestamp(task.completedAt) }}</span>
                               </span>
                             </div>
                           </ClickCounter>
@@ -382,6 +406,14 @@ limitations under the License.
                         <div
                           class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center"
                         >
+                          <span
+                            v-if="task.attachments?.length"
+                            class="text-dim-2 flex items-center gap-0.5 rounded px-1 text-xs"
+                            title="Task attachments"
+                          >
+                            <PhPaperclip class="size-3.5" />
+                            {{ task.attachments.length }}
+                          </span>
                           <button
                             v-if="!taskEditMode"
                             class="shrink-0"
@@ -418,75 +450,25 @@ limitations under the License.
                           </button>
                         </div>
                       </div>
-
-                      <div class="ml-9 flex flex-col gap-2 pr-2">
-                        <label class="text-dim-2 text-xs">
-                          Task due/check time
-                          <input
-                            class="bg-elevation-2 border-elevation-3 mt-0.5 w-full rounded-md border px-1.5 py-0.5 text-xs"
-                            type="datetime-local"
-                            :value="toDateTimeLocalInput(task.dueDate)"
-                            @change="(event) => setTaskDueDate(task, event)"
-                          >
-                        </label>
-
-                        <Container
-                          v-if="task.subtasks && task.subtasks.length > 0"
-                          drag-class="cursor-grabbing"
-                          drag-handle-selector=".subtask-drag"
-                          lock-axis="y"
-                          orientation="vertical"
-                          :get-child-payload="(subtaskIndex: number) => (task.subtasks || [])[subtaskIndex]"
-                          @drop="(dropResult) => onSubtaskDrop(task, dropResult)"
-                        >
-                          <Draggable
-                            v-for="(subtask, subtaskIndex) in task.subtasks || []"
-                            :key="getSubtaskKey(task, subtask, subtaskIndex)"
-                            :index="subtaskIndex"
-                            :class="draggingEnabled ? 'subtask-drag' : 'nomoredragging'"
-                          >
-                            <div class="bg-elevation-1 flex items-center gap-2 rounded-md px-2 py-1">
-                              <CheckboxRoot
-                                v-model:checked="subtask.finished"
-                                class="bg-elevation-4 bg-elevation-2-hover border-elevation-5 flex size-4 shrink-0 appearance-none items-center justify-center rounded-[4px] border outline-none"
-                                @update:checked="(checked) => handleSubtaskCheckedChange(subtask, checked)"
-                              >
-                                <CheckboxIndicator
-                                  class="flex size-full items-center justify-center rounded"
-                                >
-                                  <PhCheck
-                                    weight="bold"
-                                    class="text-accent-lighter size-3"
-                                  />
-                                </CheckboxIndicator>
-                              </CheckboxRoot>
-                              <span class="w-full whitespace-pre-wrap break-words text-sm">{{ subtask.name }}</span>
-                              <button
-                                class="shrink-0"
-                                @click="deleteSubtask(task, subtaskIndex)"
-                              >
-                                <XMarkIcon
-                                  class="text-dim-2 text-accent-hover size-4"
-                                />
-                              </button>
-                            </div>
-                          </Draggable>
-                        </Container>
-
-                        <div class="flex items-center gap-2">
-                          <input
-                            v-model="subtaskDrafts[getTaskDraftKey(task, index)]"
-                            class="bg-elevation-2 border-elevation-3 w-full rounded-md border px-2 py-1 text-sm"
-                            placeholder="Add subtask..."
-                            @keydown.enter.exact.prevent="createSubtask(task, index)"
-                          >
-                          <button
-                            class="bg-elevation-1 bg-elevation-2-hover rounded-md px-2 py-1 text-xs"
-                            @click="createSubtask(task, index)"
-                          >
-                            Add
-                          </button>
-                        </div>
+                      <div
+                        v-if="isTaskExpanded(task, index)"
+                        class="border-elevation-2 bg-elevation-1 ml-10 mr-2 rounded-md border p-2"
+                      >
+                        <h4 class="text-dim-2 mb-1 text-xs font-semibold">
+                          Task details
+                        </h4>
+                        <KanbanDescriptionEditor
+                          v-model="task.description"
+                          @editorBlurred="updateCardTasks"
+                        />
+                        <KanbanAttachmentList
+                          class="mt-2"
+                          title="Task attachments"
+                          :assets="boardAssets"
+                          :attachments="task.attachments || []"
+                          @addFiles="(paths) => addFilesToTask(task, paths)"
+                          @remove="(attachment) => removeTaskAttachment(task, attachment)"
+                        />
                       </div>
                     </div>
                   </Draggable>
@@ -528,25 +510,6 @@ limitations under the License.
               </button>
             </div>
           </div>
-          <div class="mt-4 flex flex-col pr-6">
-            <h2 class="text-lg font-semibold">
-              {{ $t("modals.editCard.tagsTitle") }}
-            </h2>
-            <vue-tags-input
-              v-model="tag"
-              :tags="tags"
-              :autocomplete-items="filteredItems"
-              placeholder="Add tag..."
-              @tags-changed="updateTags"
-              @before-adding-tag="beforeTagAdd"
-            />
-            <button
-              class="bg-elevation-3 mt-2 w-fit rounded-md px-2 py-0.5 text-sm"
-              @click="closeModalAndOpenTagEdit"
-            >
-              {{ $t("modals.editCard.tagsEdit") }}
-            </button>
-          </div>
         </div>
       </div>
     </template>
@@ -554,7 +517,7 @@ limitations under the License.
 </template>
 
 <script setup lang="ts">
-import type { Card, Task, Tag, Subtask } from "@/types/kanban-types";
+import type { AttachmentRef, BoardAsset, Card, Task, Tag } from "@/types/kanban-types";
 import type { Ref } from "vue";
 
 import { getCurrentTimestamp } from "@/utils/dateTime";
@@ -564,8 +527,11 @@ import { generateUniqueID } from "@/utils/idGenerator";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import {
+  PhCaretDown,
+  PhCaretRight,
   PhCalendar,
   PhCheck,
+  PhPaperclip,
   PhPencilSimple,
   PhTrash,
   PhX,
@@ -573,11 +539,12 @@ import {
 import { vOnClickOutside } from "@vueuse/components";
 //@ts-expect-error library has no types
 import { Container, Draggable } from "vue3-smooth-dnd";
-//@ts-expect-error library has no types
-import { VueTagsInput } from "@vojtechlanka/vue-tags-input";
 import { useSettingsStore } from "@/stores/settings";
+import { getAssetUrl, makeAttachmentRef } from "@/utils/attachments";
+import { sanitizeRichHtml } from "@/utils/richContent";
 
 const props = defineProps<{
+  boardAssets: Array<BoardAsset>;
   card: Card | null;
   columnId: string;
   globalTags: Array<Tag>;
@@ -598,18 +565,18 @@ const emit = defineEmits<{
     description: string
   ): void;
   (
+    e: "setCardAttachments",
+    columnID: string,
+    cardId: string | undefined,
+    attachments: Array<AttachmentRef>
+  ): void;
+  (
     e: "setCardDueDate",
     columnID: string,
     cardId: string | undefined,
     dueDate: Date | null,
     isCounterRelative: boolean,
     isCompleted: boolean
-  ): void;
-  (
-    e: "setCardTags",
-    columnID: string,
-    cardId: string | undefined,
-    tags: Array<Tag>
   ): void;
   (
     e: "setCardTasks",
@@ -623,8 +590,7 @@ const emit = defineEmits<{
     cardId: string | undefined,
     title: string
   ): void;
-  (e: "addGlobalTag", tag: Tag): void;
-  (e: "openTagEdit"): void;
+  (e: "upsertBoardAsset", asset: BoardAsset): void;
 }>();
 
 const { locale } = useI18n();
@@ -632,6 +598,7 @@ const { locale } = useI18n();
 const columnID = ref("");
 const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
+const cardAttachments: Ref<Array<AttachmentRef>> = ref([]);
 const tasks: Ref<Array<Task>> = ref([]);
 const cardCreatedAt = ref<string | null>(null);
 const selectedColor = ref("");
@@ -640,10 +607,22 @@ const dueDate: Ref<Date | null> = ref(null);
 const isDueDateCounterRelative = ref(false);
 const settingsStore = useSettingsStore();
 const isDueDateCompleted = ref(false);
+const cardCompletedAt = computed(() => {
+  if (!tasks.value || tasks.value.length === 0) return null;
+  if (tasks.value.some((task) => !task.finished || !task.completedAt)) return null;
 
-const tag = ref("");
-const tags: Ref<Array<Tag>> = ref([]);
-const autocompleteItems: Ref<Array<Tag>> = ref([]);
+  const completionTimes = tasks.value
+    .map((task) => {
+      if (!task.completedAt) return Number.NaN;
+      return new Date(task.completedAt).getTime();
+    })
+    .filter((time) => !Number.isNaN(time));
+
+  if (completionTimes.length !== tasks.value.length) return null;
+
+  const latestCompletion = Math.max(...completionTimes);
+  return formatTimestamp(new Date(latestCompletion).toISOString());
+});
 
 const isCustomColor = computed(() => selectedColor.value.startsWith("#"));
 const customColor = ref("#ffffff");
@@ -654,13 +633,14 @@ const titleEditing = ref(false);
 const newTaskName = ref("");
 const taskAddMode = ref(false);
 const newTaskInput: Ref<HTMLTextAreaElement | null> = ref(null);
-const subtaskDrafts: Ref<Record<string, string>> = ref({});
 
 const currentlyEditingTaskIndex = ref(-1);
 const currentlyEditingTaskName = ref("");
 const taskEditMode = ref(false);
 
 const draggingEnabled = ref(true);
+const expandedTaskIds: Ref<string[]> = ref([]);
+const { ingestFiles } = useAttachments();
 
 const enableTitleEditing = () => {
   emitter.emit("modalPreventClickOutsideClose");
@@ -670,13 +650,6 @@ const enableTitleEditing = () => {
 const enableTaskAddMode = () => {
   taskAddMode.value = true;
 };
-
-const filteredItems = computed(() => {
-  const currentInput = tag.value.trim().toLowerCase();
-  return autocompleteItems.value.filter((item) =>
-    item.text.toLowerCase().includes(currentInput)
-  );
-});
 
 const getCheckedTaskNumber = computed(() => {
   return tasks.value.filter((task) => task.finished).length || 0;
@@ -688,107 +661,18 @@ const getTaskPercentage = computed(() => {
   return (getCheckedTaskNumber.value / tasks.value.length) * 100;
 });
 
-const getTaskDraftKey = (task: Task, index: number) => {
-  return task.id || `task-${index}`;
-};
-
-const getSubtaskKey = (task: Task, subtask: Subtask, subtaskIndex: number) => {
-  return subtask.id || `${task.id || "task"}-subtask-${subtaskIndex}`;
-};
-
-const toDateTimeLocalInput = (date: Date | string | null | undefined) => {
-  if (!date) return "";
-
-  const parsed = new Date(date);
-  if (Number.isNaN(parsed.getTime())) return "";
-
-  const pad = (value: number) => value.toString().padStart(2, "0");
-  const year = parsed.getFullYear();
-  const month = pad(parsed.getMonth() + 1);
-  const day = pad(parsed.getDate());
-  const hours = pad(parsed.getHours());
-  const minutes = pad(parsed.getMinutes());
-
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
-};
-
-const setTaskDueDate = (
-  task: Task,
-  event: Event
-) => {
-  const target = event.target as HTMLInputElement | null;
-  if (!target || !target.value) {
-    task.dueDate = null;
-    updateCardTasks();
-    return;
-  }
-
-  task.dueDate = new Date(target.value).toISOString();
-  updateCardTasks();
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const beforeTagAdd = ({ tag, addTag }: any) => {
-  // get all matches from autocomplete items (starts with), if it is only one, select it
-  const matches = autocompleteItems.value.filter((item) =>
-    item.text.toLowerCase().startsWith(tag.text.toLowerCase())
-  );
-
-  // check if autocomplete items have a tag with the same name
-  const existingTag = autocompleteItems.value.find(
-    (item) => item.text === tag.text
-  );
-
-  if (!existingTag) {
-    if (matches.length === 1 && matches[0]) {
-      tag.text = matches[0].text;
-      tag.id = matches[0].id;
-      tag.color = matches[0].color;
-      tag.style = matches[0].style;
-    } else {
-      tag.id = generateUniqueID();
-    }
-  } else {
-    tag.text = existingTag.text;
-    tag.id = existingTag.id;
-    tag.color = existingTag.color;
-    tag.style = existingTag.style;
-  }
-
-  addTag();
-
-  emit("addGlobalTag", tag);
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const updateTags = (newTags: any) => {
-  tags.value = newTags;
-
-  emit("setCardTags", columnID.value, props.card?.id, tags.value);
-};
-
-const closeModalAndOpenTagEdit = () => {
-  emit("closeModal", columnID.value);
-  titleEditing.value = false;
-  taskAddMode.value = false;
-  showCustomColorPopup.value = false;
-
-  nextTick(() => {
-    emit("openTagEdit");
-  });
-};
-
 const createTask = () => {
   if (newTaskName.value == null || !/\S/.test(newTaskName.value)) return;
 
   tasks.value.push({
+    attachments: [],
     completedAt: null,
     createdAt: getCurrentTimestamp(),
+    description: "",
     dueDate: null,
     finished: false,
     id: generateUniqueID(),
     name: newTaskName.value,
-    subtasks: [],
   });
   newTaskName.value = "";
   taskAddMode.value = false;
@@ -804,12 +688,6 @@ const deleteTask = (index: number) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onTaskDrop = (dropResult: any) => {
   tasks.value = applyDrag(tasks.value, dropResult);
-  updateCardTasks();
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const onSubtaskDrop = (task: Task, dropResult: any) => {
-  task.subtasks = applyDrag(task.subtasks || [], dropResult);
   updateCardTasks();
 };
 
@@ -852,45 +730,74 @@ const handleTaskCheckedChange = (
   updateCardTasks();
 };
 
-const createSubtask = (task: Task, index: number) => {
-  if (!task.subtasks) {
-    task.subtasks = [];
-  }
-
-  const key = getTaskDraftKey(task, index);
-  const draftName = subtaskDrafts.value[key];
-  if (draftName == null || !/\S/.test(draftName)) return;
-
-  task.subtasks.push({
-    completedAt: null,
-    createdAt: getCurrentTimestamp(),
-    finished: false,
-    id: generateUniqueID(),
-    name: draftName.trim(),
-  });
-
-  subtaskDrafts.value[key] = "";
-  updateCardTasks();
-};
-
-const deleteSubtask = (task: Task, subtaskIndex: number) => {
-  if (!task.subtasks) return;
-  task.subtasks.splice(subtaskIndex, 1);
-  updateCardTasks();
-};
-
-const handleSubtaskCheckedChange = (
-  subtask: Subtask,
-  checked: boolean | "indeterminate"
-) => {
-  const isFinished = checked === true;
-  subtask.finished = isFinished;
-  subtask.completedAt = isFinished ? getCurrentTimestamp() : null;
-  updateCardTasks();
-};
-
 const updateCardTasks = () => {
   emit("setCardTasks", columnID.value, props.card?.id, tasks.value);
+};
+
+const updateCardAttachments = () => {
+  emit(
+    "setCardAttachments",
+    columnID.value,
+    props.card?.id,
+    cardAttachments.value
+  );
+};
+
+const addFilesToCard = async (paths: string[]) => {
+  const { assets } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
+  if (assets.length === 0) return;
+  cardAttachments.value = [
+    ...cardAttachments.value,
+    ...assets.map(asset => makeAttachmentRef(asset.id)),
+  ];
+  updateCardAttachments();
+};
+
+const removeCardAttachment = (attachment: AttachmentRef) => {
+  cardAttachments.value = cardAttachments.value.filter(item => item.id !== attachment.id);
+  updateCardAttachments();
+};
+
+const insertCardImage = async (attachment: AttachmentRef) => {
+  const asset = props.boardAssets.find(item => item.id === attachment.assetId);
+  if (!asset || asset.kind !== "image") return;
+
+  const src = await getAssetUrl(asset);
+  const imageHtml = `<p><img src="${src}" alt="${asset.name}" title="${asset.name}" data-asset-id="${asset.id}"></p>`;
+  description.value = sanitizeRichHtml(`${description.value || ""}${imageHtml}`);
+  updateDescription();
+};
+
+const taskKey = (task: Task, index: number) => {
+  return task.id || `task-${index}`;
+};
+
+const isTaskExpanded = (task: Task, index: number) => {
+  return expandedTaskIds.value.includes(taskKey(task, index));
+};
+
+const toggleTaskExpanded = (task: Task, index: number) => {
+  const key = taskKey(task, index);
+  if (expandedTaskIds.value.includes(key)) {
+    expandedTaskIds.value = expandedTaskIds.value.filter(item => item !== key);
+  } else {
+    expandedTaskIds.value = [...expandedTaskIds.value, key];
+  }
+};
+
+const addFilesToTask = async (task: Task, paths: string[]) => {
+  const { assets } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
+  if (assets.length === 0) return;
+  task.attachments = [
+    ...(task.attachments || []),
+    ...assets.map(asset => makeAttachmentRef(asset.id)),
+  ];
+  updateCardTasks();
+};
+
+const removeTaskAttachment = (task: Task, attachment: AttachmentRef) => {
+  task.attachments = (task.attachments || []).filter(item => item.id !== attachment.id);
+  updateCardTasks();
 };
 
 const resetDueDate = () => {
@@ -928,6 +835,7 @@ const updateDueDate = () => {
 };
 
 const updateDescription = () => {
+  description.value = sanitizeRichHtml(description.value);
   emit("setCardDescription", columnID.value, props.card?.id, description.value);
   emitter.emit("modalEnableClickOutsideClose");
 };
@@ -960,6 +868,16 @@ const dateToLocalFormat = (date: Date | string | null | undefined) => {
   return date.toLocaleDateString(jsLocaleIdentifier);
 };
 
+const formatTimestamp = (value: Date | string | null | undefined) => {
+  if (!value) return null;
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return String(value);
+
+  const jsLocaleIdentifier = locale.value.replace("_", "-");
+  return parsed.toLocaleString(jsLocaleIdentifier);
+};
+
 watch(customColor, (newVal, oldVal) => {
   if (newVal !== oldVal) {
     setCardColor(columnID.value, props.card?.id, newVal);
@@ -973,12 +891,11 @@ watch(props, (newVal) => {
     newTaskName.value = "";
 
     columnID.value = newVal.columnId;
-    cardCreatedAt.value = newVal.card.createdAt
-      ? String(newVal.card.createdAt)
-      : null;
+    cardCreatedAt.value = formatTimestamp(newVal.card.createdAt);
 
     title.value = newVal.card.name;
     description.value = newVal.card.description || "";
+    cardAttachments.value = newVal.card.attachments || [];
 
     //@ts-expect-error TODO: improve due date handling/types
     dueDate.value = newVal.card.dueDate || null;
@@ -987,10 +904,6 @@ watch(props, (newVal) => {
         ? newVal.card.isDueDateCounterRelative
         : settingsStore.defaultRelativeDueDatesEnabled;
     isDueDateCompleted.value = newVal.card.isDueDateCompleted || false;
-
-    tags.value = newVal.card.tags || [];
-    tag.value = "";
-    autocompleteItems.value = newVal.globalTags;
 
     /**
      * Enforce adding IDs to all card tasks
@@ -1002,17 +915,16 @@ watch(props, (newVal) => {
         if (!task.id) {
           task.id = generateUniqueID();
         }
-
-        if (task.subtasks && task.subtasks.length > 0) {
-          task.subtasks.forEach((subtask) => {
-            if (!subtask.id) {
-              subtask.id = generateUniqueID();
-            }
-          });
+        if (!task.attachments) {
+          task.attachments = [];
+        }
+        if (task.description == null) {
+          task.description = "";
         }
       });
     }
     tasks.value = savedTasks;
+    expandedTaskIds.value = [];
 
     selectedColor.value = newVal.card.color || "bg-elevation-2";
     if (newVal.card.color?.startsWith("#")) {
@@ -1025,57 +937,6 @@ watch(props, (newVal) => {
 <style>
 .v-popper__popper {
   z-index: 9999999999 !important;
-}
-
-.vue-tags-input {
-  background-color: var(--elevation-1) !important;
-  max-width: none !important;
-}
-
-.vue-tags-input .ti-new-tag-input {
-  background: transparent;
-  color: var(--text-dim-1);
-}
-
-.vue-tags-input .ti-input {
-  padding: 8px 4px !important;
-  background: var(--elevation-1);
-
-  border: 1px solid var(--elevation-3) !important;
-  border-radius: 8px;
-}
-
-.vue-tags-input ::-webkit-input-placeholder {
-  color: var(--text-dim-3);
-}
-
-.vue-tags-input ::-moz-placeholder {
-  color: var(--text-dim-3);
-}
-
-.vue-tags-input :-ms-input-placeholder {
-  color: var(--text-dim-3);
-}
-
-.vue-tags-input :-moz-placeholder {
-  color: var(--text-dim-3);
-}
-
-.vue-tags-input .ti-autocomplete {
-  background: var(--elevation-2);
-  border: 1px solid var(--elevation-3);
-  border-top: none;
-  border-radius: 0 0 8px 8px;
-
-  z-index: 9999999999 !important;
-  overflow: visible;
-
-  position: unset !important;
-}
-
-.vue-tags-input .ti-tag {
-  position: relative;
-  background: var(--elevation-3);
 }
 
 .vc-light {

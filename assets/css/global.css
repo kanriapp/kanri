@@ -29,6 +29,16 @@ body {
   min-height: 40px !important;
 }
 
+.smooth-dnd-draggable-wrapper,
+.smooth-dnd-ghost,
+.smooth-dnd-drop-preview {
+  will-change: transform;
+}
+
+.smooth-dnd-container.dragging .kanban-card {
+  transition: none !important;
+}
+
 body:has(> .disable-animations) * {
   -webkit-transition: none !important;
   -moz-transition: none !important;

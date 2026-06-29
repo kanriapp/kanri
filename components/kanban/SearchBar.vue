@@ -33,7 +33,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @blur="handleBlur"
       @input="handleInput"
       @keydown.backspace="handleBackspace"
-    />
+    >
     <button
       v-if="(displayModel?.length ?? 0) > 0 || searchFilter"
       class="bg-elevation-1 bg-elevation-2-hover absolute right-2 shrink-0 rounded-md p-1"
@@ -47,28 +47,63 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       class="bg-elevation-1 border-elevation-2 absolute left-0 top-10 z-10 -mr-2 w-full rounded-md border p-2"
     >
       <div>
-        <span class="text-dim-3 text-sm">search options</span>
+        <span class="text-dim-3 text-sm">Search filters</span>
       </div>
       <ul class="mt-0.5 text-sm">
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('name:')"
         >
-          <span>name: search by name</span>
+          <span>name: search card names</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('tag:')"
         >
-          <span>tag: search by tag name</span>
+          <span>tag: search tags</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('description:')"
         >
-          <span>description: search by description</span>
+          <span>description: search descriptions</span>
+          <span class="group/edit invisible group-hover/item:visible">+</span>
+        </li>
+        <li
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
+          @mousedown="addFilter('task:')"
+        >
+          <span>task: search tasks</span>
+          <span class="group/edit invisible group-hover/item:visible">+</span>
+        </li>
+        <li
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
+          @mousedown="addFilter('attachment:')"
+        >
+          <span>attachment: search attachment names</span>
+          <span class="group/edit invisible group-hover/item:visible">+</span>
+        </li>
+        <li
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
+          @mousedown="addFilter('time:')"
+        >
+          <span>time: search all dates</span>
+          <span class="group/edit invisible group-hover/item:visible">+</span>
+        </li>
+        <li
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
+          @mousedown="addFilter('created:')"
+        >
+          <span>created: search created dates</span>
+          <span class="group/edit invisible group-hover/item:visible">+</span>
+        </li>
+        <li
+          class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
+          @mousedown="addFilter('completed:')"
+        >
+          <span>completed: search completed dates</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
       </ul>
@@ -79,12 +114,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 <script setup lang="ts">
 import { XMarkIcon } from "@heroicons/vue/24/solid";
 import { PhMagnifyingGlass } from "@phosphor-icons/vue";
-import { ref, computed, watch } from "vue";
+import { computed, onBeforeUnmount, ref, watch } from "vue";
 
 const showSuggestions = ref(false);
 const model = defineModel<string>();
 const displayModel = ref("");
 const activeFilter = ref("");
+const supportedFilters = ["name:", "tag:", "description:", "task:", "attachment:", "time:", "created:", "completed:"];
+let updateTimeout: ReturnType<typeof setTimeout> | null = null;
 
 const handleBlur = () => {
   setTimeout(() => {
@@ -92,16 +129,25 @@ const handleBlur = () => {
   }, 50);
 };
 
+const commitModelValue = () => {
+  model.value = activeFilter.value + displayModel.value;
+};
+
+const updateModelValue = (immediate = false) => {
+  if (updateTimeout) clearTimeout(updateTimeout);
+  if (immediate) {
+    commitModelValue();
+    return;
+  }
+
+  updateTimeout = setTimeout(commitModelValue, 200);
+};
+
 const handleInput = () => {
-  if (displayModel.value.includes("name:")) {
-    activeFilter.value = "name:";
-    displayModel.value = displayModel.value.replace("name:", "");
-  } else if (displayModel.value.includes("tag:")) {
-    activeFilter.value = "tag:";
-    displayModel.value = displayModel.value.replace("tag:", "");
-  } else if (displayModel.value.includes("description:")) {
-    activeFilter.value = "description:";
-    displayModel.value = displayModel.value.replace("description:", "");
+  const detectedFilter = supportedFilters.find((filter) => displayModel.value.includes(filter));
+  if (detectedFilter) {
+    activeFilter.value = detectedFilter;
+    displayModel.value = displayModel.value.replace(detectedFilter, "");
   }
 
   updateModelValue();
@@ -111,25 +157,21 @@ const handleBackspace = (event: { preventDefault: () => void }) => {
   if (displayModel.value === "" && activeFilter.value) {
     event.preventDefault();
     activeFilter.value = "";
-    updateModelValue();
+    updateModelValue(true);
   }
 };
 
 // add a filter prefix
 const addFilter = (filter: string) => {
   activeFilter.value = filter;
-  updateModelValue();
+  updateModelValue(true);
 };
 
 const clearSearch = () => {
   displayModel.value = "";
   activeFilter.value = "";
+  if (updateTimeout) clearTimeout(updateTimeout);
   model.value = "";
-};
-
-// update the actual model value based on filter and display value
-const updateModelValue = () => {
-  model.value = activeFilter.value + displayModel.value;
 };
 
 // update display value when model changes externally
@@ -141,22 +183,22 @@ watch(
       activeFilter.value = "";
       return;
     }
-    if (newValue.startsWith("name:")) {
-      activeFilter.value = "name:";
-      displayModel.value = newValue.replace("name:", "");
-    } else if (newValue.startsWith("tag:")) {
-      activeFilter.value = "tag:";
-      displayModel.value = newValue.replace("tag:", "");
-    } else if (newValue.startsWith("description:")) {
-      activeFilter.value = "description:";
-      displayModel.value = newValue.replace("description:", "");
-    } else {
-      displayModel.value = newValue;
-      activeFilter.value = "";
+    const detectedFilter = supportedFilters.find((filter) => newValue.startsWith(filter));
+    if (detectedFilter) {
+      activeFilter.value = detectedFilter;
+      displayModel.value = newValue.replace(detectedFilter, "");
+      return;
     }
+
+    displayModel.value = newValue;
+    activeFilter.value = "";
   },
   { immediate: true }
 );
+
+onBeforeUnmount(() => {
+  if (updateTimeout) clearTimeout(updateTimeout);
+});
 
 const searchFilter = computed(() => {
   return activeFilter.value || false;

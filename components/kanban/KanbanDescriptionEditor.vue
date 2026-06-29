@@ -68,6 +68,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <ph-file-code class="size-5" />
       </button>
 
+      <button
+        :class="{ 'is-active': editor.isActive('link') }"
+        class="bg-elevation-2-hover rounded-md p-1"
+        title="Link"
+        @click="setLink"
+      >
+        <ph-link-simple class="size-5" />
+      </button>
+
       <div class="bg-elevation-3 mx-1 h-6 w-px" />
 
       <button
@@ -102,6 +111,48 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       >
         <ph-text-align-justify class="size-5" />
       </button>
+
+      <div class="bg-elevation-3 mx-1 h-6 w-px" />
+
+      <button
+        class="bg-elevation-2-hover rounded-md p-1"
+        title="Insert Table"
+        @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()"
+      >
+        <ph-table class="size-5" />
+      </button>
+      <button
+        v-if="editor.isActive('table')"
+        class="bg-elevation-2-hover rounded-md p-1"
+        title="Add Row"
+        @click="editor.chain().focus().addRowAfter().run()"
+      >
+        <ph-rows-plus-bottom class="size-5" />
+      </button>
+      <button
+        v-if="editor.isActive('table')"
+        class="bg-elevation-2-hover rounded-md p-1"
+        title="Add Column"
+        @click="editor.chain().focus().addColumnAfter().run()"
+      >
+        <ph-columns-plus-right class="size-5" />
+      </button>
+      <button
+        v-if="editor.isActive('table')"
+        class="bg-elevation-2-hover rounded-md p-1"
+        title="Toggle Header Row"
+        @click="editor.chain().focus().toggleHeaderRow().run()"
+      >
+        <ph-rows class="size-5" />
+      </button>
+      <button
+        v-if="editor.isActive('table')"
+        class="bg-elevation-2-hover rounded-md p-1"
+        title="Delete Table"
+        @click="editor.chain().focus().deleteTable().run()"
+      >
+        <ph-trash class="size-5" />
+      </button>
     </div>
   </bubble-menu>
   <editor-content class="bg-elevation-2 mt-1 rounded-sm" :editor="editor" />
@@ -111,13 +162,28 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 import Typography from "@tiptap/extension-typography";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
+import Image from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 import { BubbleMenu, Editor, EditorContent } from "@tiptap/vue-3";
+import { sanitizeRichHtml } from "@/utils/richContent";
+import emitter from "@/utils/emitter";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import {
   PhTextB,
   PhTextItalic,
   PhTextStrikethrough,
   PhCode,
   PhFileCode,
+  PhColumnsPlusRight,
+  PhLinkSimple,
+  PhRows,
+  PhRowsPlusBottom,
+  PhTable,
+  PhTrash,
   PhTextAlignLeft,
   PhTextAlignCenter,
   PhTextAlignRight,
@@ -131,8 +197,14 @@ export default {
     EditorContent,
     BubbleMenu,
     PhTextStrikethrough,
+    PhColumnsPlusRight,
     PhCode,
     PhFileCode,
+    PhLinkSimple,
+    PhRows,
+    PhRowsPlusBottom,
+    PhTable,
+    PhTrash,
     PhTextAlignLeft,
     PhTextAlignCenter,
     PhTextAlignRight,
@@ -165,6 +237,27 @@ export default {
         content: props.modelValue,
         extensions: [
           StarterKit,
+          Image.configure({
+            allowBase64: false,
+            HTMLAttributes: {
+              class: "kanri-rich-image",
+            },
+          }),
+          Link.configure({
+            autolink: true,
+            defaultProtocol: "https",
+            openOnClick: false,
+            protocols: ["https"],
+          }),
+          Table.configure({
+            resizable: false,
+            HTMLAttributes: {
+              class: "kanri-rich-table",
+            },
+          }),
+          TableRow,
+          TableHeader,
+          TableCell,
           Typography,
           TextAlign.configure({
             types: ["heading", "paragraph"],
@@ -177,7 +270,7 @@ export default {
           emitter.emit("modalPreventClickOutsideClose");
         },
         onUpdate: () => {
-          emit("update:modelValue", editor.value.getHTML());
+          emit("update:modelValue", sanitizeRichHtml(editor.value.getHTML()));
         },
       });
     });
@@ -188,8 +281,39 @@ export default {
       }
     });
 
+    const setLink = () => {
+      if (!editor.value) return;
+
+      const previousUrl = editor.value.getAttributes("link").href;
+      const url = window.prompt("URL", previousUrl || "https://");
+      if (url === null) return;
+      if (url === "") {
+        editor.value.chain().focus().extendMarkRange("link").unsetLink().run();
+        return;
+      }
+      if (!url.startsWith("https://")) return;
+
+      editor.value
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({ href: url, target: "_blank", rel: "noopener noreferrer" })
+        .run();
+    };
+
+    const insertImage = (src, assetId, alt = "") => {
+      if (!editor.value) return;
+      editor.value
+        .chain()
+        .focus()
+        .setImage({ src, alt, title: alt, "data-asset-id": assetId })
+        .run();
+    };
+
     return {
       editor,
+      insertImage,
+      setLink,
     };
   },
 };
@@ -258,7 +382,13 @@ export default {
 }
 
 .tiptap img {
+  border-radius: 0.375rem;
+  cursor: zoom-in;
+  display: block;
+  margin: 0.5rem 0;
   max-width: 100%;
+  max-height: 360px;
+  object-fit: contain;
   height: auto;
 }
 
@@ -277,5 +407,30 @@ export default {
 
 .tiptap ul {
   list-style-type: disc;
+}
+
+.tiptap table {
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  table-layout: auto;
+  width: 100%;
+}
+
+.tiptap td,
+.tiptap th {
+  border: 1px solid var(--elevation-3);
+  min-width: 3rem;
+  padding: 0.35rem 0.5rem;
+  vertical-align: top;
+}
+
+.tiptap th {
+  background-color: var(--elevation-1);
+  font-weight: 600;
+}
+
+.tiptap a {
+  color: var(--accent);
+  text-decoration: underline;
 }
 </style>
