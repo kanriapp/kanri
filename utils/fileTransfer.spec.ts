@@ -3,7 +3,7 @@
 SPDX-License-Identifier: GPL-3.0-or-later */
 
 import { describe, expect, it } from "vitest";
-import { filesFromTransfer, lineIndexFromTextOffset } from "./fileTransfer";
+import { filesFromTextPaths, filesFromTransfer, lineIndexFromTextOffset } from "./fileTransfer";
 
 const makeTransfer = (files: File[]) => ({
   files,
@@ -73,6 +73,47 @@ describe("filesFromTransfer", () => {
     const files = filesFromTransfer(makeTransfer([file]), "paste");
 
     expect(files[0].name).toBe("note.txt");
+  });
+
+  it("treats pasted Windows file paths as files", () => {
+    const transfer = {
+      files: [],
+      getData: (type: string) => type === "text/plain" ? "C:\\tmp\\one.png\r\nD:\\docs\\two.pdf" : "",
+      items: [],
+    } as unknown as DataTransfer;
+
+    const files = filesFromTransfer(transfer, "paste");
+
+    expect(files).toHaveLength(2);
+    expect(files[0]).toMatchObject({
+      name: "one.png",
+      path: "C:\\tmp\\one.png",
+    });
+    expect(files[1]).toMatchObject({
+      name: "two.pdf",
+      path: "D:\\docs\\two.pdf",
+    });
+  });
+
+  it("treats pasted file URLs as files", () => {
+    const transfer = {
+      files: [],
+      getData: (type: string) => type === "text/uri-list" ? "file:///C:/tmp/one.png" : "",
+      items: [],
+    } as unknown as DataTransfer;
+
+    const files = filesFromTransfer(transfer, "paste");
+
+    expect(files[0]).toMatchObject({
+      name: "one.png",
+      path: "C:\\tmp\\one.png",
+    });
+  });
+});
+
+describe("filesFromTextPaths", () => {
+  it("does not treat mixed normal text as files", () => {
+    expect(filesFromTextPaths("hello\nC:\\tmp\\one.png")).toHaveLength(0);
   });
 });
 
