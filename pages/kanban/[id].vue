@@ -58,6 +58,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @openTagEdit="editTagModalVisible = true"
       @upsertBoardAsset="board.upsertBoardAsset"
     />
+    <Modal
+      v-show="assetLibraryVisible"
+      :blur-background="false"
+      center-in-workspace
+      @closeModal="assetLibraryVisible = false"
+    >
+      <template #content>
+        <KanbanBoardAssetLibrary
+          :board-id="boardContent.id"
+          @close="assetLibraryVisible = false"
+          @open-reference="openAssetReference"
+        />
+      </template>
+    </Modal>
     <ModalRenameBoard
       v-show="renameBoardModalVisible"
       @closeModal="renameBoardModalVisible = false"
@@ -152,12 +166,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
           <div class="flex flex-row gap-2">
             <button
               class="bg-elevation-1 bg-elevation-2-hover transition-button flex flex-row gap-1 rounded-md px-4 py-1"
-              title="Board files"
+              :title="$t('components.kanban.assetLibrary.title')"
               @click="openAssetLibrary"
             >
               <ArchiveBoxIcon class="my-auto size-6" />
               <span class="my-auto ml-0.5 hidden lg:block">
-                Files
+                {{ $t("components.kanban.assetLibrary.filesButton") }}
               </span>
             </button>
           </div>
@@ -194,13 +208,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
               >
                 <span class="text-dim-2"><PhCopy class="size-5" /></span>
                 <span>{{ $t("pages.kanban.duplicateBoardAction") }}</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
-                @click="openAssetLibrary"
-              >
-                <span class="text-dim-2"><ArchiveBoxIcon class="size-5" /></span>
-                <span>Files</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 class="bg-elevation-2-hover flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-1.5 pr-6 text-left"
@@ -326,6 +333,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <script setup lang="ts">
 import type { Card, Column } from "@/types/kanban-types";
+import type { AssetReferenceLocation } from "@/utils/assetReferences";
 import type { Ref } from "vue";
 
 import { applyDrag } from "@/utils/drag-n-drop";
@@ -368,6 +376,7 @@ const {
 } = storeToRefs(settings);
 
 const editCardModalVisible = ref(false);
+const assetLibraryVisible = ref(false);
 
 const currentlyActiveCardInfo: {
   card: Card | null;
@@ -616,6 +625,28 @@ const openCardFromRouteQuery = () => {
   openEditCardModal(column.id, card);
 };
 
+const openAssetReference = async (reference: AssetReferenceLocation) => {
+  if (!reference.columnId || !reference.cardId) return;
+
+  if (!boardContent.value || reference.boardId !== boardContent.value.id) {
+    await router.push({
+      path: `/kanban/${reference.boardId}`,
+      query: {
+        cardId: reference.cardId,
+        columnId: reference.columnId,
+      },
+    });
+    return;
+  }
+
+  const column = boardContent.value.columns.find(item => item.id === reference.columnId);
+  const card = column?.cards.find(item => item.id === reference.cardId);
+  if (!column || !card) return;
+
+  assetLibraryVisible.value = false;
+  openEditCardModal(column.id, card);
+};
+
 const closeEditCardModal = () => {
   editCardModalVisible.value = false;
   draggingEnabled.value = true;
@@ -750,8 +781,7 @@ const duplicateBoard = () => {
 };
 
 const openAssetLibrary = () => {
-  if (!boardContent.value) return;
-  router.push(`/kanban/${boardContent.value.id}/library`);
+  assetLibraryVisible.value = true;
 };
 
 const deleteBoardModal = (id: string | undefined) => {

@@ -13,6 +13,7 @@ import {
 import { confirm, open } from "@tauri-apps/plugin-dialog";
 import { stat } from "@tauri-apps/plugin-fs";
 import { openPath } from "@tauri-apps/plugin-opener";
+import { useI18n } from "vue-i18n";
 
 const LARGE_FILE_BYTES = 100 * 1024 * 1024;
 
@@ -23,6 +24,7 @@ export interface AttachmentInputFile {
 }
 
 export const useAttachments = () => {
+  const { t } = useI18n();
   const urlCache = new Map<string, string>();
 
   const resolveAssetUrl = async (asset: BoardAsset) => {
@@ -39,7 +41,7 @@ export const useAttachments = () => {
   const pickFiles = async () => {
     const selected = await open({
       multiple: true,
-      title: "Select files to attach",
+      title: t("components.kanban.attachments.selectFiles"),
     });
     if (!selected) return [];
     return Array.isArray(selected) ? selected : [selected];
@@ -58,7 +60,9 @@ export const useAttachments = () => {
         const info = await stat(path);
         if (info.size > LARGE_FILE_BYTES) {
           const shouldContinue = await confirm(
-            `The file "${path.split(/[/\\]/).pop() || path}" is larger than 100 MB. Add it anyway?`,
+            t("components.kanban.attachments.largeFileConfirmation", {
+              fileName: path.split(/[/\\]/).pop() || path,
+            }),
             { title: "Kanri", kind: "warning" }
           );
           if (!shouldContinue) continue;
@@ -94,7 +98,7 @@ export const useAttachments = () => {
       try {
         if (input.file.size > LARGE_FILE_BYTES) {
           const shouldContinue = await confirm(
-            `The file "${fileName}" is larger than 100 MB. Add it anyway?`,
+            t("components.kanban.attachments.largeFileConfirmation", { fileName }),
             { title: "Kanri", kind: "warning" }
           );
           if (!shouldContinue) continue;

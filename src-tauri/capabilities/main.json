@@ -28,6 +28,14 @@
     "window-state:default",
     "opener:default",
     {
+      "identifier": "opener:allow-open-path",
+      "allow": [
+        {
+          "path": "$APPDATA/kanri-assets/**"
+        }
+      ]
+    },
+    {
       "identifier": "opener:allow-open-url",
       "allow": [
         {

@@ -13,7 +13,7 @@
     <div class="mb-2 flex items-center justify-between gap-3">
       <div class="flex min-w-0 items-center gap-2">
         <PaperClipIcon class="text-dim-2 size-4 shrink-0" />
-        <h3 class="text-sm font-semibold">{{ title }}</h3>
+        <h3 class="text-sm font-semibold">{{ title || $t("components.kanban.attachments.title") }}</h3>
         <span v-if="attachments.length" class="text-dim-2 text-xs">{{ attachments.length }}</span>
       </div>
       <button
@@ -21,7 +21,7 @@
         class="bg-elevation-2 bg-elevation-3-hover rounded-md px-2 py-0.5 text-xs"
         @click="selectFiles"
       >
-        Add
+        {{ $t("general.addAction") }}
       </button>
     </div>
 
@@ -29,7 +29,7 @@
       v-if="attachments.length === 0"
       class="border-current/30 text-dim-2 flex min-h-16 items-center justify-center rounded border border-dashed px-2 py-4 text-center text-sm"
     >
-      Drop files here or add an attachment.
+      {{ $t("components.kanban.attachments.dropFiles") }}
     </div>
 
     <div v-else class="flex flex-col gap-1.5">
@@ -60,10 +60,10 @@
           @click="openAttachment(assetFor(attachment))"
         >
           <span class="block truncate text-sm font-medium">
-            {{ assetFor(attachment)?.name || "Missing attachment" }}
+            {{ assetFor(attachment)?.name || $t("components.kanban.attachments.missingAttachment") }}
           </span>
           <span class="text-dim-2 block truncate text-xs">
-            {{ fileTypeLabel(assetFor(attachment)?.kind || "other") }}
+            {{ fileKindLabel(assetFor(attachment)?.kind || "other") }}
             <span v-if="assetFor(attachment)"> - {{ formatFileSize(assetFor(attachment)?.size) }}</span>
           </span>
         </button>
@@ -71,15 +71,15 @@
         <button
           v-if="allowInlineImages && assetFor(attachment)?.kind === 'image'"
           class="bg-elevation-3-hover rounded-md px-2 py-1 text-xs"
-          title="Insert image in description"
+          :title="$t('components.kanban.attachments.insertImage')"
           @click="$emit('insertImage', attachment)"
         >
-          Insert
+          {{ $t("components.kanban.attachments.insert") }}
         </button>
         <button
           v-if="editable"
           class="text-dim-2 text-accent-hover rounded-md p-1"
-          title="Remove attachment"
+          :title="$t('components.kanban.attachments.removeAttachment')"
           @click="$emit('remove', attachment)"
         >
           <XMarkIcon class="size-4" />
@@ -91,8 +91,9 @@
 
 <script setup lang="ts">
 import type { AttachmentRef, BoardAsset } from "@/types/kanban-types";
-import { assetTypeClass, fileTypeLabel, formatFileSize } from "@/utils/attachments";
+import { assetTypeClass, formatFileSize } from "@/utils/attachments";
 import { DocumentIcon, PaperClipIcon, PhotoIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { useI18n } from "vue-i18n";
 
 const props = withDefaults(defineProps<{
   allowInlineImages?: boolean;
@@ -103,7 +104,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   allowInlineImages: false,
   editable: true,
-  title: "Attachments",
+  title: "",
 });
 
 const emit = defineEmits<{
@@ -113,6 +114,7 @@ const emit = defineEmits<{
 }>();
 
 const { openAsset, pickFiles, resolveAssetUrl } = useAttachments();
+const { t } = useI18n();
 const isDragging = ref(false);
 const assetUrls = reactive<Record<string, string>>({});
 
@@ -123,6 +125,10 @@ const assetFor = (attachment: AttachmentRef) => {
 const assetClass = (asset: BoardAsset | null) => {
   if (!asset) return "border-red-500/50 bg-red-500/10 text-red-300";
   return assetTypeClass(asset);
+};
+
+const fileKindLabel = (kind: BoardAsset["kind"]) => {
+  return t(`components.kanban.attachments.fileTypes.${kind}`);
 };
 
 const refreshImageUrls = async () => {

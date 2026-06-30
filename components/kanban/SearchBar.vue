@@ -47,63 +47,63 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       class="bg-elevation-1 border-elevation-2 absolute left-0 top-10 z-10 -mr-2 w-full rounded-md border p-2"
     >
       <div>
-        <span class="text-dim-3 text-sm">Search filters</span>
+        <span class="text-dim-3 text-sm">{{ $t("components.kanban.searchBar.filters") }}</span>
       </div>
       <ul class="mt-0.5 text-sm">
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('name:')"
         >
-          <span>name: search card names</span>
+          <span>{{ $t("components.kanban.searchBar.filterName") }}</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('tag:')"
         >
-          <span>tag: search tags</span>
+          <span>{{ $t("components.kanban.searchBar.filterTag") }}</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('description:')"
         >
-          <span>description: search descriptions</span>
+          <span>{{ $t("components.kanban.searchBar.filterDescription") }}</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('task:')"
         >
-          <span>task: search tasks</span>
+          <span>{{ $t("components.kanban.searchBar.filterTask") }}</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('attachment:')"
         >
-          <span>attachment: search attachment names</span>
+          <span>{{ $t("components.kanban.searchBar.filterAttachment") }}</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('time:')"
         >
-          <span>time: search all dates</span>
+          <span>{{ $t("components.kanban.searchBar.filterTime") }}</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('created:')"
         >
-          <span>created: search created dates</span>
+          <span>{{ $t("components.kanban.searchBar.filterCreated") }}</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
         <li
           class="group/item bg-elevation-2-hover flex cursor-pointer items-center justify-between rounded-md p-1 py-1.5"
           @mousedown="addFilter('completed:')"
         >
-          <span>completed: search completed dates</span>
+          <span>{{ $t("components.kanban.searchBar.filterCompleted") }}</span>
           <span class="group/edit invisible group-hover/item:visible">+</span>
         </li>
       </ul>

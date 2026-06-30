@@ -30,7 +30,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive('bold') }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Bold"
+        :title="$t('components.kanban.richEditor.bold')"
         @click="editor.chain().focus().toggleBold().run()"
       >
         <ph-text-b class="size-5" />
@@ -38,7 +38,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive('italic') }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Italic"
+        :title="$t('components.kanban.richEditor.italic')"
         @click="editor.chain().focus().toggleItalic().run()"
       >
         <ph-text-italic class="size-5" />
@@ -46,7 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive('strike') }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Strikethrough"
+        :title="$t('components.kanban.richEditor.strikethrough')"
         @click="editor.chain().focus().toggleStrike().run()"
       >
         <ph-text-strikethrough class="size-5" />
@@ -54,7 +54,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive('code') }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Code"
+        :title="$t('components.kanban.richEditor.code')"
         @click="editor.chain().focus().toggleCode().run()"
       >
         <ph-code class="size-5" />
@@ -62,7 +62,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive('codeBlock') }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Code Block"
+        :title="$t('components.kanban.richEditor.codeBlock')"
         @click="editor.chain().focus().toggleCodeBlock().run()"
       >
         <ph-file-code class="size-5" />
@@ -71,15 +71,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive('link') }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Link"
+        :title="$t('components.kanban.richEditor.link')"
         @click="setLink"
       >
         <ph-link-simple class="size-5" />
       </button>
       <button
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Insert Attachment"
-        @click="$emit('requestFiles')"
+        :title="$t('components.kanban.richEditor.insertAttachment')"
+        @click="requestFilesFromCursor"
       >
         <ph-paperclip class="size-5" />
       </button>
@@ -89,7 +89,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Align Left"
+        :title="$t('components.kanban.richEditor.alignLeft')"
         @click="editor.chain().focus().setTextAlign('left').run()"
       >
         <ph-text-align-left class="size-5" />
@@ -97,7 +97,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Align Center"
+        :title="$t('components.kanban.richEditor.alignCenter')"
         @click="editor.chain().focus().setTextAlign('center').run()"
       >
         <ph-text-align-center class="size-5" />
@@ -105,7 +105,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Align Right"
+        :title="$t('components.kanban.richEditor.alignRight')"
         @click="editor.chain().focus().setTextAlign('right').run()"
       >
         <ph-text-align-right class="size-5" />
@@ -113,7 +113,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Justify"
+        :title="$t('components.kanban.richEditor.justify')"
         @click="editor.chain().focus().setTextAlign('justify').run()"
       >
         <ph-text-align-justify class="size-5" />
@@ -123,7 +123,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
       <button
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Insert Table"
+        :title="$t('components.kanban.richEditor.insertTable')"
         @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()"
       >
         <ph-table class="size-5" />
@@ -131,7 +131,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         v-if="editor.isActive('table')"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Add Row"
+        :title="$t('components.kanban.richEditor.addRow')"
         @click="editor.chain().focus().addRowAfter().run()"
       >
         <ph-rows-plus-bottom class="size-5" />
@@ -139,7 +139,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         v-if="editor.isActive('table')"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Add Column"
+        :title="$t('components.kanban.richEditor.addColumn')"
         @click="editor.chain().focus().addColumnAfter().run()"
       >
         <ph-columns-plus-right class="size-5" />
@@ -147,7 +147,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         v-if="editor.isActive('table')"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Toggle Header Row"
+        :title="$t('components.kanban.richEditor.toggleHeaderRow')"
         @click="editor.chain().focus().toggleHeaderRow().run()"
       >
         <ph-rows class="size-5" />
@@ -155,20 +155,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       <button
         v-if="editor.isActive('table')"
         class="bg-elevation-2-hover rounded-md p-1"
-        title="Delete Table"
+        :title="$t('components.kanban.richEditor.deleteTable')"
         @click="editor.chain().focus().deleteTable().run()"
       >
         <ph-trash class="size-5" />
       </button>
     </div>
   </bubble-menu>
-  <div class="relative mt-1">
+  <div class="relative mt-1" :class="{ 'kanri-rich-editor-compact': compact }">
     <editor-content class="bg-elevation-2 rounded-sm" :editor="editor" />
     <button
       class="bg-elevation-3-hover text-dim-2 text-accent-hover absolute right-2 top-2 rounded-md p-1"
-      title="Insert Attachment"
+      :title="$t('components.kanban.richEditor.insertAttachment')"
       @mousedown.prevent
-      @click="$emit('requestFiles')"
+      @click="requestFilesFromCursor"
     >
       <ph-paperclip class="size-5" />
     </button>
@@ -186,11 +186,13 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { mergeAttributes, Node } from "@tiptap/core";
-import { TextSelection } from "@tiptap/pm/state";
+import { NodeSelection, TextSelection } from "@tiptap/pm/state";
 import { BubbleMenu, Editor, EditorContent } from "@tiptap/vue-3";
 import { sanitizeRichHtml } from "@/utils/richContent";
 import emitter from "@/utils/emitter";
+import { filesFromTransfer } from "@/utils/fileTransfer";
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import {
   PhTextB,
   PhTextItalic,
@@ -243,6 +245,11 @@ const AttachmentBlock = Node.create({
         parseHTML: element => element.getAttribute("title") || element.textContent || "Attachment",
         renderHTML: attributes => ({ title: attributes.label || "Attachment" }),
       },
+      typeLabel: {
+        default: "Attachment",
+        parseHTML: element => element.getAttribute("data-attachment-type-label") || "Attachment",
+        renderHTML: attributes => ({ "data-attachment-type-label": attributes.typeLabel || "Attachment" }),
+      },
     };
   },
 
@@ -257,7 +264,7 @@ const AttachmentBlock = Node.create({
         class: "kanri-file-attachment",
         contenteditable: "false",
       }),
-      ["span", { class: "kanri-file-attachment-icon" }, "Attachment"],
+      ["span", { class: "kanri-file-attachment-icon" }, HTMLAttributes["data-attachment-type-label"] || "Attachment"],
       ["span", { class: "kanri-file-attachment-name" }, HTMLAttributes.title || "Attachment"],
     ];
   },
@@ -272,6 +279,13 @@ const AssetImage = Image.extend({
         parseHTML: element => element.getAttribute("data-asset-id"),
         renderHTML: attributes => (
           attributes.assetId ? { "data-asset-id": attributes.assetId } : {}
+        ),
+      },
+      attachmentId: {
+        default: null,
+        parseHTML: element => element.getAttribute("data-attachment-id"),
+        renderHTML: attributes => (
+          attributes.attachmentId ? { "data-attachment-id": attributes.attachmentId } : {}
         ),
       },
     };
@@ -301,71 +315,71 @@ export default {
   },
 
   props: {
+    compact: {
+      default: false,
+      type: Boolean,
+    },
     modelValue: {
       default: "",
       type: String,
     },
   },
 
-  emits: ["update:modelValue", "editorBlurred", "filesReceived", "requestFiles"],
+  emits: ["assetClicked", "update:modelValue", "editorBlurred", "filesReceived", "requestFiles"],
 
   setup(props, { emit }) {
     const editor = ref(null);
+    const { t } = useI18n();
 
-    const timestampName = (extension = "png") => {
-      const value = new Date()
-        .toISOString()
-        .replace(/[-:]/g, "")
-        .replace("T", "-")
-        .slice(0, 15);
-      return `pasted-image-${value}.${extension}`;
+    const clampPosition = (position) => {
+      if (!editor.value || typeof position !== "number") return undefined;
+      const maxPosition = editor.value.state.doc.content.size;
+      return Math.min(Math.max(position, 0), maxPosition);
     };
 
-    const extensionFromType = (type) => {
-      switch (type) {
-        case "image/jpeg":
-          return "jpg";
-        case "image/gif":
-          return "gif";
-        case "image/webp":
-          return "webp";
-        case "image/svg+xml":
-          return "svg";
-        case "image/png":
-        default:
-          return "png";
-      }
+    const currentInsertAt = () => {
+      if (!editor.value) return undefined;
+      return editor.value.state.selection.from;
     };
 
-    const filePath = (file) => ("path" in file ? String(file.path || "") : "");
-
-    const getTransferFiles = (dataTransfer, source) => {
-      const files = [];
-      const seen = new Set();
-      const addFile = (file) => {
-        if (!file) return;
-        const key = `${file.name}-${file.size}-${file.type}-${filePath(file)}`;
-        if (seen.has(key)) return;
-        seen.add(key);
-        const isPathlessPastedImage = source === "paste" && file.type?.startsWith("image/") && !filePath(file);
-        files.push({
-          file,
-          name: isPathlessPastedImage ? timestampName(extensionFromType(file.type)) : file.name,
-          path: filePath(file),
-        });
-      };
-
-      Array.from(dataTransfer?.items || []).forEach((item) => {
-        if (item.kind === "file") addFile(item.getAsFile());
-      });
-      Array.from(dataTransfer?.files || []).forEach(addFile);
-      return files;
+    const endPosition = () => {
+      if (!editor.value) return undefined;
+      return editor.value.state.doc.content.size;
     };
 
-    const emitFiles = (files) => {
+    const emitFiles = (files, insertAt = currentInsertAt()) => {
       if (files.length === 0) return false;
-      emit("filesReceived", files);
+      emit("filesReceived", { files, insertAt });
       return true;
+    };
+
+    const isAssetNode = node => !!node?.attrs?.assetId || node?.type?.name === "attachmentBlock";
+
+    const deleteAssetNode = (view, direction) => {
+      const { selection } = view.state;
+      if (selection instanceof NodeSelection && isAssetNode(selection.node)) {
+        view.dispatch(view.state.tr.delete(selection.from, selection.to));
+        return true;
+      }
+
+      if (!selection.empty) return false;
+
+      const resolved = view.state.doc.resolve(selection.from);
+      const adjacentNode = direction === "backward" ? resolved.nodeBefore : resolved.nodeAfter;
+      if (!isAssetNode(adjacentNode)) return false;
+
+      const from = direction === "backward"
+        ? selection.from - adjacentNode.nodeSize
+        : selection.from;
+      const to = direction === "backward"
+        ? selection.from
+        : selection.from + adjacentNode.nodeSize;
+      view.dispatch(view.state.tr.delete(from, to));
+      return true;
+    };
+
+    const requestFilesFromCursor = () => {
+      emit("requestFiles", currentInsertAt());
     };
 
     watch(
@@ -411,25 +425,44 @@ export default {
         ],
         editorProps: {
           handleDrop(view, event) {
-            const files = getTransferFiles(event.dataTransfer, "drop");
+            const files = filesFromTransfer(event.dataTransfer, "drop");
             if (files.length === 0) return false;
+            let insertAt = view.state.selection.from;
             const coordinates = view.posAtCoords({
               left: event.clientX,
               top: event.clientY,
             });
             if (coordinates) {
+              insertAt = coordinates.pos;
               view.dispatch(view.state.tr.setSelection(
                 TextSelection.near(view.state.doc.resolve(coordinates.pos))
               ));
             }
             event.preventDefault();
-            return emitFiles(files);
+            return emitFiles(files, insertAt);
           },
-          handlePaste(_view, event) {
-            const files = getTransferFiles(event.clipboardData, "paste");
+          handlePaste(view, event) {
+            const files = filesFromTransfer(event.clipboardData, "paste");
             if (files.length === 0) return false;
+            const insertAt = view.state.selection.from;
             event.preventDefault();
-            return emitFiles(files);
+            return emitFiles(files, insertAt);
+          },
+          handleKeyDown(view, event) {
+            if (event.key === "Backspace" && deleteAssetNode(view, "backward")) {
+              event.preventDefault();
+              return true;
+            }
+            if (event.key === "Delete" && deleteAssetNode(view, "forward")) {
+              event.preventDefault();
+              return true;
+            }
+            return false;
+          },
+          handleClickOn(_view, _pos, node) {
+            if (!node?.attrs?.assetId) return false;
+            emit("assetClicked", node.attrs.assetId);
+            return true;
           },
         },
         onBlur: () => {
@@ -454,7 +487,7 @@ export default {
       if (!editor.value) return;
 
       const previousUrl = editor.value.getAttributes("link").href;
-      const url = window.prompt("URL", previousUrl || "https://");
+      const url = window.prompt(t("components.kanban.richEditor.urlPrompt"), previousUrl || "https://");
       if (url === null) return;
       if (url === "") {
         editor.value.chain().focus().extendMarkRange("link").unsetLink().run();
@@ -470,31 +503,38 @@ export default {
         .run();
     };
 
-    const insertImage = (src, assetId, alt = "") => {
-      if (!editor.value) return;
-      editor.value
-        .chain()
-        .focus()
-        .setImage({ assetId, src, alt, title: alt })
-        .run();
+    const insertAtPosition = (content, insertAt) => {
+      if (!editor.value) return undefined;
+      const position = clampPosition(insertAt);
+      const chain = editor.value.chain().focus();
+      if (position == null) {
+        chain.insertContent(content).run();
+      } else {
+        chain.insertContentAt(position, content, { updateSelection: true }).run();
+      }
+      return editor.value.state.selection.to;
     };
 
-    const insertAttachment = (attachment) => {
-      if (!editor.value) return;
-      editor.value
-        .chain()
-        .focus()
-        .insertContent({
-          type: "attachmentBlock",
-          attrs: attachment,
-        })
-        .run();
+    const insertImage = (src, assetId, alt = "", insertAt, attachmentId = null) => {
+      return insertAtPosition({
+        type: "image",
+        attrs: { assetId, attachmentId, src, alt, title: alt },
+      }, insertAt);
+    };
+
+    const insertAttachment = (attachment, insertAt) => {
+      return insertAtPosition({
+        type: "attachmentBlock",
+        attrs: attachment,
+      }, insertAt);
     };
 
     return {
       editor,
+      endPosition,
       insertAttachment,
       insertImage,
+      requestFilesFromCursor,
       setLink,
     };
   },
@@ -523,6 +563,12 @@ export default {
   padding: 4px;
   padding-right: 2.5rem;
   resize: vertical;
+}
+
+.kanri-rich-editor-compact .tiptap.ProseMirror {
+  min-height: 4.75rem;
+  height: auto;
+  max-height: 18rem;
 }
 
 .tiptap ul {

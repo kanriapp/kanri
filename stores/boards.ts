@@ -25,42 +25,46 @@ import { getCurrentTimestamp } from "@/utils/dateTime";
 import { useTauriStore } from "@/stores/tauriStore";
 import { generateUniqueID } from "@/utils/idGenerator";
 import { BaseDirectory, mkdir, writeTextFile } from "@tauri-apps/plugin-fs";
-import { richHtmlToText } from "@/utils/richContent";
+import { extractRichAssetIds, plainTextToRichHtml, richHtmlToText } from "@/utils/richContent";
 
 type Pin = { id: string; title: string; pinIcon?: string; pinIconText?: string };
 
-export const KANRI_SCHEMA_VERSION = 2;
+export const KANRI_SCHEMA_VERSION = 3;
 
 const normalizeAttachments = (attachments: AttachmentRef[] | undefined | null) => {
   return (attachments || []).filter(attachment => attachment && attachment.assetId && attachment.id);
 };
 
-const normalizeTasks = (tasks: Task[] | undefined | null) => {
+const normalizeTasks = (tasks: Task[] | undefined | null, schemaVersion = 0) => {
   return (tasks || []).map((task) => {
-    const detailsText = richHtmlToText(task.description);
-    const name = detailsText && !(task.name || "").includes(detailsText)
-      ? `${task.name || ""}${task.name?.trim() ? "\n\n" : ""}${detailsText}`
-      : task.name;
-    const lineCount = Math.max(1, (name || "").split("\n").length);
+    const taskName = task.name || "";
+    const savedDescription = task.description || "";
+    const descriptionText = richHtmlToText(savedDescription);
+    const nameHtml = plainTextToRichHtml(taskName);
+    const description = schemaVersion < 3
+      ? (
+          descriptionText && taskName && !descriptionText.includes(taskName)
+            ? `${nameHtml}${savedDescription}`
+            : savedDescription || nameHtml
+        )
+      : savedDescription || nameHtml;
+    const name = richHtmlToText(description) || taskName;
 
     return {
       ...task,
-      attachments: normalizeAttachments(task.attachments).map(attachment => ({
-        ...attachment,
-        line: Math.min(Math.max(0, attachment.line || 0), lineCount - 1),
-      })),
-      description: "",
+      attachments: normalizeAttachments(task.attachments),
+      description,
       name,
       subtasks: task.subtasks || [],
     };
   });
 };
 
-const normalizeCard = (card: Card) => ({
+const normalizeCard = (card: Card, schemaVersion = 0) => ({
   ...card,
   attachments: normalizeAttachments(card.attachments),
   description: card.description || "",
-  tasks: normalizeTasks(card.tasks),
+  tasks: normalizeTasks(card.tasks, schemaVersion),
 });
 
 const normalizeBoard = (board: Board) => ({
@@ -68,7 +72,7 @@ const normalizeBoard = (board: Board) => ({
   assets: board.assets || [],
   columns: (board.columns || []).map(column => ({
     ...column,
-    cards: (column.cards || []).map(normalizeCard),
+    cards: (column.cards || []).map(card => normalizeCard(card, board.schemaVersion || 0)),
   })),
   globalTags: board.globalTags || [],
   schemaVersion: KANRI_SCHEMA_VERSION,
@@ -84,9 +88,7 @@ const boardNeedsNormalization = (board: Board) => {
       !Array.isArray(card.tasks) ||
       (card.tasks || []).some(task =>
         !Array.isArray(task.attachments) ||
-        task.description == null ||
-        !!task.description ||
-        (task.attachments || []).some(attachment => attachment.line == null)
+        task.description == null
       )
     ))
   );
@@ -97,9 +99,14 @@ const countAssetReferences = (board: Board, assetId: string) => {
 
   for (const column of board.columns || []) {
     for (const card of column.cards || []) {
+      const cardAttachmentIds = new Set((card.attachments || []).map(attachment => attachment.assetId));
       count += (card.attachments || []).filter(attachment => attachment.assetId === assetId).length;
+      count += extractRichAssetIds(card.description).filter(id => id === assetId && !cardAttachmentIds.has(id)).length;
+
       for (const task of card.tasks || []) {
+        const taskAttachmentIds = new Set((task.attachments || []).map(attachment => attachment.assetId));
         count += (task.attachments || []).filter(attachment => attachment.assetId === assetId).length;
+        count += extractRichAssetIds(task.description).filter(id => id === assetId && !taskAttachmentIds.has(id)).length;
       }
     }
   }
@@ -107,14 +114,9 @@ const countAssetReferences = (board: Board, assetId: string) => {
   return count;
 };
 
-const extractInlineAssetIds = (html: string | null | undefined) => {
-  if (!html) return [];
-  return Array.from(html.matchAll(/data-asset-id=["']([^"']+)["']/g)).map(match => match[1]);
-};
-
 const backupLegacyBoardsOnce = async (tauri: ReturnType<typeof useTauriStore>["store"], boards: Board[], pins: Pin[]) => {
   try {
-    const backupCreated = await tauri.get("attachmentsMigrationBackupCreated");
+    const backupCreated = await tauri.get("attachmentsRichContentMigrationBackupCreated");
     if (backupCreated) return;
 
     await mkdir("kanri-backups", {
@@ -125,15 +127,15 @@ const backupLegacyBoardsOnce = async (tauri: ReturnType<typeof useTauriStore>["s
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
     const backup = JSON.stringify({
       createdAt: new Date().toISOString(),
-      reason: "Pre-attachments schema backup",
+      reason: "Pre rich task content schema backup",
       boards,
       pins,
     }, null, 2);
 
-    await writeTextFile(`kanri-backups/pre-attachments-${timestamp}.json`, backup, {
+    await writeTextFile(`kanri-backups/pre-rich-task-content-${timestamp}.json`, backup, {
       baseDir: BaseDirectory.AppLocalData,
     });
-    await tauri.set("attachmentsMigrationBackupCreated", true);
+    await tauri.set("attachmentsRichContentMigrationBackupCreated", true);
     await tauri.save();
   } catch (error) {
     console.error("Failed to create pre-attachments backup; continuing with migration:", error);
@@ -527,8 +529,9 @@ export const useBoardsStore = defineStore("boards", {
       if (card === undefined) return;
       const referencedAssetIds = new Set([
         ...(card.attachments || []).map(attachment => attachment.assetId),
-        ...extractInlineAssetIds(card.description),
+        ...extractRichAssetIds(card.description),
         ...(card.tasks || []).flatMap(task => (task.attachments || []).map(attachment => attachment.assetId)),
+        ...(card.tasks || []).flatMap(task => extractRichAssetIds(task.description)),
       ]);
       if (referencedAssetIds.size > 0) {
         if (!targetBoard.assets) targetBoard.assets = [];

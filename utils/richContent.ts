@@ -46,6 +46,7 @@ const allowedAttributes = [
   "data-asset-id",
   "data-attachment-id",
   "data-attachment-kind",
+  "data-attachment-type-label",
   "href",
   "rel",
   "rowspan",
@@ -76,6 +77,28 @@ export const richHtmlToText = (html: string | null | undefined) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(sanitizeRichHtml(html), "text/html");
   return (doc.body.textContent || "").replace(/\s+/g, " ").trim();
+};
+
+export const plainTextToRichHtml = (text: string | null | undefined) => {
+  const value = text || "";
+  if (!value) return "";
+
+  const escapeHtml = (part: string) => part
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+  return value
+    .split(/\n{2,}/)
+    .map(paragraph => paragraph.split("\n").map(escapeHtml).join("<br>"))
+    .map(paragraph => `<p>${paragraph || "<br>"}</p>`)
+    .join("");
+};
+
+export const extractRichAssetIds = (html: string | null | undefined) => {
+  if (!html) return [];
+  return Array.from(html.matchAll(/data-asset-id=["']([^"']+)["']/g)).map(match => match[1]);
 };
 
 export const richHtmlToMarkdown = (html: string | null | undefined) => {

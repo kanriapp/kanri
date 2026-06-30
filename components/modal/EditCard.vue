@@ -277,7 +277,7 @@ limitations under the License.
                     >
                       <PhCheck v-if="!isDueDateCompleted" class="mt-0.5 size-5" />
                       <PhX v-else class="mt-0.5 size-5" />
-                      {{ isDueDateCompleted ? 'Mark Not Completed' : 'Set as Completed' }}
+                      {{ isDueDateCompleted ? $t("modals.editCard.markNotCompleted") : $t("modals.editCard.markCompleted") }}
                     </button>
                   </div>
                 </div>
@@ -285,8 +285,8 @@ limitations under the License.
             </VDatePicker>
           </div>
           <div class="text-dim-2 mt-2 flex flex-col gap-1 text-xs">
-            <p v-if="cardCreatedAt">Created: {{ cardCreatedAt }}</p>
-            <p v-if="cardCompletedAt">Completed: {{ cardCompletedAt }}</p>
+            <p v-if="cardCreatedAt">{{ $t("modals.editCard.createdAt") }} {{ cardCreatedAt }}</p>
+            <p v-if="cardCompletedAt">{{ $t("modals.editCard.completedAt") }} {{ cardCompletedAt }}</p>
           </div>
         </div>
 
@@ -295,6 +295,7 @@ limitations under the License.
             <KanbanDescriptionEditor
               ref="descriptionEditor"
               v-model="description"
+              @assetClicked="openAssetById"
               @editorBlurred="updateDescription"
               @filesReceived="addInputFilesToCardContent"
               @requestFiles="addFilesToCardContent"
@@ -364,90 +365,27 @@ limitations under the License.
                               />
                             </CheckboxIndicator>
                           </CheckboxRoot>
-                          <textarea
-                            v-if="
-                              taskEditMode && index === currentlyEditingTaskIndex
-                            "
-                            v-model="currentlyEditingTaskName"
-                            v-focus
-                            class="bg-elevation-2 border-accent -mx-1.5 min-h-20 w-full resize-y rounded-md border-b-2 border-dotted px-1.5 py-0.5 outline-none"
-                            @blur="updateTask(index)"
-                            @keydown.ctrl.enter.prevent="updateTask(index)"
-                          />
-                          <ClickCounter
-                            v-else
-                            @double-click="enableTaskEditMode(index, task)"
-                          >
-                            <div class="w-full min-w-0">
-                              <div
-                                v-for="(line, lineIndex) in taskLines(task.name)"
-                                :key="`${taskKey(task, index)}-${lineIndex}`"
-                                class="rounded-sm px-1 py-0.5"
-                                @drop.prevent="(event) => addDroppedFilesToTaskLine(event, task, lineIndex)"
-                              >
-                                <span class="block w-full whitespace-pre-wrap break-words">{{ line || " " }}</span>
-                                <div
-                                  v-if="taskAttachmentsForLine(task, lineIndex).length"
-                                  class="mt-1 flex flex-col gap-1"
-                                >
-                                  <div
-                                    v-for="attachment in taskAttachmentsForLine(task, lineIndex)"
-                                    :key="attachment.id"
-                                    class="bg-elevation-2 border-elevation-3 flex min-h-8 max-w-full items-center gap-2 rounded border px-2 py-1 text-xs"
-                                  >
-                                    <PhPaperclip class="text-dim-2 size-3.5 shrink-0" />
-                                    <button
-                                      class="min-w-0 flex-1 truncate text-left"
-                                      @click="openTaskAttachment(attachment)"
-                                    >
-                                      {{ attachmentLabel(attachment) }}
-                                    </button>
-                                    <button
-                                      class="text-dim-2 text-accent-hover shrink-0"
-                                      @click="removeTaskAttachment(task, attachment)"
-                                    >
-                                      <XMarkIcon class="size-3.5" />
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <span class="text-dim-2 mt-0.5 block text-xs">
-                                Created: {{ formatTimestamp(task.createdAt) || '-' }}
-                                <span v-if="task.completedAt"> | Completed: {{ formatTimestamp(task.completedAt) }}</span>
-                              </span>
-                            </div>
-                          </ClickCounter>
+                          <div class="w-full min-w-0">
+                            <KanbanDescriptionEditor
+                              :ref="(editor) => setTaskEditorRef(task, editor)"
+                              v-model="task.description"
+                              compact
+                              @assetClicked="openAssetById"
+                              @editorBlurred="() => updateTaskFromDescription(task)"
+                              @filesReceived="(payload) => addInputFilesToTaskContent(task, payload)"
+                              @requestFiles="(insertAt) => addFilesToTaskContent(task, insertAt)"
+                              @update:modelValue="() => syncTaskNameFromDescription(task)"
+                            />
+                            <span class="text-dim-2 mt-0.5 block text-xs">
+                              {{ $t("modals.editCard.createdAt") }} {{ formatTimestamp(task.createdAt) || '-' }}
+                              <span v-if="task.completedAt"> | {{ $t("modals.editCard.completedAt") }} {{ formatTimestamp(task.completedAt) }}</span>
+                            </span>
+                          </div>
                         </div>
                         <div
                           class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center"
                         >
                           <button
-                            v-if="!taskEditMode"
-                            class="shrink-0"
-                            @click="enableTaskEditMode(index, task)"
-                          >
-                            <PhPencilSimple
-                              class="text-dim-2 text-accent-hover size-4"
-                            />
-                          </button>
-                          <button
-                            v-if="
-                              taskEditMode && currentlyEditingTaskIndex === index
-                            "
-                            class="shrink-0"
-                            @click="updateTask(index)"
-                          >
-                            <PhCheck
-                              class="text-dim-2 text-accent-hover size-4"
-                            />
-                          </button>
-                          <button
-                            v-if="
-                              !(
-                                taskEditMode &&
-                                currentlyEditingTaskIndex === index
-                              )
-                            "
                             class="shrink-0"
                             @click="deleteTask(index)"
                           >
@@ -506,7 +444,7 @@ limitations under the License.
 <script setup lang="ts">
 import type { AttachmentInputFile } from "@/composables/useAttachments";
 import type { AttachmentRef, BoardAsset, Card, Task, Tag } from "@/types/kanban-types";
-import type { Ref } from "vue";
+import type { ComponentPublicInstance, Ref } from "vue";
 
 import { getCurrentTimestamp } from "@/utils/dateTime";
 import { applyDrag } from "@/utils/drag-n-drop";
@@ -517,8 +455,6 @@ import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import {
   PhCalendar,
   PhCheck,
-  PhPaperclip,
-  PhPencilSimple,
   PhTrash,
   PhX,
 } from "@phosphor-icons/vue";
@@ -527,8 +463,28 @@ import { vOnClickOutside } from "@vueuse/components";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useSettingsStore } from "@/stores/settings";
 import { formatFileSize, getAssetUrl, makeAttachmentRef } from "@/utils/attachments";
-import { richHtmlToText, sanitizeRichHtml } from "@/utils/richContent";
+import { plainTextToRichHtml, richHtmlToText, sanitizeRichHtml } from "@/utils/richContent";
 import { message } from "@tauri-apps/plugin-dialog";
+
+type RichEditorFilePayload = {
+  files: AttachmentInputFile[];
+  insertAt?: number;
+};
+
+type RichEditorRef = {
+  endPosition: () => number | undefined;
+  insertAttachment: (
+    attachment: Record<string, string | null>,
+    insertAt?: number
+  ) => number | undefined;
+  insertImage: (
+    src: string,
+    assetId: string,
+    alt?: string,
+    insertAt?: number,
+    attachmentId?: string | null
+  ) => number | undefined;
+};
 
 const props = defineProps<{
   boardAssets: Array<BoardAsset>;
@@ -580,17 +536,15 @@ const emit = defineEmits<{
   (e: "upsertBoardAsset", asset: BoardAsset): void;
 }>();
 
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 
 const columnID = ref("");
 const { textarea: titleTextArea, input: title } = useTextareaAutosize();
 const description = ref("");
-const descriptionEditor = ref<{
-  insertAttachment: (attachment: Record<string, string | null>) => void;
-  insertImage: (src: string, assetId: string, alt?: string) => void;
-} | null>(null);
+const descriptionEditor = ref<RichEditorRef | null>(null);
 const cardAttachments: Ref<Array<AttachmentRef>> = ref([]);
 const tasks: Ref<Array<Task>> = ref([]);
+const taskEditorRefs = new Map<string, RichEditorRef>();
 const cardCreatedAt = ref<string | null>(null);
 const selectedColor = ref("");
 
@@ -625,11 +579,6 @@ const newTaskName = ref("");
 const taskAddMode = ref(false);
 const newTaskInput: Ref<HTMLTextAreaElement | null> = ref(null);
 
-const currentlyEditingTaskIndex = ref(-1);
-const currentlyEditingTaskName = ref("");
-const currentlyEditingTaskLineCount = ref(0);
-const taskEditMode = ref(false);
-
 const draggingEnabled = ref(true);
 const { ingestFiles, ingestInputFiles, openAsset, pickFiles } = useAttachments();
 
@@ -659,7 +608,7 @@ const createTask = () => {
     attachments: [],
     completedAt: null,
     createdAt: getCurrentTimestamp(),
-    description: "",
+    description: plainTextToRichHtml(newTaskName.value),
     dueDate: null,
     finished: false,
     id: generateUniqueID(),
@@ -679,37 +628,6 @@ const deleteTask = (index: number) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onTaskDrop = (dropResult: any) => {
   tasks.value = applyDrag(tasks.value, dropResult);
-  updateCardTasks();
-};
-
-const enableTaskEditMode = (
-  index: number,
-  task: Task
-) => {
-  taskEditMode.value = true;
-  draggingEnabled.value = false;
-  currentlyEditingTaskIndex.value = index;
-  currentlyEditingTaskName.value = task.name;
-  currentlyEditingTaskLineCount.value = taskLines(task.name).length;
-};
-
-const updateTask = (index: number) => {
-  const taskNameEmpty =
-    currentlyEditingTaskName.value == null ||
-    !/\S/.test(currentlyEditingTaskName.value);
-  if (taskNameEmpty || currentlyEditingTaskIndex.value === -1) return;
-
-  if (tasks.value[index]) {
-    tasks.value[index].name = currentlyEditingTaskName.value;
-    normalizeTaskAttachmentLines(tasks.value[index], currentlyEditingTaskLineCount.value);
-  }
-
-  currentlyEditingTaskIndex.value = -1;
-  currentlyEditingTaskName.value = "";
-  currentlyEditingTaskLineCount.value = 0;
-  taskEditMode.value = false;
-  draggingEnabled.value = true;
-
   updateCardTasks();
 };
 
@@ -743,177 +661,250 @@ const showAttachmentErrors = async (errors: Array<{ path: string; reason: string
     .slice(0, 3)
     .map(error => `${error.path}: ${error.reason}`)
     .join("\n");
-  await message(`Some files could not be attached:\n${details}`, {
+  await message(t("modals.editCard.attachmentErrors", { details }), {
     kind: "warning",
     title: "Kanri",
   });
 };
 
-const insertAssetsIntoDescription = async (assets: BoardAsset[]) => {
-  if (assets.length === 0) return;
+const normalizeFilePayload = (
+  payload: AttachmentInputFile[] | RichEditorFilePayload
+): RichEditorFilePayload => {
+  return Array.isArray(payload) ? { files: payload } : payload;
+};
 
-  for (const asset of assets) {
-    const attachment = makeAttachmentRef(asset.id, asset.kind === "image" ? "inline-image" : "attachment");
-    cardAttachments.value = [...cardAttachments.value, attachment];
+const setTaskEditorRef = (task: Task, editor: Element | ComponentPublicInstance | null) => {
+  if (!task.id) return;
+  if (!editor) {
+    taskEditorRefs.delete(task.id);
+    return;
+  }
+  taskEditorRefs.set(task.id, editor as unknown as RichEditorRef);
+};
 
-    if (asset.kind === "image") {
-      descriptionEditor.value?.insertImage(await getAssetUrl(asset), asset.id, asset.name);
-    } else {
-      descriptionEditor.value?.insertAttachment({
-        assetId: asset.id,
-        attachmentId: attachment.id,
-        href: "#",
-        kind: asset.kind,
-        label: `${asset.name} (${formatFileSize(asset.size)})`,
-      });
-    }
+const taskEditorFor = (task: Task) => {
+  return task.id ? taskEditorRefs.get(task.id) || null : null;
+};
+
+const attachmentRoleForAsset = (asset: BoardAsset): AttachmentRef["role"] => {
+  return asset.kind === "image" ? "inline-image" : "attachment";
+};
+
+const attachmentLabel = (asset: BoardAsset) => {
+  return `${asset.name} (${formatFileSize(asset.size)})`;
+};
+
+const fileKindLabel = (kind: BoardAsset["kind"]) => {
+  return t(`components.kanban.attachments.fileTypes.${kind}`);
+};
+
+const insertAssetIntoEditor = async (
+  editor: RichEditorRef | null,
+  asset: BoardAsset,
+  attachment: AttachmentRef,
+  insertAt?: number
+) => {
+  if (!editor) return insertAt;
+
+  if (asset.kind === "image") {
+    return editor.insertImage(
+      await getAssetUrl(asset),
+      asset.id,
+      asset.name,
+      insertAt,
+      attachment.id
+    );
   }
 
-  syncCardAttachmentsFromDescription();
-  updateCardAttachments();
-  updateDescription();
+  return editor.insertAttachment({
+    assetId: asset.id,
+    attachmentId: attachment.id,
+    href: "#",
+    kind: asset.kind,
+    label: attachmentLabel(asset),
+    typeLabel: fileKindLabel(asset.kind),
+  }, insertAt);
 };
 
-const addCardAssetsToDescription = async (paths: string[]) => {
-  const { assets, errors } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
-  await showAttachmentErrors(errors);
-  await insertAssetsIntoDescription(assets);
+const insertAssetsIntoEditor = async (
+  editor: RichEditorRef | null,
+  assets: BoardAsset[],
+  insertAt?: number
+) => {
+  let nextInsertAt = insertAt;
+  const refs: AttachmentRef[] = [];
+
+  for (const asset of assets) {
+    const attachment = makeAttachmentRef(asset.id, attachmentRoleForAsset(asset));
+    refs.push(attachment);
+    nextInsertAt = await insertAssetIntoEditor(editor, asset, attachment, nextInsertAt);
+  }
+
+  return refs;
 };
 
-const addFilesToCardContent = async () => {
-  const paths = await pickFiles();
-  if (paths.length > 0) await addCardAssetsToDescription(paths);
-};
-
-const addInputFilesToCardContent = async (files: AttachmentInputFile[]) => {
-  const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
-  await showAttachmentErrors(errors);
-  await insertAssetsIntoDescription(assets);
-};
-
-const extractDescriptionAttachmentRefs = () => {
-  if (typeof window === "undefined") return cardAttachments.value;
+const extractAttachmentRefsFromHtml = (
+  html: string,
+  existingRefs: AttachmentRef[]
+) => {
+  if (typeof window === "undefined") return existingRefs;
 
   const parser = new DOMParser();
-  const doc = parser.parseFromString(sanitizeRichHtml(description.value), "text/html");
+  const doc = parser.parseFromString(sanitizeRichHtml(html), "text/html");
   const refs: AttachmentRef[] = [];
 
   doc.querySelectorAll("[data-asset-id]").forEach((node) => {
     const assetId = node.getAttribute("data-asset-id");
     if (!assetId) return;
-    const existing = cardAttachments.value.find(item =>
-      item.id === node.getAttribute("data-attachment-id") ||
-      (item.assetId === assetId && item.role === (node.tagName.toLowerCase() === "img" ? "inline-image" : "attachment"))
+
+    const attachmentId = node.getAttribute("data-attachment-id");
+    const role = node.tagName.toLowerCase() === "img" ? "inline-image" : "attachment";
+    const existing = existingRefs.find(item =>
+      item.id === attachmentId ||
+      (!attachmentId && item.assetId === assetId && item.role === role)
     );
+    const fallback = makeAttachmentRef(assetId, role);
+
     refs.push({
-      ...(existing || makeAttachmentRef(assetId, node.tagName.toLowerCase() === "img" ? "inline-image" : "attachment")),
+      ...(existing || fallback),
       assetId,
-      role: node.tagName.toLowerCase() === "img" ? "inline-image" : "attachment",
+      id: existing?.id || attachmentId || fallback.id,
+      role,
     });
   });
 
   return refs.filter((ref, index, all) => all.findIndex(item => item.id === ref.id) === index);
 };
 
-const taskKey = (task: Task, index: number) => {
-  return task.id || `task-${index}`;
-};
-
 const syncCardAttachmentsFromDescription = () => {
-  cardAttachments.value = extractDescriptionAttachmentRefs();
+  cardAttachments.value = extractAttachmentRefsFromHtml(description.value, cardAttachments.value);
 };
 
-const taskLines = (value: string | null | undefined) => {
-  const lines = (value || "").split("\n");
-  return lines.length > 0 ? lines : [""];
+const syncTaskAttachmentsFromDescription = (task: Task) => {
+  task.attachments = extractAttachmentRefsFromHtml(task.description || "", task.attachments || []);
 };
 
-const taskAttachmentsForLine = (task: Task, line: number) => {
-  return (task.attachments || []).filter(attachment => (attachment.line || 0) === line);
+const syncTaskNameFromDescription = (task: Task) => {
+  const text = richHtmlToText(task.description);
+  task.name = text || task.name || "";
 };
 
-const normalizeTaskAttachmentLines = (task: Task, previousLineCount = taskLines(task.name).length) => {
-  const lineCount = Math.max(1, taskLines(task.name).length);
-  task.attachments = (task.attachments || []).map(attachment => ({
-    ...attachment,
-    line: Math.min(Math.max(0, attachment.line || 0), lineCount - 1),
-  }));
-  void previousLineCount;
+const updateTaskFromDescription = (task: Task) => {
+  task.description = sanitizeRichHtml(task.description || "");
+  syncTaskAttachmentsFromDescription(task);
+  syncTaskNameFromDescription(task);
+  updateCardTasks();
+  emitter.emit("modalEnableClickOutsideClose");
 };
 
-const addInputFilesToTaskLine = async (task: Task, files: AttachmentInputFile[], line: number) => {
+const insertAssetsIntoDescription = async (
+  assets: BoardAsset[],
+  insertAt?: number
+) => {
+  if (assets.length === 0) return;
+
+  const refs = await insertAssetsIntoEditor(descriptionEditor.value, assets, insertAt);
+  cardAttachments.value = [...cardAttachments.value, ...refs];
+
+  syncCardAttachmentsFromDescription();
+  updateCardAttachments();
+  updateDescription();
+};
+
+const insertAssetsIntoTaskDescription = async (
+  task: Task,
+  assets: BoardAsset[],
+  insertAt?: number
+) => {
+  if (assets.length === 0) return;
+
+  const refs = await insertAssetsIntoEditor(taskEditorFor(task), assets, insertAt);
+  task.attachments = [...(task.attachments || []), ...refs];
+  updateTaskFromDescription(task);
+};
+
+const addCardAssetsToDescription = async (paths: string[], insertAt?: number) => {
+  const { assets, errors } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
+  await showAttachmentErrors(errors);
+  await insertAssetsIntoDescription(assets, insertAt);
+};
+
+const addFilesToCardContent = async (insertAt?: number) => {
+  const paths = await pickFiles();
+  if (paths.length > 0) await addCardAssetsToDescription(paths, insertAt);
+};
+
+const addInputFilesToCardContent = async (payload: AttachmentInputFile[] | RichEditorFilePayload) => {
+  const { files, insertAt } = normalizeFilePayload(payload);
   const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
   await showAttachmentErrors(errors);
-  if (assets.length === 0) return;
-  task.attachments = [
-    ...(task.attachments || []),
-    ...assets.map((asset) => ({
-      ...makeAttachmentRef(asset.id),
-      line: Math.min(Math.max(0, line), Math.max(0, taskLines(task.name).length - 1)),
-    })),
-  ];
-  updateCardTasks();
+  await insertAssetsIntoDescription(assets, insertAt);
 };
 
-const inputFilesFromDataTransfer = (dataTransfer: DataTransfer | null) => {
-  const seen = new Set<string>();
-  const files: AttachmentInputFile[] = [];
-  const addFile = (file: File | null) => {
-    if (!file) return;
-    const path = "path" in file ? String((file as File & { path?: string }).path || "") : "";
-    const key = `${file.name}-${file.size}-${file.type}-${path}`;
-    if (seen.has(key)) return;
-    seen.add(key);
-    files.push({ file, name: file.name, path });
-  };
+const addFilesToTaskContent = async (task: Task, insertAt?: number) => {
+  const paths = await pickFiles();
+  if (paths.length === 0) return;
 
-  Array.from(dataTransfer?.items || []).forEach((item) => {
-    if (item.kind === "file") addFile(item.getAsFile());
-  });
-  Array.from(dataTransfer?.files || []).forEach(addFile);
-  return files;
+  const { assets, errors } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
+  await showAttachmentErrors(errors);
+  await insertAssetsIntoTaskDescription(task, assets, insertAt);
 };
 
-const addDroppedFilesToTaskLine = async (event: DragEvent, task: Task, line: number) => {
-  const files = inputFilesFromDataTransfer(event.dataTransfer);
-  if (files.length > 0) await addInputFilesToTaskLine(task, files, line);
+const addInputFilesToTaskContent = async (
+  task: Task,
+  payload: AttachmentInputFile[] | RichEditorFilePayload
+) => {
+  const { files, insertAt } = normalizeFilePayload(payload);
+  const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
+  await showAttachmentErrors(errors);
+  await insertAssetsIntoTaskDescription(task, assets, insertAt);
 };
 
-const removeTaskAttachment = (task: Task, attachment: AttachmentRef) => {
-  task.attachments = (task.attachments || []).filter(item => item.id !== attachment.id);
-  updateCardTasks();
-};
-
-const taskAttachmentAsset = (attachment: AttachmentRef) => {
-  return props.boardAssets.find(asset => asset.id === attachment.assetId) || null;
-};
-
-const attachmentLabel = (attachment: AttachmentRef) => {
-  const asset = taskAttachmentAsset(attachment);
-  return asset ? `${asset.name} (${formatFileSize(asset.size)})` : "Missing attachment";
-};
-
-const openTaskAttachment = async (attachment: AttachmentRef) => {
-  const asset = taskAttachmentAsset(attachment);
-  if (asset) await openAsset(asset);
-};
-
-const mergeLegacyTaskDetails = (task: Task) => {
-  if (!task.description) return;
-  const detailsText = richHtmlToText(task.description);
-  if (!detailsText) {
-    task.description = "";
+const openAssetById = async (assetId: string) => {
+  const asset = props.boardAssets.find(item => item.id === assetId);
+  if (!asset) {
+    await message(t("modals.editCard.missingAttachmentMetadata"), {
+      kind: "warning",
+      title: "Kanri",
+    });
     return;
   }
 
-  if (!task.name.includes(detailsText)) {
-    task.name = `${task.name}${task.name.trim() ? "\n\n" : ""}${detailsText}`;
+  try {
+    await openAsset(asset);
+  } catch (error) {
+    await message(t("modals.editCard.openAttachmentFailed", {
+      error: error instanceof Error ? error.message : String(error),
+    }), {
+      kind: "warning",
+      title: "Kanri",
+    });
   }
-  task.description = "";
+};
+
+const mergeLegacyTaskDetails = (task: Task) => {
+  const nameHtml = plainTextToRichHtml(task.name);
+  const description = sanitizeRichHtml(task.description || "");
+  const descriptionText = richHtmlToText(description);
+
+  if (!descriptionText) {
+    task.description = nameHtml;
+    return;
+  }
+
+  const nameText = richHtmlToText(nameHtml);
+  task.description = descriptionText.includes(nameText)
+    ? description
+    : `${nameHtml}${description}`;
+  syncTaskNameFromDescription(task);
 };
 
 const appendLegacyCardAttachmentsToDescription = async () => {
-  const represented = new Set(extractDescriptionAttachmentRefs().map(ref => ref.assetId));
+  if (!descriptionEditor.value) return;
+  const represented = new Set(
+    extractAttachmentRefsFromHtml(description.value, cardAttachments.value)
+      .map(ref => ref.assetId)
+  );
   const missing = cardAttachments.value.filter(attachment => !represented.has(attachment.assetId));
   if (missing.length === 0) return;
 
@@ -921,20 +912,45 @@ const appendLegacyCardAttachmentsToDescription = async () => {
     const asset = props.boardAssets.find(item => item.id === attachment.assetId);
     if (!asset) continue;
     if (asset.kind === "image") {
-      descriptionEditor.value?.insertImage(await getAssetUrl(asset), asset.id, asset.name);
+      await insertAssetIntoEditor(
+        descriptionEditor.value,
+        asset,
+        attachment,
+        descriptionEditor.value?.endPosition()
+      );
     } else {
-      descriptionEditor.value?.insertAttachment({
-        assetId: asset.id,
-        attachmentId: attachment.id,
-        href: "#",
-        kind: asset.kind,
-        label: `${asset.name} (${formatFileSize(asset.size)})`,
-      });
+      await insertAssetIntoEditor(
+        descriptionEditor.value,
+        asset,
+        attachment,
+        descriptionEditor.value?.endPosition()
+      );
     }
   }
   syncCardAttachmentsFromDescription();
   updateCardAttachments();
   updateDescription();
+};
+
+const appendLegacyTaskAttachmentsToDescriptions = async () => {
+  for (const task of tasks.value) {
+    const represented = new Set(
+      extractAttachmentRefsFromHtml(task.description || "", task.attachments || [])
+        .map(ref => ref.assetId)
+    );
+    const missing = (task.attachments || []).filter(attachment => !represented.has(attachment.assetId));
+    if (missing.length === 0) continue;
+
+    const editor = taskEditorFor(task);
+    if (!editor) continue;
+    let insertAt = editor?.endPosition();
+    for (const attachment of missing) {
+      const asset = props.boardAssets.find(item => item.id === attachment.assetId);
+      if (!asset) continue;
+      insertAt = await insertAssetIntoEditor(editor, asset, attachment, insertAt);
+    }
+    updateTaskFromDescription(task);
+  }
 };
 
 const resetDueDate = () => {
@@ -1061,11 +1077,14 @@ watch(props, (newVal) => {
           task.description = "";
         }
         mergeLegacyTaskDetails(task);
-        normalizeTaskAttachmentLines(task);
+        syncTaskAttachmentsFromDescription(task);
       });
     }
     tasks.value = savedTasks;
-    void nextTick(() => appendLegacyCardAttachmentsToDescription());
+    void nextTick(() => {
+      void appendLegacyCardAttachmentsToDescription();
+      void appendLegacyTaskAttachmentsToDescriptions();
+    });
 
     selectedColor.value = newVal.card.color || "bg-elevation-2";
     if (newVal.card.color?.startsWith("#")) {
@@ -1073,6 +1092,7 @@ watch(props, (newVal) => {
     }
   }
 });
+
 </script>
 
 <style>

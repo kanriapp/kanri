@@ -216,6 +216,9 @@ const taskMarkdown = (
   task: Task,
   copiedAssets: Map<string, string>
 ) => {
+  const taskHtml = richHtmlWithRelativeAssets(board, task.description, copiedAssets, "task");
+  const taskContent = richHtmlToMarkdown(taskHtml) || task.name || "_No content_";
+
   return [
     `# ${task.name}`,
     "",
@@ -229,8 +232,11 @@ const taskMarkdown = (
     `- Completed: ${formatDate(task.completedAt)}`,
     `- Due: ${formatDate(task.dueDate)}`,
     "",
-    "## Content",
-    task.name || "_No content_",
+    "## Content Markdown",
+    taskContent,
+    "",
+    "## Content HTML",
+    fenced("html", taskHtml || ""),
     "",
     "## Attachments",
     attachmentLines(board, task.attachments || [], copiedAssets, "task"),
@@ -344,13 +350,17 @@ const aiContextMarkdown = (
         lines.push(attachmentLines(board, card.attachments, copiedAssets, "ai_context"));
 
         for (const [taskIndex, task] of (card.tasks || []).entries()) {
+          const taskHtml = richHtmlWithRelativeAssets(board, task.description, copiedAssets, "ai_context");
           lines.push("", `##### Task ${taskIndex + 1}: ${task.name}`);
           lines.push(`- Status: ${task.finished ? "done" : "open"}`);
           lines.push(`- Created: ${formatDate(task.createdAt)}`);
           lines.push(`- Completed: ${formatDate(task.completedAt)}`);
           lines.push(`- Due: ${formatDate(task.dueDate)}`);
           lines.push("");
-          lines.push(task.name || "_No content_");
+          lines.push(richHtmlToMarkdown(taskHtml) || task.name || "_No content_");
+          if (task.description) {
+            lines.push("", "Task HTML:", fenced("html", taskHtml));
+          }
           if ((task.subtasks || []).length > 0) {
             lines.push("", "Subtasks:");
             lines.push((task.subtasks || []).map(subtask => `- [${subtask.finished ? "x" : " "}] ${subtask.name}`).join("\n"));
@@ -497,6 +507,7 @@ export const exportKanriAiArchive = async (
             );
             if (task.id) taskFiles.set(task.id, taskRelativePath);
             taskEntries.push({
+              descriptionText: richHtmlToText(task.description),
               path: taskRelativePath,
               status: task.finished ? "done" : "open",
               taskId: task.id || null,
