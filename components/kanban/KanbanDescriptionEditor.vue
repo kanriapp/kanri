@@ -323,9 +323,13 @@ export default {
       default: "",
       type: String,
     },
+    submitOnEnter: {
+      default: false,
+      type: Boolean,
+    },
   },
 
-  emits: ["assetClicked", "update:modelValue", "editorBlurred", "filesReceived", "requestFiles"],
+  emits: ["assetClicked", "update:modelValue", "editorBlurred", "editorSubmitted", "filesReceived", "requestFiles"],
 
   setup(props, { emit }) {
     const editor = ref(null);
@@ -355,6 +359,17 @@ export default {
 
     const isAssetNode = node => !!node?.attrs?.assetId || node?.type?.name === "attachmentBlock";
 
+    const isCompositionEnter = event => event.isComposing || event.keyCode === 229;
+
+    const shouldSubmitOnEnter = event =>
+      props.submitOnEnter &&
+      event.key === "Enter" &&
+      !event.shiftKey &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey &&
+      !isCompositionEnter(event);
+
     const deleteAssetNode = (view, direction) => {
       const { selection } = view.state;
       if (selection instanceof NodeSelection && isAssetNode(selection.node)) {
@@ -365,17 +380,51 @@ export default {
       if (!selection.empty) return false;
 
       const resolved = view.state.doc.resolve(selection.from);
-      const adjacentNode = direction === "backward" ? resolved.nodeBefore : resolved.nodeAfter;
+      let adjacentNode = direction === "backward" ? resolved.nodeBefore : resolved.nodeAfter;
+      let from = direction === "backward"
+        ? selection.from - (adjacentNode?.nodeSize || 0)
+        : selection.from;
+      let to = direction === "backward"
+        ? selection.from
+        : selection.from + (adjacentNode?.nodeSize || 0);
+
+      if (!isAssetNode(adjacentNode) && direction === "backward" && resolved.parentOffset === 0 && resolved.depth > 0) {
+        const beforeParent = resolved.before();
+        const parentBoundary = view.state.doc.resolve(beforeParent);
+        adjacentNode = parentBoundary.nodeBefore;
+        if (isAssetNode(adjacentNode)) {
+          from = beforeParent - adjacentNode.nodeSize;
+          to = beforeParent;
+        }
+      }
+
+      if (!isAssetNode(adjacentNode) && direction === "forward" && resolved.parentOffset === resolved.parent.content.size && resolved.depth > 0) {
+        const afterParent = resolved.after();
+        const parentBoundary = view.state.doc.resolve(afterParent);
+        adjacentNode = parentBoundary.nodeAfter;
+        if (isAssetNode(adjacentNode)) {
+          from = afterParent;
+          to = afterParent + adjacentNode.nodeSize;
+        }
+      }
+
       if (!isAssetNode(adjacentNode)) return false;
 
-      const from = direction === "backward"
-        ? selection.from - adjacentNode.nodeSize
-        : selection.from;
-      const to = direction === "backward"
-        ? selection.from
-        : selection.from + adjacentNode.nodeSize;
       view.dispatch(view.state.tr.delete(from, to));
       return true;
+    };
+
+    const emptyParentRange = (position) => {
+      if (!editor.value || typeof position !== "number") return null;
+
+      const resolved = editor.value.state.doc.resolve(position);
+      if (resolved.depth === 0) return null;
+      if (!resolved.parent.isTextblock || resolved.parent.content.size !== 0) return null;
+
+      return {
+        from: resolved.before(),
+        to: resolved.after(),
+      };
     };
 
     const requestFilesFromCursor = () => {
@@ -449,6 +498,12 @@ export default {
             return emitFiles(files, insertAt);
           },
           handleKeyDown(view, event) {
+            if (shouldSubmitOnEnter(event)) {
+              event.preventDefault();
+              view.dom.blur();
+              emit("editorSubmitted");
+              return true;
+            }
             if (event.key === "Backspace" && deleteAssetNode(view, "backward")) {
               event.preventDefault();
               return true;
@@ -507,8 +562,11 @@ export default {
       if (!editor.value) return undefined;
       const position = clampPosition(insertAt);
       const chain = editor.value.chain().focus();
+      const replaceRange = emptyParentRange(position);
       if (position == null) {
         chain.insertContent(content).run();
+      } else if (replaceRange) {
+        chain.insertContentAt(replaceRange, content, { updateSelection: true }).run();
       } else {
         chain.insertContentAt(position, content, { updateSelection: true }).run();
       }
@@ -557,6 +615,14 @@ export default {
   font-weight: bold;
 }
 
+.tiptap p {
+  margin: 0 0 0.35rem;
+}
+
+.tiptap p:last-child {
+  margin-bottom: 0;
+}
+
 .tiptap.ProseMirror {
   height: 148px;
   overflow: auto;
@@ -566,11 +632,17 @@ export default {
 }
 
 .kanri-rich-editor-compact .tiptap.ProseMirror {
-  min-height: 1.75rem;
   height: auto;
-  line-height: 1.35;
+  line-height: 1.3;
+  min-height: 1.55rem;
   overflow: visible;
+  padding-bottom: 2px;
+  padding-top: 2px;
   resize: none;
+}
+
+.kanri-rich-editor-compact .tiptap p {
+  margin: 0;
 }
 
 .tiptap ul {
@@ -621,6 +693,10 @@ export default {
   max-height: 360px;
   object-fit: contain;
   height: auto;
+}
+
+.tiptap img:first-child {
+  margin-top: 0;
 }
 
 .tiptap hr {

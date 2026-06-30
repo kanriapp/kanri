@@ -348,7 +348,7 @@ limitations under the License.
                     >
                       <div class="flex w-full flex-row items-start justify-between gap-4">
                         <div class="flex w-full flex-row items-start justify-start gap-3">
-                          <div class="task-drag-handle text-dim-3 mt-1 cursor-grab select-none text-xs">
+                          <div class="task-drag-handle text-dim-3 mt-1.5 cursor-grab select-none text-xs leading-none">
                             ::
                           </div>
                           <CheckboxRoot
@@ -370,8 +370,10 @@ limitations under the License.
                               :ref="(editor) => setTaskEditorRef(task, editor)"
                               v-model="task.description"
                               compact
+                              submit-on-enter
                               @assetClicked="openAssetById"
                               @editorBlurred="() => updateTaskFromDescription(task)"
+                              @editorSubmitted="() => updateTaskFromDescription(task)"
                               @filesReceived="(payload) => addInputFilesToTaskContent(task, payload)"
                               @requestFiles="(insertAt) => addFilesToTaskContent(task, insertAt)"
                               @update:modelValue="() => syncTaskNameFromDescription(task)"
@@ -383,7 +385,7 @@ limitations under the License.
                           </div>
                         </div>
                         <div
-                          class="ml-1 flex h-full shrink-0 flex-row items-end gap-1 self-center"
+                          class="ml-1 mt-1 flex h-full shrink-0 flex-row items-start gap-1 self-start"
                         >
                           <button
                             class="shrink-0"
