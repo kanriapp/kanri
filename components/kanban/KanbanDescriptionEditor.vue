@@ -370,6 +370,15 @@ export default {
       !event.metaKey &&
       !isCompositionEnter(event);
 
+    const shouldInsertLineBreak = event =>
+      !props.submitOnEnter &&
+      event.key === "Enter" &&
+      !event.shiftKey &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey &&
+      !isCompositionEnter(event);
+
     const deleteAssetNode = (view, direction) => {
       const { selection } = view.state;
       if (selection instanceof NodeSelection && isAssetNode(selection.node)) {
@@ -502,6 +511,11 @@ export default {
               event.preventDefault();
               view.dom.blur();
               emit("editorSubmitted");
+              return true;
+            }
+            if (shouldInsertLineBreak(event)) {
+              event.preventDefault();
+              editor.value?.chain().focus().setHardBreak().run();
               return true;
             }
             if (event.key === "Backspace" && deleteAssetNode(view, "backward")) {
