@@ -83,17 +83,16 @@ Then, depending on your use case you can run the commands below:
 
 ```bash
 # Install dependencies
-yarn install
+pnpm install
 
 # Start debug tauri build
-yarn tauri dev
+pnpm tauri dev
 
 # Build tauri for production
-yarn generate
-yarn tauri build
+pnpm generate
+pnpm tauri build
 ```
 
 ---
 **Copyright (c) 2022-2026 trobonox (trobo@kanriapp.com)**. Licensed under GPL v3 (with some files under Apache 2.0 or other licenses stated in the files themselves).
 The Kanri logo, name and other branding are **NOT** open source, full copyright belongs to trobonox.
-

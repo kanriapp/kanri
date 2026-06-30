@@ -1,7 +1,7 @@
 {
   "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
   "build": {
-    "beforeDevCommand": "yarn dev",
+    "beforeDevCommand": "pnpm dev",
     "frontendDist": "../.output/public",
     "devUrl": "http://localhost:3000"
   },
@@ -58,9 +58,7 @@
     ],
     "security": {
       "assetProtocol": {
-        "scope": [
-          "/**/*"
-        ],
+        "scope": ["/**/*"],
         "enable": true
       },
       "csp": {

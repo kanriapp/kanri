@@ -10,7 +10,7 @@ on:
     paths:
       # Trigger a run only on PRs that change the lockfile
       - package-lock.json
-      - yarn.lock
+      - pnpm-lock.yaml
 
 permissions:
   contents: read

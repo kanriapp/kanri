@@ -41,9 +41,8 @@ Please also take a look at the [Code of Conduct](https://github.com/trobonox/kan
 ### Recommended IDE setup
 * IDE: Visual Studio Code (w/ Volar & ESLint)
 * Node.js (LTS recommended) & NPM
-* Yarn Package Manager
+* Pnpm Package Manager
 * [Tauri Development Environment](https://tauri.app/v1/guides/getting-started/prerequisites/)
 
 ### Building and testing your fork
 Kanri does not have a comprehensive test suite yet, meaning each new feature requires manual testing. Please make sure to test that core features (primarily CRUD actions on boards) are not impacted by your changes and work as expected. In doubt, feel free to ask for help in the PR.
-

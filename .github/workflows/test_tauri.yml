@@ -8,13 +8,13 @@ permissions:
   pull-requests: write
 on:
   pull_request:
-    types: [ opened, reopened ]
+    types: [opened, reopened]
     branches:
       - main
     paths:
-      - '.github/workflows/**'
-      - 'src/**'
-      - 'src-tauri/**'
+      - ".github/workflows/**"
+      - "src/**"
+      - "src-tauri/**"
 
 jobs:
   test-tauri:
@@ -25,22 +25,22 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-    - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
-    - name: setup node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
-    - name: install Rust stable
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-    - name: install dependencies (ubuntu only)
-      if: matrix.platform == 'ubuntu-22.04'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev
-    - name: install app dependencies and build it
-      run: yarn && yarn generate
-    - uses: tauri-apps/tauri-action@v0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev
+      - name: install app dependencies and build it
+        run: pnpm i && pnpm generate
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
