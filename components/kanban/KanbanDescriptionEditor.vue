@@ -442,11 +442,16 @@ export default {
       }, insertAt);
     };
 
+    const setContent = (content = "") => {
+      editor.value?.commands.setContent(richHtmlToPlainEditorHtml(content), false);
+    };
+
     return {
       editor,
       endPosition,
       insertAttachment,
       insertImage,
+      setContent,
     };
   },
 };

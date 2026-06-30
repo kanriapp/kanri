@@ -22,7 +22,7 @@ limitations under the License.
     @closeModal="
       $emit('closeModal', columnID);
       titleEditing = false;
-      taskAddMode = false;
+      resetNewTaskInput();
       showCustomColorPopup = false;
       emitter.emit('columnDraggingOn');
     "
@@ -222,7 +222,7 @@ limitations under the License.
               @click="
                 $emit('closeModal', columnID);
                 titleEditing = false;
-                taskAddMode = false;
+                resetNewTaskInput();
                 showCustomColorPopup = false;
                 emitter.emit('columnDraggingOn');
               "
@@ -401,15 +401,15 @@ limitations under the License.
                   </Draggable>
                 </Container>
               </div>
-              <textarea
+              <KanbanDescriptionEditor
                 v-if="taskAddMode"
-                ref="newTaskInput"
-                v-model="newTaskName"
-                v-focus
-                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-full rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
-                maxlength="1000"
-                :placeholder="$t('modals.editCard.newTaskPlaceholder')"
-                @keydown="handleNewTaskKeydown"
+                ref="newTaskEditor"
+                v-model="newTaskDescription"
+                compact
+                submit-on-enter
+                @assetClicked="openAssetById"
+                @editorSubmitted="createTask"
+                @filesReceived="addInputFilesToNewTaskContent"
               />
               <div v-if="taskAddMode" class="ml-0.5 mt-0.5 flex flex-row gap-4">
                 <button
@@ -419,10 +419,7 @@ limitations under the License.
                   {{ $t("general.addAction") }}
                 </button>
                 <button
-                  @click="
-                    taskAddMode = false;
-                    newTaskName = '';
-                  "
+                  @click="resetNewTaskInput"
                 >
                   {{ $t("general.cancelAction") }}
                 </button>
@@ -487,6 +484,7 @@ type RichEditorRef = {
     insertAt?: number,
     attachmentId?: string | null
   ) => number | undefined;
+  setContent: (content?: string) => void;
 };
 
 const props = defineProps<{
@@ -579,9 +577,11 @@ const showCustomColorPopup = ref(false);
 
 const titleEditing = ref(false);
 
-const newTaskName = ref("");
+const newTaskDescription = ref("");
+const newTaskAttachments: Ref<Array<AttachmentRef>> = ref([]);
+const newTaskFirstAssetName = ref("");
+const newTaskEditor = ref<RichEditorRef | null>(null);
 const taskAddMode = ref(false);
-const newTaskInput: Ref<HTMLTextAreaElement | null> = ref(null);
 
 const draggingEnabled = ref(true);
 const { ingestInputFiles, openAsset } = useAttachments();
@@ -605,51 +605,40 @@ const getTaskPercentage = computed(() => {
   return (getCheckedTaskNumber.value / tasks.value.length) * 100;
 });
 
-const isCompositionEnter = (event: KeyboardEvent) => event.isComposing || event.keyCode === 229;
+const resetNewTaskInput = () => {
+  taskAddMode.value = false;
+  newTaskDescription.value = "";
+  newTaskAttachments.value = [];
+  newTaskFirstAssetName.value = "";
+  newTaskEditor.value?.setContent("");
+};
 
 const createTask = () => {
-  const taskText = (newTaskName.value || "").trim();
-  if (!taskText) return;
+  const description = richHtmlToPlainEditorHtml(newTaskDescription.value || "");
+  const attachments = extractAttachmentRefsFromHtml(description, newTaskAttachments.value);
+  const taskText = richHtmlToText(description);
+  const firstAttachmentName = attachments.length > 0
+    ? props.boardAssets.find(asset => asset.id === attachments[0].assetId)?.name || newTaskFirstAssetName.value
+    : "";
+  const taskName = taskText || firstAttachmentName;
 
-  const description = plainTextToRichHtml(taskText);
+  if (!taskName && attachments.length === 0) return;
+
   const task = {
-    attachments: [],
+    attachments,
     completedAt: null,
     createdAt: getCurrentTimestamp(),
     description,
     dueDate: null,
     finished: false,
     id: generateUniqueID(),
-    name: taskText,
+    name: taskName,
   };
   tasks.value.push(task);
   lastValidTaskDescriptions.set(task.id, description);
-  newTaskName.value = "";
-  taskAddMode.value = false;
+  resetNewTaskInput();
 
   updateCardTasks();
-};
-
-const handleNewTaskKeydown = (event: KeyboardEvent) => {
-  if (
-    event.key !== "Enter" ||
-    event.shiftKey ||
-    event.ctrlKey ||
-    event.altKey ||
-    event.metaKey ||
-    isCompositionEnter(event)
-  ) {
-    return;
-  }
-
-  event.preventDefault();
-  if (!(newTaskName.value || "").trim()) {
-    newTaskName.value = "";
-    taskAddMode.value = false;
-    return;
-  }
-
-  createTask();
 };
 
 const deleteTask = (index: number) => {
@@ -909,6 +898,19 @@ const insertAssetsIntoTaskDescription = async (
   updateTaskFromDescription(task);
 };
 
+const insertAssetsIntoNewTaskDescription = async (
+  assets: BoardAsset[],
+  insertAt?: number
+) => {
+  if (assets.length === 0) return;
+
+  if (!newTaskFirstAssetName.value) {
+    newTaskFirstAssetName.value = assets[0].name;
+  }
+  const refs = await insertAssetsIntoEditor(newTaskEditor.value, assets, insertAt);
+  newTaskAttachments.value = [...newTaskAttachments.value, ...refs];
+};
+
 const addInputFilesToCardContent = async (payload: AttachmentInputFile[] | RichEditorFilePayload) => {
   const { files, insertAt } = normalizeFilePayload(payload);
   const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
@@ -924,6 +926,13 @@ const addInputFilesToTaskContent = async (
   const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
   await showAttachmentErrors(errors);
   await insertAssetsIntoTaskDescription(task, assets, insertAt);
+};
+
+const addInputFilesToNewTaskContent = async (payload: AttachmentInputFile[] | RichEditorFilePayload) => {
+  const { files, insertAt } = normalizeFilePayload(payload);
+  const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
+  await showAttachmentErrors(errors);
+  await insertAssetsIntoNewTaskDescription(assets, insertAt);
 };
 
 const openAssetById = async (assetId: string) => {
@@ -1109,7 +1118,7 @@ watch(props, (newVal) => {
   if (newVal) {
     if (!newVal.card) return;
 
-    newTaskName.value = "";
+    resetNewTaskInput();
 
     columnID.value = newVal.columnId;
     cardCreatedAt.value = formatTimestamp(newVal.card.createdAt);
