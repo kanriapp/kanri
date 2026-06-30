@@ -756,7 +756,6 @@ const insertAssetIntoEditor = async (
   return editor.insertAttachment({
     assetId: asset.id,
     attachmentId: attachment.id,
-    href: "#",
     kind: asset.kind,
     label: attachmentLabel(asset),
     typeLabel: fileKindLabel(asset.kind),

@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   <bubble-menu
     v-if="editor"
     :editor="editor"
+    :should-show="shouldShowFormattingMenu"
     :tippy-options="{ duration: 100 }"
   >
     <div
@@ -213,11 +214,6 @@ const AttachmentBlock = Node.create({
         parseHTML: element => element.getAttribute("data-attachment-id"),
         renderHTML: attributes => ({ "data-attachment-id": attributes.attachmentId }),
       },
-      href: {
-        default: "#",
-        parseHTML: element => element.getAttribute("href") || "#",
-        renderHTML: attributes => ({ href: attributes.href || "#" }),
-      },
       kind: {
         default: "other",
         parseHTML: element => element.getAttribute("data-attachment-kind") || "other",
@@ -237,18 +233,29 @@ const AttachmentBlock = Node.create({
   },
 
   parseHTML() {
-    return [{ tag: "a[data-attachment-id]" }];
+    return [
+      { tag: "div[data-attachment-id]" },
+      { tag: "a[data-attachment-id]" },
+    ];
   },
 
   renderHTML({ HTMLAttributes }) {
     return [
-      "a",
+      "div",
       mergeAttributes(HTMLAttributes, {
         class: "kanri-file-attachment",
         contenteditable: "false",
+        draggable: "true",
+        role: "button",
+        tabindex: "0",
       }),
-      ["span", { class: "kanri-file-attachment-icon" }, HTMLAttributes["data-attachment-type-label"] || "Attachment"],
-      ["span", { class: "kanri-file-attachment-name" }, HTMLAttributes.title || "Attachment"],
+      ["span", { class: "kanri-file-attachment-preview" }, HTMLAttributes["data-attachment-type-label"] || "File"],
+      [
+        "span",
+        { class: "kanri-file-attachment-meta" },
+        ["span", { class: "kanri-file-attachment-name" }, HTMLAttributes.title || "Attachment"],
+        ["span", { class: "kanri-file-attachment-kind" }, HTMLAttributes["data-attachment-type-label"] || "File"],
+      ],
     ];
   },
 });
@@ -340,6 +347,21 @@ export default {
     };
 
     const isAssetNode = node => !!node?.attrs?.assetId || node?.type?.name === "attachmentBlock";
+
+    const shouldShowFormattingMenu = ({ state, from, to }) => {
+      if (state.selection instanceof NodeSelection && isAssetNode(state.selection.node)) return false;
+
+      let containsAsset = false;
+      state.doc.nodesBetween(from, to, (node) => {
+        if (isAssetNode(node)) {
+          containsAsset = true;
+          return false;
+        }
+        return !containsAsset;
+      });
+
+      return !containsAsset && !state.selection.empty;
+    };
 
     const isCompositionEnter = event => event.isComposing || event.keyCode === 229;
 
@@ -485,6 +507,15 @@ export default {
             return emitFiles(files, insertAt);
           },
           handleKeyDown(view, event) {
+            if (
+              view.state.selection instanceof NodeSelection &&
+              isAssetNode(view.state.selection.node) &&
+              (event.key === "Enter" || event.key === " ")
+            ) {
+              event.preventDefault();
+              emit("assetClicked", view.state.selection.node.attrs.assetId);
+              return true;
+            }
             if (shouldSubmitOnEnter(event)) {
               event.preventDefault();
               view.dom.blur();
@@ -584,6 +615,7 @@ export default {
       endPosition,
       insertAttachment,
       insertImage,
+      shouldShowFormattingMenu,
       setLink,
     };
   },
@@ -680,13 +712,21 @@ export default {
   display: block;
   margin: 0.5rem 0;
   max-width: 100%;
-  max-height: 360px;
+  max-height: 132px;
   object-fit: contain;
+  width: min(180px, 100%);
   height: auto;
+  border: 1px solid var(--elevation-3);
+  background: var(--elevation-1);
 }
 
 .tiptap img:first-child {
   margin-top: 0;
+}
+
+.kanri-rich-editor-compact .tiptap img {
+  max-height: 72px;
+  width: min(96px, 100%);
 }
 
 .tiptap hr {
@@ -740,21 +780,75 @@ export default {
   display: flex;
   gap: 0.5rem;
   margin: 0.35rem 0;
-  max-width: 100%;
-  padding: 0.4rem 0.55rem;
+  max-width: min(100%, 18rem);
+  min-height: 3.25rem;
+  padding: 0.35rem;
   text-decoration: none;
-  width: fit-content;
+  width: 18rem;
+  cursor: pointer;
+  user-select: none;
 }
 
-.kanri-file-attachment-icon {
-  color: var(--text-dim-2);
-  font-size: 0.75rem;
+.kanri-file-attachment:hover {
+  background: var(--elevation-2);
+}
+
+.kanri-file-attachment-preview {
+  align-items: center;
+  align-self: stretch;
+  background: color-mix(in srgb, var(--accent) 18%, var(--elevation-2));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 0.25rem;
+  color: var(--text);
+  display: flex;
+  flex: 0 0 3.25rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  max-width: 3.25rem;
+  overflow: hidden;
+  padding: 0.25rem;
+  text-align: center;
   text-transform: uppercase;
+}
+
+.kanri-file-attachment-meta {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
 }
 
 .kanri-file-attachment-name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.kanri-file-attachment-kind {
+  color: var(--text-dim-2);
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kanri-rich-editor-compact .kanri-file-attachment {
+  max-width: min(100%, 13rem);
+  min-height: 2.5rem;
+  width: 13rem;
+}
+
+.kanri-rich-editor-compact .kanri-file-attachment-preview {
+  flex-basis: 2.5rem;
+  max-width: 2.5rem;
+}
+
+.kanri-rich-editor-compact .kanri-file-attachment-name {
+  font-size: 0.82rem;
 }
 </style>
