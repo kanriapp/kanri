@@ -28,11 +28,11 @@ limitations under the License.
     "
   >
     <template #content>
-      <div class="flex max-h-[86vh] min-h-[40rem] w-[56rem] max-w-[92vw] flex-col pl-2">
+      <div class="flex max-h-[86vh] min-h-[40rem] w-[56rem] max-w-[92vw] flex-col">
         <div class="mb-4">
           <div class="flex flex-row items-start justify-between gap-6">
             <div
-              class="relative -left-8 top-0 flex flex-row items-center gap-2"
+              class="flex min-w-0 flex-row items-center gap-2"
             >
               <div @blur="showCustomColorPopup = false">
                 <Tooltip direction="top" :label="$t('modals.editCard.tooltip')">
@@ -298,7 +298,6 @@ limitations under the License.
               @assetClicked="openAssetById"
               @editorBlurred="updateDescription"
               @filesReceived="addInputFilesToCardContent"
-              @requestFiles="addFilesToCardContent"
             />
           </div>
           <div>
@@ -375,7 +374,6 @@ limitations under the License.
                               @editorBlurred="() => updateTaskFromDescription(task)"
                               @editorSubmitted="() => updateTaskFromDescription(task)"
                               @filesReceived="(payload) => addInputFilesToTaskContent(task, payload)"
-                              @requestFiles="(insertAt) => addFilesToTaskContent(task, insertAt)"
                               @update:modelValue="() => syncTaskNameFromDescription(task)"
                             />
                             <span class="text-dim-2 mt-0.5 block text-xs">
@@ -582,7 +580,7 @@ const taskAddMode = ref(false);
 const newTaskInput: Ref<HTMLTextAreaElement | null> = ref(null);
 
 const draggingEnabled = ref(true);
-const { ingestFiles, ingestInputFiles, openAsset, pickFiles } = useAttachments();
+const { ingestInputFiles, openAsset } = useAttachments();
 
 const enableTitleEditing = () => {
   emitter.emit("modalPreventClickOutsideClose");
@@ -825,31 +823,11 @@ const insertAssetsIntoTaskDescription = async (
   updateTaskFromDescription(task);
 };
 
-const addCardAssetsToDescription = async (paths: string[], insertAt?: number) => {
-  const { assets, errors } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
-  await showAttachmentErrors(errors);
-  await insertAssetsIntoDescription(assets, insertAt);
-};
-
-const addFilesToCardContent = async (insertAt?: number) => {
-  const paths = await pickFiles();
-  if (paths.length > 0) await addCardAssetsToDescription(paths, insertAt);
-};
-
 const addInputFilesToCardContent = async (payload: AttachmentInputFile[] | RichEditorFilePayload) => {
   const { files, insertAt } = normalizeFilePayload(payload);
   const { assets, errors } = await ingestInputFiles(props.boardAssets, files, asset => emit("upsertBoardAsset", asset));
   await showAttachmentErrors(errors);
   await insertAssetsIntoDescription(assets, insertAt);
-};
-
-const addFilesToTaskContent = async (task: Task, insertAt?: number) => {
-  const paths = await pickFiles();
-  if (paths.length === 0) return;
-
-  const { assets, errors } = await ingestFiles(props.boardAssets, paths, asset => emit("upsertBoardAsset", asset));
-  await showAttachmentErrors(errors);
-  await insertAssetsIntoTaskDescription(task, assets, insertAt);
 };
 
 const addInputFilesToTaskContent = async (

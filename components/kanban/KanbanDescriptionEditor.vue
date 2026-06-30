@@ -76,14 +76,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       >
         <ph-link-simple class="size-5" />
       </button>
-      <button
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.insertAttachment')"
-        @click="requestFilesFromCursor"
-      >
-        <ph-paperclip class="size-5" />
-      </button>
-
       <div class="bg-elevation-3 mx-1 h-6 w-px" />
 
       <button
@@ -164,14 +156,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
   </bubble-menu>
   <div class="relative mt-1" :class="{ 'kanri-rich-editor-compact': compact }">
     <editor-content class="bg-elevation-2 rounded-sm" :editor="editor" />
-    <button
-      class="bg-elevation-3-hover text-dim-2 text-accent-hover absolute right-2 top-2 rounded-md p-1"
-      :title="$t('components.kanban.richEditor.insertAttachment')"
-      @mousedown.prevent
-      @click="requestFilesFromCursor"
-    >
-      <ph-paperclip class="size-5" />
-    </button>
   </div>
 </template>
 
@@ -201,7 +185,6 @@ import {
   PhFileCode,
   PhColumnsPlusRight,
   PhLinkSimple,
-  PhPaperclip,
   PhRows,
   PhRowsPlusBottom,
   PhTable,
@@ -303,7 +286,6 @@ export default {
     PhCode,
     PhFileCode,
     PhLinkSimple,
-    PhPaperclip,
     PhRows,
     PhRowsPlusBottom,
     PhTable,
@@ -329,7 +311,7 @@ export default {
     },
   },
 
-  emits: ["assetClicked", "update:modelValue", "editorBlurred", "editorSubmitted", "filesReceived", "requestFiles"],
+  emits: ["assetClicked", "update:modelValue", "editorBlurred", "editorSubmitted", "filesReceived"],
 
   setup(props, { emit }) {
     const editor = ref(null);
@@ -434,10 +416,6 @@ export default {
         from: resolved.before(),
         to: resolved.after(),
       };
-    };
-
-    const requestFilesFromCursor = () => {
-      emit("requestFiles", currentInsertAt());
     };
 
     watch(
@@ -606,7 +584,6 @@ export default {
       endPosition,
       insertAttachment,
       insertImage,
-      requestFilesFromCursor,
       setLink,
     };
   },
@@ -641,7 +618,6 @@ export default {
   height: 148px;
   overflow: auto;
   padding: 4px;
-  padding-right: 2.5rem;
   resize: vertical;
 }
 
