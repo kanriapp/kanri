@@ -343,7 +343,9 @@ limitations under the License.
                   >
                     <div
                       class="mb-2 flex w-full flex-col gap-1.5"
-                      @dragover.prevent
+                      @dragover="handleTaskDragOver"
+                      @drop="(event) => handleTaskFileDrop(task, event)"
+                      @paste="(event) => handleTaskFilePaste(task, event)"
                     >
                       <div class="flex w-full flex-row items-start justify-between gap-4">
                         <div class="flex w-full flex-row items-start justify-start gap-3">
@@ -407,7 +409,7 @@ limitations under the License.
                 class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-full rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
                 maxlength="1000"
                 :placeholder="$t('modals.editCard.newTaskPlaceholder')"
-                @keydown.enter.exact.prevent="createTask"
+                @keydown="handleNewTaskKeydown"
               />
               <div v-if="taskAddMode" class="ml-0.5 mt-0.5 flex flex-row gap-4">
                 <button
@@ -450,6 +452,7 @@ import { getCurrentTimestamp } from "@/utils/dateTime";
 import { applyDrag } from "@/utils/drag-n-drop";
 import emitter from "@/utils/emitter";
 import { generateUniqueID } from "@/utils/idGenerator";
+import { filesFromTransfer } from "@/utils/fileTransfer";
 import { SwatchIcon } from "@heroicons/vue/24/outline";
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import {
@@ -545,6 +548,7 @@ const descriptionEditor = ref<RichEditorRef | null>(null);
 const cardAttachments: Ref<Array<AttachmentRef>> = ref([]);
 const tasks: Ref<Array<Task>> = ref([]);
 const taskEditorRefs = new Map<string, RichEditorRef>();
+const lastValidTaskDescriptions = new Map<string, string>();
 const cardCreatedAt = ref<string | null>(null);
 const selectedColor = ref("");
 
@@ -601,23 +605,51 @@ const getTaskPercentage = computed(() => {
   return (getCheckedTaskNumber.value / tasks.value.length) * 100;
 });
 
-const createTask = () => {
-  if (newTaskName.value == null || !/\S/.test(newTaskName.value)) return;
+const isCompositionEnter = (event: KeyboardEvent) => event.isComposing || event.keyCode === 229;
 
-  tasks.value.push({
+const createTask = () => {
+  const taskText = (newTaskName.value || "").trim();
+  if (!taskText) return;
+
+  const description = plainTextToRichHtml(taskText);
+  const task = {
     attachments: [],
     completedAt: null,
     createdAt: getCurrentTimestamp(),
-    description: plainTextToRichHtml(newTaskName.value),
+    description,
     dueDate: null,
     finished: false,
     id: generateUniqueID(),
-    name: newTaskName.value,
-  });
+    name: taskText,
+  };
+  tasks.value.push(task);
+  lastValidTaskDescriptions.set(task.id, description);
   newTaskName.value = "";
   taskAddMode.value = false;
 
   updateCardTasks();
+};
+
+const handleNewTaskKeydown = (event: KeyboardEvent) => {
+  if (
+    event.key !== "Enter" ||
+    event.shiftKey ||
+    event.ctrlKey ||
+    event.altKey ||
+    event.metaKey ||
+    isCompositionEnter(event)
+  ) {
+    return;
+  }
+
+  event.preventDefault();
+  if (!(newTaskName.value || "").trim()) {
+    newTaskName.value = "";
+    taskAddMode.value = false;
+    return;
+  }
+
+  createTask();
 };
 
 const deleteTask = (index: number) => {
@@ -684,6 +716,11 @@ const setTaskEditorRef = (task: Task, editor: Element | ComponentPublicInstance 
 
 const taskEditorFor = (task: Task) => {
   return task.id ? taskEditorRefs.get(task.id) || null : null;
+};
+
+const transferHasFiles = (dataTransfer: DataTransfer | null | undefined) => {
+  return Array.from(dataTransfer?.items || []).some(item => item.kind === "file") ||
+    (dataTransfer?.files?.length || 0) > 0;
 };
 
 const attachmentRoleForAsset = (asset: BoardAsset): AttachmentRef["role"] => {
@@ -790,11 +827,61 @@ const syncTaskNameFromDescription = (task: Task) => {
 };
 
 const updateTaskFromDescription = (task: Task) => {
-  task.description = sanitizeRichHtml(task.description || "");
-  syncTaskAttachmentsFromDescription(task);
+  const description = sanitizeRichHtml(task.description || "");
+  const attachments = extractAttachmentRefsFromHtml(description, task.attachments || []);
+  const hasContent = !!richHtmlToText(description) || attachments.length > 0;
+
+  if (!hasContent) {
+    const fallback = (task.id ? lastValidTaskDescriptions.get(task.id) : null) ||
+      (task.name ? plainTextToRichHtml(task.name) : null);
+    if (fallback) {
+      task.description = fallback;
+      syncTaskAttachmentsFromDescription(task);
+      syncTaskNameFromDescription(task);
+    }
+    updateCardTasks();
+    emitter.emit("modalEnableClickOutsideClose");
+    return;
+  }
+
+  task.description = description;
+  task.attachments = attachments;
   syncTaskNameFromDescription(task);
+  if (task.id) {
+    lastValidTaskDescriptions.set(task.id, task.description);
+  }
   updateCardTasks();
   emitter.emit("modalEnableClickOutsideClose");
+};
+
+const handleTaskDragOver = (event: DragEvent) => {
+  if (transferHasFiles(event.dataTransfer)) {
+    event.preventDefault();
+  }
+};
+
+const handleTaskFileDrop = async (task: Task, event: DragEvent) => {
+  if (event.defaultPrevented) return;
+  const files = filesFromTransfer(event.dataTransfer, "drop");
+  if (files.length === 0 || !taskEditorFor(task)) return;
+
+  event.preventDefault();
+  await addInputFilesToTaskContent(task, {
+    files,
+    insertAt: taskEditorFor(task)?.endPosition(),
+  });
+};
+
+const handleTaskFilePaste = async (task: Task, event: ClipboardEvent) => {
+  if (event.defaultPrevented) return;
+  const files = filesFromTransfer(event.clipboardData, "paste");
+  if (files.length === 0 || !taskEditorFor(task)) return;
+
+  event.preventDefault();
+  await addInputFilesToTaskContent(task, {
+    files,
+    insertAt: taskEditorFor(task)?.endPosition(),
+  });
 };
 
 const insertAssetsIntoDescription = async (
@@ -1058,6 +1145,9 @@ watch(props, (newVal) => {
         }
         mergeLegacyTaskDetails(task);
         syncTaskAttachmentsFromDescription(task);
+        if (task.id && (richHtmlToText(task.description) || (task.attachments || []).length > 0)) {
+          lastValidTaskDescriptions.set(task.id, task.description || plainTextToRichHtml(task.name));
+        }
       });
     }
     tasks.value = savedTasks;
