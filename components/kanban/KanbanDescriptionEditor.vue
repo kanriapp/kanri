@@ -568,7 +568,8 @@ export default {
 .kanri-rich-editor-compact .tiptap.ProseMirror {
   min-height: 4.75rem;
   height: auto;
-  max-height: 18rem;
+  overflow: visible;
+  resize: none;
 }
 
 .tiptap ul {
