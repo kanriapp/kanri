@@ -28,9 +28,9 @@ limitations under the License.
     "
   >
     <template #content>
-      <div class="flex max-h-[86vh] min-h-[40rem] w-[72rem] max-w-[94vw] flex-col pl-2">
+      <div class="flex max-h-[86vh] min-h-[40rem] w-[56rem] max-w-[92vw] flex-col pl-2">
         <div class="mb-4">
-          <div class="flex flex-row items-start justify-between gap-12">
+          <div class="flex flex-row items-start justify-between gap-6">
             <div
               class="relative -left-8 top-0 flex flex-row items-center gap-2"
             >
@@ -200,7 +200,7 @@ limitations under the License.
               <h1
                 v-if="!titleEditing"
                 :v-model="title"
-                class="text-no-overflow pointer-events-auto min-w-[64px] max-w-[475px] pr-5 text-2xl font-bold"
+                class="text-no-overflow pointer-events-auto min-w-[64px] max-w-[min(475px,calc(92vw-9rem))] pr-5 text-2xl font-bold"
                 @click="enableTitleEditing()"
               >
                 {{ title }}
@@ -210,7 +210,7 @@ limitations under the License.
                 ref="titleTextArea"
                 v-model="title"
                 v-focus
-                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-[450px] text-xl focus:border-2 focus:border-dotted focus:outline-none"
+                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-[min(450px,calc(92vw-9rem))] text-xl focus:border-2 focus:border-dotted focus:outline-none"
                 maxlength="1000"
                 type="text"
                 @blur="updateTitle"
@@ -291,7 +291,7 @@ limitations under the License.
         </div>
 
         <div class="overflow-auto">
-          <div class="flex flex-col pr-6">
+          <div class="flex flex-col">
             <KanbanDescriptionEditor
               ref="descriptionEditor"
               v-model="description"
@@ -313,7 +313,7 @@ limitations under the License.
             <ProgressRoot
               v-if="tasks"
               v-model="getTaskPercentage"
-              class="bg-elevation-2 relative mb-4 h-2 w-[96%] overflow-hidden rounded-full"
+              class="bg-elevation-2 relative mb-4 h-2 w-full overflow-hidden rounded-full"
               style="transform: translateZ(0)"
             >
               <ProgressIndicator
@@ -324,7 +324,7 @@ limitations under the License.
             <div class="flex w-full flex-col gap-1">
               <div
                 v-if="tasks && tasks.length !== 0"
-                class="flex max-h-[46vh] min-h-56 w-full flex-col gap-4 overflow-auto pl-1 pr-6"
+                class="flex max-h-[46vh] min-h-56 w-full flex-col gap-4 overflow-auto pl-1 pr-1"
               >
                 <Container
                   drag-class="cursor-grabbing"
@@ -406,7 +406,7 @@ limitations under the License.
                 ref="newTaskInput"
                 v-model="newTaskName"
                 v-focus
-                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-[96%] rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
+                class="bg-elevation-2 text-normal border-accent-focus pointer-events-auto w-full rounded-md p-1 text-base focus:border-2 focus:border-dotted focus:outline-none"
                 maxlength="1000"
                 :placeholder="$t('modals.editCard.newTaskPlaceholder')"
                 @keydown.enter.exact.prevent="createTask"
@@ -429,7 +429,7 @@ limitations under the License.
               </div>
               <button
                 v-if="!taskAddMode"
-                class="bg-elevation-1 bg-elevation-2-hover mr-8 mt-1 flex h-min w-[96%] cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-0.5 pr-2"
+                class="bg-elevation-1 bg-elevation-2-hover mt-1 flex h-min w-full cursor-pointer flex-row items-center gap-2 rounded-md py-1 pl-0.5 pr-2"
                 @click="enableTaskAddMode"
               >
                 <PlusIcon class="text-accent size-6" />
