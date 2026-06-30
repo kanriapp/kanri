@@ -19,182 +19,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
 
 <template>
-  <bubble-menu
-    v-if="editor"
-    :editor="editor"
-    :should-show="shouldShowFormattingMenu"
-    :tippy-options="{ duration: 100 }"
-  >
-    <div
-      class="bg-primary border-elevation-1 -mb-1.5 flex flex-row items-center gap-1 rounded-md border px-2 py-1"
-    >
-      <button
-        :class="{ 'is-active': editor.isActive('bold') }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.bold')"
-        @click="editor.chain().focus().toggleBold().run()"
-      >
-        <ph-text-b class="size-5" />
-      </button>
-      <button
-        :class="{ 'is-active': editor.isActive('italic') }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.italic')"
-        @click="editor.chain().focus().toggleItalic().run()"
-      >
-        <ph-text-italic class="size-5" />
-      </button>
-      <button
-        :class="{ 'is-active': editor.isActive('strike') }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.strikethrough')"
-        @click="editor.chain().focus().toggleStrike().run()"
-      >
-        <ph-text-strikethrough class="size-5" />
-      </button>
-      <button
-        :class="{ 'is-active': editor.isActive('code') }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.code')"
-        @click="editor.chain().focus().toggleCode().run()"
-      >
-        <ph-code class="size-5" />
-      </button>
-      <button
-        :class="{ 'is-active': editor.isActive('codeBlock') }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.codeBlock')"
-        @click="editor.chain().focus().toggleCodeBlock().run()"
-      >
-        <ph-file-code class="size-5" />
-      </button>
-
-      <button
-        :class="{ 'is-active': editor.isActive('link') }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.link')"
-        @click="setLink"
-      >
-        <ph-link-simple class="size-5" />
-      </button>
-      <div class="bg-elevation-3 mx-1 h-6 w-px" />
-
-      <button
-        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.alignLeft')"
-        @click="editor.chain().focus().setTextAlign('left').run()"
-      >
-        <ph-text-align-left class="size-5" />
-      </button>
-      <button
-        :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.alignCenter')"
-        @click="editor.chain().focus().setTextAlign('center').run()"
-      >
-        <ph-text-align-center class="size-5" />
-      </button>
-      <button
-        :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.alignRight')"
-        @click="editor.chain().focus().setTextAlign('right').run()"
-      >
-        <ph-text-align-right class="size-5" />
-      </button>
-      <button
-        :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.justify')"
-        @click="editor.chain().focus().setTextAlign('justify').run()"
-      >
-        <ph-text-align-justify class="size-5" />
-      </button>
-
-      <div class="bg-elevation-3 mx-1 h-6 w-px" />
-
-      <button
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.insertTable')"
-        @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()"
-      >
-        <ph-table class="size-5" />
-      </button>
-      <button
-        v-if="editor.isActive('table')"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.addRow')"
-        @click="editor.chain().focus().addRowAfter().run()"
-      >
-        <ph-rows-plus-bottom class="size-5" />
-      </button>
-      <button
-        v-if="editor.isActive('table')"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.addColumn')"
-        @click="editor.chain().focus().addColumnAfter().run()"
-      >
-        <ph-columns-plus-right class="size-5" />
-      </button>
-      <button
-        v-if="editor.isActive('table')"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.toggleHeaderRow')"
-        @click="editor.chain().focus().toggleHeaderRow().run()"
-      >
-        <ph-rows class="size-5" />
-      </button>
-      <button
-        v-if="editor.isActive('table')"
-        class="bg-elevation-2-hover rounded-md p-1"
-        :title="$t('components.kanban.richEditor.deleteTable')"
-        @click="editor.chain().focus().deleteTable().run()"
-      >
-        <ph-trash class="size-5" />
-      </button>
-    </div>
-  </bubble-menu>
   <div class="relative mt-1" :class="{ 'kanri-rich-editor-compact': compact }">
     <editor-content class="bg-elevation-2 rounded-sm" :editor="editor" />
   </div>
 </template>
 
 <script>
-import Typography from "@tiptap/extension-typography";
 import StarterKit from "@tiptap/starter-kit";
-import TextAlign from "@tiptap/extension-text-align";
 import Image from "@tiptap/extension-image";
-import Link from "@tiptap/extension-link";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { mergeAttributes, Node } from "@tiptap/core";
 import { NodeSelection, TextSelection } from "@tiptap/pm/state";
-import { BubbleMenu, Editor, EditorContent } from "@tiptap/vue-3";
-import { sanitizeRichHtml } from "@/utils/richContent";
+import { Editor, EditorContent } from "@tiptap/vue-3";
+import { richHtmlToPlainEditorHtml, sanitizeRichHtml } from "@/utils/richContent";
 import emitter from "@/utils/emitter";
 import { filesFromTransfer } from "@/utils/fileTransfer";
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { useI18n } from "vue-i18n";
-import {
-  PhTextB,
-  PhTextItalic,
-  PhTextStrikethrough,
-  PhCode,
-  PhFileCode,
-  PhColumnsPlusRight,
-  PhLinkSimple,
-  PhRows,
-  PhRowsPlusBottom,
-  PhTable,
-  PhTrash,
-  PhTextAlignLeft,
-  PhTextAlignCenter,
-  PhTextAlignRight,
-  PhTextAlignJustify,
-} from "@phosphor-icons/vue";
 
 const AttachmentBlock = Node.create({
   name: "attachmentBlock",
@@ -284,23 +127,7 @@ const AssetImage = Image.extend({
 
 export default {
   components: {
-    PhTextB,
-    PhTextItalic,
     EditorContent,
-    BubbleMenu,
-    PhTextStrikethrough,
-    PhColumnsPlusRight,
-    PhCode,
-    PhFileCode,
-    PhLinkSimple,
-    PhRows,
-    PhRowsPlusBottom,
-    PhTable,
-    PhTrash,
-    PhTextAlignLeft,
-    PhTextAlignCenter,
-    PhTextAlignRight,
-    PhTextAlignJustify,
   },
 
   props: {
@@ -322,7 +149,6 @@ export default {
 
   setup(props, { emit }) {
     const editor = ref(null);
-    const { t } = useI18n();
 
     const clampPosition = (position) => {
       if (!editor.value || typeof position !== "number") return undefined;
@@ -347,21 +173,6 @@ export default {
     };
 
     const isAssetNode = node => !!node?.attrs?.assetId || node?.type?.name === "attachmentBlock";
-
-    const shouldShowFormattingMenu = ({ state, from, to }) => {
-      if (state.selection instanceof NodeSelection && isAssetNode(state.selection.node)) return false;
-
-      let containsAsset = false;
-      state.doc.nodesBetween(from, to, (node) => {
-        if (isAssetNode(node)) {
-          containsAsset = true;
-          return false;
-        }
-        return !containsAsset;
-      });
-
-      return !containsAsset && !state.selection.empty;
-    };
 
     const isCompositionEnter = event => event.isComposing || event.keyCode === 229;
 
@@ -440,20 +251,58 @@ export default {
       };
     };
 
+    const textToInsertContent = (text) => {
+      const normalized = (text || "").replace(/\r\n?/g, "\n");
+      return normalized
+        .split(/\n{2,}/)
+        .map((paragraph) => {
+          const lines = paragraph.split("\n");
+          return {
+            type: "paragraph",
+            content: lines.flatMap((line, index) => {
+              const content = [];
+              if (line) content.push({ type: "text", text: line });
+              if (index < lines.length - 1) content.push({ type: "hardBreak" });
+              return content;
+            }),
+          };
+        });
+    };
+
+    const insertPlainText = (text) => {
+      const content = textToInsertContent(text);
+      if (content.length === 0) return false;
+      editor.value?.chain().focus().insertContent(content).run();
+      return true;
+    };
+
     watch(
       () => props.modelValue,
       (value) => {
-        if (editor.value && editor.value.getHTML() !== value) {
-          editor.value.commands.setContent(value, false);
+        const content = richHtmlToPlainEditorHtml(value);
+        if (editor.value && editor.value.getHTML() !== content) {
+          editor.value.commands.setContent(content, false);
         }
       }
     );
 
     onMounted(() => {
       editor.value = new Editor({
-        content: props.modelValue,
+        content: richHtmlToPlainEditorHtml(props.modelValue),
         extensions: [
-          StarterKit,
+          StarterKit.configure({
+            blockquote: false,
+            bold: false,
+            bulletList: false,
+            code: false,
+            codeBlock: false,
+            heading: false,
+            horizontalRule: false,
+            italic: false,
+            listItem: false,
+            orderedList: false,
+            strike: false,
+          }),
           AssetImage.configure({
             allowBase64: false,
             HTMLAttributes: {
@@ -461,12 +310,6 @@ export default {
             },
           }),
           AttachmentBlock,
-          Link.configure({
-            autolink: true,
-            defaultProtocol: "https",
-            openOnClick: false,
-            protocols: ["https"],
-          }),
           Table.configure({
             resizable: false,
             HTMLAttributes: {
@@ -476,10 +319,6 @@ export default {
           TableRow,
           TableHeader,
           TableCell,
-          Typography,
-          TextAlign.configure({
-            types: ["heading", "paragraph"],
-          }),
         ],
         editorProps: {
           handleDrop(view, event) {
@@ -501,10 +340,20 @@ export default {
           },
           handlePaste(view, event) {
             const files = filesFromTransfer(event.clipboardData, "paste");
-            if (files.length === 0) return false;
-            const insertAt = view.state.selection.from;
+            if (files.length > 0) {
+              const insertAt = view.state.selection.from;
+              event.preventDefault();
+              return emitFiles(files, insertAt);
+            }
+
+            const html = event.clipboardData?.getData("text/html") || "";
+            if (/<table[\s>]/i.test(html)) return false;
+
+            const text = event.clipboardData?.getData("text/plain") || "";
+            if (!text) return false;
+
             event.preventDefault();
-            return emitFiles(files, insertAt);
+            return insertPlainText(text);
           },
           handleKeyDown(view, event) {
             if (
@@ -537,9 +386,12 @@ export default {
             }
             return false;
           },
-          handleClickOn(_view, _pos, node) {
-            if (!node?.attrs?.assetId) return false;
-            emit("assetClicked", node.attrs.assetId);
+          handleClick(_view, _pos, event) {
+            const assetElement = event.target?.closest?.("[data-asset-id]");
+            const assetId = assetElement?.getAttribute?.("data-asset-id");
+            if (!assetId) return false;
+            emit("assetClicked", assetId);
+            event.preventDefault();
             return true;
           },
         },
@@ -560,26 +412,6 @@ export default {
         editor.value.destroy();
       }
     });
-
-    const setLink = () => {
-      if (!editor.value) return;
-
-      const previousUrl = editor.value.getAttributes("link").href;
-      const url = window.prompt(t("components.kanban.richEditor.urlPrompt"), previousUrl || "https://");
-      if (url === null) return;
-      if (url === "") {
-        editor.value.chain().focus().extendMarkRange("link").unsetLink().run();
-        return;
-      }
-      if (!url.startsWith("https://")) return;
-
-      editor.value
-        .chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: url, target: "_blank", rel: "noopener noreferrer" })
-        .run();
-    };
 
     const insertAtPosition = (content, insertAt) => {
       if (!editor.value) return undefined;
@@ -615,8 +447,6 @@ export default {
       endPosition,
       insertAttachment,
       insertImage,
-      shouldShowFormattingMenu,
-      setLink,
     };
   },
 };

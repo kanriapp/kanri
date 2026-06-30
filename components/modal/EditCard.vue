@@ -466,7 +466,7 @@ import { vOnClickOutside } from "@vueuse/components";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { useSettingsStore } from "@/stores/settings";
 import { formatFileSize, getAssetUrl, makeAttachmentRef } from "@/utils/attachments";
-import { plainTextToRichHtml, richHtmlToText, sanitizeRichHtml } from "@/utils/richContent";
+import { plainTextToRichHtml, richHtmlToPlainEditorHtml, richHtmlToText, sanitizeRichHtml } from "@/utils/richContent";
 import { message } from "@tauri-apps/plugin-dialog";
 
 type RichEditorFilePayload = {
@@ -826,7 +826,7 @@ const syncTaskNameFromDescription = (task: Task) => {
 };
 
 const updateTaskFromDescription = (task: Task) => {
-  const description = sanitizeRichHtml(task.description || "");
+  const description = richHtmlToPlainEditorHtml(task.description || "");
   const attachments = extractAttachmentRefsFromHtml(description, task.attachments || []);
   const hasContent = !!richHtmlToText(description) || attachments.length > 0;
 
@@ -950,7 +950,7 @@ const openAssetById = async (assetId: string) => {
 
 const mergeLegacyTaskDetails = (task: Task) => {
   const nameHtml = plainTextToRichHtml(task.name);
-  const description = sanitizeRichHtml(task.description || "");
+  const description = richHtmlToPlainEditorHtml(task.description || "");
   const descriptionText = richHtmlToText(description);
 
   if (!descriptionText) {
@@ -1054,7 +1054,7 @@ const updateDueDate = () => {
 };
 
 const updateDescription = () => {
-  description.value = sanitizeRichHtml(description.value);
+  description.value = richHtmlToPlainEditorHtml(description.value);
   syncCardAttachmentsFromDescription();
   updateCardAttachments();
   emit("setCardDescription", columnID.value, props.card?.id, description.value);
@@ -1115,7 +1115,7 @@ watch(props, (newVal) => {
     cardCreatedAt.value = formatTimestamp(newVal.card.createdAt);
 
     title.value = newVal.card.name;
-    description.value = newVal.card.description || "";
+    description.value = richHtmlToPlainEditorHtml(newVal.card.description || "");
     cardAttachments.value = newVal.card.attachments || [];
 
     //@ts-expect-error TODO: improve due date handling/types
