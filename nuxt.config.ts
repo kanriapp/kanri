@@ -50,7 +50,8 @@ export default defineNuxtConfig({
     langDir: "locales/",
     strategy: "no_prefix",
     skipSettingLocaleOnNavigate: false,
-    detectBrowserLanguage: false
+    detectBrowserLanguage: false,
   },
+  ignore: ["**/src-tauri/**"],
   compatibilityDate: "2024-11-01",
 });
