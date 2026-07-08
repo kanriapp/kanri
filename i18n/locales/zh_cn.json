@@ -164,7 +164,8 @@
     "cardTags": {
       "title": "编辑卡片标签",
       "description": "在这里您可以编辑全局标签，这些标签适用于整个看板。注意：删除全局标签不会从卡片中移除它们，但会使它们在新卡片中不可用。",
-      "tagListTitle": "您的标签："
+      "tagListTitle": "您的标签：",
+      "addTag": "添加标签..."
     },
     "changelog": {
   "title": "Kanri {major}.{minor}.{revision} 有哪些更新？",

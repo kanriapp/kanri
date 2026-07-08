@@ -164,7 +164,8 @@
     "cardTags": {
       "title": "Editer les étiquettes de cartes",
       "description": "Ici vous pouvez éditer l'ensemble de vos étiquettes, qui sont disponibles pour la totalité du tableau. Note : La suppression d'une étiquette ne la supprime pas des cartes, mais la rend uniquement indisponible pour les nouvelles cartes...",
-      "tagListTitle": "Vos étiquettes :"
+      "tagListTitle": "Vos étiquettes :",
+      "addTag": "Ajouter un tag..."
     },
     "changelog": {
   "title": "Quoi de neuf dans Kanri {major}.{minor}.{revision} ?",
