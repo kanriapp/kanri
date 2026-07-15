@@ -36,7 +36,7 @@ There are several ways to download Kanri:
 - The same downloads can also be found under the [GitHub releases](https://github.com/kanriapp/kanri/releases/)
 - For macOS, you can also use Homebrew:
   ```bash
-  brew install --no-quarantine kanriapp/cask/kanri
+  brew install kanriapp/cask/kanri
   ```
   
 <details>
