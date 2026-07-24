@@ -30,7 +30,7 @@
     "@vueuse/nuxt": "14.3.0",
     "eslint": "9.39.4",
     "eslint-plugin-tailwindcss": "^3.18.2",
-    "nuxt": "4.2.2",
+    "nuxt": "4.4.7",
     "postcss": "^8.4",
     "postcss-custom-properties": "^14.0.4",
     "rollup": "4.55.1",
