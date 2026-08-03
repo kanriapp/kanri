@@ -164,7 +164,8 @@
     "cardTags": {
       "title": "Kart etiketlerini düzenle",
       "description": "Burada, tüm pano için kullanılabilen genel etiketlerinizi düzenleyebilirsiniz. Not: Genel bir etiketi silmek, onları kartlardan kaldırmaz, sadece yeni kartlar için kullanılamaz hale getirir.",
-      "tagListTitle": "Etiketleriniz:"
+      "tagListTitle": "Etiketleriniz:",
+      "addTag": "Etiket ekle..."
     },
     "changelog": {
   "title": "Kanri {major}.{minor}.{revision}'de neler yeni?",

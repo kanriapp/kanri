@@ -212,9 +212,9 @@ export function useBoard(id: string | Ref<string>) {
     store.removeGlobalTag(board.value.id, tagId);
   };
 
-  const setGlobalTagColor = (tagId: string, color: string) => {
+  const setGlobalTagColor = (tagId: string, color: string | null) => {
     if (!board.value) return;
-    store.setGlobalTagColor(board.value.id, tagId, color);
+    store.setGlobalTagColor(board.value.id, tagId, color ?? '#000000');
   };
 
   const updateGlobalTagName = (tagId: string, newName: string) => {
