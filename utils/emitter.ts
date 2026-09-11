@@ -38,6 +38,7 @@ type Events = {
 
   openBoardDeleteModal: { description: string; id: string };
   openBoardRenameModal: { board: Board };
+  openManageCategoryModal: { categoryId: string; currentName: string } | undefined;
   openModalWithCustomDescription: { description: string };
 
   resetColumnInputs: void;

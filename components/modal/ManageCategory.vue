@@ -1,0 +1,132 @@
+<!-- SPDX-FileCopyrightText: Copyright (c) 2022-2026 trobonox <hello@trobo.dev> -->
+<!-- -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!--
+Kanri is an offline Kanban board app made using Tauri and Nuxt.
+Copyright (C) 2022-2026 trobonox <hello@trobo.dev>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
+
+<template>
+  <Modal :blur-background="false" @closeModal="closeModal()">
+    <template #content>
+      <main class="min-w-[32rem] max-w-3xl" @keypress.enter="confirm()">
+        <div class="flex flex-row items-start justify-between">
+          <h1 class="pointer-events-auto pr-5 text-2xl font-bold">
+            {{ isRenaming ? $t("modals.manageCategory.renameTitle") : $t("modals.manageCategory.createTitle") }}
+          </h1>
+          <XMarkIcon
+            class="text-accent-hover size-6 cursor-pointer"
+            @click="closeModal()"
+          />
+        </div>
+        <section id="inputs" class="mt-4 flex flex-col">
+          <label class="text-medium text-dim-1 mb-2 text-lg" for="categoryName">{{
+            $t("modals.manageCategory.name")
+          }}</label>
+          <input
+            id="categoryName"
+            ref="categoryNameInput"
+            v-model="categoryName"
+            class="placeholder:text-dim-3-placeholder bg-elevation-2 border-elevation-3 border-accent-focus h-10 max-w-80 rounded-md border p-2 transition-colors duration-300 focus:border-2 focus:border-dotted focus:outline-none"
+            maxlength="500"
+            :placeholder="$t('modals.manageCategory.placeholder')"
+            type="text"
+            autofocus
+          >
+        </section>
+        <section
+          id="buttons"
+          class="mt-8 flex w-full flex-row items-center justify-end gap-8"
+        >
+          <button
+            class="text-accent-hover transition-button"
+            @click="closeModal()"
+          >
+            {{ $t("general.cancelAction") }}
+          </button>
+          <button
+            class="bg-accent text-buttons transition-button rounded-md px-4 py-2"
+            @click="confirm()"
+          >
+            {{ isRenaming ? $t("general.renameAction") : $t("general.addAction") }}
+          </button>
+        </section>
+      </main>
+    </template>
+  </Modal>
+</template>
+
+<script setup lang="ts">
+import type { Ref } from "vue";
+
+import emitter from "@/utils/emitter";
+import { XMarkIcon } from "@heroicons/vue/24/outline";
+
+const emit = defineEmits<{
+  (e: "closeModal"): void;
+  (e: "createCategory", name: string): void;
+  (e: "renameCategory", categoryId: string, name: string): void;
+}>();
+
+const categoryNameInput: Ref<HTMLInputElement | null> = ref(null);
+
+const categoryName = ref("");
+const categoryId = ref<string | null>(null);
+const isRenaming = computed(() => categoryId.value !== null);
+
+onMounted(() => {
+  emitter.on(
+    "openManageCategoryModal",
+    (params?: { categoryId: string; currentName: string }) => {
+      if (params) {
+        categoryId.value = params.categoryId;
+        categoryName.value = params.currentName;
+      } else {
+        categoryId.value = null;
+        categoryName.value = "";
+      }
+
+      setTimeout(() => {
+        if (categoryNameInput.value == null) return;
+        categoryNameInput.value.focus();
+      }, 200);
+    }
+  );
+});
+
+onUpdated(() => {
+  nextTick(() => {
+    if (categoryNameInput.value == null) return;
+    categoryNameInput.value.focus();
+  });
+});
+
+const confirm = () => {
+  if (categoryName.value == null || !/\S/.test(categoryName.value)) return;
+
+  if (isRenaming.value && categoryId.value) {
+    emit("renameCategory", categoryId.value, categoryName.value);
+  } else {
+    emit("createCategory", categoryName.value);
+  }
+  closeModal();
+};
+
+const closeModal = () => {
+  categoryName.value = "";
+  categoryId.value = null;
+  emit("closeModal");
+};
+</script>

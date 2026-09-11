@@ -39,6 +39,9 @@ export const useSettingsStore = defineStore("settings", {
     const displayColumnCardCountEnabled = ref(false);
     const defaultRelativeDueDatesEnabled = ref(false);
 
+    /* Dashboard settings */
+    const boardCategoriesEnabled = ref(false);
+
     return {
   locale,
   animationsEnabled,
@@ -52,6 +55,8 @@ export const useSettingsStore = defineStore("settings", {
 
   boardSortingOption,
   reverseSorting,
+
+  boardCategoriesEnabled,
     }
   },
 
@@ -74,6 +79,8 @@ export const useSettingsStore = defineStore("settings", {
         ? reverseSortingSavedRaw
         : false;
 
+      const boardCategoriesEnabledSaved: boolean = await store.get("boardCategoriesEnabled") ?? false;
+
       this.locale = localeSaved;
       this.animationsEnabled = animationsEnabledSaved;
       this.autostartEnabled = autostartEnabledSaved;
@@ -88,6 +95,7 @@ export const useSettingsStore = defineStore("settings", {
           ? boardSortingOptionSaved
           : "createdAt";
       this.reverseSorting = reverseSortingSaved;
+      this.boardCategoriesEnabled = boardCategoriesEnabledSaved;
     },
 
     async loadBoardSortingOptions() {
@@ -98,6 +106,7 @@ export const useSettingsStore = defineStore("settings", {
       const reverseSortingSaved: boolean = typeof reverseSortingSavedRaw === "boolean"
         ? reverseSortingSavedRaw
         : false;
+      const boardCategoriesEnabledSaved: boolean = await store.get("boardCategoriesEnabled") ?? false;
 
       this.boardSortingOption =
         boardSortingOptionSaved === "alphabetical" ||
@@ -106,6 +115,7 @@ export const useSettingsStore = defineStore("settings", {
           ? boardSortingOptionSaved
           : "createdAt";
       this.reverseSorting = reverseSortingSaved;
+      this.boardCategoriesEnabled = boardCategoriesEnabledSaved;
     },
 
     async deleteAllData() {
@@ -165,6 +175,11 @@ export const useSettingsStore = defineStore("settings", {
     async setReverseSorting(value: boolean) {
       this.reverseSorting = value;
       await useTauriStore().store.set("reverseSorting", value);
+    },
+
+    async setBoardCategoriesEnabled(value: boolean) {
+      this.boardCategoriesEnabled = value;
+      await useTauriStore().store.set("boardCategoriesEnabled", value);
     }
   }
 });

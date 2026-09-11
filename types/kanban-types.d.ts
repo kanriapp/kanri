@@ -29,6 +29,15 @@ export declare interface Board {
   globalTags?: Array<Tag> | null;
 }
 
+// A named, orderable group of boards shown on the dashboard.
+// A board belongs to at most one category at a time; boards not
+// referenced by any category are shown in the "Uncategorized" section.
+export declare interface BoardCategory {
+  id: string;
+  title: string;
+  boardIds: Array<string>;
+}
+
 export declare interface BackgroundSettings {
   blur: string;
   brightness: string;
