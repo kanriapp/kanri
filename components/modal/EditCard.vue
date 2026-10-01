@@ -318,7 +318,7 @@ limitations under the License.
             <div class="flex w-full flex-col gap-1">
               <div
                 v-if="tasks && tasks.length !== 0"
-                class="flex max-h-[148px] w-full flex-col gap-4 overflow-auto pl-1 pr-6"
+                class="flex max-h-[250px] flex-col gap-4 overflow-auto pl-1 pr-3 mr-5 resize-y"
               >
                 <Container
                   drag-class="cursor-grabbing"
