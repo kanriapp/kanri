@@ -29,7 +29,7 @@ export default defineNuxtConfig({
           includePrivate: true,
           output: "./LICENSES_3RD_PARTY.txt",
         },
-      }),
+      }) as never,
     ],
   },
   i18n: {
