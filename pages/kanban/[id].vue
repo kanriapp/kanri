@@ -39,6 +39,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       @setTagColor="board.setGlobalTagColor"
       @removeTag="board.removeGlobalTag"
       @updateTagName="board.updateGlobalTagName"
+      @addGlobalTag="board.addGlobalTag"
     />
     <ModalEditCard
       v-show="editCardModalVisible"

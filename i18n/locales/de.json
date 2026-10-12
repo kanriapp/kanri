@@ -164,7 +164,8 @@
     "cardTags": {
       "title": "Karten-Tags bearbeiten",
       "description": "Hier kannst du deine globalen Tags bearbeiten, die für das gesamte Board verfügbar sind. Hinweis: Das Löschen eines globalen Tags entfernt es nicht von den Karten, sondern macht es nur für neue Karten nicht verfügbar.",
-      "tagListTitle": "Deine Tags:"
+      "tagListTitle": "Deine Tags:",
+      "addTag": "Tag hinzufügen..."
     },
     "changelog": {
       "title": "Was gibt es Neues in Kanri {major}.{minor}.{revision}?",

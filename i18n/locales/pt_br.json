@@ -164,7 +164,8 @@
     "cardTags": {
       "title": "Editar tags dos cartões",
       "description": "Aqui você pode editar suas tags globais, disponíveis para todo o quadro. Nota: Excluir uma tag global não os remove dos cartões, mas apenas o torna indisponível para novos cartões.",
-      "tagListTitle": "Suas tags:"
+      "tagListTitle": "Suas tags:",
+      "addTag": "Adicionar tag..."
     },
     "changelog": {
       "title": "O que há de novo no Kanri {major}.{minor}.{revision}?",

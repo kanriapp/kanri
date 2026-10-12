@@ -173,7 +173,8 @@
     "cardTags": {
       "title": "カードのタグを編集",
       "description": "ボード全体で利用できるグローバルタグをここで編集できます。注意：グローバルタグを削除してもカードからは削除されず、新しいカードでは使用できなくなるだけです。",
-      "tagListTitle": "タグ一覧："
+      "tagListTitle": "タグ一覧：",
+      "addTag": "タグを追加..."
     },
     "changelog": {
       "title": "Kanri {major}.{minor}.{revision} の新機能",

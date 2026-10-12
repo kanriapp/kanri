@@ -37,7 +37,7 @@ limitations under the License.
                 <Tooltip direction="top" :label="$t('modals.editCard.tooltip')">
                   <template #trigger>
                     <button
-                      class="size-7 rounded-full flex items-center justify-center"
+                      class="flex size-7 items-center justify-center rounded-full"
                       :class="[isCustomColor ? '' : selectedColor]"
                       :style="{
                         'background-color': isCustomColor ? customColor : '',
@@ -189,7 +189,7 @@ limitations under the License.
                           v-model="customColor"
                           class="w-20"
                           type="color"
-                        />
+                        >
                         <HexColorInput v-model="customColor" />
                       </div>
                     </div>
@@ -250,7 +250,7 @@ limitations under the License.
               <template #footer>
                 <div class="w-full px-4 pb-3">
                   <div class="mt-2 flex flex-col gap-2">
-                    <div class="flex flex-row items-center gap-6 mb-2">
+                    <div class="mb-2 flex flex-row items-center gap-6">
                       <SwitchRoot
                         v-model:checked="isDueDateCounterRelative"
                         class="bg-elevation-2 bg-accent-checked relative flex h-[24px] w-[42px] cursor-pointer rounded-full shadow-sm focus-within:outline focus-within:outline-black"
@@ -325,8 +325,8 @@ limitations under the License.
                   drag-handle-selector=".task-drag"
                   lock-axis="y"
                   orientation="vertical"
-                  @drop="onTaskDrop"
                   :get-child-payload="(index: number) => tasks[index]"
+                  @drop="onTaskDrop"
                 >
                   <Draggable
                     v-for="(task, index) in tasks"
@@ -364,7 +364,7 @@ limitations under the License.
                           type="text"
                           @blur="updateTask(index)"
                           @keypress.enter="updateTask(index)"
-                        />
+                        >
                         <ClickCounter
                           v-else
                           @double-click="enableTaskEditMode(index, task)"
@@ -426,7 +426,7 @@ limitations under the License.
                 :placeholder="$t('modals.editCard.newTaskPlaceholder')"
                 type="text"
                 @keypress.enter="createTask"
-              />
+              >
               <div v-if="taskAddMode" class="ml-0.5 mt-0.5 flex flex-row gap-4">
                 <button
                   class="bg-accent text-buttons rounded-md px-4 py-1"
@@ -461,7 +461,7 @@ limitations under the License.
               v-model="tag"
               :tags="tags"
               :autocomplete-items="filteredItems"
-              placeholder="Add tag..."
+              :placeholder="$t('modals.cardTags.addTag')"
               @tags-changed="updateTags"
               @before-adding-tag="beforeTagAdd"
             />
