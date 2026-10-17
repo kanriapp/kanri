@@ -29,7 +29,7 @@
       "getUpdatesHeading": "Möchtest du die neuesten Updates erhalten und mit dem Ersteller chatten?",
       "joinDiscordButton": "Tritt der Discord-Community bei!",
       "deleteActionConfirmationHeading": "Board löschen?",
-      "deleteActionConfirmationText": "Bist du sicher, dass du das Board löschen möchtest? Diese Aktion ist irreversibel."
+      "deleteActionConfirmationText": "Bist du sicher, dass du das Board {boardName} löschen möchtest? Diese Aktion ist irreversibel."
     },
     "kanban": {
       "changeBackground": "Hintergrundbild ändern",

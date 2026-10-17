@@ -29,7 +29,7 @@
       "getUpdatesHeading": "Deseja obter as atualizações mais recentes e conversar com o criador?",
       "joinDiscordButton": "Junte-se à comunidade Discord!",
       "deleteActionConfirmationHeading": "Apagar o quadro?",
-      "deleteActionConfirmationText": "Tem certeza de que deseja excluir o quadro {boardname}? Esta ação é irreversível."
+      "deleteActionConfirmationText": "Tem certeza de que deseja excluir o quadro {boardName}? Esta ação é irreversível."
     },
     "kanban": {
       "changeBackground": "Alterar plano de fundo",
@@ -40,7 +40,7 @@
       "pinBoardAction": "Fixar Quadro",
       "unpinBoardAction": "Desafixar Quadro",
       "deleteBoardAction": "Apagar Quadro",
-      "deleteBoardConfirmation": "Tem certeza de que deseja excluir o quadro '{boardname}'? Esta ação é irreversível."
+      "deleteBoardConfirmation": "Tem certeza de que deseja excluir o quadro '{boardName}'? Esta ação é irreversível."
     },
     "settings": {
       "deleteAllDataConfirmationAction": "Apagar dados",
