@@ -33,7 +33,7 @@
     "nuxt": "4.2.2",
     "postcss": "^8.4",
     "postcss-custom-properties": "^14.0.4",
-    "rollup": "4.55.1",
+    "rollup": "4.59.0",
     "rollup-plugin-license": "^3.0.1",
     "tailwindcss": "3.4.19",
     "typescript": "5.9.3"
